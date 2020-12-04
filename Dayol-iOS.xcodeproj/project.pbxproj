@@ -14,7 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DA4899E3257A08A6005E39ED /* Dayol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dayol.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA4899E3257A08A6005E39ED /* Dayol-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dayol-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA4899E6257A08A6005E39ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA4899EA257A08A6005E39ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DA4899EF257A08A8005E39ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -36,7 +36,7 @@
 		DA4899DA257A08A6005E39ED = {
 			isa = PBXGroup;
 			children = (
-				DA4899E5257A08A6005E39ED /* Dayol */,
+				DA4899E5257A08A6005E39ED /* Dayol-iOS */,
 				DA4899E4257A08A6005E39ED /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,12 +44,12 @@
 		DA4899E4257A08A6005E39ED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DA4899E3257A08A6005E39ED /* Dayol.app */,
+				DA4899E3257A08A6005E39ED /* Dayol-iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DA4899E5257A08A6005E39ED /* Dayol */ = {
+		DA4899E5257A08A6005E39ED /* Dayol-iOS */ = {
 			isa = PBXGroup;
 			children = (
 				DA4899E6257A08A6005E39ED /* AppDelegate.swift */,
@@ -58,15 +58,15 @@
 				DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */,
 				DA4899F4257A08A8005E39ED /* Info.plist */,
 			);
-			path = Dayol;
+			path = "Dayol-iOS";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DA4899E2257A08A6005E39ED /* Dayol */ = {
+		DA4899E2257A08A6005E39ED /* Dayol-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DA4899F7257A08A8005E39ED /* Build configuration list for PBXNativeTarget "Dayol" */;
+			buildConfigurationList = DA4899F7257A08A8005E39ED /* Build configuration list for PBXNativeTarget "Dayol-iOS" */;
 			buildPhases = (
 				DA4899DF257A08A6005E39ED /* Sources */,
 				DA4899E0257A08A6005E39ED /* Frameworks */,
@@ -76,9 +76,9 @@
 			);
 			dependencies = (
 			);
-			name = Dayol;
+			name = "Dayol-iOS";
 			productName = Dayol;
-			productReference = DA4899E3257A08A6005E39ED /* Dayol.app */;
+			productReference = DA4899E3257A08A6005E39ED /* Dayol-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -95,7 +95,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DA4899DE257A08A6005E39ED /* Build configuration list for PBXProject "Dayol" */;
+			buildConfigurationList = DA4899DE257A08A6005E39ED /* Build configuration list for PBXProject "Dayol-iOS" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -108,7 +108,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DA4899E2257A08A6005E39ED /* Dayol */,
+				DA4899E2257A08A6005E39ED /* Dayol-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -271,7 +271,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = Dayol/Info.plist;
+				INFOPLIST_FILE = "Dayol-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -289,7 +289,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = Dayol/Info.plist;
+				INFOPLIST_FILE = "Dayol-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,7 +304,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DA4899DE257A08A6005E39ED /* Build configuration list for PBXProject "Dayol" */ = {
+		DA4899DE257A08A6005E39ED /* Build configuration list for PBXProject "Dayol-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA4899F5257A08A8005E39ED /* Debug */,
@@ -313,7 +313,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DA4899F7257A08A8005E39ED /* Build configuration list for PBXNativeTarget "Dayol" */ = {
+		DA4899F7257A08A8005E39ED /* Build configuration list for PBXNativeTarget "Dayol-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA4899F8257A08A8005E39ED /* Debug */,
