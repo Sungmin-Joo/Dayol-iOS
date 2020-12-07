@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1210"
+   LastUpgradeVersion = "1220"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA4899E2257A08A6005E39ED"
-               BuildableName = "Dayol-iOS.app"
+               BuildableName = "DAYOL.app"
                BlueprintName = "Dayol-iOS"
                ReferencedContainer = "container:Dayol-iOS.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA4899E2257A08A6005E39ED"
-            BuildableName = "Dayol-iOS.app"
+            BuildableName = "DAYOL.app"
             BlueprintName = "Dayol-iOS"
             ReferencedContainer = "container:Dayol-iOS.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA4899E2257A08A6005E39ED"
-            BuildableName = "Dayol-iOS.app"
+            BuildableName = "DAYOL.app"
             BlueprintName = "Dayol-iOS"
             ReferencedContainer = "container:Dayol-iOS.xcodeproj">
          </BuildableReference>
