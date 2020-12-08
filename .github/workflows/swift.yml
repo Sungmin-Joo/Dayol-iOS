@@ -1,0 +1,17 @@
+name: Swift-CI
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Project
+      run: ./setup.sh
+    - name: Xcode Build
+      run: xcodebuild  -workspace godok.xcworkspace -scheme "DAYOL-iOS Dev" -destination 'platform=iOS Simulator,name=iPhone 8,OS=13.6'
