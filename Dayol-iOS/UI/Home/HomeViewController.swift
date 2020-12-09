@@ -7,25 +7,50 @@
 
 import UIKit
 
+private enum Constant {
+
+    // layout
+    static let iconImageTopMargin: CGFloat = 21.0
+}
+
 class HomeViewController: UIViewController {
 
-    let helloDayolLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Hello, Dayol"
-        label.textColor = .black
-        label.textAlignment = .center
-        label.sizeToFit()
+    private let iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Assets.Home.pageIcon.image
+        imageView.translatesAutoresizingMaskIntoConstraints = false
 
-        return label
+        return imageView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        setupViews()
+        setupLayoutConstraints()
+    }
+
+}
+
+// MARK: - Setup UI
+extension HomeViewController {
+    private func setupViews() {
+        view.addSubview(iconImageView)
+        // TODO: - color 컨벤션 정해지면 수정
         view.backgroundColor = .white
-        view.addSubview(helloDayolLabel)
-        helloDayolLabel.center = view.center
-        helloDayolLabel.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    }
+}
+
+// MARK: - Layout Constraints
+extension HomeViewController {
+
+    private func setupLayoutConstraints() {
+        let layoutGuide = view.safeAreaLayoutGuide
+
+        NSLayoutConstraint.activate([
+            iconImageView.topAnchor.constraint(equalTo: layoutGuide.topAnchor,
+                                               constant: Constant.iconImageTopMargin),
+            iconImageView.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor)
+        ])
     }
 
 }
