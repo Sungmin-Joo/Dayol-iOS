@@ -1,0 +1,17 @@
+name: Swift-CI
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Project
+      run: ./setup.sh
+    - name: Xcode Build
+      run: xcodebuild  -workspace Dayol-iOS.xcworkspace -scheme "Dayol-iOS Dev" -destination 'platform=iOS Simulator,name=iPhone 12 mini,OS=14.2'
