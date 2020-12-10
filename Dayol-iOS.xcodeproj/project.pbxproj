@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		CC7CC488D36CE71AEE14FCCC /* Pods_Dayol_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */; };
+		CEF135EA258116EB0098BEC3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135E9258116EB0098BEC3 /* HomeViewController.swift */; };
+		CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF135EE25811D130098BEC3 /* Common.xcassets */; };
+		CEF135F225811DE30098BEC3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135F125811DE30098BEC3 /* Assets.swift */; };
 		DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4899E6257A08A6005E39ED /* AppDelegate.swift */; };
-		DA4899EB257A08A6005E39ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4899EA257A08A6005E39ED /* ViewController.swift */; };
 		DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA4899EF257A08A8005E39ED /* Assets.xcassets */; };
 		DA4899F3257A08A8005E39ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -17,9 +19,11 @@
 /* Begin PBXFileReference section */
 		2D2405592E98948CDE582F1F /* Pods-Dayol-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		972D81BFA99D271110503E85 /* Pods-Dayol-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.release.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		CEF135E9258116EB0098BEC3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CEF135EE25811D130098BEC3 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
+		CEF135F125811DE30098BEC3 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		DA4899E3257A08A6005E39ED /* DAYOL Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DAYOL Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA4899E6257A08A6005E39ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DA4899EA257A08A6005E39ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DA4899EF257A08A8005E39ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA4899F2257A08A8005E39ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA4899F4257A08A8005E39ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -55,6 +59,32 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CEF135E5258115740098BEC3 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				DA4899EF257A08A8005E39ED /* Assets.xcassets */,
+				CEF135EE25811D130098BEC3 /* Common.xcassets */,
+				CEF135F125811DE30098BEC3 /* Assets.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		CEF135E7258115C60098BEC3 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				CEF135E8258115E30098BEC3 /* Home */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		CEF135E8258115E30098BEC3 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				CEF135E9258116EB0098BEC3 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		DA4899DA257A08A6005E39ED = {
 			isa = PBXGroup;
 			children = (
@@ -76,9 +106,9 @@
 		DA4899E5257A08A6005E39ED /* Dayol-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CEF135E7258115C60098BEC3 /* UI */,
+				CEF135E5258115740098BEC3 /* Resource */,
 				DA4899E6257A08A6005E39ED /* AppDelegate.swift */,
-				DA4899EA257A08A6005E39ED /* ViewController.swift */,
-				DA4899EF257A08A8005E39ED /* Assets.xcassets */,
 				DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */,
 				DA4899F4257A08A8005E39ED /* Info.plist */,
 			);
@@ -146,6 +176,7 @@
 			files = (
 				DA4899F3257A08A8005E39ED /* LaunchScreen.storyboard in Resources */,
 				DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */,
+				CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,8 +229,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA4899EB257A08A6005E39ED /* ViewController.swift in Sources */,
+				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
 				DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */,
+				CEF135EA258116EB0098BEC3 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
