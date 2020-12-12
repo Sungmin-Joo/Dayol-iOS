@@ -14,6 +14,7 @@
 		DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4899E6257A08A6005E39ED /* AppDelegate.swift */; };
 		DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA4899EF257A08A8005E39ED /* Assets.xcassets */; };
 		DA4899F3257A08A8005E39ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */; };
+		DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE29CEA2584F2100028010B /* PasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		DA4899EF257A08A8005E39ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA4899F2257A08A8005E39ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA4899F4257A08A8005E39ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAE29CEA2584F2100028010B /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dayol_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -73,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				CEF135E8258115E30098BEC3 /* Home */,
+				DAE29CE92584F1F80028010B /* Password */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -113,6 +116,14 @@
 				DA4899F4257A08A8005E39ED /* Info.plist */,
 			);
 			path = "Dayol-iOS";
+			sourceTree = "<group>";
+		};
+		DAE29CE92584F1F80028010B /* Password */ = {
+			isa = PBXGroup;
+			children = (
+				DAE29CEA2584F2100028010B /* PasswordViewController.swift */,
+			);
+			path = Password;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
+				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
 				DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */,
 				CEF135EA258116EB0098BEC3 /* HomeViewController.swift in Sources */,
 			);
