@@ -10,7 +10,7 @@ import UIKit
 private enum Design {
 	static let passwordImage: UIImage? = UIImage(named: "password_dayol")
 	static let inputFont: UIFont? = UIFont(name: "AppleSDGothicNeo-Bold", size: 19.0)
-	static let buttonFont: UIFont? = UIFont(name: "AppleSDGothicNeo-Bold", size: 30.0)
+	static let buttonFont: UIFont? = UIFont(name: "DXRMbxStd-B", size: 30.0)
 
 	static let passwordHoriaontalSpacing: CGFloat = 14.0
 	static let buttonHorizontalSpacing: CGFloat = 36.0
@@ -81,9 +81,10 @@ class PasswordViewController: UIViewController {
 
 	private func passwordButton(text: String) -> UIButton {
 		let button = UIButton()
+
 		button.setTitle(text, for: .normal)
 		button.setTitleColor(.black, for: .normal)
-		button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+		button.titleLabel?.font = Design.buttonFont
 
 		button.layer.cornerRadius = Design.buttonRadius
 		button.layer.borderWidth = Design.buttonBorderWidth
