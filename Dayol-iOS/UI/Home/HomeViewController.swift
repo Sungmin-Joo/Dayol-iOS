@@ -37,7 +37,16 @@ extension HomeViewController {
         view.addSubview(iconImageView)
         // TODO: - color 컨벤션 정해지면 수정
         view.backgroundColor = .white
+
+		iconImageView.isUserInteractionEnabled = true
+		iconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(presentPasswordViewController)))
     }
+
+	@objc
+	private func presentPasswordViewController() {
+		let passworkViewController = PasswordViewController()
+		present(passworkViewController, animated: true, completion: nil)
+	}
 }
 
 // MARK: - Layout Constraints
