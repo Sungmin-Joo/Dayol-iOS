@@ -129,6 +129,8 @@ final class DayolAlertController: UIViewController {
     }
 
     private func showAlert() {
+        alertView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+
         UIViewPropertyAnimator.runningPropertyAnimator(
             withDuration: 0.1,
             delay: 0,
@@ -136,6 +138,7 @@ final class DayolAlertController: UIViewController {
         ) {
             self.dimmView.alpha = 1
             self.alertView.alpha = 1
+            self.alertView.transform = .identity
         }
     }
 
