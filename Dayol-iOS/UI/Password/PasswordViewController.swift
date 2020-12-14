@@ -16,16 +16,21 @@ private enum Design {
 	static let buttonHorizontalSpacing: CGFloat = 36.0
 	static let buttonVerticalSpacing: CGFloat = 25.0
 
-	static let buttonInset: UIEdgeInsets = UIEdgeInsets(top: 14.0, left: 24.0, bottom: 14.0, right: 21.0)
+	static let buttonInset: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 1.0, bottom: 0.0, right: 0.0)
 	static let buttonRadius: CGFloat = 29.0
 	static let buttonBorderWidth: CGFloat = 2.0
 	static let buttonBorderColor: CGColor = UIColor.black.cgColor
 	static let buttonSize: CGSize = CGSize(width: 58, height: 58)
 
+	static let closeButtonSize: CGRect = CGRect(x: 0, y: 0, width: 40, height: 40)
+
 	static let stackTop: CGFloat = 319.0
 	static let stackBottom: CGFloat = 41.0
 	static let stackLeft: CGFloat = 64.5
 	static let stackRight: CGFloat = 64.5
+
+	static let closeButtonLeft: CGFloat = 8.0
+	static let closeButtonTop: CGFloat = 8.0
 }
 
 private enum Strings {
@@ -43,12 +48,21 @@ private enum Strings {
 class PasswordViewController: UIViewController {
 	let buttonVerticalStack: UIStackView = {
 		let stackView = UIStackView()
+		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.alignment = .center
 		stackView.axis = .vertical
 		stackView.spacing = Design.buttonVerticalSpacing
-		stackView.translatesAutoresizingMaskIntoConstraints = false
 
 		return stackView
+	}()
+
+	let closeButton: UIButton = {
+		let button = UIButton(frame: Design.closeButtonSize)
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.setTitle("close", for: .normal)
+		button.setTitleColor(.black, for: .normal)
+
+		return button
 	}()
 
     override func viewDidLoad() {
@@ -61,7 +75,11 @@ class PasswordViewController: UIViewController {
 			buttonVerticalStack.addArrangedSubview(buttonHorizontalStack(texts: titles))
 		}
 		view.addSubview(buttonVerticalStack)
+		view.addSubview(closeButton)
 		view.backgroundColor = .white
+
+		closeButton.addTarget(self, action: #selector(self.didTappedCloseButton(sender:)), for: .touchUpInside)
+
 		setConstraint()
 	}
 
@@ -86,6 +104,7 @@ class PasswordViewController: UIViewController {
 		button.setTitleColor(.black, for: .normal)
 		button.titleLabel?.font = Design.buttonFont
 
+		button.contentEdgeInsets = Design.buttonInset
 		button.layer.cornerRadius = Design.buttonRadius
 		button.layer.borderWidth = Design.buttonBorderWidth
 		button.layer.borderColor = Design.buttonBorderColor
@@ -107,6 +126,14 @@ class PasswordViewController: UIViewController {
 			buttonVerticalStack.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: -Design.stackBottom),
 			buttonVerticalStack.leftAnchor.constraint(equalTo: layoutGuide.leftAnchor, constant: Design.stackLeft),
 			buttonVerticalStack.rightAnchor.constraint(equalTo: layoutGuide.rightAnchor, constant: -Design.stackRight),
+
+			closeButton.leftAnchor.constraint(equalTo: layoutGuide.leftAnchor, constant: Design.closeButtonTop),
+			closeButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: Design.closeButtonTop)
 		])
+	}
+
+	@objc
+	private func didTappedCloseButton(sender: Any) {
+		dismiss(animated: true, completion: nil)
 	}
 }
