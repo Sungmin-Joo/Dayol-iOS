@@ -39,9 +39,12 @@ extension HomeViewController {
         view.backgroundColor = .white
 
 		iconImageView.isUserInteractionEnabled = true
+
+		// TODO: 임시로 넣은 제스처입니다. 구현시 제거해주세요.
 		iconImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(presentPasswordViewController)))
     }
 
+	// TODO: 임시로 넣은 제스처입니다. 구현시 제거해주세요.
 	@objc
 	private func presentPasswordViewController() {
 		let passworkViewController = PasswordViewController()
