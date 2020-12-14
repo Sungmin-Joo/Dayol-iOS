@@ -10,19 +10,9 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
-	static let buttonFont: UIFont? = UIFont(name: "DXRMbxStd-B", size: 30.0)
-	static let passwordImage: UIImage? = UIImage(named: "password_dayol")
-	
+	static let buttonSize: CGSize = CGSize(width: 58, height: 58)
 	static let buttonHorizontalSpacing: CGFloat = 36.0
 	static let buttonVerticalSpacing: CGFloat = 25.0
-
-	static let buttonInset: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 1.0, bottom: 0.0, right: 0.0)
-	static let buttonRadius: CGFloat = 29.0
-	static let buttonBorderWidth: CGFloat = 2.0
-	static let buttonBorderColor: CGColor = UIColor.black.cgColor
-	static let buttonSize: CGSize = CGSize(width: 58, height: 58)
-
-	static let deleteButtonImage: UIImage? = UIImage(named: "password_delete")
 }
 
 private enum Strings {
@@ -78,12 +68,11 @@ class PasswordButtonsView: UIView {
 	private func buttonLastHorizontalStack() -> UIStackView {
 		let stackView = UIStackView()
 		let emptyView = UIView()
-		let zeroButton = passwordButton(text: "0")
-		let deleteButton = UIButton()
+		let zeroButton = PasswordButton(text: "0")
+		let deleteButton = PasswordButton(isDelete: true)
 
 		stackView.axis = .horizontal
 		stackView.spacing = Design.buttonHorizontalSpacing
-		deleteButton.setImage(Design.deleteButtonImage, for: .normal)
 
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		emptyView.translatesAutoresizingMaskIntoConstraints = false
@@ -91,14 +80,17 @@ class PasswordButtonsView: UIView {
 
 		NSLayoutConstraint.activate([
 			emptyView.widthAnchor.constraint(equalToConstant: Design.buttonSize.width),
-			emptyView.heightAnchor.constraint(equalToConstant: Design.buttonSize.height),
-			deleteButton.widthAnchor.constraint(equalToConstant: Design.buttonSize.width),
-			deleteButton.heightAnchor.constraint(equalToConstant: Design.buttonSize.height)
+			emptyView.heightAnchor.constraint(equalToConstant: Design.buttonSize.height)
 		])
 
 		stackView.addArrangedSubview(emptyView)
 		stackView.addArrangedSubview(zeroButton)
 		stackView.addArrangedSubview(deleteButton)
+
+		zeroButton.rx.tap.bind { [weak self] in
+			self?.didTappedNumberButton(zeroButton)
+		}
+		.disposed(by: disposeBag)
 
 		deleteButton.rx.tap.bind { [weak self] in
 			self?.didTappedDeleteButton(deleteButton)
@@ -114,39 +106,16 @@ class PasswordButtonsView: UIView {
 		stackView.spacing = Design.buttonHorizontalSpacing
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 
-		texts.forEach { [weak self] text in
-			guard let self = self else { return }
-			stackView.addArrangedSubview(self.passwordButton(text: text))
+		texts.forEach { text in
+			let passwordButton = PasswordButton(text: text)
+			passwordButton.rx.tap.bind { [weak self] in
+				self?.didTappedNumberButton(passwordButton)
+			}
+			.disposed(by: disposeBag)
+			stackView.addArrangedSubview(passwordButton)
 		}
 
 		return stackView
-	}
-
-	private func passwordButton(text: String) -> UIButton {
-		let button = UIButton()
-
-		button.setTitle(text, for: .normal)
-		button.setTitleColor(.black, for: .normal)
-		button.titleLabel?.font = Design.buttonFont
-
-		button.contentEdgeInsets = Design.buttonInset
-		button.layer.cornerRadius = Design.buttonRadius
-		button.layer.borderWidth = Design.buttonBorderWidth
-		button.layer.borderColor = Design.buttonBorderColor
-
-		button.translatesAutoresizingMaskIntoConstraints = false
-
-		NSLayoutConstraint.activate([
-			button.widthAnchor.constraint(equalToConstant: Design.buttonSize.width),
-			button.heightAnchor.constraint(equalToConstant: Design.buttonSize.height)
-		])
-
-		button.rx.tap.bind { [weak self] in
-			self?.didTappedNumberButton(button)
-		}
-		.disposed(by: disposeBag)
-
-		return button
 	}
 
 	private func setConstraint() {
