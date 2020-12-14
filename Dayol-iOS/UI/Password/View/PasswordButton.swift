@@ -29,8 +29,10 @@ class PasswordButton: UIButton {
 
 	override var isHighlighted: Bool {
 		didSet {
-			layer.cornerRadius = isHighlighted ? 0.0 : Design.buttonRadius
-			layer.borderWidth = isHighlighted ? 0.0 : Design.buttonBorderWidth
+			if delete == false {
+				layer.cornerRadius = isHighlighted ? 0.0 : Design.buttonRadius
+				layer.borderWidth = isHighlighted ? 0.0 : Design.buttonBorderWidth
+			}
 		}
 	}
 
