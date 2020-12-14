@@ -9,7 +9,6 @@ import UIKit
 
 extension DayolAlertAction {
 
-    @available(iOS 8.0, *)
     public enum Style : Int {
 
         case `default` = 0
