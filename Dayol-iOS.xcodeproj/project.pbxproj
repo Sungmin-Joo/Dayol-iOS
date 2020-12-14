@@ -18,8 +18,8 @@
 		DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B18258792180067467B /* PasswordTitleView.swift */; };
 		DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */; };
 		DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1F2587AEB90067467B /* PasswordButton.swift */; };
+		DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */; };
 		DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE29CEA2584F2100028010B /* PasswordViewController.swift */; };
-		DAE29CF62585096D0028010B /* DXRMbxStd-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAE29CF2258507160028010B /* DXRMbxStd-B.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,8 +37,8 @@
 		DACE3B18258792180067467B /* PasswordTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTitleView.swift; sourceTree = "<group>"; };
 		DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDisplayedView.swift; sourceTree = "<group>"; };
 		DACE3B1F2587AEB90067467B /* PasswordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordButton.swift; sourceTree = "<group>"; };
+		DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DXRMbxStd-B.otf"; sourceTree = "<group>"; };
 		DAE29CEA2584F2100028010B /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
-		DAE29CF2258507160028010B /* DXRMbxStd-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DXRMbxStd-B.otf"; path = "../../../../Downloads/DXRMbxStd-B.otf"; sourceTree = "<group>"; };
 		F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dayol_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -76,7 +76,7 @@
 			children = (
 				DA4899EF257A08A8005E39ED /* Assets.xcassets */,
 				CEF135EE25811D130098BEC3 /* Common.xcassets */,
-				DAE29CF2258507160028010B /* DXRMbxStd-B.otf */,
+				DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */,
 				CEF135F125811DE30098BEC3 /* Assets.swift */,
 			);
 			path = Resource;
@@ -209,7 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA4899F3257A08A8005E39ED /* LaunchScreen.storyboard in Resources */,
-				DAE29CF62585096D0028010B /* DXRMbxStd-B.otf in Resources */,
+				DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */,
 				DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */,
 				CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */,
 			);
