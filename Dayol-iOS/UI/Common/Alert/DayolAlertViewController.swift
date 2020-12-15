@@ -7,46 +7,18 @@
 
 import UIKit
 
-extension DayolAlertAction {
+final class DayolAlertController: UIViewController, PopupPresentDelegate {
 
-    public enum Style : Int {
-
-        case `default` = 0
-
-        case cancel = 1
-
-    }
-}
-
-final class DayolAlertAction {
-
-    var title: String
-    var style: DayolAlertAction.Style
-    var handler: (() -> Void)?
-
-    init(
-        title: String,
-        style: DayolAlertAction.Style,
-        handler: (() -> Void)? = nil
-    ) {
-        self.title = title
-        self.style = style
-        self.handler = handler
-    }
-
-}
-
-final class DayolAlertController: UIViewController {
-
+    // MARK: Property
     private var actions: [DayolAlertAction.Style: DayolAlertAction] = [:]
-    private let dimmView: UIView = {
+    var dimmView: UIView = {
         let view = UIView()
         view.backgroundColor = Design.Color.dimBG
         view.alpha = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let alertView: UIView = {
+    var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = Design.Color.alertBG
         view.alpha = 0
@@ -84,13 +56,13 @@ final class DayolAlertController: UIViewController {
     private let cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.setAttributedTitle(Design.AttributedText.cancelButton(), for: .normal)
+        button.backgroundColor = Design.Color.cancelButtonBG
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = Design.Constant.buttonRadius
         button.layer.borderColor = Design.Color.alertMain.cgColor
-        button.layer.borderWidth = Design.Constant.cancelBtnBorderWidth
+        button.layer.borderWidth = Design.Constant.cancelButtonBorderWidth
         return button
     }()
-
     override var title: String? {
         didSet {
             guard let title = title else { return }
@@ -104,15 +76,20 @@ final class DayolAlertController: UIViewController {
         }
     }
 
+    // MARK: Initialize
     convenience init(title: String, message: String) {
         self.init()
         self.title = title
         self.message = message
+        self.modalPresentationStyle = .overFullScreen
+        self.modalTransitionStyle = .crossDissolve
 
         setTitleLabel(text: title)
         setMessageLabel(text: message)
+        setDefaultButton()
     }
 
+    // MARK: View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAction()
@@ -125,46 +102,27 @@ final class DayolAlertController: UIViewController {
         guard title != nil, message != nil else {
             fatalError(Design.Text.titleError)
         }
-        showAlert()
+        presentPopup(animated: animated)
     }
 
-    private func showAlert() {
-        alertView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        dismissPopup(animated: flag) {
+            /*
+             하위뷰가 dismiss되기 전에 viewcontroller가 먼저 dismiss되는 현상을 막기위한 completionHandler
+             순서 바뀔 쉬 크래시 유발.
 
-        UIViewPropertyAnimator.runningPropertyAnimator(
-            withDuration: 0.1,
-            delay: 0,
-            options: [.curveEaseInOut]
-        ) {
-            self.dimmView.alpha = 1
-            self.alertView.alpha = 1
-            self.alertView.transform = .identity
+             animated = true일 경우 dismissPopup(animated:)에서 애니메이션을 수행하기 때문에
+             super.dismiss 호출 시 animated를 항상 false로 설정
+             (true로 설정 시 Popup이 사라진 뒤에 살짝 딜레이가 있음)
+             */
+            super.dismiss(animated: false, completion: completion)
         }
-    }
-
-    private func hideAlert(completion: @escaping (() -> Void)) {
-        UIViewPropertyAnimator.runningPropertyAnimator(
-            withDuration: 0.1,
-            delay: 0,
-            options: [.curveEaseInOut],
-            animations: {
-                self.dimmView.alpha = 0
-                self.alertView.alpha = 0
-            }, completion: { _ in
-                completion()
-            }
-        )
     }
 
 }
 
 // MARK: - Public Funtions
 extension DayolAlertController {
-
-    func presentAlert(targetVC: UIViewController) {
-        modalPresentationStyle = .overFullScreen
-        targetVC.present(self, animated: false)
-    }
 
     func addAction(_ action: DayolAlertAction) {
         let title = action.title
@@ -184,16 +142,14 @@ extension DayolAlertController {
 extension DayolAlertController {
 
     @objc func didTapDefaultButton() {
-        hideAlert {
-            defer { self.dismiss(animated: false) }
+        dismiss(animated: true) {
             guard let action = self.actions[.default] else { return }
             action.handler?()
         }
     }
 
     @objc func didTapCancelButton() {
-        hideAlert {
-            defer { self.dismiss(animated: false) }
+        dismiss(animated: true) {
             guard let action = self.actions[.cancel] else { return }
             action.handler?()
         }
@@ -204,16 +160,17 @@ extension DayolAlertController {
 // MARK: - Setup Views
 extension DayolAlertController {
 
+    private func setDefaultButton() {
+        buttonStackView.addArrangedSubview(defaultButton)
+    }
+
     private func setupViews() {
         view.addSubview(dimmView)
-        view.addSubview(alertView)
+        view.addSubview(containerView)
 
-        buttonStackView.addArrangedSubview(defaultButton)
-        buttonStackView.addArrangedSubview(cancelButton)
-
-        alertView.addSubview(titleLabel)
-        alertView.addSubview(messageLabel)
-        alertView.addSubview(buttonStackView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(messageLabel)
+        containerView.addSubview(buttonStackView)
     }
 
     private func setupAction() {
@@ -235,10 +192,14 @@ extension DayolAlertController {
 
     private func setDefaultButton(text: String) {
         defaultButton.setAttributedTitle(Design.AttributedText.defaultButton(text), for: .normal)
+        defaultButton.removeFromSuperview()
+        buttonStackView.addArrangedSubview(defaultButton)
     }
 
     private func setCancelButton(text: String) {
         cancelButton.setAttributedTitle(Design.AttributedText.cancelButton(text), for: .normal)
+        cancelButton.removeFromSuperview()
+        buttonStackView.addArrangedSubview(cancelButton)
     }
 
 }
@@ -254,28 +215,27 @@ extension DayolAlertController {
             dimmView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             dimmView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            alertView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            alertView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            alertView.widthAnchor.constraint(equalToConstant: Design.Constant.alertSize.width),
-            alertView.heightAnchor.constraint(equalToConstant: Design.Constant.alertSize.height),
+            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            containerView.widthAnchor.constraint(equalToConstant: Design.Constant.alertSize.width),
+            containerView.heightAnchor.constraint(equalToConstant: Design.Constant.alertSize.height),
 
-            titleLabel.topAnchor.constraint(equalTo: alertView.topAnchor,
+            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor,
                                             constant: Design.Constant.titleLabelTopMargin),
-            titleLabel.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
 
             messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,
                                               constant: Design.Constant.messageLabelTopMargin),
-            messageLabel.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),
+            messageLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
 
-            buttonStackView.bottomAnchor.constraint(equalTo: alertView.bottomAnchor,
+            buttonStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,
                                                     constant: -Design.Constant.buttonStackViewBottomMargin),
-            buttonStackView.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),
+            buttonStackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
 
             defaultButton.widthAnchor.constraint(equalToConstant: Design.Constant.buttonWidth),
             defaultButton.heightAnchor.constraint(equalToConstant: Design.Constant.buttonHeight),
             cancelButton.widthAnchor.constraint(equalToConstant: Design.Constant.buttonWidth),
             cancelButton.heightAnchor.constraint(equalToConstant: Design.Constant.buttonHeight)
-            
 
         ])
 
@@ -306,7 +266,7 @@ extension DayolAlertController {
                 let attributedText = NSMutableAttributedString(string: text,
                                                                attributes: Attributes.buttonTitle)
                 attributedText.addAttribute(.foregroundColor,
-                                            value: Color.defaultBtnFG,
+                                            value: Color.defaultButtonFG,
                                             range: NSRange(location: 0, length: text.count))
                 return attributedText
             }
@@ -314,7 +274,7 @@ extension DayolAlertController {
                 let attributedText = NSMutableAttributedString(string: text,
                                                                attributes: Attributes.buttonTitle)
                 attributedText.addAttribute(.foregroundColor,
-                                            value: Color.cancelBtnFG,
+                                            value: Color.cancelButtonFG,
                                             range: NSRange(location: 0, length: text.count))
                 return attributedText
             }
@@ -365,7 +325,7 @@ extension DayolAlertController {
             static let buttonWidth: CGFloat = 125.0
             static let buttonHeight: CGFloat = 50.0
             static let buttonRadius: CGFloat = 6.0
-            static let cancelBtnBorderWidth: CGFloat = 1.0
+            static let cancelButtonBorderWidth: CGFloat = 1.0
         }
 
         // TODO: - color 컨벤션 정해지면 수정
@@ -381,10 +341,10 @@ extension DayolAlertController {
                                          green: 102.0 / 255.0,
                                          blue: 102.0 / 255.0,
                                          alpha: 1.0)
-            static let defaultBtnFG = UIColor.white
-            static let defaultBtnBG = alertMain
-            static let cancelBtnFG = alertMain
-            static let cancelBtnBG = UIColor.white
+            static let defaultButtonFG = UIColor.white
+            static let defaultButtonBG = alertMain
+            static let cancelButtonFG = alertMain
+            static let cancelButtonBG = UIColor.white
         }
     }
 
