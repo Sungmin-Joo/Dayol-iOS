@@ -43,14 +43,14 @@ class PasswordButton: UIButton {
 		initButton()
 	}
 
-	override init(frame: CGRect) {
+	private override init(frame: CGRect) {
 		self.text = ""
 		self.delete = false
 		super.init(frame: frame)
 		initButton()
 	}
 
-	required init?(coder: NSCoder) {
+	private required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
