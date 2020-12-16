@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		CC7CC488D36CE71AEE14FCCC /* Pods_Dayol_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */; };
+		CE0603542588EDB600FBBEF0 /* PopupTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0603532588EDB600FBBEF0 /* PopupTransitionDelegate.swift */; };
+		CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */; };
+		CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */; };
 		CEF135EA258116EB0098BEC3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135E9258116EB0098BEC3 /* HomeViewController.swift */; };
 		CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF135EE25811D130098BEC3 /* Common.xcassets */; };
 		CEF135F225811DE30098BEC3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135F125811DE30098BEC3 /* Assets.swift */; };
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		2D2405592E98948CDE582F1F /* Pods-Dayol-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		972D81BFA99D271110503E85 /* Pods-Dayol-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.release.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		CE0603532588EDB600FBBEF0 /* PopupTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTransitionDelegate.swift; sourceTree = "<group>"; };
+		CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertAction.swift; sourceTree = "<group>"; };
+		CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertViewController.swift; sourceTree = "<group>"; };
 		CEF135E9258116EB0098BEC3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CEF135EE25811D130098BEC3 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		CEF135F125811DE30098BEC3 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -71,6 +77,32 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CE0603522588EDA100FBBEF0 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				CE0603532588EDB600FBBEF0 /* PopupTransitionDelegate.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		CEB9EE402583C7AF005B66C9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CE0603522588EDA100FBBEF0 /* Protocol */,
+				CEB9EE442583C953005B66C9 /* Alert */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CEB9EE442583C953005B66C9 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */,
+				CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		CEF135E5258115740098BEC3 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +117,7 @@
 		CEF135E7258115C60098BEC3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CEB9EE402583C7AF005B66C9 /* Common */,
 				CEF135E8258115E30098BEC3 /* Home */,
 				DAE29CE92584F1F80028010B /* Password */,
 			);
@@ -265,8 +298,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
+				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
+				CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */,
 				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
 				DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */,
+				CE0603542588EDB600FBBEF0 /* PopupTransitionDelegate.swift in Sources */,
 				CEF135EA258116EB0098BEC3 /* HomeViewController.swift in Sources */,
 				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
 				DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */,
