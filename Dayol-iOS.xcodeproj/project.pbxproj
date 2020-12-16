@@ -17,6 +17,12 @@
 		DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4899E6257A08A6005E39ED /* AppDelegate.swift */; };
 		DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA4899EF257A08A8005E39ED /* Assets.xcassets */; };
 		DA4899F3257A08A8005E39ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */; };
+		DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B132587868B0067467B /* PasswordButtonsView.swift */; };
+		DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B18258792180067467B /* PasswordTitleView.swift */; };
+		DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */; };
+		DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1F2587AEB90067467B /* PasswordButton.swift */; };
+		DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */; };
+		DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE29CEA2584F2100028010B /* PasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +39,12 @@
 		DA4899EF257A08A8005E39ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA4899F2257A08A8005E39ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA4899F4257A08A8005E39ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DACE3B132587868B0067467B /* PasswordButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordButtonsView.swift; sourceTree = "<group>"; };
+		DACE3B18258792180067467B /* PasswordTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTitleView.swift; sourceTree = "<group>"; };
+		DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDisplayedView.swift; sourceTree = "<group>"; };
+		DACE3B1F2587AEB90067467B /* PasswordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordButton.swift; sourceTree = "<group>"; };
+		DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DXRMbxStd-B.otf"; sourceTree = "<group>"; };
+		DAE29CEA2584F2100028010B /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dayol_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,6 +108,7 @@
 			children = (
 				DA4899EF257A08A8005E39ED /* Assets.xcassets */,
 				CEF135EE25811D130098BEC3 /* Common.xcassets */,
+				DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */,
 				CEF135F125811DE30098BEC3 /* Assets.swift */,
 			);
 			path = Resource;
@@ -106,6 +119,7 @@
 			children = (
 				CEB9EE402583C7AF005B66C9 /* Common */,
 				CEF135E8258115E30098BEC3 /* Home */,
+				DAE29CE92584F1F80028010B /* Password */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -146,6 +160,26 @@
 				DA4899F4257A08A8005E39ED /* Info.plist */,
 			);
 			path = "Dayol-iOS";
+			sourceTree = "<group>";
+		};
+		DACE3B16258786E40067467B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DAE29CEA2584F2100028010B /* PasswordViewController.swift */,
+				DACE3B18258792180067467B /* PasswordTitleView.swift */,
+				DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */,
+				DACE3B132587868B0067467B /* PasswordButtonsView.swift */,
+				DACE3B1F2587AEB90067467B /* PasswordButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DAE29CE92584F1F80028010B /* Password */ = {
+			isa = PBXGroup;
+			children = (
+				DACE3B16258786E40067467B /* View */,
+			);
+			path = Password;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA4899F3257A08A8005E39ED /* LaunchScreen.storyboard in Resources */,
+				DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */,
 				DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */,
 				CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */,
 			);
@@ -265,9 +300,14 @@
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
 				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
 				CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */,
+				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
 				DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */,
 				CE0603542588EDB600FBBEF0 /* PopupTransitionDelegate.swift in Sources */,
 				CEF135EA258116EB0098BEC3 /* HomeViewController.swift in Sources */,
+				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
+				DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */,
+				DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */,
+				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
