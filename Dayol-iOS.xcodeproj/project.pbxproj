@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		CC7CC488D36CE71AEE14FCCC /* Pods_Dayol_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */; };
+		CE3A0A5E258B8E95000F32A3 /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A0A5D258B8E95000F32A3 /* DiaryListViewController.swift */; };
+		CE3A0A61258B8EAB000F32A3 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A0A60258B8EAB000F32A3 /* FavoriteViewController.swift */; };
+		CE3A0A69258B93F9000F32A3 /* HomeTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A0A68258B93F9000F32A3 /* HomeTabBarButton.swift */; };
+		CE6919FB25891D62004CF3DE /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6919FA25891D62004CF3DE /* UIFont+Extension.swift */; };
+		CE6919FE25891F4F004CF3DE /* HomeEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6919FD25891F4F004CF3DE /* HomeEmptyView.swift */; };
+		CE691A2125892BC9004CF3DE /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE691A2025892BC9004CF3DE /* NSAttributedString+Extension.swift */; };
+		CE691A5A258A47B3004CF3DE /* HomeTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE691A59258A47B3004CF3DE /* HomeTabBarView.swift */; };
+		CE691A5D258A5452004CF3DE /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE691A5C258A5452004CF3DE /* UIColor+Extension.swift */; };
 		CEF135EA258116EB0098BEC3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135E9258116EB0098BEC3 /* HomeViewController.swift */; };
 		CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF135EE25811D130098BEC3 /* Common.xcassets */; };
 		CEF135F225811DE30098BEC3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135F125811DE30098BEC3 /* Assets.swift */; };
@@ -19,6 +27,14 @@
 /* Begin PBXFileReference section */
 		2D2405592E98948CDE582F1F /* Pods-Dayol-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		972D81BFA99D271110503E85 /* Pods-Dayol-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.release.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		CE3A0A5D258B8E95000F32A3 /* DiaryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewController.swift; sourceTree = "<group>"; };
+		CE3A0A60258B8EAB000F32A3 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		CE3A0A68258B93F9000F32A3 /* HomeTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarButton.swift; sourceTree = "<group>"; };
+		CE6919FA25891D62004CF3DE /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		CE6919FD25891F4F004CF3DE /* HomeEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyView.swift; sourceTree = "<group>"; };
+		CE691A2025892BC9004CF3DE /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
+		CE691A59258A47B3004CF3DE /* HomeTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarView.swift; sourceTree = "<group>"; };
+		CE691A5C258A5452004CF3DE /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		CEF135E9258116EB0098BEC3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CEF135EE25811D130098BEC3 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		CEF135F125811DE30098BEC3 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -59,6 +75,36 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CE6919F925891D51004CF3DE /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				CE6919FA25891D62004CF3DE /* UIFont+Extension.swift */,
+				CE691A2025892BC9004CF3DE /* NSAttributedString+Extension.swift */,
+				CE691A5C258A5452004CF3DE /* UIColor+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		CE691A0025891F57004CF3DE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE6919FD25891F4F004CF3DE /* HomeEmptyView.swift */,
+				CE691A59258A47B3004CF3DE /* HomeTabBarView.swift */,
+				CE3A0A68258B93F9000F32A3 /* HomeTabBarButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE691A0125891F5F004CF3DE /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CEF135E9258116EB0098BEC3 /* HomeViewController.swift */,
+				CE3A0A5D258B8E95000F32A3 /* DiaryListViewController.swift */,
+				CE3A0A60258B8EAB000F32A3 /* FavoriteViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		CEF135E5258115740098BEC3 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -80,7 +126,8 @@
 		CEF135E8258115E30098BEC3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				CEF135E9258116EB0098BEC3 /* HomeViewController.swift */,
+				CE691A0125891F5F004CF3DE /* ViewController */,
+				CE691A0025891F57004CF3DE /* View */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -106,6 +153,7 @@
 		DA4899E5257A08A6005E39ED /* Dayol-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CE6919F925891D51004CF3DE /* Extension */,
 				CEF135E7258115C60098BEC3 /* UI */,
 				CEF135E5258115740098BEC3 /* Resource */,
 				DA4899E6257A08A6005E39ED /* AppDelegate.swift */,
@@ -231,7 +279,15 @@
 			files = (
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
 				DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */,
+				CE6919FB25891D62004CF3DE /* UIFont+Extension.swift in Sources */,
+				CE691A5A258A47B3004CF3DE /* HomeTabBarView.swift in Sources */,
+				CE3A0A61258B8EAB000F32A3 /* FavoriteViewController.swift in Sources */,
+				CE691A2125892BC9004CF3DE /* NSAttributedString+Extension.swift in Sources */,
+				CE6919FE25891F4F004CF3DE /* HomeEmptyView.swift in Sources */,
 				CEF135EA258116EB0098BEC3 /* HomeViewController.swift in Sources */,
+				CE3A0A5E258B8E95000F32A3 /* DiaryListViewController.swift in Sources */,
+				CE3A0A69258B93F9000F32A3 /* HomeTabBarButton.swift in Sources */,
+				CE691A5D258A5452004CF3DE /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
