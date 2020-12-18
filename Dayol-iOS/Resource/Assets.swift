@@ -8,15 +8,22 @@
 import UIKit
 
 enum Assets {
+    enum Image {
+        enum Home {
+            static let topIcon = UIImage(named: "home_top_icon")
+            static let emptyDiaryIcon = UIImage(named: "home_empty_diary")
+            static let emptyFavoriteIcon = UIImage(named: "home_empty_favorite")
+            static let emptyArrow = UIImage(named: "home_empty_arrow")
+            static let plusButton = UIImage(named: "home_tabbar_plusbutton")
 
-    enum Home {
+            enum TabBarDiary {
+                static let normal = UIImage(named: "home_tabbar_diary_normal")
+                static let selected = UIImage(named: "home_tabbar_diary_selected")
+            }
 
-        case pageIcon
-
-        var image: UIImage? {
-            switch self {
-            case .pageIcon:
-                return UIImage(named: "icon_home_dayol")
+            enum TabBarFavorite {
+                static let normal = UIImage(named: "home_tabbar_favorite_normal")
+                static let selected = UIImage(named: "home_tabbar_favorite_selected")
             }
         }
     }
