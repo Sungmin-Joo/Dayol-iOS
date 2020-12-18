@@ -52,12 +52,6 @@ private enum Design {
                                         letterSpacing: -0.28,
                                         foregroundColor: Common.titleColor)
     }
-    //
-    //    static let attributedTitle = NSAttributedString.build(text: title,
-    //                                                          font: titleFont,
-    //                                                          align: .center,
-    //                                                          letterSpacing: -0.28,
-    //                                                          foregroundColor: titleColor)
 }
 
 class HomeEmptyView: UIView {
@@ -69,14 +63,11 @@ class HomeEmptyView: UIView {
     private let style: Style
     private let imageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
-        //        imageView.image = Design.emptyIcon
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     private let textLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        //        label.numberOfLines = Design.Common.numberOfLines
-        //        label.attributedText = Design.attributedTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
