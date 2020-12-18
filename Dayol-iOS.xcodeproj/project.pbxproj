@@ -8,34 +8,46 @@
 
 /* Begin PBXBuildFile section */
 		CC7CC488D36CE71AEE14FCCC /* Pods_Dayol_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */; };
-		CE3A0A5E258B8E95000F32A3 /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A0A5D258B8E95000F32A3 /* DiaryListViewController.swift */; };
-		CE3A0A61258B8EAB000F32A3 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A0A60258B8EAB000F32A3 /* FavoriteViewController.swift */; };
-		CE3A0A69258B93F9000F32A3 /* HomeTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A0A68258B93F9000F32A3 /* HomeTabBarButton.swift */; };
-		CE6919FB25891D62004CF3DE /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6919FA25891D62004CF3DE /* UIFont+Extension.swift */; };
-		CE6919FE25891F4F004CF3DE /* HomeEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6919FD25891F4F004CF3DE /* HomeEmptyView.swift */; };
-		CE691A2125892BC9004CF3DE /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE691A2025892BC9004CF3DE /* NSAttributedString+Extension.swift */; };
-		CE691A5A258A47B3004CF3DE /* HomeTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE691A59258A47B3004CF3DE /* HomeTabBarView.swift */; };
-		CE691A5D258A5452004CF3DE /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE691A5C258A5452004CF3DE /* UIColor+Extension.swift */; };
-		CEF135EA258116EB0098BEC3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135E9258116EB0098BEC3 /* HomeViewController.swift */; };
+		CE0603542588EDB600FBBEF0 /* PopupPresentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */; };
+		CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */; };
+		CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */; };
+		CE8DCAE0258D28F4007738EA /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAD9258D28F4007738EA /* DiaryListViewController.swift */; };
+		CE8DCAE1258D28F4007738EA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCADA258D28F4007738EA /* HomeViewController.swift */; };
+		CE8DCAE2258D28F4007738EA /* HomeTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCADC258D28F4007738EA /* HomeTabBarView.swift */; };
+		CE8DCAE3258D28F4007738EA /* HomeEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCADD258D28F4007738EA /* HomeEmptyView.swift */; };
+		CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCADE258D28F4007738EA /* HomeTabBarButton.swift */; };
+		CE8DCAEA258D292A007738EA /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAE7258D292A007738EA /* NSAttributedString+Extension.swift */; };
+		CE8DCAEB258D292A007738EA /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAE8258D292A007738EA /* UIFont+Extension.swift */; };
+		CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */; };
+		CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */; };
 		CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF135EE25811D130098BEC3 /* Common.xcassets */; };
 		CEF135F225811DE30098BEC3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135F125811DE30098BEC3 /* Assets.swift */; };
 		DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4899E6257A08A6005E39ED /* AppDelegate.swift */; };
 		DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA4899EF257A08A8005E39ED /* Assets.xcassets */; };
 		DA4899F3257A08A8005E39ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */; };
+		DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B132587868B0067467B /* PasswordButtonsView.swift */; };
+		DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B18258792180067467B /* PasswordTitleView.swift */; };
+		DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */; };
+		DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1F2587AEB90067467B /* PasswordButton.swift */; };
+		DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */; };
+		DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE29CEA2584F2100028010B /* PasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2D2405592E98948CDE582F1F /* Pods-Dayol-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		972D81BFA99D271110503E85 /* Pods-Dayol-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.release.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		CE3A0A5D258B8E95000F32A3 /* DiaryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewController.swift; sourceTree = "<group>"; };
-		CE3A0A60258B8EAB000F32A3 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
-		CE3A0A68258B93F9000F32A3 /* HomeTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarButton.swift; sourceTree = "<group>"; };
-		CE6919FA25891D62004CF3DE /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
-		CE6919FD25891F4F004CF3DE /* HomeEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyView.swift; sourceTree = "<group>"; };
-		CE691A2025892BC9004CF3DE /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
-		CE691A59258A47B3004CF3DE /* HomeTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarView.swift; sourceTree = "<group>"; };
-		CE691A5C258A5452004CF3DE /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		CEF135E9258116EB0098BEC3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPresentDelegate.swift; sourceTree = "<group>"; };
+		CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertAction.swift; sourceTree = "<group>"; };
+		CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		CE8DCAD9258D28F4007738EA /* DiaryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryListViewController.swift; sourceTree = "<group>"; };
+		CE8DCADA258D28F4007738EA /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CE8DCADC258D28F4007738EA /* HomeTabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarView.swift; sourceTree = "<group>"; };
+		CE8DCADD258D28F4007738EA /* HomeEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeEmptyView.swift; sourceTree = "<group>"; };
+		CE8DCADE258D28F4007738EA /* HomeTabBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarButton.swift; sourceTree = "<group>"; };
+		CE8DCAE7258D292A007738EA /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
+		CE8DCAE8258D292A007738EA /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertViewController.swift; sourceTree = "<group>"; };
 		CEF135EE25811D130098BEC3 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		CEF135F125811DE30098BEC3 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		DA4899E3257A08A6005E39ED /* DAYOL Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DAYOL Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +55,12 @@
 		DA4899EF257A08A8005E39ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA4899F2257A08A8005E39ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA4899F4257A08A8005E39ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DACE3B132587868B0067467B /* PasswordButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordButtonsView.swift; sourceTree = "<group>"; };
+		DACE3B18258792180067467B /* PasswordTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTitleView.swift; sourceTree = "<group>"; };
+		DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDisplayedView.swift; sourceTree = "<group>"; };
+		DACE3B1F2587AEB90067467B /* PasswordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordButton.swift; sourceTree = "<group>"; };
+		DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DXRMbxStd-B.otf"; sourceTree = "<group>"; };
+		DAE29CEA2584F2100028010B /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dayol_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -75,34 +93,60 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		CE6919F925891D51004CF3DE /* Extension */ = {
+		CE0603522588EDA100FBBEF0 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				CE6919FA25891D62004CF3DE /* UIFont+Extension.swift */,
-				CE691A2025892BC9004CF3DE /* NSAttributedString+Extension.swift */,
-				CE691A5C258A5452004CF3DE /* UIColor+Extension.swift */,
+				CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */,
 			);
-			path = Extension;
+			path = Protocol;
 			sourceTree = "<group>";
 		};
-		CE691A0025891F57004CF3DE /* View */ = {
+		CE8DCAD7258D28F4007738EA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				CE6919FD25891F4F004CF3DE /* HomeEmptyView.swift */,
-				CE691A59258A47B3004CF3DE /* HomeTabBarView.swift */,
-				CE3A0A68258B93F9000F32A3 /* HomeTabBarButton.swift */,
+				CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */,
+				CE8DCAD9258D28F4007738EA /* DiaryListViewController.swift */,
+				CE8DCADA258D28F4007738EA /* HomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		CE8DCADB258D28F4007738EA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCADC258D28F4007738EA /* HomeTabBarView.swift */,
+				CE8DCADD258D28F4007738EA /* HomeEmptyView.swift */,
+				CE8DCADE258D28F4007738EA /* HomeTabBarButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		CE691A0125891F5F004CF3DE /* ViewController */ = {
+		CE8DCAE6258D292A007738EA /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				CEF135E9258116EB0098BEC3 /* HomeViewController.swift */,
-				CE3A0A5D258B8E95000F32A3 /* DiaryListViewController.swift */,
-				CE3A0A60258B8EAB000F32A3 /* FavoriteViewController.swift */,
+				CE8DCAE7258D292A007738EA /* NSAttributedString+Extension.swift */,
+				CE8DCAE8258D292A007738EA /* UIFont+Extension.swift */,
+				CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */,
 			);
-			path = ViewController;
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		CEB9EE402583C7AF005B66C9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CE0603522588EDA100FBBEF0 /* Protocol */,
+				CEB9EE442583C953005B66C9 /* Alert */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CEB9EE442583C953005B66C9 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */,
+				CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */,
+			);
+			path = Alert;
 			sourceTree = "<group>";
 		};
 		CEF135E5258115740098BEC3 /* Resource */ = {
@@ -110,6 +154,7 @@
 			children = (
 				DA4899EF257A08A8005E39ED /* Assets.xcassets */,
 				CEF135EE25811D130098BEC3 /* Common.xcassets */,
+				DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */,
 				CEF135F125811DE30098BEC3 /* Assets.swift */,
 			);
 			path = Resource;
@@ -118,7 +163,9 @@
 		CEF135E7258115C60098BEC3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CEB9EE402583C7AF005B66C9 /* Common */,
 				CEF135E8258115E30098BEC3 /* Home */,
+				DAE29CE92584F1F80028010B /* Password */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -126,8 +173,8 @@
 		CEF135E8258115E30098BEC3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				CE691A0125891F5F004CF3DE /* ViewController */,
-				CE691A0025891F57004CF3DE /* View */,
+				CE8DCAD7258D28F4007738EA /* ViewController */,
+				CE8DCADB258D28F4007738EA /* View */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -153,7 +200,7 @@
 		DA4899E5257A08A6005E39ED /* Dayol-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				CE6919F925891D51004CF3DE /* Extension */,
+				CE8DCAE6258D292A007738EA /* Extension */,
 				CEF135E7258115C60098BEC3 /* UI */,
 				CEF135E5258115740098BEC3 /* Resource */,
 				DA4899E6257A08A6005E39ED /* AppDelegate.swift */,
@@ -161,6 +208,26 @@
 				DA4899F4257A08A8005E39ED /* Info.plist */,
 			);
 			path = "Dayol-iOS";
+			sourceTree = "<group>";
+		};
+		DACE3B16258786E40067467B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DAE29CEA2584F2100028010B /* PasswordViewController.swift */,
+				DACE3B18258792180067467B /* PasswordTitleView.swift */,
+				DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */,
+				DACE3B132587868B0067467B /* PasswordButtonsView.swift */,
+				DACE3B1F2587AEB90067467B /* PasswordButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DAE29CE92584F1F80028010B /* Password */ = {
+			isa = PBXGroup;
+			children = (
+				DACE3B16258786E40067467B /* View */,
+			);
+			path = Password;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA4899F3257A08A8005E39ED /* LaunchScreen.storyboard in Resources */,
+				DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */,
 				DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */,
 				CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */,
 			);
@@ -277,17 +345,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */,
+				CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
+				CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */,
+				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
+				CE8DCAE2258D28F4007738EA /* HomeTabBarView.swift in Sources */,
+				CE8DCAE3258D28F4007738EA /* HomeEmptyView.swift in Sources */,
+				CE8DCAEB258D292A007738EA /* UIFont+Extension.swift in Sources */,
+				CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */,
+				CE8DCAEA258D292A007738EA /* NSAttributedString+Extension.swift in Sources */,
+				CE8DCAE0258D28F4007738EA /* DiaryListViewController.swift in Sources */,
+				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
 				DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */,
-				CE6919FB25891D62004CF3DE /* UIFont+Extension.swift in Sources */,
-				CE691A5A258A47B3004CF3DE /* HomeTabBarView.swift in Sources */,
-				CE3A0A61258B8EAB000F32A3 /* FavoriteViewController.swift in Sources */,
-				CE691A2125892BC9004CF3DE /* NSAttributedString+Extension.swift in Sources */,
-				CE6919FE25891F4F004CF3DE /* HomeEmptyView.swift in Sources */,
-				CEF135EA258116EB0098BEC3 /* HomeViewController.swift in Sources */,
-				CE3A0A5E258B8E95000F32A3 /* DiaryListViewController.swift in Sources */,
-				CE3A0A69258B93F9000F32A3 /* HomeTabBarButton.swift in Sources */,
-				CE691A5D258A5452004CF3DE /* UIColor+Extension.swift in Sources */,
+				CE0603542588EDB600FBBEF0 /* PopupPresentDelegate.swift in Sources */,
+				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
+				DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */,
+				DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */,
+				CE8DCAE1258D28F4007738EA /* HomeViewController.swift in Sources */,
+				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
