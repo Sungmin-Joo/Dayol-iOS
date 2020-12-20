@@ -15,9 +15,9 @@ class HomeTabBarView: UIView {
         case favorite
     }
 
-    enum EventType{
-        case diary
-        case plusButton
+    enum EventType {
+        case diaryList
+        case add
         case favorite
     }
 
@@ -64,13 +64,13 @@ class HomeTabBarView: UIView {
 extension HomeTabBarView {
     private func bindEvent() {
         plusButton.rx.tap.bind { [weak self] in
-            self?.buttonEvent.onNext(.plusButton)
+            self?.buttonEvent.onNext(.add)
         }
         .disposed(by: disposeBag)
 
         diaryButton.rx.tap.bind { [weak self] in
             self?.currentTabMode = .diary
-            self?.buttonEvent.onNext(.diary)
+            self?.buttonEvent.onNext(.diaryList)
         }
         .disposed(by: disposeBag)
 

@@ -62,11 +62,11 @@ extension HomeViewController {
         tabBarView.buttonEvent.subscribe(onNext: { [weak self] event in
             guard let self = self else { return }
             switch event {
-            case .diary:
+            case .diaryList:
                 self.currentTab = .diary
             case .favorite:
                 self.currentTab = .favorite
-            case .plusButton:
+            case .add:
                 // TODO: - 플러스 버튼 눌렀을때 연동.
                 return
             }
