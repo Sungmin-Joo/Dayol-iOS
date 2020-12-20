@@ -30,11 +30,13 @@ extension PasswordViewController {
 	func bindAnimation() {
 		viewModel.shouldShowVibeAniamtion
 			.observeOn(MainScheduler.instance)
-			.subscribe(onNext: { [weak self] state in
-				self?.titleView.viberateAnimation(completion: {
-					self?.titleView.clearPasswordField()
-					self?.viewModel.clearPassword()
-				})
+			.subscribe(onNext: { [weak self] showAnimation in
+				if showAnimation{
+					self?.titleView.viberateAnimation(completion: {
+						self?.titleView.clearPasswordField()
+						self?.viewModel.clearPassword()
+					})
+				}
 			})
 			.disposed(by: disposeBag)
 	}
@@ -47,7 +49,6 @@ extension PasswordViewController {
 
 				if isCorrect {
 					// dissmiss and next step
-				} else {
 				}
 			})
 			.disposed(by: disposeBag)
