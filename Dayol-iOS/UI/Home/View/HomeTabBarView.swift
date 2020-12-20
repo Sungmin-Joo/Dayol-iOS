@@ -153,14 +153,13 @@ extension HomeTabBarView {
 }
 
 private enum Design {
-    // Layout
     static let stackViewHeight: CGFloat = 55.0
     static let plusButtonHeight: CGFloat = 70.0
     static let plusButtonWidth: CGFloat = 70.0
     static let lineViewHeight: CGFloat = 1.0
-    // Image
+
     static let plusButton = Assets.Image.Home.plusButton
-    // Color
+
     static let lineColor = UIColor(decimalRed: 233, green: 233, blue: 233)
     static let safeAreaColor = UIColor.white
 }

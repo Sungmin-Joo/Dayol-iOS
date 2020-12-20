@@ -9,36 +9,34 @@ import UIKit
 
 private enum Design {
     enum Diary {
-        // Constraint
         static let imageSize = CGSize(width: 140, height: 161)
         static let arrowWidth: CGFloat = 36.0
         static let arrowHeight: CGFloat = 79.0
         static let arrowBottomMargin: CGFloat = 48.0
         static let numberOfLines = 2
-        // Text
+
         static let text = "다이어리가 없습니다.\n나만의 다이어리를 만들어볼까요?"
-        // Image
+
         static let diaryImage = Assets.Image.Home.emptyDiaryIcon
         static let arrowImage = Assets.Image.Home.emptyArrow
     }
 
     enum Favorite {
-        // Constraint
         static let imageSize = CGSize(width: 190.0, height: 161)
         static let numberOfLines = 3
-        // Text
+
         static let text = "즐겨찾기한 메모가 없습니다.\n다이어리의 속지를 한 페이지 단위로\n즐겨찾기 할 수 있습니다."
-        // Image
+
         static let favoriteIamge = Assets.Image.Home.emptyFavoriteIcon
     }
 
     enum Common {
-        // Constraint
+
         static let stackViewSpacing: CGFloat = 18.0
         static let centerYMargin: CGFloat = 55.0
-        // Font
+
         static let titleFont = UIFont.appleRegular(size: 15)
-        // Color
+
         static let titleColor = UIColor(red: 153 / 255.0,
                                         green: 153 / 255.0,
                                         blue: 153 / 255.0,

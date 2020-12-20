@@ -75,11 +75,9 @@ extension HomeTabBarButton {
 }
 
 private enum Design {
-    // Text
     static let diaryText = "다이어리"
     static let favoriteText = "즐겨찾기"
 
-    // Attributed Text
     static let buttonParagraphStyle: NSMutableParagraphStyle = {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = NSTextAlignment.center
@@ -103,14 +101,14 @@ private enum Design {
 
         return attributedText
     }
-    // Font
+
     static let buttonTitleFont = UIFont.appleBold(size: 16.0)
-    // Image
+
     static let diaryNormal = Assets.Image.Home.TabBarDiary.normal
     static let diarySelected = Assets.Image.Home.TabBarDiary.selected
     static let favoriteNormal = Assets.Image.Home.TabBarFavorite.normal
     static let favoriteSelected = Assets.Image.Home.TabBarFavorite.selected
-    // Color
+
     static let buttonSelectedFGColor = UIColor.black
     static let buttonDeselectedFGColor = UIColor.black.withAlphaComponent(0.3)
 }

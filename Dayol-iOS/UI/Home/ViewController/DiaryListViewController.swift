@@ -8,11 +8,8 @@
 import UIKit
 
 private enum Design {
-    // Layout
     static let iconImageTopMargin: CGFloat = 21.0
-    // Image
     static let topIcon = Assets.Image.Home.topIcon
-    // Color
     static let bgColor = UIColor.white
 }
 
