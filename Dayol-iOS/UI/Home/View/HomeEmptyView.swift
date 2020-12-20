@@ -99,11 +99,11 @@ private extension HomeEmptyView {
         stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(textLabel)
 
-
-        if style == .diary {
+        switch style {
+        case .diary:
             setupDiaryStyle()
             setupArrowView()
-        } else {
+        case .favorite:
             setupFavoriteStyle()
         }
     }

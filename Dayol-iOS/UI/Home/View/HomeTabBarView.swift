@@ -82,13 +82,14 @@ extension HomeTabBarView {
     }
 
     private func updateTabBarState() {
-        guard currentTabMode == .diary else {
+        switch currentTabMode {
+        case .diary:
+            diaryButton.isSelected = true
+            favoriteButton.isSelected = false
+        case .favorite:
             diaryButton.isSelected = false
             favoriteButton.isSelected = true
-            return
         }
-        diaryButton.isSelected = true
-        favoriteButton.isSelected = false
     }
 
 }
