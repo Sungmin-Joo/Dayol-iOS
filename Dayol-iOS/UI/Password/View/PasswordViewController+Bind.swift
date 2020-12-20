@@ -31,7 +31,7 @@ extension PasswordViewController {
 		viewModel.shouldShowVibeAniamtion
 			.observeOn(MainScheduler.instance)
 			.subscribe(onNext: { [weak self] showAnimation in
-				if showAnimation{
+				if showAnimation {
 					self?.titleView.viberateAnimation(completion: {
 						self?.titleView.clearPasswordField()
 						self?.viewModel.clearPassword()
