@@ -22,7 +22,11 @@ class HomeTabBarButton: UIButton {
 
     override var isSelected: Bool {
         didSet {
-            updateButtonState()
+            guard isSelected else {
+                isUserInteractionEnabled = true
+                return
+            }
+            isUserInteractionEnabled = false
         }
     }
 
@@ -36,26 +40,24 @@ class HomeTabBarButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func updateButtonState() {
-        let image = isSelected ? selectedImage : normalImage
-        let title = isSelected ? selectedTitle : normalTitle
-        let isUserInteractionEnable = (isSelected == false)
-
-        setImage(image, for: .normal)
-        setAttributedTitle(title, for: .normal)
-        isUserInteractionEnabled = isUserInteractionEnable
-    }
-
 }
 
 extension HomeTabBarButton {
 
     private func setupButtonStyle() {
-        guard style == .diary else {
+        switch style {
+        case .diary:
+            setupDiaryButton()
+        case .favorite:
             setupFavoriteButton()
-            return
         }
-        setupDiaryButton()
+
+        adjustsImageWhenHighlighted = false
+
+        setImage(normalImage, for: .normal)
+        setImage(selectedImage, for: .selected)
+        setAttributedTitle(normalTitle, for: .normal)
+        setAttributedTitle(selectedTitle, for: .selected)
     }
 
     private func setupDiaryButton() {
