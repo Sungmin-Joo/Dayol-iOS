@@ -30,7 +30,6 @@ class PasswordTitleView: UIView {
 
 	let disposeBag = DisposeBag()
 	let inputState = PublishSubject<PasswordTitleView.InputState>()
-	let passwordFieldFull = PublishSubject<Bool>()
 	let descText = PublishSubject<String>()
 
 	var currentPasswordIndex = 0
