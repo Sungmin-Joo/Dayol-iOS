@@ -39,11 +39,11 @@ class HomeTabBarButton: UIButton {
     private func updateButtonState() {
         let image = isSelected ? selectedImage : normalImage
         let title = isSelected ? selectedTitle : normalTitle
-        let isUserfaceEnable = (isSelected == false)
+        let isUserInteractionEnable = (isSelected == false)
 
         setImage(image, for: .normal)
         setAttributedTitle(title, for: .normal)
-        isUserInteractionEnabled = isUserfaceEnable
+        isUserInteractionEnabled = isUserInteractionEnable
     }
 
 }
