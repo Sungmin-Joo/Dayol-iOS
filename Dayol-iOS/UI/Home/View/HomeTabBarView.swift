@@ -16,12 +16,11 @@ class HomeTabBarView: UIView {
     }
 
     enum EventType {
-        case diaryList
+        case showList(tab: TabType)
         case add
-        case favorite
     }
 
-    let buttonEvent = BehaviorSubject<HomeTabBarView.EventType>(value: .diaryList)
+    let buttonEvent = BehaviorSubject<HomeTabBarView.EventType>(value: .showList(tab: .diary))
     let disposeBag = DisposeBag()
 
     private let plusButton: UIButton = {
@@ -70,13 +69,13 @@ extension HomeTabBarView {
 
         diaryButton.rx.tap.bind { [weak self] in
             self?.currentTabMode = .diary
-            self?.buttonEvent.onNext(.diaryList)
+            self?.buttonEvent.onNext(.showList(tab: .diary))
         }
         .disposed(by: disposeBag)
 
         favoriteButton.rx.tap.bind { [weak self] in
             self?.currentTabMode = .favorite
-            self?.buttonEvent.onNext(.favorite)
+            self?.buttonEvent.onNext(.showList(tab: .favorite))
         }
         .disposed(by: disposeBag)
     }
