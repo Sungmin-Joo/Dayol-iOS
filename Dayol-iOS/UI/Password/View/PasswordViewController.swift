@@ -25,6 +25,7 @@ private enum Strings {
 
 class PasswordViewController: UIViewController {
 	let disposeBag = DisposeBag()
+	let viewModel: PasswordViewModel
 	//MARK: - UI
 
 	let containerView: UIStackView = {
@@ -59,6 +60,17 @@ class PasswordViewController: UIViewController {
 
 		return view
 	}()
+
+	//MARK: - Init()
+
+	init(password: String) {
+		self.viewModel = PasswordViewModel(password: password)
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	//MARK: - LifeCycle
 
@@ -106,17 +118,9 @@ extension PasswordViewController {
 	}
 
 	private func bind() {
-		buttonsView.buttonEvent
-			.subscribe(onNext: { [weak self] state in
-				guard let self = self else { return }
-				switch state {
-				case .input(number: let title):
-					self.titleView.inputState.onNext(.input)
-				case .delete:
-					self.titleView.inputState.onNext(.delete)
-				}
-			})
-			.disposed(by: disposeBag)
+		bindInputButton()
+		bindAnimation()
+		bindCorrectness()
 
 		//TODO: 추후 로직에 따라 바뀔 수 있습니다.
 		titleView.descText.onNext(Strings.inputNewPassword)

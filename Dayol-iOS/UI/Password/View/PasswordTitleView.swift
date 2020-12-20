@@ -31,6 +31,7 @@ class PasswordTitleView: UIView {
 	let disposeBag = DisposeBag()
 	let inputState = PublishSubject<PasswordTitleView.InputState>()
 	let descText = PublishSubject<String>()
+
 	var currentPasswordIndex = 0
 
 	let diaryView: UIView = {
@@ -103,6 +104,36 @@ class PasswordTitleView: UIView {
 			passwordFieldStack.bottomAnchor.constraint(equalTo: bottomAnchor)
 		])
 	}
+
+	func clearPasswordField() {
+		self.currentPasswordIndex = 0
+		guard let fieldSubviews = self.passwordFieldStack.arrangedSubviews as? [PasswordDisplayedView] else { return }
+		fieldSubviews.forEach { $0.inputedImageView.isHidden = true }
+	}
+
+	//출처 : https://stackoverflow.com/questions/3844557/uiview-shake-animation
+	func viberateAnimation(completion: @escaping (() -> Void)) {
+		// to set completionHandler
+		// start Transaction
+		CATransaction.begin()
+		CATransaction.setCompletionBlock {
+			completion()
+		}
+
+		let midX = passwordFieldStack.center.x
+		let midY = passwordFieldStack.center.y
+
+		let animation = CABasicAnimation(keyPath: "position")
+		animation.duration = 0.03
+		animation.repeatCount = 4
+		animation.autoreverses = true
+		animation.fromValue = CGPoint(x: midX - 10, y: midY)
+		animation.toValue = CGPoint(x: midX + 10, y: midY)
+		passwordFieldStack.layer.add(animation, forKey: "position")
+
+		// end Transaction
+		CATransaction.commit()
+	}
 }
 
 //MARK: -BIND
@@ -120,7 +151,6 @@ extension PasswordTitleView {
 						currentPasswordView.inputedImageView.isHidden = false
 						self.currentPasswordIndex += 1
 					}
-
 				case .delete:
 					if self.currentPasswordIndex - 1 >= 0
 					, let currentPasswordView = self.passwordFieldStack.arrangedSubviews[self.currentPasswordIndex - 1] as? PasswordDisplayedView {
