@@ -40,7 +40,6 @@ class HomeViewController: UIViewController {
         setupViews()
         setupLayoutConstraints()
         bindEvent()
-        displayContentController(content: diaryListVC)
 
         // TODO: 임시로 넣은 제스처입니다. 구현시 제거해주세요.
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(presentPasswordViewController)))

@@ -21,7 +21,7 @@ class HomeTabBarView: UIView {
         case favorite
     }
 
-    let buttonEvent = PublishSubject<HomeTabBarView.EventType>()
+    let buttonEvent = BehaviorSubject<HomeTabBarView.EventType>(value: .diaryList)
     let disposeBag = DisposeBag()
 
     private let plusButton: UIButton = {
