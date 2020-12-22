@@ -27,6 +27,9 @@
 		DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4899E6257A08A6005E39ED /* AppDelegate.swift */; };
 		DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA4899EF257A08A8005E39ED /* Assets.xcassets */; };
 		DA4899F3257A08A8005E39ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */; };
+		DAC04CC62592036F003A7BC8 /* DairyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC04CC52592036F003A7BC8 /* DairyView.swift */; };
+		DAC04CCA25920C16003A7BC8 /* DiaryCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC04CC925920C16003A7BC8 /* DiaryCoverView.swift */; };
+		DAC04CCE25920C25003A7BC8 /* DiaryLockerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC04CCD25920C25003A7BC8 /* DiaryLockerView.swift */; };
 		DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B132587868B0067467B /* PasswordButtonsView.swift */; };
 		DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B18258792180067467B /* PasswordTitleView.swift */; };
 		DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */; };
@@ -59,6 +62,9 @@
 		DA4899EF257A08A8005E39ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA4899F2257A08A8005E39ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA4899F4257A08A8005E39ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAC04CC52592036F003A7BC8 /* DairyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DairyView.swift; sourceTree = "<group>"; };
+		DAC04CC925920C16003A7BC8 /* DiaryCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoverView.swift; sourceTree = "<group>"; };
+		DAC04CCD25920C25003A7BC8 /* DiaryLockerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryLockerView.swift; sourceTree = "<group>"; };
 		DACE3B132587868B0067467B /* PasswordButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordButtonsView.swift; sourceTree = "<group>"; };
 		DACE3B18258792180067467B /* PasswordTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTitleView.swift; sourceTree = "<group>"; };
 		DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDisplayedView.swift; sourceTree = "<group>"; };
@@ -138,6 +144,7 @@
 		CEB9EE402583C7AF005B66C9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DAC04CC42592035C003A7BC8 /* DiaryCover */,
 				CE0603522588EDA100FBBEF0 /* Protocol */,
 				CEB9EE442583C953005B66C9 /* Alert */,
 			);
@@ -220,6 +227,16 @@
 				DA4899F4257A08A8005E39ED /* Info.plist */,
 			);
 			path = "Dayol-iOS";
+			sourceTree = "<group>";
+		};
+		DAC04CC42592035C003A7BC8 /* DiaryCover */ = {
+			isa = PBXGroup;
+			children = (
+				DAC04CC52592036F003A7BC8 /* DairyView.swift */,
+				DAC04CC925920C16003A7BC8 /* DiaryCoverView.swift */,
+				DAC04CCD25920C25003A7BC8 /* DiaryLockerView.swift */,
+			);
+			path = DiaryCover;
 			sourceTree = "<group>";
 		};
 		DACE3B16258786E40067467B /* View */ = {
@@ -360,8 +377,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */,
+				DAC04CCA25920C16003A7BC8 /* DiaryCoverView.swift in Sources */,
 				CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
+				DAC04CCE25920C25003A7BC8 /* DiaryLockerView.swift in Sources */,
 				DA3836BC258F2F2A0029464C /* PasswordViewModel.swift in Sources */,
 				DA3836BF258F34510029464C /* PasswordViewController+Bind.swift in Sources */,
 				CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */,
@@ -369,6 +388,7 @@
 				CE8DCAE2258D28F4007738EA /* HomeTabBarView.swift in Sources */,
 				CE8DCAE3258D28F4007738EA /* HomeEmptyView.swift in Sources */,
 				CE8DCAEB258D292A007738EA /* UIFont+Extension.swift in Sources */,
+				DAC04CC62592036F003A7BC8 /* DairyView.swift in Sources */,
 				CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */,
 				CE8DCAEA258D292A007738EA /* NSAttributedString+Extension.swift in Sources */,
 				CE8DCAE0258D28F4007738EA /* DiaryListViewController.swift in Sources */,
