@@ -33,10 +33,7 @@ private enum Design {
     enum Common {
 
         static let stackViewSpacing: CGFloat = 18.0
-        static let centerYMargin: CGFloat = 55.0
-
         static let titleFont = UIFont.appleRegular(size: 15)
-
         static let titleColor = UIColor(red: 153 / 255.0,
                                         green: 153 / 255.0,
                                         blue: 153 / 255.0,
@@ -141,8 +138,7 @@ private extension HomeEmptyView {
         NSLayoutConstraint.activate([
 
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor,
-                                               constant: Design.Common.centerYMargin),
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
 
             imageView.widthAnchor.constraint(equalToConstant: size.width),
             imageView.heightAnchor.constraint(equalToConstant: size.height)
