@@ -15,6 +15,7 @@ enum Assets {
             static let emptyFavoriteIcon = UIImage(named: "home_empty_favorite")
             static let emptyArrow = UIImage(named: "home_empty_arrow")
             static let plusButton = UIImage(named: "home_tabbar_plusbutton")
+            static let diaryListActionButton = UIImage(named: "home_diaryList_dropdown")
 
             enum TabBarDiary {
                 static let normal = UIImage(named: "home_tabbar_diary_normal")
