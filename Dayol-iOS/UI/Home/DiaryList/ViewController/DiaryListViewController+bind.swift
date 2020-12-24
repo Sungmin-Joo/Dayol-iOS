@@ -11,7 +11,7 @@ import RxSwift
 
 extension DiaryListViewController {
     func bind() {
-        viewModel.observer
+        viewModel.diaryEvent
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] state in
                 guard let self = self else { return }

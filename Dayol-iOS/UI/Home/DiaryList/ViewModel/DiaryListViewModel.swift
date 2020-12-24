@@ -17,7 +17,7 @@ class DiaryListViewModel {
     }
 
     private(set) var diaryList: [DiaryCoverModel] = []
-    var observer = ReplaySubject<DiaryListEvent>.createUnbounded()
+    var diaryEvent = ReplaySubject<DiaryListEvent>.createUnbounded()
 
     init() {
         fetchDiaryList()
@@ -40,7 +40,7 @@ extension DiaryListViewModel {
         ]
 
         let isEmpty = (diaryList.count == 0)
-        observer.onNext(.fetch(isEmpty: isEmpty))
+        diaryEvent.onNext(.fetch(isEmpty: isEmpty))
     }
 
     // TODO: - 실 데이터와 연동
