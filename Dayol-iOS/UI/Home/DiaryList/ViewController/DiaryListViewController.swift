@@ -15,7 +15,7 @@ private enum Design {
 
     static let collectionViewHeight: CGFloat = 432.0
     static var itemSpacing: CGFloat {
-        guard UIDevice.isPadDevice else {
+        guard isPadDevice else {
             return 30.0
         }
         return 60.0

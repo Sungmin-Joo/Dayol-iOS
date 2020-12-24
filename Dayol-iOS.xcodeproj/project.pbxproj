@@ -25,7 +25,7 @@
 		CE8DCB2D258FB1A0007738EA /* DiaryListViewController+bind.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCB2C258FB1A0007738EA /* DiaryListViewController+bind.swift */; };
 		CE8DCC912590E890007738EA /* DiaryListViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCC902590E88F007738EA /* DiaryListViewController+CollectionView.swift */; };
 		CE8DCC942590ECE8007738EA /* DiaryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCC932590ECE8007738EA /* DiaryListCell.swift */; };
-		CE8DCC97259101B6007738EA /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCC96259101B6007738EA /* UIDevice+Extension.swift */; };
+		CE8DCC97259101B6007738EA /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCC96259101B6007738EA /* DeviceInfo.swift */; };
 		CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */; };
 		CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF135EE25811D130098BEC3 /* Common.xcassets */; };
 		CEF135F225811DE30098BEC3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135F125811DE30098BEC3 /* Assets.swift */; };
@@ -62,7 +62,7 @@
 		CE8DCB2C258FB1A0007738EA /* DiaryListViewController+bind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaryListViewController+bind.swift"; sourceTree = "<group>"; };
 		CE8DCC902590E88F007738EA /* DiaryListViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaryListViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		CE8DCC932590ECE8007738EA /* DiaryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListCell.swift; sourceTree = "<group>"; };
-		CE8DCC96259101B6007738EA /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		CE8DCC96259101B6007738EA /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertViewController.swift; sourceTree = "<group>"; };
 		CEF135EE25811D130098BEC3 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		CEF135F125811DE30098BEC3 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -94,6 +94,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		34C6A3812594F4F900658499 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCC96259101B6007738EA /* DeviceInfo.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		84E9977FFA5A77108057AB68 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,7 +134,6 @@
 				CE8DCAE8258D292A007738EA /* UIFont+Extension.swift */,
 				CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */,
 				CE8DCB24258FAE72007738EA /* Array+extension.swift */,
-				CE8DCC96259101B6007738EA /* UIDevice+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -297,6 +304,7 @@
 		DA4899E5257A08A6005E39ED /* Dayol-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				34C6A3812594F4F900658499 /* Util */,
 				CE8DCAE6258D292A007738EA /* Extension */,
 				CEF135E7258115C60098BEC3 /* UI */,
 				CEF135E5258115740098BEC3 /* Resource */,
@@ -447,7 +455,7 @@
 				CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */,
 				CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
-				CE8DCC97259101B6007738EA /* UIDevice+Extension.swift in Sources */,
+				CE8DCC97259101B6007738EA /* DeviceInfo.swift in Sources */,
 				DA3836BC258F2F2A0029464C /* PasswordViewModel.swift in Sources */,
 				DA3836BF258F34510029464C /* PasswordViewController+Bind.swift in Sources */,
 				CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */,
