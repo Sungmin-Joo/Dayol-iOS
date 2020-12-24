@@ -51,30 +51,30 @@ class DiaryListCell: UICollectionViewCell {
     // MARK: - UI
 
     private let diaryCoverView: UIView = {
-        let coverView = UIView(frame: .zero)
+        let coverView = UIView()
         coverView.translatesAutoresizingMaskIntoConstraints = false
         return coverView
     }()
     private let mainStackView: UIStackView = {
-        let stackView = UIStackView(frame: .zero)
+        let stackView = UIStackView()
         stackView.spacing = Design.mainStackViewSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         return stackView
     }()
     private let titleStackView: UIStackView = {
-        let stackView = UIStackView(frame: .zero)
+        let stackView = UIStackView()
         stackView.spacing = Design.titleStackViewSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     private let titleLabel: UILabel = {
-        let label = UILabel(frame: .zero)
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     private let subTitleLabel: UILabel = {
-        let label = UILabel(frame: .zero)
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
