@@ -14,6 +14,7 @@ private enum Design {
     static let bgColor = UIColor.white
 
     static let collectionViewHeight: CGFloat = 432.0
+    static let itemSize = CGSize(width: 278, height: 432)
     static var itemSpacing: CGFloat {
         guard isPadDevice else {
             return 30.0
@@ -58,10 +59,14 @@ class DiaryListViewController: UIViewController {
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        guard
+            viewModel.diaryList.count != 0,
+            let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        else { return }
 
-        if viewModel.diaryList.count != 0 {
-            collectionView.collectionViewLayout.invalidateLayout()
-        }
+        let insets = calcCollectionViewInset(width: size.width)
+        layout.sectionInset = insets
+        collectionView.collectionViewLayout.invalidateLayout()
     }
 
 }
@@ -87,10 +92,21 @@ extension DiaryListViewController {
         collectionView.backgroundColor = .clear
 
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+
+            let insets = calcCollectionViewInset(width: view.bounds.width)
+            layout.sectionInset = insets
             layout.scrollDirection = .horizontal
+            layout.itemSize = Design.itemSize
             layout.minimumInteritemSpacing = Design.itemSpacing
             layout.minimumLineSpacing = Design.itemSpacing
         }
+    }
+
+    private func calcCollectionViewInset(width: CGFloat) -> UIEdgeInsets {
+        let itemWidth = Design.itemSize.width
+        let horizontalInset = width / 2 - itemWidth / 2
+
+        return UIEdgeInsets(top: 0, left: horizontalInset, bottom: 0, right: horizontalInset)
     }
 }
 

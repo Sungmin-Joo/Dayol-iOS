@@ -7,11 +7,6 @@
 
 import UIKit
 
-private enum Design {
-    static let collectionViewInset = UIEdgeInsets(top: 0, left: 100, bottom: 0, right: 0)
-    static let itemSize = CGSize(width: 278, height: 432)
-}
-
 // MARK: - UICollectionView
 
 extension DiaryListViewController: UICollectionViewDelegate {
@@ -36,25 +31,6 @@ extension DiaryListViewController: UICollectionViewDataSource {
         }
         diaryListCell.viewModel = viewModel
         return diaryListCell
-    }
-
-}
-
-extension DiaryListViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return Design.itemSize
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-
-        // collectionView.bounds.width 를 사용하는 경우 기기 회전시 이 전 사이즈로 계산함
-        // 우선 keyWindow의 값을 사용함으로 해결.
-        let width = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.bounds.width ?? collectionView.bounds.width
-        let itemWidth = Design.itemSize.width
-        let horizontalInset = width / 2 - itemWidth / 2
-
-        return UIEdgeInsets(top: 0, left: horizontalInset, bottom: 0, right: horizontalInset)
     }
 
 }
