@@ -25,7 +25,6 @@ private enum Design {
 class DiaryListViewController: UIViewController {
 
     let viewModel = DiaryListViewModel()
-    let cellID = DiaryListCell.identifier
     let disposeBag = DisposeBag()
 
     // MARK: - UI
@@ -83,7 +82,7 @@ extension DiaryListViewController {
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(DiaryListCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView.register(DiaryListCell.self, forCellWithReuseIdentifier: DiaryListCell.identifier)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
 

@@ -26,7 +26,7 @@ extension DiaryListViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiaryListCell.identifier, for: indexPath)
 
         guard
             let viewModel = viewModel.diaryList[safe: indexPath.row],
