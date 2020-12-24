@@ -8,44 +8,56 @@
 import UIKit
 
 private enum Design {
-    enum Diary {
-        static let imageSize = CGSize(width: 140, height: 161)
-        static let arrowWidth: CGFloat = 36.0
-        static let arrowHeight: CGFloat = 79.0
-        static let arrowBottomMargin: CGFloat = 48.0
-        static let numberOfLines = 2
+    enum Style {
+        case diary,favorite
 
-        static let text = "다이어리가 없습니다.\n나만의 다이어리를 만들어볼까요?"
+        var imageSize: CGSize {
+            switch self {
+            case .diary: return CGSize(width: 140, height: 161)
+            case .favorite: return CGSize(width: 190.0, height: 161)
+            }
+        }
 
-        static let diaryImage = Assets.Image.Home.emptyDiaryIcon
-        static let arrowImage = Assets.Image.Home.emptyArrow
+        var numberOfLines: Int {
+            switch self {
+            case .diary: return 2
+            case .favorite: return 3
+            }
+        }
+
+        var text: String {
+            switch self {
+            case .diary: return "다이어리가 없습니다.\n나만의 다이어리를 만들어볼까요?"
+            case .favorite: return "즐겨찾기한 메모가 없습니다.\n다이어리의 속지를 한 페이지 단위로\n즐겨찾기 할 수 있습니다."
+            }
+        }
+
+        var centerImage: UIImage? {
+            switch self {
+            case .diary: return Assets.Image.Home.emptyDiaryIcon
+            case .favorite: return Assets.Image.Home.emptyFavoriteIcon
+            }
+        }
     }
 
-    enum Favorite {
-        static let imageSize = CGSize(width: 190.0, height: 161)
-        static let numberOfLines = 3
+    static let arrowWidth: CGFloat = 36.0
+    static let arrowHeight: CGFloat = 79.0
+    static let arrowBottomMargin: CGFloat = 106.0
+    static let arrowImage = Assets.Image.Home.emptyArrow
 
-        static let text = "즐겨찾기한 메모가 없습니다.\n다이어리의 속지를 한 페이지 단위로\n즐겨찾기 할 수 있습니다."
-
-        static let favoriteIamge = Assets.Image.Home.emptyFavoriteIcon
-    }
-
-    enum Common {
-
-        static let stackViewSpacing: CGFloat = 18.0
-        static let titleFont = UIFont.appleRegular(size: 15)
-        static let titleColor = UIColor(red: 153 / 255.0,
-                                        green: 153 / 255.0,
-                                        blue: 153 / 255.0,
-                                        alpha: 1.0)
-    }
+    static let stackViewSpacing: CGFloat = 18.0
+    static let titleFont = UIFont.appleRegular(size: 15)
+    static let titleColor = UIColor(red: 153 / 255.0,
+                                    green: 153 / 255.0,
+                                    blue: 153 / 255.0,
+                                    alpha: 1.0)
 
     static func attributedText(text: String) -> NSAttributedString{
         return NSAttributedString.build(text: text,
-                                        font: Common.titleFont,
+                                        font: titleFont,
                                         align: .center,
                                         letterSpacing: -0.28,
-                                        foregroundColor: Common.titleColor)
+                                        foregroundColor: titleColor)
     }
 }
 
@@ -56,6 +68,7 @@ class HomeEmptyView: UIView {
         case favorite
     }
     private let style: Style
+    private let styleDesign: Design.Style
     private let imageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -70,13 +83,14 @@ class HomeEmptyView: UIView {
         let stackView = UIStackView(frame: .zero)
         stackView.alignment = .center
         stackView.axis = .vertical
-        stackView.spacing = Design.Common.stackViewSpacing
+        stackView.spacing = Design.stackViewSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
     init(style: Style) {
         self.style = style
+        self.styleDesign = (style == .diary) ? .diary : .favorite
         super.init(frame: .zero)
         setupViews()
         setupConstraints()
@@ -96,52 +110,42 @@ private extension HomeEmptyView {
         stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(textLabel)
 
-        switch style {
-        case .diary:
-            setupDiaryStyle()
+        setupStyle()
+    }
+
+    func setupStyle() {
+        imageView.image = styleDesign.centerImage
+        textLabel.numberOfLines = styleDesign.numberOfLines
+        textLabel.attributedText = Design.attributedText(text: styleDesign.text)
+
+        if style == .diary {
             setupArrowView()
-        case .favorite:
-            setupFavoriteStyle()
         }
-    }
-
-    func setupDiaryStyle() {
-        imageView.image = Design.Diary.diaryImage
-        textLabel.numberOfLines = Design.Diary.numberOfLines
-        textLabel.attributedText = Design.attributedText(text: Design.Diary.text)
-    }
-
-    func setupFavoriteStyle() {
-        imageView.image = Design.Favorite.favoriteIamge
-        textLabel.numberOfLines = Design.Favorite.numberOfLines
-        textLabel.attributedText = Design.attributedText(text: Design.Favorite.text)
     }
 
     func setupArrowView() {
         let arrowView = UIImageView(frame: .zero)
-        arrowView.image = Design.Diary.arrowImage
+        arrowView.image = Design.arrowImage
         arrowView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(arrowView)
 
         NSLayoutConstraint.activate([
             arrowView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            arrowView.widthAnchor.constraint(equalToConstant: Design.Diary.arrowWidth),
-            arrowView.heightAnchor.constraint(equalToConstant: Design.Diary.arrowHeight),
+            arrowView.widthAnchor.constraint(equalToConstant: Design.arrowWidth),
+            arrowView.heightAnchor.constraint(equalToConstant: Design.arrowHeight),
             arrowView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
-                                              constant: -Design.Diary.arrowBottomMargin)
+                                              constant: -Design.arrowBottomMargin)
         ])
     }
 
     func setupConstraints() {
-        let size = (style == .diary) ? Design.Diary.imageSize : Design.Favorite.imageSize
-
         NSLayoutConstraint.activate([
 
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-            imageView.widthAnchor.constraint(equalToConstant: size.width),
-            imageView.heightAnchor.constraint(equalToConstant: size.height)
+            imageView.widthAnchor.constraint(equalToConstant: styleDesign.imageSize.width),
+            imageView.heightAnchor.constraint(equalToConstant: styleDesign.imageSize.height)
 
         ])
     }
