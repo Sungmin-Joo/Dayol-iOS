@@ -60,19 +60,14 @@ class DiaryView: UIView {
 		self.coverView = DiaryCoverView(type: type, backgroundColor: backgroundColor.withAlphaComponent(0.5))
 		self.lockerView = DiaryLockerView(type: type, backgroundColor: backgroundColor.withAlphaComponent(0.9))
 		super.init(frame: .zero)
-		initView()
-	}
-
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
-	private func initView() {
-		translatesAutoresizingMaskIntoConstraints = false
 		addSubview(coverView)
 		addSubview(lockerView)
 
 		setConstraints()
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	private func setConstraints() {

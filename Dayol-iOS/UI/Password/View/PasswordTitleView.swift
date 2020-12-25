@@ -31,9 +31,15 @@ class PasswordTitleView: UIView {
 	let disposeBag = DisposeBag()
 	let inputState = PublishSubject<PasswordTitleView.InputState>()
 	let descText = PublishSubject<String>()
-	let diaryView: DiaryView
 
 	var currentPasswordIndex = 0
+
+	let diaryView: DiaryView = {
+		let diaryView = DiaryView(type: .small, backgroundColor: .orange)
+		diaryView.translatesAutoresizingMaskIntoConstraints = false
+
+		return diaryView
+	}()
 
 	let descLabel: UILabel = {
 		let label = UILabel()
@@ -55,7 +61,6 @@ class PasswordTitleView: UIView {
 	}()
 
 	init() {
-		self.diaryView = DiaryView(type: .small, backgroundColor: .orange)
 		super.init(frame: .zero)
 		initView()
 	}
