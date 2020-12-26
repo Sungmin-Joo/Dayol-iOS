@@ -19,6 +19,13 @@
 		CE8DCAEA258D292A007738EA /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAE7258D292A007738EA /* NSAttributedString+Extension.swift */; };
 		CE8DCAEB258D292A007738EA /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAE8258D292A007738EA /* UIFont+Extension.swift */; };
 		CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */; };
+		CE8DCB11258FA502007738EA /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCB10258FA502007738EA /* DiaryListViewModel.swift */; };
+		CE8DCB16258FA5FD007738EA /* DiaryCoverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCB15258FA5FD007738EA /* DiaryCoverModel.swift */; };
+		CE8DCB25258FAE72007738EA /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCB24258FAE72007738EA /* Array+extension.swift */; };
+		CE8DCB2D258FB1A0007738EA /* DiaryListViewController+bind.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCB2C258FB1A0007738EA /* DiaryListViewController+bind.swift */; };
+		CE8DCC912590E890007738EA /* DiaryListViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCC902590E88F007738EA /* DiaryListViewController+CollectionView.swift */; };
+		CE8DCC942590ECE8007738EA /* DiaryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCC932590ECE8007738EA /* DiaryListCell.swift */; };
+		CE8DCC97259101B6007738EA /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCC96259101B6007738EA /* DeviceInfo.swift */; };
 		CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */; };
 		CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF135EE25811D130098BEC3 /* Common.xcassets */; };
 		CEF135F225811DE30098BEC3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135F125811DE30098BEC3 /* Assets.swift */; };
@@ -49,6 +56,13 @@
 		CE8DCAE7258D292A007738EA /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		CE8DCAE8258D292A007738EA /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		CE8DCB10258FA502007738EA /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
+		CE8DCB15258FA5FD007738EA /* DiaryCoverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoverModel.swift; sourceTree = "<group>"; };
+		CE8DCB24258FAE72007738EA /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
+		CE8DCB2C258FB1A0007738EA /* DiaryListViewController+bind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaryListViewController+bind.swift"; sourceTree = "<group>"; };
+		CE8DCC902590E88F007738EA /* DiaryListViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaryListViewController+CollectionView.swift"; sourceTree = "<group>"; };
+		CE8DCC932590ECE8007738EA /* DiaryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListCell.swift; sourceTree = "<group>"; };
+		CE8DCC96259101B6007738EA /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertViewController.swift; sourceTree = "<group>"; };
 		CEF135EE25811D130098BEC3 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		CEF135F125811DE30098BEC3 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -80,6 +94,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		34C6A3812594F4F900658499 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCC96259101B6007738EA /* DeviceInfo.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		84E9977FFA5A77108057AB68 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,34 +127,101 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
-		CE8DCAD7258D28F4007738EA /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */,
-				CE8DCAD9258D28F4007738EA /* DiaryListViewController.swift */,
-				CE8DCADA258D28F4007738EA /* HomeViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		CE8DCADB258D28F4007738EA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CE8DCADC258D28F4007738EA /* HomeTabBarView.swift */,
-				CE8DCADE258D28F4007738EA /* HomeTabBarButton.swift */,
-				CE8DCADD258D28F4007738EA /* HomeEmptyView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		CE8DCAE6258D292A007738EA /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				CE8DCAE7258D292A007738EA /* NSAttributedString+Extension.swift */,
 				CE8DCAE8258D292A007738EA /* UIFont+Extension.swift */,
 				CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */,
+				CE8DCB24258FAE72007738EA /* Array+extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		CE8DCAF9258FA181007738EA /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCB30258FB1B2007738EA /* ViewController */,
+				CE8DCAFA258FA18B007738EA /* View */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		CE8DCAFA258FA18B007738EA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCADC258D28F4007738EA /* HomeTabBarView.swift */,
+				CE8DCADE258D28F4007738EA /* HomeTabBarButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE8DCAFB258FA1A9007738EA /* DiaryList */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCB31258FB1C0007738EA /* ViewController */,
+				CE8DCAFC258FA1B1007738EA /* View */,
+				CE8DCB0F258FA4F3007738EA /* ViewModel */,
+			);
+			path = DiaryList;
+			sourceTree = "<group>";
+		};
+		CE8DCAFC258FA1B1007738EA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCC932590ECE8007738EA /* DiaryListCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE8DCAFD258FA1D0007738EA /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCADD258D28F4007738EA /* HomeEmptyView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CE8DCAFE258FA1D9007738EA /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+		CE8DCB0F258FA4F3007738EA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCB10258FA502007738EA /* DiaryListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CE8DCB14258FA5EB007738EA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCB15258FA5FD007738EA /* DiaryCoverModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CE8DCB30258FB1B2007738EA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCADA258D28F4007738EA /* HomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		CE8DCB31258FB1C0007738EA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCAD9258D28F4007738EA /* DiaryListViewController.swift */,
+				CE8DCB2C258FB1A0007738EA /* DiaryListViewController+bind.swift */,
+				CE8DCC902590E88F007738EA /* DiaryListViewController+CollectionView.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		CEB9EE402583C7AF005B66C9 /* Common */ = {
@@ -177,8 +266,11 @@
 		CEF135E8258115E30098BEC3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				CE8DCAD7258D28F4007738EA /* ViewController */,
-				CE8DCADB258D28F4007738EA /* View */,
+				CE8DCB14258FA5EB007738EA /* Model */,
+				CE8DCAF9258FA181007738EA /* Main */,
+				CE8DCAFB258FA1A9007738EA /* DiaryList */,
+				CE8DCAFE258FA1D9007738EA /* Favorite */,
+				CE8DCAFD258FA1D0007738EA /* Common */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -212,6 +304,7 @@
 		DA4899E5257A08A6005E39ED /* Dayol-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				34C6A3812594F4F900658499 /* Util */,
 				CE8DCAE6258D292A007738EA /* Extension */,
 				CEF135E7258115C60098BEC3 /* UI */,
 				CEF135E5258115740098BEC3 /* Resource */,
@@ -362,6 +455,7 @@
 				CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */,
 				CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
+				CE8DCC97259101B6007738EA /* DeviceInfo.swift in Sources */,
 				DA3836BC258F2F2A0029464C /* PasswordViewModel.swift in Sources */,
 				DA3836BF258F34510029464C /* PasswordViewController+Bind.swift in Sources */,
 				CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */,
@@ -369,15 +463,21 @@
 				CE8DCAE2258D28F4007738EA /* HomeTabBarView.swift in Sources */,
 				CE8DCAE3258D28F4007738EA /* HomeEmptyView.swift in Sources */,
 				CE8DCAEB258D292A007738EA /* UIFont+Extension.swift in Sources */,
+				CE8DCC912590E890007738EA /* DiaryListViewController+CollectionView.swift in Sources */,
+				CE8DCB16258FA5FD007738EA /* DiaryCoverModel.swift in Sources */,
 				CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */,
 				CE8DCAEA258D292A007738EA /* NSAttributedString+Extension.swift in Sources */,
 				CE8DCAE0258D28F4007738EA /* DiaryListViewController.swift in Sources */,
+				CE8DCB2D258FB1A0007738EA /* DiaryListViewController+bind.swift in Sources */,
 				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
 				DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */,
 				CE0603542588EDB600FBBEF0 /* PopupPresentDelegate.swift in Sources */,
 				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
 				DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */,
 				DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */,
+				CE8DCC942590ECE8007738EA /* DiaryListCell.swift in Sources */,
+				CE8DCB11258FA502007738EA /* DiaryListViewModel.swift in Sources */,
+				CE8DCB25258FAE72007738EA /* Array+extension.swift in Sources */,
 				CE8DCAE1258D28F4007738EA /* HomeViewController.swift in Sources */,
 				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
 			);
