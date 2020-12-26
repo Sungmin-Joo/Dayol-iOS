@@ -36,6 +36,7 @@
 		DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1F2587AEB90067467B /* PasswordButton.swift */; };
 		DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */; };
 		DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE29CEA2584F2100028010B /* PasswordViewController.swift */; };
+		DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB92DD2596F72E00FA5551 /* DifferentEdgeSettableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		DACE3B1F2587AEB90067467B /* PasswordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordButton.swift; sourceTree = "<group>"; };
 		DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DXRMbxStd-B.otf"; sourceTree = "<group>"; };
 		DAE29CEA2584F2100028010B /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
+		DAEB92DD2596F72E00FA5551 /* DifferentEdgeSettableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferentEdgeSettableView.swift; sourceTree = "<group>"; };
 		F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dayol_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -235,6 +237,7 @@
 				DAC04CC52592036F003A7BC8 /* DairyView.swift */,
 				DAC04CC925920C16003A7BC8 /* DiaryCoverView.swift */,
 				DAC04CCD25920C25003A7BC8 /* DiaryLockerView.swift */,
+				DAEB92DD2596F72E00FA5551 /* DifferentEdgeSettableView.swift */,
 			);
 			path = DiaryCover;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				DAC04CCA25920C16003A7BC8 /* DiaryCoverView.swift in Sources */,
 				CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
+				DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */,
 				DAC04CCE25920C25003A7BC8 /* DiaryLockerView.swift in Sources */,
 				DA3836BC258F2F2A0029464C /* PasswordViewModel.swift in Sources */,
 				DA3836BF258F34510029464C /* PasswordViewController+Bind.swift in Sources */,
