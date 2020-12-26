@@ -8,24 +8,12 @@
 import UIKit
 
 class DifferentEdgeSettableView: UIView {
+    private var topLeft: CGFloat = 0
+    private var topRight: CGFloat = 0
+    private var bottomLeft: CGFloat = 0
+    private var bottomRight: CGFloat = 0
     
-    private var topLeft: CGFloat = 0 {
-        didSet { setNeedsLayout() }
-    }
-    
-    private var topRight: CGFloat = 0 {
-        didSet { setNeedsLayout() }
-    }
-    
-    private var bottomLeft: CGFloat = 0 {
-        didSet { setNeedsLayout() }
-    }
-    
-    private var bottomRight: CGFloat = 0 {
-        didSet { setNeedsLayout() }
-    }
-    
-    override open func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         roundCorners(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight)
     }
@@ -47,7 +35,7 @@ class DifferentEdgeSettableView: UIView {
         let topRightRadius = CGSize(width: topRight, height: topRight)
         let bottomLeftRadius = CGSize(width: bottomLeft, height: bottomLeft)
         let bottomRightRadius = CGSize(width: bottomRight, height: bottomRight)
-        let maskPath = UIBezierPath(shouldRoundRect: bounds,
+        let maskPath = roundPath(shouldRoundRect: bounds,
                                     topLeftRadius: topLeftRadius,
                                     topRightRadius: topRightRadius,
                                     bottomLeftRadius: bottomLeftRadius,
@@ -56,13 +44,10 @@ class DifferentEdgeSettableView: UIView {
         shape.path = maskPath.cgPath
         layer.mask = shape
     }
-}
-
-private extension UIBezierPath {
-    convenience init(shouldRoundRect rect: CGRect, topLeftRadius: CGSize = .zero, topRightRadius: CGSize = .zero, bottomLeftRadius: CGSize = .zero, bottomRightRadius: CGSize = .zero){
-
-        self.init()
-
+    
+    private func roundPath(shouldRoundRect rect: CGRect, topLeftRadius: CGSize = .zero, topRightRadius: CGSize = .zero, bottomLeftRadius: CGSize = .zero, bottomRightRadius: CGSize = .zero) -> UIBezierPath {
+        
+        let bezierPath = UIBezierPath()
         let path = CGMutablePath()
 
         let topLeft = rect.origin
@@ -105,6 +90,8 @@ private extension UIBezierPath {
         }
 
         path.closeSubpath()
-        cgPath = path
+        bezierPath.cgPath = path
+        
+        return bezierPath
     }
 }
