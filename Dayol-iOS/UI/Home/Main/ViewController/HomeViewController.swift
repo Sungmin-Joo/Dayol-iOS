@@ -94,7 +94,7 @@ extension HomeViewController {
             content.view.topAnchor.constraint(equalTo: view.topAnchor),
             content.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             content.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            content.view.bottomAnchor.constraint(equalTo: tabBarView.topAnchor)
+            content.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
         content.didMove(toParent: self)
