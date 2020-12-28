@@ -34,12 +34,11 @@ class PasswordTitleView: UIView {
 
 	var currentPasswordIndex = 0
 
-	let diaryView: UIView = {
-		let view = UIView()
-		view.backgroundColor = .orange
-		view.translatesAutoresizingMaskIntoConstraints = false
+	let diaryView: DiaryView = {
+		let diaryView = DiaryView(type: .small, backgroundColor: .orange)
+		diaryView.translatesAutoresizingMaskIntoConstraints = false
 
-		return view
+		return diaryView
 	}()
 
 	let descLabel: UILabel = {
@@ -63,11 +62,6 @@ class PasswordTitleView: UIView {
 
 	init() {
 		super.init(frame: .zero)
-		initView()
-	}
-
-	private override init(frame: CGRect) {
-		super.init(frame: frame)
 		initView()
 	}
 
