@@ -14,9 +14,9 @@ private enum Design {
     
     var rightRadius: CGFloat {
 		switch self {
-        case .big: return 16
-		case .medium: return 8
-		case .small: return 2
+        case .big: return 32
+		case .medium: return 16
+		case .small: return 4
 		}
 	}
 
