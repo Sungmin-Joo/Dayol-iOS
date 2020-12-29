@@ -8,7 +8,7 @@
 import RxSwift
 
 private enum Design {
-    static let diaryCoverSize = CGSize(width: 278, height: 360)
+    static let diaryCoverSize: DiaryType = .medium
     static let mainStackViewSpacing: CGFloat = 6.0
     static let titleStackViewSpacing: CGFloat = 5.0
 
@@ -50,8 +50,8 @@ class DiaryListCell: UICollectionViewCell {
 
     // MARK: - UI
 
-    private let diaryCoverView: UIView = {
-        let coverView = UIView()
+    private let diaryCoverView: DiaryView = {
+        let coverView = DiaryView(type: Design.diaryCoverSize)
         coverView.translatesAutoresizingMaskIntoConstraints = false
         return coverView
     }()
@@ -113,7 +113,7 @@ class DiaryListCell: UICollectionViewCell {
         let subTitle = "\(viewModel.totalPage)page"
 
         // TODO: - 다이어리 커버 뷰 작업
-        diaryCoverView.backgroundColor = viewModel.coverColor
+        diaryCoverView.setCover(color: viewModel.coverColor)
         titleLabel.attributedText = Design.attributedTitle(text: viewModel.title)
         subTitleLabel.attributedText = Design.attributedSubTitle(text: subTitle)
     }
@@ -138,8 +138,6 @@ extension DiaryListCell {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             diaryCoverView.topAnchor.constraint(equalTo: topAnchor),
-            diaryCoverView.heightAnchor.constraint(equalToConstant: Design.diaryCoverSize.height),
-            diaryCoverView.widthAnchor.constraint(equalToConstant: Design.diaryCoverSize.width),
             diaryCoverView.centerXAnchor.constraint(equalTo: centerXAnchor),
 
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),

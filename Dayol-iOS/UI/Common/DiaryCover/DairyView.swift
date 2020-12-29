@@ -70,14 +70,14 @@ class DiaryView: UIView {
 	private let coverView: DiaryCoverView
 	private let lockerView: DiaryLockerView
 	
-	init(type: DiaryType, backgroundColor: UIColor) {
+	init(type: DiaryType) {
         switch type {
         case .big: self.design = .big
         case .medium: self.design = .medium
         case .small: self.design = .small
         }
-		self.coverView = DiaryCoverView(type: type, backgroundColor: backgroundColor.withAlphaComponent(0.5))
-		self.lockerView = DiaryLockerView(type: type, backgroundColor: backgroundColor.withAlphaComponent(0.9))
+		self.coverView = DiaryCoverView(type: type)
+		self.lockerView = DiaryLockerView(type: type)
 		super.init(frame: .zero)
 		addSubview(coverView)
 		addSubview(lockerView)
@@ -108,4 +108,11 @@ class DiaryView: UIView {
             lockerView.widthAnchor.constraint(equalToConstant: design.lockerSize.width)
 		])
 	}
+}
+
+extension DiaryView {
+    func setCover(color: UIColor) {
+        self.coverView.backgroundColor = color.withAlphaComponent(0.5)
+        self.lockerView.backgroundColor = color.withAlphaComponent(0.9)
+    }
 }
