@@ -82,10 +82,4 @@ class DYNavigationEditableTitle: DYNavigationTitle {
         editButton.isHidden = true
         titleLabel.isHidden = true
     }
-    
-    private func didEdnEdit() {
-        textView.isHidden = true
-        editButton.isHidden = false
-        titleLabel.isHidden = false
-    }
 }

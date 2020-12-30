@@ -15,22 +15,8 @@ enum DYNavigationItemType {
 }
 
 private enum Design {
-    static let titleFont = UIFont.appleBold(size: 19)
-    static let titleInset = UIEdgeInsets(top: 11, left: 0, bottom: 0, right: 0)
-    static let titleSize = CGSize(width: 210, height: 40)
-    static let titleLetterSpace: CGFloat = -0.35
-    
-    static let titleBackgroundColor: UIColor = UIColor(decimalRed: 245, green: 245, blue: 245)
-    static let titleBorderColor: CGColor = UIColor(decimalRed: 218, green: 218, blue: 218).cgColor
-    static let titleRadius: CGFloat = 4
-    static let titleBorderWidth: CGFloat = 1
-    
-    static let navigationBarBarBackgroundColor: UIColor = .white
-    
-    static let editButtonSize: CGSize = CGSize(width: 14, height: 14)
     static let buttonSize: CGSize = CGSize(width: 40, height: 40)
     
-    static let titleEditImage: UIImage? = UIImage(named: "titleEditButton")
     static let backButtonImage: UIImage? = UIImage(named: "backButton")
     static let cancelButtonImage: UIImage? = UIImage(named: "cancelButton")
     static let doneButtonImage: UIImage? = UIImage(named: "doneButton")
