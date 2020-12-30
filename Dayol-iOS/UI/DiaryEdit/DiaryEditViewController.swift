@@ -19,6 +19,7 @@ class DiaryEditViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
+        // TODO: Code For Test. Plz remove after making certain spec
         let leftButton = DYNavigationItemCreator.button(type: .back)
         let rightButton = DYNavigationItemCreator.button(type: .done)
         let title = DYNavigationItemCreator.editableTitleView("다이어리다!")
