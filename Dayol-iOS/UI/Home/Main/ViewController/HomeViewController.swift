@@ -41,6 +41,12 @@ class HomeViewController: UIViewController {
         setupLayoutConstraints()
         bindEvent()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isToolbarHidden = true
+    }
 }
 
 // MARK: - Event
@@ -53,8 +59,9 @@ extension HomeViewController {
             case .showList(let tab):
                 self.currentTab = tab
             case .add:
-                // TODO: - 플러스 버튼 눌렀을때 연동.
-                return
+                let diaryEditViewController = DiaryEditViewController()
+                let nav = DYNavigationController(rootViewController: diaryEditViewController)
+                self.present(nav, animated: true, completion: nil)
             }
         })
         .disposed(by: disposeBag)

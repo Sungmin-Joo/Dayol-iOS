@@ -42,6 +42,11 @@
 		DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */; };
 		DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1F2587AEB90067467B /* PasswordButton.swift */; };
 		DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */; };
+		DAD66734259B551600E8F59A /* DiaryEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD66733259B551600E8F59A /* DiaryEditViewController.swift */; };
+		DAD66738259B570800E8F59A /* DYNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD66737259B570800E8F59A /* DYNavigationController.swift */; };
+		DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD66745259C691300E8F59A /* DYNavigationItemCreator.swift */; };
+		DAD6674B259C891D00E8F59A /* DYNavigationTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD6674A259C891D00E8F59A /* DYNavigationTitle.swift */; };
+		DAD6674E259C8C5B00E8F59A /* DYNavigationEditableTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD6674D259C8C5B00E8F59A /* DYNavigationEditableTitle.swift */; };
 		DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE29CEA2584F2100028010B /* PasswordViewController.swift */; };
 		DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB92DD2596F72E00FA5551 /* DifferentEdgeSettableView.swift */; };
 /* End PBXBuildFile section */
@@ -85,6 +90,11 @@
 		DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDisplayedView.swift; sourceTree = "<group>"; };
 		DACE3B1F2587AEB90067467B /* PasswordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordButton.swift; sourceTree = "<group>"; };
 		DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DXRMbxStd-B.otf"; sourceTree = "<group>"; };
+		DAD66733259B551600E8F59A /* DiaryEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditViewController.swift; sourceTree = "<group>"; };
+		DAD66737259B570800E8F59A /* DYNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationController.swift; sourceTree = "<group>"; };
+		DAD66745259C691300E8F59A /* DYNavigationItemCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationItemCreator.swift; sourceTree = "<group>"; };
+		DAD6674A259C891D00E8F59A /* DYNavigationTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationTitle.swift; sourceTree = "<group>"; };
+		DAD6674D259C8C5B00E8F59A /* DYNavigationEditableTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationEditableTitle.swift; sourceTree = "<group>"; };
 		DAE29CEA2584F2100028010B /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		DAEB92DD2596F72E00FA5551 /* DifferentEdgeSettableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferentEdgeSettableView.swift; sourceTree = "<group>"; };
 		F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dayol_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,6 +245,7 @@
 		CEB9EE402583C7AF005B66C9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DAD66736259B56E700E8F59A /* DYNavigationController */,
 				DAC04CC42592035C003A7BC8 /* DiaryCover */,
 				CE0603522588EDA100FBBEF0 /* Protocol */,
 				CEB9EE442583C953005B66C9 /* Alert */,
@@ -268,6 +279,7 @@
 				CEB9EE402583C7AF005B66C9 /* Common */,
 				CEF135E8258115E30098BEC3 /* Home */,
 				DAE29CE92584F1F80028010B /* Password */,
+				DAD66732259B54FD00E8F59A /* DiaryEdit */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -346,6 +358,25 @@
 				DACE3B1F2587AEB90067467B /* PasswordButton.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DAD66732259B54FD00E8F59A /* DiaryEdit */ = {
+			isa = PBXGroup;
+			children = (
+				DAD66733259B551600E8F59A /* DiaryEditViewController.swift */,
+			);
+			path = DiaryEdit;
+			sourceTree = "<group>";
+		};
+		DAD66736259B56E700E8F59A /* DYNavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				DAD66737259B570800E8F59A /* DYNavigationController.swift */,
+				DAD66745259C691300E8F59A /* DYNavigationItemCreator.swift */,
+				DAD6674A259C891D00E8F59A /* DYNavigationTitle.swift */,
+				DAD6674D259C8C5B00E8F59A /* DYNavigationEditableTitle.swift */,
+			);
+			path = DYNavigationController;
 			sourceTree = "<group>";
 		};
 		DAE29CE92584F1F80028010B /* Password */ = {
@@ -474,6 +505,7 @@
 			files = (
 				CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */,
 				DAC04CCA25920C16003A7BC8 /* DiaryCoverView.swift in Sources */,
+				DAD6674E259C8C5B00E8F59A /* DYNavigationEditableTitle.swift in Sources */,
 				CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
 				DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */,
@@ -481,6 +513,7 @@
 				CE8DCC97259101B6007738EA /* DeviceInfo.swift in Sources */,
 				DA3836BC258F2F2A0029464C /* PasswordViewModel.swift in Sources */,
 				DA3836BF258F34510029464C /* PasswordViewController+Bind.swift in Sources */,
+				DAD6674B259C891D00E8F59A /* DYNavigationTitle.swift in Sources */,
 				CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */,
 				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
 				CE8DCAE2258D28F4007738EA /* HomeTabBarView.swift in Sources */,
@@ -488,9 +521,11 @@
 				CE8DCAEB258D292A007738EA /* UIFont+Extension.swift in Sources */,
 				DAC04CC62592036F003A7BC8 /* DairyView.swift in Sources */,
 				CE8DCC912590E890007738EA /* DiaryListViewController+CollectionView.swift in Sources */,
+				DAD66738259B570800E8F59A /* DYNavigationController.swift in Sources */,
 				CE8DCB16258FA5FD007738EA /* DiaryCoverModel.swift in Sources */,
 				CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */,
 				CE8DCAEA258D292A007738EA /* NSAttributedString+Extension.swift in Sources */,
+				DAD66734259B551600E8F59A /* DiaryEditViewController.swift in Sources */,
 				CE8DCAE0258D28F4007738EA /* DiaryListViewController.swift in Sources */,
 				CE8DCB2D258FB1A0007738EA /* DiaryListViewController+bind.swift in Sources */,
 				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
@@ -498,6 +533,7 @@
 				CE0603542588EDB600FBBEF0 /* PopupPresentDelegate.swift in Sources */,
 				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
 				DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */,
+				DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */,
 				DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */,
 				CE8DCC942590ECE8007738EA /* DiaryListCell.swift in Sources */,
 				CE8DCB11258FA502007738EA /* DiaryListViewModel.swift in Sources */,
