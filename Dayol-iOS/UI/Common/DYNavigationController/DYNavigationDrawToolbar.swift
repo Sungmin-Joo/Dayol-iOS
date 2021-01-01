@@ -197,7 +197,7 @@ class DYNavigationDrawToolbar: UIView {
 
 //MARK: - Bind
 
-extension DYNavigationDrawToolbar {
+private extension DYNavigationDrawToolbar {
     func bind() {
         bindEraserButton()
         bindPhotoButton()
