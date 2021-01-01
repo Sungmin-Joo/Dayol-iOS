@@ -195,7 +195,7 @@ class DYNavigationDrawToolbar: UIView {
     }
 }
 
-//MARK: - Action
+//MARK: - Bind
 
 extension DYNavigationDrawToolbar {
     func bind() {
