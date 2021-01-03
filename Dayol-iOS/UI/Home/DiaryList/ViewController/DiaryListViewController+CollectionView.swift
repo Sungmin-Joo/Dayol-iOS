@@ -51,6 +51,7 @@ extension DiaryListViewController: UICollectionViewDataSource {
 extension DiaryListViewController {
 
     @objc func didRecongizeLongPress(_ recog: UIGestureRecognizer) {
+        guard viewModel.diaryList.count > 1 else { return }
         let point = recog.location(in: collectionView)
         switch recog.state {
         case .began:
