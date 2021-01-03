@@ -14,9 +14,9 @@ private enum Design {
     
     var rightRadius: CGFloat {
 		switch self {
-        case .big: return 16
-		case .medium: return 8
-		case .small: return 2
+        case .big: return 32
+		case .medium: return 16
+		case .small: return 4
 		}
 	}
 
@@ -58,7 +58,7 @@ class DiaryCoverView: DifferentEdgeSettableView {
 		return view
 	}()
 
-	init(type: DiaryType, backgroundColor: UIColor?) {
+	init(type: DiaryType) {
         switch type {
         case .big: self.design = .big
         case .medium: self.design = .medium
@@ -68,15 +68,14 @@ class DiaryCoverView: DifferentEdgeSettableView {
                    topRight: design.rightRadius,
                    bottomLeft: design.leftRadius,
                    bottomRight: design.rightRadius)
-		initView(backgroundColor: backgroundColor)
+		initView()
 	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	private func initView(backgroundColor: UIColor?) {
-        self.backgroundColor = backgroundColor
+	private func initView() {
         addSubview(coverLineView)
 		setConstraints()
 	}

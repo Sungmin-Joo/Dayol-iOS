@@ -48,7 +48,7 @@ extension PasswordViewController {
 				guard let self = self else { return }
 
 				if isCorrect {
-					// dissmiss and next step
+                    self.dismiss(animated: true, completion: nil)
 				}
 			})
 			.disposed(by: disposeBag)
