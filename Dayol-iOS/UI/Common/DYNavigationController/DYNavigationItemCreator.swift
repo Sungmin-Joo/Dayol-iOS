@@ -55,4 +55,8 @@ class DYNavigationItemCreator: NSObject {
     static func drawToolbar() -> DYNavigationDrawToolbar {
         return DYNavigationDrawToolbar()
     }
+    
+    static func functionToolbar() -> DYNavigationFunctionToolBar {
+        return DYNavigationFunctionToolBar()
+    }
 }

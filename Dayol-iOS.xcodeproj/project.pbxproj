@@ -48,6 +48,7 @@
 		DAD6674B259C891D00E8F59A /* DYNavigationTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD6674A259C891D00E8F59A /* DYNavigationTitle.swift */; };
 		DAD6674E259C8C5B00E8F59A /* DYNavigationEditableTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD6674D259C8C5B00E8F59A /* DYNavigationEditableTitle.swift */; };
 		DAD66751259F44D300E8F59A /* DYNavigationDrawToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD66750259F44D300E8F59A /* DYNavigationDrawToolbar.swift */; };
+		DAD6675425A18BAE00E8F59A /* DYNavigationFunctionToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD6675325A18BAD00E8F59A /* DYNavigationFunctionToolBar.swift */; };
 		DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE29CEA2584F2100028010B /* PasswordViewController.swift */; };
 		DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB92DD2596F72E00FA5551 /* DifferentEdgeSettableView.swift */; };
 /* End PBXBuildFile section */
@@ -97,6 +98,7 @@
 		DAD6674A259C891D00E8F59A /* DYNavigationTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationTitle.swift; sourceTree = "<group>"; };
 		DAD6674D259C8C5B00E8F59A /* DYNavigationEditableTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationEditableTitle.swift; sourceTree = "<group>"; };
 		DAD66750259F44D300E8F59A /* DYNavigationDrawToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationDrawToolbar.swift; sourceTree = "<group>"; };
+		DAD6675325A18BAD00E8F59A /* DYNavigationFunctionToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationFunctionToolBar.swift; sourceTree = "<group>"; };
 		DAE29CEA2584F2100028010B /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		DAEB92DD2596F72E00FA5551 /* DifferentEdgeSettableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferentEdgeSettableView.swift; sourceTree = "<group>"; };
 		F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dayol_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -378,6 +380,7 @@
 				DAD6674A259C891D00E8F59A /* DYNavigationTitle.swift */,
 				DAD6674D259C8C5B00E8F59A /* DYNavigationEditableTitle.swift */,
 				DAD66750259F44D300E8F59A /* DYNavigationDrawToolbar.swift */,
+				DAD6675325A18BAD00E8F59A /* DYNavigationFunctionToolBar.swift */,
 			);
 			path = DYNavigationController;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				DAD66738259B570800E8F59A /* DYNavigationController.swift in Sources */,
 				CE8DCB16258FA5FD007738EA /* DiaryCoverModel.swift in Sources */,
 				CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */,
+				DAD6675425A18BAE00E8F59A /* DYNavigationFunctionToolBar.swift in Sources */,
 				CE8DCAEA258D292A007738EA /* NSAttributedString+Extension.swift in Sources */,
 				DAD66734259B551600E8F59A /* DiaryEditViewController.swift in Sources */,
 				CE8DCAE0258D28F4007738EA /* DiaryListViewController.swift in Sources */,

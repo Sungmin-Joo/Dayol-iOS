@@ -24,7 +24,7 @@ class DiaryEditViewController: UIViewController {
         let rightButton = DYNavigationItemCreator.barButton(type: .done)
         let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let toolBar = DYNavigationItemCreator.drawToolbar()
+        let toolBar = DYNavigationItemCreator.functionToolbar()
         let title = DYNavigationItemCreator.editableTitleView("다이어리다!")
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
@@ -40,7 +40,8 @@ class DiaryEditViewController: UIViewController {
         
         rightButton.rx.tap
             .bind { [weak self] in
-                print("rightButtonTapped")
+                print("rightButton")
+                title.isEditting = false
             }
             .disposed(by: disposeBag)
         
