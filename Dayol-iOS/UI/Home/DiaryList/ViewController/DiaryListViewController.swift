@@ -14,12 +14,14 @@ private enum Design {
     static let bgColor = UIColor.white
 
     static let collectionViewHeight: CGFloat = 432.0
-    static let itemSize = CGSize(width: 278, height: 432)
     static var itemSpacing: CGFloat {
         guard isPadDevice else {
             return 30.0
         }
         return 60.0
+    }
+    static func getItemSize(isEditMode: Bool) -> CGSize {
+        return isEditMode ? CGSize(width: 139, height: 216) : CGSize(width: 278, height: 432)
     }
 }
 
@@ -27,6 +29,21 @@ class DiaryListViewController: UIViewController {
 
     let viewModel = DiaryListViewModel()
     let disposeBag = DisposeBag()
+
+    var collectionViewFlowLayout: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        let insets = calcCollectionViewInset(width: view.bounds.width)
+        layout.sectionInset = insets
+        layout.scrollDirection = .horizontal
+        layout.itemSize = Design.getItemSize(isEditMode: isEditMode)
+        layout.minimumInteritemSpacing = Design.itemSpacing
+        layout.minimumLineSpacing = Design.itemSpacing
+        return layout
+    }
+    var isEditMode = false
+    var canStartInteractiveMovement = false
+    // TODO: - 다이어리 리스트 순서변경 기능 사용 후 해당 인덱스로 스크롤 이동 기능 구현
+    var currentEditIndex: IndexPath?
 
     // MARK: - UI
 
@@ -90,20 +107,17 @@ extension DiaryListViewController {
         collectionView.register(DiaryListCell.self, forCellWithReuseIdentifier: DiaryListCell.identifier)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
+        collectionView.clipsToBounds = false
 
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-
-            let insets = calcCollectionViewInset(width: view.bounds.width)
-            layout.sectionInset = insets
-            layout.scrollDirection = .horizontal
-            layout.itemSize = Design.itemSize
-            layout.minimumInteritemSpacing = Design.itemSpacing
-            layout.minimumLineSpacing = Design.itemSpacing
-        }
+        let longPressGestureRecognizer = UILongPressGestureRecognizer()
+        longPressGestureRecognizer.addTarget(self,
+                                             action: #selector(didRecongizeLongPress(_:)))
+        collectionView.addGestureRecognizer(longPressGestureRecognizer)
+        collectionView.collectionViewLayout = collectionViewFlowLayout
     }
 
     private func calcCollectionViewInset(width: CGFloat) -> UIEdgeInsets {
-        let itemWidth = Design.itemSize.width
+        let itemWidth = Design.getItemSize(isEditMode: isEditMode).width
         let horizontalInset = width / 2 - itemWidth / 2
 
         return UIEdgeInsets(top: 0, left: horizontalInset, bottom: 0, right: horizontalInset)
