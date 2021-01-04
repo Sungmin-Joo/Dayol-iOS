@@ -1,5 +1,5 @@
 //
-//  DYNavigationDrawToolbar.swift
+//  DYNavigationDrawingToolbar.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/01/01.
@@ -40,7 +40,7 @@ private enum ButtonType {
     case undo
 }
 
-class DYNavigationDrawToolbar: UIView {
+class DYNavigationDrawingToolbar: UIView {
     let disposeBag = DisposeBag()
     
     private let containerView: UIStackView = {
@@ -197,7 +197,7 @@ class DYNavigationDrawToolbar: UIView {
 
 //MARK: - Bind
 
-private extension DYNavigationDrawToolbar {
+private extension DYNavigationDrawingToolbar {
     func bind() {
         bindEraserButton()
         bindPhotoButton()
@@ -262,6 +262,6 @@ private extension DYNavigationDrawToolbar {
     }
     
     private func clearButtons() {
-        _ = rightView.arrangedSubviews.map { ($0 as? UIButton)?.isSelected = false }
+        rightView.arrangedSubviews.forEach { ($0 as? UIButton)?.isSelected = false }
     }
 }
