@@ -19,6 +19,10 @@ extension UIFont {
     static func appleRegular(size: CGFloat) -> UIFont {
         return UIFont.nonOptionalFont(name: "AppleSDGothicNeo-Regular", size)
     }
+    
+    static func appleMedium(size: CGFloat) -> UIFont {
+        return UIFont.nonOptionalFont(name: "AppleSDGothicNeo-Medium", size)
+    }
 
     static func appleBold(size: CGFloat) -> UIFont {
         return UIFont.nonOptionalFont(name: "AppleSDGothicNeo-Bold", size)

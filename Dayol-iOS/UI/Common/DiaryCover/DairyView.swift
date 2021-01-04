@@ -111,8 +111,8 @@ class DiaryView: UIView {
 }
 
 extension DiaryView {
-    func setCover(color: UIColor) {
-        self.coverView.backgroundColor = color.withAlphaComponent(0.5)
-        self.lockerView.backgroundColor = color.withAlphaComponent(0.9)
+    func setCover(color: DiaryCoverColor) {
+        self.coverView.backgroundColor = color.coverColor
+        self.lockerView.backgroundColor = color.lockerColor
     }
 }

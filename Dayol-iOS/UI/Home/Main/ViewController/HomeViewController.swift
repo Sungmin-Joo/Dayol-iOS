@@ -61,6 +61,7 @@ extension HomeViewController {
             case .add:
                 let diaryEditViewController = DiaryEditViewController()
                 let nav = DYNavigationController(rootViewController: diaryEditViewController)
+                nav.modalPresentationStyle = .fullScreen
                 self.present(nav, animated: true, completion: nil)
             }
         })
