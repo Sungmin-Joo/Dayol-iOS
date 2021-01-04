@@ -40,8 +40,21 @@ private enum Design {
 
 class DiaryListCell: UICollectionViewCell {
     static let identifier = "\(DiaryListCell.self)"
+    enum Size {
+        static let `default` = CGSize(width: 278, height: 432)
+        static let edit = CGSize(width: 139, height: 216)
+    }
 
     private let disposeBag = DisposeBag()
+    // TODO: - 다이어리 리스트 편집 시 다이어리 커버 스케일 줄이는 애니메이션 자연스럽게
+    var isEditMode = false {
+        didSet {
+            mainStackView.alpha = isEditMode ? 0 : 1
+            diaryCoverView.alpha = isEditMode ? 0.5 : 1
+            let scale: CGFloat = isEditMode ? 0.5 : 1.0
+            contentView.transform = CGAffineTransform(scaleX: scale, y: scale)
+        }
+    }
     var viewModel: DiaryCoverModel? {
         didSet {
             configure()
@@ -50,7 +63,7 @@ class DiaryListCell: UICollectionViewCell {
 
     // MARK: - UI
 
-    private let diaryCoverView: DiaryView = {
+    private(set) var diaryCoverView: DiaryView = {
         let coverView = DiaryView(type: Design.diaryCoverSize)
         coverView.translatesAutoresizingMaskIntoConstraints = false
         return coverView
@@ -104,6 +117,7 @@ class DiaryListCell: UICollectionViewCell {
         diaryCoverView.backgroundColor = .none
         titleLabel.attributedText = .none
         subTitleLabel.attributedText = .none
+        isEditMode = false
     }
 
     // MARK: - Bind ViewModel
@@ -112,7 +126,6 @@ class DiaryListCell: UICollectionViewCell {
         guard let viewModel = viewModel else { return }
         let subTitle = "\(viewModel.totalPage)page"
 
-        // TODO: - 다이어리 커버 뷰 작업
         diaryCoverView.setCover(color: viewModel.coverColor)
         titleLabel.attributedText = Design.attributedTitle(text: viewModel.title)
         subTitleLabel.attributedText = Design.attributedSubTitle(text: subTitle)
@@ -137,11 +150,11 @@ extension DiaryListCell {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            diaryCoverView.topAnchor.constraint(equalTo: topAnchor),
-            diaryCoverView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            diaryCoverView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            diaryCoverView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
 
-            mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            mainStackView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            mainStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
     }
 }
