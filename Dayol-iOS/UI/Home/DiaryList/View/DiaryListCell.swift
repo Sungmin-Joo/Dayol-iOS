@@ -40,6 +40,10 @@ private enum Design {
 
 class DiaryListCell: UICollectionViewCell {
     static let identifier = "\(DiaryListCell.self)"
+    enum Size {
+        static let `default` = CGSize(width: 278, height: 432)
+        static let edit = CGSize(width: 139, height: 216)
+    }
 
     private let disposeBag = DisposeBag()
     // TODO: - 다이어리 리스트 편집 시 다이어리 커버 스케일 줄이는 애니메이션 자연스럽게

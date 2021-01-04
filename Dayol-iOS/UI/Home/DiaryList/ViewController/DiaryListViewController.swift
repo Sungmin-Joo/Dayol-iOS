@@ -21,7 +21,7 @@ private enum Design {
         return 60.0
     }
     static func getItemSize(isEditMode: Bool) -> CGSize {
-        return isEditMode ? CGSize(width: 139, height: 216) : CGSize(width: 278, height: 432)
+        return isEditMode ? DiaryListCell.Size.edit : DiaryListCell.Size.default
     }
 }
 
