@@ -10,11 +10,26 @@ import UIKit
 private enum Design {
     static let cellSize = CGSize(width: 24, height: 24)
     static let radius: CGFloat = 2
+    static let selectedImage = UIImage(named: "colorSelect")
 }
 
 class DiaryEditColorPaletteCell: UICollectionViewCell {
     static let size = Design.cellSize
     static let identifier = "\(DiaryEditColorPaletteCell.self)"
+    
+    private let selectedImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Design.selectedImage
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
+    
+    override var isSelected: Bool {
+        didSet {
+            selectedImage.isHidden = !isSelected
+        }
+    }
     
     init(color: DiaryCoverColor) {
         super.init(frame: .zero)
@@ -41,6 +56,15 @@ class DiaryEditColorPaletteCell: UICollectionViewCell {
     private func initView() {
         layer.cornerRadius = Design.radius
         layer.masksToBounds = true
+        addSubview(selectedImage)
+        selectedImage.isHidden = true
+        
+        NSLayoutConstraint.activate([
+            selectedImage.topAnchor.constraint(equalTo: topAnchor),
+            selectedImage.leftAnchor.constraint(equalTo: leftAnchor),
+            selectedImage.rightAnchor.constraint(equalTo: rightAnchor),
+            selectedImage.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
     
     func configure(color: DiaryCoverColor) {
