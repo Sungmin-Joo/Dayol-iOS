@@ -14,6 +14,11 @@ enum DYNavigationItemType {
     case more
 }
 
+enum DYNavigationToolbarType {
+    case function
+    case draw
+}
+
 private enum Design {
     static let buttonSize: CGSize = CGSize(width: 40, height: 40)
     
@@ -32,7 +37,7 @@ class DYNavigationItemCreator: NSObject {
         return DYNavigationEditableTitle(text: text)
     }
     
-    static func button(type: DYNavigationItemType) -> UIButton {
+    static func barButton(type: DYNavigationItemType) -> UIButton {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: Design.buttonSize.height, height: Design.buttonSize.width))
         var buttonImage: UIImage?
         switch type {
@@ -45,5 +50,13 @@ class DYNavigationItemCreator: NSObject {
         button.setImage(buttonImage, for: .normal)
 
         return button
+    }
+    
+    static func drawingFunctionToolbar() -> DYNavigationDrawingToolbar {
+        return DYNavigationDrawingToolbar()
+    }
+    
+    static func functionToolbar() -> DYNavigationFunctionToolBar {
+        return DYNavigationFunctionToolBar()
     }
 }

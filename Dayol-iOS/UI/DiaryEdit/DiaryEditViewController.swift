@@ -20,14 +20,18 @@ class DiaryEditViewController: UIViewController {
     
     private func setupNavigationBar() {
         // TODO: Code For Test. Plz remove after making certain spec
-        let leftButton = DYNavigationItemCreator.button(type: .back)
-        let rightButton = DYNavigationItemCreator.button(type: .done)
+        let leftButton = DYNavigationItemCreator.barButton(type: .back)
+        let rightButton = DYNavigationItemCreator.barButton(type: .done)
+        let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let toolBar = DYNavigationItemCreator.functionToolbar()
         let title = DYNavigationItemCreator.editableTitleView("다이어리다!")
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
         navigationItem.titleView = title
-        
+
+        setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
         leftButton.rx.tap
             .bind { [weak self] in
                 self?.dismiss(animated: true, completion: nil)
@@ -36,7 +40,8 @@ class DiaryEditViewController: UIViewController {
         
         rightButton.rx.tap
             .bind { [weak self] in
-                print("rightButtonTapped")
+                print("rightButton")
+                title.isEditting = false
             }
             .disposed(by: disposeBag)
         
