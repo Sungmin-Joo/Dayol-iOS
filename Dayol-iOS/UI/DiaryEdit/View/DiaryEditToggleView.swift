@@ -30,6 +30,9 @@ private enum Text {
 }
 
 class DiaryEditToggleView: UIView {
+    let disposeBag = DisposeBag()
+    let changedSwitch = PublishSubject<Bool>()
+    
     private let toggleLabel: UILabel = {
         let label = UILabel()
         let attributes: [NSAttributedString.Key: Any] = [
@@ -55,13 +58,29 @@ class DiaryEditToggleView: UIView {
     
     init() {
         super.init(frame: .zero)
-        addSubview(toggleLabel)
-        addSubview(toggleSwitch)
-        setConstraint()
+        initView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func initView() {
+        addSubview(toggleLabel)
+        addSubview(toggleSwitch)
+        setConstraint()
+        bind()
+    }
+    
+    private func bind() {
+        toggleSwitch.rx.isOn
+            .changed
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] bool in
+                guard let self = self else { return }
+                self.changedSwitch.onNext(self.toggleSwitch.isOn)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setConstraint() {

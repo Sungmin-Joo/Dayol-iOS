@@ -89,6 +89,17 @@ class DiaryEditViewController: UIViewController {
     private func bind() {
         colorBind()
         navigationBind()
+        switchBind()
+    }
+    
+    private func switchBind() {
+        diaryEditToggleView.changedSwitch
+            .distinctUntilChanged()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] show in
+                self?.diaryEditCoverView.setDayolLogoHidden(!show)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func colorBind() {

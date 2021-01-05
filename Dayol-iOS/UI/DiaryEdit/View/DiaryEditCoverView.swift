@@ -60,15 +60,19 @@ class DiaryEditCoverView: UIView {
     
     init() {
         super.init(frame: .zero)
+        initView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func initView() {
         scrollView.delegate = self
         scrollView.addSubview(diaryView)
         addSubview(scrollView)
         addSubview(zoomLabel)
         setConstraint()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     private func setConstraint() {
@@ -90,6 +94,10 @@ class DiaryEditCoverView: UIView {
 extension DiaryEditCoverView {
     func setCoverColor(color: DiaryCoverColor) {
         diaryView.setCover(color: color)
+    }
+    
+    func setDayolLogoHidden(_ isHidden: Bool) {
+        diaryView.setDayolLogoHidden(isHidden)
     }
 }
 

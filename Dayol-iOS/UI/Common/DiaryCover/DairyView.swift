@@ -115,4 +115,8 @@ extension DiaryView {
         self.coverView.backgroundColor = color.coverColor
         self.lockerView.backgroundColor = color.lockerColor
     }
+    
+    func setDayolLogoHidden(_ isHidden: Bool) {
+        self.coverView.setDayolLogoHidden(isHidden)
+    }
 }
