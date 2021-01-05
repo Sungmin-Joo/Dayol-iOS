@@ -98,11 +98,6 @@ extension DiaryEditColorPaletteView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.configure(color: color)
-        if indexPath.item == .zero {
-            cell.isSelected = true
-            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
-            changedColor.onNext(color)
-        }
         
         return cell
     }
@@ -111,7 +106,7 @@ extension DiaryEditColorPaletteView: UICollectionViewDataSource {
 extension DiaryEditColorPaletteView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let color = colors[safe: indexPath.item] else { return }
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         changedColor.onNext(color)
     }
 }
