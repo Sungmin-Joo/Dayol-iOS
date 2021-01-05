@@ -26,6 +26,9 @@ class DiaryEditColorPaletteView: UIView {
         
         return (inset * 2) + totalSpace + totalCellWidth
     }
+    
+    let changedColor = PublishSubject<DiaryCoverColor>()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -91,15 +94,24 @@ extension DiaryEditColorPaletteView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiaryEditColorPaletteCell.identifier, for: indexPath) as? DiaryEditColorPaletteCell,
-              let color = colors[safe: indexPath.row] else {
+              let color = colors[safe: indexPath.item] else {
             return UICollectionViewCell()
         }
         cell.configure(color: color)
+        if indexPath.item == .zero {
+            cell.isSelected = true
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+            changedColor.onNext(color)
+        }
         
         return cell
     }
 }
 
 extension DiaryEditColorPaletteView: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let color = colors[safe: indexPath.item] else { return }
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
+        changedColor.onNext(color)
+    }
 }

@@ -85,10 +85,11 @@ class DiaryEditCoverView: UIView {
             zoomLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Design.zoomLabelBottom)
         ])
     }
-    
-    
-    func setCoverSize(type: DiaryType) {
-        diaryView.setSize(type: type)
+}
+
+extension DiaryEditCoverView {
+    func setCoverColor(color: DiaryCoverColor) {
+        diaryView.setCover(color: color)
     }
 }
 

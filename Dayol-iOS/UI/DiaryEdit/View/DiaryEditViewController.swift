@@ -15,6 +15,12 @@ private enum Design {
 
 class DiaryEditViewController: UIViewController {
     let disposeBag = DisposeBag()
+    let leftButton = DYNavigationItemCreator.barButton(type: .back)
+    let rightButton = DYNavigationItemCreator.barButton(type: .done)
+    let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
+    let titleView = DYNavigationItemCreator.editableTitleView("다이어리")
     
     let diaryEditToggleView: DiaryEditToggleView = {
         let view = DiaryEditToggleView()
@@ -44,20 +50,14 @@ class DiaryEditViewController: UIViewController {
         initView()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        if UIDevice.current.orientation.isLandscape {
-            diaryEditCoverView.setCoverSize(type: .medium)
-        } else {
-            diaryEditCoverView.setCoverSize(type: .big)
-        }
-    }
-    
     private func initView() {
         view.addSubview(diaryEditToggleView)
         view.addSubview(diaryEditCoverView)
         view.addSubview(diaryEditPaletteView)
         
         setConstraint()
+        
+        bind()
     }
     
     private func setConstraint() {
@@ -79,18 +79,30 @@ class DiaryEditViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        let leftButton = DYNavigationItemCreator.barButton(type: .back)
-        let rightButton = DYNavigationItemCreator.barButton(type: .done)
-        let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let toolBar = DYNavigationItemCreator.drawToolbar()
-        let title = DYNavigationItemCreator.editableTitleView("다이어리")
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
-        navigationItem.titleView = title
+        navigationItem.titleView = titleView
 
         setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
+    }
+    
+    private func bind() {
+        colorBind()
+        navigationBind()
+    }
+    
+    private func colorBind() {
+        diaryEditPaletteView.changedColor
+            .distinctUntilChanged()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] DYCoverColor in
+                guard let self = self else { return }
+                self.diaryEditCoverView.setCoverColor(color: DYCoverColor)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func navigationBind() {
         leftButton.rx.tap
             .bind { [weak self] in
                 self?.dismiss(animated: true, completion: nil)
@@ -99,13 +111,13 @@ class DiaryEditViewController: UIViewController {
         
         rightButton.rx.tap
             .bind { [weak self] in
-                title.isEditting = false
+                self?.titleView.isEditting = false
             }
             .disposed(by: disposeBag)
         
-        title.editButton.rx.tap
+        titleView.editButton.rx.tap
             .bind { [weak self] in
-                title.isEditting = true
+                self?.titleView.isEditting = true
             }
             .disposed(by: disposeBag)
     }
