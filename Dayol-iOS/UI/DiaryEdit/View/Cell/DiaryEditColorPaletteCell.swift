@@ -56,7 +56,7 @@ class DiaryEditColorPaletteCell: UICollectionViewCell {
     private func initView() {
         layer.cornerRadius = Design.radius
         layer.masksToBounds = true
-        addSubview(selectedImage)
+        contentView.addSubview(selectedImage)
         selectedImage.isHidden = true
         
         NSLayoutConstraint.activate([
