@@ -203,10 +203,11 @@ extension DYModalViewController {
         let velocity = recog.velocity(in: recog.view)
         let threshold: CGFloat = 80
 
-        let firstCondition = (velocity.y > threshold && contentViewBottomConstraint.constant > threshold)
-        let secondCondition = (velocity.y > 0 && contentViewBottomConstraint.constant > containerViewHeight / 3)
+        let isFastVelocity = (velocity.y > threshold && contentViewBottomConstraint.constant > threshold)
+        let isLowHeight = (velocity.y > 0 && contentViewBottomConstraint.constant > containerViewHeight / 3)
+        let isEndPhase = recog.state == .ended
         
-        if (firstCondition || secondCondition), recog.state == .ended {
+        if isEndPhase && (isFastVelocity || isLowHeight) {
             dismiss(animated: true)
             return
         }
