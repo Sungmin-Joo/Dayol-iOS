@@ -31,12 +31,12 @@ extension DiaryListViewModel {
     private func fetchDiaryList() {
         // db에서 다이어리 가져오기
         diaryList = [
-            DiaryCoverModel(coverColor: .red, title: "1번 다이어리", totalPage: 3),
-            DiaryCoverModel(coverColor: .blue, title: "2번 다이어리", totalPage: 2),
-            DiaryCoverModel(coverColor: .green, title: "3번 다이어리", totalPage: 5),
-            DiaryCoverModel(coverColor: .red, title: "1번 다이어리", totalPage: 3),
-            DiaryCoverModel(coverColor: .blue, title: "2번 다이어리", totalPage: 2),
-            DiaryCoverModel(coverColor: .green, title: "3번 다이어리", totalPage: 5)
+            DiaryCoverModel(coverColor: .DYRed, title: "1번 다이어리", totalPage: 3),
+            DiaryCoverModel(coverColor: .DYBlue, title: "2번 다이어리", totalPage: 2),
+            DiaryCoverModel(coverColor: .DYGreen, title: "3번 다이어리", totalPage: 5),
+            DiaryCoverModel(coverColor: .DYRed, title: "1번 다이어리", totalPage: 3),
+            DiaryCoverModel(coverColor: .DYBlue, title: "2번 다이어리", totalPage: 2),
+            DiaryCoverModel(coverColor: .DYGreen, title: "3번 다이어리", totalPage: 5)
         ]
 
         let isEmpty = (diaryList.count == 0)

@@ -8,5 +8,6 @@ target 'Dayol-iOS' do
   # Pods for Dayol-iOS
   pod 'RxSwift', '5.1.1'
   pod 'RxCocoa', '5.1.1'
+  pod 'FSCalendar', '2.8.2'
 
 end
