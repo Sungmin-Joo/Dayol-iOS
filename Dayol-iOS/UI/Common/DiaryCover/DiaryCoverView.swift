@@ -45,6 +45,9 @@ private enum Design {
     }
 
 	static let lineColor: UIColor = UIColor(decimalRed: 0, green: 0, blue: 0).withAlphaComponent(0.1)
+    static let coverLogo = UIImage(named: "dayolCoverLogo")
+    static let coverLogoHeightRate: CGFloat = 172 / 720
+    static let coverLogoWidthRate: CGFloat = 184 / 540
 }
 
 class DiaryCoverView: DifferentEdgeSettableView {
@@ -58,6 +61,15 @@ class DiaryCoverView: DifferentEdgeSettableView {
 		return view
 	}()
 
+    private let logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Design.coverLogo
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isHidden = true
+        
+        return imageView
+    }()
+    
 	init(type: DiaryType) {
         switch type {
         case .big: self.design = .big
@@ -76,6 +88,7 @@ class DiaryCoverView: DifferentEdgeSettableView {
 	}
 
 	private func initView() {
+        addSubview(logoImageView)
         addSubview(coverLineView)
 		setConstraints()
 	}
@@ -85,7 +98,18 @@ class DiaryCoverView: DifferentEdgeSettableView {
             coverLineView.rightAnchor.constraint(equalTo: leftAnchor, constant: design.lineLeft),
             coverLineView.widthAnchor.constraint(equalToConstant: design.lineWidth),
 			coverLineView.topAnchor.constraint(equalTo: topAnchor),
-			coverLineView.bottomAnchor.constraint(equalTo: bottomAnchor)
+			coverLineView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            logoImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 9),
+            logoImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: Design.coverLogoHeightRate),
+            logoImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: Design.coverLogoWidthRate)
 		])
 	}
+}
+
+extension DiaryCoverView {
+    func setDayolLogoHidden(_ isHidden: Bool) {
+        logoImageView.isHidden = isHidden
+    }
 }
