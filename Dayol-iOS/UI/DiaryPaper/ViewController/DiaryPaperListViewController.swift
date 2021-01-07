@@ -9,37 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-private enum Design {
-    case ipad(UIDeviceOrientation)
-    case iphone
-    
-    var emptyTop: CGFloat {
-        switch self {
-        case .iphone:
-            return 77
-        case .ipad(let orientation):
-            if orientation == .portrait {
-                return 56
-            } else {
-                return 128
-            }
-        }
-    }
-    
-    var emptyBottom: CGFloat {
-        switch self {
-        case .iphone:
-            return 84
-        case .ipad(let orientation):
-            if orientation == .portrait {
-                return 61
-            } else {
-                return 134
-            }
-        }
-    }
-}
-
 class DiaryPaperViewController: UIViewController {
     private let barLeftItem = DYNavigationItemCreator.barButton(type: .back)
     private let barRightItem = DYNavigationItemCreator.barButton(type: .more)
@@ -47,13 +16,6 @@ class DiaryPaperViewController: UIViewController {
     private let toolBar = DYNavigationItemCreator.functionToolbar()
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    private var design: Design {
-        if isPadDevice {
-            return .ipad(UIDevice.current.orientation)
-        } else {
-            return .iphone
-        }
-    }
     
     private let emptyView: DiaryPaperEmptyView = {
         let view = DiaryPaperEmptyView()
@@ -73,10 +35,6 @@ class DiaryPaperViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        setConstraint()
     }
     
     private func initView() {
@@ -101,7 +59,5 @@ class DiaryPaperViewController: UIViewController {
             emptyView.leftAnchor.constraint(equalTo: view.leftAnchor),
             emptyView.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
-        
-        emptyView.setConstraint(top: design.emptyTop, bottom: design.emptyBottom)
     }
 }

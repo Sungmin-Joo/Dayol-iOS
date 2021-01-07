@@ -10,6 +10,37 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
+    case ipad
+    case iphone
+    
+    static var current: Design = { isPadDevice ? .ipad : iphone }()
+    
+    var emptyTop: CGFloat {
+        switch self {
+        case .iphone:
+            return 77
+        case .ipad:
+            if screenWidth < screenHeight {
+                return 56
+            } else {
+                return 128
+            }
+        }
+    }
+    
+    var emptyBottom: CGFloat {
+        switch self {
+        case .iphone:
+            return 84
+        case .ipad:
+            if screenWidth < screenHeight {
+                return 61
+            } else {
+                return 134
+            }
+        }
+    }
+    
     static let diaryAddImage = UIImage(named: "diaryAdd")
     static let diaryAddImageSize = CGSize(width: 40, height: 40)
     static let containerSpace: CGFloat = 25
@@ -29,10 +60,7 @@ private enum Text {
 }
 
 class DiaryPaperEmptyView: UIView {
-    private lazy var topContraint = borderView.topAnchor.constraint(equalTo: topAnchor)
-    private lazy var bottomContraint = borderView.bottomAnchor.constraint(equalTo: bottomAnchor)
-    
-    private let containerView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
@@ -42,11 +70,21 @@ class DiaryPaperEmptyView: UIView {
         return stackView
     }()
     
-    private let borderView: UIView = {
+    private let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
+    }()
+    
+    private let containerLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        layer.strokeColor = Design.borderColor
+        layer.lineDashPattern = [4, 2]
+        layer.backgroundColor = UIColor.clear.cgColor
+        layer.fillColor = UIColor.clear.cgColor
+        
+        return layer
     }()
     
     private let addImageView: UIImageView = {
@@ -80,44 +118,42 @@ class DiaryPaperEmptyView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        setupBorderView()
+        setupBorder()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateBorder()
     }
     
     private func initView() {
-        containerView.addArrangedSubview(addImageView)
-        containerView.addArrangedSubview(inputLabel)
-        borderView.addSubview(containerView)
-        addSubview(borderView)
+        stackView.addArrangedSubview(addImageView)
+        stackView.addArrangedSubview(inputLabel)
+        containerView.addSubview(stackView)
+        addSubview(containerView)
         
         setupConstraint()
     }
     
-    private func setupBorderView() {
-        let dashedLayer = CAShapeLayer()
-        let path = UIBezierPath(roundedRect: borderView.bounds, cornerRadius: Design.cornerRadius)
-        dashedLayer.path = path.cgPath
-        dashedLayer.strokeColor = Design.borderColor
-        dashedLayer.lineDashPattern = [4, 2]
-        dashedLayer.backgroundColor = UIColor.clear.cgColor
-        dashedLayer.fillColor = UIColor.clear.cgColor
-        borderView.layer.addSublayer(dashedLayer)
+    private func setupBorder() {
+        let path = UIBezierPath(roundedRect: containerView.bounds, cornerRadius: Design.cornerRadius)
+        containerLayer.path = path.cgPath
+        containerView.layer.addSublayer(containerLayer)
+    }
+    
+    private func updateBorder() {
+        let path = UIBezierPath(roundedRect: containerView.bounds, cornerRadius: Design.cornerRadius)
+        containerLayer.path = path.cgPath
     }
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            topContraint,
-            bottomContraint,
-            containerView.centerXAnchor.constraint(equalTo: borderView.centerXAnchor),
-            containerView.centerYAnchor.constraint(equalTo: borderView.centerYAnchor),
-            borderView.heightAnchor.constraint(equalTo: borderView.widthAnchor, multiplier: Design.borderRatio),
-            borderView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            stackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            containerView.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: Design.borderRatio),
+            containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            containerView.topAnchor.constraint(equalTo: topAnchor, constant: Design.current.emptyTop),
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Design.current.emptyBottom)
         ])
-    }
-}
-
-extension DiaryPaperEmptyView {
-    func setConstraint(top: CGFloat, bottom: CGFloat) {
-        topContraint.constant = top
-        bottomContraint.constant = -bottom
     }
 }

@@ -25,6 +25,22 @@ class DYNavigationController: UINavigationController {
         setNavigationBar()
         setToolbar()
     }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if isPadDevice {
+            return .all
+        } else {
+            return .portrait
+        }
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        if isPadDevice {
+            return .landscapeLeft
+        } else {
+            return .portrait
+        }
+    }
 
     func setNavigationBar() {
         navigationBar.barTintColor = Design.navigationBarBarBackgroundColor
