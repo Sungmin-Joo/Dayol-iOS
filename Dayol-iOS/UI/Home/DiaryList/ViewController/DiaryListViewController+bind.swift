@@ -15,7 +15,7 @@ extension DiaryListViewController {
             .bind { [weak self] in
                 let settingVC = SettingsViewController()
                 let nav = DYNavigationController(rootViewController: settingVC)
-                nav.modalPresentationStyle = .fullScreen
+                nav.modalPresentationStyle = isPadDevice ? .formSheet : .fullScreen
                 self?.present(nav, animated: true)
             }
             .disposed(by: disposeBag)
