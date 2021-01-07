@@ -27,5 +27,9 @@ enum Assets {
                 static let selected = UIImage(named: "home_tabbar_favorite_selected")
             }
         }
+
+        enum Settings {
+            static let chevron = UIImage(named: "settings_chevron")
+        }
     }
 }
