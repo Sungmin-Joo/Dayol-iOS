@@ -54,6 +54,8 @@
 		DADD09FE25A33695004D6CF0 /* DiaryEditColorPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD09FD25A33695004D6CF0 /* DiaryEditColorPaletteView.swift */; };
 		DADD0A0125A34ED6004D6CF0 /* DiaryCoverColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A0025A34ED6004D6CF0 /* DiaryCoverColor.swift */; };
 		DADD0A0525A35445004D6CF0 /* DiaryEditColorPaletteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A0425A35445004D6CF0 /* DiaryEditColorPaletteCell.swift */; };
+		DADD0A1925A72907004D6CF0 /* DiaryPaperListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A1825A72907004D6CF0 /* DiaryPaperListViewController.swift */; };
+		DADD0A2025A72A6A004D6CF0 /* DiaryPaperEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A1F25A72A6A004D6CF0 /* DiaryPaperEmptyView.swift */; };
 		DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE29CEA2584F2100028010B /* PasswordViewController.swift */; };
 		DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB92DD2596F72E00FA5551 /* DifferentEdgeSettableView.swift */; };
 /* End PBXBuildFile section */
@@ -109,6 +111,8 @@
 		DADD09FD25A33695004D6CF0 /* DiaryEditColorPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditColorPaletteView.swift; sourceTree = "<group>"; };
 		DADD0A0025A34ED6004D6CF0 /* DiaryCoverColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoverColor.swift; sourceTree = "<group>"; };
 		DADD0A0425A35445004D6CF0 /* DiaryEditColorPaletteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditColorPaletteCell.swift; sourceTree = "<group>"; };
+		DADD0A1825A72907004D6CF0 /* DiaryPaperListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperListViewController.swift; sourceTree = "<group>"; };
+		DADD0A1F25A72A6A004D6CF0 /* DiaryPaperEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperEmptyView.swift; sourceTree = "<group>"; };
 		DAE29CEA2584F2100028010B /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		DAEB92DD2596F72E00FA5551 /* DifferentEdgeSettableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferentEdgeSettableView.swift; sourceTree = "<group>"; };
 		F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dayol_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -294,6 +298,7 @@
 				CEF135E8258115E30098BEC3 /* Home */,
 				DAE29CE92584F1F80028010B /* Password */,
 				DAD66732259B54FD00E8F59A /* DiaryEdit */,
+				DADD0A1625A728C9004D6CF0 /* DiaryPaper */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -414,6 +419,31 @@
 				DADD0A0425A35445004D6CF0 /* DiaryEditColorPaletteCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		DADD0A1625A728C9004D6CF0 /* DiaryPaper */ = {
+			isa = PBXGroup;
+			children = (
+				DADD0A1725A728F2004D6CF0 /* ViewController */,
+				DADD0A1E25A72A59004D6CF0 /* View */,
+			);
+			path = DiaryPaper;
+			sourceTree = "<group>";
+		};
+		DADD0A1725A728F2004D6CF0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DADD0A1825A72907004D6CF0 /* DiaryPaperListViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		DADD0A1E25A72A59004D6CF0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DADD0A1F25A72A6A004D6CF0 /* DiaryPaperEmptyView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		DAE29CE92584F1F80028010B /* Password */ = {
@@ -543,10 +573,11 @@
 				CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */,
 				DAC04CCA25920C16003A7BC8 /* DiaryCoverView.swift in Sources */,
 				DADD09FB25A33674004D6CF0 /* DiaryEditCoverView.swift in Sources */,
-				DAD66751259F44D300E8F59A /* DYNavigationDrawToolbar.swift in Sources */,
+				DAD66751259F44D300E8F59A /* DYNavigationDrawingToolbar.swift in Sources */,
 				DAD66751259F44D300E8F59A /* DYNavigationDrawingToolbar.swift in Sources */,
 				DAD6674E259C8C5B00E8F59A /* DYNavigationEditableTitle.swift in Sources */,
 				CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */,
+				DADD0A2025A72A6A004D6CF0 /* DiaryPaperEmptyView.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
 				DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */,
 				DADD0A0125A34ED6004D6CF0 /* DiaryCoverColor.swift in Sources */,
@@ -577,6 +608,7 @@
 				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
 				DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */,
 				DADD09F725A335C2004D6CF0 /* DiaryEditToggleView.swift in Sources */,
+				DADD0A1925A72907004D6CF0 /* DiaryPaperListViewController.swift in Sources */,
 				DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */,
 				DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */,
 				CE8DCC942590ECE8007738EA /* DiaryListCell.swift in Sources */,
