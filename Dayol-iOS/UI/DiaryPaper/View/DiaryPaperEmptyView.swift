@@ -10,17 +10,22 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
+    enum IPadOrientation {
+        case landscape
+        case portrait
+    }
+    
     case ipad
     case iphone
     
     static var current: Design = { isPadDevice ? .ipad : iphone }()
     
-    var emptyTop: CGFloat {
-        switch self {
+    static func emptyTop(orientation: IPadOrientation) -> CGFloat {
+        switch current {
         case .iphone:
             return 77
         case .ipad:
-            if screenWidth < screenHeight {
+            if orientation == .portrait {
                 return 56
             } else {
                 return 128
@@ -28,12 +33,12 @@ private enum Design {
         }
     }
     
-    var emptyBottom: CGFloat {
-        switch self {
+    static func emptyBottom(orientation: IPadOrientation) -> CGFloat {
+        switch current {
         case .iphone:
             return 84
         case .ipad:
-            if screenWidth < screenHeight {
+            if orientation == .portrait {
                 return 61
             } else {
                 return 134
@@ -60,6 +65,16 @@ private enum Text {
 }
 
 class DiaryPaperEmptyView: UIView {
+    private var topContraint = NSLayoutConstraint()
+    private var bottomContraint = NSLayoutConstraint()
+    private var iPadOrientation: Design.IPadOrientation {
+        if self.frame.size.width < self.frame.size.height {
+            return .portrait
+        } else {
+            return .landscape
+        }
+    }
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -118,9 +133,10 @@ class DiaryPaperEmptyView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        setupBorder()
+        super.draw(rect)
+        setupLayer()
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         updateBorder()
@@ -135,25 +151,32 @@ class DiaryPaperEmptyView: UIView {
         setupConstraint()
     }
     
-    private func setupBorder() {
-        let path = UIBezierPath(roundedRect: containerView.bounds, cornerRadius: Design.cornerRadius)
-        containerLayer.path = path.cgPath
-        containerView.layer.addSublayer(containerLayer)
-    }
-    
-    private func updateBorder() {
-        let path = UIBezierPath(roundedRect: containerView.bounds, cornerRadius: Design.cornerRadius)
-        containerLayer.path = path.cgPath
-    }
-    
     private func setupConstraint() {
+        topContraint = containerView.topAnchor.constraint(equalTo: topAnchor, constant: Design.emptyTop(orientation: iPadOrientation))
+        bottomContraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Design.emptyBottom(orientation: iPadOrientation))
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             containerView.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: Design.borderRatio),
             containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            containerView.topAnchor.constraint(equalTo: topAnchor, constant: Design.current.emptyTop),
-            containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Design.current.emptyBottom)
+            topContraint,
+            bottomContraint
         ])
+    }
+    
+    private func setupLayer() {
+        let path = UIBezierPath(roundedRect: self.containerView.bounds, cornerRadius: Design.cornerRadius)
+        self.containerLayer.path = path.cgPath
+        containerView.layer.addSublayer(containerLayer)
+    }
+    
+    private func updateBorder() {
+        DispatchQueue.main.async {
+            self.topContraint.constant = Design.emptyTop(orientation: self.iPadOrientation)
+            self.bottomContraint.constant = -Design.emptyBottom(orientation: self.iPadOrientation)
+            
+            let path = UIBezierPath(roundedRect: self.containerView.bounds, cornerRadius: Design.cornerRadius)
+            self.containerLayer.path = path.cgPath
+        }
     }
 }
