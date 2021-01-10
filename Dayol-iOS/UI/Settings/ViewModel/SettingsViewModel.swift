@@ -27,15 +27,6 @@ class SettingsViewModel {
 
 extension SettingsViewModel {
 
-    var numberOfRowsInSection: Int {
-        settings.keys.count
-    }
-
-    func numberOfRowsInSection(_ section: Int) -> Int {
-        guard let section = SettingModel.Section(rawValue: section) else { return 0 }
-        return settings[section]?.count ?? 0
-    }
-
     func cellModel(_ indexPath: IndexPath) -> SettingCellModelProtocol? {
         guard
             let section = SettingModel.Section(rawValue: indexPath.section),
