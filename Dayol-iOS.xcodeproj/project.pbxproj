@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3434B76B25A4797B00506152 /* DYModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434B76A25A4797B00506152 /* DYModalViewController.swift */; };
+		3434B76F25A479D800506152 /* DYModalConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434B76E25A479D800506152 /* DYModalConfiguration.swift */; };
+		34CA253A25A613220057404D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34CA253C25A613220057404D /* Localizable.strings */; };
+		34CA254225A613CE0057404D /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA254125A613CE0057404D /* String+Extension.swift */; };
+		34CA254625A6190D0057404D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA254525A6190D0057404D /* SettingsViewController.swift */; };
+		34CA254C25A619B20057404D /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA254B25A619B20057404D /* SettingsModel.swift */; };
+		34CA254F25A61BBE0057404D /* InAppSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA254E25A61BBE0057404D /* InAppSettingCell.swift */; };
+		34CA255425A61DD10057404D /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA255325A61DD10057404D /* NSObject+Extension.swift */; };
+		34CA255825A74A7A0057404D /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA255725A74A7A0057404D /* SettingsViewModel.swift */; };
+		34CA255B25A75A340057404D /* SettingCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA255A25A75A340057404D /* SettingCellProtocol.swift */; };
+		34CA255E25A761060057404D /* OutAppSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA255D25A761060057404D /* OutAppSettingCell.swift */; };
 		CC7CC488D36CE71AEE14FCCC /* Pods_Dayol_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */; };
 		CE0603542588EDB600FBBEF0 /* PopupPresentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */; };
 		CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */; };
@@ -62,6 +73,19 @@
 
 /* Begin PBXFileReference section */
 		2D2405592E98948CDE582F1F /* Pods-Dayol-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		3434B76A25A4797B00506152 /* DYModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYModalViewController.swift; sourceTree = "<group>"; };
+		3434B76E25A479D800506152 /* DYModalConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYModalConfiguration.swift; sourceTree = "<group>"; };
+		34CA253B25A613220057404D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		34CA253E25A613540057404D /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		34CA253F25A613540057404D /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		34CA254125A613CE0057404D /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		34CA254525A6190D0057404D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		34CA254B25A619B20057404D /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		34CA254E25A61BBE0057404D /* InAppSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppSettingCell.swift; sourceTree = "<group>"; };
+		34CA255325A61DD10057404D /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
+		34CA255725A74A7A0057404D /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		34CA255A25A75A340057404D /* SettingCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellProtocol.swift; sourceTree = "<group>"; };
+		34CA255D25A761060057404D /* OutAppSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutAppSettingCell.swift; sourceTree = "<group>"; };
 		972D81BFA99D271110503E85 /* Pods-Dayol-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.release.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPresentDelegate.swift; sourceTree = "<group>"; };
 		CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertAction.swift; sourceTree = "<group>"; };
@@ -130,12 +154,74 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3434B76925A4795400506152 /* DYModalViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3434B76A25A4797B00506152 /* DYModalViewController.swift */,
+				3434B76E25A479D800506152 /* DYModalConfiguration.swift */,
+			);
+			path = DYModalViewController;
+			sourceTree = "<group>";
+		};
 		34C6A3812594F4F900658499 /* Util */ = {
 			isa = PBXGroup;
 			children = (
 				CE8DCC96259101B6007738EA /* DeviceInfo.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		34CA253625A612DF0057404D /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				34CA253C25A613220057404D /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		34CA254425A618E40057404D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				34CA254A25A619420057404D /* Model */,
+				34CA254925A6192A0057404D /* ViewController */,
+				34CA255125A61BC30057404D /* View */,
+				34CA255625A74A560057404D /* ViewModel */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		34CA254925A6192A0057404D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				34CA254525A6190D0057404D /* SettingsViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		34CA254A25A619420057404D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				34CA254B25A619B20057404D /* SettingsModel.swift */,
+				34CA255A25A75A340057404D /* SettingCellProtocol.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		34CA255125A61BC30057404D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				34CA254E25A61BBE0057404D /* InAppSettingCell.swift */,
+				34CA255D25A761060057404D /* OutAppSettingCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		34CA255625A74A560057404D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				34CA255725A74A7A0057404D /* SettingsViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		84E9977FFA5A77108057AB68 /* Frameworks */ = {
@@ -170,6 +256,8 @@
 				CE8DCAE8258D292A007738EA /* UIFont+Extension.swift */,
 				CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */,
 				CE8DCB24258FAE72007738EA /* Array+extension.swift */,
+				34CA254125A613CE0057404D /* String+Extension.swift */,
+				34CA255325A61DD10057404D /* NSObject+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -263,6 +351,7 @@
 		CEB9EE402583C7AF005B66C9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				3434B76925A4795400506152 /* DYModalViewController */,
 				DAD66736259B56E700E8F59A /* DYNavigationController */,
 				DAC04CC42592035C003A7BC8 /* DiaryCover */,
 				CE0603522588EDA100FBBEF0 /* Protocol */,
@@ -299,6 +388,7 @@
 				DAE29CE92584F1F80028010B /* Password */,
 				DAD66732259B54FD00E8F59A /* DiaryEdit */,
 				DADD0A1625A728C9004D6CF0 /* DiaryPaper */,
+				34CA254425A618E40057404D /* Settings */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -344,6 +434,7 @@
 		DA4899E5257A08A6005E39ED /* Dayol-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				34CA253625A612DF0057404D /* Localization */,
 				34C6A3812594F4F900658499 /* Util */,
 				CE8DCAE6258D292A007738EA /* Extension */,
 				CEF135E7258115C60098BEC3 /* UI */,
@@ -498,6 +589,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = DA4899DA257A08A6005E39ED;
 			productRefGroup = DA4899E4257A08A6005E39ED /* Products */;
@@ -514,6 +606,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34CA253A25A613220057404D /* Localizable.strings in Resources */,
 				DA4899F3257A08A8005E39ED /* LaunchScreen.storyboard in Resources */,
 				DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */,
 				DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */,
@@ -576,19 +669,25 @@
 				DAD66751259F44D300E8F59A /* DYNavigationDrawingToolbar.swift in Sources */,
 				DAD66751259F44D300E8F59A /* DYNavigationDrawingToolbar.swift in Sources */,
 				DAD6674E259C8C5B00E8F59A /* DYNavigationEditableTitle.swift in Sources */,
+				34CA254C25A619B20057404D /* SettingsModel.swift in Sources */,
+				34CA255425A61DD10057404D /* NSObject+Extension.swift in Sources */,
 				CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */,
 				DADD0A2025A72A6A004D6CF0 /* DiaryPaperEmptyView.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
 				DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */,
+				3434B76B25A4797B00506152 /* DYModalViewController.swift in Sources */,
 				DADD0A0125A34ED6004D6CF0 /* DiaryCoverColor.swift in Sources */,
 				DAC04CCE25920C25003A7BC8 /* DiaryLockerView.swift in Sources */,
 				CE8DCC97259101B6007738EA /* DeviceInfo.swift in Sources */,
 				DA3836BC258F2F2A0029464C /* PasswordViewModel.swift in Sources */,
 				DA3836BF258F34510029464C /* PasswordViewController+Bind.swift in Sources */,
 				DAD6674B259C891D00E8F59A /* DYNavigationTitle.swift in Sources */,
+				34CA254F25A61BBE0057404D /* InAppSettingCell.swift in Sources */,
+				34CA254225A613CE0057404D /* String+Extension.swift in Sources */,
 				CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */,
 				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
 				CE8DCAE2258D28F4007738EA /* HomeTabBarView.swift in Sources */,
+				34CA255E25A761060057404D /* OutAppSettingCell.swift in Sources */,
 				CE8DCAE3258D28F4007738EA /* HomeEmptyView.swift in Sources */,
 				CE8DCAEB258D292A007738EA /* UIFont+Extension.swift in Sources */,
 				DAC04CC62592036F003A7BC8 /* DairyView.swift in Sources */,
@@ -599,10 +698,12 @@
 				DAD6675425A18BAE00E8F59A /* DYNavigationFunctionToolBar.swift in Sources */,
 				CE8DCAEA258D292A007738EA /* NSAttributedString+Extension.swift in Sources */,
 				DAD66734259B551600E8F59A /* DiaryEditViewController.swift in Sources */,
+				34CA254625A6190D0057404D /* SettingsViewController.swift in Sources */,
 				CE8DCAE0258D28F4007738EA /* DiaryListViewController.swift in Sources */,
 				CE8DCB2D258FB1A0007738EA /* DiaryListViewController+bind.swift in Sources */,
 				DADD09FE25A33695004D6CF0 /* DiaryEditColorPaletteView.swift in Sources */,
 				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
+				34CA255825A74A7A0057404D /* SettingsViewModel.swift in Sources */,
 				DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */,
 				CE0603542588EDB600FBBEF0 /* PopupPresentDelegate.swift in Sources */,
 				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
@@ -615,7 +716,9 @@
 				CE8DCB11258FA502007738EA /* DiaryListViewModel.swift in Sources */,
 				CE8DCB25258FAE72007738EA /* Array+extension.swift in Sources */,
 				CE8DCAE1258D28F4007738EA /* HomeViewController.swift in Sources */,
+				34CA255B25A75A340057404D /* SettingCellProtocol.swift in Sources */,
 				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
+				3434B76F25A479D800506152 /* DYModalConfiguration.swift in Sources */,
 				DADD0A0525A35445004D6CF0 /* DiaryEditColorPaletteCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -623,10 +726,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		34CA253C25A613220057404D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34CA253B25A613220057404D /* en */,
+				34CA253F25A613540057404D /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				DA4899F2257A08A8005E39ED /* Base */,
+				34CA253E25A613540057404D /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -638,6 +751,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -699,6 +813,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  Dayol-iOS
+
+  Created by 주성민 on 2021/01/07.
+  
+*/
+
+// TODO: - 앱에서 사용할 문자열 차차 추가
+
+// MARK: - Dayol Settings
+
+"Settings.Title" = "Settings";
+
+// TODO: - 번역..
+"Settings.Inapp.Manual.Title" = "Dayol User's Manual";
+"Settings.Inapp.Manual.Subtitle" = "Explain the basic usage and guide for each paper!";
+"Settings.Inapp.Backup.Title" = "Data Backup";
+"Settings.Inapp.Backup.Subtitle" = "소중한 데이터, 잃지 않으려면 동기화를 켜두세욜!";
+"Settings.Inapp.Widget.Title" = "Setting Widget";
+"Settings.Inapp.Widget.Subtitle" = "홈 위젯에 보여질 속지를 설정하세욜!";
+"Settings.Inapp.Deleted.Title" = "Deleted Page";
+"Settings.Inapp.Deleted.Subtitle" = "제거한 속지는 30일 동안 보관됩니다.";
+
+"Settings.Outapp.Rate" = "Write a Review";
+"Settings.Outapp.Report" = "Bug Report";
+"Settings.Outapp.Instagram" = "Dayol Instagram";

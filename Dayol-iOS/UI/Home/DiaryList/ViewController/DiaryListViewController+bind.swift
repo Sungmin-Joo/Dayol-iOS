@@ -11,6 +11,14 @@ import RxSwift
 
 extension DiaryListViewController {
     func bind() {
+        iconButton.rx.tap
+            .bind { [weak self] in
+                let settingVC = SettingsViewController()
+                let nav = DYNavigationController(rootViewController: settingVC)
+                nav.modalPresentationStyle = isPadDevice ? .formSheet : .fullScreen
+                self?.present(nav, animated: true)
+            }
+            .disposed(by: disposeBag)
         viewModel.diaryEvent
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] state in
