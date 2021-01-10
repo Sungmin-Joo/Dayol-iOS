@@ -47,12 +47,12 @@ class DiaryListViewController: UIViewController {
 
     // MARK: - UI
 
-    private let iconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = Design.topIcon
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+    let iconButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Design.topIcon, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
 
-        return imageView
+        return button
     }()
     let emptyView: HomeEmptyView = {
         let view = HomeEmptyView(style: .diary)
@@ -95,7 +95,7 @@ extension DiaryListViewController {
     private func setupViews() {
         setupCollectionView()
 
-        view.addSubview(iconImageView)
+        view.addSubview(iconButton)
         view.addSubview(emptyView)
         view.addSubview(collectionView)
         view.backgroundColor = Design.bgColor
@@ -132,9 +132,9 @@ extension DiaryListViewController {
         let layoutGuide = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            iconImageView.topAnchor.constraint(equalTo: layoutGuide.topAnchor,
+            iconButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor,
                                                constant: Design.iconImageTopMargin),
-            iconImageView.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
+            iconButton.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
 
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
