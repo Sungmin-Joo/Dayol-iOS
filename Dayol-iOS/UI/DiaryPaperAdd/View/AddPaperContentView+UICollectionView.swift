@@ -11,7 +11,6 @@ private enum Design {
     static let titleViewHeight: CGFloat = 65.0
     static let itemSpacing: CGFloat = 43.0
     static let lineSpacing: CGFloat = 29.0
-    static let maximumItemForRow = 4
     static let minimumSideInset: CGFloat = 36.0
     static let bottomSideInset: CGFloat = 31.0
 }
