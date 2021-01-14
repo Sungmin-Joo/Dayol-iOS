@@ -8,6 +8,25 @@
 
 // TODO: - 앱에서 사용할 문자열 차차 추가
 
+// MARK: - Diary Page
+"Diary.Page.Add.Title" = "속지 추가";
+"Diary.Page.Add.Portrait" = "세로형";
+"Diary.Page.Add.Landscape" = "가로형";
+
+"Diary.Page.Add.Portrait.Title" = "주로 폰으로 작성한다면 세로형 속지를 추가해보세요";
+"Diary.Page.Add.Portrait.Title.Bold" = "폰";
+"Diary.Page.Add.Landscape.Title" = "주로 패드로 작성한다면 세로형 속지를 추가해보세요";
+"Diary.Page.Add.Landscape.Title.Bold" = "패드";
+
+"Diary.Page.Add.monthly" = "먼슬리 플랜";
+"Diary.Page.Add.weekly" = "위클리 플랜";
+"Diary.Page.Add.daily" = "데일리";
+"Diary.Page.Add.cornell" = "코넬 노트";
+"Diary.Page.Add.muji" = "무지 노트";
+"Diary.Page.Add.grid" = "모눈 노트";
+"Diary.Page.Add.four" = "4칸 노트";
+"Diary.Page.Add.tracker" = "먼슬리 트래커";
+
 // MARK: - Dayol Settings
 
 "Settings" = "설정";
