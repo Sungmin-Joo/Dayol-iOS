@@ -46,6 +46,9 @@ private enum Design {
         }
     }
     
+    static let emptyWidthForIPhone: CGFloat = 300
+    static let emptyHeightForIPhone: CGFloat = 400
+    
     static let diaryAddImage = UIImage(named: "diaryAdd")
     static let diaryAddImageSize = CGSize(width: 40, height: 40)
     static let containerSpace: CGFloat = 25
@@ -157,11 +160,23 @@ class DiaryPaperEmptyView: UIView {
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            containerView.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: Design.borderRatio),
-            containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            topContraint,
-            bottomContraint
         ])
+        
+        if isPadDevice == false {
+            NSLayoutConstraint.activate([
+                containerView.widthAnchor.constraint(equalToConstant: Design.emptyWidthForIPhone),
+                containerView.heightAnchor.constraint(equalToConstant: Design.emptyHeightForIPhone),
+                containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                containerView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                topContraint,
+                bottomContraint,
+                containerView.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: Design.borderRatio),
+                containerView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            ])
+        }
     }
     
     private func setupLayer() {
