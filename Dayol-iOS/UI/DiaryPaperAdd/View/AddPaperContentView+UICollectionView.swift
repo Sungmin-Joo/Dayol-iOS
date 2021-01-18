@@ -56,26 +56,21 @@ extension AddPaperContentView {
         let treeItemContentWidth = 3.0 * itmeSize.width + 2.0 * Design.itemSpacing
         let twoItemContentWidth = 2.0 * itmeSize.width + 1.0 * Design.itemSpacing
 
-        if  fourItemContentWidth + Design.minimumSideInset * 2 < width {
-            let totalSideWidth = width - (fourItemContentWidth)
-            let sideInset = totalSideWidth / 2
-            return UIEdgeInsets(top: 0,
-                                left: sideInset,
-                                bottom: Design.bottomSideInset,
-                                right: sideInset)
+        let shouldHaveFourItemsMoreOrEqual = fourItemContentWidth + Design.minimumSideInset * 2 < width
+        let shouldHaveThreeItemsMoreOrEqual = treeItemContentWidth + Design.minimumSideInset * 2 < width
+
+        let currentContentWidth: CGFloat
+        if shouldHaveFourItemsMoreOrEqual {
+            currentContentWidth = fourItemContentWidth
+        } else if shouldHaveThreeItemsMoreOrEqual {
+            currentContentWidth = treeItemContentWidth
+        } else {
+            currentContentWidth = twoItemContentWidth
         }
 
-        if  treeItemContentWidth + Design.minimumSideInset * 2 < width {
-            let totalSideWidth = width - (treeItemContentWidth)
-            let sideInset = totalSideWidth / 2
-            return UIEdgeInsets(top: 0,
-                                left: sideInset,
-                                bottom: Design.bottomSideInset,
-                                right: sideInset)
-        }
-
-        let totalSideWidth = width - (twoItemContentWidth)
+        let totalSideWidth = width - (currentContentWidth)
         let sideInset = totalSideWidth / 2
+
         return UIEdgeInsets(top: 0,
                             left: sideInset,
                             bottom: Design.bottomSideInset,
