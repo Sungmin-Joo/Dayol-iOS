@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 class DiaryPaperViewController: UIViewController {
+    private let disposeBag = DisposeBag()
     private let barLeftItem = DYNavigationItemCreator.barButton(type: .back)
     private let barRightItem = DYNavigationItemCreator.barButton(type: .more)
     private let titleView = DYNavigationItemCreator.titleView("TESTTEST")
@@ -50,6 +51,12 @@ class DiaryPaperViewController: UIViewController {
         navigationItem.titleView = titleView
         
         setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
+        
+        barLeftItem.rx.tap
+            .bind { [weak self] in
+                self?.dismiss(animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setConstraint() {
