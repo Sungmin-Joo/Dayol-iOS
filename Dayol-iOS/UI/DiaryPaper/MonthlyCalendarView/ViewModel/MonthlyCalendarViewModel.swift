@@ -40,8 +40,12 @@ enum WeekDay: Int {
 struct MonthlyCalendarDataModel {
     let year: Int
     let month: Int
-    let firstDay: WeekDay
-    let dayCount: Int
+    let days: [MonthlyCalendarDayModel]
+}
+
+struct MonthlyCalendarDayModel {
+    let dayNumber: Int
+    let isCurrentMonth: Bool
 }
 
 class MonthlyCalendarViewModel {
@@ -61,6 +65,7 @@ class MonthlyCalendarViewModel {
         
         year = Calendar.current.component(.year, from: date)
         today = Calendar.current.component(.day, from: date)
+
         firstWeekDayOfMonth = firstWeekDay(year: year, month: monthIndex)
         
         // 윤년
@@ -73,6 +78,37 @@ class MonthlyCalendarViewModel {
         let day = ("\(year)-\(month+1)-01".date?.firstDayOfTheMonth.weekday)!
         return WeekDay(rawValue: day) ?? .sunday
     }
+    
+    private func days(year: Int, month: Int) -> [MonthlyCalendarDayModel] {
+        var daysResult = [MonthlyCalendarDayModel]()
+        let maxCount = 42
+        let prevMonth: Int = (month - 1 < 0) ? 11 : month - 1
+        let prevMonthRemainDaysCount = firstWeekDayOfMonth.rawValue - WeekDay.sunday.rawValue - 1
+        let prevMonthMaxDay = numOfDaysInMonth[prevMonth]
+        let currentMonthCount = numOfDaysInMonth[month]
+        
+        for index in 0..<maxCount {
+            let isPrevMonth = index < prevMonthRemainDaysCount
+            let isCurrentMonth = index >= prevMonthRemainDaysCount && index < prevMonthRemainDaysCount + currentMonthCount
+            
+            if isPrevMonth {
+                let day = prevMonthMaxDay - prevMonthRemainDaysCount + index
+                let dayModel = MonthlyCalendarDayModel(dayNumber: day, isCurrentMonth: false)
+                daysResult.append(dayModel)
+            } else if isCurrentMonth {
+                let day = index - prevMonthRemainDaysCount + 1
+                let dayModel = MonthlyCalendarDayModel(dayNumber: day, isCurrentMonth: true)
+                daysResult.append(dayModel)
+            } else {
+                let day = index - prevMonthRemainDaysCount - currentMonthCount + 1
+                let dayModel = MonthlyCalendarDayModel(dayNumber: day, isCurrentMonth: false)
+                daysResult.append(dayModel)
+            }
+        }
+        
+        return daysResult
+    }
+
 }
 
 extension MonthlyCalendarViewModel {
@@ -82,12 +118,13 @@ extension MonthlyCalendarViewModel {
                 return Disposables.create()
             }
             self.calcDate(date: date)
+            let days = self.days(year: self.year, month: self.monthIndex)
             let dateModel = MonthlyCalendarDataModel(
                 year: self.year,
                 month: self.monthIndex,
-                firstDay: self.firstWeekDayOfMonth,
-                dayCount: self.numOfDaysInMonth[self.monthIndex]
+                days: days
             )
+            
             observer.onNext(dateModel)
             observer.onCompleted()
             return Disposables.create()
