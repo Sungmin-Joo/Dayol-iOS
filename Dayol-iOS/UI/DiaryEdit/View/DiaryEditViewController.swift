@@ -131,5 +131,11 @@ class DiaryEditViewController: UIViewController {
                 self?.titleView.isEditting = true
             }
             .disposed(by: disposeBag)
+
+        toolBar.photoButton.rx.tap
+            .bind { [weak self] in
+                self?.showPicker()
+            }
+            .disposed(by: disposeBag)
     }
 }

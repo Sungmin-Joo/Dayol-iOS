@@ -14,7 +14,7 @@ extension NSAttributedString {
         align: NSTextAlignment,
         letterSpacing: CGFloat,
         foregroundColor: UIColor
-    ) -> NSAttributedString {
+    ) -> Self {
 
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = align
@@ -26,6 +26,7 @@ extension NSAttributedString {
             .kern: letterSpacing
         ]
 
-        return NSAttributedString(string: text, attributes: attributes)
+        // NSMutableAttributedString 에서도 사용하기위해 Self 사용
+        return Self(string: text, attributes: attributes)
     }
 }
