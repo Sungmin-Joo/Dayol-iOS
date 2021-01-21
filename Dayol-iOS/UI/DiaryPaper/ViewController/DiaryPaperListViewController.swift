@@ -14,7 +14,6 @@ private enum Design {
 }
 
 class DiaryPaperViewController: UIViewController {
-
     private let disposeBag = DisposeBag()
 
     private let barLeftItem = DYNavigationItemCreator.barButton(type: .back)
@@ -58,6 +57,12 @@ class DiaryPaperViewController: UIViewController {
         navigationItem.titleView = titleView
         
         setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
+        
+        barLeftItem.rx.tap
+            .bind { [weak self] in
+                self?.dismiss(animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setConstraint() {
