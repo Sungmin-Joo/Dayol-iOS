@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MujiPaperView: PaperView {
+class MujiPaperView: BasePaperView {
 
     private let contentArea = UIView()
     private(set) var viewModel: PaperViewModel

@@ -1,5 +1,5 @@
 //
-//  PaperView.swift
+//  BasePaperView.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/01/21.
@@ -12,7 +12,7 @@ private enum Design {
     static let minimumZoomOut: CGFloat = 1.0
 }
 
-class PaperView: UIView {
+class BasePaperView: UIView {
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,13 +39,13 @@ class PaperView: UIView {
 
 }
 
-extension PaperView: UIScrollViewDelegate {
+extension BasePaperView: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return contentView
     }
 }
 
-private extension PaperView {
+private extension BasePaperView {
 
     func initView() {
         scrollView.delegate = self

@@ -18,7 +18,7 @@ private enum Design {
     static let gridColor = UIColor(decimalRed: 233, green: 233, blue: 233, alpha: 0.5)
 }
 
-class GridPaperView: PaperView {
+class GridPaperView: BasePaperView {
 
     private(set) var viewModel: PaperViewModel
 

@@ -23,7 +23,7 @@ private enum Design {
     static let dayLeftMargin: CGFloat = 7.0
 }
 
-class DailyPaperView: PaperView {
+class DailyPaperView: BasePaperView {
 
     private let titleArea = UIView()
     private let contentArea = UIView()
