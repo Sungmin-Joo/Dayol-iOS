@@ -9,9 +9,9 @@ import RxSwift
 
 // 속지 기본 ViewModel
 class PaperViewModel {
-    var lines = PublishSubject<[Line]>()
-    var stickers = PublishSubject<[Sticker]>()
-    var labels = PublishSubject<[Label]>()
+    var lines = BehaviorSubject<[Line]>(value: [])
+    var stickers = BehaviorSubject<[Sticker]>(value: [])
+    var labels = BehaviorSubject<[Label]>(value: [])
 
     func fetchData(paperID: Int) {
         // ID값이나 key값을 통해 속지의 데이터를 불러오는 로직
