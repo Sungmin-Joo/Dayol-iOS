@@ -9,6 +9,7 @@ import UIKit
 
 enum CommonPaperDesign {
     static let defaultBGColor = UIColor.white
+    static let borderColor = UIColor(decimalRed: 233, green: 233, blue: 233)
 }
 
 enum PaperStyle {
@@ -32,4 +33,10 @@ struct Sticker {
 
 struct Label {
     // label object에 대한 모델
+}
+
+struct DrawModel {
+    var lines: [Line] = []
+    var stickers: [Sticker] = []
+    var labels: [Label]  = []
 }
