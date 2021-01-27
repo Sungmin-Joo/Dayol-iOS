@@ -38,14 +38,27 @@ class GridPaper: BasePaper {
         return imageView
     }()
 
-    override init(viewModel: PaperViewModel, paperType: PaperType) {
-        super.init(viewModel: viewModel, paperType: paperType)
+    override func initView() {
+        super.initView()
+        gridImageView.image = getGridImage()
+        gridImageView.contentMode = .topLeft
 
-        initView()
-        setConstraints()
+        drawArea.addSubview(gridImageView)
     }
 
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    override func setConstraints() {
+        super.setConstraints()
+        NSLayoutConstraint.activate([
+            gridImageView.centerXAnchor.constraint(equalTo: drawArea.centerXAnchor),
+            gridImageView.centerYAnchor.constraint(equalTo: drawArea.centerYAnchor),
+            gridImageView.widthAnchor.constraint(equalToConstant: paperType.paperWidth),
+            gridImageView.heightAnchor.constraint(equalToConstant: paperType.paperHeight)
+        ])
+    }
+
+}
+
+private extension GridPaper {
 
     func getGridImage() -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(paperType.gridSize, false, 0.0)
@@ -84,33 +97,4 @@ class GridPaper: BasePaper {
         return image
     }
 
-}
-
-private extension GridPaper {
-
-    func initView() {
-        drawArea.layer.masksToBounds = true
-        drawArea.backgroundColor = CommonPaperDesign.defaultBGColor
-        drawArea.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(drawArea)
-
-        gridImageView.image = getGridImage()
-        gridImageView.contentMode = .topLeft
-
-        drawArea.addSubview(gridImageView)
-    }
-
-    func setConstraints() {
-        NSLayoutConstraint.activate([
-            gridImageView.centerXAnchor.constraint(equalTo: drawArea.centerXAnchor),
-            gridImageView.centerYAnchor.constraint(equalTo: drawArea.centerYAnchor),
-            gridImageView.widthAnchor.constraint(equalToConstant: paperType.paperWidth),
-            gridImageView.heightAnchor.constraint(equalToConstant: paperType.paperHeight),
-
-            drawArea.topAnchor.constraint(equalTo: topAnchor),
-            drawArea.leadingAnchor.constraint(equalTo: leadingAnchor),
-            drawArea.trailingAnchor.constraint(equalTo: trailingAnchor),
-            drawArea.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-    }
 }

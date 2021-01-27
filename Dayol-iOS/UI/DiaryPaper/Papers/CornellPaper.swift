@@ -56,12 +56,33 @@ class CornellPaper: BasePaper {
     init(viewModel: PaperViewModel, paperType: PaperType, isFirstPage: Bool) {
         self.isFirstPage = isFirstPage
         super.init(viewModel: viewModel, paperType: paperType)
-
-        initView()
-        setConstraints()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
+    override func initView() {
+        super.initView()
+        
+        cornellImageView.image = getCornellImage(isFirstPage: isFirstPage)
+        cornellImageView.contentMode = .topLeft
+
+        drawArea.addSubview(cornellImageView)
+    }
+
+    override func setConstraints() {
+        super.setConstraints()
+
+        NSLayoutConstraint.activate([
+            cornellImageView.centerXAnchor.constraint(equalTo: drawArea.centerXAnchor),
+            cornellImageView.centerYAnchor.constraint(equalTo: drawArea.centerYAnchor),
+            cornellImageView.widthAnchor.constraint(equalToConstant: paperType.paperWidth),
+            cornellImageView.heightAnchor.constraint(equalToConstant: paperType.paperHeight)
+        ])
+    }
+
+}
+
+private extension CornellPaper {
 
     func getCornellImage(isFirstPage: Bool) -> UIImage? {
         let paperSize = CGSize(width: paperType.paperWidth, height: paperType.paperHeight)
@@ -120,37 +141,9 @@ class CornellPaper: BasePaper {
             context.strokePath()
         }
 
-
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
-    }
-
-}
-
-private extension CornellPaper {
-
-    func initView() {
-        addSubview(drawArea)
-
-        cornellImageView.image = getCornellImage(isFirstPage: isFirstPage)
-        cornellImageView.contentMode = .topLeft
-
-        drawArea.addSubview(cornellImageView)
-    }
-
-    func setConstraints() {
-        NSLayoutConstraint.activate([
-            cornellImageView.centerXAnchor.constraint(equalTo: drawArea.centerXAnchor),
-            cornellImageView.centerYAnchor.constraint(equalTo: drawArea.centerYAnchor),
-            cornellImageView.widthAnchor.constraint(equalToConstant: paperType.paperWidth),
-            cornellImageView.heightAnchor.constraint(equalToConstant: paperType.paperHeight),
-
-            drawArea.topAnchor.constraint(equalTo: topAnchor),
-            drawArea.leadingAnchor.constraint(equalTo: leadingAnchor),
-            drawArea.trailingAnchor.constraint(equalTo: trailingAnchor),
-            drawArea.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
     }
 
 }

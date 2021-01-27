@@ -37,9 +37,6 @@ class DailyPaper: BasePaper {
 
     init(viewModel: DailyPaperViewModel, paperType: PaperType) {
         super.init(viewModel: viewModel, paperType: paperType)
-
-        initView()
-        setConstraints()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -66,12 +63,8 @@ class DailyPaper: BasePaper {
             .disposed(by: disposeBag)
     }
 
-}
-
-private extension DailyPaper {
-
-    func initView() {
-
+    override func initView() {
+        super.initView()
         dateLabel.sizeToFit()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         titleArea.addSubview(dateLabel)
@@ -89,7 +82,8 @@ private extension DailyPaper {
         addSubview(drawArea)
     }
 
-    func setConstraints() {
+    override func setConstraints() {
+        super.setConstraints()
         NSLayoutConstraint.activate([
             dateLabel.centerYAnchor.constraint(equalTo: titleArea.centerYAnchor),
             dateLabel.leadingAnchor.constraint(equalTo: titleArea.leadingAnchor,
@@ -107,14 +101,13 @@ private extension DailyPaper {
             titleArea.topAnchor.constraint(equalTo: drawArea.topAnchor),
             titleArea.leadingAnchor.constraint(equalTo: drawArea.leadingAnchor),
             titleArea.trailingAnchor.constraint(equalTo: drawArea.trailingAnchor),
-            titleArea.heightAnchor.constraint(equalToConstant: Design.titleAreaHeight),
-
-            drawArea.topAnchor.constraint(equalTo: topAnchor),
-            drawArea.leadingAnchor.constraint(equalTo: leadingAnchor),
-            drawArea.trailingAnchor.constraint(equalTo: trailingAnchor),
-            drawArea.bottomAnchor.constraint(equalTo: bottomAnchor)
+            titleArea.heightAnchor.constraint(equalToConstant: Design.titleAreaHeight)
         ])
     }
+
+}
+
+private extension DailyPaper {
 
     func setDateLabel(_ dateString: String) {
         dateLabel.attributedText = NSAttributedString.build(text: dateString,

@@ -25,8 +25,8 @@ class BasePaper: UIView {
         self.paperType = paperType
         super.init(frame: .zero)
 
-        setPaperBorder()
-        setPaperSizeConstraints()
+        initView()
+        setConstraints()
         bindEvent()
     }
 
@@ -40,21 +40,28 @@ class BasePaper: UIView {
             })
             .disposed(by: disposeBag)
     }
-}
 
-extension BasePaper {
-
-    func setPaperSizeConstraints() {
-        translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            widthAnchor.constraint(equalToConstant: paperType.paperWidth),
-            heightAnchor.constraint(equalToConstant: paperType.paperHeight)
-        ])
+    func initView() {
+        addSubview(drawArea)
+        setPaperBorder()
     }
 
     func setPaperBorder(color: CGColor = CommonPaperDesign.borderColor.cgColor) {
         layer.borderWidth = 1
         layer.borderColor = color
+    }
+
+    func setConstraints() {
+        translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            drawArea.topAnchor.constraint(equalTo: topAnchor),
+            drawArea.leadingAnchor.constraint(equalTo: leadingAnchor),
+            drawArea.trailingAnchor.constraint(equalTo: trailingAnchor),
+            drawArea.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+            widthAnchor.constraint(equalToConstant: paperType.paperWidth),
+            heightAnchor.constraint(equalToConstant: paperType.paperHeight)
+        ])
     }
 }
