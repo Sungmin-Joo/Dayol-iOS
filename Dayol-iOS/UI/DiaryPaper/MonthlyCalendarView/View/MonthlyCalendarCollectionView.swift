@@ -18,6 +18,9 @@ private enum Design {
     static let dayColor: UIColor = .black
     static let dayLetterSpace: CGFloat = -0.42
     static let weekDayHeight: CGFloat = 20
+    
+    static let separatorLineColor: UIColor = UIColor(decimalRed: 233, green: 233, blue: 233)
+    static let separatorLineWidth: CGFloat = 1
 }
 
 class MonthlyCalendarCollectionView: UIView {
@@ -73,6 +76,14 @@ class MonthlyCalendarCollectionView: UIView {
         return collectionView
     }()
     
+    private let separatorLine: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: Design.separatorLineWidth))
+        view.backgroundColor = Design.separatorLineColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     init() {
         super.init(frame: .zero)
         initView()
@@ -90,6 +101,7 @@ class MonthlyCalendarCollectionView: UIView {
     private func initView() {
         addSubview(weekDayView)
         addSubview(collectionView)
+        addSubview(separatorLine)
         dayLabels.forEach { weekDayView.addArrangedSubview($0) }
         setupCollectionView()
         setConstraint()
@@ -117,7 +129,12 @@ class MonthlyCalendarCollectionView: UIView {
             weekDayView.rightAnchor.constraint(equalTo: rightAnchor),
             weekDayView.heightAnchor.constraint(equalToConstant: Design.weekDayHeight),
             
-            collectionView.topAnchor.constraint(equalTo: weekDayView.bottomAnchor),
+            separatorLine.leftAnchor.constraint(equalTo: leftAnchor),
+            separatorLine.rightAnchor.constraint(equalTo: rightAnchor),
+            separatorLine.topAnchor.constraint(equalTo: weekDayView.bottomAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: Design.separatorLineWidth),
+            
+            collectionView.topAnchor.constraint(equalTo: separatorLine.bottomAnchor),
             collectionView.leftAnchor.constraint(equalTo: leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: rightAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)

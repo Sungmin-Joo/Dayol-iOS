@@ -19,11 +19,30 @@ private enum Design {
     static let dayTop: CGFloat = 2
     static let dayLabelLeft: CGFloat = 2
     static let dayLabelRight: CGFloat = 2
+    
+    static let verticalSeparatorLineColor: UIColor = UIColor(decimalRed: 250, green: 250, blue: 250)
+    static let horizontalSeparatorLineColor: UIColor = UIColor(decimalRed: 233, green: 233, blue: 233)
+    static let separatorLineWidth: CGFloat = 1
 }
 
 class MonthlyCalendarViewDayCell: UICollectionViewCell {
     static let identifier = "\(MonthlyCalendarViewDayCell.self)"
+    
+    private let rightSeparatorLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = Design.verticalSeparatorLineColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
 
+    private let bottomSeparatorLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = Design.horizontalSeparatorLineColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
     
     private let dayBackgroundView: UIView = {
         let view =  UIView()
@@ -63,6 +82,8 @@ class MonthlyCalendarViewDayCell: UICollectionViewCell {
     
     private func initView() {
         contentView.addSubview(dayBackgroundView)
+        contentView.addSubview(rightSeparatorLine)
+        contentView.addSubview(bottomSeparatorLine)
         dayBackgroundView.addSubview(dayLabel)
         setConstraint()
     }
@@ -75,7 +96,17 @@ class MonthlyCalendarViewDayCell: UICollectionViewCell {
             dayLabel.leftAnchor.constraint(equalTo: dayBackgroundView.leftAnchor, constant: Design.dayLabelLeft),
             dayLabel.rightAnchor.constraint(equalTo: dayBackgroundView.rightAnchor, constant: -Design.dayLabelRight),
             dayLabel.bottomAnchor.constraint(equalTo: dayBackgroundView.bottomAnchor),
-            dayLabel.heightAnchor.constraint(equalToConstant: Design.daySize.height)
+            dayLabel.heightAnchor.constraint(equalToConstant: Design.daySize.height),
+            
+            rightSeparatorLine.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            rightSeparatorLine.topAnchor.constraint(equalTo: contentView.topAnchor),
+            rightSeparatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            rightSeparatorLine.widthAnchor.constraint(equalToConstant: Design.separatorLineWidth),
+            
+            bottomSeparatorLine.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            bottomSeparatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            bottomSeparatorLine.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            bottomSeparatorLine.heightAnchor.constraint(equalToConstant: Design.separatorLineWidth)
         ])
     }
     
