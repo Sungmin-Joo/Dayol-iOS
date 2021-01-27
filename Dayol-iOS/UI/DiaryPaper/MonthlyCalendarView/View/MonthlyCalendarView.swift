@@ -62,6 +62,8 @@ private enum Design {
 class MonthlyCalendarView: UIView {
     private var containerViewLeft = NSLayoutConstraint()
     private var containerViewRight = NSLayoutConstraint()
+    private let viewModel: MonthlyCalendarViewModel
+    private let disposeBag = DisposeBag()
     private var iPadOrientation: Design.IPadOrientation {
         if self.frame.size.width > self.frame.size.height {
             return .landscape
@@ -69,13 +71,6 @@ class MonthlyCalendarView: UIView {
             return .portrait
         }
     }
-    
-    private let containerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
     
     private let headerView: MonthlyCalendarHeaderView = {
         let header = MonthlyCalendarHeaderView(month: .january)
@@ -92,6 +87,7 @@ class MonthlyCalendarView: UIView {
     }()
     
     init() {
+        self.viewModel = MonthlyCalendarViewModel()
         super.init(frame: .zero)
         initView()
     }
@@ -100,38 +96,35 @@ class MonthlyCalendarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        updateContainerView()
-    }
-    
     private func initView() {
-        addSubview(containerView)
-        containerView.addSubview(headerView)
-        containerView.addSubview(collectionView)
+        addSubview(headerView)
+        addSubview(collectionView)
         setConstraint()
+        bind()
     }
     
     private func setConstraint() {
-        containerViewLeft = containerView.leftAnchor.constraint(equalTo: leftAnchor, constant: Design.collectionLeft(orientation: iPadOrientation))
-        containerViewRight = containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -Design.collectionRight(orientation: iPadOrientation))
-        
         NSLayoutConstraint.activate([
-            containerViewLeft, containerViewRight,
-            headerView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            headerView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            headerView.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+            headerView.topAnchor.constraint(equalTo: topAnchor),
+            headerView.leftAnchor.constraint(equalTo: leftAnchor),
+            headerView.rightAnchor.constraint(equalTo: rightAnchor),
             headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(orientation: iPadOrientation)),
             
             collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            collectionView.leftAnchor.constraint(equalTo: leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
-    private func updateContainerView() {
-        containerViewLeft.constant = Design.collectionLeft(orientation: iPadOrientation)
-        containerViewRight.constant = -Design.collectionRight(orientation: iPadOrientation)
+    private func bind() {
+        viewModel.dateModel(date: Date())
+            .subscribe(onNext: { [weak self] dateModel in
+                guard let self = self else { return }
+                let _ = dateModel.month
+                let days = dateModel.days
+                self.collectionView.days = days
+            })
+            .disposed(by: disposeBag)
     }
 }

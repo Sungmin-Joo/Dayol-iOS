@@ -55,6 +55,7 @@
 		CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */; };
 		CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF135EE25811D130098BEC3 /* Common.xcassets */; };
 		CEF135F225811DE30098BEC3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135F125811DE30098BEC3 /* Assets.swift */; };
+		DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D67DC25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift */; };
 		DA3836BC258F2F2A0029464C /* PasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3836BB258F2F2A0029464C /* PasswordViewModel.swift */; };
 		DA3836BF258F34510029464C /* PasswordViewController+Bind.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3836BE258F34510029464C /* PasswordViewController+Bind.swift */; };
 		DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4899E6257A08A6005E39ED /* AppDelegate.swift */; };
@@ -144,6 +145,7 @@
 		CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertViewController.swift; sourceTree = "<group>"; };
 		CEF135EE25811D130098BEC3 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		CEF135F125811DE30098BEC3 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		DA1D67DC25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewDayCell.swift; sourceTree = "<group>"; };
 		DA3836BB258F2F2A0029464C /* PasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewModel.swift; sourceTree = "<group>"; };
 		DA3836BE258F34510029464C /* PasswordViewController+Bind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasswordViewController+Bind.swift"; sourceTree = "<group>"; };
 		DA4899E3257A08A6005E39ED /* DAYOL Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DAYOL Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -532,6 +534,14 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		DA1D67DB25C064A6004AEB0E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DA1D67DC25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		DA3836BA258F2F070029464C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -576,6 +586,7 @@
 		DA81DF3925BEE48B00A4B2CE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DA1D67DB25C064A6004AEB0E /* Cell */,
 				DA81DF3A25BEE49A00A4B2CE /* MonthlyCalendarView.swift */,
 				DA81DF4525BEE5A400A4B2CE /* MonthlyCalendarHeaderView.swift */,
 				DA81DF4A25BEE5B600A4B2CE /* MonthlyCalendarCollectionView.swift */,
@@ -899,6 +910,7 @@
 				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
 				3434B76F25A479D800506152 /* DYModalConfiguration.swift in Sources */,
 				DADD0A0525A35445004D6CF0 /* DiaryEditColorPaletteCell.swift in Sources */,
+				DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */,
 				34A11A4F25ADC93300678F98 /* AddPaperContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
