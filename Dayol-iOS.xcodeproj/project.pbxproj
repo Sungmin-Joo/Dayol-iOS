@@ -10,6 +10,7 @@
 		3434B76B25A4797B00506152 /* DYModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434B76A25A4797B00506152 /* DYModalViewController.swift */; };
 		3434B76F25A479D800506152 /* DYModalConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434B76E25A479D800506152 /* DYModalConfiguration.swift */; };
 		3446621125C0480700656775 /* PaperPresentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3446621025C0480700656775 /* PaperPresentView.swift */; };
+		3446621F25C1A07A00656775 /* CornellPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3446621E25C1A07A00656775 /* CornellPaper.swift */; };
 		3449D2C425ADDB510050C02A /* AddPaperContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3449D2C325ADDB510050C02A /* AddPaperContentViewModel.swift */; };
 		3449D2CA25ADF6520050C02A /* AddPaperModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3449D2C925ADF6520050C02A /* AddPaperModel.swift */; };
 		3449D2D325AF23AE0050C02A /* AddPaperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3449D2D225AF23AE0050C02A /* AddPaperCell.swift */; };
@@ -95,6 +96,7 @@
 		3434B76A25A4797B00506152 /* DYModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYModalViewController.swift; sourceTree = "<group>"; };
 		3434B76E25A479D800506152 /* DYModalConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYModalConfiguration.swift; sourceTree = "<group>"; };
 		3446621025C0480700656775 /* PaperPresentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperPresentView.swift; sourceTree = "<group>"; };
+		3446621E25C1A07A00656775 /* CornellPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornellPaper.swift; sourceTree = "<group>"; };
 		3449D2C325ADDB510050C02A /* AddPaperContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaperContentViewModel.swift; sourceTree = "<group>"; };
 		3449D2C925ADF6520050C02A /* AddPaperModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaperModel.swift; sourceTree = "<group>"; };
 		3449D2D225AF23AE0050C02A /* AddPaperCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaperCell.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				34A2EDC425B85EDA008DB98D /* MujiPaper.swift */,
 				34A2EDC725B86082008DB98D /* DailyPaper.swift */,
 				34A2EDCE25B87953008DB98D /* GridPaper.swift */,
+				3446621E25C1A07A00656775 /* CornellPaper.swift */,
 				3446621025C0480700656775 /* PaperPresentView.swift */,
 			);
 			path = Papers;
@@ -873,6 +876,7 @@
 				DADD0A1925A72907004D6CF0 /* DiaryPaperListViewController.swift in Sources */,
 				DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */,
 				DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */,
+				3446621F25C1A07A00656775 /* CornellPaper.swift in Sources */,
 				CE8DCC942590ECE8007738EA /* DiaryListCell.swift in Sources */,
 				CE8DCB11258FA502007738EA /* DiaryListViewModel.swift in Sources */,
 				DAF18E9425B70C26007ACFAC /* Date+Calendar.swift in Sources */,
