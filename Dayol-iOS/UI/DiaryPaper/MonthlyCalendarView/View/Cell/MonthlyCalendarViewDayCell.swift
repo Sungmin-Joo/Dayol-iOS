@@ -2,7 +2,7 @@
 //  MonthlyCalendarViewDayCell.swift
 //  Dayol-iOS
 //
-//  Created by 박종상 on 2021/01/26.
+//  Created by 박종상 on 2021/01/26
 //
 
 import UIKit
