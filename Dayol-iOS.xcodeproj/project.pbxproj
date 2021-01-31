@@ -280,6 +280,7 @@
 		34B6C13325BB4F7A00C2596F /* Papers */ = {
 			isa = PBXGroup;
 			children = (
+				DAF18EA025B70FAB007ACFAC /* MonthlyCalendarView */,
 				34A2EDD325B88DB0008DB98D /* BasePaperView.swift */,
 				34A2EDC425B85EDA008DB98D /* MujiPaperView.swift */,
 				34A2EDC725B86082008DB98D /* DailyPaperView.swift */,
@@ -666,7 +667,6 @@
 			children = (
 				34A2EDC025B85647008DB98D /* Model */,
 				DADD0A1725A728F2004D6CF0 /* ViewController */,
-				DAF18EA025B70FAB007ACFAC /* MonthlyCalendarView */,
 				DADD0A1E25A72A59004D6CF0 /* EmptyView */,
 				34B6C13325BB4F7A00C2596F /* Papers */,
 				34A2EDCA25B861DC008DB98D /* ViewModel */,
