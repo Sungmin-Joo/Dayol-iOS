@@ -18,7 +18,7 @@ private enum Design {
     
     static let buttonLeft: CGFloat = 8
     static let buttonSize: CGSize = CGSize(width: 8, height: 4)
-    static let buttonImage = UIImage(named: "rightArrow")
+    static let buttonImage = UIImage(named: "downArrow")
 }
 
 class MonthlyCalendarHeaderView: UIView {
