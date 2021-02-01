@@ -26,6 +26,7 @@
 		34A2EDCC25B86210008DB98D /* PaperViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A2EDCB25B86210008DB98D /* PaperViewModel.swift */; };
 		34A2EDCF25B87953008DB98D /* GridPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A2EDCE25B87953008DB98D /* GridPaperView.swift */; };
 		34A2EDD425B88DB0008DB98D /* BasePaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A2EDD325B88DB0008DB98D /* BasePaperView.swift */; };
+		34B6C14125BDB28400C2596F /* DYKeybordInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B6C14025BDB28400C2596F /* DYKeybordInputAccessoryView.swift */; };
 		34CA253A25A613220057404D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34CA253C25A613220057404D /* Localizable.strings */; };
 		34CA254225A613CE0057404D /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA254125A613CE0057404D /* String+Extension.swift */; };
 		34CA254625A6190D0057404D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA254525A6190D0057404D /* SettingsViewController.swift */; };
@@ -112,6 +113,7 @@
 		34A2EDCB25B86210008DB98D /* PaperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperViewModel.swift; sourceTree = "<group>"; };
 		34A2EDCE25B87953008DB98D /* GridPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPaperView.swift; sourceTree = "<group>"; };
 		34A2EDD325B88DB0008DB98D /* BasePaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaperView.swift; sourceTree = "<group>"; };
+		34B6C14025BDB28400C2596F /* DYKeybordInputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DYKeybordInputAccessoryView.swift; sourceTree = "<group>"; };
 		34CA253B25A613220057404D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		34CA253E25A613540057404D /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		34CA253F25A613540057404D /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -290,6 +292,14 @@
 				34A2EDCE25B87953008DB98D /* GridPaperView.swift */,
 			);
 			path = Papers;
+			sourceTree = "<group>";
+		};
+		34B6C13C25BDB24F00C2596F /* InputAccessaryView */ = {
+			isa = PBXGroup;
+			children = (
+				34B6C14025BDB28400C2596F /* DYKeybordInputAccessoryView.swift */,
+			);
+			path = InputAccessaryView;
 			sourceTree = "<group>";
 		};
 		34C6A3812594F4F900658499 /* Util */ = {
@@ -651,6 +661,7 @@
 		DADD0A1625A728C9004D6CF0 /* DiaryPaper */ = {
 			isa = PBXGroup;
 			children = (
+				34B6C13C25BDB24F00C2596F /* InputAccessaryView */,
 				34A2EDC025B85647008DB98D /* Model */,
 				DADD0A1725A728F2004D6CF0 /* ViewController */,
 				DAF18EA025B70FAB007ACFAC /* MonthlyCalendarView */,
@@ -874,6 +885,7 @@
 				DADD09FE25A33695004D6CF0 /* DiaryEditColorPaletteView.swift in Sources */,
 				34A11A4725ADC3CA00678F98 /* AddPaperViewController.swift in Sources */,
 				346779C425B47C6F001427F8 /* DiaryEditViewController+PhotoPicker.swift in Sources */,
+				34B6C14125BDB28400C2596F /* DYKeybordInputAccessoryView.swift in Sources */,
 				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
 				34CA255825A74A7A0057404D /* SettingsViewModel.swift in Sources */,
 				DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */,
