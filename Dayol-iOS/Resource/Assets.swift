@@ -38,5 +38,10 @@ enum Assets {
                 static let off = UIImage(named: "paper_add_btn_off")
             }
         }
+
+        enum InfoView {
+            static let info = UIImage(named: "infoView_icon_info")
+            static let close = UIImage(named: "infoView_icon_close")
+        }
     }
 }
