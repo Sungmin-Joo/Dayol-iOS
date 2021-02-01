@@ -88,6 +88,7 @@ class MonthlyCalendarViewDayCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             dayBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Design.dayTop),
             dayBackgroundView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            dayBackgroundView.widthAnchor.constraint(greaterThanOrEqualToConstant: Design.daySize.width),
             dayLabel.topAnchor.constraint(equalTo: dayBackgroundView.topAnchor),
             dayLabel.leftAnchor.constraint(equalTo: dayBackgroundView.leftAnchor, constant: Design.dayLabelLeft),
             dayLabel.rightAnchor.constraint(equalTo: dayBackgroundView.rightAnchor, constant: -Design.dayLabelRight),
