@@ -37,6 +37,13 @@ class DiaryPaperViewController: UIViewController {
         return monthlyView
     }()
     
+    private let weeklyView: WeeklyCalendarView = {
+        let weeklyView = WeeklyCalendarView()
+        weeklyView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return weeklyView
+    }()
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -53,7 +60,7 @@ class DiaryPaperViewController: UIViewController {
     
     private func initView() {
         view.backgroundColor = .white
-        view.addSubview(monthlyView)
+        view.addSubview(weeklyView)
         setupNavigationBars()
         setConstraint()
     }
@@ -74,10 +81,10 @@ class DiaryPaperViewController: UIViewController {
     
     private func setConstraint() {
         NSLayoutConstraint.activate([
-            monthlyView.topAnchor.constraint(equalTo: view.topAnchor),
-            monthlyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            monthlyView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            monthlyView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            weeklyView.topAnchor.constraint(equalTo: view.topAnchor),
+            weeklyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            weeklyView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            weeklyView.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
     }
 

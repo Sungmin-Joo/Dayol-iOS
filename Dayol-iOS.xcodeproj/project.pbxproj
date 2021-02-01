@@ -56,6 +56,10 @@
 		CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF135EE25811D130098BEC3 /* Common.xcassets */; };
 		CEF135F225811DE30098BEC3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135F125811DE30098BEC3 /* Assets.swift */; };
 		DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D67DC25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift */; };
+		DA27AC5B25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27AC5A25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift */; };
+		DA27AC5E25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27AC5D25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift */; };
+		DA27AC6625C81D2700C71CDE /* WeeklyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27AC6525C81D2700C71CDE /* WeeklyCalendarView.swift */; };
+		DA27AC6A25C8288B00C71CDE /* WeeklyCalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27AC6925C8288B00C71CDE /* WeeklyCalendarViewCell.swift */; };
 		DA3836BC258F2F2A0029464C /* PasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3836BB258F2F2A0029464C /* PasswordViewModel.swift */; };
 		DA3836BF258F34510029464C /* PasswordViewController+Bind.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3836BE258F34510029464C /* PasswordViewController+Bind.swift */; };
 		DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4899E6257A08A6005E39ED /* AppDelegate.swift */; };
@@ -146,6 +150,10 @@
 		CEF135EE25811D130098BEC3 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		CEF135F125811DE30098BEC3 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		DA1D67DC25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewDayCell.swift; sourceTree = "<group>"; };
+		DA27AC5A25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarViewModel.swift; sourceTree = "<group>"; };
+		DA27AC5D25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarHeaderView.swift; sourceTree = "<group>"; };
+		DA27AC6525C81D2700C71CDE /* WeeklyCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarView.swift; sourceTree = "<group>"; };
+		DA27AC6925C8288B00C71CDE /* WeeklyCalendarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarViewCell.swift; sourceTree = "<group>"; };
 		DA3836BB258F2F2A0029464C /* PasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewModel.swift; sourceTree = "<group>"; };
 		DA3836BE258F34510029464C /* PasswordViewController+Bind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasswordViewController+Bind.swift"; sourceTree = "<group>"; };
 		DA4899E3257A08A6005E39ED /* DAYOL Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DAYOL Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -280,6 +288,7 @@
 		34B6C13325BB4F7A00C2596F /* Papers */ = {
 			isa = PBXGroup;
 			children = (
+				DA27AC5725C6D68600C71CDE /* WeeklyCalendarView */,
 				DAF18EA025B70FAB007ACFAC /* MonthlyCalendarView */,
 				34A2EDD325B88DB0008DB98D /* BasePaperView.swift */,
 				34A2EDC425B85EDA008DB98D /* MujiPaperView.swift */,
@@ -539,6 +548,41 @@
 			isa = PBXGroup;
 			children = (
 				DA1D67DC25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		DA27AC5725C6D68600C71CDE /* WeeklyCalendarView */ = {
+			isa = PBXGroup;
+			children = (
+				DA27AC5825C6D6BA00C71CDE /* View */,
+				DA27AC5925C6D6BE00C71CDE /* ViewModel */,
+			);
+			path = WeeklyCalendarView;
+			sourceTree = "<group>";
+		};
+		DA27AC5825C6D6BA00C71CDE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DA27AC6825C8287D00C71CDE /* Cell */,
+				DA27AC6525C81D2700C71CDE /* WeeklyCalendarView.swift */,
+				DA27AC5D25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DA27AC5925C6D6BE00C71CDE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DA27AC5A25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DA27AC6825C8287D00C71CDE /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DA27AC6925C8288B00C71CDE /* WeeklyCalendarViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -843,6 +887,7 @@
 				34CA254C25A619B20057404D /* SettingsModel.swift in Sources */,
 				34A2EDCC25B86210008DB98D /* PaperViewModel.swift in Sources */,
 				34CA255425A61DD10057404D /* NSObject+Extension.swift in Sources */,
+				DA27AC6625C81D2700C71CDE /* WeeklyCalendarView.swift in Sources */,
 				34A2EDC525B85EDA008DB98D /* MujiPaperView.swift in Sources */,
 				CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */,
 				DADD0A2025A72A6A004D6CF0 /* DiaryPaperEmptyView.swift in Sources */,
@@ -874,6 +919,7 @@
 				CE8DCC912590E890007738EA /* DiaryListViewController+CollectionView.swift in Sources */,
 				DAD66738259B570800E8F59A /* DYNavigationController.swift in Sources */,
 				34A2EDC825B86082008DB98D /* DailyPaperView.swift in Sources */,
+				DA27AC5E25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift in Sources */,
 				3449D2DB25B0B9630050C02A /* AddPaperHeaderReusableView.swift in Sources */,
 				CE8DCB16258FA5FD007738EA /* DiaryCoverModel.swift in Sources */,
 				3449D2CA25ADF6520050C02A /* AddPaperModel.swift in Sources */,
@@ -889,6 +935,7 @@
 				DADD09FE25A33695004D6CF0 /* DiaryEditColorPaletteView.swift in Sources */,
 				34A11A4725ADC3CA00678F98 /* AddPaperViewController.swift in Sources */,
 				346779C425B47C6F001427F8 /* DiaryEditViewController+PhotoPicker.swift in Sources */,
+				DA27AC6A25C8288B00C71CDE /* WeeklyCalendarViewCell.swift in Sources */,
 				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
 				34CA255825A74A7A0057404D /* SettingsViewModel.swift in Sources */,
 				DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */,
@@ -905,6 +952,7 @@
 				DAF18E9425B70C26007ACFAC /* Date+Calendar.swift in Sources */,
 				3449D2D725AF24DA0050C02A /* AddPaperContentView+UICollectionView.swift in Sources */,
 				CE8DCB25258FAE72007738EA /* Array+extension.swift in Sources */,
+				DA27AC5B25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift in Sources */,
 				CE8DCAE1258D28F4007738EA /* HomeViewController.swift in Sources */,
 				34CA255B25A75A340057404D /* SettingCellProtocol.swift in Sources */,
 				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
