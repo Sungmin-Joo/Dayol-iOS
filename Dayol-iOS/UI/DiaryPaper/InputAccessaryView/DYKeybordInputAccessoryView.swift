@@ -30,42 +30,42 @@ private enum Design {
 
 class DYKeybordInputAccessoryView: UIView {
 
-    let checkButton: UIButton = {
+    private(set) var checkButton: UIButton = {
         let button = UIButton()
         button.setImage(Design.checkImage, for: .normal)
         button.adjustsImageWhenHighlighted = true
         return button
     }()
-    let bulletButton: UIButton = {
+    private(set) var bulletButton: UIButton = {
         let button = UIButton()
         button.setImage(Design.bulletImage, for: .normal)
         return button
     }()
-    let textStyleButton: UIButton = {
+    private(set) var textStyleButton: UIButton = {
         let button = UIButton()
         button.setImage(Design.textStyleImage, for: .normal)
         return button
     }()
-    let verticalSeparator: UIView = {
+    private let verticalSeparator: UIView = {
         let view = UIView()
         view.backgroundColor = Design.verticalSeparatorColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    let textColorButton: UIButton = {
+    private(set) var textColorButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = Design.textColorButtonRadius
         button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    let keyboardDownButton: UIButton = {
+    private(set) var keyboardDownButton: UIButton = {
         let button = UIButton()
         button.setImage(Design.keyboardImage, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    let leftStackView: UIStackView = {
+    private let leftStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .center
         stackView.axis = .horizontal
@@ -74,7 +74,7 @@ class DYKeybordInputAccessoryView: UIView {
         return stackView
     }()
 
-    var currentColor: UIColor {
+    private(set) var currentColor: UIColor {
         didSet {
             updateCurrentTextColor()
         }
