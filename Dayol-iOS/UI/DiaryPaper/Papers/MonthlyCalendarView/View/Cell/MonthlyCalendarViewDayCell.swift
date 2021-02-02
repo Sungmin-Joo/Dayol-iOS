@@ -57,6 +57,7 @@ class MonthlyCalendarViewDayCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .clear
         
         return label
     }()
@@ -75,11 +76,6 @@ class MonthlyCalendarViewDayCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        dayLabel.backgroundColor = .clear
-    }
-    
     private func initView() {
         contentView.addSubview(dayBackgroundView)
         contentView.addSubview(rightSeparatorLine)
@@ -92,6 +88,7 @@ class MonthlyCalendarViewDayCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             dayBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Design.dayTop),
             dayBackgroundView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            dayBackgroundView.widthAnchor.constraint(greaterThanOrEqualToConstant: Design.daySize.width),
             dayLabel.topAnchor.constraint(equalTo: dayBackgroundView.topAnchor),
             dayLabel.leftAnchor.constraint(equalTo: dayBackgroundView.leftAnchor, constant: Design.dayLabelLeft),
             dayLabel.rightAnchor.constraint(equalTo: dayBackgroundView.rightAnchor, constant: -Design.dayLabelRight),
