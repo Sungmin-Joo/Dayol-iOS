@@ -14,7 +14,6 @@ private enum Design {
         case landscape
         case portrait
     }
-    
     case ipad
     case iphone
     

@@ -31,5 +31,4 @@ extension UIFont {
     static func helveticaBold(size: CGFloat) -> UIFont {
         return UIFont.nonOptionalFont(name: "Helvetica-Bold", size)
     }
-
 }
