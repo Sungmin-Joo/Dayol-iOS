@@ -39,6 +39,12 @@ enum Assets {
             }
         }
 
+        enum PaperList {
+            static let chevronDown = UIImage(named: "paper_list_chevron_down")
+            static let addCell = UIImage(named: "paper_list_cell_add_paper")
+            static let starred = UIImage(named: "paper_list_cell_starred")
+        }
+
         enum InfoView {
             static let info = UIImage(named: "infoView_icon_info")
             static let close = UIImage(named: "infoView_icon_close")
