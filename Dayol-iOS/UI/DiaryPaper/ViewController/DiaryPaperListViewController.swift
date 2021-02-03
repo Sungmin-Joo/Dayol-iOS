@@ -93,7 +93,7 @@ class DiaryPaperViewController: UIViewController {
         let modalStyle: DYModalConfiguration.ModalStyle = isPadDevice ? .normal : .custom(containerHeight: modalHeight)
         let configuration = DYModalConfiguration(dimStyle: .black,
                                                  modalStyle: modalStyle)
-        let addPageVC = AddPaperViewController(configure: configuration)
+        let addPageVC = PaperModalViewController(toolType: .add, configure: configuration)
         presentCustomModal(addPageVC)
     }
 }
