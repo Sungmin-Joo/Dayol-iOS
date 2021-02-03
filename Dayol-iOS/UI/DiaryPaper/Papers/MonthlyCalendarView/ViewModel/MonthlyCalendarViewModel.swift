@@ -8,7 +8,51 @@
 import Foundation
 import RxSwift
 
-enum WeekDay: Int {
+enum Month: Int, CaseIterable {
+    case january = 0
+    case february
+    case march
+    case april
+    case may
+    case june
+    case july
+    case august
+    case september
+    case october
+    case november
+    case december
+    
+    var asString: String {
+        switch self {
+        case .january:
+            return "January"
+        case .february:
+            return "February"
+        case .march:
+            return "March"
+        case .april:
+            return "April"
+        case .may:
+            return "May"
+        case .june:
+            return "June"
+        case .july:
+            return "July"
+        case .august:
+            return "August"
+        case .september:
+            return "September"
+        case .october:
+            return "October"
+        case .november:
+            return "November"
+        case .december:
+            return "December"
+        }
+    }
+}
+
+enum WeekDay: Int, CaseIterable {
     case sunday = 0
     case monday
     case tuesday
@@ -39,13 +83,22 @@ enum WeekDay: Int {
 
 struct MonthlyCalendarDataModel {
     let year: Int
-    let month: Int
+    let month: Month
     let days: [MonthlyCalendarDayModel]
 }
 
 struct MonthlyCalendarDayModel {
     let dayNumber: Int
     let isCurrentMonth: Bool
+    let isToday: Bool
+    let events: [NSObject] // Mock Data
+    
+    init(dayNumber: Int, isCurrentMonth: Bool, isToday: Bool = false) {
+        self.dayNumber = dayNumber
+        self.isCurrentMonth = isCurrentMonth
+        self.isToday = isToday
+        self.events = [NSObject]() // Mock Data
+    }
 }
 
 class MonthlyCalendarViewModel {
@@ -97,7 +150,7 @@ class MonthlyCalendarViewModel {
                 daysResult.append(dayModel)
             } else if isCurrentMonth {
                 let day = index - prevMonthRemainDaysCount + 1
-                let dayModel = MonthlyCalendarDayModel(dayNumber: day, isCurrentMonth: true)
+                let dayModel = MonthlyCalendarDayModel(dayNumber: day, isCurrentMonth: true, isToday: day == today)
                 daysResult.append(dayModel)
             } else {
                 let day = index - prevMonthRemainDaysCount - currentMonthCount + 1
@@ -119,9 +172,10 @@ extension MonthlyCalendarViewModel {
             }
             self.calcDate(date: date)
             let days = self.days(year: self.year, month: self.monthIndex)
+            let month = Month(rawValue: self.monthIndex) ?? .january
             let dateModel = MonthlyCalendarDataModel(
                 year: self.year,
-                month: self.monthIndex,
+                month: month,
                 days: days
             )
             
