@@ -8,14 +8,14 @@
 import Foundation
 
 class AddPaperContentViewModel {
-    private(set) var papers: [AddPaperModel.PaperOrientation: [AddPaperModel.CellModel]]
+    private(set) var papers: [PaperModalModel.PaperOrientation: [PaperModalModel.AddPaperCellModel]]
 
     init() {
         papers = [:]
 
-        AddPaperModel.PaperOrientation.allCases.forEach { orientation in
-            papers[orientation] = AddPaperModel.PaperStyle.allCases.map {
-                AddPaperModel.CellModel(orientation: orientation, style: $0)
+        PaperModalModel.PaperOrientation.allCases.forEach { orientation in
+            papers[orientation] = PaperModalModel.PaperStyle.allCases.map {
+                PaperModalModel.AddPaperCellModel(orientation: orientation, style: $0)
             }
         }
     }
@@ -25,8 +25,8 @@ extension AddPaperContentViewModel {
 
     func cellModel(
         _ indexPath: IndexPath,
-        orietation: AddPaperModel.PaperOrientation
-    ) -> AddPaperModel.CellModel? {
+        orietation: PaperModalModel.PaperOrientation
+    ) -> PaperModalModel.AddPaperCellModel? {
 
         guard let cellModel = papers[orietation]?[safe: indexPath.row] else {
             return nil
