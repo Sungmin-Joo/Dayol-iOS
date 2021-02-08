@@ -42,7 +42,6 @@ class PaperListAddCell: UICollectionViewCell {
         let button = UIButton()
         button.setImage(Design.image, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: Design.buttonHeight).isActive = true
         return button
     }()
 
@@ -69,6 +68,7 @@ private extension PaperListAddCell {
             addButton.topAnchor.constraint(equalTo: contentView.topAnchor),
             addButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             addButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            addButton.heightAnchor.constraint(equalToConstant: Design.buttonHeight),
 
             titleLbel.topAnchor.constraint(equalTo: addButton.bottomAnchor,
                                            constant: Design.titleTopMargin),
