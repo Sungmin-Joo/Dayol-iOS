@@ -25,7 +25,8 @@ private enum Design {
 
 class InfoView: UIView {
 
-    // UI
+    // MARK: UI
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -76,7 +77,8 @@ class InfoView: UIView {
         return label
     }()
 
-    // Init
+    // MARK: Init
+    
     init(text: String) {
         super.init(frame: .zero)
         setViews()
