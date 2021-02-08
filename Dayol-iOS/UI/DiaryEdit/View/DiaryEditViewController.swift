@@ -122,6 +122,7 @@ class DiaryEditViewController: UIViewController {
             .subscribe(onNext: { [weak self] DYCoverColor in
                 guard let self = self else { return }
                 self.diaryEditCoverView.setCoverColor(color: DYCoverColor)
+                self.currentCoverColor = DYCoverColor
             })
             .disposed(by: disposeBag)
     }
