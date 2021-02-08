@@ -21,7 +21,6 @@ class DiaryListViewModel {
 
     init() {
         bind()
-        fetchDiaryList()
     }
     
     private func bind() {
@@ -30,6 +29,8 @@ class DiaryListViewModel {
             .subscribe(onNext: { [weak self] model in
                 guard let self = self else { return }
                 self.diaryList = model
+                let isEmpty = (self.diaryList.count == 0)
+                self.diaryEvent.onNext(.fetch(isEmpty: isEmpty))
             })
             .disposed(by: disposeBag)
     }
@@ -38,12 +39,6 @@ class DiaryListViewModel {
 // MARK: - Fetch
 
 extension DiaryListViewModel {
-
-    private func fetchDiaryList() {
-
-        let isEmpty = (diaryList.count == 0)
-        diaryEvent.onNext(.fetch(isEmpty: isEmpty))
-    }
 
     // TODO: - 실 데이터와 연동
     private func getMockData() {

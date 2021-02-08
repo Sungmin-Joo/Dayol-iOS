@@ -136,11 +136,12 @@ class DiaryEditViewController: UIViewController {
         rightButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
+                
+                self.titleView.isEditting = false
                 guard let title = self.titleView.titleLabel.text else { return }
                 
                 let diaryCoverModel = DiaryCoverModel(coverColor: self.currentCoverColor, title: title, totalPage: 0)
                 
-                self.titleView.isEditting = false
                 self.viewModel.createDiaryInfo(model: diaryCoverModel)
                 self.dismiss(animated: true, completion: nil)
             }
