@@ -88,19 +88,29 @@ class DiaryPaperViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
+        toolBar.pageButton.rx.tap
+            .bind { [weak self] in
+                self?.presentPaperModal(toolType: .list)
+            }
+            .disposed(by: disposeBag)
+
         let tapGesture = UITapGestureRecognizer()
         tapGesture.addTarget(self, action: #selector(didTapEmptyView))
         emptyView.addGestureRecognizer(tapGesture)
     }
 
     @objc func didTapEmptyView() {
+        presentPaperModal(toolType: .add)
+    }
+
+    private func presentPaperModal(toolType: PaperModalViewController.PaperToolType) {
         let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
         let screenHeight = keyWindow?.bounds.height ?? .zero
         let modalHeight: CGFloat = screenHeight - Design.addPageModalTopMargin
         let modalStyle: DYModalConfiguration.ModalStyle = isPadDevice ? .normal : .custom(containerHeight: modalHeight)
         let configuration = DYModalConfiguration(dimStyle: .black,
                                                  modalStyle: modalStyle)
-        let addPageVC = PaperModalViewController(toolType: .add, configure: configuration)
+        let addPageVC = PaperModalViewController(toolType: toolType, configure: configuration)
         presentCustomModal(addPageVC)
     }
 }
