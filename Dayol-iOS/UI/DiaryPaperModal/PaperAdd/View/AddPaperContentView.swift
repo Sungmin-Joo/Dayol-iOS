@@ -56,7 +56,7 @@ class AddPaperContentView: UIView {
         return collectionView
     }()
 
-    private(set) var currentTabType: AddPaperModel.PaperOrientation {
+    private(set) var currentTabType: PaperModalModel.PaperOrientation {
         didSet {
             updateCurrentTabType()
         }
