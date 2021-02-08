@@ -8,7 +8,7 @@
 import RxSwift
 
 class DiaryListViewModel {
-
+    private let disposeBag = DisposeBag()
     enum DiaryListEvent {
         case fetch(isEmpty: Bool)
         case insert(index: Int)
@@ -20,7 +20,18 @@ class DiaryListViewModel {
     var diaryEvent = ReplaySubject<DiaryListEvent>.createUnbounded()
 
     init() {
+        bind()
         fetchDiaryList()
+    }
+    
+    private func bind() {
+        // TODO: Login For Test. Please, remove this code after DB determined
+        DiaryListTestData.shared.diaryListSubject
+            .subscribe(onNext: { [weak self] model in
+                guard let self = self else { return }
+                self.diaryList = model
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -29,15 +40,6 @@ class DiaryListViewModel {
 extension DiaryListViewModel {
 
     private func fetchDiaryList() {
-        // db에서 다이어리 가져오기
-        diaryList = [
-            DiaryCoverModel(coverColor: .DYRed, title: "1번 다이어리", totalPage: 3),
-            DiaryCoverModel(coverColor: .DYBlue, title: "2번 다이어리", totalPage: 2),
-            DiaryCoverModel(coverColor: .DYGreen, title: "3번 다이어리", totalPage: 5),
-            DiaryCoverModel(coverColor: .DYRed, title: "1번 다이어리", totalPage: 3),
-            DiaryCoverModel(coverColor: .DYBlue, title: "2번 다이어리", totalPage: 2),
-            DiaryCoverModel(coverColor: .DYGreen, title: "3번 다이어리", totalPage: 5)
-        ]
 
         let isEmpty = (diaryList.count == 0)
         diaryEvent.onNext(.fetch(isEmpty: isEmpty))
