@@ -15,7 +15,7 @@ private enum Design {
 
 extension PaperListContentView: UICollectionViewDataSource {
 
-    var numberOfPaper: Int {
+    var pepersCount: Int {
         return viewModel.papers.count
     }
 
@@ -24,12 +24,12 @@ extension PaperListContentView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numberOfPaper + 1
+        return pepersCount  + 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        if indexPath.row == numberOfPaper {
+        if indexPath.row == pepersCount  {
             // ' + ' 버튼이 있는 셀
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PaperListAddCell.identifier, for: indexPath)
             if let addCell = cell as? PaperListAddCell {
@@ -52,14 +52,14 @@ extension PaperListContentView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
-        guard proposedIndexPath.row != numberOfPaper else {
+        guard proposedIndexPath.row != pepersCount  else {
             return originalIndexPath
         }
         return proposedIndexPath
     }
 
     func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        return indexPath.row == numberOfPaper ? false : true
+        return indexPath.row == pepersCount  ? false : true
     }
 
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
