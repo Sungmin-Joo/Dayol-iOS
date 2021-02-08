@@ -12,7 +12,7 @@ enum DYNavigationItemType {
     case cancel
     case done
     case more
-    case downwardChevron
+    case downArrowChevron
 }
 
 enum DYNavigationToolbarType {
@@ -27,7 +27,7 @@ private enum Design {
     static let cancelButtonImage: UIImage? = UIImage(named: "cancelButton")
     static let doneButtonImage: UIImage? = UIImage(named: "doneButton")
     static let moreButtonImage: UIImage? = UIImage(named: "moreButton")
-    static let downwardChevronButtonImage: UIImage? = UIImage(named: "downwardChevronButton")
+    static let downwardArrowButtonImage: UIImage? = UIImage(named: "downwardArrowButton")
 }
 
 class DYNavigationItemCreator: NSObject {
@@ -47,7 +47,7 @@ class DYNavigationItemCreator: NSObject {
         case .cancel: buttonImage = Design.cancelButtonImage
         case .done: buttonImage = Design.doneButtonImage
         case .more: buttonImage = Design.moreButtonImage
-        case .downwardChevron: buttonImage = Design.downwardChevronButtonImage
+        case .downArrowChevron: buttonImage = Design.downwardArrowButtonImage
         }
         
         button.setImage(buttonImage, for: .normal)

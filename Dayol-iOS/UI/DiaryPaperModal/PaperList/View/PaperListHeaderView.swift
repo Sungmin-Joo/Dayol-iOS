@@ -11,8 +11,10 @@ private enum Design {
     static let titleFont = UIFont.appleBold(size: 18.0)
     static let titleLetterSpacing: CGFloat = -0.7
     static let titleColor = UIColor.black
-    static let chevronButtonWidth: CGFloat = 55.0
-    static let chevronButtonHeight: CGFloat = 55.0
+    static let closeButtonWidth: CGFloat = 55.0
+    static let closeButtonHeight: CGFloat = 55.0
+
+    static let closeButtonImage: UIImage? = UIImage(named: "downwardArrowButton")
 }
 
 private enum Text {
@@ -21,8 +23,12 @@ private enum Text {
 
 class PaperListHeaderView: UIView {
 
-    // 내일 이미지 추가 요청
-    private(set) var barRightButton = DYNavigationItemCreator.barButton(type: .downwardChevron)
+    private(set) var closeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Design.closeButtonImage, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.attributedText = NSAttributedString.build(
@@ -50,9 +56,7 @@ private extension PaperListHeaderView {
 
     func initView() {
         addSubview(titleLabel)
-        addSubview(barRightButton)
-
-        barRightButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(closeButton)
     }
 
     func setConstraints() {
@@ -60,10 +64,10 @@ private extension PaperListHeaderView {
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
 
-            barRightButton.widthAnchor.constraint(equalToConstant: Design.chevronButtonWidth),
-            barRightButton.heightAnchor.constraint(equalToConstant: Design.chevronButtonHeight),
-            barRightButton.trailingAnchor.constraint(equalTo: trailingAnchor),
-            barRightButton.centerYAnchor.constraint(equalTo: centerYAnchor)
+            closeButton.widthAnchor.constraint(equalToConstant: Design.closeButtonWidth),
+            closeButton.heightAnchor.constraint(equalToConstant: Design.closeButtonHeight),
+            closeButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            closeButton.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 

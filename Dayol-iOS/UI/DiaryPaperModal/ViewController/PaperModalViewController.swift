@@ -107,7 +107,7 @@ private extension PaperModalViewController {
     }
 
     func bindPaperListEvent() {
-        paperListHeaderView.barRightButton.rx.tap
+        paperListHeaderView.closeButton.rx.tap
             .bind { [weak self] in
                 self?.dismiss(animated: true)
             }
