@@ -28,4 +28,7 @@ extension UIFont {
         return UIFont.nonOptionalFont(name: "AppleSDGothicNeo-Bold", size)
     }
 
+    static func helveticaBold(size: CGFloat) -> UIFont {
+        return UIFont.nonOptionalFont(name: "Helvetica-Bold", size)
+    }
 }

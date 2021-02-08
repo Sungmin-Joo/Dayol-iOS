@@ -43,6 +43,7 @@ class DYModalViewController: UIViewController {
     private let dimView = UIView()
     private let containerView = UIView()
     private let headerArea = UIView()
+    private let contentArea = UIView()
 
     // MARK: - Custom  Public UI
 
@@ -251,13 +252,13 @@ extension DYModalViewController {
         guard let contentView = contentView else { return }
 
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(contentView)
+        contentArea.addSubview(contentView)
 
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: headerArea.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            contentView.topAnchor.constraint(equalTo: contentArea.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: contentArea.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: contentArea.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: contentArea.bottomAnchor)
         ])
     }
 
@@ -280,7 +281,9 @@ extension DYModalViewController {
         view.addSubview(containerView)
 
         headerArea.translatesAutoresizingMaskIntoConstraints = false
+        contentArea.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(headerArea)
+        containerView.addSubview(contentArea)
     }
 
     private func setupConstraints() {
@@ -306,7 +309,12 @@ extension DYModalViewController {
             headerArea.topAnchor.constraint(equalTo: containerView.topAnchor),
             headerArea.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             headerArea.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            headerArea.heightAnchor.constraint(equalToConstant: Design.headerAreaHeight)
+            headerArea.heightAnchor.constraint(equalToConstant: Design.headerAreaHeight),
+
+            contentArea.topAnchor.constraint(equalTo: headerArea.bottomAnchor),
+            contentArea.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            contentArea.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            contentArea.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
     }
 
