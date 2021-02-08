@@ -22,6 +22,7 @@
 		3449D2D725AF24DA0050C02A /* AddPaperContentView+UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3449D2D625AF24DA0050C02A /* AddPaperContentView+UICollectionView.swift */; };
 		3449D2DB25B0B9630050C02A /* AddPaperHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3449D2DA25B0B9630050C02A /* AddPaperHeaderReusableView.swift */; };
 		346779C425B47C6F001427F8 /* DiaryEditViewController+PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346779C325B47C6F001427F8 /* DiaryEditViewController+PhotoPicker.swift */; };
+		34733DC125D189F500C3A997 /* SettingsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34733DC025D189F500C3A997 /* SettingsDetailViewController.swift */; };
 		34A11A4725ADC3CA00678F98 /* PaperModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A11A4625ADC3CA00678F98 /* PaperModalViewController.swift */; };
 		34A11A4B25ADC8F700678F98 /* UnderLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A11A4A25ADC8F700678F98 /* UnderLineButton.swift */; };
 		34A11A4F25ADC93300678F98 /* AddPaperContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A11A4E25ADC93300678F98 /* AddPaperContentView.swift */; };
@@ -125,6 +126,7 @@
 		3449D2D625AF24DA0050C02A /* AddPaperContentView+UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddPaperContentView+UICollectionView.swift"; sourceTree = "<group>"; };
 		3449D2DA25B0B9630050C02A /* AddPaperHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaperHeaderReusableView.swift; sourceTree = "<group>"; };
 		346779C325B47C6F001427F8 /* DiaryEditViewController+PhotoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DiaryEditViewController+PhotoPicker.swift"; sourceTree = "<group>"; };
+		34733DC025D189F500C3A997 /* SettingsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailViewController.swift; sourceTree = "<group>"; };
 		34A11A4625ADC3CA00678F98 /* PaperModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperModalViewController.swift; sourceTree = "<group>"; };
 		34A11A4A25ADC8F700678F98 /* UnderLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderLineButton.swift; sourceTree = "<group>"; };
 		34A11A4E25ADC93300678F98 /* AddPaperContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaperContentView.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				34CA254525A6190D0057404D /* SettingsViewController.swift */,
+				34733DC025D189F500C3A997 /* SettingsDetailViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1040,6 +1043,7 @@
 				34A11A4B25ADC8F700678F98 /* UnderLineButton.swift in Sources */,
 				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
 				DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */,
+				34733DC125D189F500C3A997 /* SettingsDetailViewController.swift in Sources */,
 				DADD09F725A335C2004D6CF0 /* DiaryEditToggleView.swift in Sources */,
 				DADD0A1925A72907004D6CF0 /* DiaryPaperListViewController.swift in Sources */,
 				DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */,
