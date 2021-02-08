@@ -165,7 +165,7 @@ extension MonthlyCalendarCollectionView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let day = dayModel?[safe: indexPath.row],
+        guard let day = dayModel?[safe: indexPath.item],
               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MonthlyCalendarViewDayCell.identifier, for: indexPath) as? MonthlyCalendarViewDayCell
         else { return UICollectionViewCell() }
         
