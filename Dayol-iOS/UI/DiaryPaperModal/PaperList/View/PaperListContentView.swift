@@ -27,7 +27,7 @@ class PaperListContentView: UIView {
         return true
     }
 
-    let viewModel = PaperListContentViewModel()
+    private(set) var viewModel = PaperListContentViewModel()
     var isEditMode = false
     // MARK: - UI Property
 

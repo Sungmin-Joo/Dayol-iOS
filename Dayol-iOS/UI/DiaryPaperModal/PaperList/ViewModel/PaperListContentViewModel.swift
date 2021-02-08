@@ -25,7 +25,7 @@ class PaperListContentViewModel {
         case activity(action: Action, at: Int)
     }
     private(set) var papers: [CellModel] = []
-    var paperListEvent = ReplaySubject<PaperListevent>.createUnbounded()
+    let paperListEvent = ReplaySubject<PaperListevent>.createUnbounded()
 
     init() {
         // TODO: - 실데이터 연동
