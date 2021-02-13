@@ -14,34 +14,43 @@ private enum Design {
 }
 
 class DiaryEditViewController: UIViewController {
-    let disposeBag = DisposeBag()
-    let leftButton = DYNavigationItemCreator.barButton(type: .back)
-    let rightButton = DYNavigationItemCreator.barButton(type: .done)
-    let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
-    let titleView = DYNavigationItemCreator.editableTitleView("다이어리")
     
-    let diaryEditToggleView: DiaryEditToggleView = {
+    // MARK: - Private Properties
+    
+    private let disposeBag = DisposeBag()
+    private let leftButton = DYNavigationItemCreator.barButton(type: .back)
+    private let rightButton = DYNavigationItemCreator.barButton(type: .done)
+    private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    private let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
+    private let titleView = DYNavigationItemCreator.editableTitleView("새 다이어리")
+    private let viewModel = DiaryEditViewModel()
+    private var currentCoverColor: DiaryCoverColor = .DYBrown
+    
+    // MARK: - UI Components
+    
+    private let diaryEditToggleView: DiaryEditToggleView = {
         let view = DiaryEditToggleView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
-    let diaryEditCoverView: DiaryEditCoverView = {
+    private let diaryEditCoverView: DiaryEditCoverView = {
         let view = DiaryEditCoverView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
-    let diaryEditPaletteView: DiaryEditColorPaletteView = {
+    private let diaryEditPaletteView: DiaryEditColorPaletteView = {
         let view = DiaryEditColorPaletteView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
+    
+    // MARK: - Override
     
     override func viewDidLoad() {
         self.view.backgroundColor = .white
@@ -50,11 +59,13 @@ class DiaryEditViewController: UIViewController {
         initView()
     }
     
+    // MARK: - Setup Method
+    
     private func initView() {
         view.addSubview(diaryEditToggleView)
         view.addSubview(diaryEditCoverView)
         view.addSubview(diaryEditPaletteView)
-        
+        diaryEditPaletteView.colors = viewModel.diaryColors
         setConstraint()
         
         bind()
@@ -86,6 +97,8 @@ class DiaryEditViewController: UIViewController {
         setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
     }
     
+    // MARK: - Bind
+    
     private func bind() {
         colorBind()
         navigationBind()
@@ -109,6 +122,7 @@ class DiaryEditViewController: UIViewController {
             .subscribe(onNext: { [weak self] DYCoverColor in
                 guard let self = self else { return }
                 self.diaryEditCoverView.setCoverColor(color: DYCoverColor)
+                self.currentCoverColor = DYCoverColor
             })
             .disposed(by: disposeBag)
     }
@@ -122,7 +136,15 @@ class DiaryEditViewController: UIViewController {
         
         rightButton.rx.tap
             .bind { [weak self] in
-                self?.titleView.isEditting = false
+                guard let self = self else { return }
+                
+                self.titleView.isEditting = false
+                guard let title = self.titleView.titleLabel.text else { return }
+                
+                let diaryCoverModel = DiaryCoverModel(coverColor: self.currentCoverColor, title: title, totalPage: 0)
+                
+                self.viewModel.createDiaryInfo(model: diaryCoverModel)
+                self.dismiss(animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
         
