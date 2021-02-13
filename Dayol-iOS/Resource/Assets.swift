@@ -31,5 +31,23 @@ enum Assets {
         enum Settings {
             static let chevron = UIImage(named: "settings_chevron")
         }
+
+        enum PaperAdd {
+            enum Button {
+                static let on = UIImage(named: "paper_add_btn_on")
+                static let off = UIImage(named: "paper_add_btn_off")
+            }
+        }
+
+        enum PaperList {
+            static let chevronDown = UIImage(named: "paper_list_chevron_down")
+            static let addCell = UIImage(named: "paper_list_cell_add_paper")
+            static let starred = UIImage(named: "paper_list_cell_starred")
+        }
+
+        enum InfoView {
+            static let info = UIImage(named: "infoView_icon_info")
+            static let close = UIImage(named: "infoView_icon_close")
+        }
     }
 }

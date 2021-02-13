@@ -8,6 +8,28 @@
 
 // TODO: - 앱에서 사용할 문자열 차차 추가
 
+// MARK: - Diary Page
+"Diary.Page.List.Title" = "페이지 en";
+"Diary.Page.List.Info" = "화살표를 눌러 속지를 삭제 또는 복사 할수 있어요.\n길게 눌러 속지의 순서를 변경할 수 있어요. en";
+
+"Diary.Page.Add.Title" = "속지 추가 en";
+"Diary.Page.Add.Portrait" = "세로형 en";
+"Diary.Page.Add.Landscape" = "가로형 en";
+
+"Diary.Page.Add.Portrait.Title" = "주로 phone으로 작성한다면 세로형 속지를 추가해보세요 en";
+"Diary.Page.Add.Portrait.Title.Bold" = "phone";
+"Diary.Page.Add.Landscape.Title" = "주로 iPad로 작성한다면 세로형 속지를 추가해보세요 en";
+"Diary.Page.Add.Landscape.Title.Bold" = "iPad";
+
+"Diary.Page.Add.monthly" = "먼슬리 플랜 en";
+"Diary.Page.Add.weekly" = "위클리 플랜 en";
+"Diary.Page.Add.daily" = "데일리 en";
+"Diary.Page.Add.cornell" = "코넬 노트 en";
+"Diary.Page.Add.muji" = "무지 노트 en";
+"Diary.Page.Add.grid" = "모눈 노트 en";
+"Diary.Page.Add.four" = "4칸 노트 en";
+"Diary.Page.Add.tracker" = "먼슬리 트래커 en";
+
 // MARK: - Dayol Settings
 
 "Settings.Title" = "Settings";

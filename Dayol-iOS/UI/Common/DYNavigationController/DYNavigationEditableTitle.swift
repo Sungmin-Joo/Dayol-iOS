@@ -78,8 +78,16 @@ class DYNavigationEditableTitle: DYNavigationTitle {
     }
     
     private func changeEditMode(isEditting: Bool) {
-        textView.isHidden = !isEditting
-        editButton.isHidden = isEditting
-        titleLabel.isHidden = isEditting
+        if isEditting {
+            textView.isHidden = false
+            editButton.isHidden = true
+            titleLabel.isHidden = true
+            textView.attributedText = attributedText(text: titleLabel.attributedText?.string ?? "")
+        } else {
+            textView.isHidden = true
+            editButton.isHidden = false
+            titleLabel.isHidden = false
+            titleLabel.attributedText = attributedText(text: textView.attributedText?.string ?? "")
+        }
     }
 }

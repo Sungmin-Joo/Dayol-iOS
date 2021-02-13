@@ -9,8 +9,19 @@ import Foundation
 
 extension String {
 
+    /// For Localize
     var localized: String {
         return NSLocalizedString(self, tableName: "Localizable", value: self, comment: "")
     }
-
+    
+    /// For Date
+    static var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+    
+    var date: Date? {
+        return String.dateFormatter.date(from: self)
+    }
 }
