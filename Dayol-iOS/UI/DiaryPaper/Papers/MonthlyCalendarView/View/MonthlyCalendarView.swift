@@ -31,32 +31,6 @@ private enum Design {
             }
         }
     }
-    
-    static func collectionLeft(orientation: IPadOrientation) -> CGFloat {
-        switch current {
-        case .iphone:
-            return 0
-        case .ipad:
-            if orientation == .portrait {
-                return 77
-            } else {
-                return 0
-            }
-        }
-    }
-    
-    static func collectionRight(orientation: IPadOrientation) -> CGFloat {
-        switch current {
-        case .iphone:
-            return 0
-        case .ipad:
-            if orientation == .portrait {
-                return 77
-            } else {
-                return 0
-            }
-        }
-    }
 }
 
 class MonthlyCalendarView: UIView {

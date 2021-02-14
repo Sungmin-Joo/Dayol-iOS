@@ -15,8 +15,17 @@ private enum Design {
 }
 
 class DiaryEditColorPaletteView: UIView {
-    private let colors = DiaryCoverColor.allCases
+    // MARK: - Private Properties
+    
+    private var model: [DiaryCoverColor]? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
     private var collectionViewWidthForIpad: CGFloat {
+        guard let colors = model else { return 0 }
+        
         let inset: CGFloat = 16
         let cellWidth: CGFloat = DiaryEditColorPaletteCell.size.width
         let cellCount: CGFloat = CGFloat(colors.count)
@@ -27,7 +36,11 @@ class DiaryEditColorPaletteView: UIView {
         return (inset * 2) + totalSpace + totalCellWidth
     }
     
+    // MARK: - Subjects
+    
     let changedColor = PublishSubject<DiaryCoverColor>()
+    
+    // MARK: - UI Components
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -37,6 +50,8 @@ class DiaryEditColorPaletteView: UIView {
         return collectionView
     }()
     
+    // MARK: - Init
+    
     init() {
         super.init(frame: .zero)
         initView()
@@ -45,6 +60,8 @@ class DiaryEditColorPaletteView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Setup Method
     
     private func initView() {
         backgroundColor = Design.paletteBackgroundColor
@@ -87,14 +104,28 @@ class DiaryEditColorPaletteView: UIView {
     }
 }
 
+extension DiaryEditColorPaletteView {
+    var colors: [DiaryCoverColor]? {
+        get {
+            return self.model
+        }
+        set {
+            self.model = newValue
+        }
+    }
+}
+
+// MARK: - CollectionView DataSource
+
 extension DiaryEditColorPaletteView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let colors = model else { return 0 }
         return colors.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiaryEditColorPaletteCell.identifier, for: indexPath) as? DiaryEditColorPaletteCell,
-              let color = colors[safe: indexPath.item] else {
+              let color = self.model?[safe: indexPath.item] else {
             return UICollectionViewCell()
         }
         cell.configure(color: color)
@@ -103,9 +134,11 @@ extension DiaryEditColorPaletteView: UICollectionViewDataSource {
     }
 }
 
+// MARK: - ColletionView Delegate
+
 extension DiaryEditColorPaletteView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let color = colors[safe: indexPath.item] else { return }
+        guard let color = self.model?[safe: indexPath.item] else { return }
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         changedColor.onNext(color)
     }

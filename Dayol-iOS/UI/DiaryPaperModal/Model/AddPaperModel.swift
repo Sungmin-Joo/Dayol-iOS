@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AddPaperModel {
+enum PaperModalModel {
     
     enum PaperOrientation: String, CaseIterable {
         case portrait
@@ -25,13 +25,28 @@ enum AddPaperModel {
         case tracker
     }
     
-    struct CellModel {
+    struct AddPaperCellModel {
         let orientation: PaperOrientation
         let style: PaperStyle
         
         var title: String {
             "Diary.Page.Add.\(style.rawValue)".localized
         }
+        var thumbnailName: String {
+            "paper_add_\(style.rawValue)_\(orientation.rawValue)"
+        }
+    }
+
+    struct PaperListCellModel {
+        let id: Int
+        let isStarred: Bool
+        let orientation: PaperOrientation
+        let style: PaperStyle
+
+        var title: String {
+            "Diary.Page.Add.\(style.rawValue)".localized
+        }
+        // TODO: - 실제 썸네일 캡쳐 후 사용 시 모델 변경 필요
         var thumbnailName: String {
             "paper_add_\(style.rawValue)_\(orientation.rawValue)"
         }

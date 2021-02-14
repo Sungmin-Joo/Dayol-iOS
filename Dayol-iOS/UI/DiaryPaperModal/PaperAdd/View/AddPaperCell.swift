@@ -20,7 +20,7 @@ private enum Design {
 }
 
 class AddPaperCell: UICollectionViewCell {
-    typealias ViewModel = AddPaperModel.CellModel
+    typealias ViewModel = PaperModalModel.AddPaperCellModel
     static let identifier = className
 
     enum Size {
@@ -53,6 +53,7 @@ class AddPaperCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = Design.contentStackViewSpacing
+        stackView.distribution = .fillProportionally
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -63,6 +64,7 @@ class AddPaperCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        setupConstraints()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

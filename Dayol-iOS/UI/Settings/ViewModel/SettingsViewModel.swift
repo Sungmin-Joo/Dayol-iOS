@@ -15,7 +15,8 @@ class SettingsViewModel {
             SettingModel.InApp.CellModel(identifier: InAppSettingCell.className,
                                          title: $0.title,
                                          subTitle: $0.subtitle,
-                                         iconImageName: $0.iconResourceName)
+                                         iconImageName: $0.iconResourceName,
+                                         settingType: $0)
         }
 
         settings[.outApp] = SettingModel.OutApp.allCases.map {
