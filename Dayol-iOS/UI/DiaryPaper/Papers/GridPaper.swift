@@ -12,7 +12,7 @@ private enum Design {
     static let gridColor = UIColor(decimalRed: 233, green: 233, blue: 233, alpha: 0.5)
 }
 
-private extension PaperType {
+private extension PaperStyle {
     static let gridCellWidth: CGFloat = 20.0
     static let gridCellHeight: CGFloat = 20.0
 
@@ -51,8 +51,8 @@ class GridPaper: BasePaper {
         NSLayoutConstraint.activate([
             gridImageView.centerXAnchor.constraint(equalTo: drawArea.centerXAnchor),
             gridImageView.centerYAnchor.constraint(equalTo: drawArea.centerYAnchor),
-            gridImageView.widthAnchor.constraint(equalToConstant: paperType.paperWidth),
-            gridImageView.heightAnchor.constraint(equalToConstant: paperType.paperHeight)
+            gridImageView.widthAnchor.constraint(equalToConstant: paperStyle.paperWidth),
+            gridImageView.heightAnchor.constraint(equalToConstant: paperStyle.paperHeight)
         ])
     }
 
@@ -61,7 +61,7 @@ class GridPaper: BasePaper {
 private extension GridPaper {
 
     func getGridImage() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(paperType.gridSize, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(paperStyle.gridSize, false, 0.0)
 
         guard let context = UIGraphicsGetCurrentContext() else {
             UIGraphicsEndImageContext()
@@ -72,19 +72,19 @@ private extension GridPaper {
         context.setLineWidth(Design.gridLineWidth)
         context.setLineCap(.square)
 
-        for row in 0..<paperType.numberOfCellInCol + 1 {
-            let positionY = row * Int(PaperType.gridCellHeight)
+        for row in 0..<paperStyle.numberOfCellInCol + 1 {
+            let positionY = row * Int(PaperStyle.gridCellHeight)
             let startPoint = CGPoint(x: 0, y: positionY)
-            let endPoint = CGPoint(x: Int(paperType.gridSize.width), y: positionY)
+            let endPoint = CGPoint(x: Int(paperStyle.gridSize.width), y: positionY)
 
             context.move(to: startPoint)
             context.addLine(to: endPoint)
         }
 
-        for col in 0..<paperType.numberOfCellInRow + 1{
-            let positionX = col * Int(PaperType.gridCellWidth)
+        for col in 0..<paperStyle.numberOfCellInRow + 1{
+            let positionX = col * Int(PaperStyle.gridCellWidth)
             let startPoint = CGPoint(x: positionX, y: 0)
-            let endPoint = CGPoint(x: positionX, y: Int(paperType.gridSize.height))
+            let endPoint = CGPoint(x: positionX, y: Int(paperStyle.gridSize.height))
 
             context.move(to: startPoint)
             context.addLine(to: endPoint)

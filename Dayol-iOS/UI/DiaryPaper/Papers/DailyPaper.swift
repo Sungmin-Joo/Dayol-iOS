@@ -35,8 +35,8 @@ class DailyPaper: BasePaper {
         return view
     }()
 
-    init(viewModel: DailyPaperViewModel, paperType: PaperType) {
-        super.init(viewModel: viewModel, paperType: paperType)
+    init(viewModel: DailyPaperViewModel, paperStyle: PaperStyle) {
+        super.init(viewModel: viewModel, paperStyle: paperStyle)
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

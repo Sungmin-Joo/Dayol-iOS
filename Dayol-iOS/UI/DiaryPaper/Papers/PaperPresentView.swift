@@ -9,7 +9,7 @@ import RxSwift
 
 class PaperPresentView: UIView {
 
-    let paperType: PaperType
+    let paperStyle: PaperStyle
     open var canAddPage: Bool {
         return false
     }
@@ -36,8 +36,8 @@ class PaperPresentView: UIView {
         return stackView
     }()
 
-    init(frame: CGRect, paperType: PaperType) {
-        self.paperType = paperType
+    init(frame: CGRect, paperStyle: PaperStyle) {
+        self.paperStyle = paperStyle
         super.init(frame: frame)
         initView()
         setupConstraints()
@@ -91,7 +91,7 @@ private extension PaperPresentView {
 
     func initView() {
         scrollView.delegate = self
-        scrollView.maximumZoomScale = paperType.maximumZoomIn
+        scrollView.maximumZoomScale = paperStyle.maximumZoomIn
         scrollView.addSubview(contentStackView)
         addSubview(scrollView)
     }

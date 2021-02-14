@@ -13,6 +13,11 @@ enum CommonPaperDesign {
 }
 
 enum PaperStyle {
+    case horizontal
+    case vertical
+}
+
+enum PaperType {
     case monthly
     case weekly
     case daily
@@ -23,12 +28,7 @@ enum PaperStyle {
     case tracker
 }
 
-enum PaperType {
-    case horizontal
-    case vertical
-}
-
-extension PaperType {
+extension PaperStyle {
     var paperWidth: CGFloat {
         switch self {
         case .horizontal: return 1024.0

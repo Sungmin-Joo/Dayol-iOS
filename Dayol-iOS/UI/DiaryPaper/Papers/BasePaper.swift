@@ -9,7 +9,7 @@ import RxSwift
 
 class BasePaper: UIView {
     let disposeBag = DisposeBag()
-    var paperType: PaperType
+    var paperStyle: PaperStyle
     var viewModel: PaperViewModel
     var drawArea: UIView = {
         // TODO: - 아마 canvas 뷰로 대체
@@ -20,9 +20,9 @@ class BasePaper: UIView {
         return view
     }()
 
-    init(viewModel: PaperViewModel, paperType: PaperType) {
+    init(viewModel: PaperViewModel, paperStyle: PaperStyle) {
         self.viewModel = viewModel
-        self.paperType = paperType
+        self.paperStyle = paperStyle
         super.init(frame: .zero)
 
         initView()
@@ -60,8 +60,8 @@ class BasePaper: UIView {
             drawArea.trailingAnchor.constraint(equalTo: trailingAnchor),
             drawArea.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-            widthAnchor.constraint(equalToConstant: paperType.paperWidth),
-            heightAnchor.constraint(equalToConstant: paperType.paperHeight)
+            widthAnchor.constraint(equalToConstant: paperStyle.paperWidth),
+            heightAnchor.constraint(equalToConstant: paperStyle.paperHeight)
         ])
     }
 }

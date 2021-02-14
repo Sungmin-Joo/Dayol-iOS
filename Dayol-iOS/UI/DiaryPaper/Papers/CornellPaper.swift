@@ -15,7 +15,7 @@ private enum Design {
     static let lineWidth: CGFloat = 1
 }
 
-private extension PaperType {
+private extension PaperStyle {
 
     static let lineHeight: CGFloat = 30.0
 
@@ -53,9 +53,9 @@ class CornellPaper: BasePaper {
 
     private(set) var isFirstPage: Bool
 
-    init(viewModel: PaperViewModel, paperType: PaperType, isFirstPage: Bool) {
+    init(viewModel: PaperViewModel, paperStyle: PaperStyle, isFirstPage: Bool) {
         self.isFirstPage = isFirstPage
-        super.init(viewModel: viewModel, paperType: paperType)
+        super.init(viewModel: viewModel, paperStyle: paperStyle)
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -75,8 +75,8 @@ class CornellPaper: BasePaper {
         NSLayoutConstraint.activate([
             cornellImageView.centerXAnchor.constraint(equalTo: drawArea.centerXAnchor),
             cornellImageView.centerYAnchor.constraint(equalTo: drawArea.centerYAnchor),
-            cornellImageView.widthAnchor.constraint(equalToConstant: paperType.paperWidth),
-            cornellImageView.heightAnchor.constraint(equalToConstant: paperType.paperHeight)
+            cornellImageView.widthAnchor.constraint(equalToConstant: paperStyle.paperWidth),
+            cornellImageView.heightAnchor.constraint(equalToConstant: paperStyle.paperHeight)
         ])
     }
 
@@ -85,7 +85,7 @@ class CornellPaper: BasePaper {
 private extension CornellPaper {
 
     func getCornellImage(isFirstPage: Bool) -> UIImage? {
-        let paperSize = CGSize(width: paperType.paperWidth, height: paperType.paperHeight)
+        let paperSize = CGSize(width: paperStyle.paperWidth, height: paperStyle.paperHeight)
         UIGraphicsBeginImageContextWithOptions(paperSize, false, 0.0)
 
         guard let context = UIGraphicsGetCurrentContext() else {
@@ -100,12 +100,12 @@ private extension CornellPaper {
 
         context.setStrokeColor(Design.lineColor.cgColor)
 
-        let positionMargin = isFirstPage ? paperType.titleAreaHeight : 0
+        let positionMargin = isFirstPage ? paperStyle.titleAreaHeight : 0
 
-        for row in 0..<paperType.numberOfLineInPage(isFirstPage: isFirstPage) + 1 {
-            let positionY = row * Int(PaperType.lineHeight) + Int(positionMargin)
+        for row in 0..<paperStyle.numberOfLineInPage(isFirstPage: isFirstPage) + 1 {
+            let positionY = row * Int(PaperStyle.lineHeight) + Int(positionMargin)
             let startPoint = CGPoint(x: 0, y: positionY)
-            let endPoint = CGPoint(x: Int(paperType.paperWidth), y: positionY)
+            let endPoint = CGPoint(x: Int(paperStyle.paperWidth), y: positionY)
 
             context.move(to: startPoint)
             context.addLine(to: endPoint)
@@ -117,9 +117,9 @@ private extension CornellPaper {
 
         context.setStrokeColor(Design.redLineColor.cgColor)
 
-        let positionX = paperType.redLineOriginX
+        let positionX = paperStyle.redLineOriginX
         let startPoint = CGPoint(x: positionX, y: positionMargin)
-        let endPoint = CGPoint(x: positionX, y: paperType.paperHeight)
+        let endPoint = CGPoint(x: positionX, y: paperStyle.paperHeight)
 
         context.move(to: startPoint)
         context.addLine(to: endPoint)
@@ -131,9 +131,9 @@ private extension CornellPaper {
         if isFirstPage {
             context.setStrokeColor(Design.headerSeparatorColor.cgColor)
 
-            let positionY = paperType.titleAreaHeight
+            let positionY = paperStyle.titleAreaHeight
             let startPoint = CGPoint(x: 0, y: positionY)
-            let endPoint = CGPoint(x: paperType.paperWidth, y: positionY)
+            let endPoint = CGPoint(x: paperStyle.paperWidth, y: positionY)
 
             context.move(to: startPoint)
             context.addLine(to: endPoint)
