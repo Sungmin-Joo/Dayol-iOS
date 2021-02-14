@@ -47,3 +47,8 @@
 "Settings.Outapp.Rate" = "Write a Review";
 "Settings.Outapp.Report" = "Bug Report";
 "Settings.Outapp.Instagram" = "Dayol Instagram";
+
+"Settings.Detail.Title.Manual" = "다욜 사용 설명서 en";
+"Settings.Detail.Title.Backup" = "데이터 백업 en";
+"Settings.Detail.Title.Widget" = "위젯 설정 en";
+"Settings.Detail.Title.Deleted" = "휴지통 en";
