@@ -19,6 +19,7 @@ extension DiaryListViewController {
                 self?.present(nav, animated: true)
             }
             .disposed(by: disposeBag)
+        
         viewModel.diaryEvent
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] state in
@@ -55,4 +56,31 @@ extension DiaryListViewController {
         emptyView.isHidden = true
     }
 
+}
+
+// MARK: - Password View Controller Subjects
+
+extension DiaryListViewController {
+    func showPasswordViewController(diaryColor: DiaryCoverColor, password: String) {
+        let passwordViewController = PasswordViewController(type: .check, diaryColor: diaryColor, password: password)
+        bindDidPassedPassword(passwordViewController)
+        self.present(passwordViewController, animated: true, completion: nil)
+    }
+    
+    func bindDidPassedPassword(_ viewController: PasswordViewController) {
+        viewController.didPassedPassword
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.showDiaryPaperViewController()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    // TODO: Need Some Diary Inner Inpo. ex) Paper is Empty, Present Paper's Detail
+    private func showDiaryPaperViewController() {
+        let diaryPaperViewController = DiaryPaperViewController()
+        let nav = DYNavigationController(rootViewController: diaryPaperViewController)
+        nav.modalPresentationStyle = .fullScreen
+        self.present(nav, animated: true, completion: nil)
+    }
 }

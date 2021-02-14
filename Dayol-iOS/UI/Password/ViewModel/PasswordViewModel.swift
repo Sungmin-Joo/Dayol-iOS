@@ -24,6 +24,7 @@ class PasswordViewModel {
 	let isCorrect = PublishSubject<Bool>()
     let shouldCreatePassword = PublishSubject<Bool>()
     let shouldReInputPassword = PublishSubject<Bool>()
+    let shouldCheckPassword = PublishSubject<Bool>()
     
     var inputtedPassword = "" {
         didSet {
@@ -49,6 +50,10 @@ class PasswordViewModel {
     
     func prepareCreatePassword() {
         shouldCreatePassword.onNext(true)
+    }
+    
+    func prepareCheckPassword() {
+        shouldCheckPassword.onNext(true)
     }
 }
 

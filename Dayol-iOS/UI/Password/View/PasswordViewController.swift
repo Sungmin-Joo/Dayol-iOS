@@ -27,7 +27,7 @@ private enum Strings {
 class PasswordViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let viewModel: PasswordViewModel
-    
+    private let type: PasswordViewModel.InputType
     let didCreatePassword = PublishSubject<String>()
     let didPassedPassword = PublishSubject<String>()
     
@@ -70,6 +70,7 @@ class PasswordViewController: UIViewController {
     init(type: PasswordViewModel.InputType, diaryColor: DiaryCoverColor ,password: String? = nil) {
         self.viewModel = PasswordViewModel(type: type, password: password)
         self.titleView.diaryView.setCover(color: diaryColor)
+        self.type = type
 		super.init(nibName: nil, bundle: nil)
     }
 
@@ -82,11 +83,20 @@ class PasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		initView()
-        viewModel.prepareCreatePassword()
+        prepareViewModel()
     }
     
 	//MARK: - Setup
 
+    private func prepareViewModel() {
+        switch type {
+        case .check:
+            viewModel.prepareCheckPassword()
+        case .new:
+            viewModel.prepareCreatePassword()
+        }
+    }
+    
 	private func initView() {
 		containerView.addArrangedSubview(titleView)
 		containerView.addArrangedSubview(buttonsView)
@@ -183,6 +193,14 @@ private extension PasswordViewController {
     }
     
     func bindPreparePassword() {
+        viewModel.shouldCheckPassword
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.titleView.descText.onNext(Strings.inputPassword)
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.shouldCreatePassword
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
