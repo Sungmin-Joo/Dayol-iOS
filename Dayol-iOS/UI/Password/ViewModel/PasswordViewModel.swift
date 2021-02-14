@@ -11,23 +11,45 @@ import RxCocoa
 import CommonCrypto
 
 class PasswordViewModel {
+    enum InputType {
+        case new
+        case check
+    }
+    
 	private var hashedPassword: Data?
 	private let hashAlgo: String = "MD5"
-
+    private let type: InputType
+    
 	let shouldShowVibeAniamtion = PublishSubject<Bool>()
 	let isCorrect = PublishSubject<Bool>()
-	var inputtedPassword = "" {
-		didSet {
-			if inputtedPassword.count >= 4 {
-				checkingValidation(password: inputtedPassword)
-			}
-		}
-	}
+    let shouldCreatePassword = PublishSubject<Bool>()
+    let shouldReInputPassword = PublishSubject<Bool>()
+    
+    var inputtedPassword = "" {
+        didSet {
+            switch type {
+            case .new:
+                if hashedPassword == nil, inputtedPassword.count >= 4  {
+                    reinputPassword()
+                } else {
+                    checkValidationIfNeeded(password: inputtedPassword)
+                }
+            case .check:
+                checkValidationIfNeeded(password: inputtedPassword)
+            }
+        }
+    }
 
-	init(password: String) {
-		guard let data = password.data(using: .utf8) else { return }
-		self.hashedPassword = self.hash(name: hashAlgo, data: data)
+    init(type: InputType, password: String? = nil) {
+        self.type = type
+        if let password = password, let data = password.data(using: .utf8) {
+            self.hashedPassword = self.hash(name: hashAlgo, data: data)
+        }
 	}
+    
+    func prepareCreatePassword() {
+        shouldCreatePassword.onNext(true)
+    }
 }
 
 // MARK: - Hashing
@@ -54,7 +76,7 @@ private extension PasswordViewModel {
 	}
 }
 
-// MARK: - Action
+// MARK: - UI Action
 
 extension PasswordViewModel {
 	func inputPassword(number: Int) {
@@ -63,23 +85,54 @@ extension PasswordViewModel {
 	}
 
 	func deletePassword() {
-		inputtedPassword.popLast()
-	}
-
-	private func checkingValidation(password: String) {
-		guard let data = password.data(using: .utf8), let hashValue = hash(name: hashAlgo, data: data) else { return }
-		let equals = hashValue == hashedPassword
-
-		if equals {
-			shouldShowVibeAniamtion.onNext(false)
-			isCorrect.onNext(true)
-		} else {
-			shouldShowVibeAniamtion.onNext(true)
-			isCorrect.onNext(false)
-		}
+        let _ = inputtedPassword.popLast()
 	}
 
 	func clearPassword() {
 		inputtedPassword = ""
 	}
+    
+    func reinputPassword() {
+        setInputtedPasswordForNewPassword(inputtedPassword)
+        prepaerReInputPassword()
+    }
+}
+
+// MARK: - Password Logics
+
+private extension PasswordViewModel {
+       
+    func prepaerReInputPassword() {
+        shouldReInputPassword.onNext(true)
+    }
+    
+    func setInputtedPasswordForNewPassword(_ password: String) {
+        guard let data = password.data(using: .utf8) else { return }
+        
+        self.hashedPassword = self.hash(name: hashAlgo, data: data)
+    }
+    
+    func reInputPassword() {
+        clearPassword()
+        shouldReInputPassword.onNext(true)
+    }
+    
+    func checkValidationIfNeeded(password: String) {
+        if inputtedPassword.count >= 4 {
+            checkValidation(password)
+        }
+    }
+    
+    private func checkValidation(_ password: String) {
+        guard let data = password.data(using: .utf8), let hashValue = hash(name: hashAlgo, data: data) else { return }
+        let equals = hashValue == hashedPassword
+
+        if equals {
+            shouldShowVibeAniamtion.onNext(false)
+            isCorrect.onNext(true)
+        } else {
+            shouldShowVibeAniamtion.onNext(true)
+            isCorrect.onNext(false)
+        }
+    }
 }
