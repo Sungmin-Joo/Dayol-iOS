@@ -130,7 +130,7 @@ extension SettingsViewController: UITableViewDelegate {
         else { return }
 
         let settingType = inAppCellModel.settingType
-        let detailVC = SettingsDetailViewController(settingType: settingType)
+        let detailVC = DetailSettingsViewController(settingType: settingType)
         navigationController?.pushViewController(detailVC, animated: true)
     }
 
