@@ -17,7 +17,7 @@ enum PaperStyle {
     case vertical
 }
 
-enum PaperType {
+enum PaperType: String {
     case monthly
     case weekly
     case daily
