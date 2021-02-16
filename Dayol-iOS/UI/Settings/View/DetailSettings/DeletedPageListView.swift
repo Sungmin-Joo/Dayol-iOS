@@ -1,5 +1,5 @@
 //
-//  DeletedPageView.swift
+//  DeletedPageListView.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/02/14.
@@ -25,7 +25,7 @@ private enum Text {
     static let emptyLabel = "휴지통이 비어있습니다."
 }
 
-class DeletedPageView: UIView {
+class DeletedPageListView: UIView {
     private let disposeBag = DisposeBag()
     private let viewModel = DeletedPageViewModel()
     private var shouldShowInfoLabel: Bool {
@@ -115,7 +115,7 @@ class DeletedPageView: UIView {
 
 // MARK: - Private initial function
 
-private extension DeletedPageView {
+private extension DeletedPageListView {
 
     func initView() {
         backgroundColor = Design.contentBGColor
@@ -177,7 +177,7 @@ private extension DeletedPageView {
 
 // MARK: - UICollectionViewDataSource
 
-extension DeletedPageView: UICollectionViewDataSource {
+extension DeletedPageListView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.diaryList.count
@@ -197,6 +197,6 @@ extension DeletedPageView: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 
-extension DeletedPageView: UICollectionViewDelegate {
+extension DeletedPageListView: UICollectionViewDelegate {
 
 }

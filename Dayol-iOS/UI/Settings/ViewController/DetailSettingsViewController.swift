@@ -58,7 +58,7 @@ class DetailSettingsViewController: UIViewController {
     }
 
     @objc func didTapDeleteAllButton() {
-        guard let deletedPageView = contentView as? DeletedPageView else { return }
+        guard let deletedPageView = contentView as? DeletedPageListView else { return }
         let alert = DayolAlertController(title: Text.alertTitle, message: Text.alertMessage)
         let cancelAction = DayolAlertAction(title: Text.alertCancel, style: .cancel)
         let action = DayolAlertAction(title: Text.alertDefault, style: .default) {
@@ -92,14 +92,14 @@ private extension DetailSettingsViewController {
         case .widget:
             contentView = UIView()
         case .deleted:
-            let deletedPageView = DeletedPageView()
-            deletedPageView.isEmpty
+            let deletedPageListView = DeletedPageListView()
+            deletedPageListView.isEmpty
                 .subscribe(onNext: { [weak self] isEmpty in
                     let isEnabled = isEmpty == false
                     self?.navigationItem.rightBarButtonItem?.isEnabled = isEnabled
                 })
                 .disposed(by: disposeBag)
-            contentView = deletedPageView
+            contentView = deletedPageListView
 
             setDeleteAllButton()
         }

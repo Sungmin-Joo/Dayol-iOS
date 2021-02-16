@@ -14,7 +14,7 @@
 		340E56B825C8684A007F2EF7 /* PaperListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56B725C8684A007F2EF7 /* PaperListHeaderView.swift */; };
 		340E56BC25C9748D007F2EF7 /* PaperListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56BB25C9748D007F2EF7 /* PaperListContentView.swift */; };
 		340E56C025C975DE007F2EF7 /* PaperListContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56BF25C975DE007F2EF7 /* PaperListContentViewModel.swift */; };
-		3416445325D8C0A900A81FD2 /* DeletedPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416445225D8C0A900A81FD2 /* DeletedPageView.swift */; };
+		3416445325D8C0A900A81FD2 /* DeletedPageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416445225D8C0A900A81FD2 /* DeletedPageListView.swift */; };
 		3416445725D8C20600A81FD2 /* DeletedPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416445625D8C20600A81FD2 /* DeletedPageViewModel.swift */; };
 		3416446225D96C3100A81FD2 /* DeletedPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416446125D96C3100A81FD2 /* DeletedPageCell.swift */; };
 		3416447F25DAB62100A81FD2 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416447E25DAB62100A81FD2 /* CALayer+Extension.swift */; };
@@ -126,7 +126,7 @@
 		340E56B725C8684A007F2EF7 /* PaperListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperListHeaderView.swift; sourceTree = "<group>"; };
 		340E56BB25C9748D007F2EF7 /* PaperListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperListContentView.swift; sourceTree = "<group>"; };
 		340E56BF25C975DE007F2EF7 /* PaperListContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperListContentViewModel.swift; sourceTree = "<group>"; };
-		3416445225D8C0A900A81FD2 /* DeletedPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedPageView.swift; sourceTree = "<group>"; };
+		3416445225D8C0A900A81FD2 /* DeletedPageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedPageListView.swift; sourceTree = "<group>"; };
 		3416445625D8C20600A81FD2 /* DeletedPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedPageViewModel.swift; sourceTree = "<group>"; };
 		3416446125D96C3100A81FD2 /* DeletedPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedPageCell.swift; sourceTree = "<group>"; };
 		3416447E25DAB62100A81FD2 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
@@ -303,7 +303,7 @@
 		3416446525D96C4400A81FD2 /* DetailSettings */ = {
 			isa = PBXGroup;
 			children = (
-				3416445225D8C0A900A81FD2 /* DeletedPageView.swift */,
+				3416445225D8C0A900A81FD2 /* DeletedPageListView.swift */,
 				3416446125D96C3100A81FD2 /* DeletedPageCell.swift */,
 			);
 			path = DetailSettings;
@@ -1042,7 +1042,7 @@
 				DADD0A2025A72A6A004D6CF0 /* DiaryPaperEmptyView.swift in Sources */,
 				340E56BC25C9748D007F2EF7 /* PaperListContentView.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
-				3416445325D8C0A900A81FD2 /* DeletedPageView.swift in Sources */,
+				3416445325D8C0A900A81FD2 /* DeletedPageListView.swift in Sources */,
 				DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */,
 				DA27AC7525D16E6800C71CDE /* DiaryEditViewModel.swift in Sources */,
 				3434B76B25A4797B00506152 /* DYModalViewController.swift in Sources */,
