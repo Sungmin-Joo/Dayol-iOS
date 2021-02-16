@@ -90,7 +90,7 @@ class DeletedPageListView: UIView {
 
     func updateCollectionView(to size: CGSize) {
         guard
-            viewModel.diaryList.count != .zero,
+            viewModel.pageList.count != .zero,
             let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         else { return }
 
@@ -180,14 +180,14 @@ private extension DeletedPageListView {
 extension DeletedPageListView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.diaryList.count
+        return viewModel.pageList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeletedPageCell.identifier, for: indexPath)
 
         if let deletedPageCell = cell as? DeletedPageCell {
-            deletedPageCell.viewModel = viewModel.diaryList[safe: indexPath.row]
+            deletedPageCell.viewModel = viewModel.pageList[safe: indexPath.row]
         }
 
         return cell

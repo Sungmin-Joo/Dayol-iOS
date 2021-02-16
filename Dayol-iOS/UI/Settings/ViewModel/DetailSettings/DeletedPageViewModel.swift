@@ -13,11 +13,13 @@ class DeletedPageViewModel {
         case fetch(isEmpty: Bool)
         case deleteAll
     }
+
+    private let disposeBag = DisposeBag()
+    private(set) var pageList: [DeletedPageCellModel] = []
     let deletedPageEvent = ReplaySubject<DeletedPageEvent>.createUnbounded()
-    private(set) var diaryList: [DeletedPageCellModel] = []
 
     init() {
-        fetchDeletedPage()
+        bindData()
     }
 
     func delete(at index: Int) {
@@ -25,7 +27,7 @@ class DeletedPageViewModel {
     }
 
     func deleteAll() {
-        diaryList = []
+        DeletedPageListTestData.shared.deleteAll()
         deletedPageEvent.onNext(.deleteAll)
     }
 
@@ -39,18 +41,14 @@ class DeletedPageViewModel {
 
 private extension DeletedPageViewModel {
 
-    func fetchDeletedPage() {
-        diaryList = [
-            DeletedPageCellModel(thumbnailImageName: "image",
-                             paperType: .cornell,
-                             diaryName: "1번 다이어리",
-                             deletedDate: Date()),
-            DeletedPageCellModel(thumbnailImageName: "image",
-                             paperType: .daily,
-                             diaryName: "2번 다이어리",
-                             deletedDate: Date()),
-        ]
-        deletedPageEvent.onNext(.fetch(isEmpty: false))
+    func bindData() {
+        DeletedPageListTestData.shared.pageListSubject
+            .subscribe(onNext: { [weak self] model in
+                guard let self = self else { return }
+                self.pageList = model
+                self.deletedPageEvent.onNext(.fetch(isEmpty: model.isEmpty))
+            })
+            .disposed(by: disposeBag)
     }
 
 }
