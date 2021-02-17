@@ -7,6 +7,11 @@
 
 import RxSwift
 
+private enum Design {
+    static let iPadContentSize = CGSize(width: 375, height: 667)
+    static let iPadContentCornerRadius: CGFloat = 12
+}
+
 // MARK: - Bind
 
 extension DiaryListViewController {
@@ -16,6 +21,12 @@ extension DiaryListViewController {
                 let settingVC = SettingsViewController()
                 let nav = DYNavigationController(rootViewController: settingVC)
                 nav.modalPresentationStyle = isPadDevice ? .formSheet : .fullScreen
+
+                if isPadDevice {
+                    nav.preferredContentSize = Design.iPadContentSize
+                    nav.view.layer.cornerRadius = Design.iPadContentCornerRadius
+                }
+
                 self?.present(nav, animated: true)
             }
             .disposed(by: disposeBag)

@@ -26,7 +26,6 @@ class DiaryEditViewController: UIViewController {
     private let titleView = DYNavigationItemCreator.editableTitleView("새 다이어리")
     private let viewModel = DiaryEditViewModel()
     private var currentCoverColor: DiaryCoverColor = .DYBrown
-    private var didCreatePassword: Observable<String>?
     
     // MARK: - UI Components
     
@@ -165,7 +164,7 @@ private extension DiaryEditViewController {
     func showPasswordViewController() {
         let passwordViewController = PasswordViewController(type: .new, diaryColor: self.currentCoverColor)
         bindDidCreatePassword(passwordViewController)
-        self.present(passwordViewController, animated: true, completion: nil)
+        present(passwordViewController, animated: true, completion: nil)
     }
     
     func bindDidCreatePassword(_ viewController: PasswordViewController) {

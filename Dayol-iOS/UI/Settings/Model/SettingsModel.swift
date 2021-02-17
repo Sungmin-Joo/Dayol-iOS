@@ -46,6 +46,7 @@ enum SettingModel {
             let title: String
             let subTitle: String
             let iconImageName: String
+            let settingType: InApp
         }
     }
 
