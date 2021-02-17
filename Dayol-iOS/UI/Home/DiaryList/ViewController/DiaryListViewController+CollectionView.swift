@@ -11,10 +11,8 @@ import UIKit
 
 extension DiaryListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let diaryPaperViewController = DiaryPaperViewController()
-        let nav = DYNavigationController(rootViewController: diaryPaperViewController)
-        nav.modalPresentationStyle = .fullScreen
-        self.present(nav, animated: true, completion: nil)
+        guard let diaryInfo = viewModel.diaryList[safe: indexPath.item] else { return }
+        showPasswordViewController(diaryColor: diaryInfo.coverColor, password: diaryInfo.password)
     }
 }
 

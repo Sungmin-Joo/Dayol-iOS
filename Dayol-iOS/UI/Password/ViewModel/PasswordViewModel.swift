@@ -18,16 +18,17 @@ class PasswordViewModel {
     
 	private var hashedPassword: Data?
 	private let hashAlgo: String = "MD5"
-    private let type: InputType
+    private let inputType: InputType
     
 	let shouldShowVibeAniamtion = PublishSubject<Bool>()
 	let isCorrect = PublishSubject<Bool>()
     let shouldCreatePassword = PublishSubject<Bool>()
     let shouldReInputPassword = PublishSubject<Bool>()
+    let shouldCheckPassword = PublishSubject<Bool>()
     
     var inputtedPassword = "" {
         didSet {
-            switch type {
+            switch inputType {
             case .new:
                 if hashedPassword == nil, inputtedPassword.count >= 4  {
                     reinputPassword()
@@ -40,8 +41,8 @@ class PasswordViewModel {
         }
     }
 
-    init(type: InputType, password: String? = nil) {
-        self.type = type
+    init(inputType: InputType, password: String? = nil) {
+        self.inputType = inputType
         if let password = password, let data = password.data(using: .utf8) {
             self.hashedPassword = self.hash(name: hashAlgo, data: data)
         }
@@ -49,6 +50,10 @@ class PasswordViewModel {
     
     func prepareCreatePassword() {
         shouldCreatePassword.onNext(true)
+    }
+    
+    func prepareCheckPassword() {
+        shouldCheckPassword.onNext(true)
     }
 }
 
