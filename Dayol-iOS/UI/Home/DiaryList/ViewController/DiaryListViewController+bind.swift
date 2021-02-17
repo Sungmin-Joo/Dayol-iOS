@@ -73,7 +73,7 @@ extension DiaryListViewController {
 
 extension DiaryListViewController {
     func showPasswordViewController(diaryColor: DiaryCoverColor, password: String) {
-        let passwordViewController = PasswordViewController(type: .check, diaryColor: diaryColor, password: password)
+        let passwordViewController = PasswordViewController(inputType: .check, diaryColor: diaryColor, password: password)
         bindDidPassedPassword(passwordViewController)
         self.present(passwordViewController, animated: true, completion: nil)
     }

@@ -27,7 +27,7 @@ private enum Strings {
 class PasswordViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let viewModel: PasswordViewModel
-    private let type: PasswordViewModel.InputType
+    private let inputType: PasswordViewModel.InputType
     let didCreatePassword = PublishSubject<String>()
     let didPassedPassword = PublishSubject<String>()
     
@@ -67,10 +67,10 @@ class PasswordViewController: UIViewController {
 
 	//MARK: - Init()
 
-    init(type: PasswordViewModel.InputType, diaryColor: DiaryCoverColor ,password: String? = nil) {
-        self.viewModel = PasswordViewModel(type: type, password: password)
+    init(inputType: PasswordViewModel.InputType, diaryColor: DiaryCoverColor ,password: String? = nil) {
+        self.viewModel = PasswordViewModel(inputType: inputType, password: password)
         self.titleView.diaryView.setCover(color: diaryColor)
-        self.type = type
+        self.inputType = inputType
 		super.init(nibName: nil, bundle: nil)
     }
 
@@ -89,7 +89,7 @@ class PasswordViewController: UIViewController {
 	//MARK: - Setup
 
     private func prepareViewModel() {
-        switch type {
+        switch inputType {
         case .check:
             viewModel.prepareCheckPassword()
         case .new:
