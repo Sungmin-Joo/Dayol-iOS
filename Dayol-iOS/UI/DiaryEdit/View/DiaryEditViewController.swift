@@ -164,7 +164,7 @@ private extension DiaryEditViewController {
     func showPasswordViewController() {
         let passwordViewController = PasswordViewController(type: .new, diaryColor: self.currentCoverColor)
         bindDidCreatePassword(passwordViewController)
-        self.present(passwordViewController, animated: true, completion: nil)
+        present(passwordViewController, animated: true, completion: nil)
     }
     
     func bindDidCreatePassword(_ viewController: PasswordViewController) {
