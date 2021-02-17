@@ -6,48 +6,179 @@
   
 */
 
-// TODO: - 앱에서 사용할 문자열 차차 추가
+// MARK: - 홈 / 세팅
 
-// MARK: - Diary Page
-"Diary.Page.List.Title" = "페이지";
-"Diary.Page.List.Info" = "화살표를 눌러 속지를 삭제 또는 복사 할수 있어요.\n길게 눌러 속지의 순서를 변경할 수 있어요.";
+"home_empty_tooltip" = "설정은 요기!";
+"home_empty_diarymsg" = "다이어리가 없습니다.\n나만의 다이어리를 만들어 볼까요?";
+"home_empty_favoritemsg" = "즐겨찾기한 메모가 없습니다.\n다이어리의 속지를 한 페이지 단위로\n즐겨찾기 할 수 있습니다.";
+"home_menu_diary" = "다이어리";
+"home_menu_favorite" = "즐겨찾기";
+"home_dairy_delete_title" = "다이어리삭제";
+"home_dairy_delete_text" = "다이어리의 모든 내용이 삭제됩니다.\n삭제한 다이어리는 휴지통으로 이동합니다.";
+"home_dairy_delete_btn" = "삭제";
+"home_dairy_delete_cancel" = "취소";
 
-"Diary.Page.Add.Title" = "속지 추가";
-"Diary.Page.Add.Portrait" = "세로형";
-"Diary.Page.Add.Landscape" = "가로형";
+"Maintenance_title" = "서비스 점검중";
+"Maintenance_text" = "서비스 안정화를 위해 점검중입니다.";
+"Maintenance_time" = "점검 예상시간 : 5/14 02:00~05:00(3시간)";
 
-"Diary.Page.Add.Portrait.Title" = "주로 폰으로 작성한다면 세로형 속지를 추가해보세요";
-"Diary.Page.Add.Portrait.Title.Bold" = "폰";
-"Diary.Page.Add.Landscape.Title" = "주로 패드로 작성한다면 세로형 속지를 추가해보세요";
-"Diary.Page.Add.Landscape.Title.Bold" = "패드";
+"setting_guide_title" = "불편을 드려 대단히 죄송합니다.";
+"setting_guide_text" = "기본 사용법과 속지별 가이드를 설명해드려욜!";
+"setting_backup_title" = "데이터 백업";
+"setting_backup_text" = "소중한 데이터, 잃지 않으려면 동기화를 켜두세욜!";
+"setting_homewidget_title" = "홈 위젯 설정";
+"setting_homewidget_text" = "홈 위젯에 보여질 속지를 설정하세욜!";
+"setting_bin_title" = "휴지통";
+"setting_bin_text" = "제거한 속지는 30일 동안 보관됩니다.";
+"setting_review_title" = "앱 평가하기";
+"setting_report_title" = "문제 신고";
+"setting_insta_title" = "다욜 인스타그램";
 
-"Diary.Page.Add.monthly" = "먼슬리 플랜";
-"Diary.Page.Add.weekly" = "위클리 플랜";
-"Diary.Page.Add.daily" = "데일리";
-"Diary.Page.Add.cornell" = "코넬 노트";
-"Diary.Page.Add.muji" = "무지 노트";
-"Diary.Page.Add.grid" = "모눈 노트";
-"Diary.Page.Add.four" = "4칸 노트";
-"Diary.Page.Add.tracker" = "먼슬리 트래커";
+"password_new" = "새 암호를 입력해주세요.";
+"password_again" = "한 번 더 입력해주세요.";
+"password_enter" = "암호를 입력해주세요.";
+"password_unlock_title" = "잠금설정해제";
+"password_unlock_text" = "현재 다이어리가 잠금되어 있습니다.\n잠금을 해제하시겠습니까?";
+"password_unlock_btn" = "잠금 해제";
+"password_unlock_cancel" = "취소";
 
-// MARK: - Dayol Settings
+"bin_btn_empty" = "비우기";
+"bin_information" = "휴지통에 보관된 메모는 삭제한 날로부터 30일 동안 보관되며, 30일 후 자동 영구삭제 됩니다.";
+"bin_deleted" = "2020.3.15 삭제됨";
+"bin_empty_text" = "휴지통이 비어있습니다.";
+"bin_alert_title" = "휴지통 비우기";
+"bin_alert_text" = "휴지통의 모든 내용이 영구삭제 됩니다.\n삭제 후에는 복구가 불가능합니다.";
+"bin_alert_btn" = "전체삭제";
+"bin_alert_cancel" = "취소";
+"bin_permanently_delete" = "영구삭제";
+"bin_recover" = "복구하기";
 
-"Settings" = "설정";
+"backup_title" = "데이터 백업";
+"backup_text" = "데이터 손실을 방지하기 위해 iCloud 동기화 또는 수시로 백업파일 내보내기를 통해 소중한 데이터를 백업해두세요! ";
+"backup_text2" = "백업 전에 앱을 삭제할 경우 모든 데이터가 삭제되며 복구가\n불가능합니다. ";
+"backup_icloud_title" = "iCloud에 동기화";
+"backup_export_title" = "백업파일 내보내기";
+"backup_export_info" = "백업한 데이터 불러오는 방법";
+"backup_export_text" = "저장한 백업파일.zip을 모바일환경에서 열고 우측 상단의 ‘공유’ 버튼을 클릭하여 다욜 앱을 찾아 클릭하면 복구가 시작됩니다.";
 
-"Settings.Inapp.Guide.Title" = "다욜 사용설명서";
-"Settings.Inapp.Guide.Subtitle" = "기본 사용법과 속지별 가이드를 설명해드려욜!";
-"Settings.Inapp.Backup.Title" = "데이터 백업";
-"Settings.Inapp.Backup.Subtitle" = "소중한 데이터, 잃지 않으려면 동기화를 켜두세욜!";
-"Settings.Inapp.Widget.Title" = "홈 위젯 설정";
-"Settings.Inapp.Widget.Subtitle" = "홈 위젯에 보여질 속지를 설정하세욜!";
-"Settings.Inapp.Deleted.Title" = "휴지통";
-"Settings.Inapp.Deleted.Subtitle" = "제거한 속지는 30일 동안 보관됩니다.";
+"widget_title" = "위젯 설정 (헤더)";
+"widget_text" = "아래 2가지 타입의 홈 위젯을 지원합니다. ";
+"widget_text1" = "1. Planner Widget : Monthly Plan 데이터 기준으로 표시";
+"widget_text2" = "2. Memo Widget : 모든 종류의 속지를 미리보기";
+"widget_planner_text" = "소, 중 2가지 사이즈의 위젯을 지원합니다. 이번달의 Monthly Plan 속지를 추가 후 위젯설정에서 선택하세요. ";
+"widget_memo_text" = "중,대 2가지 사이즈의 위젯을 지원합니다. 홈에 노출할 메모지를 선택해주세요. 어떤 메모지든 가능합니다.";
+"widget_memo_select" = "선택하기";
+"widget_select_memo" = "속지 선택";
 
-"Settings.Outapp.Rate" = "앱 평가하기";
-"Settings.Outapp.Report" = "문제 신고";
-"Settings.Outapp.Instagram" = "다욜 인스타그램";
+// MARK: - 생성 / 편집
 
-"Settings.Detail.Title.Manual" = "다욜 사용 설명서";
-"Settings.Detail.Title.Backup" = "데이터 백업";
-"Settings.Detail.Title.Widget" = "위젯 설정";
-"Settings.Detail.Title.Deleted" = "휴지통";
+"create_diary_title" = "다이어리1";
+"create_diary_mark" = "다욜 마크";
+"create_diary_text" = "두 손으로 확대/축소 할 수 있어요!";
+"create_diary_cancel" = "다이어리 생성 취소";
+"create_diary_cancel_text" = "다이어리 생성이 취소되며 입력된 내용은 모두 삭제됩니다. 계속하시겠습니까?";
+"create_add_firstmemo" = "첫번째 속지를 추가해보세요!";
+
+"diary_more_share" = "이 페이지 공유";
+"diary_more_copy" = "이 페이지 복사";
+"diary_more_lock" = "잠금설정 ";
+"diary_more_unlock" = "잠금설정 해제";
+"diary_more_edit" = "다이어리 편집";
+"diary_more_delete" = "다이어리 삭제";
+
+"create_add_memo" = "속지 추가";
+"create_add_memo_v" = "세로형";
+"create_add_memo_h" = "가로형";
+"create_add_memo_v_text" = "주로 폰으로 작성한다면 세로형 속지를 추가해보세요";
+"create_add_memo_h_text" = "주로 패드로 작성한다면 가로형 속지를 추가해보세요";
+
+"memo_list_monthly" = "먼슬리 플랜";
+"memo_list_weekly" = "위클리 플랜";
+"memo_list_daily" = "데일리 노트";
+"memo_list_kornell" = "코넬 노트";
+"memo_list_muji" = "무지 노트";
+"memo_list_grid" = "모눈 노트";
+"memo_list_4cell" = "4칸 노트";
+"memo_list_tracker" = "먼슬리 트래커";
+"memo_delete_title" = "메모지 삭제";
+"memo_delete_text" = "현재 보고 있는 메모지를 삭제 합니다. 삭제한 메모지는 휴지통으로 이동됩니다.";
+"memo_favorite_on" = "즐겨찾기에 등록되었습니다.";
+"memo_favorite_off" = "즐겨찾기가 해제되었습니다.";
+
+"page_title" = "페이지";
+"page_text" = "화살표를 눌러 속지를 삭제 또는 복사 할수 있어요. 길게 눌러 속지의 순서를 변경할 수 있어요.";
+"page_more_share" = "공유";
+"page_more_favorite" = "즐겨찾기";
+"page_more_copy" = "복사";
+"page_more_delete" = "삭제";
+
+"add_memo_alert_title" = "속지 추가";
+"add_memo_alert_text" = "새로운 속지를 추가하시겠습니까?";
+"add_memo_alert_add" = "추가";
+"add_memo_alert_cancel" = "취소";
+
+"edit_memo_title" = "메모 편집";
+"edit_lasso_title" = "올가미도구사용법";
+"edit_lasso_text" = "선택할 대상을 포함하여 손으로 그리고\n선택영역을 탭하면 대상들을 한번에 제어할 수 있습니다.";
+"edit_pen_title" = "펜설정";
+"edit_pen_type" = "펜유형";
+"edit_pen_pen" = "볼펜";
+"edit_pen_highlighter" = "형광펜";
+"edit_pen_opacity" = "투명도";
+"edit_eraser_title" = "지우개";
+"edit_eraser_size" = "지우개크기";
+"edit_eraser_text" = "스티커와 사진은 지우개로 지워지지 않습니다.";
+"edit_eraser_option" = "전체 획 삭제 (객체단위로 삭제)";
+
+"" = "레이어 앞으로";
+"" = "레이어 뒤로";
+
+"text_style_title" = "텍스트 스타일";
+"text_style_color" = "텍스트 색상";
+
+// MARK: - 메모지별
+
+"tooltip_monthly" = "날짜 칸을 길-게 누르면\n해당 날짜에 속지나 일정을 등록할 수 있어요.";
+
+"monthly_change_title" = "월 변경";
+"monthly_change_text" = "작성된 내용이 있어 월 변경이 불가합니다.\n선택된 월로 새로운 먼슬리 속지를 추가할까요?";
+"monthly_change_btn" = "추가";
+"monthly_change_cancel" = "취소";
+"monthly_add_title" = "속지 또는 일정 등록";
+"monthly_add_text" = "선택한 날짜에 새로운 일정을 등록하거나\n작성한 속지를 연결할 수 있습니다.";
+"monthly_add_memo" = "속지 연결";
+"monthly_add_schedule" = "일정 추가";
+"monthly_selectmemo" = "연결할 속지 선택";
+
+"add_schedule_title" = "일정";
+"add_schedule_text" = "일정을 입력하세요. (최대 10자)";
+"add_schedule_time" = "2020.11.02(월) 오후 4:00";
+"add_schedule_color" = "색상";
+"add_schedule_remind" = "알림";
+"add_schedule_remindtime" = "10분전";
+"add_schedule_regist_monthly" = "Weekly Plan에 자동 등록";
+"add_schedule_regist_text_monthly" = "Weekly Plan 속지가 없는 경우, 자동 생성 후 등록합니다.";
+
+"edit_schedule_delete" = "이 일정 삭제";
+"edit_schedule_delete_title" = "일정 삭제";
+"edit_schedule_delete_text" = "일정을 삭제 하시겠습니까?";
+"edit_schedule_delete_btn" = "삭제";
+"edit_schedule_delete_cancel" = "취소";
+
+"date_title" = "12. 1 월요일";
+"date_text" = "아래 + 버튼을 눌러 속지 또는 일정을 등록해보세요.";
+"date_linked_title" = "연결된 속지";
+"date_linked_text_empty" = "연결된 속지가 없습니다.";
+"date_linked_text" = "속지연결은 한 날짜에 1개만 가능합니다.";
+"date_linked_btn" = "속지연결>";
+
+"tooltip_weekly" = "날짜 칸을 길-게 누르면\n해당 날짜에 속지나 일정을 등록할 수 있어요.";
+
+"weekly_change_title" = "주 변경";
+"weekly_change_text" = "작성된 내용이 있어 주 변경이 불가합니다.\n선택된 날짜로 새로운 위클리 속지를 추가할까요?";
+
+"add_schedule_regist_weekly" = "Monthly Plan에 자동 등록";
+"add_schedule_regist_text_weekly" = "Monthly Plan 속지가 없는 경우, 자동 생성 후 등록합니다.";
+
+"tooltip_text" = "텍스트 박스를 선택 후, 칸을 선택하면\n자동으로 칸 크기에 맞춰져서 작성할 수 있어요!";
+"add_area" = "영역추가";
