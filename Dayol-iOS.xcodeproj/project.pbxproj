@@ -14,6 +14,11 @@
 		340E56B825C8684A007F2EF7 /* PaperListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56B725C8684A007F2EF7 /* PaperListHeaderView.swift */; };
 		340E56BC25C9748D007F2EF7 /* PaperListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56BB25C9748D007F2EF7 /* PaperListContentView.swift */; };
 		340E56C025C975DE007F2EF7 /* PaperListContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56BF25C975DE007F2EF7 /* PaperListContentViewModel.swift */; };
+		3416445325D8C0A900A81FD2 /* DeletedPageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416445225D8C0A900A81FD2 /* DeletedPageListView.swift */; };
+		3416445725D8C20600A81FD2 /* DeletedPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416445625D8C20600A81FD2 /* DeletedPageViewModel.swift */; };
+		3416446225D96C3100A81FD2 /* DeletedPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416446125D96C3100A81FD2 /* DeletedPageCell.swift */; };
+		3416447F25DAB62100A81FD2 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416447E25DAB62100A81FD2 /* CALayer+Extension.swift */; };
+		3416448F25DC1B7200A81FD2 /* DeletedPageListTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416448E25DC1B7200A81FD2 /* DeletedPageListTestData.swift */; };
 		3416448925DC05A900A81FD2 /* FourPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416448825DC05A900A81FD2 /* FourPaper.swift */; };
 		3434B76B25A4797B00506152 /* DYModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434B76A25A4797B00506152 /* DYModalViewController.swift */; };
 		3434B76F25A479D800506152 /* DYModalConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434B76E25A479D800506152 /* DYModalConfiguration.swift */; };
@@ -25,7 +30,7 @@
 		3449D2D725AF24DA0050C02A /* AddPaperContentView+UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3449D2D625AF24DA0050C02A /* AddPaperContentView+UICollectionView.swift */; };
 		3449D2DB25B0B9630050C02A /* AddPaperHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3449D2DA25B0B9630050C02A /* AddPaperHeaderReusableView.swift */; };
 		346779C425B47C6F001427F8 /* DiaryEditViewController+PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346779C325B47C6F001427F8 /* DiaryEditViewController+PhotoPicker.swift */; };
-		34733DC125D189F500C3A997 /* SettingsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34733DC025D189F500C3A997 /* SettingsDetailViewController.swift */; };
+		34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34733DC025D189F500C3A997 /* DetailSettingsViewController.swift */; };
 		34A11A4725ADC3CA00678F98 /* PaperModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A11A4625ADC3CA00678F98 /* PaperModalViewController.swift */; };
 		34A11A4B25ADC8F700678F98 /* UnderLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A11A4A25ADC8F700678F98 /* UnderLineButton.swift */; };
 		34A11A4F25ADC93300678F98 /* AddPaperContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A11A4E25ADC93300678F98 /* AddPaperContentView.swift */; };
@@ -122,6 +127,11 @@
 		340E56B725C8684A007F2EF7 /* PaperListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperListHeaderView.swift; sourceTree = "<group>"; };
 		340E56BB25C9748D007F2EF7 /* PaperListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperListContentView.swift; sourceTree = "<group>"; };
 		340E56BF25C975DE007F2EF7 /* PaperListContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperListContentViewModel.swift; sourceTree = "<group>"; };
+		3416445225D8C0A900A81FD2 /* DeletedPageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedPageListView.swift; sourceTree = "<group>"; };
+		3416445625D8C20600A81FD2 /* DeletedPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedPageViewModel.swift; sourceTree = "<group>"; };
+		3416446125D96C3100A81FD2 /* DeletedPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedPageCell.swift; sourceTree = "<group>"; };
+		3416447E25DAB62100A81FD2 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		3416448E25DC1B7200A81FD2 /* DeletedPageListTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedPageListTestData.swift; sourceTree = "<group>"; };
 		3416448825DC05A900A81FD2 /* FourPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourPaper.swift; sourceTree = "<group>"; };
 		3434B76A25A4797B00506152 /* DYModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYModalViewController.swift; sourceTree = "<group>"; };
 		3434B76E25A479D800506152 /* DYModalConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYModalConfiguration.swift; sourceTree = "<group>"; };
@@ -133,7 +143,7 @@
 		3449D2D625AF24DA0050C02A /* AddPaperContentView+UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddPaperContentView+UICollectionView.swift"; sourceTree = "<group>"; };
 		3449D2DA25B0B9630050C02A /* AddPaperHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaperHeaderReusableView.swift; sourceTree = "<group>"; };
 		346779C325B47C6F001427F8 /* DiaryEditViewController+PhotoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DiaryEditViewController+PhotoPicker.swift"; sourceTree = "<group>"; };
-		34733DC025D189F500C3A997 /* SettingsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailViewController.swift; sourceTree = "<group>"; };
+		34733DC025D189F500C3A997 /* DetailSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsViewController.swift; sourceTree = "<group>"; };
 		34A11A4625ADC3CA00678F98 /* PaperModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperModalViewController.swift; sourceTree = "<group>"; };
 		34A11A4A25ADC8F700678F98 /* UnderLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderLineButton.swift; sourceTree = "<group>"; };
 		34A11A4E25ADC93300678F98 /* AddPaperContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaperContentView.swift; sourceTree = "<group>"; };
@@ -292,6 +302,23 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		3416446525D96C4400A81FD2 /* DetailSettings */ = {
+			isa = PBXGroup;
+			children = (
+				3416445225D8C0A900A81FD2 /* DeletedPageListView.swift */,
+				3416446125D96C3100A81FD2 /* DeletedPageCell.swift */,
+			);
+			path = DetailSettings;
+			sourceTree = "<group>";
+		};
+		3416446625D96C6E00A81FD2 /* DetailSettings */ = {
+			isa = PBXGroup;
+			children = (
+				3416445625D8C20600A81FD2 /* DeletedPageViewModel.swift */,
+			);
+			path = DetailSettings;
+			sourceTree = "<group>";
+		};
 		3434B76925A4795400506152 /* DYModalViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,7 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				34CA254525A6190D0057404D /* SettingsViewController.swift */,
-				34733DC025D189F500C3A997 /* SettingsDetailViewController.swift */,
+				34733DC025D189F500C3A997 /* DetailSettingsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -444,6 +471,7 @@
 		34CA255125A61BC30057404D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3416446525D96C4400A81FD2 /* DetailSettings */,
 				34CA254E25A61BBE0057404D /* InAppSettingCell.swift */,
 				34CA255D25A761060057404D /* OutAppSettingCell.swift */,
 			);
@@ -453,6 +481,7 @@
 		34CA255625A74A560057404D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				3416446625D96C6E00A81FD2 /* DetailSettings */,
 				34CA255725A74A7A0057404D /* SettingsViewModel.swift */,
 			);
 			path = ViewModel;
@@ -494,6 +523,7 @@
 				34CA255325A61DD10057404D /* NSObject+Extension.swift */,
 				DAF18E9325B70C26007ACFAC /* Date+Calendar.swift */,
 				340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */,
+				3416447E25DAB62100A81FD2 /* CALayer+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -701,6 +731,7 @@
 			isa = PBXGroup;
 			children = (
 				DA27AC7A25D1751A00C71CDE /* DiaryListTestData.swift */,
+				3416448E25DC1B7200A81FD2 /* DeletedPageListTestData.swift */,
 			);
 			path = TestData;
 			sourceTree = "<group>";
@@ -1014,6 +1045,7 @@
 				DADD0A2025A72A6A004D6CF0 /* DiaryPaperEmptyView.swift in Sources */,
 				340E56BC25C9748D007F2EF7 /* PaperListContentView.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
+				3416445325D8C0A900A81FD2 /* DeletedPageListView.swift in Sources */,
 				DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */,
 				DA27AC7525D16E6800C71CDE /* DiaryEditViewModel.swift in Sources */,
 				3434B76B25A4797B00506152 /* DYModalViewController.swift in Sources */,
@@ -1027,7 +1059,9 @@
 				3449D2C425ADDB510050C02A /* AddPaperContentViewModel.swift in Sources */,
 				34A2EDCF25B87953008DB98D /* GridPaper.swift in Sources */,
 				34CA254F25A61BBE0057404D /* InAppSettingCell.swift in Sources */,
+				3416448F25DC1B7200A81FD2 /* DeletedPageListTestData.swift in Sources */,
 				340E56C025C975DE007F2EF7 /* PaperListContentViewModel.swift in Sources */,
+				3416445725D8C20600A81FD2 /* DeletedPageViewModel.swift in Sources */,
 				34CA254225A613CE0057404D /* String+Extension.swift in Sources */,
 				DA81DF4625BEE5A400A4B2CE /* MonthlyCalendarHeaderView.swift in Sources */,
 				CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */,
@@ -1050,6 +1084,7 @@
 				340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */,
 				3449D2CA25ADF6520050C02A /* AddPaperModel.swift in Sources */,
 				DA81DF3B25BEE49A00A4B2CE /* MonthlyCalendarView.swift in Sources */,
+				3416446225D96C3100A81FD2 /* DeletedPageCell.swift in Sources */,
 				CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */,
 				DAD6675425A18BAE00E8F59A /* DYNavigationFunctionToolBar.swift in Sources */,
 				CE8DCAEA258D292A007738EA /* NSAttributedString+Extension.swift in Sources */,
@@ -1073,7 +1108,7 @@
 				34A11A4B25ADC8F700678F98 /* UnderLineButton.swift in Sources */,
 				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
 				DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */,
-				34733DC125D189F500C3A997 /* SettingsDetailViewController.swift in Sources */,
+				34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */,
 				DADD09F725A335C2004D6CF0 /* DiaryEditToggleView.swift in Sources */,
 				DADD0A1925A72907004D6CF0 /* DiaryPaperListViewController.swift in Sources */,
 				DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */,
@@ -1090,6 +1125,7 @@
 				3416448925DC05A900A81FD2 /* FourPaper.swift in Sources */,
 				CE8DCAE1258D28F4007738EA /* HomeViewController.swift in Sources */,
 				34CA255B25A75A340057404D /* SettingCellProtocol.swift in Sources */,
+				3416447F25DAB62100A81FD2 /* CALayer+Extension.swift in Sources */,
 				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
 				3434B76F25A479D800506152 /* DYModalConfiguration.swift in Sources */,
 				DADD0A0525A35445004D6CF0 /* DiaryEditColorPaletteCell.swift in Sources */,
