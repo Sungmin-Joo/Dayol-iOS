@@ -15,6 +15,7 @@ private enum Design {
 	
 	static let closeButtonLeft: CGFloat = 8.0
 	static let closeButtonTop: CGFloat = 8.0
+    static let closeButtonImage: UIImage? = UIImage(named: "cancelButton")
 }
 
 private enum Strings {
@@ -24,11 +25,15 @@ private enum Strings {
 }
 
 class PasswordViewController: UIViewController {
-	let disposeBag = DisposeBag()
-	let viewModel: PasswordViewModel
+    private let disposeBag = DisposeBag()
+    private let viewModel: PasswordViewModel
+    
+    let didCreatePassword = PublishSubject<String>()
+    let didPassedPassword = PublishSubject<String>()
+    
 	//MARK: - UI
 
-	let containerView: UIStackView = {
+    private let containerView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.alignment = .center
 		stackView.axis = .vertical
@@ -38,23 +43,22 @@ class PasswordViewController: UIViewController {
 		return stackView
 	}()
 
-	let titleView: PasswordTitleView = {
+    let titleView: PasswordTitleView = {
 		let view = PasswordTitleView()
 		view.translatesAutoresizingMaskIntoConstraints = false
 
 		return view
 	}()
 
-	let closeButton: UIButton = {
+    private let closeButton: UIButton = {
 		let button = UIButton(frame: Design.closeButtonSize)
 		button.translatesAutoresizingMaskIntoConstraints = false
-		button.setTitle("X", for: .normal)
-		button.setTitleColor(.black, for: .normal)
+        button.setImage(Design.closeButtonImage, for: .normal)
 
 		return button
 	}()
 
-	let buttonsView: PasswordButtonsView = {
+    let buttonsView: PasswordButtonsView = {
 		let view = PasswordButtonsView()
 		view.translatesAutoresizingMaskIntoConstraints = false
 
@@ -63,11 +67,11 @@ class PasswordViewController: UIViewController {
 
 	//MARK: - Init()
 
-    init(diaryColor: DiaryCoverColor ,password: String) {
-		self.viewModel = PasswordViewModel(password: password)
+    init(type: PasswordViewModel.InputType, diaryColor: DiaryCoverColor ,password: String? = nil) {
+        self.viewModel = PasswordViewModel(type: type, password: password)
         self.titleView.diaryView.setCover(color: diaryColor)
 		super.init(nibName: nil, bundle: nil)
-	}
+    }
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
@@ -78,8 +82,9 @@ class PasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		initView()
+        viewModel.prepareCreatePassword()
     }
-
+    
 	//MARK: - Setup
 
 	private func initView() {
@@ -96,7 +101,7 @@ class PasswordViewController: UIViewController {
 		bind()
 	}
 
-	//MARK: -Constraint
+	//MARK: - Constraint
 
 	private func setConstraint() {
 		let layoutGuide = view.safeAreaLayoutGuide
@@ -112,18 +117,89 @@ class PasswordViewController: UIViewController {
 
 // MARK: - Bind, Action
 
-extension PasswordViewController {
+private extension PasswordViewController {
 	@objc
-	private func didTappedCloseButton(sender: Any) {
+    func didTappedCloseButton(sender: Any) {
 		dismiss(animated: true, completion: nil)
 	}
 
-	private func bind() {
+    func bind() {
 		bindInputButton()
 		bindAnimation()
 		bindCorrectness()
-
-		//TODO: 추후 로직에 따라 바뀔 수 있습니다.
-		titleView.descText.onNext(Strings.inputNewPassword)
+        bindPreparePassword()
 	}
 }
+
+private extension PasswordViewController {
+    func bindInputButton() {
+        buttonsView.buttonEvent
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] state in
+                guard let self = self else { return }
+                switch state {
+                case .input(number: let number):
+                    self.titleView.inputState.onNext(.input)
+                    self.viewModel.inputPassword(number: number)
+                case .delete:
+                    self.titleView.inputState.onNext(.delete)
+                    self.viewModel.deletePassword()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func bindAnimation() {
+        viewModel.shouldShowVibeAniamtion
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] showAnimation in
+                guard let self = self else { return }
+                
+                if showAnimation {
+                    self.titleView.viberateAnimation(completion: {
+                        self.titleView.clearPasswordField()
+                        self.viewModel.clearPassword()
+                    })
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func bindCorrectness() {
+        viewModel.isCorrect
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isCorrect in
+                guard let self = self else { return }
+                let password = self.viewModel.inputtedPassword
+                
+                if isCorrect {
+                    self.dismiss(animated: true, completion: {
+                        self.didPassedPassword.onNext(password)
+                        self.didCreatePassword.onNext(password)
+                    })
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func bindPreparePassword() {
+        viewModel.shouldCreatePassword
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.titleView.descText.onNext(Strings.inputNewPassword)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.shouldReInputPassword
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.titleView.descText.onNext(Strings.inputNewPasswordMore)
+                self.titleView.clearPasswordField()
+                self.viewModel.clearPassword()
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
