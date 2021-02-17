@@ -122,7 +122,18 @@ extension SettingsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension SettingsViewController: UITableViewDelegate {
-    // TODO: - 세부 세팅으로 이동 로직 구현
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard
+            let cellModel = viewModel.cellModel(indexPath),
+            let inAppCellModel = cellModel as? SettingModel.InApp.CellModel
+        else { return }
+
+        let settingType = inAppCellModel.settingType
+        let detailVC = DetailSettingsViewController(settingType: settingType)
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section != 0 else { return nil }
 

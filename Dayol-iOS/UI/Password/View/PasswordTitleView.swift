@@ -144,7 +144,7 @@ extension PasswordTitleView {
 					, let currentPasswordView = self.passwordFieldStack.arrangedSubviews[self.currentPasswordIndex] as? PasswordDisplayedView {
 						currentPasswordView.inputedImageView.isHidden = false
 						self.currentPasswordIndex += 1
-					}
+                    }
 				case .delete:
 					if self.currentPasswordIndex - 1 >= 0
 					, let currentPasswordView = self.passwordFieldStack.arrangedSubviews[self.currentPasswordIndex - 1] as? PasswordDisplayedView {

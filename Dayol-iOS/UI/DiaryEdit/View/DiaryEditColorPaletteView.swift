@@ -23,24 +23,13 @@ class DiaryEditColorPaletteView: UIView {
         }
     }
     
-    private var collectionViewWidthForIpad: CGFloat {
-        guard let colors = model else { return 0 }
-        
-        let inset: CGFloat = 16
-        let cellWidth: CGFloat = DiaryEditColorPaletteCell.size.width
-        let cellCount: CGFloat = CGFloat(colors.count)
-        
-        let totalCellWidth = cellWidth * cellCount
-        let totalSpace = Design.cellSpace * (cellCount-1)
-        
-        return (inset * 2) + totalSpace + totalCellWidth
-    }
-    
     // MARK: - Subjects
-    
+
     let changedColor = PublishSubject<DiaryCoverColor>()
     
     // MARK: - UI Components
+    
+    private var collectionViewWidthForIpad = NSLayoutConstraint()
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -87,11 +76,12 @@ class DiaryEditColorPaletteView: UIView {
     
     private func setConstraint() {
         if isPadDevice {
+            collectionViewWidthForIpad = collectionView.widthAnchor.constraint(equalToConstant: 0)
             NSLayoutConstraint.activate([
                 collectionView.topAnchor.constraint(equalTo: topAnchor),
                 collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                collectionView.widthAnchor.constraint(equalToConstant: collectionViewWidthForIpad),
-                collectionView.centerXAnchor.constraint(equalTo: centerXAnchor)
+                collectionView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                collectionViewWidthForIpad
             ])
         } else {
             NSLayoutConstraint.activate([
@@ -111,7 +101,21 @@ extension DiaryEditColorPaletteView {
         }
         set {
             self.model = newValue
+            
+            if isPadDevice {
+                collectionViewWidthForIpad.constant = collectionViewWidth(cellCount: self.model?.count ?? 0)
+            }
         }
+    }
+    
+    private func collectionViewWidth(cellCount: Int) -> CGFloat {
+        let inset: CGFloat = 16
+        let cellWidth: CGFloat = DiaryEditColorPaletteCell.size.width
+        
+        let totalCellWidth = cellWidth * CGFloat(cellCount)
+        let totalSpace = Design.cellSpace * CGFloat(cellCount-1)
+        
+        return (inset * 2) + totalSpace + totalCellWidth
     }
 }
 

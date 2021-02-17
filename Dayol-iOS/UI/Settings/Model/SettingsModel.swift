@@ -46,6 +46,7 @@ enum SettingModel {
             let title: String
             let subTitle: String
             let iconImageName: String
+            let settingType: InApp
         }
     }
 
@@ -68,4 +69,16 @@ enum SettingModel {
         }
     }
 
+}
+
+struct DeletedPageCellModel: Equatable {
+    // 추후 필요하다면 이미지? 혹은 Data 형태로 교체해야할 듯..
+    let thumbnailImageName: String
+    let paperType: PaperType
+    let diaryName: String
+    let deletedDate: Date
+
+    var title: String {
+        "Diary.Page.Add.\(paperType.rawValue)".localized
+    }
 }

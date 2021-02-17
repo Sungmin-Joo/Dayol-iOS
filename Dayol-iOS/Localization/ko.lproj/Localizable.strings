@@ -46,3 +46,8 @@
 "Settings.Outapp.Rate" = "앱 평가하기";
 "Settings.Outapp.Report" = "문제 신고";
 "Settings.Outapp.Instagram" = "다욜 인스타그램";
+
+"Settings.Detail.Title.Manual" = "다욜 사용 설명서";
+"Settings.Detail.Title.Backup" = "데이터 백업";
+"Settings.Detail.Title.Widget" = "위젯 설정";
+"Settings.Detail.Title.Deleted" = "휴지통";
