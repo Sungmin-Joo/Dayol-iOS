@@ -139,12 +139,8 @@ class DiaryEditViewController: UIViewController {
                 guard let self = self else { return }
                 
                 self.titleView.isEditting = false
-                guard let title = self.titleView.titleLabel.text else { return }
                 
-                let diaryCoverModel = DiaryCoverModel(coverColor: self.currentCoverColor, title: title, totalPage: 0)
-                
-                self.viewModel.createDiaryInfo(model: diaryCoverModel)
-                self.dismiss(animated: true, completion: nil)
+                self.showPasswordViewController()
             }
             .disposed(by: disposeBag)
         
@@ -159,5 +155,28 @@ class DiaryEditViewController: UIViewController {
                 self?.showPicker()
             }
             .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Password ViewController Subjects
+
+private extension DiaryEditViewController {
+    func showPasswordViewController() {
+        let passwordViewController = PasswordViewController(type: .new, diaryColor: self.currentCoverColor)
+        bindDidCreatePassword(passwordViewController)
+        present(passwordViewController, animated: true, completion: nil)
+    }
+    
+    func bindDidCreatePassword(_ viewController: PasswordViewController) {
+        viewController.didCreatePassword
+            .subscribe(onNext: { [weak self] password in
+                guard let self = self else { return }
+                guard let title = self.titleView.titleLabel.text else { return }
+                
+                let diaryCoverModel = DiaryCoverModel(coverColor: self.currentCoverColor, title: title, totalPage: 0, password: password)
+                self.viewModel.createDiaryInfo(model: diaryCoverModel)
+                
+                self.dismiss(animated: true, completion: nil)
+            }).disposed(by: self.disposeBag)
     }
 }
