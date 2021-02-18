@@ -22,9 +22,9 @@ class DiaryPaperViewController: UIViewController {
     
     // MARK: - UI Component
     
-    private let barLeftItem = DYNavigationItemCreator.barButton(type: .back)
+    private let barLeftItem = DYNavigationItemCreator.barButton(type: .backWhite)
     private let barRightItem = DYNavigationItemCreator.barButton(type: .more)
-    private let titleView = DYNavigationItemCreator.titleView("TESTTEST")
+    private let titleView = DYNavigationItemCreator.titleView("TESTTEST", color: .white)
     private let toolBar = DYNavigationItemCreator.functionToolbar()
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
