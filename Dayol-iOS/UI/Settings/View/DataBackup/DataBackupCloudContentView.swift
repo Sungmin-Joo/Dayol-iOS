@@ -24,7 +24,7 @@ private enum Text {
 class DataBackupCloudContentView: UIView {
 
     // MARK: UI Porperty
-    
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.attributedText = NSAttributedString.build(text: Text.title,
@@ -75,7 +75,4 @@ private extension DataBackupCloudContentView {
         ])
     }
 
-    func bindEvent() {
-
-    }
 }

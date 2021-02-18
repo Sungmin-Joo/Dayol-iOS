@@ -29,7 +29,6 @@ private enum Design {
     static let textBoldFont = UIFont.appleBold(size: 14.0)
     static let textSpacing: CGFloat = -0.26
     static let textInset = UIEdgeInsets(top: 10, left: 20, bottom: 18, right: 20)
-
 }
 
 private enum Text {
@@ -153,13 +152,7 @@ private extension DataBackupExportContentView {
             textLabel.bottomAnchor.constraint(equalTo: bottomAnchor,
                                               constant: -Design.textInset.bottom),
 
-
         ])
     }
 
-    func bindEvent() {
-
-    }
 }
-
-

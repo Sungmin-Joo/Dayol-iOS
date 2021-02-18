@@ -10,22 +10,22 @@ import RxCocoa
 
 private enum Design {
     static let contentBGColor = UIColor.white
-
+    
     static let infoColor = UIColor(decimalRed: 34, green: 34, blue: 34)
     static let infoFont = UIFont.appleRegular(size: 15.0)
     static let infoBoldFont = UIFont.appleBold(size: 15.0)
     static let infoSpacing: CGFloat = -0.28
-
+    
     static let warningColor = UIColor(decimalRed: 233, green: 77, blue: 77)
     static let warningFont = UIFont.appleRegular(size: 14.0)
     static let warningSpacing: CGFloat = -0.26
-
+    
     static let infoLabelInset = UIEdgeInsets(top: 24, left: 20, bottom: 0, right: 20)
     static let warningLabelInset = UIEdgeInsets(top: 10, left: 20, bottom: 0, right: 20)
-
+    
     static let iCloudContentInset = UIEdgeInsets(top: 30, left: 20, bottom: 0, right: 20)
     static let iCloudContentHeight: CGFloat = 56.0
-
+    
     static let backupExportContentInset = UIEdgeInsets(top: 13, left: 20, bottom: 0, right: 20)
     static let backupExportContentHeight: CGFloat = 162.0
 }
@@ -33,7 +33,7 @@ private enum Design {
 private enum Text {
     static let info = "backup_text".localized
     static let warning = "backup_text2".localized
-
+    
     static var infoBoldFirstRange: NSRange {
         let nsString = NSString(string: info)
         return nsString.range(of: "backup_text_bold1".localized)
@@ -47,9 +47,9 @@ private enum Text {
 class DataBackupView: UIView {
     private let disposeBag = DisposeBag()
     private let viewModel = DataBackupViewModel()
-
+    
     // MARK: UI Porperty
-
+    
     private let infoLabel: UILabel = {
         let label = UILabel()
         let attributedString = NSMutableAttributedString.build(text: Text.info,
@@ -131,19 +131,19 @@ private extension DataBackupView {
                                                    constant: -Design.warningLabelInset.right),
 
             iCloudContentView.topAnchor.constraint(equalTo: warningLabel.bottomAnchor,
-                                                        constant: Design.iCloudContentInset.top),
+                                                   constant: Design.iCloudContentInset.top),
             iCloudContentView.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                                            constant: Design.iCloudContentInset.left),
+                                                       constant: Design.iCloudContentInset.left),
             iCloudContentView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                             constant: -Design.iCloudContentInset.right),
+                                                        constant: -Design.iCloudContentInset.right),
             iCloudContentView.heightAnchor.constraint(equalToConstant: Design.iCloudContentHeight),
 
             backupExportContentView.topAnchor.constraint(equalTo: iCloudContentView.bottomAnchor,
-                                                        constant: Design.backupExportContentInset.top),
+                                                         constant: Design.backupExportContentInset.top),
             backupExportContentView.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                                            constant: Design.backupExportContentInset.left),
+                                                             constant: Design.backupExportContentInset.left),
             backupExportContentView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                             constant: -Design.backupExportContentInset.right),
+                                                              constant: -Design.backupExportContentInset.right),
             backupExportContentView.heightAnchor.constraint(equalToConstant: Design.backupExportContentHeight)
         ])
     }
