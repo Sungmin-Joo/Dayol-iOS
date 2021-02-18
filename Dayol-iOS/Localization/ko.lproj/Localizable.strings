@@ -19,10 +19,10 @@
 "home_dairy_delete_cancel" = "취소";
 
 "Maintenance_title" = "서비스 점검중";
-"Maintenance_text" = "서비스 안정화를 위해 점검중입니다.";
+"Maintenance_text" = "서비스 안정화를 위해 점검중입니다.\n불편을 드려 대단히 죄송합니다.";
 "Maintenance_time" = "점검 예상시간 : 5/14 02:00~05:00(3시간)";
 
-"setting_guide_title" = "불편을 드려 대단히 죄송합니다.";
+"setting_guide_title" = "다욜 사용설명서";
 "setting_guide_text" = "기본 사용법과 속지별 가이드를 설명해드려욜!";
 "setting_backup_title" = "데이터 백업";
 "setting_backup_text" = "소중한 데이터, 잃지 않으려면 동기화를 켜두세욜!";
@@ -54,12 +54,15 @@
 "bin_recover" = "복구하기";
 
 "backup_title" = "데이터 백업";
-"backup_text" = "데이터 손실을 방지하기 위해 iCloud 동기화 또는 수시로 백업파일 내보내기를 통해 소중한 데이터를 백업해두세요! ";
-"backup_text2" = "백업 전에 앱을 삭제할 경우 모든 데이터가 삭제되며 복구가\n불가능합니다. ";
+"backup_text" = "데이터 손실을 방지하기 위해 iCloud 동기화 또는 수시로 백업파일 내보내기를 통해 소중한 데이터를 백업해두세요!";
+"backup_text_bold1" = "iCloud 동기화";
+"backup_text_bold2" = "백업파일 내보내기";
+"backup_text2" = "백업 전에 앱을 삭제할 경우 모든 데이터가 삭제되며 복구가 불가능합니다. ";
 "backup_icloud_title" = "iCloud에 동기화";
 "backup_export_title" = "백업파일 내보내기";
 "backup_export_info" = "백업한 데이터 불러오는 방법";
 "backup_export_text" = "저장한 백업파일.zip을 모바일환경에서 열고 우측 상단의 ‘공유’ 버튼을 클릭하여 다욜 앱을 찾아 클릭하면 복구가 시작됩니다.";
+"backup_export_text_bold" = "백업파일.zip";
 
 "widget_title" = "위젯 설정 (헤더)";
 "widget_text" = "아래 2가지 타입의 홈 위젯을 지원합니다. ";

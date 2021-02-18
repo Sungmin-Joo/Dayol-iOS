@@ -30,6 +30,11 @@ enum Assets {
 
         enum Settings {
             static let chevron = UIImage(named: "settings_chevron")
+
+            enum Backup {
+                static let info = UIImage(named: "settings_backup_info")
+                static let next = UIImage(named: "settings_backup_next")
+            }
         }
 
         enum PaperAdd {
