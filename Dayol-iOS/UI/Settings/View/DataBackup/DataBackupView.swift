@@ -26,8 +26,8 @@ private enum Design {
     static let iCloudContentInset = UIEdgeInsets(top: 30, left: 20, bottom: 0, right: 20)
     static let iCloudContentHeight: CGFloat = 56.0
     
-    static let backupExportContentInset = UIEdgeInsets(top: 13, left: 20, bottom: 0, right: 20)
-    static let backupExportContentHeight: CGFloat = 162.0
+    static let exportContentInset = UIEdgeInsets(top: 13, left: 20, bottom: 0, right: 20)
+    static let exportContentHeight: CGFloat = 162.0
 }
 
 private enum Text {
@@ -85,7 +85,7 @@ class DataBackupView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let backupExportContentView: DataBackupExportContentView = {
+    private let exportContentView: DataBackupExportContentView = {
         let view = DataBackupExportContentView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -111,7 +111,7 @@ private extension DataBackupView {
         addSubview(infoLabel)
         addSubview(warningLabel)
         addSubview(iCloudContentView)
-        addSubview(backupExportContentView)
+        addSubview(exportContentView)
     }
 
     func setConstraints() {
@@ -138,13 +138,13 @@ private extension DataBackupView {
                                                         constant: -Design.iCloudContentInset.right),
             iCloudContentView.heightAnchor.constraint(equalToConstant: Design.iCloudContentHeight),
 
-            backupExportContentView.topAnchor.constraint(equalTo: iCloudContentView.bottomAnchor,
-                                                         constant: Design.backupExportContentInset.top),
-            backupExportContentView.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                                             constant: Design.backupExportContentInset.left),
-            backupExportContentView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                              constant: -Design.backupExportContentInset.right),
-            backupExportContentView.heightAnchor.constraint(equalToConstant: Design.backupExportContentHeight)
+            exportContentView.topAnchor.constraint(equalTo: iCloudContentView.bottomAnchor,
+                                                         constant: Design.exportContentInset.top),
+            exportContentView.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                                             constant: Design.exportContentInset.left),
+            exportContentView.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                                              constant: -Design.exportContentInset.right),
+            exportContentView.heightAnchor.constraint(equalToConstant: Design.exportContentHeight)
         ])
     }
 
@@ -155,7 +155,7 @@ private extension DataBackupView {
             })
             .disposed(by: disposeBag)
 
-        backupExportContentView.titleTapGesture.rx.event
+        exportContentView.titleTapGesture.rx.event
             .bind(onNext: { recognizer in
                 guard recognizer.state == .recognized else { return }
                 // TODO: - 백업파일 내보내기
