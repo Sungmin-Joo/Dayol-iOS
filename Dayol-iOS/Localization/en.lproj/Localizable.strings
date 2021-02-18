@@ -19,7 +19,7 @@
 "home_dairy_delete_cancel" = "Cancel";
 
 "Maintenance_title" = "Maintenance Notice";
-"Maintenance_text" = "Maintenance in progress. We apologize for the inconvenience.";
+"Maintenance_text" = "Maintenance in progress.\nWe apologize for the inconvenience.";
 "Maintenance_time" = "Estimated time: 5/14 02:00~05:00 (3 hours)";
 
 "setting_guide_title" = "Use Guide";
@@ -55,11 +55,14 @@
 
 "backup_title" = "Backup Data";
 "backup_text" = "Backup your data through iCloud sync or export backup files from time to time!";
+"backup_text_bold1" = "iCloud sync";
+"backup_text_bold2" = "export backup files";
 "backup_text2" = "If you delete the app before backup, all data will be deleted and recovery is not possible.";
 "backup_icloud_title" = "Sync to iCloud";
 "backup_export_title" = "Export Backup File";
 "backup_export_info" = "How to import backed up data";
 "backup_export_text" = "Open the saved backup file.zip in the mobile, click the 'Share' button on the top right, find and select the DAYOL app. Then, it automatically start recovery.";
+"backup_export_text_bold" = "backup file.zip";
 
 "widget_title" = "Home Widget";
 "widget_text" = "Home widgets are supported below 2 types.";
