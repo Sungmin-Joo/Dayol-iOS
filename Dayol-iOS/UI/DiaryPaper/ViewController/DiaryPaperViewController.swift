@@ -14,8 +14,14 @@ private enum Design {
 }
 
 class DiaryPaperViewController: UIViewController {
+    // MARK: - Properties
+    
     private let disposeBag = DisposeBag()
-
+    private let papers = DiaryPageListTestData.shared.papers
+    private let diaryCoverModel: DiaryCoverModel
+    
+    // MARK: - UI Component
+    
     private let barLeftItem = DYNavigationItemCreator.barButton(type: .back)
     private let barRightItem = DYNavigationItemCreator.barButton(type: .more)
     private let titleView = DYNavigationItemCreator.titleView("TESTTEST")
@@ -44,13 +50,18 @@ class DiaryPaperViewController: UIViewController {
         return weeklyView
     }()
     
-    init() {
+    // MARK: - Init
+    
+    init(diaryCover: DiaryCoverModel) {
+        self.diaryCoverModel = diaryCover
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +77,7 @@ class DiaryPaperViewController: UIViewController {
     }
     
     private func setupNavigationBars() {
+        titleView.titleLabel.text = diaryCoverModel.title
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: barLeftItem)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: barRightItem)
         navigationItem.titleView = titleView

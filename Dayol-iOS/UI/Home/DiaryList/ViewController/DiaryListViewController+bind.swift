@@ -72,25 +72,26 @@ extension DiaryListViewController {
 // MARK: - Password View Controller Subjects
 
 extension DiaryListViewController {
-    func showPasswordViewController(diaryColor: DiaryCoverColor, password: String) {
-        let passwordViewController = PasswordViewController(inputType: .check, diaryColor: diaryColor, password: password)
-        bindDidPassedPassword(passwordViewController)
-        self.present(passwordViewController, animated: true, completion: nil)
+    func showPasswordViewController(diaryCover: DiaryCoverModel) {
+        let passwordViewController = PasswordViewController(inputType: .check, diaryColor: diaryCover.color, password: diaryCover.password)
+        bindDidPassedPassword(passwordViewController, diaryCover: diaryCover)
+        present(passwordViewController, animated: true, completion: nil)
     }
     
-    func bindDidPassedPassword(_ viewController: PasswordViewController) {
+    func bindDidPassedPassword(_ viewController: PasswordViewController, diaryCover: DiaryCoverModel) {
         viewController.didPassedPassword
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.showDiaryPaperViewController()
+                self.showDiaryPaperViewController(diaryCover: diaryCover)
             })
             .disposed(by: disposeBag)
     }
     
     // TODO: Need Some Diary Inner Inpo. ex) Paper is Empty, Present Paper's Detail
-    private func showDiaryPaperViewController() {
-        let diaryPaperViewController = DiaryPaperViewController()
+    private func showDiaryPaperViewController(diaryCover: DiaryCoverModel) {
+        let diaryPaperViewController = DiaryPaperViewController(diaryCover: diaryCover)
         let nav = DYNavigationController(rootViewController: diaryPaperViewController)
+        nav.navigationBar.barTintColor = diaryCover.color.coverColor
         nav.modalPresentationStyle = .fullScreen
         self.present(nav, animated: true, completion: nil)
     }
