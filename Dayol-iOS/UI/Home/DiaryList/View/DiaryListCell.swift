@@ -126,7 +126,7 @@ class DiaryListCell: UICollectionViewCell {
         guard let viewModel = viewModel else { return }
         let subTitle = "\(viewModel.totalPage)page"
 
-        diaryCoverView.setCover(color: viewModel.coverColor)
+        diaryCoverView.setCover(color: viewModel.color)
         titleLabel.attributedText = Design.attributedTitle(text: viewModel.title)
         subTitleLabel.attributedText = Design.attributedSubTitle(text: subTitle)
     }

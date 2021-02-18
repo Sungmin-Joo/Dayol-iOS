@@ -20,10 +20,12 @@ private enum Design {
 }
 
 class DYNavigationController: UINavigationController {
+    private var barColor: UIColor = Design.navigationBarBarBackgroundColor
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationBar()
-        setToolbar()
+        setupNavigationBar()
+        setupToolbar()
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -42,14 +44,26 @@ class DYNavigationController: UINavigationController {
         }
     }
 
-    func setNavigationBar() {
-        navigationBar.barTintColor = Design.navigationBarBarBackgroundColor
+    func setupNavigationBar() {
+        navigationBar.barTintColor = barColor
         navigationBar.isTranslucent = false
     }
     
-    func setToolbar() {
+    func setupToolbar() {
         isToolbarHidden = false
-        toolbar.barTintColor = Design.navigationToolBarBackgroundColor
+        toolbar.barTintColor = barColor
         toolbar.isTranslucent = false
+    }
+}
+
+extension DYNavigationController {
+    var navigationBarColor: UIColor {
+        get {
+            return self.barColor
+        }
+        set {
+            self.barColor = newValue
+            navigationBar.barTintColor = newValue
+        }
     }
 }
