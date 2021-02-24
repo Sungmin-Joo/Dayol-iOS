@@ -37,20 +37,19 @@ class DailyPaper: BasePaper {
 
     init(viewModel: DailyPaperViewModel, paperStyle: PaperStyle) {
         super.init(viewModel: viewModel, paperStyle: paperStyle)
+        bindEvent()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-    override func bindEvent() {
-        super.bindEvent()
-
+    func bindEvent() {
         guard let viewModel = viewModel as? DailyPaperViewModel else { return }
 
         viewModel.date
             .observeOn(MainScheduler.instance)
+            .debug()
             .subscribe(onNext: { [weak self] dateString in
                 self?.setDateLabel(dateString)
-
             })
             .disposed(by: disposeBag)
 
@@ -58,7 +57,6 @@ class DailyPaper: BasePaper {
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] day in
                 self?.setDayLabel(day)
-
             })
             .disposed(by: disposeBag)
     }

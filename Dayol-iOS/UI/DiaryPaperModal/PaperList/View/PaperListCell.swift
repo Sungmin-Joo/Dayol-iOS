@@ -24,11 +24,11 @@ private enum Design {
     static let starredButtonInset = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 7)
 
     // TODO: - 가이드가 조금 애매해서 패드용 가로 썸네일 이미지 사이즈 수정 필요~
-    static func imageSize(style: PaperModalModel.PaperOrientation) -> CGSize {
+    static func imageSize(style: PaperStyle) -> CGSize {
         switch style {
-        case .landscape:
+        case .horizontal:
             return isPadDevice ? CGSize(width: 90, height: 58) : CGSize(width: 90, height: 80)
-        case .portrait:
+        case .vertical:
             return isPadDevice ? CGSize(width: 90, height: 119) : CGSize(width: 90, height: 134)
         }
     }
@@ -106,6 +106,7 @@ class PaperListCell: UICollectionViewCell {
 
     func configure(_ viewModel: ViewModel?) {
         guard let viewModel = viewModel else { return }
+        debugPrint(viewModel.thumbnailName)
         imageView.image = UIImage(named: viewModel.thumbnailName)
         titleLabel.attributedText = NSAttributedString.build(
             text: viewModel.title,
@@ -114,7 +115,7 @@ class PaperListCell: UICollectionViewCell {
             letterSpacing: Design.titleSpacing,
             foregroundColor: Design.titleColor
         )
-        setImageViewConstraints(style: viewModel.orientation)
+        setImageViewConstraints(style: viewModel.paperStyle)
         starredButton.isHidden = viewModel.isStarred == false
     }
 }
@@ -148,7 +149,7 @@ private extension PaperListCell {
         ])
     }
 
-    func setImageViewConstraints(style: PaperModalModel.PaperOrientation) {
+    func setImageViewConstraints(style: PaperStyle) {
         let imageSize = Design.imageSize(style: style)
 
         NSLayoutConstraint.activate([

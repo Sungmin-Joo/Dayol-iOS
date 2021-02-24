@@ -13,21 +13,21 @@ class DeletedPageListTestData {
 
     var pageList: [DeletedPageCellModel] = [
         DeletedPageCellModel(thumbnailImageName: "image",
-                         paperType: .cornell,
-                         diaryName: "1번 다이어리",
-                         deletedDate: Date()),
+                             paperType: .cornell,
+                             diaryName: "1번 다이어리",
+                             deletedDate: Date()),
         DeletedPageCellModel(thumbnailImageName: "image",
-                         paperType: .daily,
-                         diaryName: "2번 다이어리",
-                         deletedDate: Date()),
+                             paperType: .daily(date: Date()),
+                             diaryName: "2번 다이어리",
+                             deletedDate: Date()),
         DeletedPageCellModel(thumbnailImageName: "image",
-                         paperType: .cornell,
-                         diaryName: "3번 다이어리",
-                         deletedDate: Date()),
+                             paperType: .cornell,
+                             diaryName: "3번 다이어리",
+                             deletedDate: Date()),
         DeletedPageCellModel(thumbnailImageName: "image",
-                         paperType: .daily,
-                         diaryName: "4번 다이어리",
-                         deletedDate: Date())
+                             paperType: .daily(date: Date()),
+                             diaryName: "4번 다이어리",
+                             deletedDate: Date())
     ]
 
     lazy var pageListSubject = BehaviorSubject<[DeletedPageCellModel]>(value: pageList)
@@ -38,7 +38,8 @@ class DeletedPageListTestData {
     }
 
     func deletePage(_ page: DeletedPageCellModel) {
-        guard let index = pageList.firstIndex(of: page) else { return }
+        // TODO: - 임시로 다이어리 이름으로 비교하지만 추후에 데이터 연동 필요
+        guard let index = pageList.firstIndex(where: { $0.diaryName == page.diaryName }) else { return }
         pageList.remove(at: index)
         pageListSubject.onNext(pageList)
     }

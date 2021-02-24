@@ -8,48 +8,47 @@
 import Foundation
 
 enum PaperModalModel {
-    
-    enum PaperOrientation: String, CaseIterable {
-        case portrait
-        case landscape
-    }
-    
-    enum PaperStyle: String, CaseIterable {
-        case monthly
-        case weekly
-        case daily
-        case cornell
-        case muji
-        case grid
-        case four
-        case tracker
-    }
-    
+
     struct AddPaperCellModel {
-        let orientation: PaperOrientation
-        let style: PaperStyle
+        let paperStyle: PaperStyle
+        let paperType: PaperType
         
         var title: String {
-            "Diary.Page.Add.\(style.rawValue)".localized
+            paperType.title
         }
         var thumbnailName: String {
-            "paper_add_\(style.rawValue)_\(orientation.rawValue)"
+            paperType.tumbNailImageName + "_\(paperStyle.rawValue)"
         }
     }
 
     struct PaperListCellModel {
         let id: Int
         let isStarred: Bool
-        let orientation: PaperOrientation
-        let style: PaperStyle
+        let paperStyle: PaperStyle
+        let paperType: PaperType
 
         var title: String {
-            "Diary.Page.Add.\(style.rawValue)".localized
+            paperType.title
         }
         // TODO: - 실제 썸네일 캡쳐 후 사용 시 모델 변경 필요
         var thumbnailName: String {
-            "paper_add_\(style.rawValue)_\(orientation.rawValue)"
+            return paperType.tumbNailImageName + "_\(paperStyle.rawValue)"
         }
     }
     
+}
+
+private extension PaperType {
+    var tumbNailImageName: String {
+        switch self {
+        case .monthly: return "paper_add_monthly"
+        case .weekly: return "paper_add_weekly"
+        case .daily(_): return "paper_add_daily"
+        case .cornell: return "paper_add_cornell"
+        case .muji: return "paper_add_muji"
+        case .grid: return "paper_add_grid"
+        case .four: return "paper_add_four"
+        case .tracker: return "paper_add_tracker"
+        }
+    }
 }
