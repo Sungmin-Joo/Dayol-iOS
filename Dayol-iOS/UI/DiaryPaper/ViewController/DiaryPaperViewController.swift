@@ -16,15 +16,17 @@ private enum Design {
 class DiaryPaperViewController: UIViewController {
     // MARK: - Properties
     
+    typealias PaperModel = PaperModalModel.PaperListCellModel
+    
     private let disposeBag = DisposeBag()
-    private let papers = DiaryPageListTestData.shared.papers
+    private let papers: [PaperModel]
     private let diaryCoverModel: DiaryCoverModel
     
     // MARK: - UI Component
     
     private let barLeftItem = DYNavigationItemCreator.barButton(type: .backWhite)
     private let barRightItem = DYNavigationItemCreator.barButton(type: .more)
-    private let titleView = DYNavigationItemCreator.titleView("TESTTEST", color: .white)
+    private let titleView = DYNavigationItemCreator.titleView("", color: .white)
     private let toolBar = DYNavigationItemCreator.functionToolbar()
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -52,8 +54,9 @@ class DiaryPaperViewController: UIViewController {
     
     // MARK: - Init
     
-    init(diaryCover: DiaryCoverModel) {
+    init(diaryCover: DiaryCoverModel, papers: [PaperModel] = DiaryPageListTestData.shared.papers) {
         self.diaryCoverModel = diaryCover
+        self.papers = papers
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -129,7 +132,7 @@ class DiaryPaperViewController: UIViewController {
         let modalStyle: DYModalConfiguration.ModalStyle = isPadDevice ? .normal : .custom(containerHeight: modalHeight)
         let configuration = DYModalConfiguration(dimStyle: .black,
                                                  modalStyle: modalStyle)
-        let addPageVC = PaperModalViewController(toolType: toolType, configure: configuration)
+        let addPageVC = PaperModalViewController(toolType: toolType, configure: configuration, papers: self.papers)
         presentCustomModal(addPageVC)
     }
 }
