@@ -19,7 +19,7 @@ class DiaryPaperViewController: UIViewController {
     typealias PaperModel = PaperModalModel.PaperListCellModel
     
     private let disposeBag = DisposeBag()
-    private let papers: [PaperModel]
+    private var papers: [PaperModel]
     private let diaryCoverModel: DiaryCoverModel
     
     // MARK: - UI Component
@@ -36,20 +36,6 @@ class DiaryPaperViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
-    }()
-    
-    private let monthlyView: MonthlyCalendarView = {
-        let monthlyView = MonthlyCalendarView()
-        monthlyView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return monthlyView
-    }()
-    
-    private let weeklyView: WeeklyCalendarView = {
-        let weeklyView = WeeklyCalendarView()
-        weeklyView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return weeklyView
     }()
     
     // MARK: - Init
@@ -74,7 +60,7 @@ class DiaryPaperViewController: UIViewController {
     
     private func initView() {
         view.backgroundColor = .white
-        view.addSubview(weeklyView)
+        view.addSubview(emptyView)
         setupNavigationBars()
         setConstraint()
     }
@@ -96,10 +82,10 @@ class DiaryPaperViewController: UIViewController {
     
     private func setConstraint() {
         NSLayoutConstraint.activate([
-            weeklyView.topAnchor.constraint(equalTo: view.topAnchor),
-            weeklyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            weeklyView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            weeklyView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            emptyView.topAnchor.constraint(equalTo: view.topAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            emptyView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            emptyView.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
     }
 
@@ -114,6 +100,16 @@ class DiaryPaperViewController: UIViewController {
             .bind { [weak self] in
                 self?.presentPaperModal(toolType: .list)
             }
+            .disposed(by: disposeBag)
+        
+        DiaryPageListTestData.shared.papersSubject
+            .subscribe(onNext: { [weak self] papers in
+                guard let self = self else { return }
+                let shouldShowEmptyView = papers.count == .zero
+                
+                self.papers = papers
+                self.emptyView.isHidden = !shouldShowEmptyView
+            })
             .disposed(by: disposeBag)
 
         let tapGesture = UITapGestureRecognizer()

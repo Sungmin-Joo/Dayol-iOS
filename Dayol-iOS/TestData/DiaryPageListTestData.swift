@@ -15,12 +15,7 @@ class DiaryPageListTestData {
     
     // 바뀔수 있음
     var papers: [PaperModel] = [
-        PaperModel(id: 0, isStarred: false, orientation: .landscape, style: .cornell),
-        PaperModel(id: 1, isStarred: false, orientation: .portrait, style: .monthly),
-        PaperModel(id: 2, isStarred: false, orientation: .landscape, style: .weekly),
-        PaperModel(id: 3, isStarred: false, orientation: .landscape, style: .grid),
-        PaperModel(id: 4, isStarred: false, orientation: .landscape, style: .muji),
-        PaperModel(id: 5, isStarred: false, orientation: .landscape, style: .four)
+
     ]
     
     lazy var papersSubject = BehaviorSubject<[PaperModel]>(value: papers)
