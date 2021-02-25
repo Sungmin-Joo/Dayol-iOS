@@ -6,49 +6,183 @@
   
 */
 
-// TODO: - 앱에서 사용할 문자열 차차 추가
+// MARK: - 홈 / 세팅
 
-// MARK: - Diary Page
-"Diary.Page.List.Title" = "페이지 en";
-"Diary.Page.List.Info" = "화살표를 눌러 속지를 삭제 또는 복사 할수 있어요.\n길게 눌러 속지의 순서를 변경할 수 있어요. en";
+"home_empty_tooltip" = "Setting";
+"home_empty_diarymsg" = "There is no diary.\nLet’s make your own diary!";
+"home_empty_favoritemsg" = "There are no favorite memos. You can bookmark the inlay of the diary in units of one page.";
+"home_menu_diary" = "Diary";
+"home_menu_favorite" = "Favorite";
+"home_dairy_delete_title" = "Delete Diary";
+"home_dairy_delete_text" = "All contents of the diary will be deleted.\nDeleted diaries are moved to the trash.";
+"home_dairy_delete_btn" = "Delete";
+"home_dairy_delete_cancel" = "Cancel";
 
-"Diary.Page.Add.Title" = "속지 추가 en";
-"Diary.Page.Add.Portrait" = "세로형 en";
-"Diary.Page.Add.Landscape" = "가로형 en";
+"Maintenance_title" = "Maintenance Notice";
+"Maintenance_text" = "Maintenance in progress.\nWe apologize for the inconvenience.";
+"Maintenance_time" = "Estimated time: 5/14 02:00~05:00 (3 hours)";
 
-"Diary.Page.Add.Portrait.Title" = "주로 phone으로 작성한다면 세로형 속지를 추가해보세요 en";
-"Diary.Page.Add.Portrait.Title.Bold" = "phone";
-"Diary.Page.Add.Landscape.Title" = "주로 iPad로 작성한다면 세로형 속지를 추가해보세요 en";
-"Diary.Page.Add.Landscape.Title.Bold" = "iPad";
+"setting_guide_title" = "Use Guide";
+"setting_guide_text" = "Guide the basic usage and for each inlay!";
+"setting_backup_title" = "Backup Data";
+"setting_backup_text" = "Keep sync icloud to prevent losing your data.";
+"setting_homewidget_title" = "Home Widget";
+"setting_homewidget_text" = "Set the inlay to be shown on the home widget!";
+"setting_bin_title" = "Recycle Bin";
+"setting_bin_text" = "Removed inlays are kept for 30 days.";
+"setting_review_title" = "Review";
+"setting_report_title" = "Report";
+"setting_insta_title" = "Instragram";
 
-"Diary.Page.Add.monthly" = "먼슬리 플랜 en";
-"Diary.Page.Add.weekly" = "위클리 플랜 en";
-"Diary.Page.Add.daily" = "데일리 en";
-"Diary.Page.Add.cornell" = "코넬 노트 en";
-"Diary.Page.Add.muji" = "무지 노트 en";
-"Diary.Page.Add.grid" = "모눈 노트 en";
-"Diary.Page.Add.four" = "4칸 노트 en";
-"Diary.Page.Add.tracker" = "먼슬리 트래커 en";
+"password_new" = "Please enter a new password.";
+"password_again" = "Please enter it again.";
+"password_enter" = "Please enter your password.";
+"password_unlock_title" = "";
+"password_unlock_text" = "Unlock\nThe diary is currently locked.\nDo you want to unlock it?";
+"password_unlock_btn" = "Unlock";
+"password_unlock_cancel" = "Cancel";
 
-// MARK: - Dayol Settings
+"bin_btn_empty" = "Empty ";
+"bin_information" = "Memos stored in the Recycle Bin are kept for 30 days from the date of deletion, and are automatically deleted 30 days later.";
+"bin_deleted" = "2020.3.15 Removed";
+"bin_empty_text" = "Recycle Bin is empty.";
+"bin_alert_title" = "Empty Recycle Bin";
+"bin_alert_text" = "All contents of the Recycle Bin are permanently deleted.\nAfter delete, recovery is not possible.";
+"bin_alert_btn" = "Delete All";
+"bin_alert_cancel" = "cancel";
+"bin_permanently_delete" = "Permanently Delete";
+"bin_recover" = "Recover";
 
-"Settings.Title" = "Settings";
+"backup_title" = "Backup Data";
+"backup_text" = "Backup your data through iCloud sync or export backup files from time to time!";
+"backup_text_bold1" = "iCloud sync";
+"backup_text_bold2" = "export backup files";
+"backup_text2" = "If you delete the app before backup, all data will be deleted and recovery is not possible.";
+"backup_icloud_title" = "Sync to iCloud";
+"backup_export_title" = "Export Backup File";
+"backup_export_info" = "How to import backed up data";
+"backup_export_text" = "Open the saved backup file.zip in the mobile, click the 'Share' button on the top right, find and select the DAYOL app. Then, it automatically start recovery.";
+"backup_export_text_bold" = "backup file.zip";
 
-// TODO: - 번역..
-"Settings.Inapp.Manual.Title" = "Dayol User's Manual";
-"Settings.Inapp.Manual.Subtitle" = "Explain the basic usage and guide for each paper!";
-"Settings.Inapp.Backup.Title" = "Data Backup";
-"Settings.Inapp.Backup.Subtitle" = "소중한 데이터, 잃지 않으려면 동기화를 켜두세욜!";
-"Settings.Inapp.Widget.Title" = "Setting Widget";
-"Settings.Inapp.Widget.Subtitle" = "홈 위젯에 보여질 속지를 설정하세욜!";
-"Settings.Inapp.Deleted.Title" = "Deleted Page";
-"Settings.Inapp.Deleted.Subtitle" = "제거한 속지는 30일 동안 보관됩니다.";
+"widget_title" = "Home Widget";
+"widget_text" = "Home widgets are supported below 2 types.";
+"widget_text1" = "1. Planner Widget: Displayed based on Monthly Plan data";
+"widget_text2" = "2. Memo Widget: Preview all kinds of memos.";
+"widget_planner_text" = "Small and medium widget sizes are supported. After adding monthly plan memo, select it from the widget settings.";
+"widget_memo_text" = "Small and medium widgets are supported. Please select the memo to be display on the home. It support every memos.";
+"widget_memo_select" = "select";
+"widget_select_memo" = "Select memo";
 
-"Settings.Outapp.Rate" = "Write a Review";
-"Settings.Outapp.Report" = "Bug Report";
-"Settings.Outapp.Instagram" = "Dayol Instagram";
+// MARK: - 생성 / 편집
 
-"Settings.Detail.Title.Manual" = "다욜 사용 설명서 en";
-"Settings.Detail.Title.Backup" = "데이터 백업 en";
-"Settings.Detail.Title.Widget" = "위젯 설정 en";
-"Settings.Detail.Title.Deleted" = "휴지통 en";
+"create_diary_title" = "Diary1";
+"create_diary_mark" = "Dayol mark";
+"create_diary_text" = "You can zoom in/out with both hands!";
+"create_diary_cancel" = "Cancel Diary Creation";
+"create_diary_cancel_text" = "The creation of the diary will be canceled and all entered information will be deleted. Would you like to continue?";
+"create_add_firstmemo" = "Add your first memo.";
+
+"diary_more_share" = "Share this page";
+"diary_more_copy" = "Copy this page";
+"diary_more_lock" = "Lock setting";
+"diary_more_unlock" = "Unlock setting";
+"diary_more_edit" = "Edit Diary";
+"diary_more_delete" = "Delete Diary";
+
+"create_add_memo" = "Add memo";
+"create_add_memo_v" = "Vertical";
+"create_add_memo_h" = "Horizontal";
+"create_add_memo_v_text" = "If you're mainly writing on a phone, try adding a vertical memo";
+"create_add_memo_h_text" = "If you're mainly writing with pads, try adding a horizontal inlay";
+
+"memo_list_monthly" = "Monthly Plan";
+"memo_list_weekly" = "Weekly Plan";
+"memo_list_daily" = "Daily Note";
+"memo_list_kornell" = "Kornell Note";
+"memo_list_muji" = "Muji Note";
+"memo_list_grid" = "Grid Note";
+"memo_list_4cell" = "4 Cell Note";
+"memo_list_tracker" = "Monthly Trakcer";
+"memo_delete_title" = "Delete Memo";
+"memo_delete_text" = "Delete the note paper you are currently viewing. Deleted notes are moved to the Recycle Bin.";
+"memo_favorite_on" = "You have been registered to your favorites.";
+"memo_favorite_off" = "Favorites have been turned off.";
+
+"page_title" = "Page";
+"page_text" = "You can delete or copy the inlay by pressing the arrows. Press and hold to change the order of inlay.";
+"page_more_share" = "Share";
+"page_more_favorite" = "Favorite";
+"page_more_copy" = "Copy";
+"page_more_delete" = "Delete";
+
+"add_memo_alert_title" = "Add memo";
+"add_memo_alert_text" = "Would you like to add a new memo?";
+"add_memo_alert_add" = "Add";
+"add_memo_alert_cancel" = "Cancel";
+
+"edit_memo_title" = "Edit memo";
+"edit_lasso_title" = "How to use the lasso tool";
+"edit_lasso_text" = "You can control the objects at once by tapping the selection and drawing by hand including the object to be selected.";
+"edit_pen_title" = "Pen Setting";
+"edit_pen_type" = "Type";
+"edit_pen_pen" = "Pen";
+"edit_pen_highlighter" = "Highlighter";
+"edit_pen_opacity" = "Opacity";
+"edit_eraser_title" = "Eraser";
+"edit_eraser_size" = "Eraser size";
+"edit_eraser_text" = "Stickers and photos cannot be erased with an eraser.";
+"edit_eraser_option" = "Delete all strokes (by object)";
+
+"" = "Bring to front";
+"" = "Send to back";
+
+"text_style_title" = "Text style";
+"text_style_color" = "Text color";
+
+// MARK: - 메모지별
+
+"tooltip_monthly" = "If you long-press the date column, you can register a schedule or memo on that date.";
+
+"monthly_change_title" = "Change Month";
+"monthly_change_text" = "Month can't changed because there is a written content. It adds a new monthly plan memo with the selected month.";
+"monthly_change_btn" = "Add";
+"monthly_change_cancel" = "Cancel";
+"monthly_add_title" = "Add Schedule or Memo";
+"monthly_add_text" = "You can add a new schedule or link a memo on the date.";
+"monthly_add_memo" = "Link memo";
+"monthly_add_schedule" = "Add Schedule";
+"monthly_selectmemo" = "Choose memo to link";
+
+"add_schedule_title" = "Schedule";
+"add_schedule_text" = "Please enter a schedule. (Up to 10 characters)";
+"add_schedule_time" = "2020.11.02(월) 4:00 PM";
+"add_schedule_color" = "Color";
+"add_schedule_remind" = "Notice";
+"add_schedule_remindtime" = "10 min ago";
+"add_schedule_regist_monthly" = "Registered in the Weekly Plan";
+"add_schedule_regist_text_monthly" = "If there is no Weekly Plan memo, it is automatically added and registered.";
+
+"edit_schedule_delete" = "Delete this schedule";
+"edit_schedule_delete_title" = "Delete this schedule";
+"edit_schedule_delete_text" = "Do you want to delete the schedule?";
+"edit_schedule_delete_btn" = "Delete";
+"edit_schedule_delete_cancel" = "Cancel";
+
+"date_title" = "12.1 Mon";
+"date_text" = "Click the + button below to register memo or schedule.";
+"date_linked_title" = "Linked memo";
+"date_linked_text_empty" = "There is no linked memo";
+"date_linked_text" = "Only one inlay connection is possible per day.";
+"date_linked_btn" = "Link Memo";
+
+"tooltip_weekly" = "If you long-press the date column, you can register a schedule or memo on that date.";
+
+"weekly_change_title" = "Registered in the Weekly Plan";
+"weekly_change_text" = "Week can't changed because there is a written content. It adds a new weekly plan memo with the selected week..";
+
+"add_schedule_regist_weekly" = "Registered in the Monthly Plan";
+"add_schedule_regist_text_weekly" = "If there is no Monthlly Plan memo, it is automatically added and registered.";
+
+"tooltip_text" = "After selecting the text box and cell, it will automatically fit into the cell size and you can write it!";
+
+"add_area" = "Add Area";

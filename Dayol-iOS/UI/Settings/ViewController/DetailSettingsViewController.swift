@@ -16,20 +16,20 @@ private enum Text {
     static func title(_ type: SettingModel.InApp) -> String {
         switch type {
         case .manual:
-            return "Settings.Detail.Title.Manual".localized
+            return "setting_guide_title".localized
         case .backup:
-            return "Settings.Detail.Title.Backup".localized
+            return "setting_backup_title".localized
         case .widget:
-            return "Settings.Detail.Title.Widget".localized
+            return "setting_homewidget_title".localized
         case .deleted:
-            return "Settings.Detail.Title.Deleted".localized
+            return "setting_bin_title".localized
         }
     }
-    static let deleteAllButton = "비우기"
-    static let alertTitle = "휴지통 비우기"
-    static let alertMessage = "휴지통의 모든 내용이 영구 삭제됩니다.\n삭제 후에는 복구가 불가능합니다."
-    static let alertCancel = "취소"
-    static let alertDefault = "전체 삭제"
+    static let deleteAllButton = "bin_btn_empty".localized
+    static let alertTitle = "bin_alert_title".localized
+    static let alertMessage = "bin_alert_text".localized
+    static let alertCancel = "bin_alert_cancel".localized
+    static let alertDefault = "bin_alert_btn".localized
 }
 
 class DetailSettingsViewController: UIViewController {
@@ -88,7 +88,7 @@ private extension DetailSettingsViewController {
         case .manual:
             contentView = UIView()
         case .backup:
-            contentView = UIView()
+            contentView = DataBackupView()
         case .widget:
             contentView = UIView()
         case .deleted:

@@ -25,17 +25,18 @@ class PaperModalViewController: DYModalViewController {
     }
 
     private let disposeBag = DisposeBag()
-
+    private let papers: [PaperModalModel.PaperListCellModel]
     // MARK: - UI Property
 
     private lazy var addPaperHeaderView = AddPaperHeaderView()
     private lazy var addPaperContentView = AddPaperContentView()
     private lazy var paperListHeaderView = PaperListHeaderView()
-    private lazy var paperListContentView = PaperListContentView()
+    private lazy var paperListContentView = PaperListContentView(papers: papers)
 
     var toolType: PaperToolType
 
-    init(toolType: PaperToolType, configure: DYModalConfiguration) {
+    init(toolType: PaperToolType, configure: DYModalConfiguration, papers: [PaperModalModel.PaperListCellModel] = [PaperModalModel.PaperListCellModel]()) {
+        self.papers = papers
         self.toolType = toolType
         super.init(configure: configure)
     }

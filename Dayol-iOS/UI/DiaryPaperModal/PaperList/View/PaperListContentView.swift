@@ -23,11 +23,12 @@ private enum Text {
 class PaperListContentView: UIView {
 
     let disposeBag = DisposeBag()
+    private let papers: [PaperModalModel.PaperListCellModel]
     private var shouldShowInfoLabel: Bool {
         return true
     }
 
-    private(set) var viewModel = PaperListContentViewModel()
+    private(set) lazy var viewModel: PaperListContentViewModel = PaperListContentViewModel(papers: papers)
     var isEditMode = false
     // MARK: - UI Property
 
@@ -65,7 +66,8 @@ class PaperListContentView: UIView {
     }()
 
     // TODO: - init에서 viewModel 받아서 바인딩 로직 추가
-    init() {
+    init(papers: [PaperModalModel.PaperListCellModel]) {
+        self.papers = papers
         super.init(frame: .zero)
         setupViews()
         setupConstraints()

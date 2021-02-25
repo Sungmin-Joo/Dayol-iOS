@@ -27,16 +27,9 @@ class PaperListContentViewModel {
     private(set) var papers: [CellModel] = []
     let paperListEvent = ReplaySubject<PaperListevent>.createUnbounded()
 
-    init() {
+    init(papers: [CellModel]) {
         // TODO: - 실데이터 연동
-        papers = [
-            CellModel(id: 0, isStarred: true, orientation: .landscape, style: .cornell),
-            CellModel(id: 1, isStarred: true, orientation: .portrait, style: .muji),
-            CellModel(id: 2, isStarred: false, orientation: .landscape, style: .monthly),
-            CellModel(id: 3, isStarred: true, orientation: .portrait, style: .daily),
-            CellModel(id: 4, isStarred: false, orientation: .landscape, style: .tracker),
-            CellModel(id: 5, isStarred: true, orientation: .portrait, style: .four)
-        ]
+        self.papers = papers
         paperListEvent.onNext(.fetch)
     }
 

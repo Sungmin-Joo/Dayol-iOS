@@ -51,9 +51,9 @@ class DYNavigationEditableTitle: DYNavigationTitle {
         return textView
     }()
     
-    override init(text: String) {
-        super.init(text: text)
-        textView.attributedText = attributedText(text: text)
+    override init(text: String, color: UIColor) {
+        super.init(text: text, color: color)
+        textView.attributedText = attributedText(text: text, color: color)
         horizontalStack.addArrangedSubview(editButton)
         horizontalStack.addArrangedSubview(textView)
         
@@ -82,12 +82,12 @@ class DYNavigationEditableTitle: DYNavigationTitle {
             textView.isHidden = false
             editButton.isHidden = true
             titleLabel.isHidden = true
-            textView.attributedText = attributedText(text: titleLabel.attributedText?.string ?? "")
+            textView.attributedText = attributedText(text: titleLabel.attributedText?.string ?? "", color: textView.textColor ?? .black)
         } else {
             textView.isHidden = true
             editButton.isHidden = false
             titleLabel.isHidden = false
-            titleLabel.attributedText = attributedText(text: textView.attributedText?.string ?? "")
+            titleLabel.attributedText = attributedText(text: textView.attributedText?.string ?? "", color: textView.textColor ?? .black)
         }
     }
 }

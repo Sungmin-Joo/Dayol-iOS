@@ -41,9 +41,9 @@ class DYNavigationTitle: UIView {
         return stackView
     }()
     
-    init(text: String) {
+    init(text: String, color: UIColor) {
         super.init(frame: .zero)
-        titleLabel.attributedText = attributedText(text: text)
+        titleLabel.attributedText = attributedText(text: text, color: color)
         horizontalStack.addArrangedSubview(titleLabel)
         verticalStack.addArrangedSubview(horizontalStack)
         addSubview(verticalStack)
@@ -54,10 +54,11 @@ class DYNavigationTitle: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    internal func attributedText(text: String) -> NSMutableAttributedString {
+    internal func attributedText(text: String, color: UIColor) -> NSMutableAttributedString {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = NSTextAlignment.center
         let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: color,
             .paragraphStyle: paragraphStyle,
             .font: Design.titleFont,
             .kern: Design.titleLetterSpace,

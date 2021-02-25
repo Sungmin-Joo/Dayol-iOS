@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
-    static let contentBGColor = UIColor(decimalRed: 242, green: 244, blue: 246)
+    static let contentBGColor = UIColor.white
 
     static let emptyLabelTextColor = UIColor(decimalRed: 136, green: 136, blue: 136)
     static let emptyLabelContentSpacing: CGFloat = -0.28
@@ -21,8 +21,8 @@ private enum Design {
 }
 
 private enum Text {
-    static let info = "휴지통에 보관된 메모는 삭제한 날로부터 30일 동안 보관되며, 30일 후 자동 영구삭제 됩니다."
-    static let emptyLabel = "휴지통이 비어있습니다."
+    static let info = "bin_information".localized
+    static let emptyLabel = "bin_empty_text".localized
 }
 
 class DeletedPageListView: UIView {

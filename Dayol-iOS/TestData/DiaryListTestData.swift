@@ -12,12 +12,12 @@ class DiaryListTestData {
     static let shared = DiaryListTestData()
     
     var diaryList: [DiaryCoverModel] = [
-        DiaryCoverModel(coverColor: .DYRed, title: "1번 다이어리", totalPage: 3, password: "1234"),
-        DiaryCoverModel(coverColor: .DYBlue, title: "2번 다이어리", totalPage: 2, password: "1234"),
-        DiaryCoverModel(coverColor: .DYGreen, title: "3번 다이어리", totalPage: 5, password: "1234"),
-        DiaryCoverModel(coverColor: .DYRed, title: "1번 다이어리", totalPage: 3, password: "1234"),
-        DiaryCoverModel(coverColor: .DYBlue, title: "2번 다이어리", totalPage: 2, password: "1234"),
-        DiaryCoverModel(coverColor: .DYGreen, title: "3번 다이어리", totalPage: 5, password: "1234")
+        DiaryCoverModel(color: .DYRed, title: "1번 다이어리", totalPage: 3, password: "1234"),
+        DiaryCoverModel(color: .DYBlue, title: "2번 다이어리", totalPage: 2, password: "1234"),
+        DiaryCoverModel(color: .DYGreen, title: "3번 다이어리", totalPage: 5, password: "1234"),
+        DiaryCoverModel(color: .DYRed, title: "1번 다이어리", totalPage: 3, password: "1234"),
+        DiaryCoverModel(color: .DYBlue, title: "2번 다이어리", totalPage: 2, password: "1234"),
+        DiaryCoverModel(color: .DYGreen, title: "3번 다이어리", totalPage: 5, password: "1234")
     ]
     
     lazy var diaryListSubject = BehaviorSubject<[DiaryCoverModel]>(value: diaryList)
