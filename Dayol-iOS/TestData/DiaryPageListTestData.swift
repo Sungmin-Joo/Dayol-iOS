@@ -15,8 +15,8 @@ class DiaryPageListTestData {
     
     // 바뀔수 있음
     var papers: [PaperModel] = [
-
-    ]
+ 
+    ] 
     
     lazy var papersSubject = BehaviorSubject<[PaperModel]>(value: papers)
     
