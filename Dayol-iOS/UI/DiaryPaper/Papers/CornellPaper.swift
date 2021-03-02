@@ -51,14 +51,7 @@ class CornellPaper: BasePaper {
         return imageView
     }()
 
-    private(set) var isFirstPage: Bool
-
-    init(viewModel: PaperViewModel, paperStyle: PaperStyle, isFirstPage: Bool) {
-        self.isFirstPage = isFirstPage
-        super.init(viewModel: viewModel, paperStyle: paperStyle)
-    }
-
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    private(set) var isFirstPage: Bool = true
 
     override func initView() {
         super.initView()

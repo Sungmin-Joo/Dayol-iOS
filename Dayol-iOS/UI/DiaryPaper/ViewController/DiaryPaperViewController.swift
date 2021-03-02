@@ -16,11 +16,11 @@ private enum Design {
 class DiaryPaperViewController: UIViewController {
     // MARK: - Properties
     
-    typealias PaperModel = PaperModalModel.PaperListCellModel
+    typealias PaperModel = DiaryInnerModel.PaperModel
     
     private let disposeBag = DisposeBag()
-    private var papers: [PaperModel]
     private let diaryCoverModel: DiaryCoverModel
+    private(set) var diaryInnerModel: DiaryInnerModel
     
     // MARK: - UI Component
     
@@ -40,9 +40,9 @@ class DiaryPaperViewController: UIViewController {
     
     // MARK: - Init
     
-    init(diaryCover: DiaryCoverModel, papers: [PaperModel] = DiaryPageListTestData.shared.papers) {
+    init(diaryCover: DiaryCoverModel, diaryInner: DiaryInnerModel) {
         self.diaryCoverModel = diaryCover
-        self.papers = papers
+        self.diaryInnerModel = diaryInner
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -61,6 +61,7 @@ class DiaryPaperViewController: UIViewController {
     private func initView() {
         view.backgroundColor = .white
         view.addSubview(emptyView)
+
         setupNavigationBars()
         setConstraint()
     }
@@ -85,7 +86,7 @@ class DiaryPaperViewController: UIViewController {
             emptyView.topAnchor.constraint(equalTo: view.topAnchor),
             emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             emptyView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            emptyView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            emptyView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
     }
 
@@ -100,16 +101,6 @@ class DiaryPaperViewController: UIViewController {
             .bind { [weak self] in
                 self?.presentPaperModal(toolType: .list)
             }
-            .disposed(by: disposeBag)
-        
-        DiaryPageListTestData.shared.papersSubject
-            .subscribe(onNext: { [weak self] papers in
-                guard let self = self else { return }
-                let shouldShowEmptyView = papers.count == .zero
-                
-                self.papers = papers
-                self.emptyView.isHidden = !shouldShowEmptyView
-            })
             .disposed(by: disposeBag)
 
         let tapGesture = UITapGestureRecognizer()
@@ -128,7 +119,14 @@ class DiaryPaperViewController: UIViewController {
         let modalStyle: DYModalConfiguration.ModalStyle = isPadDevice ? .normal : .custom(containerHeight: modalHeight)
         let configuration = DYModalConfiguration(dimStyle: .black,
                                                  modalStyle: modalStyle)
-        let addPageVC = PaperModalViewController(toolType: toolType, configure: configuration, papers: self.papers)
+
+        let papers = diaryInnerModel.paperList.map {
+            PaperModalModel.PaperListCellModel(id: $0.id,
+                                               isStarred: false,
+                                               paperStyle: $0.paperStyle,
+                                               paperType: $0.paperType)
+        }
+        let addPageVC = PaperModalViewController(toolType: toolType, configure: configuration, papers: papers)
         presentCustomModal(addPageVC)
     }
 }

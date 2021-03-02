@@ -71,7 +71,7 @@ enum SettingModel {
 
 }
 
-struct DeletedPageCellModel: Equatable {
+struct DeletedPageCellModel {
     // 추후 필요하다면 이미지? 혹은 Data 형태로 교체해야할 듯..
     let thumbnailImageName: String
     let paperType: PaperType
@@ -79,6 +79,6 @@ struct DeletedPageCellModel: Equatable {
     let deletedDate: Date
 
     var title: String {
-        "Diary.Page.Add.\(paperType.rawValue)".localized
+        return paperType.title
     }
 }

@@ -27,19 +27,9 @@ class BasePaper: UIView {
 
         initView()
         setConstraints()
-        bindEvent()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-
-    func bindEvent() {
-        viewModel.drawModel
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { drawModel in
-                // TODO: - 데이터 바인딩
-            })
-            .disposed(by: disposeBag)
-    }
 
     func initView() {
         addSubview(drawArea)

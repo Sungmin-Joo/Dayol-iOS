@@ -9,11 +9,12 @@ import RxSwift
 
 // 속지 기본 ViewModel
 class PaperViewModel {
-    var drawModel = BehaviorSubject<DrawModel>(value: DrawModel())
+    let drawModel: DrawModel
 
-    func fetchData(paperID: Int) {
-        // ID값이나 key값을 통해 속지의 데이터를 불러오는 로직
+    init(drawModel: DrawModel) {
+        self.drawModel = drawModel
     }
+
 }
 
 class DailyPaperViewModel: PaperViewModel {
@@ -31,9 +32,11 @@ class DailyPaperViewModel: PaperViewModel {
     var date: BehaviorSubject<String>
     var day: BehaviorSubject<Day>
 
-    init(date: String, day: Day) {
-        self.date = BehaviorSubject<String>(value: date)
-        self.day = BehaviorSubject<Day>(value: day)
+    init(date: Date, drawModel: DrawModel) {
+        // TODO: - date와 day를 계산해서 넣어주는 로직
+        self.date = BehaviorSubject<String>(value: "11.11")
+        self.day = BehaviorSubject<Day>(value: .mon)
+        super.init(drawModel: drawModel)
     }
 
 }

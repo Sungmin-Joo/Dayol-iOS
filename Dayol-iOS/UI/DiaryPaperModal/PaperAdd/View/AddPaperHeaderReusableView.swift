@@ -54,8 +54,8 @@ class AddPaperHeaderReusableView: UICollectionReusableView {
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-    func updateTitleLabel(tabType: PaperModalModel.PaperOrientation) {
-        let title = tabType == .portrait ? Text.portraitTitle : Text.landscapeTitle
+    func updateTitleLabel(tabType: PaperStyle) {
+        let title = tabType == .vertical ? Text.portraitTitle : Text.landscapeTitle
         titleLabel.attributedText = title
     }
 

@@ -12,20 +12,45 @@ enum CommonPaperDesign {
     static let borderColor = UIColor(decimalRed: 233, green: 233, blue: 233)
 }
 
-enum PaperStyle {
+enum PaperStyle: String, CaseIterable {
     case horizontal
     case vertical
 }
 
-enum PaperType: String {
+enum PaperType {
+
     case monthly
     case weekly
-    case daily
+    case daily(date: Date)
     case cornell
     case muji
     case grid
     case four
     case tracker
+
+    static var allCases: [PaperType] {
+        return [.monthly,
+                .weekly,
+                .daily(date: Date()),
+                .cornell,
+                .muji,
+                .grid,
+                .four,
+                .tracker]
+    }
+
+    var title: String {
+        switch self {
+        case .monthly: return "memo_list_monthly".localized
+        case .weekly: return "memo_list_weekly".localized
+        case .daily(_): return "memo_list_daily".localized
+        case .cornell: return "memo_list_kornell".localized
+        case .muji: return "memo_list_muji".localized
+        case .grid: return "memo_list_grid".localized
+        case .four: return "memo_list_4cell".localized
+        case .tracker: return "memo_list_tracker".localized
+        }
+    }
 }
 
 extension PaperStyle {
