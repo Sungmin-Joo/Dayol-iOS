@@ -59,7 +59,7 @@ class DiaryPaperViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-        bindInnerModel()
+        bindPaperModel()
         bindEvent()
     }
     
@@ -102,7 +102,7 @@ class DiaryPaperViewController: UIViewController {
         ])
     }
 
-    private func bindInnerModel() {
+    private func bindPaperModel() {
         // TODO: - RxSwift 적용해서 코드 정리
         guard diaryInnerModel.paperList.isEmpty == false else {
             paperPresentView.isHidden = true
