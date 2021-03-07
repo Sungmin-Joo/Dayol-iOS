@@ -18,6 +18,7 @@ struct DiaryInnerModel {
         let id: Int
         let paperStyle: PaperStyle
         let paperType: PaperType
+        // TODO: - 속지 추가 스펙이 있어서 [DrawModel] 로 변경되어야 할 것 같습니다.
         var drawModelList: DrawModel
     }
 

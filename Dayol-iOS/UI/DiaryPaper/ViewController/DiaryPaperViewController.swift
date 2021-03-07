@@ -37,12 +37,16 @@ class DiaryPaperViewController: UIViewController {
         
         return view
     }()
+    private let paperPresentView: PaperPresentView
     
     // MARK: - Init
     
     init(diaryCover: DiaryCoverModel, diaryInner: DiaryInnerModel) {
         self.diaryCoverModel = diaryCover
         self.diaryInnerModel = diaryInner
+        // TODO: - 아직 스크롤 뷰 미구현이라 데모 용 첫 번째 속지만 노출
+        self.paperPresentView = PaperPresentView(paperStyle: diaryInner.paperList[0].paperStyle)
+        self.paperPresentView.translatesAutoresizingMaskIntoConstraints = false
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -55,12 +59,15 @@ class DiaryPaperViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
+        bindPaperModel()
         bindEvent()
     }
     
     private func initView() {
         view.backgroundColor = .white
         view.addSubview(emptyView)
+        // TODO: - 아직 스크롤 뷰 미구현이라 데모 용 첫 번째 속지만 노출
+        view.addSubview(paperPresentView)
 
         setupNavigationBars()
         setConstraint()
@@ -86,8 +93,27 @@ class DiaryPaperViewController: UIViewController {
             emptyView.topAnchor.constraint(equalTo: view.topAnchor),
             emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             emptyView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            emptyView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            emptyView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            // TODO: - 아직 스크롤 뷰 미구현이라 데모 용 첫 번째 속지만 노출
+            paperPresentView.topAnchor.constraint(equalTo: view.topAnchor),
+            paperPresentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            paperPresentView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            paperPresentView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+    }
+
+    private func bindPaperModel() {
+        // TODO: - RxSwift 적용해서 코드 정리
+        guard diaryInnerModel.paperList.isEmpty == false else {
+            paperPresentView.isHidden = true
+            return
+        }
+
+        let paperModel = diaryInnerModel.paperList[0]
+        let paper = PaperProvider.createPaper(paperType: paperModel.paperType,
+                                              paperStyle: paperModel.paperStyle,
+                                              drawModel: paperModel.drawModelList)
+        paperPresentView.addPage(paper)
     }
 
     private func bindEvent() {

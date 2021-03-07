@@ -10,9 +10,6 @@ import RxSwift
 class PaperPresentView: UIView {
 
     let paperStyle: PaperStyle
-    open var canAddPage: Bool {
-        return false
-    }
 
     // UI
 
@@ -26,9 +23,16 @@ class PaperPresentView: UIView {
         return scrollView
     }()
 
-    init(frame: CGRect, paperStyle: PaperStyle) {
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
+    init(paperStyle: PaperStyle) {
         self.paperStyle = paperStyle
-        super.init(frame: frame)
+        super.init(frame: .zero)
         initView()
         setupConstraints()
     }
@@ -45,7 +49,7 @@ class PaperPresentView: UIView {
 extension PaperPresentView: UIScrollViewDelegate {
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return scrollView
+        return stackView
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -61,7 +65,7 @@ extension PaperPresentView: UIScrollViewDelegate {
 extension PaperPresentView {
 
     func addPage(_ pageView: BasePaper) {
-
+        stackView.addArrangedSubview(pageView)
     }
 
     func saveAndExit() {
@@ -77,6 +81,7 @@ extension PaperPresentView {
 private extension PaperPresentView {
 
     func initView() {
+        scrollView.addSubview(stackView)
         scrollView.delegate = self
         scrollView.maximumZoomScale = paperStyle.maximumZoomIn
         addSubview(scrollView)
@@ -84,12 +89,20 @@ private extension PaperPresentView {
 
     func setupConstraints() {
         let frameGuide = scrollView.frameLayoutGuide
+        let contentGuide = scrollView.contentLayoutGuide
 
         NSLayoutConstraint.activate([
             frameGuide.topAnchor.constraint(equalTo: topAnchor),
             frameGuide.leadingAnchor.constraint(equalTo: leadingAnchor),
             frameGuide.trailingAnchor.constraint(equalTo: trailingAnchor),
-            frameGuide.bottomAnchor.constraint(equalTo: bottomAnchor)
+            frameGuide.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+            contentGuide.topAnchor.constraint(equalTo: stackView.topAnchor),
+            contentGuide.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            contentGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            contentGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+
+            stackView.widthAnchor.constraint(equalToConstant: paperStyle.paperWidth)
         ])
     }
 }
