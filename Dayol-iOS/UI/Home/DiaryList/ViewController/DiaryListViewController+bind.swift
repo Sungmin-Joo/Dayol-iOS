@@ -90,8 +90,8 @@ extension DiaryListViewController {
     // TODO: Need Some Diary Inner Inpo. ex) Paper is Empty, Present Paper's Detail
     private func showDiaryPaperViewController(diaryCover: DiaryCoverModel) {
         // TODO: - 다이어리 속지 표현을 위해 테스트 데이터를 넣어두었습니다.
-        let diaryPaperViewController = DiaryPaperViewController(diaryCover: diaryCover,
-                                                                diaryInner: DiaryPageTestData.shared.diaryList[0])
+        let diaryPaperViewModel = DiaryPaperViewModel(coverModel: diaryCover)
+        let diaryPaperViewController = DiaryPaperViewController(viewModel: diaryPaperViewModel)
         let nav = DYNavigationController(rootViewController: diaryPaperViewController)
         nav.navigationBar.barTintColor = diaryCover.color.coverColor
         nav.modalPresentationStyle = .fullScreen

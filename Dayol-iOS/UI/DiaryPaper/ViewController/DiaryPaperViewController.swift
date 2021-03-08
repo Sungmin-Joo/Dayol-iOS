@@ -19,14 +19,13 @@ class DiaryPaperViewController: UIViewController {
     typealias PaperModel = DiaryInnerModel.PaperModel
     
     private let disposeBag = DisposeBag()
-    private let diaryCoverModel: DiaryCoverModel
-    private(set) var diaryInnerModel: DiaryInnerModel
+    private let viewModel: DiaryPaperViewModel
+    private var innerModels: [DiaryInnerModel]?
     
     // MARK: - UI Component
     
     private let barLeftItem = DYNavigationItemCreator.barButton(type: .backWhite)
     private let barRightItem = DYNavigationItemCreator.barButton(type: .more)
-    private let titleView = DYNavigationItemCreator.titleView("", color: .white)
     private let toolBar = DYNavigationItemCreator.functionToolbar()
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -41,11 +40,10 @@ class DiaryPaperViewController: UIViewController {
     
     // MARK: - Init
     
-    init(diaryCover: DiaryCoverModel, diaryInner: DiaryInnerModel) {
-        self.diaryCoverModel = diaryCover
-        self.diaryInnerModel = diaryInner
+    init(viewModel: DiaryPaperViewModel) {
+        self.viewModel = viewModel
         // TODO: - 아직 스크롤 뷰 미구현이라 데모 용 첫 번째 속지만 노출
-        self.paperPresentView = PaperPresentView(paperStyle: diaryInner.paperList[0].paperStyle)
+        self.paperPresentView = PaperPresentView(paperStyle: .vertical)
         self.paperPresentView.translatesAutoresizingMaskIntoConstraints = false
         super.init(nibName: nil, bundle: nil)
     }
@@ -59,8 +57,7 @@ class DiaryPaperViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-        bindPaperModel()
-        bindEvent()
+        bind()
     }
     
     private func initView() {
@@ -74,10 +71,8 @@ class DiaryPaperViewController: UIViewController {
     }
     
     private func setupNavigationBars() {
-        titleView.titleLabel.text = diaryCoverModel.title
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: barLeftItem)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: barRightItem)
-        navigationItem.titleView = titleView
         
         setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
         
@@ -101,19 +96,44 @@ class DiaryPaperViewController: UIViewController {
             paperPresentView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
     }
+    
+    // MARK: - Bind
+    
+    private func bind() {
+        bindTitle()
+        bindEvent()
+        bindPaperModel()
+    }
+    
+    private func bindTitle() {
+        viewModel.title
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] titleValue in
+                let titleView = DYNavigationItemCreator.titleView(titleValue, color: .white)
+                self?.navigationItem.titleView = titleView
+            })
+            .disposed(by: disposeBag)
+    }
 
     private func bindPaperModel() {
-        // TODO: - RxSwift 적용해서 코드 정리
-        guard diaryInnerModel.paperList.isEmpty == false else {
-            paperPresentView.isHidden = true
-            return
-        }
-
-        let paperModel = diaryInnerModel.paperList[0]
-        let paper = PaperProvider.createPaper(paperType: paperModel.paperType,
-                                              paperStyle: paperModel.paperStyle,
-                                              drawModel: paperModel.drawModelList)
-        paperPresentView.addPage(paper)
+        viewModel.paperList
+            .observeOn(MainScheduler.instance)
+            .filter({ [weak self] inners -> Bool in
+                let shouldShowDiaryPeper = !inners[0].paperList.isEmpty
+                
+                self?.emptyView.isHidden = (shouldShowDiaryPeper == true)
+                
+                return shouldShowDiaryPeper
+            })
+            .subscribe(onNext: { [weak self] inners in
+                let paperModel = inners[0].paperList[0]
+                let paper = PaperProvider.createPaper(paperType: paperModel.paperType,
+                                                      paperStyle: paperModel.paperStyle,
+                                                      drawModel: paperModel.drawModelList)
+                self?.innerModels = inners
+                self?.paperPresentView.addPage(paper)
+            })
+            .disposed(by: disposeBag)
     }
 
     private func bindEvent() {
@@ -134,11 +154,14 @@ class DiaryPaperViewController: UIViewController {
         emptyView.addGestureRecognizer(tapGesture)
     }
 
-    @objc func didTapEmptyView() {
+    @objc
+    private func didTapEmptyView() {
         presentPaperModal(toolType: .add)
     }
 
     private func presentPaperModal(toolType: PaperModalViewController.PaperToolType) {
+        guard let paperList = innerModels?[0].paperList else { return }
+        
         let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
         let screenHeight = keyWindow?.bounds.height ?? .zero
         let modalHeight: CGFloat = screenHeight - Design.addPageModalTopMargin
@@ -146,7 +169,7 @@ class DiaryPaperViewController: UIViewController {
         let configuration = DYModalConfiguration(dimStyle: .black,
                                                  modalStyle: modalStyle)
 
-        let papers = diaryInnerModel.paperList.map {
+        let papers = paperList.compactMap {
             PaperModalModel.PaperListCellModel(id: $0.id,
                                                isStarred: false,
                                                paperStyle: $0.paperStyle,

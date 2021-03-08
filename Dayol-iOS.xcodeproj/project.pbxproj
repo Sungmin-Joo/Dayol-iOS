@@ -103,7 +103,6 @@
 		DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */; };
 		DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1F2587AEB90067467B /* PasswordButton.swift */; };
 		DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */; };
-		DAD3EBF325DD53F0007627B8 /* DiaryPageListTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD3EBF225DD53F0007627B8 /* DiaryPageListTestData.swift */; };
 		DAD66734259B551600E8F59A /* DiaryEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD66733259B551600E8F59A /* DiaryEditViewController.swift */; };
 		DAD66738259B570800E8F59A /* DYNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD66737259B570800E8F59A /* DYNavigationController.swift */; };
 		DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD66745259C691300E8F59A /* DYNavigationItemCreator.swift */; };
@@ -120,6 +119,8 @@
 		DADD0A2025A72A6A004D6CF0 /* DiaryPaperEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A1F25A72A6A004D6CF0 /* DiaryPaperEmptyView.swift */; };
 		DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE29CEA2584F2100028010B /* PasswordViewController.swift */; };
 		DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB92DD2596F72E00FA5551 /* DifferentEdgeSettableView.swift */; };
+		DAEF76A425F66EE7007CAA93 /* DiaryPaperViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEF76A325F66EE7007CAA93 /* DiaryPaperViewModel.swift */; };
+		DAEF76A725F66F15007CAA93 /* DiaryPaperModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEF76A625F66F15007CAA93 /* DiaryPaperModel.swift */; };
 		DAF18E8225B6FB21007ACFAC /* VolteW03Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DAF18E8125B6FB21007ACFAC /* VolteW03Semibold.otf */; };
 		DAF18E9425B70C26007ACFAC /* Date+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF18E9325B70C26007ACFAC /* Date+Calendar.swift */; };
 		DAF18EA825B70FFD007ACFAC /* MonthlyCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF18EA725B70FFD007ACFAC /* MonthlyCalendarViewModel.swift */; };
@@ -227,7 +228,6 @@
 		DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDisplayedView.swift; sourceTree = "<group>"; };
 		DACE3B1F2587AEB90067467B /* PasswordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordButton.swift; sourceTree = "<group>"; };
 		DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DXRMbxStd-B.otf"; sourceTree = "<group>"; };
-		DAD3EBF225DD53F0007627B8 /* DiaryPageListTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPageListTestData.swift; sourceTree = "<group>"; };
 		DAD66733259B551600E8F59A /* DiaryEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditViewController.swift; sourceTree = "<group>"; };
 		DAD66737259B570800E8F59A /* DYNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationController.swift; sourceTree = "<group>"; };
 		DAD66745259C691300E8F59A /* DYNavigationItemCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationItemCreator.swift; sourceTree = "<group>"; };
@@ -244,6 +244,8 @@
 		DADD0A1F25A72A6A004D6CF0 /* DiaryPaperEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperEmptyView.swift; sourceTree = "<group>"; };
 		DAE29CEA2584F2100028010B /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		DAEB92DD2596F72E00FA5551 /* DifferentEdgeSettableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferentEdgeSettableView.swift; sourceTree = "<group>"; };
+		DAEF76A325F66EE7007CAA93 /* DiaryPaperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperViewModel.swift; sourceTree = "<group>"; };
+		DAEF76A625F66F15007CAA93 /* DiaryPaperModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperModel.swift; sourceTree = "<group>"; };
 		DAF18E8125B6FB21007ACFAC /* VolteW03Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = VolteW03Semibold.otf; sourceTree = "<group>"; };
 		DAF18E9325B70C26007ACFAC /* Date+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Calendar.swift"; sourceTree = "<group>"; };
 		DAF18EA725B70FFD007ACFAC /* MonthlyCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewModel.swift; sourceTree = "<group>"; };
@@ -751,7 +753,6 @@
 			children = (
 				DA27AC7A25D1751A00C71CDE /* DiaryListTestData.swift */,
 				3416448E25DC1B7200A81FD2 /* DeletedPageListTestData.swift */,
-				DAD3EBF225DD53F0007627B8 /* DiaryPageListTestData.swift */,
 				3452673E25E3F6C200EC6F9D /* DiaryPageTestData.swift */,
 			);
 			path = TestData;
@@ -894,6 +895,8 @@
 			isa = PBXGroup;
 			children = (
 				DADD0A1825A72907004D6CF0 /* DiaryPaperViewController.swift */,
+				DAEF76A625F66F15007CAA93 /* DiaryPaperModel.swift */,
+				DAEF76A325F66EE7007CAA93 /* DiaryPaperViewModel.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1137,6 +1140,7 @@
 				DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */,
 				34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */,
 				DADD09F725A335C2004D6CF0 /* DiaryEditToggleView.swift in Sources */,
+				DAEF76A425F66EE7007CAA93 /* DiaryPaperViewModel.swift in Sources */,
 				DADD0A1925A72907004D6CF0 /* DiaryPaperViewController.swift in Sources */,
 				DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */,
 				DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */,
@@ -1154,7 +1158,7 @@
 				34CA255B25A75A340057404D /* SettingCellProtocol.swift in Sources */,
 				3416447F25DAB62100A81FD2 /* CALayer+Extension.swift in Sources */,
 				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
-				DAD3EBF325DD53F0007627B8 /* DiaryPageListTestData.swift in Sources */,
+				DAEF76A725F66F15007CAA93 /* DiaryPaperModel.swift in Sources */,
 				3434B76F25A479D800506152 /* DYModalConfiguration.swift in Sources */,
 				DADD0A0525A35445004D6CF0 /* DiaryEditColorPaletteCell.swift in Sources */,
 				34AD5A7A25C97D0900D9E29C /* PaperListCell.swift in Sources */,
