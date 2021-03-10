@@ -1,5 +1,5 @@
 //
-//  DiaryPaperViewModel.swift
+//  DiaryPaperViewerViewModel.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/03/08.
@@ -8,8 +8,8 @@
 import Foundation
 import RxSwift
 
-class DiaryPaperViewModel {
-    private let model: DiaryPaperModel
+class DiaryPaperViewerViewModel {
+    private let model: DiaryPaperViewerModel
     private let coverModel: DiaryCoverModel
     
     var title: Observable<String> {
@@ -22,6 +22,6 @@ class DiaryPaperViewModel {
     
     init(coverModel: DiaryCoverModel) {
         self.coverModel = coverModel
-        self.model = DiaryPaperModel(coverModel: coverModel)
+        self.model = DiaryPaperViewerModel(coverModel: coverModel)
     }
 }

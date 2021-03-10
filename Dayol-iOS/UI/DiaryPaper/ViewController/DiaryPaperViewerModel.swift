@@ -1,5 +1,5 @@
 //
-//  DiaryPaperModel.swift
+//  DiaryPaperViewerModel.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/03/08.
@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class DiaryPaperModel {
+class DiaryPaperViewerModel {
     /// DiaryPageTestData는 DB라고 생각할 것
     /// DB에 요청할 파라미터는 추후 논의 일단은 void로 둠(init)
     
