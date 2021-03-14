@@ -162,6 +162,7 @@ private extension PasswordViewController {
     func bindAnimation() {
         viewModel.shouldShowVibeAniamtion
             .observeOn(MainScheduler.instance)
+            .delay(.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] showAnimation in
                 guard let self = self else { return }
                 

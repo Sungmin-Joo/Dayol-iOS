@@ -90,7 +90,7 @@ extension PasswordViewModel {
 	}
 
 	func deletePassword() {
-        inputtedPassword.removeLast()
+        _ = inputtedPassword.popLast()
 	}
 
 	func clearPassword() {

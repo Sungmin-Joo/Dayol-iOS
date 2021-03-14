@@ -34,7 +34,7 @@ class PasswordDisplayedView: UIView {
 	let inputedImageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.image = Design.passwordImage
-		imageView.isHidden = true
+        imageView.alpha = 0
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 
 		return imageView

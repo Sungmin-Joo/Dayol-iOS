@@ -26,13 +26,25 @@ class PasswordButton: UIButton {
 	private var text: String
 	private var delete: Bool
 	private let disposeBag = DisposeBag()
-
+    private var scaleDownDuration: TimeInterval = 0.05
+    private var scaleUpDudation: TimeInterval = 0.25
+    private var highlightedScale: CGFloat = 0.9
+    
 	override var isHighlighted: Bool {
 		didSet {
-			if delete == false {
-				layer.cornerRadius = isHighlighted ? 0.0 : Design.buttonRadius
-				layer.borderWidth = isHighlighted ? 0.0 : Design.buttonBorderWidth
-			}
+            
+            if isHighlighted {
+                layer.cornerRadius = 0
+                layer.borderWidth = 0
+                layer.masksToBounds = true
+                animateSclae(to: highlightedScale, duration: scaleDownDuration)
+            } else {
+                layer.cornerRadius = delete ? 0 : Design.buttonRadius
+                layer.borderWidth = delete ? 0 : Design.buttonBorderWidth
+                layer.masksToBounds = true
+                animateSclae(to: 1, duration: scaleUpDudation)
+            }
+            swapImage()
 		}
 	}
 
@@ -77,4 +89,25 @@ class PasswordButton: UIButton {
 			heightAnchor.constraint(equalToConstant: Design.buttonSize.height)
 		])
 	}
+    
+    private func animateSclae(to scale: CGFloat, duration: TimeInterval) {
+        UIView.animate(withDuration: duration,
+                       delay: 0,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 0.5,
+                       options: [],
+                       animations: {
+                        self.transform = .init(scaleX: scale, y: scale)
+                       },
+                       completion: nil
+        )
+    }
+    
+    private func swapImage() {
+        if delete {
+            setImage(isHighlighted ? Design.passwordImage : Design.deleteButtonImage, for: .normal)
+        } else {
+            setImage(isHighlighted ? Design.passwordImage : nil, for: .normal)
+        }
+    }
 }

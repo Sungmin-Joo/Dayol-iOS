@@ -102,7 +102,7 @@ class PasswordTitleView: UIView {
 	func clearPasswordField() {
 		self.currentPasswordIndex = 0
 		guard let fieldSubviews = self.passwordFieldStack.arrangedSubviews as? [PasswordDisplayedView] else { return }
-		fieldSubviews.forEach { $0.inputedImageView.isHidden = true }
+        fieldSubviews.forEach { $0.inputedImageView.alpha = 0 }
 	}
 
 	//출처 : https://stackoverflow.com/questions/3844557/uiview-shake-animation
@@ -142,14 +142,18 @@ extension PasswordTitleView {
 				case .input:
 					if self.currentPasswordIndex + 1 <= Design.passwordCount
 					, let currentPasswordView = self.passwordFieldStack.arrangedSubviews[self.currentPasswordIndex] as? PasswordDisplayedView {
-						currentPasswordView.inputedImageView.isHidden = false
+                        UIView.animate(withDuration: 0.1) {
+                            currentPasswordView.inputedImageView.alpha = 1.0
+                        }
 						self.currentPasswordIndex += 1
                     }
 				case .delete:
 					if self.currentPasswordIndex - 1 >= 0
 					, let currentPasswordView = self.passwordFieldStack.arrangedSubviews[self.currentPasswordIndex - 1] as? PasswordDisplayedView {
 						self.currentPasswordIndex -= 1
-						currentPasswordView.inputedImageView.isHidden = true
+                        UIView.animate(withDuration: 0.1) {
+                            currentPasswordView.inputedImageView.alpha = 0
+                        }
 					}
 				}
 			})
