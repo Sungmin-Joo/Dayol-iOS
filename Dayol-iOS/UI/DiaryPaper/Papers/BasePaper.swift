@@ -48,10 +48,7 @@ class BasePaper: UIView {
             drawArea.topAnchor.constraint(equalTo: topAnchor),
             drawArea.leadingAnchor.constraint(equalTo: leadingAnchor),
             drawArea.trailingAnchor.constraint(equalTo: trailingAnchor),
-            drawArea.bottomAnchor.constraint(equalTo: bottomAnchor),
-
-            widthAnchor.constraint(equalToConstant: paperStyle.paperWidth),
-            heightAnchor.constraint(equalToConstant: paperStyle.paperHeight)
+            drawArea.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

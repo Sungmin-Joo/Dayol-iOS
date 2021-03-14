@@ -18,6 +18,7 @@ class PaperPresentView: UIView {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.alwaysBounceVertical = true
         scrollView.alwaysBounceHorizontal = false
+        scrollView.contentMode = .center
 
         scrollView.bouncesZoom = false
         return scrollView
@@ -34,14 +35,15 @@ class PaperPresentView: UIView {
         self.paperStyle = paperStyle
         super.init(frame: .zero)
         initView()
-        setupConstraints()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         // TODO: - content inset + zoom scale 작업
+        setupConstraints()
+        setupContentInset()
     }
 
 }
@@ -90,7 +92,8 @@ private extension PaperPresentView {
     func setupConstraints() {
         let frameGuide = scrollView.frameLayoutGuide
         let contentGuide = scrollView.contentLayoutGuide
-
+        let isHorizontal = paperStyle == .horizontal
+        
         NSLayoutConstraint.activate([
             frameGuide.topAnchor.constraint(equalTo: topAnchor),
             frameGuide.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -102,7 +105,14 @@ private extension PaperPresentView {
             contentGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
             contentGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
 
-            stackView.widthAnchor.constraint(equalToConstant: paperStyle.paperWidth)
+            stackView.widthAnchor.constraint(equalTo: frameGuide.widthAnchor, multiplier: isHorizontal ? 1.0 : 0.9),
+            stackView.heightAnchor.constraint(equalTo: frameGuide.heightAnchor, multiplier: isHorizontal ? 0.8 : 1.0)
         ])
+    }
+    
+    func setupContentInset() {
+        let contentOffsetX: CGFloat = (scrollView.contentSize.width - scrollView.frame.size.width) / 2
+        let contentOffsetY: CGFloat = (scrollView.contentSize.height - scrollView.frame.size.height) / 2
+        scrollView.contentInset = UIEdgeInsets(top: -contentOffsetY, left: -contentOffsetX, bottom: 0, right: 0)
     }
 }
