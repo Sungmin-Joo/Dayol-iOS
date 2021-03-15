@@ -13,12 +13,12 @@ class PaperProvider {
         switch paperType {
         case .monthly:
             // monthly 연동
-            let viewModel = PaperViewModel(drawModel: drawModel)
-            return BasePaper(viewModel: viewModel, paperStyle: paperStyle)
+            let viewModel = MonthlyCalendarViewModel()
+            return MonthlyCalendarView(viewModel: viewModel, paperStyle: paperStyle)
         case .weekly:
             // weekly 연동
-            let viewModel = PaperViewModel(drawModel: drawModel)
-            return BasePaper(viewModel: viewModel, paperStyle: paperStyle)
+            let viewModel = WeeklyCalendarViewModel()
+            return WeeklyCalendarView(viewModel: viewModel, paperStyle: paperStyle)
         case .daily(let date):
             let viewModel = DailyPaperViewModel(date: date, drawModel: drawModel)
             return DailyPaper(viewModel: viewModel, paperStyle: paperStyle)

@@ -91,7 +91,6 @@ class DiaryPaperViewerViewController: UIViewController {
     private func setupPageViewController() {
         pageViewController.delegate = self
         pageViewController.dataSource = self
-        
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
         pageViewController.didMove(toParent: self)

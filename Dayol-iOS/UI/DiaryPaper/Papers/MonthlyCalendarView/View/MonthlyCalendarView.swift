@@ -33,11 +33,10 @@ private enum Design {
     }
 }
 
-class MonthlyCalendarView: UIView {
+class MonthlyCalendarView: BasePaper {
     private var containerViewLeft = NSLayoutConstraint()
     private var containerViewRight = NSLayoutConstraint()
-    private let viewModel: MonthlyCalendarViewModel
-    private let disposeBag = DisposeBag()
+    
     private var iPadOrientation: Design.IPadOrientation {
         if self.frame.size.width > self.frame.size.height {
             return .landscape
@@ -60,38 +59,40 @@ class MonthlyCalendarView: UIView {
         return collectionView
     }()
     
-    init() {
+    init(viewModel: MonthlyCalendarViewModel = MonthlyCalendarViewModel(), paperStyle: PaperStyle) {
+        super.init(viewModel: viewModel, paperStyle: paperStyle)
         self.viewModel = MonthlyCalendarViewModel()
-        super.init(frame: .zero)
-        initView()
+        bind()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func initView() {
-        addSubview(headerView)
-        addSubview(collectionView)
-        setConstraint()
-        bind()
+    override func initView() {
+        super.initView()
+        drawArea.addSubview(headerView)
+        drawArea.addSubview(collectionView)
+        
     }
     
-    private func setConstraint() {
+    override func setConstraints() {
+        super.setConstraints()
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: topAnchor),
-            headerView.leftAnchor.constraint(equalTo: leftAnchor),
-            headerView.rightAnchor.constraint(equalTo: rightAnchor),
+            headerView.topAnchor.constraint(equalTo: drawArea.topAnchor),
+            headerView.leftAnchor.constraint(equalTo: drawArea.leftAnchor),
+            headerView.rightAnchor.constraint(equalTo: drawArea.rightAnchor),
             headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(orientation: iPadOrientation)),
             
             collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            collectionView.leftAnchor.constraint(equalTo: drawArea.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: drawArea.rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: drawArea.bottomAnchor)
         ])
     }
     
     private func bind() {
+        guard let viewModel = self.viewModel as? MonthlyCalendarViewModel else { return }
         viewModel.dateModel(date: Date())
             .subscribe(onNext: { [weak self] dateModel in
                 guard let self = self else { return }

@@ -18,12 +18,16 @@ class DiaryPaperViewController: UIViewController {
         self.paper = paper
         self.paper.translatesAutoresizingMaskIntoConstraints = false
         super.init(nibName: nil, bundle: nil)
-        self.view.backgroundColor = .gray
+        self.view.backgroundColor = UIColor(decimalRed: 246, green: 248, blue: 250)
         initView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
     
     private func initView() {

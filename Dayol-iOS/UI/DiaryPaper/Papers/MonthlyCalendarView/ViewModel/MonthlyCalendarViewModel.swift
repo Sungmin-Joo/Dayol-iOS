@@ -101,7 +101,7 @@ struct MonthlyCalendarDayModel {
     }
 }
 
-class MonthlyCalendarViewModel {
+class MonthlyCalendarViewModel: PaperViewModel {
     private var numOfDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]
     private var monthIndex: Int = 0
     private var year: Int = 0
@@ -109,6 +109,7 @@ class MonthlyCalendarViewModel {
     private var firstWeekDayOfMonth: WeekDay = .sunday
     
     init() {
+        super.init(drawModel: DrawModel())
         calcDate(date: Date())
     }
     

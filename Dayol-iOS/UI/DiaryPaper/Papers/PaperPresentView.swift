@@ -7,11 +7,50 @@
 
 import RxSwift
 
-class PaperPresentView: UIView {
+private enum Design {
+    enum IPadOrientation {
+        case landscape
+        case portrait
+    }
+}
 
+
+class PaperPresentView: UIView {
+    private var iPadOrientation: Design.IPadOrientation {
+        if self.frame.size.width > self.frame.size.height {
+            return .landscape
+        } else {
+            return .portrait
+        }
+    }
+    
+    private var widthHeightRate: CGFloat {
+        if paperStyle == .horizontal {
+            return 662/1024
+        }else {
+            return 917/614
+        }
+    }
+    
+    private var widthRate: CGFloat {
+        if iPadOrientation == .landscape {
+            if paperStyle == .horizontal {
+                return 1.0
+            }else {
+                return 242/667
+            }
+        } else {
+            if paperStyle == .horizontal {
+                return 614/768
+            }else {
+                return 1.0
+            }
+        }
+    }
+    
     let paperStyle: PaperStyle
 
-    // UI
+    // MARK: - UI
 
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -92,7 +131,6 @@ private extension PaperPresentView {
     func setupConstraints() {
         let frameGuide = scrollView.frameLayoutGuide
         let contentGuide = scrollView.contentLayoutGuide
-        let isHorizontal = paperStyle == .horizontal
         
         NSLayoutConstraint.activate([
             frameGuide.topAnchor.constraint(equalTo: topAnchor),
@@ -105,8 +143,8 @@ private extension PaperPresentView {
             contentGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
             contentGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
 
-            stackView.widthAnchor.constraint(equalTo: frameGuide.widthAnchor, multiplier: isHorizontal ? 1.0 : 0.9),
-            stackView.heightAnchor.constraint(equalTo: frameGuide.heightAnchor, multiplier: isHorizontal ? 0.8 : 1.0)
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: widthRate),
+            stackView.heightAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: widthHeightRate)
         ])
     }
     

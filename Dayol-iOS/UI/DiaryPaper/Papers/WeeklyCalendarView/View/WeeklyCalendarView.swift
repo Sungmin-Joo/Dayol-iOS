@@ -33,9 +33,7 @@ private enum Design {
     }
 }
 
-class WeeklyCalendarView: UIView {
-    private let viewModel: WeeklyCalendarViewModel
-    private let disposeBag = DisposeBag()
+class WeeklyCalendarView: BasePaper {
     private var dayModel: [WeeklyCalendarDataModel]?
     private var iPadOrientation: Design.IPadOrientation {
         if self.frame.size.width > self.frame.size.height {
@@ -60,10 +58,11 @@ class WeeklyCalendarView: UIView {
         return collectionView
     }()
     
-    init() {
-        self.viewModel = WeeklyCalendarViewModel()
-        super.init(frame: .zero)
-        initView()
+    init(viewModel: WeeklyCalendarViewModel = WeeklyCalendarViewModel(), paperStyle: PaperStyle) {
+        super.init(viewModel: viewModel, paperStyle: paperStyle)
+        self.viewModel = viewModel
+        setupCollectionView()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -75,12 +74,25 @@ class WeeklyCalendarView: UIView {
         updateCollectionView()
     }
     
-    private func initView() {
-        addSubview(headerView)
-        addSubview(collectionView)
-        setConstraint()
-        setupCollectionView()
-        bind()
+    override func initView() {
+        super.initView()
+        drawArea.addSubview(headerView)
+        drawArea.addSubview(collectionView)
+    }
+    
+    override func setConstraints() {
+        super.setConstraints()
+        NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: topAnchor),
+            headerView.leftAnchor.constraint(equalTo: leftAnchor),
+            headerView.rightAnchor.constraint(equalTo: rightAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(orientation: iPadOrientation)),
+            
+            collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            collectionView.leftAnchor.constraint(equalTo: leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
     
     private func setupCollectionView() {
@@ -97,21 +109,11 @@ class WeeklyCalendarView: UIView {
         collectionView.backgroundColor = .clear
     }
     
-    private func setConstraint() {
-        NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: topAnchor),
-            headerView.leftAnchor.constraint(equalTo: leftAnchor),
-            headerView.rightAnchor.constraint(equalTo: rightAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(orientation: iPadOrientation)),
-            
-            collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-    }
+    
     
     private func bind() {
+        guard let viewModel = self.viewModel as? WeeklyCalendarViewModel else { return }
+        
         viewModel.dateModel(date: Date())
             .subscribe(onNext: {[weak self] models in
                 guard let month = models[safe: 1]?.month else { return }
