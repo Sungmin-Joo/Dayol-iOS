@@ -64,6 +64,7 @@ class DiaryListViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.decelerationRate = .fast
         return collectionView
     }()
 
