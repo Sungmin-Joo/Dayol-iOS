@@ -143,7 +143,7 @@ private extension PaperPresentView {
             contentGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
             contentGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
 
-            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: widthRate),
+            stackView.widthAnchor.constraint(equalTo: frameGuide.widthAnchor, multiplier: widthRate),
             stackView.heightAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: widthHeightRate)
         ])
     }
