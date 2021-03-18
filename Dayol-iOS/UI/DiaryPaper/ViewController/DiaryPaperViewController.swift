@@ -29,7 +29,7 @@ class DiaryPaperViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     private func initView() {
         view.addSubview(paper)
         

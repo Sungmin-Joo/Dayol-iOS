@@ -30,32 +30,28 @@ private extension PaperStyle {
     }
 }
 
-class GridPaper: BasePaper {
-
+class GridPaper: UITableViewCell, PaperDescribing {
+    var viewModel: PaperViewModel
+    var paperStyle: PaperStyle
+    
     private let gridImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    override func initView() {
-        super.initView()
+    init(viewModel: PaperViewModel, paperStyle: PaperStyle) {
+        self.viewModel = viewModel
+        self.paperStyle = paperStyle
+        super.init(style: .default, reuseIdentifier: Self.className)
+    }
+    
+    func configure() {
         gridImageView.image = getGridImage()
         gridImageView.contentMode = .topLeft
 
-        drawArea.addSubview(gridImageView)
+        contentView.addSubViewPinEdge(gridImageView)
     }
-
-    override func setConstraints() {
-        super.setConstraints()
-        NSLayoutConstraint.activate([
-            gridImageView.centerXAnchor.constraint(equalTo: drawArea.centerXAnchor),
-            gridImageView.centerYAnchor.constraint(equalTo: drawArea.centerYAnchor),
-            gridImageView.widthAnchor.constraint(equalToConstant: paperStyle.paperWidth),
-            gridImageView.heightAnchor.constraint(equalToConstant: paperStyle.paperHeight)
-        ])
-    }
-
 }
 
 private extension GridPaper {

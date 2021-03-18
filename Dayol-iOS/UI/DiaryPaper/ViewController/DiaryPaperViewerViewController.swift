@@ -132,7 +132,7 @@ class DiaryPaperViewerViewController: UIViewController {
                 
                 for (index, paper) in papers.enumerated() {
                     let paperPresentView = PaperPresentView(paperStyle: paper.paperStyle)
-                    paperPresentView.addPage(paper)
+                    //paperPresentView.addPage(paper)
                     diaryPaperViewControllers.append(DiaryPaperViewController(index: index, paper: paperPresentView))
                 }
                 self?.paperViewControllers = diaryPaperViewControllers

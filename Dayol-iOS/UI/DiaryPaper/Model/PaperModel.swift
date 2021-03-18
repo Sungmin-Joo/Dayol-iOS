@@ -57,14 +57,14 @@ extension PaperStyle {
     var paperWidth: CGFloat {
         switch self {
         case .horizontal: return 1024.0
-        case .vertical: return 375.0
+        case .vertical: return 614.0
         }
     }
 
     var paperHeight: CGFloat {
         switch self {
         case .horizontal: return 662.0
-        case .vertical: return 560.0
+        case .vertical: return 917.0
         }
     }
 

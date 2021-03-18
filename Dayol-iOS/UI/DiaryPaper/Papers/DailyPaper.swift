@@ -23,11 +23,34 @@ private enum Design {
     static let dayLeftMargin: CGFloat = 7.0
 }
 
-class DailyPaper: BasePaper {
+class DailyPaper: UITableViewCell, PaperDescribing {
+    var viewModel: PaperViewModel
+    var paperStyle: PaperStyle
+    
+    private let disposeBag = DisposeBag()
+    
+    private let titleArea: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private let dayLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
 
-    private let titleArea = UIView()
-    private let dateLabel = UILabel()
-    private let dayLabel = UILabel()
+    
     private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = Design.separatorColor
@@ -36,33 +59,14 @@ class DailyPaper: BasePaper {
     }()
 
     init(viewModel: DailyPaperViewModel, paperStyle: PaperStyle) {
-        super.init(viewModel: viewModel, paperStyle: paperStyle)
-        bindEvent()
+        self.viewModel = viewModel
+        self.paperStyle = paperStyle
+        super.init(style: .default, reuseIdentifier: Self.className)
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-    func bindEvent() {
-        guard let viewModel = viewModel as? DailyPaperViewModel else { return }
-
-        viewModel.date
-            .observeOn(MainScheduler.instance)
-            .debug()
-            .subscribe(onNext: { [weak self] dateString in
-                self?.setDateLabel(dateString)
-            })
-            .disposed(by: disposeBag)
-
-        viewModel.day
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] day in
-                self?.setDayLabel(day)
-            })
-            .disposed(by: disposeBag)
-    }
-
-    override func initView() {
-        super.initView()
+    func configure() {
         dateLabel.sizeToFit()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         titleArea.addSubview(dateLabel)
@@ -74,14 +78,35 @@ class DailyPaper: BasePaper {
         titleArea.addSubview(separatorView)
         titleArea.translatesAutoresizingMaskIntoConstraints = false
 
-        drawArea.addSubview(titleArea)
-        drawArea.backgroundColor = CommonPaperDesign.defaultBGColor
-        drawArea.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(drawArea)
+        contentView.addSubview(titleArea)
+        contentView.backgroundColor = CommonPaperDesign.defaultBGColor
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        setupConstraints()
+        
+        bindEvent()
+    }
+    
+    func bindEvent() {
+        guard let viewModel = viewModel as? DailyPaperViewModel else { return }
+
+        viewModel.date
+            .observeOn(MainScheduler.instance)
+            .debug()
+            .subscribe(onNext: { [weak self] dateString in
+                self?.dateText = dateString
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.day
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] day in
+                self?.dayText = day
+            })
+            .disposed(by: disposeBag)
     }
 
-    override func setConstraints() {
-        super.setConstraints()
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             dateLabel.centerYAnchor.constraint(equalTo: titleArea.centerYAnchor),
             dateLabel.leadingAnchor.constraint(equalTo: titleArea.leadingAnchor,
@@ -96,9 +121,9 @@ class DailyPaper: BasePaper {
             separatorView.bottomAnchor.constraint(equalTo: titleArea.bottomAnchor),
             separatorView.heightAnchor.constraint(equalToConstant: Design.separatorHeight),
 
-            titleArea.topAnchor.constraint(equalTo: drawArea.topAnchor),
-            titleArea.leadingAnchor.constraint(equalTo: drawArea.leadingAnchor),
-            titleArea.trailingAnchor.constraint(equalTo: drawArea.trailingAnchor),
+            titleArea.topAnchor.constraint(equalTo: contentView.topAnchor),
+            titleArea.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleArea.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleArea.heightAnchor.constraint(equalToConstant: Design.titleAreaHeight)
         ])
     }
@@ -106,20 +131,34 @@ class DailyPaper: BasePaper {
 }
 
 private extension DailyPaper {
-
-    func setDateLabel(_ dateString: String) {
-        dateLabel.attributedText = NSAttributedString.build(text: dateString,
-                                                            font: Design.dateFont,
-                                                            align: .left,
-                                                            letterSpacing: Design.dateSpacing,
-                                                            foregroundColor: Design.titleColor)
+    var dateText: String? {
+        get {
+            return dateLabel.attributedText?.string
+        }
+        set {
+            guard let dateString = newValue else { return }
+            dateLabel.attributedText = NSAttributedString.build(text: dateString,
+                                                                font: Design.dateFont,
+                                                                align: .left,
+                                                                letterSpacing: Design.dateSpacing,
+                                                                foregroundColor: Design.titleColor)
+            dateLabel.sizeToFit()
+        }
     }
 
-    func setDayLabel(_ day: DailyPaperViewModel.Day) {
-        dayLabel.attributedText = NSAttributedString.build(text: day.rawValue,
-                                                           font: Design.dayFont,
-                                                           align: .left,
-                                                           letterSpacing: Design.daySpacing,
-                                                           foregroundColor: Design.titleColor)
+    var dayText: DailyPaperViewModel.Day? {
+        get {
+            guard let rawValue = dayLabel.attributedText?.string else { return nil }
+            return DailyPaperViewModel.Day(rawValue: rawValue)
+        }
+        set {
+            guard let day = newValue else { return }
+            dayLabel.attributedText = NSAttributedString.build(text: day.rawValue,
+                                                               font: Design.dayFont,
+                                                               align: .left,
+                                                               letterSpacing: Design.daySpacing,
+                                                               foregroundColor: Design.titleColor)
+            dayLabel.sizeToFit()
+        }
     }
 }

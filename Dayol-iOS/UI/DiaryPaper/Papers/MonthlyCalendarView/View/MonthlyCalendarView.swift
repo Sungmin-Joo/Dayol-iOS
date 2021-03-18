@@ -10,41 +10,23 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
-    enum IPadOrientation {
-        case landscape
-        case portrait
-    }
-    case ipad
-    case iphone
-    
-    static var current: Design = { isPadDevice ? .ipad : iphone }()
-    
-    static func headerHeight(orientation: IPadOrientation) -> CGFloat {
-        switch current {
-        case .iphone:
-            return 69
-        case .ipad:
-            if orientation == .portrait {
-                return 125
-            } else {
-                return 81
-            }
+    static func headerHeight(style: PaperStyle) -> CGFloat {
+        switch style {
+        case .vertical:
+            return 125
+        case .horizontal:
+            return 81
         }
     }
 }
 
-class MonthlyCalendarView: BasePaper {
+class MonthlyCalendarView: UITableViewCell, PaperDescribing {
     private var containerViewLeft = NSLayoutConstraint()
     private var containerViewRight = NSLayoutConstraint()
-    
-    private var iPadOrientation: Design.IPadOrientation {
-        if self.frame.size.width > self.frame.size.height {
-            return .landscape
-        } else {
-            return .portrait
-        }
-    }
-    
+    private let disposeBag = DisposeBag()
+    var viewModel: PaperViewModel
+    var paperStyle: PaperStyle
+
     private let headerView: MonthlyCalendarHeaderView = {
         let header = MonthlyCalendarHeaderView(month: .january)
         header.translatesAutoresizingMaskIntoConstraints = false
@@ -60,8 +42,10 @@ class MonthlyCalendarView: BasePaper {
     }()
     
     init(viewModel: MonthlyCalendarViewModel = MonthlyCalendarViewModel(), paperStyle: PaperStyle) {
-        super.init(viewModel: viewModel, paperStyle: paperStyle)
         self.viewModel = MonthlyCalendarViewModel()
+        self.paperStyle = paperStyle
+        super.init(style: .default, reuseIdentifier: MonthlyCalendarView.className)
+        
         bind()
     }
     
@@ -69,25 +53,23 @@ class MonthlyCalendarView: BasePaper {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func initView() {
-        super.initView()
-        drawArea.addSubview(headerView)
-        drawArea.addSubview(collectionView)
-        
+    func configure() {
+        addSubview(headerView)
+        addSubview(collectionView)
+        setupConstraints()
     }
-    
-    override func setConstraints() {
-        super.setConstraints()
+
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: drawArea.topAnchor),
-            headerView.leftAnchor.constraint(equalTo: drawArea.leftAnchor),
-            headerView.rightAnchor.constraint(equalTo: drawArea.rightAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(orientation: iPadOrientation)),
+            headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            headerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            headerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(style: paperStyle)),
             
             collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: drawArea.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: drawArea.rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: drawArea.bottomAnchor)
+            collectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     

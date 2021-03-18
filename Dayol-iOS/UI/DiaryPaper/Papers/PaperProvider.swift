@@ -8,8 +8,7 @@
 import UIKit
 
 class PaperProvider {
-
-    static func createPaper(paperType: PaperType, paperStyle: PaperStyle, drawModel: DrawModel) -> BasePaper {
+    static func createPaper(paperType: PaperType, paperStyle: PaperStyle, drawModel: DrawModel) -> PaperDescribing {
         switch paperType {
         case .monthly:
             // monthly 연동
@@ -37,8 +36,7 @@ class PaperProvider {
         case .tracker:
             // TODO: - tracker 구현
             let viewModel = PaperViewModel(drawModel: drawModel)
-            return BasePaper(viewModel: viewModel, paperStyle: paperStyle)
+            return MujiPaper(viewModel: viewModel, paperStyle: paperStyle)
         }
     }
-
 }

@@ -103,6 +103,8 @@
 		DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */; };
 		DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1F2587AEB90067467B /* PasswordButton.swift */; };
 		DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */; };
+		DAD489EF26026A33008B542E /* DrawingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD489EE26026A33008B542E /* DrawingContentView.swift */; };
+		DAD489F326026A41008B542E /* StickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD489F226026A41008B542E /* StickerContentView.swift */; };
 		DAD66734259B551600E8F59A /* DiaryEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD66733259B551600E8F59A /* DiaryEditViewController.swift */; };
 		DAD66738259B570800E8F59A /* DYNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD66737259B570800E8F59A /* DYNavigationController.swift */; };
 		DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD66745259C691300E8F59A /* DYNavigationItemCreator.swift */; };
@@ -231,6 +233,8 @@
 		DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDisplayedView.swift; sourceTree = "<group>"; };
 		DACE3B1F2587AEB90067467B /* PasswordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordButton.swift; sourceTree = "<group>"; };
 		DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DXRMbxStd-B.otf"; sourceTree = "<group>"; };
+		DAD489EE26026A33008B542E /* DrawingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingContentView.swift; sourceTree = "<group>"; };
+		DAD489F226026A41008B542E /* StickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerContentView.swift; sourceTree = "<group>"; };
 		DAD66733259B551600E8F59A /* DiaryEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditViewController.swift; sourceTree = "<group>"; };
 		DAD66737259B570800E8F59A /* DYNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationController.swift; sourceTree = "<group>"; };
 		DAD66745259C691300E8F59A /* DYNavigationItemCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationItemCreator.swift; sourceTree = "<group>"; };
@@ -426,13 +430,13 @@
 		34B6C13325BB4F7A00C2596F /* Papers */ = {
 			isa = PBXGroup;
 			children = (
+				DAD489ED26026A03008B542E /* PaperPresenterView */,
 				34A2EDD325B88DB0008DB98D /* BasePaper.swift */,
 				34A2EDC425B85EDA008DB98D /* MujiPaper.swift */,
 				34A2EDC725B86082008DB98D /* DailyPaper.swift */,
 				34A2EDCE25B87953008DB98D /* GridPaper.swift */,
 				3446621E25C1A07A00656775 /* CornellPaper.swift */,
 				3416448825DC05A900A81FD2 /* FourPaper.swift */,
-				3446621025C0480700656775 /* PaperPresentView.swift */,
 				3452674925E54A5000EC6F9D /* PaperProvider.swift */,
 				DA27AC5725C6D68600C71CDE /* WeeklyCalendarView */,
 				DAF18EA025B70FAB007ACFAC /* MonthlyCalendarView */,
@@ -842,6 +846,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		DAD489ED26026A03008B542E /* PaperPresenterView */ = {
+			isa = PBXGroup;
+			children = (
+				3446621025C0480700656775 /* PaperPresentView.swift */,
+				DAD489EE26026A33008B542E /* DrawingContentView.swift */,
+				DAD489F226026A41008B542E /* StickerContentView.swift */,
+			);
+			path = PaperPresenterView;
+			sourceTree = "<group>";
+		};
 		DAD66732259B54FD00E8F59A /* DiaryEdit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1092,6 +1106,7 @@
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
 				3416445325D8C0A900A81FD2 /* DeletedPageListView.swift in Sources */,
 				DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */,
+				DAD489F326026A41008B542E /* StickerContentView.swift in Sources */,
 				3452671325DD66F400EC6F9D /* DataBackupExportContentView.swift in Sources */,
 				DA27AC7525D16E6800C71CDE /* DiaryEditViewModel.swift in Sources */,
 				3434B76B25A4797B00506152 /* DYModalViewController.swift in Sources */,
@@ -1175,6 +1190,7 @@
 				DA27AC5B25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift in Sources */,
 				3416448925DC05A900A81FD2 /* FourPaper.swift in Sources */,
 				CE8DCAE1258D28F4007738EA /* HomeViewController.swift in Sources */,
+				DAD489EF26026A33008B542E /* DrawingContentView.swift in Sources */,
 				34CA255B25A75A340057404D /* SettingCellProtocol.swift in Sources */,
 				3416447F25DAB62100A81FD2 /* CALayer+Extension.swift in Sources */,
 				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
@@ -1263,7 +1279,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1319,7 +1335,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

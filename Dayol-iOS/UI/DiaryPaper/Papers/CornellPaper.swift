@@ -43,8 +43,10 @@ private extension PaperStyle {
 
 }
 
-class CornellPaper: BasePaper {
-
+class CornellPaper: UITableViewCell, PaperDescribing {
+    var viewModel: PaperViewModel
+    var paperStyle: PaperStyle
+    
     private let cornellImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -53,26 +55,21 @@ class CornellPaper: BasePaper {
 
     private(set) var isFirstPage: Bool = true
 
-    override func initView() {
-        super.initView()
-        
+    init(viewModel: PaperViewModel, paperStyle: PaperStyle) {
+        self.viewModel = viewModel
+        self.paperStyle = paperStyle
+        super.init(style: .default, reuseIdentifier: Self.className)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure() {
         cornellImageView.image = getCornellImage(isFirstPage: isFirstPage)
         cornellImageView.contentMode = .topLeft
-
-        drawArea.addSubview(cornellImageView)
+        contentView.addSubViewPinEdge(cornellImageView)
     }
-
-    override func setConstraints() {
-        super.setConstraints()
-
-        NSLayoutConstraint.activate([
-            cornellImageView.centerXAnchor.constraint(equalTo: drawArea.centerXAnchor),
-            cornellImageView.centerYAnchor.constraint(equalTo: drawArea.centerYAnchor),
-            cornellImageView.widthAnchor.constraint(equalToConstant: paperStyle.paperWidth),
-            cornellImageView.heightAnchor.constraint(equalToConstant: paperStyle.paperHeight)
-        ])
-    }
-
 }
 
 private extension CornellPaper {

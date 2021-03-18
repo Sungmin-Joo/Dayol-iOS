@@ -12,8 +12,10 @@ private enum Design {
     static let lineColor = UIColor(decimalRed: 233, green: 233, blue: 233, alpha: 0.5)
 }
 
-class FourPaper: BasePaper {
-
+class FourPaper: UITableViewCell, PaperDescribing {
+    var viewModel: PaperViewModel
+    var paperStyle: PaperStyle
+    
     private let fourImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .topLeft
@@ -21,23 +23,20 @@ class FourPaper: BasePaper {
         return imageView
     }()
 
-    override func initView() {
-        super.initView()
+    init(viewModel: PaperViewModel, paperStyle: PaperStyle) {
+        self.viewModel = viewModel
+        self.paperStyle = paperStyle
+        super.init(style: .default, reuseIdentifier: FourPaper.className)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure() {
         fourImageView.image = getGridImage()
-
-        drawArea.addSubview(fourImageView)
+        contentView.addSubViewPinEdge(fourImageView)
     }
-
-    override func setConstraints() {
-        super.setConstraints()
-        NSLayoutConstraint.activate([
-            fourImageView.leadingAnchor.constraint(equalTo: drawArea.leadingAnchor),
-            fourImageView.trailingAnchor.constraint(equalTo: drawArea.trailingAnchor),
-            fourImageView.topAnchor.constraint(equalTo: drawArea.topAnchor),
-            fourImageView.bottomAnchor.constraint(equalTo: drawArea.bottomAnchor)
-        ])
-    }
-
 }
 
 private extension FourPaper {
