@@ -20,13 +20,11 @@ private enum Design {
     }
 }
 
-class MonthlyCalendarView: UITableViewCell, PaperDescribing {
+class MonthlyCalendarView: BasePaper {
     private var containerViewLeft = NSLayoutConstraint()
     private var containerViewRight = NSLayoutConstraint()
     private let disposeBag = DisposeBag()
-    var viewModel: PaperViewModel
-    var paperStyle: PaperStyle
-
+    
     private let headerView: MonthlyCalendarHeaderView = {
         let header = MonthlyCalendarHeaderView(month: .january)
         header.translatesAutoresizingMaskIntoConstraints = false
@@ -41,25 +39,18 @@ class MonthlyCalendarView: UITableViewCell, PaperDescribing {
         return collectionView
     }()
     
-    init(viewModel: MonthlyCalendarViewModel = MonthlyCalendarViewModel(), paperStyle: PaperStyle) {
-        self.viewModel = MonthlyCalendarViewModel()
-        self.paperStyle = paperStyle
-        super.init(style: .default, reuseIdentifier: MonthlyCalendarView.className)
+    override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
+        super.configure(viewModel: viewModel, paperStyle: paperStyle)
+        contentView.addSubview(headerView)
+        contentView.addSubview(collectionView)
+        setupConstraints()
         
         bind()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure() {
-        addSubview(headerView)
-        addSubview(collectionView)
-        setupConstraints()
-    }
+
 
     private func setupConstraints() {
+        guard let paperStyle = self.paperStyle else { return }
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             headerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),

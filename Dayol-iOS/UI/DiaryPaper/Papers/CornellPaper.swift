@@ -35,18 +35,15 @@ private extension PaperStyle {
 
     func numberOfLineInPage(isFirstPage: Bool) -> Int {
         if isFirstPage {
-            return Int(paperHeight - titleAreaHeight / Self.lineHeight) + 1
+            return Int(size.height - titleAreaHeight / Self.lineHeight) + 1
         } else {
-            return Int(paperHeight / Self.lineHeight) + 1
+            return Int(size.height / Self.lineHeight) + 1
         }
     }
 
 }
 
-class CornellPaper: UITableViewCell, PaperDescribing {
-    var viewModel: PaperViewModel
-    var paperStyle: PaperStyle
-    
+class CornellPaper: BasePaper {
     private let cornellImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,18 +51,9 @@ class CornellPaper: UITableViewCell, PaperDescribing {
     }()
 
     private(set) var isFirstPage: Bool = true
-
-    init(viewModel: PaperViewModel, paperStyle: PaperStyle) {
-        self.viewModel = viewModel
-        self.paperStyle = paperStyle
-        super.init(style: .default, reuseIdentifier: Self.className)
-    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure() {
+    override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
+        super.configure(viewModel: viewModel, paperStyle: paperStyle)
         cornellImageView.image = getCornellImage(isFirstPage: isFirstPage)
         cornellImageView.contentMode = .topLeft
         contentView.addSubViewPinEdge(cornellImageView)
@@ -73,9 +61,9 @@ class CornellPaper: UITableViewCell, PaperDescribing {
 }
 
 private extension CornellPaper {
-
     func getCornellImage(isFirstPage: Bool) -> UIImage? {
-        let paperSize = CGSize(width: paperStyle.paperWidth, height: paperStyle.paperHeight)
+        guard let paperStyle = self.paperStyle else { return nil }
+        let paperSize = CGSize(width: paperStyle.size.width, height: paperStyle.size.height)
         UIGraphicsBeginImageContextWithOptions(paperSize, false, 0.0)
 
         guard let context = UIGraphicsGetCurrentContext() else {
@@ -95,7 +83,7 @@ private extension CornellPaper {
         for row in 0..<paperStyle.numberOfLineInPage(isFirstPage: isFirstPage) + 1 {
             let positionY = row * Int(PaperStyle.lineHeight) + Int(positionMargin)
             let startPoint = CGPoint(x: 0, y: positionY)
-            let endPoint = CGPoint(x: Int(paperStyle.paperWidth), y: positionY)
+            let endPoint = CGPoint(x: Int(paperStyle.size.width), y: positionY)
 
             context.move(to: startPoint)
             context.addLine(to: endPoint)
@@ -109,7 +97,7 @@ private extension CornellPaper {
 
         let positionX = paperStyle.redLineOriginX
         let startPoint = CGPoint(x: positionX, y: positionMargin)
-        let endPoint = CGPoint(x: positionX, y: paperStyle.paperHeight)
+        let endPoint = CGPoint(x: positionX, y: paperStyle.size.height)
 
         context.move(to: startPoint)
         context.addLine(to: endPoint)
@@ -123,7 +111,7 @@ private extension CornellPaper {
 
             let positionY = paperStyle.titleAreaHeight
             let startPoint = CGPoint(x: 0, y: positionY)
-            let endPoint = CGPoint(x: paperStyle.paperWidth, y: positionY)
+            let endPoint = CGPoint(x: paperStyle.size.width, y: positionY)
 
             context.move(to: startPoint)
             context.addLine(to: endPoint)

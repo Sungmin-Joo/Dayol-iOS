@@ -18,11 +18,9 @@ private enum Design {
     }
 }
 
-class WeeklyCalendarView: UITableViewCell, PaperDescribing {
+class WeeklyCalendarView: BasePaper {
     private var dayModel: [WeeklyCalendarDataModel]?
     private let disposeBag = DisposeBag()
-    var viewModel: PaperViewModel
-    var paperStyle: PaperStyle
     
     private let headerView: MonthlyCalendarHeaderView = {
         let header = MonthlyCalendarHeaderView(month: .january)
@@ -39,30 +37,25 @@ class WeeklyCalendarView: UITableViewCell, PaperDescribing {
         return collectionView
     }()
     
-    init(viewModel: WeeklyCalendarViewModel = WeeklyCalendarViewModel(), paperStyle: PaperStyle) {
-        self.viewModel = viewModel
-        self.paperStyle = paperStyle
-        super.init(style: .default, reuseIdentifier: WeeklyCalendarView.className)
-        setupCollectionView()
-        bind()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         updateCollectionView()
     }
     
-    func configure() {
-        addSubview(headerView)
-        addSubview(collectionView)
+    override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
+        super.configure(viewModel: viewModel, paperStyle: paperStyle)
+        setupCollectionView()
+        
+        contentView.addSubview(headerView)
+        contentView.addSubview(collectionView)
         setupConstraints()
+        
+        bind()
     }
+
     
     private func setupConstraints() {
+        guard let paperStyle = self.paperStyle else { return }
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             headerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),

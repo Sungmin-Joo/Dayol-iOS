@@ -12,28 +12,16 @@ private enum Design {
     static let lineColor = UIColor(decimalRed: 233, green: 233, blue: 233, alpha: 0.5)
 }
 
-class FourPaper: UITableViewCell, PaperDescribing {
-    var viewModel: PaperViewModel
-    var paperStyle: PaperStyle
-    
+class FourPaper: BasePaper {
     private let fourImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .topLeft
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
-    init(viewModel: PaperViewModel, paperStyle: PaperStyle) {
-        self.viewModel = viewModel
-        self.paperStyle = paperStyle
-        super.init(style: .default, reuseIdentifier: FourPaper.className)
-    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure() {
+    override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
+        super.configure(viewModel: viewModel, paperStyle: paperStyle)
         fourImageView.image = getGridImage()
         contentView.addSubViewPinEdge(fourImageView)
     }
@@ -41,7 +29,8 @@ class FourPaper: UITableViewCell, PaperDescribing {
 
 private extension FourPaper {
     func getGridImage() -> UIImage? {
-        let paperSize = CGSize(width: paperStyle.paperWidth, height: paperStyle.paperHeight)
+        guard let paperStyle = self.paperStyle else { return nil }
+        let paperSize = CGSize(width: paperStyle.size.width, height: paperStyle.size.height)
         UIGraphicsBeginImageContextWithOptions(paperSize, false, 0.0)
 
         guard let context = UIGraphicsGetCurrentContext() else {

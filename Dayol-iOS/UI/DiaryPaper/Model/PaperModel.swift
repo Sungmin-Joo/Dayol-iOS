@@ -51,20 +51,26 @@ enum PaperType {
         case .tracker: return "memo_list_tracker".localized
         }
     }
+    
+    var identifier: String {
+        switch self {
+        case .monthly: return MonthlyCalendarView.className
+        case .weekly: return WeeklyCalendarView.className
+        case .daily(_): return DailyPaper.className
+        case .cornell: return CornellPaper.className
+        case .muji: return MujiPaper.className
+        case .grid: return GridPaper.className
+        case .four: return FourPaper.className
+        case .tracker: return BasePaper.className
+        }
+    }
 }
 
 extension PaperStyle {
-    var paperWidth: CGFloat {
+    var size: CGSize {
         switch self {
-        case .horizontal: return 1024.0
-        case .vertical: return 614.0
-        }
-    }
-
-    var paperHeight: CGFloat {
-        switch self {
-        case .horizontal: return 662.0
-        case .vertical: return 917.0
+        case .vertical: return CGSize(width: 614.0, height: 917.0)
+        case .horizontal: return CGSize(width: 1024.0, height: 662.0)
         }
     }
 
@@ -74,16 +80,16 @@ extension PaperStyle {
 
     func contentStackViewInset(scrollViewSize: CGSize) -> UIEdgeInsets {
         let width = scrollViewSize.width
-        let gap = (width - paperWidth) / 2
+        let gap = (width - size.width) / 2
         return UIEdgeInsets(top: 0, left: gap, bottom: 20, right: gap)
     }
 
     func minimumZoomOut(scrollViewSize: CGSize) -> CGFloat {
         switch self {
         case .horizontal:
-            return scrollViewSize.width / paperWidth
+            return scrollViewSize.width / size.width
         case .vertical:
-            return scrollViewSize.height / paperHeight
+            return scrollViewSize.height / size.height
         }
     }
 }

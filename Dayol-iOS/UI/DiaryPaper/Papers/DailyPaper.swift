@@ -23,9 +23,8 @@ private enum Design {
     static let dayLeftMargin: CGFloat = 7.0
 }
 
-class DailyPaper: UITableViewCell, PaperDescribing {
-    var viewModel: PaperViewModel
-    var paperStyle: PaperStyle
+class DailyPaper: BasePaper {
+    override var identifier: String { DailyPaper.className }
     
     private let disposeBag = DisposeBag()
     
@@ -57,23 +56,10 @@ class DailyPaper: UITableViewCell, PaperDescribing {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-    init(viewModel: DailyPaperViewModel, paperStyle: PaperStyle) {
-        self.viewModel = viewModel
-        self.paperStyle = paperStyle
-        super.init(style: .default, reuseIdentifier: Self.className)
-    }
-
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-
-    func configure() {
-        dateLabel.sizeToFit()
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+    
+    override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
+        super.configure(viewModel: viewModel, paperStyle: paperStyle)
         titleArea.addSubview(dateLabel)
-
-        dayLabel.sizeToFit()
-        dayLabel.translatesAutoresizingMaskIntoConstraints = false
-
         titleArea.addSubview(dayLabel)
         titleArea.addSubview(separatorView)
         titleArea.translatesAutoresizingMaskIntoConstraints = false
