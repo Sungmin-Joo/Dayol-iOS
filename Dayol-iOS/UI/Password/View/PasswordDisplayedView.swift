@@ -22,7 +22,7 @@ private enum Design {
 class PasswordDisplayedView: UIView {
     private let scaleDownDuration: TimeInterval = 0.3
     private let scaleUpDudation: TimeInterval = 0.3
-    private let inputtedScale: CGFloat = 1.1
+    private let inputtedScale: CGFloat = 1.3
     
 	let circleView: UIView = {
 		let view = UIView()
@@ -81,7 +81,7 @@ class PasswordDisplayedView: UIView {
 		])
 	}
     
-    private func animateSclae(to scale: CGFloat, duration: TimeInterval) {
+    private func animateSclae(to scale: CGFloat, duration: TimeInterval, completion: (() -> Void)?) {
         UIView.animate(withDuration: duration,
                        delay: 0,
                        usingSpringWithDamping: 0.3,
@@ -90,7 +90,9 @@ class PasswordDisplayedView: UIView {
                        animations: {
                         self.transform = .init(scaleX: scale, y: scale)
                        },
-                       completion: nil
+                       completion: { _ in
+                        completion?()
+                       }
         )
     }
 }
@@ -98,11 +100,13 @@ class PasswordDisplayedView: UIView {
 extension PasswordDisplayedView {
     func setPassword() {
         inputedImageView.alpha = 1.0
-        animateSclae(to: inputtedScale, duration: scaleUpDudation)
+        animateSclae(to: inputtedScale, duration: scaleUpDudation) { [weak self] in
+            guard let self = self else { return }
+            self.animateSclae(to: 1.0, duration: self.scaleDownDuration, completion: nil)
+        }
     }
     
     func resetPassword() {
         inputedImageView.alpha = 0
-        animateSclae(to: 1.0, duration: scaleDownDuration)
     }
 }

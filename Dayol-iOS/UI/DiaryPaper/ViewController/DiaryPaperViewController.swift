@@ -38,8 +38,6 @@ class DiaryPaperViewController: UIViewController {
         self.paper = paper
         self.paper.translatesAutoresizingMaskIntoConstraints = false
         super.init(nibName: nil, bundle: nil)
-        
-        
     }
     
     required init?(coder: NSCoder) {
