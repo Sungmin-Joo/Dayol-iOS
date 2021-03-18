@@ -50,18 +50,11 @@ class DiaryPaperViewController: UIViewController {
     }
 
     override func viewDidLayoutSubviews() {
-        paper.transform = .init(scaleX: scaleForFit, y: scaleForFit)
         super.viewDidLayoutSubviews()
     }
     
     private func initView() {
-        view.addSubview(paper)
+        view.addSubViewPinEdge(paper)
         view.backgroundColor = UIColor(decimalRed: 246, green: 248, blue: 250)
-        NSLayoutConstraint.activate([
-            paper.widthAnchor.constraint(equalToConstant: paper.paperStyle.size.width),
-            paper.heightAnchor.constraint(equalToConstant: paper.paperStyle.size.height),
-            paper.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            paper.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
     }
 }

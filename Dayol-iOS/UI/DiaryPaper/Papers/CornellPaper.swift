@@ -56,7 +56,7 @@ class CornellPaper: BasePaper {
         super.configure(viewModel: viewModel, paperStyle: paperStyle)
         cornellImageView.image = getCornellImage(isFirstPage: isFirstPage)
         cornellImageView.contentMode = .topLeft
-        contentView.addSubViewPinEdge(cornellImageView)
+        sizeDefinitionView.addSubViewPinEdge(cornellImageView)
     }
 }
 

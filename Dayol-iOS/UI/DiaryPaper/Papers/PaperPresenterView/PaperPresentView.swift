@@ -10,10 +10,31 @@ import UIKit
 class PaperPresentView: UIView {
     
     // MARK: - Properties
+    
     typealias PaperModel = DiaryInnerModel.PaperModel
     private let paper: PaperModel
     private let numberOfPapers: Int
-
+    
+    private var scaleForFit: CGFloat {
+        switch Orientation.currentState {
+        case .portrait:
+            switch paperStyle {
+            case .vertical:
+                return frame.height / paperStyle.size.height
+            case .horizontal:
+                return frame.width / paperStyle.size.width
+            }
+        case .landscape:
+            switch paperStyle {
+            case .vertical:
+                return frame.height / paperStyle.size.height
+            case .horizontal:
+                return frame.width / paperStyle.size.width
+            }
+        default: return 0.0
+        }
+    }
+    
     // MARK: - UI
     
     private let tableView: UITableView = {
@@ -50,6 +71,12 @@ class PaperPresentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        tableView.visibleCells.forEach { $0.contentView.transform = .init(scaleX: scaleForFit, y: scaleForFit) }
+        tableView.reloadData()
+    }
+    
     // MARK: - Init
     
     private func initView() {
@@ -59,9 +86,9 @@ class PaperPresentView: UIView {
         
         setupPaperBorder()
         
-        addSubViewPinEdge(tableView)
         addSubViewPinEdge(drawingContentView)
         addSubViewPinEdge(stickerContentView)
+        addSubViewPinEdge(tableView)
     }
     
     private func reginterIdentifier() {
@@ -86,7 +113,9 @@ extension PaperPresentView {
 }
 
 extension PaperPresentView: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return paperStyle.size.height * scaleForFit
+    }
 }
 
 extension PaperPresentView: UITableViewDataSource {
@@ -101,6 +130,8 @@ extension PaperPresentView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: paper.paperType.identifier, for: indexPath) as? BasePaper else { return UITableViewCell() }
         let baseViewModel = PaperViewModel(drawModel: DrawModel())
+        
+        cell.contentView.transform = .init(scaleX: scaleForFit, y: scaleForFit)
         
         if let mujiCell = cell as? MujiPaper {
             mujiCell.configure(viewModel: baseViewModel, paperStyle: paper.paperStyle)
