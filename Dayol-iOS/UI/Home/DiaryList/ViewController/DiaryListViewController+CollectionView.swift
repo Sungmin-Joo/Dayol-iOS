@@ -10,10 +10,29 @@ import UIKit
 // MARK: - UICollectionView
 
 extension DiaryListViewController: UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let diaryInfo = viewModel.diaryList[safe: indexPath.item] else { return }
         showPasswordViewController(diaryCover: diaryInfo)
     }
+
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        guard
+            let collectionView = scrollView as? UICollectionView,
+            let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        else { return }
+
+        // 한 칸의 셀 이동 == 셀 + 마진 값 만큼 오프셋이 이동
+        let cellWidthMargin = layout.itemSize.width + layout.minimumLineSpacing
+
+        var offset = targetContentOffset.pointee
+        let idx = round((offset.x + collectionView.contentInset.left) / cellWidthMargin)
+
+        offset = CGPoint(x: idx * cellWidthMargin - collectionView.contentInset.left, y: 0)
+
+        targetContentOffset.pointee = offset
+    }
+
 }
 
 extension DiaryListViewController: UICollectionViewDataSource {
