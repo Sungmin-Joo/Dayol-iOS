@@ -42,7 +42,8 @@ class DiaryListViewController: UIViewController {
     }
     var isEditMode = false
     var canStartInteractiveMovement = false
-    // TODO: - 다이어리 리스트 순서변경 기능 사용 후 해당 인덱스로 스크롤 이동 기능 구현
+    var hasReorder = false
+    var currentIndex = 0
     var currentEditIndex: IndexPath?
 
     // MARK: - UI
