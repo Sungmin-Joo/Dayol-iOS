@@ -65,11 +65,7 @@ extension DiaryListViewController: UICollectionViewDataSource {
         viewModel.moveItem(at: sourceIndexPath.row, to: destinationIndexPath.row)
 
         let idx = destinationIndexPath.row
-
-        if let offsetX = offsetX(index: idx) {
-            let offset = CGPoint(x: offsetX, y: 0)
-            collectionView.setContentOffset(offset, animated: true)
-        }
+        moveToIndex(idx)
     }
 
 }
