@@ -28,7 +28,7 @@ extension DiaryListViewController: UICollectionViewDelegate {
         var offset = targetContentOffset.pointee
         let idx = round((offset.x + collectionView.contentInset.left) / cellWidthMargin)
 
-        if let indexX = offsetX(index: Int(idx)) {
+        if let indexX = collectionViewOffsetX(index: Int(idx)) {
             offset.x = indexX
             targetContentOffset.pointee = offset
             currentIndex = Int(idx)
@@ -74,7 +74,7 @@ extension DiaryListViewController: UICollectionViewDataSource {
 
 extension DiaryListViewController {
 
-    func offsetX(index: Int) -> CGFloat? {
+    func collectionViewOffsetX(index: Int) -> CGFloat? {
         guard
             let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         else {
@@ -88,10 +88,16 @@ extension DiaryListViewController {
     }
 
     func moveToIndex(_ index: Int, animated: Bool = true) {
-        guard let offsetX = offsetX(index: index) else { return }
+        guard let offsetX = collectionViewOffsetX(index: index) else { return }
         let offset = CGPoint(x: offsetX, y: 0)
         collectionView.setContentOffset(offset, animated: animated)
         currentIndex = index
+    }
+
+    func moveToCurrentIndexIfNeed() {
+        if let currentEditIndex = currentEditIndex {
+            moveToIndex(currentEditIndex.row)
+        }
     }
 }
 
@@ -134,8 +140,8 @@ extension DiaryListViewController {
                 self.collectionView.endInteractiveMovement()
 
                 // 순서 변경 인터랙션을 수행했지만 결국 순서를 바꾸지 않은 경우
-                if self.hasReorder == false, let currentEditIndex = self.currentEditIndex {
-                    self.moveToIndex(currentEditIndex.row, animated: false)
+                if self.hasReorder == false {
+                    self.moveToCurrentIndexIfNeed()
                 }
             }
         default:
@@ -144,9 +150,7 @@ extension DiaryListViewController {
             collectionView.cancelInteractiveMovement()
             endEditMode()
 
-            if let currentEditIndex = currentEditIndex {
-                moveToIndex(currentEditIndex.row)
-            }
+            moveToCurrentIndexIfNeed()
         }
     }
 
