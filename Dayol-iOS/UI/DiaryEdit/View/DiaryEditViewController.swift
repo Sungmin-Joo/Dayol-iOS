@@ -147,6 +147,7 @@ class DiaryEditViewController: UIViewController {
         titleView.editButton.rx.tap
             .bind { [weak self] in
                 self?.titleView.isEditting = true
+                self?.titleView.titleTextField.becomeFirstResponder()
             }
             .disposed(by: disposeBag)
 
