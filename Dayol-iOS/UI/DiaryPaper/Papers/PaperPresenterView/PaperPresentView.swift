@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class PaperPresentView: UIView {
     
@@ -14,24 +15,19 @@ class PaperPresentView: UIView {
     typealias PaperModel = DiaryInnerModel.PaperModel
     private let paper: PaperModel
     private let numberOfPapers: Int
-    
-    private var scaleForFit: CGFloat {
-        switch Orientation.currentState {
-        case .portrait:
-            switch paperStyle {
-            case .vertical:
-                return frame.height / paperStyle.size.height
-            case .horizontal:
-                return frame.width / paperStyle.size.width
+    private var contentTop = NSLayoutConstraint()
+    private var contentBottom = NSLayoutConstraint()
+
+    var scaleForFit: CGFloat = 0.0 {
+        didSet {
+            DispatchQueue.main.async {
+                print(self.scaleForFit)
+                let scale = CGAffineTransform(scaleX: self.scaleForFit, y: self.scaleForFit)
+                self.tableView.transform = scale
+                let constarintConstant: CGFloat = (self.height - self.tableView.frame.height) / 2
+                self.contentTop.constant = -constarintConstant
+                self.contentBottom.constant = constarintConstant
             }
-        case .landscape:
-            switch paperStyle {
-            case .vertical:
-                return frame.height / paperStyle.size.height
-            case .horizontal:
-                return frame.width / paperStyle.size.width
-            }
-        default: return 0.0
         }
     }
     
@@ -82,13 +78,29 @@ class PaperPresentView: UIView {
     private func initView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         reginterIdentifier()
         
         setupPaperBorder()
         
         addSubViewPinEdge(drawingContentView)
         addSubViewPinEdge(stickerContentView)
-        addSubViewPinEdge(tableView)
+        addSubview(tableView)
+        
+        setupConstraint()
+    }
+    
+    private func setupConstraint() {
+        contentTop = tableView.topAnchor.constraint(equalTo: topAnchor)
+        contentBottom = tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+
+        NSLayoutConstraint.activate([
+            contentTop, contentBottom,
+            tableView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            tableView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            tableView.widthAnchor.constraint(equalToConstant: style.size.width),
+            tableView.heightAnchor.constraint(equalToConstant: height)
+        ])
     }
     
     private func reginterIdentifier() {
@@ -109,12 +121,13 @@ class PaperPresentView: UIView {
 }
 
 extension PaperPresentView {
-    var paperStyle: PaperStyle { paper.paperStyle }
+    var style: PaperStyle { paper.paperStyle }
+    var height: CGFloat { paper.paperStyle.size.height * CGFloat(numberOfPapers) }
 }
 
 extension PaperPresentView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return paperStyle.size.height * scaleForFit
+        return style.size.height
     }
 }
 

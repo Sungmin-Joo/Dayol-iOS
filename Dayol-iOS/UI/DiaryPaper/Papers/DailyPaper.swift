@@ -64,9 +64,9 @@ class DailyPaper: BasePaper {
         titleArea.addSubview(separatorView)
         titleArea.translatesAutoresizingMaskIntoConstraints = false
 
-        sizeDefinitionView.addSubview(titleArea)
-        sizeDefinitionView.backgroundColor = CommonPaperDesign.defaultBGColor
-        sizeDefinitionView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(titleArea)
+        contentView.backgroundColor = CommonPaperDesign.defaultBGColor
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         
         setupConstraints()
         
@@ -78,7 +78,6 @@ class DailyPaper: BasePaper {
 
         viewModel.date
             .observeOn(MainScheduler.instance)
-            .debug()
             .subscribe(onNext: { [weak self] dateString in
                 self?.dateText = dateString
             })
@@ -107,9 +106,9 @@ class DailyPaper: BasePaper {
             separatorView.bottomAnchor.constraint(equalTo: titleArea.bottomAnchor),
             separatorView.heightAnchor.constraint(equalToConstant: Design.separatorHeight),
 
-            titleArea.topAnchor.constraint(equalTo: sizeDefinitionView.topAnchor),
-            titleArea.leadingAnchor.constraint(equalTo: sizeDefinitionView.leadingAnchor),
-            titleArea.trailingAnchor.constraint(equalTo: sizeDefinitionView.trailingAnchor),
+            titleArea.topAnchor.constraint(equalTo: contentView.topAnchor),
+            titleArea.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleArea.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleArea.heightAnchor.constraint(equalToConstant: Design.titleAreaHeight)
         ])
     }

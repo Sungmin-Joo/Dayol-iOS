@@ -8,17 +8,10 @@
 import RxSwift
 
 class BasePaper: UITableViewCell {
-    var identifier: String { BasePaper.className }
+    public var identifier: String { BasePaper.className }
     
-    var viewModel: PaperViewModel?
-    var paperStyle: PaperStyle?
-    
-    let sizeDefinitionView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        return view
-    }()
+    public var viewModel: PaperViewModel?
+    public var paperStyle: PaperStyle?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,15 +25,5 @@ class BasePaper: UITableViewCell {
     func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
         self.viewModel = viewModel
         self.paperStyle = paperStyle
-        contentView.addSubview(sizeDefinitionView)
-        guard let paperStyle = self.paperStyle else { return }
-        
-        NSLayoutConstraint.activate([
-            sizeDefinitionView.widthAnchor.constraint(equalToConstant: paperStyle.size.width),
-            sizeDefinitionView.heightAnchor.constraint(equalToConstant: paperStyle.size.height),
-            sizeDefinitionView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            sizeDefinitionView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            contentView.heightAnchor.constraint(equalTo: sizeDefinitionView.heightAnchor)
-        ])
     }
 }

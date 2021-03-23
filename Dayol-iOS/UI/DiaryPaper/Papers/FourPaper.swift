@@ -23,7 +23,7 @@ class FourPaper: BasePaper {
     override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
         super.configure(viewModel: viewModel, paperStyle: paperStyle)
         fourImageView.image = getGridImage()
-        sizeDefinitionView.addSubViewPinEdge(fourImageView)
+        contentView.addSubViewPinEdge(fourImageView)
     }
 }
 

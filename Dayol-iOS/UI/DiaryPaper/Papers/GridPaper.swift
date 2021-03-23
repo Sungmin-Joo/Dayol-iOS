@@ -44,7 +44,7 @@ class GridPaper: BasePaper {
         gridImageView.image = getGridImage()
         gridImageView.contentMode = .topLeft
 
-        sizeDefinitionView.addSubViewPinEdge(gridImageView)
+        contentView.addSubViewPinEdge(gridImageView)
     }
 }
 

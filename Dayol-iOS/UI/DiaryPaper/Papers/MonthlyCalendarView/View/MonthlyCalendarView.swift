@@ -41,8 +41,8 @@ class MonthlyCalendarView: BasePaper {
     
     override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
         super.configure(viewModel: viewModel, paperStyle: paperStyle)
-        sizeDefinitionView.addSubview(headerView)
-        sizeDefinitionView.addSubview(collectionView)
+        contentView.addSubview(headerView)
+        contentView.addSubview(collectionView)
         setupConstraints()
         
         bind()
@@ -52,15 +52,15 @@ class MonthlyCalendarView: BasePaper {
     private func setupConstraints() {
         guard let paperStyle = self.paperStyle else { return }
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: sizeDefinitionView.topAnchor),
-            headerView.leftAnchor.constraint(equalTo: sizeDefinitionView.leftAnchor),
-            headerView.rightAnchor.constraint(equalTo: sizeDefinitionView.rightAnchor),
+            headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            headerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            headerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(style: paperStyle)),
             
             collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: sizeDefinitionView.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: sizeDefinitionView.rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: sizeDefinitionView.bottomAnchor)
+            collectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
