@@ -8,10 +8,10 @@
 import UIKit
 
 class DifferentEdgeSettableView: UIView {
-    private var topLeft: CGFloat = 0
-    private var topRight: CGFloat = 0
-    private var bottomLeft: CGFloat = 0
-    private var bottomRight: CGFloat = 0
+    private var topLeft: CGFloat
+    private var topRight: CGFloat
+    private var bottomLeft: CGFloat
+    private var bottomRight: CGFloat
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -94,4 +94,15 @@ class DifferentEdgeSettableView: UIView {
         
         return bezierPath
     }
+}
+
+extension DifferentEdgeSettableView {
+
+    func setDifferentEdge(topLeft: CGFloat = 0, topRight: CGFloat = 0, bottomLeft: CGFloat = 0, bottomRight: CGFloat = 0) {
+        self.topLeft = topLeft
+        self.topRight = topRight
+        self.bottomLeft = bottomLeft
+        self.bottomRight = bottomRight
+    }
+
 }

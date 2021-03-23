@@ -76,7 +76,7 @@ class DiaryView: UIView {
         case .medium: self.design = .medium
         case .small: self.design = .small
         }
-		self.coverView = DiaryCoverView(type: type)
+		self.coverView = DiaryCoverView()
 		self.lockerView = DiaryLockerView(type: type)
 		super.init(frame: .zero)
 		addSubview(coverView)
