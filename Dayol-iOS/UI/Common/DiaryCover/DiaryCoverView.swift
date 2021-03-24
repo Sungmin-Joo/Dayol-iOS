@@ -27,10 +27,10 @@ private enum Design {
 class DiaryCoverView: DifferentEdgeSettableView {
 
 	private let coverLineView: UIView = {
-		let view = UIView()
+        let view = UIView()
         view.autoresizingMask = [.flexibleHeight]
-		view.backgroundColor = Design.lineColor
-		return view
+        view.backgroundColor = Design.lineColor
+        return view
 	}()
 
     private let logoImageView: UIImageView = {

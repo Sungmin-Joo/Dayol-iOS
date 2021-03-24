@@ -16,8 +16,8 @@ private enum Design {
 }
 
 class DiaryView: UIView {
-	private let coverView = DiaryCoverView()
-	private let lockerView = DiaryLockerView()
+    private let coverView = DiaryCoverView()
+    private let lockerView = DiaryLockerView()
 
     private var lockerMarginConstraint: NSLayoutConstraint?
     private var lockerWidthConstraint: NSLayoutConstraint?
