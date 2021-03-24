@@ -13,6 +13,7 @@ private enum Design {
     static let titleFont = UIFont.appleBold(size: 19)
     static let titleSize = CGSize(width: 210, height: 40)
     static let titleLetterSpace: CGFloat = -0.35
+    static let titleMaxCount = 10
     
     static let titleBackgroundColor: UIColor = UIColor(decimalRed: 245, green: 245, blue: 245)
     static let titleBorderColor: CGColor = UIColor(decimalRed: 218, green: 218, blue: 218).cgColor
@@ -38,25 +39,27 @@ class DYNavigationEditableTitle: DYNavigationTitle {
         return button
     }()
     
-    let textView: UITextView = {
-        let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isHidden = true
-        textView.backgroundColor = Design.titleBackgroundColor
-        textView.layer.borderWidth = Design.titleBorderWidth
-        textView.layer.borderColor = Design.titleBorderColor
-        textView.layer.cornerRadius = Design.titleRadius
-        textView.layer.masksToBounds = true
-        
-        return textView
+    let titleTextField: UITextField = {
+        let titleTextField = UITextField()
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.isHidden = true
+        titleTextField.returnKeyType = .done
+        titleTextField.textAlignment = .center
+        titleTextField.backgroundColor = Design.titleBackgroundColor
+        titleTextField.layer.borderWidth = Design.titleBorderWidth
+        titleTextField.layer.borderColor = Design.titleBorderColor
+        titleTextField.layer.cornerRadius = Design.titleRadius
+        titleTextField.layer.masksToBounds = true
+
+        return titleTextField
     }()
     
     override init(text: String, color: UIColor) {
         super.init(text: text, color: color)
-        textView.attributedText = attributedText(text: text, color: color)
+        titleTextField.attributedText = attributedText(text: text, color: color)
         horizontalStack.addArrangedSubview(editButton)
-        horizontalStack.addArrangedSubview(textView)
-        
+        horizontalStack.addArrangedSubview(titleTextField)
+        titleTextField.delegate = self
         setConstraint()
     }
     
@@ -65,29 +68,46 @@ class DYNavigationEditableTitle: DYNavigationTitle {
     }
     
     private func setConstraint() {
-        let textViewHeight = textView.heightAnchor.constraint(equalToConstant: Design.titleSize.height)
+        let textViewHeight = titleTextField.heightAnchor.constraint(equalToConstant: Design.titleSize.height)
         textViewHeight.priority = .defaultLow
         
         NSLayoutConstraint.activate([
             editButton.widthAnchor.constraint(equalToConstant: Design.editButtonSize.width),
             editButton.heightAnchor.constraint(equalToConstant: Design.editButtonSize.height),
             
-            textView.widthAnchor.constraint(equalToConstant: Design.titleSize.width),
+            titleTextField.widthAnchor.constraint(equalToConstant: Design.titleSize.width),
             textViewHeight
         ])
     }
     
     private func changeEditMode(isEditting: Bool) {
         if isEditting {
-            textView.isHidden = false
+            titleTextField.isHidden = false
             editButton.isHidden = true
             titleLabel.isHidden = true
-            textView.attributedText = attributedText(text: titleLabel.attributedText?.string ?? "", color: textView.textColor ?? .black)
+            titleTextField.attributedText = attributedText(text: titleLabel.attributedText?.string ?? "",
+                                                           color: titleTextField.textColor ?? .black)
         } else {
-            textView.isHidden = true
+            titleTextField.isHidden = true
             editButton.isHidden = false
             titleLabel.isHidden = false
-            titleLabel.attributedText = attributedText(text: textView.attributedText?.string ?? "", color: textView.textColor ?? .black)
+            titleTextField.attributedText = attributedText(text: titleTextField.attributedText?.string ?? "",
+                                                           color: titleTextField.textColor ?? .black)
         }
     }
+}
+
+extension DYNavigationTitle: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        let newLength = text.count + string.count - range.length
+        return newLength <= Design.titleMaxCount
+   }
+
 }
