@@ -22,7 +22,7 @@ private enum Design {
 
 class DiaryLockerView: DifferentEdgeSettableView {
 
-	private let lockImage: UIImageView = {
+	private let lockImageView: UIImageView = {
 		let imageView = UIImageView()
         imageView.image = Design.lockImage
 		return imageView
@@ -55,13 +55,14 @@ class DiaryLockerView: DifferentEdgeSettableView {
     }
 
 	private func initView() {
-        addSubview(lockImage)
+        addSubview(lockImageView)
         addSubview(buttonView)
+        unlock()
     }
 
     private func updateButtonView(_ ratio: CGFloat) {
         let buttonWidth = round((Design.Standard.buttonRadius * 2) * ratio)
-        [buttonView, lockImage].forEach {
+        [buttonView, lockImageView].forEach {
             $0.layer.cornerRadius = buttonWidth / 2.0
             $0.frame.size = CGSize(width: buttonWidth, height: buttonWidth)
             $0.center.y = frame.height / 2.0
@@ -77,6 +78,20 @@ class DiaryLockerView: DifferentEdgeSettableView {
                          topRight: rightRadius,
                          bottomLeft: leftRadius,
                          bottomRight: rightRadius)
+    }
+
+}
+
+extension DiaryLockerView {
+
+    func lock() {
+        lockImageView.isHidden = false
+        buttonView.isHidden = true
+    }
+
+    func unlock() {
+        lockImageView.isHidden = true
+        buttonView.isHidden = false
     }
 
 }

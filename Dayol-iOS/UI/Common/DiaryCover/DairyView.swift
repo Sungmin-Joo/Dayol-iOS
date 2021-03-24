@@ -22,6 +22,16 @@ class DiaryView: UIView {
     private var lockerMarginConstraint: NSLayoutConstraint?
     private var lockerWidthConstraint: NSLayoutConstraint?
     private var lockerHeightConstraint: NSLayoutConstraint?
+
+    var isLock: Bool = false {
+        didSet {
+            guard isLock else {
+                lockerView.unlock()
+                return
+            }
+            lockerView.lock()
+        }
+    }
 	
 	init() {
 		super.init(frame: .zero)
