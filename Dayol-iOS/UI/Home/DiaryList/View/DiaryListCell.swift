@@ -45,15 +45,22 @@ class DiaryListCell: UICollectionViewCell {
     }
 
     private let disposeBag = DisposeBag()
+    private var diaryHeight: CGFloat {
+        if isEditMode {
+            return 180.0
+        }
+        return 360.0
+    }
+    private var diaryViewHeightConstraint: NSLayoutConstraint?
     // TODO: - 다이어리 리스트 편집 시 다이어리 커버 스케일 줄이는 애니메이션 자연스럽게
     var isEditMode = false {
         didSet {
             mainStackView.alpha = isEditMode ? 0 : 1
             diaryCoverView.alpha = isEditMode ? 0.5 : 1
-            let scale: CGFloat = isEditMode ? 0.5 : 1.0
-            contentView.transform = CGAffineTransform(scaleX: scale, y: scale)
+            self.diaryViewHeightConstraint?.constant = diaryHeight
         }
     }
+
     var viewModel: DiaryCoverModel? {
         didSet {
             configure()
@@ -128,6 +135,14 @@ class DiaryListCell: UICollectionViewCell {
         diaryCoverView.setCover(color: viewModel.color)
         titleLabel.attributedText = Design.attributedTitle(text: viewModel.title)
         subTitleLabel.attributedText = Design.attributedSubTitle(text: subTitle)
+
+        if let password = viewModel.password {
+            // 패스워드가 있는 경우!
+            diaryCoverView.isLock = true
+        } else {
+            diaryCoverView.isLock = false
+        }
+
     }
     
 }
@@ -148,14 +163,18 @@ extension DiaryListCell {
     }
 
     private func setupConstraints() {
+        let diaryViewHeightConstraint = diaryCoverView.heightAnchor.constraint(equalToConstant: diaryHeight)
         NSLayoutConstraint.activate([
             diaryCoverView.topAnchor.constraint(equalTo: contentView.topAnchor),
             diaryCoverView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             diaryCoverView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            diaryViewHeightConstraint,
 
             mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             mainStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
+
+        self.diaryViewHeightConstraint = diaryViewHeightConstraint
     }
 }
 
