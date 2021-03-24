@@ -8,7 +8,6 @@
 import RxSwift
 
 private enum Design {
-    static let diaryCoverSize: DiaryType = .medium
     static let mainStackViewSpacing: CGFloat = 6.0
     static let titleStackViewSpacing: CGFloat = 5.0
 
@@ -64,7 +63,7 @@ class DiaryListCell: UICollectionViewCell {
     // MARK: - UI
 
     private(set) var diaryCoverView: DiaryView = {
-        let coverView = DiaryView(type: Design.diaryCoverSize)
+        let coverView = DiaryView()
         coverView.translatesAutoresizingMaskIntoConstraints = false
         return coverView
     }()
@@ -151,7 +150,8 @@ extension DiaryListCell {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             diaryCoverView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            diaryCoverView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            diaryCoverView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            diaryCoverView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
 
             mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             mainStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
