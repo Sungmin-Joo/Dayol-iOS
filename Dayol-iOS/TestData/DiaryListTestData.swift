@@ -13,8 +13,8 @@ class DiaryListTestData {
     
     var diaryList: [DiaryCoverModel] = [
         DiaryCoverModel(color: .DYRed, title: "1번 다이어리", totalPage: 3, password: "1234"),
-        DiaryCoverModel(color: .DYBlue, title: "2번 다이어리", totalPage: 2, password: "1234"),
-        DiaryCoverModel(color: .DYGreen, title: "3번 다이어리", totalPage: 5, password: "1234"),
+        DiaryCoverModel(color: .DYBlue, title: "2번 다이어리", totalPage: 2, password: nil),
+        DiaryCoverModel(color: .DYGreen, title: "3번 다이어리", totalPage: 5, password: nil),
         DiaryCoverModel(color: .DYRed, title: "1번 다이어리", totalPage: 3, password: "1234"),
         DiaryCoverModel(color: .DYBlue, title: "2번 다이어리", totalPage: 2, password: "1234"),
         DiaryCoverModel(color: .DYGreen, title: "3번 다이어리", totalPage: 5, password: "1234")

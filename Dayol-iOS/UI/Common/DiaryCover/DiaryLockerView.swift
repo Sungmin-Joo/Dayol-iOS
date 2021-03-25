@@ -8,90 +8,37 @@
 import UIKit
 
 private enum Design {
-    case big
-    case medium
-    case small
-
-	var buttonInsetWithoutRight: CGFloat {
-		switch self {
-		case .big: return 30
-		case .medium: return 15
-		case .small: return 15 / 4
-		}
-	}
-    
-    var buttonRight: CGFloat {
-        switch self {
-        case .big: return 50
-        case .medium: return 25
-        case .small: return 25 / 4
-        }
+    enum Standard {
+        static let width: CGFloat = 140
+        static let buttonLeftMargin: CGFloat = 30.0
+        static let buttonRadius: CGFloat = 32.0
+        static let rightRadius: CGFloat = 8.0
     }
-
-	var buttonWidth: CGFloat {
-		switch self {
-		case .big: return 4.0
-		case .medium: return 2.0
-		case .small: return 0.5
-		}
-	}
-
-	var buttonRadius: CGFloat {
-		switch self {
-		case .big: return 32
-		case .medium: return 16
-		case .small: return 4
-		}
-	}
-
-	var rightRadius: CGFloat {
-		switch self {
-		case .big: return 8
-		case .medium: return 4
-		case .small: return 1
-		}
-	}
-
-	var leftRadius: CGFloat {
-		switch self {
-		case .big: return 60
-		case .medium: return 30
-		case .small: return 30 / 4
-		}
-	}
-
+    static let borderWidth: CGFloat = 2.0
 	static let buttonColor: UIColor = .white
 	static let buttonBorderColor: CGColor = UIColor(decimalRed: 0, green: 0, blue: 0).withAlphaComponent(0.1).cgColor
+    static let lockImage = Assets.Image.DiaryCover.lock
 }
 
 class DiaryLockerView: DifferentEdgeSettableView {
-	private let design: Design
 
-	private let lockImage: UIImageView = {
+	private let lockImageView: UIImageView = {
 		let imageView = UIImageView()
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-
+        imageView.image = Design.lockImage
 		return imageView
 	}()
 
 	private let buttonView: UIView = {
 		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.borderWidth = Design.borderWidth
+        view.layer.borderColor = Design.buttonBorderColor
+        view.layer.masksToBounds = true
 		view.backgroundColor = Design.buttonColor
-
 		return view
 	}()
 
-	init(type: DiaryType) {
-        switch type {
-        case .big: self.design = .big
-        case .medium: self.design = .medium
-        case .small: self.design = .small
-        }
-        super.init(topLeft: design.leftRadius,
-                   topRight: design.rightRadius,
-                   bottomLeft: design.leftRadius,
-                   bottomRight: design.rightRadius)
+	init() {
+        super.init()
 		initView()
 	}
 
@@ -99,31 +46,52 @@ class DiaryLockerView: DifferentEdgeSettableView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	private func initView() {
-        addSubview(lockImage)
-        addSubview(buttonView)
-		setButtonView()
-		setConstraints()
+    override func layoutSubviews() {
+        let ratio = frame.width / Design.Standard.width
+        updateButtonView(ratio)
+        updateView(ratio)
+        // DifferentEdgeSettableView에서 radious 적용
+        super.layoutSubviews()
     }
 
-	private func setButtonView() {
-        buttonView.layer.borderWidth = design.buttonWidth
-        buttonView.layer.cornerRadius = design.buttonRadius
-		buttonView.layer.borderColor = Design.buttonBorderColor
-		buttonView.layer.masksToBounds = true
-	}
+	private func initView() {
+        addSubview(lockImageView)
+        addSubview(buttonView)
+        unlock()
+    }
 
-	private func setConstraints() {
-		NSLayoutConstraint.activate([
-            lockImage.topAnchor.constraint(equalTo: topAnchor, constant: design.buttonInsetWithoutRight),
-			lockImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -design.buttonInsetWithoutRight),
-			lockImage.leftAnchor.constraint(equalTo: leftAnchor, constant: design.buttonInsetWithoutRight),
-			lockImage.rightAnchor.constraint(equalTo: rightAnchor, constant: -design.buttonRight),
+    private func updateButtonView(_ ratio: CGFloat) {
+        let buttonWidth = round((Design.Standard.buttonRadius * 2) * ratio)
+        [buttonView, lockImageView].forEach {
+            $0.layer.cornerRadius = buttonWidth / 2.0
+            $0.frame.size = CGSize(width: buttonWidth, height: buttonWidth)
+            $0.center.y = frame.height / 2.0
+            $0.frame.origin.x = Design.Standard.buttonLeftMargin * ratio
+        }
+    }
 
-			buttonView.topAnchor.constraint(equalTo: topAnchor, constant: design.buttonInsetWithoutRight),
-			buttonView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -design.buttonInsetWithoutRight),
-			buttonView.leftAnchor.constraint(equalTo: leftAnchor, constant: design.buttonInsetWithoutRight),
-			buttonView.rightAnchor.constraint(equalTo: rightAnchor, constant: -design.buttonRight)
-		])
-	}
+    private func updateView(_ ratio: CGFloat) {
+        let leftRadius = frame.height / 2.0
+        let rightRadius = Design.Standard.rightRadius * ratio
+
+        setDifferentEdge(topLeft: leftRadius,
+                         topRight: rightRadius,
+                         bottomLeft: leftRadius,
+                         bottomRight: rightRadius)
+    }
+
+}
+
+extension DiaryLockerView {
+
+    func lock() {
+        lockImageView.isHidden = false
+        buttonView.isHidden = true
+    }
+
+    func unlock() {
+        lockImageView.isHidden = true
+        buttonView.isHidden = false
+    }
+
 }

@@ -19,6 +19,19 @@ private enum Design {
     static let zoomLabelFont = UIFont.appleMedium(size: 14)
     static let zoomLabelTextColor: UIColor = UIColor(decimalRed: 153, green: 153, blue: 153)
     static let zoomLabelSpace: CGFloat = -0.26
+
+    static var coverSize: CGSize {
+        if isPadDevice == false {
+            return CGSize(width: 270, height: 346)
+        }
+
+        if [UIDeviceOrientation.portrait, .portraitUpsideDown].contains(UIDevice.current.orientation) {
+            return CGSize(width: 540, height: 720)
+        }
+
+        return CGSize(width: 270, height: 346)
+    }
+
 }
 
 private enum Text {
@@ -26,6 +39,9 @@ private enum Text {
 }
 
 class DiaryEditCoverView: UIView {
+
+    // UI Porperty
+
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,12 +67,17 @@ class DiaryEditCoverView: UIView {
     }()
     
     private let diaryView: DiaryView = {
-        let view = isPadDevice ? DiaryView(type: .big) : DiaryView(type: .medium)
+        let view = DiaryView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setCover(color: .DYBrown)
         
         return view
     }()
+
+    // Constraints
+
+    var diaryWidthConstraint: NSLayoutConstraint?
+    var diaryHeightConstraint: NSLayoutConstraint?
     
     init() {
         super.init(frame: .zero)
@@ -66,7 +87,32 @@ class DiaryEditCoverView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateDiaryConstraints()
+        updateScrollViewInset()
+    }
     
+    func updateDiaryConstraints() {
+        diaryWidthConstraint?.constant = Design.coverSize.width
+        diaryHeightConstraint?.constant = Design.coverSize.height
+    }
+
+    func updateScrollViewInset() {
+        let horizontalMargin = (scrollView.frame.width - Design.coverSize.width) / 2.0
+        let verticalMargin = (scrollView.frame.height
+                                - Design.coverSize.height) / 2.0
+        scrollView.contentInset = UIEdgeInsets(top: verticalMargin - Design.coverCenterY,
+                                               left: horizontalMargin,
+                                               bottom: verticalMargin + Design.coverCenterY,
+                                               right: horizontalMargin)
+    }
+
+}
+
+extension DiaryEditCoverView {
+
     private func initView() {
         scrollView.delegate = self
         scrollView.addSubview(diaryView)
@@ -74,21 +120,35 @@ class DiaryEditCoverView: UIView {
         addSubview(zoomLabel)
         setConstraint()
     }
-    
+
     private func setConstraint() {
+        let frameGuide = scrollView.frameLayoutGuide
+        let contentGuide = scrollView.contentLayoutGuide
+        let diaryWidthConstraint = diaryView.widthAnchor.constraint(equalToConstant: Design.coverSize.width)
+        let diaryHeightConstraint = diaryView.heightAnchor.constraint(equalToConstant: Design.coverSize.height)
+
         NSLayoutConstraint.activate([
-            scrollView.leftAnchor.constraint(equalTo: leftAnchor),
-            scrollView.rightAnchor.constraint(equalTo: rightAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            scrollView.topAnchor.constraint(equalTo: topAnchor),
-            
-            diaryView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            diaryView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: -Design.coverCenterY),
-            
+            frameGuide.leftAnchor.constraint(equalTo: leftAnchor),
+            frameGuide.rightAnchor.constraint(equalTo: rightAnchor),
+            frameGuide.bottomAnchor.constraint(equalTo: bottomAnchor),
+            frameGuide.topAnchor.constraint(equalTo: topAnchor),
+
+            diaryView.rightAnchor.constraint(equalTo: contentGuide.rightAnchor),
+            diaryView.leftAnchor.constraint(equalTo: contentGuide.leftAnchor),
+            diaryView.topAnchor.constraint(equalTo: contentGuide.topAnchor),
+            diaryView.leadingAnchor.constraint(equalTo: contentGuide.leadingAnchor),
+
+            diaryWidthConstraint,
+            diaryHeightConstraint,
+
             zoomLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             zoomLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Design.zoomLabelBottom)
         ])
+
+        self.diaryWidthConstraint = diaryWidthConstraint
+        self.diaryHeightConstraint = diaryHeightConstraint
     }
+
 }
 
 extension DiaryEditCoverView {
