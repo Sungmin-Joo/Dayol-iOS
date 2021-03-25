@@ -58,6 +58,11 @@ class DiaryEditViewController: UIViewController {
         setupNavigationBar()
         initView()
     }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        endEditMode()
+        super.touchesBegan(touches, with: event)
+    }
     
     // MARK: - Setup Method
     
@@ -180,4 +185,16 @@ private extension DiaryEditViewController {
                 self.dismiss(animated: true, completion: nil)
             }).disposed(by: self.disposeBag)
     }
+}
+
+// MARK: - Keyboard Control
+
+private extension DiaryEditViewController {
+
+    func endEditMode() {
+        guard titleView.isEditting else { return }
+        let _ = titleView.resignFirstResponder()
+        titleView.isEditting = false
+    }
+
 }

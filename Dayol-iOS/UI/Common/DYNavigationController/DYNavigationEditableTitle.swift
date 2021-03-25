@@ -27,6 +27,7 @@ private enum Design {
 class DYNavigationEditableTitle: DYNavigationTitle {
     var isEditting = false {
         didSet {
+            updateCurrentTitle()
             changeEditMode(isEditting: isEditting)
         }
     }
@@ -66,6 +67,11 @@ class DYNavigationEditableTitle: DYNavigationTitle {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    override func resignFirstResponder() -> Bool {
+        let _ = titleTextField.resignFirstResponder()
+        return super.resignFirstResponder()
+    }
     
     private func setConstraint() {
         let textViewHeight = titleTextField.heightAnchor.constraint(equalToConstant: Design.titleSize.height)
@@ -85,22 +91,23 @@ class DYNavigationEditableTitle: DYNavigationTitle {
             titleTextField.isHidden = false
             editButton.isHidden = true
             titleLabel.isHidden = true
-            titleTextField.attributedText = attributedText(text: titleLabel.attributedText?.string ?? "",
-                                                           color: titleTextField.textColor ?? .black)
         } else {
             titleTextField.isHidden = true
             editButton.isHidden = false
             titleLabel.isHidden = false
-            titleTextField.attributedText = attributedText(text: titleTextField.attributedText?.string ?? "",
-                                                           color: titleTextField.textColor ?? .black)
         }
+    }
+
+    private func updateCurrentTitle() {
+        titleLabel.text = titleTextField.text
     }
 }
 
-extension DYNavigationTitle: UITextFieldDelegate {
+extension DYNavigationEditableTitle: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        isEditting = false
         return true
     }
 
