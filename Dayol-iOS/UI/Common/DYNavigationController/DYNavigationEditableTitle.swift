@@ -67,6 +67,11 @@ class DYNavigationEditableTitle: DYNavigationTitle {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    override func resignFirstResponder() -> Bool {
+        let _ = titleTextField.resignFirstResponder()
+        return super.resignFirstResponder()
+    }
     
     private func setConstraint() {
         let textViewHeight = titleTextField.heightAnchor.constraint(equalToConstant: Design.titleSize.height)
