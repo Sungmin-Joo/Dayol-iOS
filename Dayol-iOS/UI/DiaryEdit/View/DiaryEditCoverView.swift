@@ -21,7 +21,7 @@ private enum Design {
     static let zoomLabelSpace: CGFloat = -0.26
 
     static var coverSize: CGSize {
-        guard isPadDevice else {
+        if isPadDevice == false {
             return CGSize(width: 270, height: 346)
         }
 
