@@ -123,6 +123,6 @@ extension DiaryView {
     }
     
     func setDayolLogoHidden(_ isHidden: Bool) {
-        self.coverView.setDayolLogoHidden(isHidden)
+        coverView.setDayolLogoHidden(isHidden)
     }
 }
