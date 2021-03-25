@@ -51,6 +51,10 @@ extension UIView {
     }
 
     func addSubViewPinEdge(_ view: UIView) {
+        if view.translatesAutoresizingMaskIntoConstraints == true {
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
         addSubview(view)
         
         NSLayoutConstraint.activate([

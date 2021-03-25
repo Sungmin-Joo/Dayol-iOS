@@ -62,7 +62,6 @@ class DailyPaper: BasePaper {
         titleArea.addSubview(dateLabel)
         titleArea.addSubview(dayLabel)
         titleArea.addSubview(separatorView)
-        titleArea.translatesAutoresizingMaskIntoConstraints = false
 
         contentView.addSubview(titleArea)
         contentView.backgroundColor = CommonPaperDesign.defaultBGColor
