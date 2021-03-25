@@ -28,9 +28,12 @@ extension DiaryListViewController: UICollectionViewDelegate {
         var offset = targetContentOffset.pointee
         let idx = round((offset.x + collectionView.contentInset.left) / cellWidthMargin)
 
-        offset = CGPoint(x: idx * cellWidthMargin - collectionView.contentInset.left, y: 0)
+        if let indexX = collectionViewOffsetX(index: Int(idx)) {
+            offset.x = indexX
+            targetContentOffset.pointee = offset
+            currentIndex = Int(idx)
+        }
 
-        targetContentOffset.pointee = offset
     }
 
 }
@@ -58,9 +61,44 @@ extension DiaryListViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        hasReorder = true
         viewModel.moveItem(at: sourceIndexPath.row, to: destinationIndexPath.row)
+
+        let idx = destinationIndexPath.row
+        moveToIndex(idx)
     }
 
+}
+
+// MARK: - ScrollView Movement
+
+extension DiaryListViewController {
+
+    func collectionViewOffsetX(index: Int) -> CGFloat? {
+        guard
+            let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        else {
+            return nil
+        }
+
+        let cellWidthMargin = layout.itemSize.width + layout.minimumLineSpacing
+        let offsetX = CGFloat(index) * cellWidthMargin - collectionView.contentInset.left
+
+        return offsetX
+    }
+
+    func moveToIndex(_ index: Int, animated: Bool = true) {
+        guard let offsetX = collectionViewOffsetX(index: index) else { return }
+        let offset = CGPoint(x: offsetX, y: 0)
+        collectionView.setContentOffset(offset, animated: animated)
+        currentIndex = index
+    }
+
+    func moveToCurrentIndexIfNeed() {
+        if let currentEditIndex = currentEditIndex {
+            moveToIndex(currentEditIndex.row)
+        }
+    }
 }
 
 // MARK: - UICollectionView Reorder
@@ -72,17 +110,21 @@ extension DiaryListViewController {
         let point = recog.location(in: collectionView)
         switch recog.state {
         case .began:
+            let validRange = currentIndex - 1...currentIndex + 1
             guard
                 let indexPath = collectionView.indexPathForItem(at: point),
-                isEditMode == false
+                isEditMode == false,
+                validRange.contains(indexPath.row)
             else {
                 collectionView.cancelInteractiveMovement()
                 return
             }
 
+
             isEditMode = true
             startEditMode(indexPath) { [weak self] in
                 guard let self = self else { return }
+                self.hasReorder = false
                 self.canStartInteractiveMovement = true
                 self.currentEditIndex = indexPath
                 self.collectionView.beginInteractiveMovementForItem(at: indexPath)
@@ -96,12 +138,19 @@ extension DiaryListViewController {
             endEditMode { [weak self] in
                 guard let self = self else { return }
                 self.collectionView.endInteractiveMovement()
+
+                // 순서 변경 인터랙션을 수행했지만 결국 순서를 바꾸지 않은 경우
+                if self.hasReorder == false {
+                    self.moveToCurrentIndexIfNeed()
+                }
             }
         default:
             isEditMode = false
             canStartInteractiveMovement = false
             collectionView.cancelInteractiveMovement()
             endEditMode()
+
+            moveToCurrentIndexIfNeed()
         }
     }
 
