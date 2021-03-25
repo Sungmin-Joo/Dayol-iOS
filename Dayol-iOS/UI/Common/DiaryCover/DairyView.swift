@@ -112,8 +112,14 @@ class DiaryView: UIView {
 
 extension DiaryView {
     func setCover(color: DiaryCoverColor) {
-        self.coverView.backgroundColor = color.coverColor
-        self.lockerView.backgroundColor = color.lockerColor
+        UIViewPropertyAnimator.runningPropertyAnimator(
+            withDuration: 0.2,
+            delay: 0,
+            options: .curveEaseInOut
+        ) {
+            self.coverView.backgroundColor = color.coverColor
+            self.lockerView.backgroundColor = color.lockerColor
+        }
     }
     
     func setDayolLogoHidden(_ isHidden: Bool) {
