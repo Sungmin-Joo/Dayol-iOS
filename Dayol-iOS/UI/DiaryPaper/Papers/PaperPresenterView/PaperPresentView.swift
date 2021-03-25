@@ -64,12 +64,6 @@ class PaperPresentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        tableView.visibleCells.forEach { $0.contentView.transform = .init(scaleX: scaleForFit, y: scaleForFit) }
-        tableView.reloadData()
-    }
-    
     // MARK: - Init
     
     private func initView() {
@@ -140,9 +134,7 @@ extension PaperPresentView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: paper.paperType.identifier, for: indexPath) as? BasePaper else { return UITableViewCell() }
         let baseViewModel = PaperViewModel(drawModel: DrawModel())
-        
-        cell.contentView.transform = .init(scaleX: scaleForFit, y: scaleForFit)
-        
+
         if let mujiCell = cell as? MujiPaper {
             mujiCell.configure(viewModel: baseViewModel, paperStyle: paper.paperStyle)
             return mujiCell

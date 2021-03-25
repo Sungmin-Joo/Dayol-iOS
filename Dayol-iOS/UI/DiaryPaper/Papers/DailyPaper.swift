@@ -65,7 +65,6 @@ class DailyPaper: BasePaper {
 
         contentView.addSubview(titleArea)
         contentView.backgroundColor = CommonPaperDesign.defaultBGColor
-        contentView.translatesAutoresizingMaskIntoConstraints = false
         
         setupConstraints()
         
