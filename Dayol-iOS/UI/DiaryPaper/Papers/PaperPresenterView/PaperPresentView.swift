@@ -17,17 +17,14 @@ class PaperPresentView: UIView {
     private let numberOfPapers: Int
     private var contentTop = NSLayoutConstraint()
     private var contentBottom = NSLayoutConstraint()
-
+    
     var scaleForFit: CGFloat = 0.0 {
         didSet {
-            DispatchQueue.main.async {
-                print(self.scaleForFit)
-                let scale = CGAffineTransform(scaleX: self.scaleForFit, y: self.scaleForFit)
-                self.tableView.transform = scale
-                let constarintConstant: CGFloat = (self.height - self.tableView.frame.height) / 2
-                self.contentTop.constant = -constarintConstant
-                self.contentBottom.constant = constarintConstant
-            }
+            let scale = CGAffineTransform(scaleX: self.scaleForFit, y: self.scaleForFit)
+            self.tableView.transform = scale
+            let constarintConstant: CGFloat = (self.height - self.tableView.frame.height) / 2
+            self.contentTop.constant = -constarintConstant
+            self.contentBottom.constant = constarintConstant
         }
     }
     

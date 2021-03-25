@@ -87,13 +87,15 @@ class DiaryPaperViewController: UIViewController {
     }
     
     private func combine() {
-        let scaleCombine = scaleSubject.sink { error in
-            // do Something
-        } receiveValue: { [weak self] value in
-            guard let self = self else { return }
-            self.paper.scaleForFit = value
-        }
-
+        let scaleCombine = scaleSubject
+            .receive(on: DispatchQueue.main)
+            .sink { error in
+                // do Something
+            } receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                self.paper.scaleForFit = value
+            }
+        
         cancellable.append(scaleCombine)
     }
 }
