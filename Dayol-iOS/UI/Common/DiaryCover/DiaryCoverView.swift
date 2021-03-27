@@ -8,57 +8,29 @@
 import UIKit
 
 private enum Design {
-    case big
-    case medium
-    case small
-    
-    var rightRadius: CGFloat {
-		switch self {
-        case .big: return 32
-		case .medium: return 16
-		case .small: return 4
-		}
-	}
+    enum Standard {
+        static let width: CGFloat = 540.0
+        static let height: CGFloat = 720.0
 
-    var leftRadius: CGFloat {
-		switch self {
-		case .big: return 8
-		case .medium: return 4
-		case .small: return 1
-		}
-	}
-
-    var lineWidth: CGFloat {
-		switch self {
-		case .big: return 8
-		case .medium: return 4
-		case .small: return 2
-		}
-	}
-    
-    var lineLeft: CGFloat {
-        switch self {
-        case .big: return 40
-        case .medium: return 20
-        case .small: return 5
-        }
+        static let rightRadius: CGFloat = 32.0
+        static let leftRadius: CGFloat = 8.0
+        static let lineWidth: CGFloat = 8.0
+        static let lineLeft: CGFloat = 40.0
     }
 
-	static let lineColor: UIColor = UIColor(decimalRed: 0, green: 0, blue: 0).withAlphaComponent(0.1)
+    static let lineColor: UIColor = UIColor(decimalRed: 0, green: 0, blue: 0).withAlphaComponent(0.1)
     static let coverLogo = UIImage(named: "dayolCoverLogo")
-    static let coverLogoHeightRate: CGFloat = 172 / 720
-    static let coverLogoWidthRate: CGFloat = 184 / 540
+    static let coverLogoHeightRate: CGFloat = 172 / Standard.height
+    static let coverLogoWidthRate: CGFloat = 184 / Standard.width
 }
 
 class DiaryCoverView: DifferentEdgeSettableView {
-	private let design: Design
-    
-	private let coverLineView: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = Design.lineColor
 
-		return view
+	private let coverLineView: UIView = {
+        let view = UIView()
+        view.autoresizingMask = [.flexibleHeight]
+        view.backgroundColor = Design.lineColor
+        return view
 	}()
 
     private let logoImageView: UIImageView = {
@@ -69,17 +41,9 @@ class DiaryCoverView: DifferentEdgeSettableView {
         
         return imageView
     }()
-    
-	init(type: DiaryType) {
-        switch type {
-        case .big: self.design = .big
-        case .medium: self.design = .medium
-        case .small: self.design = .small
-        }
-        super.init(topLeft: design.leftRadius,
-                   topRight: design.rightRadius,
-                   bottomLeft: design.leftRadius,
-                   bottomRight: design.rightRadius)
+
+	init() {
+        super.init()
 		initView()
 	}
 
@@ -87,19 +51,37 @@ class DiaryCoverView: DifferentEdgeSettableView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+    override func layoutSubviews() {
+        let ratio = frame.width / Design.Standard.width
+        updateCoverRadius(ratio)
+        relayoutCoverLineView(ratio)
+        // DifferentEdgeSettableView에서 radious 적용
+        super.layoutSubviews()
+    }
+
 	private func initView() {
         addSubview(logoImageView)
         addSubview(coverLineView)
 		setConstraints()
 	}
 
+    private func relayoutCoverLineView(_ ratio: CGFloat) {
+        coverLineView.frame.origin.x = Design.Standard.lineLeft * ratio
+        coverLineView.frame.size.width = Design.Standard.lineWidth * ratio
+    }
+
+    private func updateCoverRadius(_ ratio: CGFloat) {
+        let leftRadius = Design.Standard.leftRadius * ratio
+        let rightRadius = Design.Standard.rightRadius * ratio
+
+        setDifferentEdge(topLeft: leftRadius,
+                         topRight: rightRadius,
+                         bottomLeft: leftRadius,
+                         bottomRight: rightRadius)
+    }
+
 	private func setConstraints() {
 		NSLayoutConstraint.activate([
-            coverLineView.rightAnchor.constraint(equalTo: leftAnchor, constant: design.lineLeft),
-            coverLineView.widthAnchor.constraint(equalToConstant: design.lineWidth),
-			coverLineView.topAnchor.constraint(equalTo: topAnchor),
-			coverLineView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
             logoImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 9),
             logoImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: Design.coverLogoHeightRate),

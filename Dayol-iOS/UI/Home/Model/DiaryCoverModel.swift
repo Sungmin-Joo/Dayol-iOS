@@ -12,5 +12,5 @@ struct DiaryCoverModel {
     let color: DiaryCoverColor
     let title: String
     let totalPage: Int
-    let password: String
+    let password: String?
 }

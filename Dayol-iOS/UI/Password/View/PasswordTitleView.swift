@@ -35,7 +35,7 @@ class PasswordTitleView: UIView {
 	var currentPasswordIndex = 0
 
 	let diaryView: DiaryView = {
-		let diaryView = DiaryView(type: .small)
+		let diaryView = DiaryView()
 		diaryView.translatesAutoresizingMaskIntoConstraints = false
 
 		return diaryView
