@@ -12,7 +12,7 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
     
     // MARK: - Private Properties
     
-    private var cancellable = [Cancellable]()
+    private var cancellable = Set<AnyCancellable>()
     
     // MARK: - UI Components
     
@@ -60,5 +60,21 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
     private func presentStickerModal() {
         let stickerModal = StickerModalViewContoller()
         self.presentCustomModal(stickerModal)
+        
+        stickerModal.didTappedSticker
+            .sink { _ in
+                // Some Error
+            } receiveValue: { stickerImage in
+                let imageView = UIImageView(image: stickerImage)
+                let stickerView = DYStickerView(contentView: imageView)
+                stickerView.enableClose = true
+                stickerView.enableRotate = true
+                stickerView.enableHStretch = true
+                stickerView.enableWStretch = true
+                
+                self.paper.addSubview(stickerView)
+            }
+            .store(in: &cancellable)
+
     }
 }

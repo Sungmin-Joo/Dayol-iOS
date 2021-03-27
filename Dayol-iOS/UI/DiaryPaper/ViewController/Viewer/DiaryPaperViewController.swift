@@ -41,7 +41,7 @@ class DiaryPaperViewController: UIViewController {
         }
     }
     
-    private lazy var paper = PaperPresentView(paper: viewModel.paper, count: viewModel.numberOfPapers)
+    lazy var paper = PaperPresentView(paper: viewModel.paper, count: viewModel.numberOfPapers)
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()

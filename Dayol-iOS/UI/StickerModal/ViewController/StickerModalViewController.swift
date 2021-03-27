@@ -15,8 +15,12 @@ private enum Design {
 class StickerModalViewContoller: DYModalViewController {
     // MARK: - Properties
     
-    private var cancellable = [AnyCancellable]()
+    private var cancellable = Set<AnyCancellable>()
     private var stickers: [UIImage]?
+    
+    var didTappedSticker: PassthroughSubject<UIImage?, Error> {
+        return stickerContentView.didTappedSticker
+    }
     
     // MARK: - UIComponent
     
@@ -62,12 +66,12 @@ class StickerModalViewContoller: DYModalViewController {
     // MARK: - Combine
     
     private func combine() {
-        let closeEvent = headerView.didTappedCloseButton
+        headerView.didTappedCloseButton
             .sink { _ in
                 // some Error
             } receiveValue: { [weak self] _ in
                 self?.dismiss(animated: true)
             }
-        cancellable.append(closeEvent)
+            .store(in: &cancellable)
     }
 }

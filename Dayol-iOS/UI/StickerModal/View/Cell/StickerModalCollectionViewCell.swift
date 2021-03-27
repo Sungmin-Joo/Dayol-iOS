@@ -10,6 +10,14 @@ import UIKit
 class StickerModalCollectionViewCell: UICollectionViewCell {
     static let identifier = "\(StickerModalCollectionViewCell.self)"
     
+    //MARK: - Properties
+    
+    var stickerImage: UIImage? {
+        return imageView.image
+    }
+    
+    //MARK: - UIComponents
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,5 +41,4 @@ class StickerModalCollectionViewCell: UICollectionViewCell {
     func configure(image: UIImage?) {
         imageView.image = image
     }
-
 }

@@ -9,6 +9,13 @@ import UIKit
 
 // MARK: - Enums
 
+private enum Design {
+    static let wStretchImage = UIImage(named: "stretchW")
+    static let hStretchImage = UIImage(named: "stretchH")
+    static let whStretchImage = UIImage(named: "stretchWH")
+    static let closeImage = UIImage.remove
+}
+
 public enum DYStickerViewHandler: Int {
     case close = 0
     case wStretch
@@ -69,7 +76,8 @@ public class DYStickerView: UIView {
     // MARK: - UI & Gesture
     
     private lazy var closeImageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.defaultInset * 2, height: self.defaultInset * 2))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
+        imageView.image = Design.closeImage
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
         imageView.isUserInteractionEnabled = true
@@ -83,7 +91,8 @@ public class DYStickerView: UIView {
     }()
     
     private lazy var rotateImageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.defaultInset * 2, height: self.defaultInset * 2))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
+        imageView.image = Design.whStretchImage
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
         imageView.isUserInteractionEnabled = true
@@ -97,7 +106,8 @@ public class DYStickerView: UIView {
     }()
     
     private lazy var wStretchImageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.defaultInset * 2, height: self.defaultInset * 2))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 14, height: 32))
+        imageView.image = Design.wStretchImage
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
         imageView.isUserInteractionEnabled = true
@@ -111,7 +121,8 @@ public class DYStickerView: UIView {
     }()
     
     private lazy var hStretchImageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.defaultInset * 2, height: self.defaultInset * 2))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 32, height: 14))
+        imageView.image = Design.hStretchImage
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
         imageView.isUserInteractionEnabled = true
@@ -240,7 +251,7 @@ public class DYStickerView: UIView {
         self.addSubview(self.closeImageView)
         self.setPosition(.right, for: .wStretch)
         self.addSubview(self.wStretchImageView)
-        self.setPosition(.bottom, for: .hStretch)
+        self.setPosition(.top, for: .hStretch)
         self.addSubview(self.hStretchImageView)
         self.setPosition(.bottomRight, for: .rotate)
         self.addSubview(self.rotateImageView)
