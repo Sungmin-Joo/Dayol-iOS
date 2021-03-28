@@ -215,7 +215,7 @@ public class DYStickerView: UIView {
         var frame = contentView.frame
         self.contentView = contentView
         self.defaultInset = 11
-        self.defaultMinimumSize = 4 * self.defaultInset
+        self.defaultMinimumSize = 90
         
         frame = CGRect(x: 0,
                        y: 0,

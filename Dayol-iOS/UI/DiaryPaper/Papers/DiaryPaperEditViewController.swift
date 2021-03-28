@@ -66,13 +66,21 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
                 // Some Error
             } receiveValue: { stickerImage in
                 let imageView = UIImageView(image: stickerImage)
-                let stickerView = DYStickerView(contentView: imageView)
+                imageView.frame = CGRect(x: 0, y: 0, width: 76.0, height: 66.0)
+                let stickerView = DYStickerSizeStretchableView(contentView: imageView)
+                stickerView.alpha = 0.0
                 stickerView.enableClose = true
                 stickerView.enableRotate = true
                 stickerView.enableHStretch = true
                 stickerView.enableWStretch = true
                 
                 self.paper.addSubview(stickerView)
+                
+                stickerView.center = self.view.center
+                
+                UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseInOut, animations: {
+                    stickerView.alpha = 1.0
+                }, completion: nil)
             }
             .store(in: &cancellable)
 
