@@ -10,40 +10,17 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
-    enum IPadOrientation {
-        case landscape
-        case portrait
-    }
-    case ipad
-    case iphone
-    
-    static var current: Design = { isPadDevice ? .ipad : iphone }()
-    
-    static func headerHeight(orientation: IPadOrientation) -> CGFloat {
-        switch current {
-        case .iphone:
-            return 69
-        case .ipad:
-            if orientation == .portrait {
-                return 125
-            } else {
-                return 81
-            }
+    static func headerHeight(style: PaperStyle) -> CGFloat {
+        switch style {
+        case .vertical: return 125
+        case .horizontal: return 81
         }
     }
 }
 
-class WeeklyCalendarView: UIView {
-    private let viewModel: WeeklyCalendarViewModel
-    private let disposeBag = DisposeBag()
+class WeeklyCalendarView: BasePaper {
     private var dayModel: [WeeklyCalendarDataModel]?
-    private var iPadOrientation: Design.IPadOrientation {
-        if self.frame.size.width > self.frame.size.height {
-            return .landscape
-        } else {
-            return .portrait
-        }
-    }
+    private let disposeBag = DisposeBag()
     
     private let headerView: MonthlyCalendarHeaderView = {
         let header = MonthlyCalendarHeaderView(month: .january)
@@ -60,27 +37,36 @@ class WeeklyCalendarView: UIView {
         return collectionView
     }()
     
-    init() {
-        self.viewModel = WeeklyCalendarViewModel()
-        super.init(frame: .zero)
-        initView()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         updateCollectionView()
     }
     
-    private func initView() {
-        addSubview(headerView)
-        addSubview(collectionView)
-        setConstraint()
+    override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
+        super.configure(viewModel: viewModel, paperStyle: paperStyle)
         setupCollectionView()
+        
+        contentView.addSubview(headerView)
+        contentView.addSubview(collectionView)
+        setupConstraints()
+        
         bind()
+    }
+
+    
+    private func setupConstraints() {
+        guard let paperStyle = self.paperStyle else { return }
+        NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            headerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            headerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(style: paperStyle)),
+            
+            collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            collectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
     }
     
     private func setupCollectionView() {
@@ -97,21 +83,11 @@ class WeeklyCalendarView: UIView {
         collectionView.backgroundColor = .clear
     }
     
-    private func setConstraint() {
-        NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: topAnchor),
-            headerView.leftAnchor.constraint(equalTo: leftAnchor),
-            headerView.rightAnchor.constraint(equalTo: rightAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(orientation: iPadOrientation)),
-            
-            collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-    }
+    
     
     private func bind() {
+        guard let viewModel = self.viewModel as? WeeklyCalendarViewModel else { return }
+        
         viewModel.dateModel(date: Date())
             .subscribe(onNext: {[weak self] models in
                 guard let month = models[safe: 1]?.month else { return }

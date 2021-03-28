@@ -17,11 +17,11 @@ private extension PaperStyle {
     static let gridCellHeight: CGFloat = 20.0
 
     var numberOfCellInRow: Int {
-        return Int(paperWidth / Self.gridCellWidth) + 1
+        return Int(size.width / Self.gridCellWidth) + 1
     }
 
     var numberOfCellInCol: Int {
-        return Int(paperHeight / Self.gridCellHeight) + 1
+        return Int(size.height / Self.gridCellHeight) + 1
     }
 
     var gridSize: CGSize {
@@ -31,36 +31,28 @@ private extension PaperStyle {
 }
 
 class GridPaper: BasePaper {
-
+    override var identifier: String { GridPaper.className }
+    
     private let gridImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    override func initView() {
-        super.initView()
+    override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
+        super.configure(viewModel: viewModel, paperStyle: paperStyle)
         gridImageView.image = getGridImage()
         gridImageView.contentMode = .topLeft
 
-        drawArea.addSubview(gridImageView)
+        contentView.addSubViewPinEdge(gridImageView)
     }
-
-    override func setConstraints() {
-        super.setConstraints()
-        NSLayoutConstraint.activate([
-            gridImageView.centerXAnchor.constraint(equalTo: drawArea.centerXAnchor),
-            gridImageView.centerYAnchor.constraint(equalTo: drawArea.centerYAnchor),
-            gridImageView.widthAnchor.constraint(equalToConstant: paperStyle.paperWidth),
-            gridImageView.heightAnchor.constraint(equalToConstant: paperStyle.paperHeight)
-        ])
-    }
-
 }
 
 private extension GridPaper {
 
     func getGridImage() -> UIImage? {
+        guard let paperStyle = self.paperStyle else { return nil }
+        
         UIGraphicsBeginImageContextWithOptions(paperStyle.gridSize, false, 0.0)
 
         guard let context = UIGraphicsGetCurrentContext() else {

@@ -26,13 +26,17 @@ class PasswordButton: UIButton {
 	private var text: String
 	private var delete: Bool
 	private let disposeBag = DisposeBag()
-
+    
 	override var isHighlighted: Bool {
 		didSet {
-			if delete == false {
-				layer.cornerRadius = isHighlighted ? 0.0 : Design.buttonRadius
-				layer.borderWidth = isHighlighted ? 0.0 : Design.buttonBorderWidth
-			}
+            if delete {
+                setImage(isHighlighted ? Design.passwordImage : Design.deleteButtonImage, for: .normal)
+            } else {
+                layer.cornerRadius = isHighlighted ? 0 : Design.buttonRadius
+                layer.borderWidth = isHighlighted ? 0 : Design.buttonBorderWidth
+                layer.masksToBounds = true
+                setImage(isHighlighted ? Design.passwordImage : nil, for: .normal)
+            }
 		}
 	}
 

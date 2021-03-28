@@ -13,36 +13,24 @@ private enum Design {
 }
 
 class FourPaper: BasePaper {
-
     private let fourImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .topLeft
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
-    override func initView() {
-        super.initView()
+    
+    override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
+        super.configure(viewModel: viewModel, paperStyle: paperStyle)
         fourImageView.image = getGridImage()
-
-        drawArea.addSubview(fourImageView)
+        contentView.addSubViewPinEdge(fourImageView)
     }
-
-    override func setConstraints() {
-        super.setConstraints()
-        NSLayoutConstraint.activate([
-            fourImageView.leadingAnchor.constraint(equalTo: drawArea.leadingAnchor),
-            fourImageView.trailingAnchor.constraint(equalTo: drawArea.trailingAnchor),
-            fourImageView.topAnchor.constraint(equalTo: drawArea.topAnchor),
-            fourImageView.bottomAnchor.constraint(equalTo: drawArea.bottomAnchor)
-        ])
-    }
-
 }
 
 private extension FourPaper {
     func getGridImage() -> UIImage? {
-        let paperSize = CGSize(width: paperStyle.paperWidth, height: paperStyle.paperHeight)
+        guard let paperStyle = self.paperStyle else { return nil }
+        let paperSize = CGSize(width: paperStyle.size.width, height: paperStyle.size.height)
         UIGraphicsBeginImageContextWithOptions(paperSize, false, 0.0)
 
         guard let context = UIGraphicsGetCurrentContext() else {

@@ -45,6 +45,22 @@ class DiaryPageTestData {
                             DiaryInnerModel.PaperModel(id: 2,
                                                        paperStyle: .vertical,
                                                        paperType: .grid,
+                                                       drawModelList: testDrawModel),
+                            DiaryInnerModel.PaperModel(id: 3,
+                                                       paperStyle: .vertical,
+                                                       paperType: .monthly,
+                                                       drawModelList: testDrawModel),
+                            DiaryInnerModel.PaperModel(id: 4,
+                                                       paperStyle: .vertical,
+                                                       paperType: .weekly,
+                                                       drawModelList: testDrawModel),
+                            DiaryInnerModel.PaperModel(id: 5,
+                                                       paperStyle: .vertical,
+                                                       paperType: .four,
+                                                       drawModelList: testDrawModel),
+                            DiaryInnerModel.PaperModel(id: 6,
+                                                       paperStyle: .vertical,
+                                                       paperType: .tracker,
                                                        drawModelList: testDrawModel)
                         ])
     ]

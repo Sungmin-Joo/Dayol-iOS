@@ -91,7 +91,6 @@ class DiaryPaperViewerViewController: UIViewController {
     private func setupPageViewController() {
         pageViewController.delegate = self
         pageViewController.dataSource = self
-        
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
         pageViewController.didMove(toParent: self)
@@ -127,13 +126,13 @@ class DiaryPaperViewerViewController: UIViewController {
             })
             .subscribe(onNext: { [weak self] inners in
                 let paperList = inners[0].paperList
-                let papers = paperList.map { PaperProvider.createPaper(paperType: $0.paperType, paperStyle: $0.paperStyle, drawModel: $0.drawModelList) }
+                //let papers = paperList.map { PaperProvider.createPaper(paperType: $0.paperType, paperStyle: $0.paperStyle, drawModel: $0.drawModelList) }
                 var diaryPaperViewControllers = [DiaryPaperViewController]()
                 self?.innerModels = inners
                 
-                for (index, paper) in papers.enumerated() {
-                    let paperPresentView = PaperPresentView(paperStyle: paper.paperStyle)
-                    paperPresentView.addPage(paper)
+                for (index, paper) in paperList.enumerated() {
+                    let paperPresentView = PaperPresentView(paper: paper, count: 3)
+                    //paperPresentView.addPage(paper)
                     diaryPaperViewControllers.append(DiaryPaperViewController(index: index, paper: paperPresentView))
                 }
                 self?.paperViewControllers = diaryPaperViewControllers
