@@ -397,12 +397,21 @@ public class DYStickerView: UIView {
         
         switch recognizer.state {
         case .began:
-            self.deltaAngle = CGFloat(atan2(Float(touchLocation.y - center.y), Float(touchLocation.x - center.x)))
+            self.initialBounds = self.bounds
+            self.initialDistance = distance(point1: touchLocation, point2: center)
+            self.deltaAngle = CGFloat(atan2(Float(touchLocation.y - center.y), Float(touchLocation.x - center.x))) - angleValue(self.transform)
             delegate?.stickerView(self, didBeginRotate: self.deltaAngle)
         case .changed:
             let angle = atan2f(Float(touchLocation.y - center.y), Float(touchLocation.x - center.x))
             let angleDiff =  angle - Float(self.deltaAngle)
             self.transform = CGAffineTransform(rotationAngle: CGFloat(angleDiff))
+            
+            var scale = distance(point1: touchLocation, point2: center) / self.initialDistance
+            let minimumScale = CGFloat(self.minimumSize) / self.initialBounds.size.width
+            scale = max(scale, minimumScale)
+            
+            let scaleBound = scaleValue(self.initialBounds, wScale: scale, hScale: scale)
+            self.bounds = scaleBound
             
             self.setNeedsDisplay()
             delegate?.stickerView(self, didChangeRotate: angle)
@@ -518,6 +527,12 @@ private extension DYStickerView {
     // 해당 함수는 기울기 각도를 get하기 위해 만든 것
     func angleValue(_ t: CGAffineTransform) -> CGFloat {
         return atan2(t.b, t.a)
+    }
+    
+    func distance(point1: CGPoint, point2: CGPoint) -> CGFloat {
+        let xDis = xDistance(point1: point1, point2: point2)
+        let yDis = yDistance(point1: point1, point2: point2)
+        return sqrt(xDis*xDis + yDis*yDis)
     }
     
     func yDistance(point1: CGPoint, point2: CGPoint) -> CGFloat {
