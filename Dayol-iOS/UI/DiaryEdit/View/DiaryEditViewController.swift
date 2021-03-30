@@ -14,21 +14,22 @@ private enum Design {
 }
 
 class DiaryEditViewController: UIViewController {
-    
+
+    let disposeBag = DisposeBag()
+    var currentTool: DYNavigationDrawingToolbar.ToolType = .pencil
+
     // MARK: - Private Properties
-    
-    private let disposeBag = DisposeBag()
-    private let leftButton = DYNavigationItemCreator.barButton(type: .back)
-    private let rightButton = DYNavigationItemCreator.barButton(type: .done)
+
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    private let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
-    private let titleView = DYNavigationItemCreator.editableTitleView("새 다이어리")
     private let viewModel = DiaryEditViewModel()
     private var currentCoverColor: DiaryCoverColor = .DYBrown
     
     // MARK: - UI Components
-    
+
+    private let titleView = DYNavigationItemCreator.editableTitleView("새 다이어리")
+    private let leftButton = DYNavigationItemCreator.barButton(type: .back)
+    private let rightButton = DYNavigationItemCreator.barButton(type: .done)
     private let diaryEditToggleView: DiaryEditToggleView = {
         let view = DiaryEditToggleView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -49,6 +50,8 @@ class DiaryEditViewController: UIViewController {
         
         return view
     }()
+
+    let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
     
     // MARK: - Override
     
@@ -57,6 +60,9 @@ class DiaryEditViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         initView()
+
+        // TODO: - 편집화면 첫 진입 시 pencil tool이 선택되도록 하는 스펙 확인
+        toolBar.pencilButton.isSelected = true
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -108,6 +114,7 @@ class DiaryEditViewController: UIViewController {
         colorBind()
         navigationBind()
         switchBind()
+        toolBarBind()
     }
     
     private func switchBind() {
@@ -155,13 +162,8 @@ class DiaryEditViewController: UIViewController {
                 self?.titleView.titleTextField.becomeFirstResponder()
             }
             .disposed(by: disposeBag)
-
-        toolBar.photoButton.rx.tap
-            .bind { [weak self] in
-                self?.showPicker()
-            }
-            .disposed(by: disposeBag)
     }
+
 }
 
 // MARK: - Password ViewController Subjects
