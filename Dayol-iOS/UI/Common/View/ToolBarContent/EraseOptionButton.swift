@@ -1,5 +1,5 @@
 //
-//  LabelUnderTheImageButton.swift
+//  EraseOptionButton.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/03/30.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LabelUnderTheImageButton: UIButton {
+class EraseOptionButton: UIButton {
 
     var spacing: CGFloat
 

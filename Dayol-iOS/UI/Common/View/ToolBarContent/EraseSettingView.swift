@@ -109,10 +109,10 @@ class EraseSettingView: UIView {
         return stackView
     }()
 
-    private lazy var buttons: [LabelUnderTheImageButton] = {
-        let buttons: [LabelUnderTheImageButton] = EraseType.allCases.map { eraseType in
+    private lazy var buttons: [EraseOptionButton] = {
+        let buttons: [EraseOptionButton] = EraseType.allCases.map { eraseType in
             let spacing = Design.eraseOptionButtonSpacing(eraseType)
-            let button = LabelUnderTheImageButton(spacing: spacing)
+            let button = EraseOptionButton(spacing: spacing)
             let attributedString = NSAttributedString.build(text: eraseType.rawValue,
                                                             font: Design.eraseOptionTitleFont,
                                                             align: .center,
