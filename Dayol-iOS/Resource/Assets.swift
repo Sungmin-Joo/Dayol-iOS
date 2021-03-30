@@ -58,5 +58,28 @@ enum Assets {
         enum DiaryCover {
             static let lock = UIImage(named: "diaryCoverLock")
         }
+
+        enum ToolBar {
+            static let info = UIImage(named: "toolBar_info")
+
+            enum Erase: String {
+                case small
+                case medium
+                case large
+
+                var image: UIImage? {
+                    return UIImage(named: "toolBar_\(self.rawValue)")
+                }
+
+                var selectedImage: UIImage? {
+                    return UIImage(named: "toolBar_\(self.rawValue)_select")
+                }
+
+            }
+        }
+
+        enum Modal {
+            static let down = UIImage(named: "btnModaldown")
+        }
     }
 }
