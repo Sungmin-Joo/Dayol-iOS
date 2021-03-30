@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 extension UIViewController {
     func presentCustomModal(_ viewController: DYModalViewController, completion: (() -> Void)? = nil) {
@@ -16,22 +18,28 @@ extension UIViewController {
 private enum Design {
     static let cornerRadius: CGFloat = 15.0
     static let headerAreaHeight: CGFloat = 56.0
+    static let downButtonRightMargin: CGFloat = 20.0
     static let defaultBGColor = UIColor.white
+    static let downButton = Assets.Image.Modal.down
 }
 
 class DYModalViewController: UIViewController {
 
+    private let disposeBag = DisposeBag()
     private var lastMoved: CGFloat = .greatestFiniteMagnitude
 
     // MARK: - DYModalConfiguration
 
     private let configure: DYModalConfiguration
     var containerViewHeight: CGFloat {
-        if configure.modalStyle.contentHeight > view.bounds.height {
+        let modalHeight = configure.modalStyle.contentHeight
+        let bottomSafeAreaInset = view.safeAreaInsets.bottom
+        let totalHeight = bottomSafeAreaInset + modalHeight
+        if totalHeight > view.bounds.height {
             return view.bounds.height
         }
 
-        return configure.modalStyle.contentHeight
+        return totalHeight
     }
     var dimColor: UIColor {
         configure.dimStyle.color
@@ -326,6 +334,57 @@ extension DYModalViewController {
         let panGestureRecognizer = UIPanGestureRecognizer()
         panGestureRecognizer.addTarget(self, action: #selector(didPan(recog:)))
         containerView.addGestureRecognizer(panGestureRecognizer)
+    }
+
+}
+
+// MARK: - Common Modal Type
+
+extension DYModalViewController {
+
+    func setDefaultTitle(text: String) {
+        let titleLabel = UILabel()
+        let attributedString = NSAttributedString.build(text: text,
+                                                        font: .boldSystemFont(ofSize: 18),
+                                                        align: .center,
+                                                        letterSpacing: -0.7,
+                                                        foregroundColor: .gray900)
+        titleLabel.attributedText = attributedString
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        headerArea.addSubview(titleLabel)
+
+        let lineView = UIView()
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+        lineView.backgroundColor = .gray400
+        headerArea.addSubview(lineView)
+
+        NSLayoutConstraint.activate([
+            titleLabel.centerYAnchor.constraint(equalTo: headerArea.centerYAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: headerArea.centerXAnchor),
+            lineView.heightAnchor.constraint(equalToConstant: 1.0),
+            lineView.leadingAnchor.constraint(equalTo: headerArea.leadingAnchor),
+            lineView.trailingAnchor.constraint(equalTo: headerArea.trailingAnchor),
+            lineView.bottomAnchor.constraint(equalTo: headerArea.bottomAnchor)
+        ])
+    }
+
+    func setRightDownButton(completion: (() -> Void)? = nil) {
+        let downButton = UIButton()
+        downButton.setImage(Design.downButton, for: .normal)
+        downButton.translatesAutoresizingMaskIntoConstraints = false
+        downButton.rx.tap
+            .bind { [weak self] in
+                completion?()
+                self?.dismiss(animated: true)
+            }
+            .disposed(by: disposeBag)
+        headerArea.addSubview(downButton)
+
+        NSLayoutConstraint.activate([
+            downButton.centerYAnchor.constraint(equalTo: headerArea.centerYAnchor),
+            downButton.rightAnchor.constraint(equalTo: headerArea.rightAnchor,
+                                              constant: -Design.downButtonRightMargin)
+        ])
     }
 
 }
