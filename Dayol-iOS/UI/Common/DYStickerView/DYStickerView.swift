@@ -406,6 +406,8 @@ public class DYStickerView: UIView {
             let angleDiff =  angle - Float(self.deltaAngle)
             self.transform = CGAffineTransform(rotationAngle: CGFloat(angleDiff))
             
+            magneticTransform(self.transform)
+
             var scale = distance(point1: touchLocation, point2: center) / self.initialDistance
             let minimumScale = CGFloat(self.minimumSize) / self.initialBounds.size.width
             scale = max(scale, minimumScale)
@@ -523,6 +525,41 @@ private extension DYStickerView {
                       height: rect.size.height * hScale)
     }
     
+    func magneticTransform(_ t: CGAffineTransform) {
+        let radian = angleValue(t)
+        let degree = radian.toDegree
+        let rectAngle = CGFloat(90.0).toRadian
+        let rectAngleDegree = CGFloat(90.0)
+        let magneticDegree: Int = 5
+        
+        let multiple: Int = Int(degree) / Int(rectAngleDegree)
+        let remainder: Int = Int(degree) % Int(rectAngleDegree)
+
+        if (multiple == 0 && remainder > 0 - magneticDegree && remainder < 0 + magneticDegree) {
+            // 0 angle degree
+            transform = .init(rotationAngle: rectAngle * 0)
+        } else if (multiple == 0 && remainder > 90 - magneticDegree) || (multiple == 1 && remainder < 0 + magneticDegree) {
+            // 90 angle degree
+            transform = .init(rotationAngle: rectAngle * 1)
+        } else if (multiple == 1 && remainder > 90 - magneticDegree) || (remainder == -1 && remainder < -90 + magneticDegree) {
+            // 180 angle degree
+            transform = .init(rotationAngle: rectAngle * 2)
+        } else if (multiple == -1 && remainder > 0 - magneticDegree) || (remainder == 0 && remainder < -90 + magneticDegree) {
+            // 270 angle degree
+            transform = .init(rotationAngle: rectAngle * 3)
+        } else {
+            // something else degree
+            transform = .init(rotationAngle: radian)
+        }
+    }
+    
+    func angleValueByDegree(_ t: CGAffineTransform) -> CGFloat {
+        let radians:Double = atan2(Double(transform.b), Double(transform.a))
+        let degrees:CGFloat = CGFloat(radians) * (CGFloat(180) / CGFloat(Double.pi))
+        
+        return degrees
+    }
+    
     // CGAffineTransform -> 객체를 회전, 크기 조절, 변환 또는 기울기를 위해 사용됨
     // 해당 함수는 기울기 각도를 get하기 위해 만든 것
     func angleValue(_ t: CGAffineTransform) -> CGFloat {
@@ -569,5 +606,15 @@ private extension DYStickerView {
 extension DYStickerView: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+private extension CGFloat {
+    var toDegree: CGFloat {
+        return CGFloat(self) * (CGFloat(180) / CGFloat(Double.pi))
+    }
+    
+    var toRadian: CGFloat {
+        return CGFloat(self) * (CGFloat(Double.pi) / CGFloat(180))
     }
 }
