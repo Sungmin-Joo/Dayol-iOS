@@ -32,8 +32,8 @@ class LabelUnderTheImageButton: UIButton {
     }
 
     override var intrinsicContentSize: CGSize {
-        _ = super.intrinsicContentSize
-        guard let image = imageView?.image else { return super.intrinsicContentSize }
+        let superSize = super.intrinsicContentSize
+        guard let image = imageView?.image else { return superSize }
         let size = titleLabel?.sizeThatFits(contentRect(forBounds: bounds).size) ?? .zero
         return CGSize(width: max(size.width, image.size.width), height: image.size.height + size.height + spacing)
     }
