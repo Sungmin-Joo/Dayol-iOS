@@ -53,6 +53,12 @@ class DYModalViewController: UIViewController {
     private let headerArea = UIView()
     private let contentArea = UIView()
 
+    private lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return titleLabel
+    }()
+
     // MARK: - Custom  Public UI
 
     var titleView: UIView? {
@@ -87,6 +93,17 @@ class DYModalViewController: UIViewController {
     convenience init() {
         let defualtConfigure = DYModalConfiguration()
         self.init(configure: defualtConfigure)
+    }
+
+    convenience init(
+        configure: DYModalConfiguration = DYModalConfiguration(),
+        title: String,
+        hasDownButton: Bool = false,
+        dismissCompletion: (() -> Void)? = nil
+    ) {
+        self.init(configure: configure)
+        setupTitleLabel(title)
+        setupRightDownButton(completion: dismissCompletion)
     }
 
     init(configure: DYModalConfiguration) {
@@ -342,15 +359,13 @@ extension DYModalViewController {
 
 extension DYModalViewController {
 
-    func setDefaultTitle(text: String) {
-        let titleLabel = UILabel()
-        let attributedString = NSAttributedString.build(text: text,
+    private func setupTitleLabel(_ title: String) {
+        let attributedString = NSAttributedString.build(text: title,
                                                         font: .boldSystemFont(ofSize: 18),
                                                         align: .center,
                                                         letterSpacing: -0.7,
                                                         foregroundColor: .gray900)
         titleLabel.attributedText = attributedString
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         headerArea.addSubview(titleLabel)
 
         let lineView = UIView()
@@ -368,7 +383,7 @@ extension DYModalViewController {
         ])
     }
 
-    func setRightDownButton(completion: (() -> Void)? = nil) {
+    private func setupRightDownButton(completion: (() -> Void)? = nil) {
         let downButton = UIButton()
         downButton.setImage(Design.downButton, for: .normal)
         downButton.translatesAutoresizingMaskIntoConstraints = false

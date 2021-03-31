@@ -31,10 +31,10 @@ extension DiaryEditViewController {
                     self.currentTool = .eraser
                     return
                 }
-                let modalConfigure = DYModalConfiguration(dimStyle: .black, modalStyle: .small)
-                let modalVC = DYModalViewController(configure: modalConfigure)
-                modalVC.setDefaultTitle(text: Text.eraseTitle)
-                modalVC.setRightDownButton()
+                let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .small)
+                let modalVC = DYModalViewController(configure: configuration,
+                                                    title: Text.eraseTitle,
+                                                    hasDownButton: true)
                 modalVC.contentView = EraseSettingView()
                 self.presentCustomModal(modalVC)
             }
