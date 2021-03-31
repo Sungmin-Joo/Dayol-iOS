@@ -29,19 +29,21 @@ private enum Design {
     static let buttonSpacing: CGFloat = 6
 }
 
-private enum ButtonType {
-    case eraser
-    case pencil
-    case photo
-    case redo
-    case snare
-    case sticker
-    case text
-    case undo
-}
-
 class DYNavigationDrawingToolbar: UIView {
-    let disposeBag = DisposeBag()
+
+    enum ToolType {
+        case eraser
+        case pencil
+        case photo
+        case redo
+        case snare
+        case sticker
+        case text
+        case undo
+    }
+
+    private let disposeBag = DisposeBag()
+    let toolBarEvent: BehaviorSubject<ToolType> = BehaviorSubject(value: .pencil)
     
     private let containerView: UIStackView = {
         let stackView = UIStackView()
@@ -211,6 +213,7 @@ private extension DYNavigationDrawingToolbar {
         eraserButton.rx.tap
             .bind { [weak self] in
                 self?.clearButtons()
+                self?.toolBarEvent.onNext(.eraser)
                 self?.eraserButton.isSelected = true
             }
             .disposed(by: disposeBag)
@@ -220,6 +223,7 @@ private extension DYNavigationDrawingToolbar {
         pencilButton.rx.tap
             .bind { [weak self] in
                 self?.clearButtons()
+                self?.toolBarEvent.onNext(.pencil)
                 self?.pencilButton.isSelected = true
             }
             .disposed(by: disposeBag)
@@ -229,6 +233,7 @@ private extension DYNavigationDrawingToolbar {
         photoButton.rx.tap
             .bind { [weak self] in
                 self?.clearButtons()
+                self?.toolBarEvent.onNext(.photo)
                 self?.photoButton.isSelected = true
             }
             .disposed(by: disposeBag)
@@ -238,6 +243,7 @@ private extension DYNavigationDrawingToolbar {
         snareButton.rx.tap
             .bind { [weak self] in
                 self?.clearButtons()
+                self?.toolBarEvent.onNext(.snare)
                 self?.snareButton.isSelected = true
             }
             .disposed(by: disposeBag)
@@ -247,6 +253,7 @@ private extension DYNavigationDrawingToolbar {
         stickerButton.rx.tap
             .bind { [weak self] in
                 self?.clearButtons()
+                self?.toolBarEvent.onNext(.sticker)
                 self?.stickerButton.isSelected = true
             }
             .disposed(by: disposeBag)
@@ -256,6 +263,7 @@ private extension DYNavigationDrawingToolbar {
         textButton.rx.tap
             .bind { [weak self] in
                 self?.clearButtons()
+                self?.toolBarEvent.onNext(.text)
                 self?.textButton.isSelected = true
             }
             .disposed(by: disposeBag)
