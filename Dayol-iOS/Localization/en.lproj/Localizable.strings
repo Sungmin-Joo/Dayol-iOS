@@ -132,6 +132,7 @@
 "edit_eraser_size" = "Eraser size";
 "edit_eraser_text" = "Stickers and photos cannot be erased with an eraser.";
 "edit_eraser_option" = "Delete all strokes (by object)";
+"edit_eraser_option_bold" = "Delete all strokes";
 
 "" = "Bring to front";
 "" = "Send to back";

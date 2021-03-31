@@ -132,6 +132,7 @@
 "edit_eraser_size" = "지우개크기";
 "edit_eraser_text" = "스티커와 사진은 지우개로 지워지지 않습니다.";
 "edit_eraser_option" = "전체 획 삭제 (객체단위로 삭제)";
+"edit_eraser_option_bold" = "전체 획 삭제";
 
 "" = "레이어 앞으로";
 "" = "레이어 뒤로";
