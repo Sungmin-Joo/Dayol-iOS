@@ -65,8 +65,8 @@ class DiaryEditCoverView: UIView {
         
         return label
     }()
-    
-    private let diaryView: DiaryView = {
+
+    let diaryView: DiaryView = {
         let view = DiaryView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setCover(color: .DYBrown)

@@ -67,11 +67,6 @@ class DYNavigationEditableTitle: DYNavigationTitle {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func resignFirstResponder() -> Bool {
-        let _ = titleTextField.resignFirstResponder()
-        return super.resignFirstResponder()
-    }
     
     private func setConstraint() {
         let textViewHeight = titleTextField.heightAnchor.constraint(equalToConstant: Design.titleSize.height)
@@ -115,6 +110,17 @@ extension DYNavigationEditableTitle: UITextFieldDelegate {
         guard let text = textField.text else { return true }
         let newLength = text.count + string.count - range.length
         return newLength <= Design.titleMaxCount
-   }
+    }
+
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        isEditting = true
+        return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // 타이틀 뷰를 수정하다가 다른 텍스트 필드로 이동하는 케이스가 있기 때문에
+        // 텍스트 필드 입력이 종료되면 현재 타이틀 수정도 종료하도록 구현
+        isEditting = false
+    }
 
 }

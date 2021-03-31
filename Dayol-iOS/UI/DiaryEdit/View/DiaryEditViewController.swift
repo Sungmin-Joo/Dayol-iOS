@@ -37,17 +37,18 @@ class DiaryEditViewController: UIViewController {
         return view
     }()
     
-    private let diaryEditCoverView: DiaryEditCoverView = {
-        let view = DiaryEditCoverView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
     private let diaryEditPaletteView: DiaryEditColorPaletteView = {
         let view = DiaryEditColorPaletteView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
+        return view
+    }()
+
+    let accessoryView = DYKeybordInputAccessoryView(currentColor: .black)
+    let diaryEditCoverView: DiaryEditCoverView = {
+        let view = DiaryEditCoverView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+
         return view
     }()
 
@@ -64,11 +65,6 @@ class DiaryEditViewController: UIViewController {
         // TODO: - 편집화면 첫 진입 시 pencil tool이 선택되도록 하는 스펙 확인
         toolBar.pencilButton.isSelected = true
     }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        endEditMode()
-        super.touchesBegan(touches, with: event)
-    }
     
     // MARK: - Setup Method
     
@@ -78,6 +74,7 @@ class DiaryEditViewController: UIViewController {
         view.addSubview(diaryEditPaletteView)
         diaryEditPaletteView.colors = viewModel.diaryColors
         setConstraint()
+        setupGesture()
         
         bind()
     }
@@ -150,7 +147,7 @@ class DiaryEditViewController: UIViewController {
             .bind { [weak self] in
                 guard let self = self else { return }
                 
-                self.titleView.isEditting = false
+                self.hideKeyboard()
                 
                 self.showPasswordViewController()
             }
@@ -158,7 +155,6 @@ class DiaryEditViewController: UIViewController {
         
         titleView.editButton.rx.tap
             .bind { [weak self] in
-                self?.titleView.isEditting = true
                 self?.titleView.titleTextField.becomeFirstResponder()
             }
             .disposed(by: disposeBag)
@@ -193,10 +189,17 @@ private extension DiaryEditViewController {
 
 private extension DiaryEditViewController {
 
-    func endEditMode() {
-        guard titleView.isEditting else { return }
-        let _ = titleView.resignFirstResponder()
-        titleView.isEditting = false
+    private func setupGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc
+    func hideKeyboard() {
+        // titleView 가 네비게이션 타이틀 바에 붙어있어서 직접 호출해줘야한다.
+        titleView.endEditing(true)
+        view.endEditing(true)
     }
 
 }
