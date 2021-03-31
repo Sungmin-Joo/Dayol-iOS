@@ -9,7 +9,13 @@ import UIKit
 import Combine
 
 class DiaryPaperEditViewController: DiaryPaperViewController {
-    
+    private enum Text: String {
+        case editTitle = "edit_memo_title"
+        
+        var stringValue: String {
+            return self.rawValue.localized
+        }
+    }
     // MARK: - Private Properties
     
     private var cancellable = Set<AnyCancellable>()
@@ -20,7 +26,7 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
-    private let titleView = DYNavigationItemCreator.titleView("메모 편집")
+    private let titleView = DYNavigationItemCreator.titleView(Text.editTitle.stringValue)
     
     // MARK: - Init
     
