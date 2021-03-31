@@ -9,6 +9,13 @@ import UIKit
 
 // MARK: - Enums
 
+private enum Design {
+    static let wStretchImage = UIImage(named: "stretchW")
+    static let hStretchImage = UIImage(named: "stretchH")
+    static let whStretchImage = UIImage(named: "stretchWH")
+    static let closeImage = UIImage.remove
+}
+
 public enum DYStickerViewHandler: Int {
     case close = 0
     case wStretch
@@ -69,7 +76,8 @@ public class DYStickerView: UIView {
     // MARK: - UI & Gesture
     
     private lazy var closeImageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.defaultInset * 2, height: self.defaultInset * 2))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
+        imageView.image = Design.closeImage
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
         imageView.isUserInteractionEnabled = true
@@ -83,7 +91,8 @@ public class DYStickerView: UIView {
     }()
     
     private lazy var rotateImageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.defaultInset * 2, height: self.defaultInset * 2))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
+        imageView.image = Design.whStretchImage
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
         imageView.isUserInteractionEnabled = true
@@ -97,7 +106,8 @@ public class DYStickerView: UIView {
     }()
     
     private lazy var wStretchImageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.defaultInset * 2, height: self.defaultInset * 2))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 14, height: 32))
+        imageView.image = Design.wStretchImage
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
         imageView.isUserInteractionEnabled = true
@@ -111,7 +121,8 @@ public class DYStickerView: UIView {
     }()
     
     private lazy var hStretchImageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.defaultInset * 2, height: self.defaultInset * 2))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 32, height: 14))
+        imageView.image = Design.hStretchImage
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
         imageView.isUserInteractionEnabled = true
@@ -204,7 +215,7 @@ public class DYStickerView: UIView {
         var frame = contentView.frame
         self.contentView = contentView
         self.defaultInset = 11
-        self.defaultMinimumSize = 4 * self.defaultInset
+        self.defaultMinimumSize = 90
         
         frame = CGRect(x: 0,
                        y: 0,
@@ -240,7 +251,7 @@ public class DYStickerView: UIView {
         self.addSubview(self.closeImageView)
         self.setPosition(.right, for: .wStretch)
         self.addSubview(self.wStretchImageView)
-        self.setPosition(.bottom, for: .hStretch)
+        self.setPosition(.top, for: .hStretch)
         self.addSubview(self.hStretchImageView)
         self.setPosition(.bottomRight, for: .rotate)
         self.addSubview(self.rotateImageView)
@@ -386,12 +397,23 @@ public class DYStickerView: UIView {
         
         switch recognizer.state {
         case .began:
-            self.deltaAngle = CGFloat(atan2(Float(touchLocation.y - center.y), Float(touchLocation.x - center.x)))
+            self.initialBounds = self.bounds
+            self.initialDistance = distance(point1: touchLocation, point2: center)
+            self.deltaAngle = CGFloat(atan2(Float(touchLocation.y - center.y), Float(touchLocation.x - center.x))) - angleValue(self.transform)
             delegate?.stickerView(self, didBeginRotate: self.deltaAngle)
         case .changed:
             let angle = atan2f(Float(touchLocation.y - center.y), Float(touchLocation.x - center.x))
             let angleDiff =  angle - Float(self.deltaAngle)
             self.transform = CGAffineTransform(rotationAngle: CGFloat(angleDiff))
+            
+            magneticTransform(self.transform)
+
+            var scale = distance(point1: touchLocation, point2: center) / self.initialDistance
+            let minimumScale = CGFloat(self.minimumSize) / self.initialBounds.size.width
+            scale = max(scale, minimumScale)
+            
+            let scaleBound = scaleValue(self.initialBounds, wScale: scale, hScale: scale)
+            self.bounds = scaleBound
             
             self.setNeedsDisplay()
             delegate?.stickerView(self, didChangeRotate: angle)
@@ -503,10 +525,51 @@ private extension DYStickerView {
                       height: rect.size.height * hScale)
     }
     
+    func magneticTransform(_ t: CGAffineTransform) {
+        let radian = angleValue(t)
+        let degree = radian.toDegree
+        let rectAngle = CGFloat(90.0).toRadian
+        let rectAngleDegree = CGFloat(90.0)
+        let magneticDegree: Int = 5
+        
+        let multiple: Int = Int(degree) / Int(rectAngleDegree)
+        let remainder: Int = Int(degree) % Int(rectAngleDegree)
+
+        if (multiple == 0 && remainder > 0 - magneticDegree && remainder < 0 + magneticDegree) {
+            // 0 angle degree
+            transform = .init(rotationAngle: rectAngle * 0)
+        } else if (multiple == 0 && remainder > 90 - magneticDegree) || (multiple == 1 && remainder < 0 + magneticDegree) {
+            // 90 angle degree
+            transform = .init(rotationAngle: rectAngle * 1)
+        } else if (multiple == 1 && remainder > 90 - magneticDegree) || (remainder == -1 && remainder < -90 + magneticDegree) {
+            // 180 angle degree
+            transform = .init(rotationAngle: rectAngle * 2)
+        } else if (multiple == -1 && remainder > 0 - magneticDegree) || (remainder == 0 && remainder < -90 + magneticDegree) {
+            // 270 angle degree
+            transform = .init(rotationAngle: rectAngle * 3)
+        } else {
+            // something else degree
+            transform = .init(rotationAngle: radian)
+        }
+    }
+    
+    func angleValueByDegree(_ t: CGAffineTransform) -> CGFloat {
+        let radians:Double = atan2(Double(transform.b), Double(transform.a))
+        let degrees:CGFloat = CGFloat(radians) * (CGFloat(180) / CGFloat(Double.pi))
+        
+        return degrees
+    }
+    
     // CGAffineTransform -> 객체를 회전, 크기 조절, 변환 또는 기울기를 위해 사용됨
     // 해당 함수는 기울기 각도를 get하기 위해 만든 것
     func angleValue(_ t: CGAffineTransform) -> CGFloat {
         return atan2(t.b, t.a)
+    }
+    
+    func distance(point1: CGPoint, point2: CGPoint) -> CGFloat {
+        let xDis = xDistance(point1: point1, point2: point2)
+        let yDis = yDistance(point1: point1, point2: point2)
+        return sqrt(xDis*xDis + yDis*yDis)
     }
     
     func yDistance(point1: CGPoint, point2: CGPoint) -> CGFloat {
@@ -543,5 +606,15 @@ private extension DYStickerView {
 extension DYStickerView: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+private extension CGFloat {
+    var toDegree: CGFloat {
+        return CGFloat(self) * (CGFloat(180) / CGFloat(Double.pi))
+    }
+    
+    var toRadian: CGFloat {
+        return CGFloat(self) * (CGFloat(Double.pi) / CGFloat(180))
     }
 }
