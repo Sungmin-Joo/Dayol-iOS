@@ -14,6 +14,7 @@ private enum Design {
 }
 
 private enum Text {
+    static let textStyleTitle = "text_style_title".localized
     static let eraseTitle = "edit_eraser_title".localized
 }
 
@@ -33,6 +34,24 @@ extension DiaryEditViewController {
         accessoryView.keyboardDownButton.rx.tap
             .bind { [weak self] in
                 self?.view.endEditing(true)
+            }
+            .disposed(by: disposeBag)
+
+        accessoryView.textStyleButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                self.view.endEditing(true)
+                let configuration = DYModalConfiguration(dimStyle: .clear, modalStyle: .small)
+                let modalVC = DYModalViewController(configure: configuration,
+                                                    title: Text.textStyleTitle,
+                                                    hasDownButton: true)
+                let viewModel = TextStyleViewModel(alignment: .leading,
+                                                   textSize: 16,
+                                                   additionalOptions: [.bold],
+                                                   lineSpacing: 26,
+                                                   font: .sandolGodic)
+                modalVC.contentView = TextStyleView(viewModel: viewModel)
+                self.presentCustomModal(modalVC)
             }
             .disposed(by: disposeBag)
     }
