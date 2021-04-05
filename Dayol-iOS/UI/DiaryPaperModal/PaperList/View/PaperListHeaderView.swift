@@ -17,8 +17,12 @@ private enum Design {
     static let closeButtonImage: UIImage? = UIImage(named: "downwardArrowButton")
 }
 
-private enum Text {
-    static let title: String = "Diary.Page.List.Title".localized
+private enum Text: String {
+    case title = "page_title"
+    
+    var stringValue: String {
+        return self.rawValue.localized
+    }
 }
 
 class PaperListHeaderView: UIView {
@@ -32,7 +36,7 @@ class PaperListHeaderView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.attributedText = NSAttributedString.build(
-            text: Text.title,
+            text: Text.title.stringValue,
             font: Design.titleFont,
             align: .center,
             letterSpacing: Design.titleLetterSpacing,

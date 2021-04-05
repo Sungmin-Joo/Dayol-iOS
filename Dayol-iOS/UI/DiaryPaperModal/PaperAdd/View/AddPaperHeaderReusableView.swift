@@ -17,12 +17,11 @@ private enum Design {
 }
 
 private enum Text {
-
-    static let portraitTitle = titleAttributedString(text: "Diary.Page.Add.Portrait.Title".localized,
-                                                     boldString: "Diary.Page.Add.Portrait.Title.Bold".localized)
-    static let landscapeTitle = titleAttributedString(text: "Diary.Page.Add.Landscape.Title".localized,
-                                                      boldString: "Diary.Page.Add.Landscape.Title.Bold".localized)
-
+    static var portraitTitle: NSAttributedString { titleAttributedString(text: "create_add_memo_v_text".localized,
+                                                                         boldString: "iphone".localized) }
+    static var landscapeTitle: NSAttributedString { titleAttributedString(text: "create_add_memo_h_text".localized,
+                                                                          boldString: "ipad".localized) }
+    
     static func titleAttributedString(text: String, boldString: String) -> NSAttributedString {
         let attributedString = NSMutableAttributedString.build(text: text,
                                                                font: Design.titleFont,

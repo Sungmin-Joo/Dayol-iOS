@@ -15,7 +15,7 @@ class BasePaper: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = UIColor(decimalRed: 246, green: 248, blue: 250)
+        contentView.backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {

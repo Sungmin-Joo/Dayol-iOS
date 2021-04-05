@@ -16,8 +16,12 @@ private enum Design {
     static let lineSpacing: CGFloat = isPadDevice ? 40.0 : 24.0
 }
 
-private enum Text {
-    static let info = "Diary.Page.List.Info".localized
+private enum Text: String {
+    case info = "page_text"
+    
+    var stringValue: String {
+        return self.rawValue.localized
+    }
 }
 
 class PaperListContentView: UIView {
@@ -39,7 +43,7 @@ class PaperListContentView: UIView {
         return stackView
     }()
     private(set) lazy var infoView: InfoView = {
-        let view = InfoView(text: Text.info)
+        let view = InfoView(text: Text.info.stringValue)
         view.closeButton.rx.tap
             .bind { [weak self] in
                 self?.contentStackView.removeArrangedSubview(view)
