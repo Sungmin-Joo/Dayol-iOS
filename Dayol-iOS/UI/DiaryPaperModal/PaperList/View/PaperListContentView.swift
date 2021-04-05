@@ -107,7 +107,6 @@ private extension PaperListContentView {
     }
 
     private func setupConstraints() {
-
         NSLayoutConstraint.activate([
             contentStackView.topAnchor.constraint(equalTo: topAnchor),
             contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor),

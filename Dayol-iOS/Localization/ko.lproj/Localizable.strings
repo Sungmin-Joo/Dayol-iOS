@@ -94,8 +94,8 @@
 "create_add_memo_h" = "가로형";
 "create_add_memo_v_text" = "주로 폰으로 작성한다면 세로형 속지를 추가해보세요";
 "create_add_memo_h_text" = "주로 패드로 작성한다면 가로형 속지를 추가해보세요";
-"ipad" = "패드"
-"iphone" = "폰"
+"ipad" = "패드";
+"iphone" = "폰";
 
 "memo_list_monthly" = "먼슬리 플랜";
 "memo_list_weekly" = "위클리 플랜";

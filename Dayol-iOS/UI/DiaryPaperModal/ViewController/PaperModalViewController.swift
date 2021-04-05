@@ -114,5 +114,4 @@ private extension PaperModalViewController {
             }
             .disposed(by: disposeBag)
     }
-
 }
