@@ -138,6 +138,7 @@
 "" = "Send to back";
 
 "text_style_title" = "Text style";
+"text_style_line_space" = "Line space";
 "text_style_color" = "Text color";
 
 // MARK: - 메모지별
