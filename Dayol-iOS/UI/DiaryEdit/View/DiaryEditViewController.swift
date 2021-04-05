@@ -44,7 +44,7 @@ class DiaryEditViewController: UIViewController {
         return view
     }()
 
-    let accessoryView = DYKeybordInputAccessoryView(currentColor: .black)
+    let accessoryView = DYKeyboardInputAccessoryView(currentColor: .black)
     let diaryEditCoverView: DiaryEditCoverView = {
         let view = DiaryEditCoverView()
         view.translatesAutoresizingMaskIntoConstraints = false
