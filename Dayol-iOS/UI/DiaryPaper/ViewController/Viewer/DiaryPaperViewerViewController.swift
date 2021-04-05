@@ -205,6 +205,23 @@ class DiaryPaperViewerViewController: UIViewController {
                                                paperType: $0.paperType)
         }
         let addPageVC = PaperModalViewController(toolType: toolType, configure: configuration, papers: papers)
+        
+        addPageVC.didSelectContentItem
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                
+                let dismissCompletionHandler: () -> Void = {
+                    guard let selectedViewController = self.paperViewControllers?[safe: index] else { return }
+                    
+                    self.pageViewController.setViewControllers([selectedViewController], direction: .forward, animated: true, completion: nil)
+                }
+                
+                addPageVC.dismiss(animated: true) {
+                    dismissCompletionHandler()
+                }
+            })
+            .disposed(by: disposeBag)
+        
         presentCustomModal(addPageVC)
     }
 }
