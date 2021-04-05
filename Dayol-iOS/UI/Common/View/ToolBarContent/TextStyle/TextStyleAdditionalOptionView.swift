@@ -14,7 +14,6 @@ private enum Design {
     static let stackViewSpacing: CGFloat = 4.0
 }
 
-
 class TextStyleAdditionalOptionView: UIView {
 
     private let disposeBag = DisposeBag()
