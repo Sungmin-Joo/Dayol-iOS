@@ -26,28 +26,29 @@ class PaperListContentViewModel {
     }
     private(set) var papers: [CellModel] = []
     let paperListEvent = ReplaySubject<PaperListevent>.createUnbounded()
+    let disposeBag = DisposeBag()
 
     init(papers: [CellModel]) {
-        // TODO: - 실데이터 연동
-        self.papers = papers
-        paperListEvent.onNext(.fetch)
+        bind()
+    }
+    
+    func bind() {
+        DYTestData.shared.pageListSubject
+            .subscribe(onNext: { [weak self] diary in
+                guard let self = self else { return }
+                guard let pages = diary[safe: 0]?.paperList else { return }
+                
+                self.papers = pages.map {
+                    CellModel(id: $0.id, isStarred: false, paperStyle: $0.paperStyle, paperType: $0.paperType)
+                }
+                self.paperListEvent.onNext(.fetch)
+            })
+            .disposed(by: disposeBag)
     }
 
     func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
-        guard let sourceModel = papers[safe: sourceIndex] else {
-            // 로거 추가 필요
-            debugPrint("[DiaryList] wrong move index")
-            return
-        }
-
-        if sourceIndex > destinationIndex {
-            papers.remove(at: sourceIndex)
-            papers.insert(sourceModel, at: destinationIndex)
-        } else {
-            papers.insert(sourceModel, at: destinationIndex + 1)
-            papers.remove(at: sourceIndex)
-        }
-        paperListEvent.onNext(.reorder(at: sourceIndex, to: destinationIndex))
+        // TODO: Temporary Logic
+        DYTestData.shared.reorderPage(from: sourceIndex, to: destinationIndex)
     }
 
 }

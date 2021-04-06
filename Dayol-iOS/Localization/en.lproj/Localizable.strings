@@ -94,6 +94,8 @@
 "create_add_memo_h" = "Horizontal";
 "create_add_memo_v_text" = "If you're mainly writing on a phone, try adding a vertical memo";
 "create_add_memo_h_text" = "If you're mainly writing with pads, try adding a horizontal inlay";
+"ipad" = "pads";
+"iphone" = "phone";
 
 "memo_list_monthly" = "Monthly Plan";
 "memo_list_weekly" = "Weekly Plan";

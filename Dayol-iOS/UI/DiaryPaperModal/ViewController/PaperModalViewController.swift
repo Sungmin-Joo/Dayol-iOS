@@ -34,6 +34,9 @@ class PaperModalViewController: DYModalViewController {
     private lazy var paperListContentView = PaperListContentView(papers: papers)
 
     var toolType: PaperToolType
+    var didSelectContentItem: Observable<Int> {
+        return paperListContentView.didSelectItem.asObservable()
+    }
 
     init(toolType: PaperToolType, configure: DYModalConfiguration, papers: [PaperModalModel.PaperListCellModel] = [PaperModalModel.PaperListCellModel]()) {
         self.papers = papers
@@ -114,5 +117,4 @@ private extension PaperModalViewController {
             }
             .disposed(by: disposeBag)
     }
-
 }

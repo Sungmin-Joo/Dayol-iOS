@@ -69,7 +69,9 @@ extension PaperListContentView: UICollectionViewDataSource {
 }
 
 extension PaperListContentView: UICollectionViewDelegate {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        didSelectItem.onNext(indexPath.item)
+    }
 }
 
 // MARK: - UICollectionView Reorder

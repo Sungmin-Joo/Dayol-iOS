@@ -14,8 +14,12 @@ private enum Design {
     static let titleAreaSpacing: CGFloat = 8.0
 }
 
-private enum Text {
-    static let title: String = "Diary.Page.Add.Title".localized
+private enum Text: String {
+    case title = "add_memo_alert_title"
+    
+    var stringValue: String {
+        return self.rawValue.localized
+    }
 }
 
 class AddPaperHeaderView: UIView {
@@ -25,7 +29,7 @@ class AddPaperHeaderView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.attributedText = NSAttributedString.build(
-            text: Text.title,
+            text: Text.title.stringValue,
             font: Design.titleFont,
             align: .center,
             letterSpacing: Design.titleLetterSpacing,

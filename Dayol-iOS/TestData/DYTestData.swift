@@ -193,6 +193,21 @@ class DYTestData {
         pageList.append(diary)
         diaryListSubject.onNext(diaryList)
     }
+    
+    func reorderPage(from sourceIndex: Int, to destinationIndex: Int) {
+        guard var paperList = pageList[safe: 0]?.paperList else { return }
+        guard let source = paperList[safe: sourceIndex] else { return }
+        
+        if sourceIndex > destinationIndex {
+            paperList.remove(at: sourceIndex)
+            paperList.insert(source, at: destinationIndex)
+        } else {
+            paperList.insert(source, at: destinationIndex + 1)
+            paperList.remove(at: sourceIndex)
+        }
+        pageList[0].paperList = paperList
+        pageListSubject.onNext(pageList)
+    }
 
     func deleteDiary(_ diary: DiaryInnerModel) {
         guard let index = pageList.firstIndex(where: { $0.diaryID == diary.diaryID }) else { return }

@@ -25,9 +25,13 @@ private enum Design {
     static let lineSpacing: CGFloat = 29.0
 }
 
-private enum Text {
-    static let portrait: String = "Diary.Page.Add.Portrait".localized
-    static let landscape: String = "Diary.Page.Add.Landscape".localized
+private enum Text: String {
+    case portrait = "create_add_memo_v"
+    case landscape = "create_add_memo_h"
+    
+    var stringValue: String {
+        return self.rawValue.localized
+    }
 }
 
 class AddPaperContentView: UIView {
@@ -100,19 +104,19 @@ class AddPaperContentView: UIView {
 extension AddPaperContentView {
     private func setupViews() {
         portraitTabButton.setAttributedTitle(
-            tabBarAttributedTitle(Text.portrait, isSelected: false),
+            tabBarAttributedTitle(Text.portrait.stringValue, isSelected: false),
             for: .normal
         )
         portraitTabButton.setAttributedTitle(
-            tabBarAttributedTitle(Text.portrait, isSelected: true),
+            tabBarAttributedTitle(Text.portrait.stringValue, isSelected: true),
             for: .selected
         )
         landscapeTabButton.setAttributedTitle(
-            tabBarAttributedTitle(Text.landscape, isSelected: false),
+            tabBarAttributedTitle(Text.landscape.stringValue, isSelected: false),
             for: .normal
         )
         landscapeTabButton.setAttributedTitle(
-            tabBarAttributedTitle(Text.landscape, isSelected: true),
+            tabBarAttributedTitle(Text.landscape.stringValue, isSelected: true),
             for: .selected
         )
 
