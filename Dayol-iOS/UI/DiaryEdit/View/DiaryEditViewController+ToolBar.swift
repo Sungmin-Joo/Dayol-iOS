@@ -14,8 +14,12 @@ private enum Design {
 }
 
 private enum Text {
-    static let textStyleTitle = "text_style_title".localized
-    static let eraseTitle = "edit_eraser_title".localized
+    static var textStyleTitle: String {
+        return "text_style_title".localized
+    }
+    static var eraseTitle: String {
+        return "edit_eraser_title".localized
+    }
 }
 
 extension DiaryEditViewController {

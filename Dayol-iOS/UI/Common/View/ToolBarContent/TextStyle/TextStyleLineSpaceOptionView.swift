@@ -31,7 +31,10 @@ private enum Design {
 }
 
 private enum Text {
-    static let lineSpaceTitle = "text_style_line_space".localized
+    static var lineSpaceTitle: String {
+        return "text_style_line_space".localized
+    }
+    static let pt = "pt"
 }
 
 class TextStyleLineSpaceOptionView: UIView {
@@ -107,7 +110,7 @@ class TextStyleLineSpaceOptionView: UIView {
     }
 
     private func updateCurrentState() {
-        let text = String(currentLineSpacing) + "pt"
+        let text = String(currentLineSpacing) + Text.pt
         spacingInfoLabel.attributedText = NSAttributedString.build(text: text,
                                                                    font: Design.infoTitleFont,
                                                                    align: .center,
