@@ -140,6 +140,7 @@
 "" = "레이어 뒤로";
 
 "text_style_title" = "텍스트 스타일";
+"text_style_line_space" = "줄 간격";
 "text_style_color" = "텍스트 색상";
 
 // MARK: - 메모지별

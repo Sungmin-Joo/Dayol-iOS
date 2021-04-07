@@ -76,6 +76,11 @@ enum Assets {
                 }
 
             }
+
+            enum TextStyle {
+                static let plusButton = UIImage(named: "toolBar_textStyle_plus")
+                static let minusButton = UIImage(named: "toolBar_textStyle_minus")
+            }
         }
 
         enum Modal {
