@@ -8,7 +8,7 @@
 import UIKit
 
 private enum Design {
-    static let backgroundColor = UIColor(decimalRed: 242, green: 244, blue: 246)
+    static let backgroundColor = UIColor.gray100
 
     static let titleFont = UIFont.appleRegular(size: 14.0)
     static let titleBoldFont = UIFont.appleBold(size: 14.0)

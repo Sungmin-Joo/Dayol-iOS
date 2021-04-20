@@ -16,7 +16,7 @@ private enum Design {
     }
     static let borderWidth: CGFloat = 2.0
 	static let buttonColor: UIColor = .white
-	static let buttonBorderColor: CGColor = UIColor(decimalRed: 0, green: 0, blue: 0).withAlphaComponent(0.1).cgColor
+    static let buttonBorderColor: CGColor = UIColor.black.withAlphaComponent(0.1).cgColor
     static let lockImage = Assets.Image.DiaryCover.lock
 }
 

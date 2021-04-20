@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
-    static let fontColor: UIColor = UIColor(decimalRed: 102, green: 102, blue: 102)
+    static let fontColor: UIColor = .gray800
     static let font: UIFont = UIFont.appleMedium(size: 15)
     static let letterSapce: CGFloat = -0.28
     

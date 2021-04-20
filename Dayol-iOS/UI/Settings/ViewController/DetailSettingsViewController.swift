@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
-    static let clearButtonTextColor = UIColor(decimalRed: 233, green: 77, blue: 77)
+    static let clearButtonTextColor = UIColor.dayolRed
 }
 
 private enum Text {

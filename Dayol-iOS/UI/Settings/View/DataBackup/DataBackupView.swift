@@ -11,12 +11,12 @@ import RxCocoa
 private enum Design {
     static let contentBGColor = UIColor.white
     
-    static let infoColor = UIColor(decimalRed: 34, green: 34, blue: 34)
+    static let infoColor = UIColor.gray900
     static let infoFont = UIFont.appleRegular(size: 15.0)
     static let infoBoldFont = UIFont.appleBold(size: 15.0)
     static let infoSpacing: CGFloat = -0.28
     
-    static let warningColor = UIColor(decimalRed: 233, green: 77, blue: 77)
+    static let warningColor = UIColor.dayolRed
     static let warningFont = UIFont.appleRegular(size: 14.0)
     static let warningSpacing: CGFloat = -0.26
     

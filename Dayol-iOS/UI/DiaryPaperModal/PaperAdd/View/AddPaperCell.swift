@@ -11,7 +11,7 @@ private enum Design {
 
     static let titleFont = UIFont.appleBold(size: 15.0)
     static let titleSpacing: CGFloat = -0.28
-    static let titleColor = UIColor(decimalRed: 68, green: 68, blue: 68)
+    static let titleColor = UIColor.gray900
 
     static let contentStackViewSpacing: CGFloat = 11.0
 

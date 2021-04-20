@@ -17,7 +17,7 @@ private enum Design {
     
     static let zoomLabelBottom: CGFloat = 30.0
     static let zoomLabelFont = UIFont.appleMedium(size: 14)
-    static let zoomLabelTextColor: UIColor = UIColor(decimalRed: 153, green: 153, blue: 153)
+    static let zoomLabelTextColor: UIColor = UIColor.gray700
     static let zoomLabelSpace: CGFloat = -0.26
 
     static var coverSize: CGSize {

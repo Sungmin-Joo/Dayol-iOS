@@ -23,7 +23,7 @@ extension UIColor {
     }
 }
 
-// MARK: - DYColor
+// MARK: - DYCoverColor
 
 extension UIColor {
     @nonobjc class var dayolBrown: UIColor {

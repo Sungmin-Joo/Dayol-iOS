@@ -24,7 +24,7 @@ private enum Design {
     static let subtitleAttributes: [NSAttributedString.Key: Any] = [
         .font: UIFont.appleMedium(size: 14.0),
         .kern: -0.26,
-        .foregroundColor: UIColor(decimalRed: 102, green: 102, blue: 102)
+        .foregroundColor: UIColor.gray800
     ]
 }
 

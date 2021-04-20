@@ -79,7 +79,7 @@ class DiaryPaperViewController: UIViewController {
         scrollView.maximumZoomScale = 3.0
         view.addSubViewPinEdge(scrollView)
         scrollView.addSubViewPinEdge(paper)
-        view.backgroundColor = UIColor(decimalRed: 246, green: 248, blue: 250)
+        view.backgroundColor = .gray100
         setupConstraint()
         
         combine()

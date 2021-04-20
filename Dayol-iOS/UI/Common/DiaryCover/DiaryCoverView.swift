@@ -18,7 +18,7 @@ private enum Design {
         static let lineLeft: CGFloat = 40.0
     }
 
-    static let lineColor: UIColor = UIColor(decimalRed: 0, green: 0, blue: 0).withAlphaComponent(0.1)
+    static let lineColor: UIColor = UIColor.black.withAlphaComponent(0.1)
     static let coverLogo = UIImage(named: "dayolCoverLogo")
     static let coverLogoHeightRate: CGFloat = 172 / Standard.height
     static let coverLogoWidthRate: CGFloat = 184 / Standard.width

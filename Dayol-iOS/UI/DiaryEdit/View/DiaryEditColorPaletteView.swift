@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
-    static let paletteBackgroundColor = UIColor(decimalRed: 247, green: 247, blue: 247)
+    static let paletteBackgroundColor = UIColor.gray100
     static let cellSpace: CGFloat = 11
 }
 
