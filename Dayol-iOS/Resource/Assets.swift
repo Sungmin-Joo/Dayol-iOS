@@ -62,6 +62,10 @@ enum Assets {
         enum ToolBar {
             static let info = UIImage(named: "toolBar_info")
 
+            enum Lasso {
+                static let info = UIImage(named: "toolBar_lasso_info")
+            }
+
             enum Erase: String {
                 case small
                 case medium
@@ -75,6 +79,11 @@ enum Assets {
                     return UIImage(named: "toolBar_\(self.rawValue)_select")
                 }
 
+            }
+
+            enum TextStyle {
+                static let plusButton = UIImage(named: "toolBar_textStyle_plus")
+                static let minusButton = UIImage(named: "toolBar_textStyle_minus")
             }
         }
 

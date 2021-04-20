@@ -14,13 +14,22 @@ private enum Design {
 }
 
 private enum Text {
-    static let eraseTitle = "edit_eraser_title".localized
+    static var textStyleTitle: String {
+        return "text_style_title".localized
+    }
+    static var eraseTitle: String {
+        return "edit_eraser_title".localized
+    }
+    static var lassoTitle: String {
+        return "edit_lasso_title".localized
+    }
 }
 
 extension DiaryEditViewController {
 
     func toolBarBind() {
         accessoryViewBind()
+        lassoToolBind()
         eraseBind()
         textFieldBind()
         photoBind()
@@ -33,6 +42,42 @@ extension DiaryEditViewController {
         accessoryView.keyboardDownButton.rx.tap
             .bind { [weak self] in
                 self?.view.endEditing(true)
+            }
+            .disposed(by: disposeBag)
+
+        accessoryView.textStyleButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                self.view.endEditing(true)
+                let configuration = DYModalConfiguration(dimStyle: .clear, modalStyle: .small)
+                let modalVC = DYModalViewController(configure: configuration,
+                                                    title: Text.textStyleTitle,
+                                                    hasDownButton: true)
+                let viewModel = TextStyleViewModel(alignment: .leading,
+                                                   textSize: 16,
+                                                   additionalOptions: [.bold],
+                                                   lineSpacing: 26,
+                                                   font: .sandolGodic)
+                modalVC.contentView = TextStyleView(viewModel: viewModel)
+                self.presentCustomModal(modalVC)
+            }
+            .disposed(by: disposeBag)
+    }
+
+    private func lassoToolBind() {
+        toolBar.snareButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                guard self.currentTool == .snare else {
+                    self.currentTool = .snare
+                    return
+                }
+                let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .small)
+                let modalVC = DYModalViewController(configure: configuration,
+                                                    title: Text.lassoTitle,
+                                                    hasDownButton: true)
+                modalVC.contentView = LassoInfoView()
+                self.presentCustomModal(modalVC)
             }
             .disposed(by: disposeBag)
     }
