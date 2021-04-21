@@ -17,6 +17,11 @@ private enum Text {
 
 }
 
+public protocol PaperModalViewDelegate: NSObject {
+    func didTappedItem(_ index: Int)
+    func didTappedAdd()
+}
+
 class PaperModalViewController: DYModalViewController {
 
     enum PaperToolType {
@@ -32,10 +37,15 @@ class PaperModalViewController: DYModalViewController {
     private lazy var addPaperContentView = AddPaperContentView()
     private lazy var paperListHeaderView = PaperListHeaderView()
     private lazy var paperListContentView = PaperListContentView(papers: papers)
+    
+    public weak var delegate: PaperModalViewDelegate?
 
     var toolType: PaperToolType
     var didSelectContentItem: Observable<Int> {
         return paperListContentView.didSelectItem.asObservable()
+    }
+    var didSelectAddItem: Observable<Void> {
+        return paperListContentView.didSelectAddCell.asObservable()
     }
 
     init(toolType: PaperToolType, configure: DYModalConfiguration, papers: [PaperModalModel.PaperListCellModel] = [PaperModalModel.PaperListCellModel]()) {
@@ -45,7 +55,7 @@ class PaperModalViewController: DYModalViewController {
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTitleArea()
@@ -104,8 +114,9 @@ private extension PaperModalViewController {
 
         addPaperHeaderView.barRightButton.rx.tap
             .bind { [weak self] in
-                // rx create event
-                self?.dismiss(animated: true)
+                self?.dismiss(animated: true, completion: {
+                    self?.addPaperContentView.viewModel.addPaper()
+                })
             }
             .disposed(by: disposeBag)
     }
@@ -115,6 +126,22 @@ private extension PaperModalViewController {
             .bind { [weak self] in
                 self?.dismiss(animated: true)
             }
+            .disposed(by: disposeBag)
+        
+        didSelectAddItem
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(animated: true) {
+                    self?.delegate?.didTappedAdd()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        didSelectContentItem
+            .subscribe(onNext: { [weak self] index in
+                self?.dismiss(animated: true) {
+                    self?.delegate?.didTappedItem(index)
+                }
+            })
             .disposed(by: disposeBag)
     }
 }
