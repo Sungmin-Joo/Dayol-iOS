@@ -23,27 +23,27 @@ class DiaryPaperViewController: UIViewController {
             case .portrait:
                 switch paperStyle {
                 case .vertical:
-                    return scrollView.frame.height / paperStyle.size.height
+                    return paperScrollView.frame.height / paperStyle.size.height
                 case .horizontal:
-                    return scrollView.frame.width / paperStyle.size.width
+                    return paperScrollView.frame.width / paperStyle.size.width
                 }
             case .landscape:
                 switch paperStyle {
                 case .vertical:
-                    return scrollView.frame.height / paperStyle.size.height
+                    return paperScrollView.frame.height / paperStyle.size.height
                 case .horizontal:
-                    return scrollView.frame.width / paperStyle.size.width
+                    return paperScrollView.frame.width / paperStyle.size.width
                 }
             default: return 0.0
             }
         } else {
-            return scrollView.frame.width / paperStyle.size.width
+            return paperScrollView.frame.width / paperStyle.size.width
         }
     }
     
     lazy var paper = PaperPresentView(paper: viewModel.paper, count: viewModel.numberOfPapers)
     
-    private let scrollView: UIScrollView = {
+    private let paperScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -74,20 +74,20 @@ class DiaryPaperViewController: UIViewController {
     private func initView() {
         paper.translatesAutoresizingMaskIntoConstraints = false
         
-        scrollView.delegate = self
-        scrollView.minimumZoomScale = 1.0
-        scrollView.maximumZoomScale = 3.0
-        view.addSubViewPinEdge(scrollView)
-        scrollView.addSubViewPinEdge(paper)
-        view.backgroundColor = .gray100
-        setupConstraint()
+        paperScrollView.delegate = self
+        paperScrollView.minimumZoomScale = 1.0
+        paperScrollView.maximumZoomScale = 3.0
+        view.addSubViewPinEdge(paperScrollView)
+        paperScrollView.addSubViewPinEdge(paper)
+        paperScrollView.isPagingEnabled = true
+        view.backgroundColor = UIColor(decimalRed: 246, green: 248, blue: 250)
         
         combine()
     }
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            paper.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+            paper.widthAnchor.constraint(equalTo: paperScrollView.widthAnchor)
         ])
     }
     
@@ -106,5 +106,9 @@ class DiaryPaperViewController: UIViewController {
 extension DiaryPaperViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return paper
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        paperScrollView.isPagingEnabled = (scrollView.zoomScale == 1.0)
     }
 }
