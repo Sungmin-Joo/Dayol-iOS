@@ -15,8 +15,8 @@ private enum Design {
     static let titleLetterSpace: CGFloat = -0.35
     static let titleMaxCount = 10
     
-    static let titleBackgroundColor: UIColor = UIColor(decimalRed: 245, green: 245, blue: 245)
-    static let titleBorderColor: CGColor = UIColor(decimalRed: 218, green: 218, blue: 218).cgColor
+    static let titleBackgroundColor: UIColor = .gray100
+    static let titleBorderColor: CGColor = UIColor(decimalRed: 216, green: 218, blue: 220).cgColor
     static let titleRadius: CGFloat = 4
     static let titleBorderWidth: CGFloat = 1
     

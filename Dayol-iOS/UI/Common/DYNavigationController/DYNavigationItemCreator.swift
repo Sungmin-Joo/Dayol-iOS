@@ -33,11 +33,11 @@ private enum Design {
 }
 
 class DYNavigationItemCreator: NSObject {
-    static func titleView(_ text: String, color: UIColor = .black) -> DYNavigationTitle {
+    static func titleView(_ text: String, color: UIColor = .gray900) -> DYNavigationTitle {
         return DYNavigationTitle(text: text, color: color)
     }
     
-    static func editableTitleView(_ text: String, color: UIColor = .black) -> DYNavigationEditableTitle {
+    static func editableTitleView(_ text: String, color: UIColor = .gray900) -> DYNavigationEditableTitle {
         return DYNavigationEditableTitle(text: text, color: color)
     }
     

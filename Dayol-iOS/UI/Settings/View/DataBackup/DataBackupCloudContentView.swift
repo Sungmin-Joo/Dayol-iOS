@@ -8,11 +8,11 @@
 import UIKit
 
 private enum Design {
-    static let contentBGColor = UIColor(decimalRed: 246, green: 248, blue: 250)
+    static let contentBGColor = UIColor.gray100
     static let contentCornerRadius: CGFloat = 12.0
     static let contentInset = UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 19)
 
-    static let titleColor = UIColor(decimalRed: 34, green: 34, blue: 34)
+    static let titleColor = UIColor.gray900
     static let titleSpacing: CGFloat = -0.31
     static let titleFont = UIFont.boldSystemFont(ofSize: 17.0)
 }

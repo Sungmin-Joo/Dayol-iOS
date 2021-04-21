@@ -11,7 +11,7 @@ import RxCocoa
 private enum Design {
     static let contentBGColor = UIColor.white
 
-    static let emptyLabelTextColor = UIColor(decimalRed: 136, green: 136, blue: 136)
+    static let emptyLabelTextColor = UIColor.gray700
     static let emptyLabelContentSpacing: CGFloat = -0.28
     static let emptyLabelFont = UIFont.appleRegular(size: 15.0)
 

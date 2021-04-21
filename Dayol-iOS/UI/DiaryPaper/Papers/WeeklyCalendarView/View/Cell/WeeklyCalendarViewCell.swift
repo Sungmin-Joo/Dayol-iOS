@@ -16,7 +16,7 @@ private enum Design {
     static let weeklyLabelFont = UIFont.systemFont(ofSize: 13, weight: .bold)
     
     static let saturdayColor: UIColor = UIColor(decimalRed: 43, green: 81, blue: 206)
-    static let sundayColor: UIColor = UIColor(decimalRed: 221, green: 27, blue: 27)
+    static let sundayColor: UIColor = UIColor.dayolRed
     
     static let weekdayFont = UIFont.systemFont(ofSize: 11, weight: .bold)
     static let dayFont = UIFont.systemFont(ofSize: 13, weight: .regular)
@@ -158,7 +158,7 @@ class WeeklyCalendarViewCell: UICollectionViewCell {
             
             return NSAttributedString(string: String(model.day), attributes: attributes)
         case .weekday:
-            var fontColor = UIColor(decimalRed: 0, green: 0, blue: 0)
+            var fontColor = UIColor.gray900
             if model.weekDay == .sunday {
                 fontColor = Design.sundayColor
             } else if model.weekDay == .saturday {

@@ -11,19 +11,19 @@ private enum Design {
     static let titleAttributes: [NSAttributedString.Key: Any] = [
         .paragraphStyle: textParagraphStyle(lineHeight: 19.0),
         .font: UIFont.appleBold(size: 15.0),
-        .foregroundColor: UIColor(decimalRed: 34, green: 34, blue: 34),
+        .foregroundColor: UIColor.gray900,
         .kern: -0.28
     ]
     static let diaryNameAttributes: [NSAttributedString.Key: Any] = [
         .paragraphStyle: textParagraphStyle(lineHeight: 17.0),
         .font: UIFont.appleRegular(size: 14.0),
-        .foregroundColor: UIColor(decimalRed: 102, green: 102, blue: 102),
+        .foregroundColor: UIColor.gray900,
         .kern: -0.26
     ]
     static let dateAttributes: [NSAttributedString.Key: Any] = [
         .paragraphStyle: textParagraphStyle(lineHeight: 17.0),
         .font: UIFont.systemFont(ofSize: 14.0),
-        .foregroundColor: UIColor(decimalRed: 153, green: 153, blue: 153),
+        .foregroundColor: UIColor.gray700,
         .kern: -0.26
     ]
     static func textParagraphStyle(lineHeight: CGFloat) -> NSParagraphStyle {

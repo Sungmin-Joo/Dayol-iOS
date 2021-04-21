@@ -12,7 +12,7 @@ import RxCocoa
 private enum Design {
     static let buttonSize: CGSize = CGSize(width: 36, height: 36)
     static let separatorLineSize: CGSize = CGSize(width: 1, height: 20)
-    static let separatorLineColor: UIColor = UIColor(decimalRed: 216, green: 216, blue: 216)
+    static let separatorLineColor: UIColor = .gray400
     
     static let eraserImage = UIImage(named: "eraserButton")
     static let pencilImage = UIImage(named: "pencilButton")

@@ -10,7 +10,7 @@ import UIKit
 private enum Design {
     static let defaultTextColor = UIColor.black
     static let backgroundColor = UIColor.white
-    static let horizontalSeparatorColor = UIColor(decimalRed: 216, green: 216, blue: 216)
+    static let horizontalSeparatorColor = UIColor.gray400
     static let verticalSeparatorColor = UIColor(decimalRed: 225, green: 225, blue: 225)
 
     static let textColorButtonRadius: CGFloat = 13.5

@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
-    static let contentBGColor = UIColor(decimalRed: 242, green: 244, blue: 246)
+    static let contentBGColor = UIColor.gray100
 
     static let collectionViewInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
     static let itemSpacing: CGFloat = 28.0
