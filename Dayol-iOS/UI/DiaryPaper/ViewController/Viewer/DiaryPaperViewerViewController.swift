@@ -146,7 +146,7 @@ class DiaryPaperViewerViewController: UIViewController {
                 self.innerModels = inners
                 
                 for (index, paper) in paperList.enumerated() {
-                    let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: 1)
+                    let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: 3)
                     let paperViewController = DiaryPaperViewController(index: index, viewModel: paperViewModel)
                     diaryPaperViewControllers.append(paperViewController)
                 }
