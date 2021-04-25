@@ -32,9 +32,16 @@
 		3452670C25DD644B00EC6F9D /* DataBackupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3452670B25DD644B00EC6F9D /* DataBackupViewModel.swift */; };
 		3452671025DD64AE00EC6F9D /* DataBackupCloudContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3452670F25DD64AD00EC6F9D /* DataBackupCloudContentView.swift */; };
 		3452671325DD66F400EC6F9D /* DataBackupExportContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3452671225DD66F400EC6F9D /* DataBackupExportContentView.swift */; };
+		3462FDB826304117008E4A6C /* PencilAlphaSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3462FDB726304117008E4A6C /* PencilAlphaSettingView.swift */; };
+		3462FDBB26305066008E4A6C /* PencilAlphaInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3462FDBA26305066008E4A6C /* PencilAlphaInfoView.swift */; };
 		346779C425B47C6F001427F8 /* DiaryEditViewController+PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346779C325B47C6F001427F8 /* DiaryEditViewController+PhotoPicker.swift */; };
 		34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34733DC025D189F500C3A997 /* DetailSettingsViewController.swift */; };
 		34788856261E0B4B00692ED7 /* LassoInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34788855261E0B4B00692ED7 /* LassoInfoView.swift */; };
+		34A07141262C4856009BA700 /* PencilSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A07140262C4856009BA700 /* PencilSettingView.swift */; };
+		34A07144262C4864009BA700 /* PencilTypeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A07143262C4864009BA700 /* PencilTypeSettingView.swift */; };
+		34A0714D262C78ED009BA700 /* ColorSettingPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A0714C262C78ED009BA700 /* ColorSettingPaletteView.swift */; };
+		34A07152262DBFA7009BA700 /* ColorSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A07151262DBFA7009BA700 /* ColorSettingView.swift */; };
+		34A07156262DCE1E009BA700 /* ColorPickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A07155262DCE1E009BA700 /* ColorPickerContentView.swift */; };
 		34A11A4725ADC3CA00678F98 /* PaperModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A11A4625ADC3CA00678F98 /* PaperModalViewController.swift */; };
 		34A11A4B25ADC8F700678F98 /* UnderLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A11A4A25ADC8F700678F98 /* UnderLineButton.swift */; };
 		34A11A4F25ADC93300678F98 /* AddPaperContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A11A4E25ADC93300678F98 /* AddPaperContentView.swift */; };
@@ -68,6 +75,11 @@
 		34CA255825A74A7A0057404D /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA255725A74A7A0057404D /* SettingsViewModel.swift */; };
 		34CA255B25A75A340057404D /* SettingCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA255A25A75A340057404D /* SettingCellProtocol.swift */; };
 		34CA255E25A761060057404D /* OutAppSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA255D25A761060057404D /* OutAppSettingCell.swift */; };
+		34E6138A262F02A10076FE74 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61389262F02A10076FE74 /* ColorPicker.swift */; };
+		34E6138E262F02D80076FE74 /* ColorMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E6138D262F02D80076FE74 /* ColorMapView.swift */; };
+		34E61391262F02EA0076FE74 /* ColorMapCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61390262F02EA0076FE74 /* ColorMapCursor.swift */; };
+		34E61395262F03260076FE74 /* ColorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61394262F03260076FE74 /* ColorEntity.swift */; };
+		34E61399262F1AE10076FE74 /* ColorBrightSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61398262F1AE10076FE74 /* ColorBrightSlider.swift */; };
 		CC7CC488D36CE71AEE14FCCC /* Pods_Dayol_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */; };
 		CE0603542588EDB600FBBEF0 /* PopupPresentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */; };
 		CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */; };
@@ -179,9 +191,16 @@
 		3452670B25DD644B00EC6F9D /* DataBackupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBackupViewModel.swift; sourceTree = "<group>"; };
 		3452670F25DD64AD00EC6F9D /* DataBackupCloudContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBackupCloudContentView.swift; sourceTree = "<group>"; };
 		3452671225DD66F400EC6F9D /* DataBackupExportContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBackupExportContentView.swift; sourceTree = "<group>"; };
+		3462FDB726304117008E4A6C /* PencilAlphaSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilAlphaSettingView.swift; sourceTree = "<group>"; };
+		3462FDBA26305066008E4A6C /* PencilAlphaInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilAlphaInfoView.swift; sourceTree = "<group>"; };
 		346779C325B47C6F001427F8 /* DiaryEditViewController+PhotoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DiaryEditViewController+PhotoPicker.swift"; sourceTree = "<group>"; };
 		34733DC025D189F500C3A997 /* DetailSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsViewController.swift; sourceTree = "<group>"; };
 		34788855261E0B4B00692ED7 /* LassoInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LassoInfoView.swift; sourceTree = "<group>"; };
+		34A07140262C4856009BA700 /* PencilSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilSettingView.swift; sourceTree = "<group>"; };
+		34A07143262C4864009BA700 /* PencilTypeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilTypeSettingView.swift; sourceTree = "<group>"; };
+		34A0714C262C78ED009BA700 /* ColorSettingPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSettingPaletteView.swift; sourceTree = "<group>"; };
+		34A07151262DBFA7009BA700 /* ColorSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSettingView.swift; sourceTree = "<group>"; };
+		34A07155262DCE1E009BA700 /* ColorPickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerContentView.swift; sourceTree = "<group>"; };
 		34A11A4625ADC3CA00678F98 /* PaperModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperModalViewController.swift; sourceTree = "<group>"; };
 		34A11A4A25ADC8F700678F98 /* UnderLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderLineButton.swift; sourceTree = "<group>"; };
 		34A11A4E25ADC93300678F98 /* AddPaperContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaperContentView.swift; sourceTree = "<group>"; };
@@ -217,6 +236,11 @@
 		34CA255725A74A7A0057404D /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		34CA255A25A75A340057404D /* SettingCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellProtocol.swift; sourceTree = "<group>"; };
 		34CA255D25A761060057404D /* OutAppSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutAppSettingCell.swift; sourceTree = "<group>"; };
+		34E61389262F02A10076FE74 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
+		34E6138D262F02D80076FE74 /* ColorMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapView.swift; sourceTree = "<group>"; };
+		34E61390262F02EA0076FE74 /* ColorMapCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapCursor.swift; sourceTree = "<group>"; };
+		34E61394262F03260076FE74 /* ColorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorEntity.swift; sourceTree = "<group>"; };
+		34E61398262F1AE10076FE74 /* ColorBrightSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBrightSlider.swift; sourceTree = "<group>"; };
 		972D81BFA99D271110503E85 /* Pods-Dayol-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.release.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPresentDelegate.swift; sourceTree = "<group>"; };
 		CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertAction.swift; sourceTree = "<group>"; };
@@ -423,6 +447,28 @@
 			path = Lasso;
 			sourceTree = "<group>";
 		};
+		34A0713F262C4838009BA700 /* Pencil */ = {
+			isa = PBXGroup;
+			children = (
+				34A07140262C4856009BA700 /* PencilSettingView.swift */,
+				34A07143262C4864009BA700 /* PencilTypeSettingView.swift */,
+				3462FDB726304117008E4A6C /* PencilAlphaSettingView.swift */,
+				3462FDBA26305066008E4A6C /* PencilAlphaInfoView.swift */,
+			);
+			path = Pencil;
+			sourceTree = "<group>";
+		};
+		34A07150262DBF8D009BA700 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				34E61388262F02870076FE74 /* ColorPicker */,
+				34A07151262DBFA7009BA700 /* ColorSettingView.swift */,
+				34A0714C262C78ED009BA700 /* ColorSettingPaletteView.swift */,
+				34A07155262DCE1E009BA700 /* ColorPickerContentView.swift */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
 		34A11A4425ADC35500678F98 /* DiaryPaperModal */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,8 +551,10 @@
 		34BB085C261217690000377E /* ToolBarContent */ = {
 			isa = PBXGroup;
 			children = (
+				34A07150262DBF8D009BA700 /* Color */,
 				34788854261E0B1F00692ED7 /* Lasso */,
 				34C7B3662619748C00BC6A28 /* Erase */,
+				34A0713F262C4838009BA700 /* Pencil */,
 				34C7B3672619749B00BC6A28 /* TextStyle */,
 			);
 			path = ToolBarContent;
@@ -600,6 +648,18 @@
 				34CA255725A74A7A0057404D /* SettingsViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		34E61388262F02870076FE74 /* ColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				34E61389262F02A10076FE74 /* ColorPicker.swift */,
+				34E6138D262F02D80076FE74 /* ColorMapView.swift */,
+				34E61390262F02EA0076FE74 /* ColorMapCursor.swift */,
+				34E61394262F03260076FE74 /* ColorEntity.swift */,
+				34E61398262F1AE10076FE74 /* ColorBrightSlider.swift */,
+			);
+			path = ColorPicker;
 			sourceTree = "<group>";
 		};
 		84E9977FFA5A77108057AB68 /* Frameworks */ = {
@@ -1241,6 +1301,7 @@
 				34CA254C25A619B20057404D /* SettingsModel.swift in Sources */,
 				34A2EDCC25B86210008DB98D /* PaperViewModel.swift in Sources */,
 				34CA255425A61DD10057404D /* NSObject+Extension.swift in Sources */,
+				34A0714D262C78ED009BA700 /* ColorSettingPaletteView.swift in Sources */,
 				34A2EDC525B85EDA008DB98D /* MujiPaper.swift in Sources */,
 				DA27AC6625C81D2700C71CDE /* WeeklyCalendarView.swift in Sources */,
 				CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */,
@@ -1264,6 +1325,7 @@
 				DA3836BC258F2F2A0029464C /* PasswordViewModel.swift in Sources */,
 				DAD6674B259C891D00E8F59A /* DYNavigationTitle.swift in Sources */,
 				3449D2C425ADDB510050C02A /* AddPaperContentViewModel.swift in Sources */,
+				34E61399262F1AE10076FE74 /* ColorBrightSlider.swift in Sources */,
 				34A2EDCF25B87953008DB98D /* GridPaper.swift in Sources */,
 				34CA254F25A61BBE0057404D /* InAppSettingCell.swift in Sources */,
 				340E56C025C975DE007F2EF7 /* PaperListContentViewModel.swift in Sources */,
@@ -1295,6 +1357,7 @@
 				DA9A87362610A9FB00ABCD07 /* DYStickerHeightStretchableView.swift in Sources */,
 				340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */,
 				3449D2CA25ADF6520050C02A /* AddPaperModel.swift in Sources */,
+				34E6138E262F02D80076FE74 /* ColorMapView.swift in Sources */,
 				DAD48A23260C9DF8008B542E /* DiaryPaperEditViewController.swift in Sources */,
 				DA81DF3B25BEE49A00A4B2CE /* MonthlyCalendarView.swift in Sources */,
 				3416446225D96C3100A81FD2 /* DeletedPageCell.swift in Sources */,
@@ -1315,16 +1378,22 @@
 				34C7B37926199DA600BC6A28 /* TextStyleTextSizeOptionView.swift in Sources */,
 				DA27AC6A25C8288B00C71CDE /* WeeklyCalendarViewCell.swift in Sources */,
 				34C7B3822619EA9200BC6A28 /* TextStyleLineSpaceOptionView.swift in Sources */,
+				34E61391262F02EA0076FE74 /* ColorMapCursor.swift in Sources */,
 				34B6C14125BDB28400C2596F /* DYKeyboardInputAccessoryView.swift in Sources */,
 				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
+				3462FDBB26305066008E4A6C /* PencilAlphaInfoView.swift in Sources */,
 				34C7B3752619819D00BC6A28 /* TextStyleFontView.swift in Sources */,
+				34E6138A262F02A10076FE74 /* ColorPicker.swift in Sources */,
 				34CA255825A74A7A0057404D /* SettingsViewModel.swift in Sources */,
 				DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */,
 				CE0603542588EDB600FBBEF0 /* PopupPresentDelegate.swift in Sources */,
 				340E56B825C8684A007F2EF7 /* PaperListHeaderView.swift in Sources */,
 				34A11A4B25ADC8F700678F98 /* UnderLineButton.swift in Sources */,
+				34A07141262C4856009BA700 /* PencilSettingView.swift in Sources */,
 				DA311427260CE2FC002F99F7 /* StickerModalHeaderViewCell.swift in Sources */,
 				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
+				34A07144262C4864009BA700 /* PencilTypeSettingView.swift in Sources */,
+				3462FDB826304117008E4A6C /* PencilAlphaSettingView.swift in Sources */,
 				DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */,
 				34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */,
 				DADD09F725A335C2004D6CF0 /* DiaryEditToggleView.swift in Sources */,
@@ -1333,6 +1402,7 @@
 				DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */,
 				DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */,
 				34788856261E0B4B00692ED7 /* LassoInfoView.swift in Sources */,
+				34E61395262F03260076FE74 /* ColorEntity.swift in Sources */,
 				3446621F25C1A07A00656775 /* CornellPaper.swift in Sources */,
 				CE8DCC942590ECE8007738EA /* DiaryListCell.swift in Sources */,
 				CE8DCB11258FA502007738EA /* DiaryListViewModel.swift in Sources */,
@@ -1341,6 +1411,7 @@
 				34BB085E2612178F0000377E /* EraseSettingView.swift in Sources */,
 				3449D2D725AF24DA0050C02A /* AddPaperContentView+UICollectionView.swift in Sources */,
 				34AD5A7725C97C3F00D9E29C /* PaperListContentView+CollectionView.swift in Sources */,
+				34A07152262DBFA7009BA700 /* ColorSettingView.swift in Sources */,
 				34C7B3722619818F00BC6A28 /* TextStyleOptionView.swift in Sources */,
 				340E56AA25C831E2007F2EF7 /* InfoView.swift in Sources */,
 				CE8DCB25258FAE72007738EA /* Array+extension.swift in Sources */,
@@ -1361,6 +1432,7 @@
 				34AD5A7A25C97D0900D9E29C /* PaperListCell.swift in Sources */,
 				34C7B3692619763300BC6A28 /* TextStyleView.swift in Sources */,
 				DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */,
+				34A07156262DCE1E009BA700 /* ColorPickerContentView.swift in Sources */,
 				34C7B36C2619765500BC6A28 /* TextStyleModel.swift in Sources */,
 				34A11A4F25ADC93300678F98 /* AddPaperContentView.swift in Sources */,
 				34C7B37E2619E2C800BC6A28 /* TextStyleAdditionalOptionView.swift in Sources */,
