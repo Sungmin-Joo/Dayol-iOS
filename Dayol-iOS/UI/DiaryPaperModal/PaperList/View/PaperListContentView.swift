@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
-    static let contentBGColor = UIColor(decimalRed: 242, green: 244, blue: 246)
+    static let contentBGColor = UIColor.gray100
 
     static let collectionViewInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
     static let itemSpacing: CGFloat = 28.0
@@ -28,6 +28,7 @@ class PaperListContentView: UIView {
 
     let disposeBag = DisposeBag()
     let didSelectItem = PublishSubject<Int>()
+    let didSelectAddCell = PublishSubject<Void>()
     
     private let papers: [PaperModalModel.PaperListCellModel]
     private var shouldShowInfoLabel: Bool {
@@ -42,18 +43,13 @@ class PaperListContentView: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         return stackView
     }()
     private(set) lazy var infoView: InfoView = {
         let view = InfoView(text: Text.info.stringValue)
-        view.closeButton.rx.tap
-            .bind { [weak self] in
-                self?.contentStackView.removeArrangedSubview(view)
-                view.removeFromSuperview()
-                self?.collectionView.collectionViewLayout.invalidateLayout()
-            }
-            .disposed(by: disposeBag)
         view.translatesAutoresizingMaskIntoConstraints = false
+        
         return view
     }()
     let collectionView: UICollectionView = {
@@ -77,6 +73,7 @@ class PaperListContentView: UIView {
         super.init(frame: .zero)
         setupViews()
         setupConstraints()
+        bind()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -85,6 +82,16 @@ class PaperListContentView: UIView {
         collectionView.collectionViewLayout.invalidateLayout()
     }
 
+    private func bind() {
+        infoView.closeButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                self.contentStackView.removeArrangedSubview(self.infoView)
+                self.infoView.removeFromSuperview()
+                self.collectionView.collectionViewLayout.invalidateLayout()
+            }
+            .disposed(by: disposeBag)
+    }
 }
 
 private extension PaperListContentView {

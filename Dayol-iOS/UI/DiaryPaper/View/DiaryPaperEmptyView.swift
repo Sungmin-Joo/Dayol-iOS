@@ -54,7 +54,7 @@ private enum Design {
     
     static let inputFont = UIFont.appleRegular(size: 15)
     static let inputLetterSpace: CGFloat = -0.28
-    static let inputFontColor = UIColor(decimalRed: 102, green: 102, blue: 102)
+    static let inputFontColor = UIColor.gray800
     
     static let borderRatio: CGFloat = 400 / 300
     static let borderColor = UIColor(decimalRed: 151, green: 151, blue: 151).cgColor

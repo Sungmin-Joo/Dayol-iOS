@@ -9,7 +9,7 @@ import RxSwift
 
 private enum Design {
     static let redLineColor = UIColor(decimalRed: 226, green: 88, blue: 88)
-    static let headerSeparatorColor = UIColor(decimalRed: 102, green: 102, blue: 102)
+    static let headerSeparatorColor = UIColor.gray800
     static let lineColor = UIColor(decimalRed: 233, green: 233, blue: 233)
 
     static let lineWidth: CGFloat = 1

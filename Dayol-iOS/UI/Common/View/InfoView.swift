@@ -16,11 +16,11 @@ private enum Design {
     static let closeImage = Assets.Image.InfoView.close
 
     static let numberOfLines = 2
-    static let textColor = UIColor(decimalRed: 102, green: 102, blue: 102)
+    static let textColor = UIColor.gray800
     static let letterSpacing: CGFloat = -0.26
     static let font = UIFont.appleMedium(size: 14.0)
 
-    static let backGroundColor = UIColor(decimalRed: 231, green: 233, blue: 239)
+    static let backGroundColor = UIColor.gray300
 }
 
 class InfoView: UIView {

@@ -12,16 +12,16 @@ private enum Design {
     static let dayFont: UIFont = UIFont.systemFont(ofSize: 11, weight: .regular)
     static let dayLetterSpace: CGFloat = -0.2
     static let dayTextColorForCurrentMonth: UIColor = .black
-    static let dayTextColorForOtherMonth = UIColor.black.withAlphaComponent(0.2)
-    static let todayBackground: UIColor = UIColor(decimalRed: 226, green: 226, blue: 226)
+    static let dayTextColorForOtherMonth = UIColor(decimalRed: 200, green: 202, blue: 204)
+    static let todayBackground: UIColor = UIColor(decimalRed: 216, green: 218, blue: 220)
     static let todayRadius: CGFloat = 8
     
     static let dayTop: CGFloat = 2
     static let dayLabelLeft: CGFloat = 2
     static let dayLabelRight: CGFloat = 2
     
-    static let verticalSeparatorLineColor: UIColor = UIColor(decimalRed: 250, green: 250, blue: 250)
-    static let horizontalSeparatorLineColor: UIColor = UIColor(decimalRed: 233, green: 233, blue: 233)
+    static let verticalSeparatorLineColor: UIColor = UIColor.gray200
+    static let horizontalSeparatorLineColor: UIColor = UIColor(decimalRed: 248, green: 250, blue: 252)
     static let separatorLineWidth: CGFloat = 1
 }
 

@@ -15,7 +15,7 @@ private enum Design {
     static let sectionHeaderViewHeight: CGFloat = 20.0
     static let sectionHeaderViewLineHeight: CGFloat = 1.0
     static let sectionHeaderViewLineMargin: CGFloat = 24.0
-    static let sectionHeaderViewLineColor = UIColor(decimalRed: 216, green: 216, blue: 216)
+    static let sectionHeaderViewLineColor = UIColor.gray400
 }
 
 class SettingsViewController: UIViewController {

@@ -11,20 +11,20 @@ private enum Design {
     static let nextIconImage = Assets.Image.Settings.Backup.next
     static let infoIconImage = Assets.Image.Settings.Backup.info
 
-    static let contentBGColor = UIColor(decimalRed: 246, green: 248, blue: 250)
+    static let contentBGColor = UIColor.gray100
     static let contentCornerRadius: CGFloat = 12.0
 
-    static let titleColor = UIColor(decimalRed: 34, green: 34, blue: 34)
+    static let titleColor =  UIColor.gray900
     static let titleSpacing: CGFloat = -0.31
     static let titleFont = UIFont.boldSystemFont(ofSize: 17.0)
     static let titleInset = UIEdgeInsets(top: 18, left: 20, bottom: 0, right: 0)
 
-    static let infoColor = UIColor(decimalRed: 102, green: 102, blue: 102)
+    static let infoColor = UIColor.gray800
     static let infoFont = UIFont.appleBold(size: 14.0)
     static let infoSpacing: CGFloat = -0.26
     static let infoInset = UIEdgeInsets(top: 19, left: 20, bottom: 0, right: 0)
 
-    static let textColor = UIColor(decimalRed: 102, green: 102, blue: 102)
+    static let textColor = UIColor.gray800
     static let textFont = UIFont.appleRegular(size: 14.0)
     static let textBoldFont = UIFont.appleBold(size: 14.0)
     static let textSpacing: CGFloat = -0.26

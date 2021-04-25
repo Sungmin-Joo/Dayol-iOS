@@ -1,5 +1,5 @@
 //
-//  DYKeybordInputAccessoryView.swift
+//  DYKeyboardInputAccessoryView.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/01/22.
@@ -10,7 +10,7 @@ import UIKit
 private enum Design {
     static let defaultTextColor = UIColor.black
     static let backgroundColor = UIColor.white
-    static let horizontalSeparatorColor = UIColor(decimalRed: 216, green: 216, blue: 216)
+    static let horizontalSeparatorColor = UIColor.gray400
     static let verticalSeparatorColor = UIColor(decimalRed: 225, green: 225, blue: 225)
 
     static let textColorButtonRadius: CGFloat = 13.5
@@ -28,7 +28,7 @@ private enum Design {
 
 }
 
-class DYKeybordInputAccessoryView: UIView {
+class DYKeyboardInputAccessoryView: UIView {
 
     private(set) var checkButton: UIButton = {
         let button = UIButton()
@@ -93,7 +93,7 @@ class DYKeybordInputAccessoryView: UIView {
 
 }
 
-private extension DYKeybordInputAccessoryView {
+private extension DYKeyboardInputAccessoryView {
 
     func updateCurrentTextColor() {
         textColorButton.backgroundColor = currentColor
@@ -118,19 +118,19 @@ private extension DYKeybordInputAccessoryView {
                                                    constant: Design.stackViewInset.left),
             leftStackView.topAnchor.constraint(equalTo: safeArea.topAnchor,
                                                constant: Design.stackViewInset.top),
-            leftStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor,
+            leftStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
                                                   constant: -Design.stackViewInset.bottom),
 
             keyboardDownButton.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            keyboardDownButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            keyboardDownButton.bottomAnchor.constraint(equalTo: bottomAnchor),
             keyboardDownButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
 
             verticalSeparator.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            verticalSeparator.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            verticalSeparator.bottomAnchor.constraint(equalTo: bottomAnchor),
             verticalSeparator.trailingAnchor.constraint(equalTo: keyboardDownButton.leadingAnchor),
             verticalSeparator.widthAnchor.constraint(equalToConstant: 1.0),
 
-            textColorButton.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor),
+            textColorButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             textColorButton.widthAnchor.constraint(equalToConstant: Design.textColorButtonDiameter),
             textColorButton.heightAnchor.constraint(equalToConstant: Design.textColorButtonDiameter),
             textColorButton.trailingAnchor.constraint(equalTo: verticalSeparator.leadingAnchor,

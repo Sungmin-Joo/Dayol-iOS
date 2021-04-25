@@ -18,7 +18,7 @@ private enum Design {
     static let titleLetterSpacing: CGFloat = -0.33
 
     static let subTitleFont = UIFont.systemFont(ofSize: 14.0, weight: .regular)
-    static let subTitleColor = UIColor(decimalRed: 102, green: 102, blue: 102)
+    static let subTitleColor = UIColor.gray800
     static let subTitleLetterSpacing: CGFloat = -0.26
 
     static func attributedTitle(text: String) -> NSAttributedString {

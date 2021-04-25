@@ -25,6 +25,7 @@ enum DiaryCoverColor: CaseIterable {
     case DYPink
     case DYLightBrown
     case DYBrown
+    case DYDark
     case DYDarkYellow
     case DYDarkGreen
     case DYDarkBlue
@@ -54,6 +55,8 @@ enum DiaryCoverColor: CaseIterable {
             return CoverColorSet(red: 200, green: 144, blue: 123)
         case .DYBrown:
             return CoverColorSet(red: 187, green: 120, blue: 76)
+        case .DYDark:
+            return CoverColorSet(red: 0, green: 0, blue: 0)
         case .DYDarkYellow:
             return CoverColorSet(red: 137, green: 127, blue: 109)
         case .DYDarkGreen:
@@ -79,4 +82,22 @@ enum DiaryCoverColor: CaseIterable {
         
         return UIColor(decimalRed: lockerRed, green: lockerGreen, blue: lockerBlue)
     }
+}
+
+extension DiaryCoverColor {
+
+    static var penColorPreset: [DiaryCoverColor] {
+        // TODO: 컬러피커에서 등록한 컬러를 추가하는 로직 필요
+        let presetColors = [
+            DiaryCoverColor.DYDark,
+            DiaryCoverColor.DYRed,
+            DiaryCoverColor.DYYellow,
+            DiaryCoverColor.DYGreen,
+            DiaryCoverColor.DYMint,
+            DiaryCoverColor.DYSkyblue,
+            DiaryCoverColor.DYBlue
+        ]
+        return presetColors
+    }
+
 }

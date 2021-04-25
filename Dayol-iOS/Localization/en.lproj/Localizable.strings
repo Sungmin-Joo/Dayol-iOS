@@ -129,6 +129,8 @@
 "edit_pen_type" = "Type";
 "edit_pen_pen" = "Pen";
 "edit_pen_highlighter" = "Highlighter";
+"edit_pen_palette" = "Palette";
+"edit_pen_custom" = "Custom";
 "edit_pen_opacity" = "Opacity";
 "edit_eraser_title" = "Eraser";
 "edit_eraser_size" = "Eraser size";
@@ -140,6 +142,7 @@
 "" = "Send to back";
 
 "text_style_title" = "Text style";
+"text_style_line_space" = "Line space";
 "text_style_color" = "Text color";
 
 // MARK: - 메모지별

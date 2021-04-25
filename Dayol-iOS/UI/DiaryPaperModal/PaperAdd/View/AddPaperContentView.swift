@@ -11,7 +11,7 @@ import RxCocoa
 
 private enum Design {
     static let tabBarBGColor = UIColor.white
-    static let contentBGColor = UIColor(decimalRed: 242, green: 244, blue: 246)
+    static let contentBGColor = UIColor.gray100
 
     static let tabBarHeight: CGFloat = 50.0
 
@@ -38,6 +38,7 @@ class AddPaperContentView: UIView {
 
     private let disposeBag = DisposeBag()
     let viewModel = AddPaperContentViewModel()
+    var currentSelectedCell: AddPaperCell?
 
     // MARK: - UI Property
 

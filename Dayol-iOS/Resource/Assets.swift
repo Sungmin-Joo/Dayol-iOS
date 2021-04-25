@@ -62,6 +62,10 @@ enum Assets {
         enum ToolBar {
             static let info = UIImage(named: "toolBar_info")
 
+            enum Lasso {
+                static let info = UIImage(named: "toolBar_lasso_info")
+            }
+
             enum Erase: String {
                 case small
                 case medium
@@ -75,6 +79,23 @@ enum Assets {
                     return UIImage(named: "toolBar_\(self.rawValue)_select")
                 }
 
+            }
+
+            enum Pencil {
+                static let penOn = UIImage(named: "toolBar_pencil_pen_on")
+                static let penOff = UIImage(named: "toolBar_pencil_pen_off")
+                static let highlightOn = UIImage(named: "toolBar_pencil_highlight_on")
+                static let highlightOff = UIImage(named: "toolBar_pencil_highlight_off")
+                static let alphaInfoBackground = UIImage(named: "toolBar_pencil_alphaInfo_bg")
+            }
+
+            enum ColorPicker {
+                static let plus = UIImage(named: "toolBar_color_plus")
+            }
+
+            enum TextStyle {
+                static let plusButton = UIImage(named: "toolBar_textStyle_plus")
+                static let minusButton = UIImage(named: "toolBar_textStyle_minus")
             }
         }
 

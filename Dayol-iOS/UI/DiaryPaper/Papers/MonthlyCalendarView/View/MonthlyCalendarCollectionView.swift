@@ -13,13 +13,13 @@ private enum Design {
         case portrait
     }
     static let dayFont = UIFont.systemFont(ofSize: 11, weight: .bold)
-    static let sundayColor = UIColor(decimalRed: 211, green: 27, blue: 27)
-    static let saturdayColor = UIColor(decimalRed: 43, green: 81, blue: 206)
+    static let sundayColor = UIColor.dayolRed
+    static let saturdayColor = UIColor(decimalRed: 41, green: 85, blue: 230)
     static let dayColor: UIColor = .black
     static let dayLetterSpace: CGFloat = -0.42
     static let weekDayHeight: CGFloat = 20
     
-    static let separatorLineColor: UIColor = UIColor(decimalRed: 233, green: 233, blue: 233)
+    static let separatorLineColor: UIColor = .gray200
     static let separatorLineWidth: CGFloat = 1
 }
 

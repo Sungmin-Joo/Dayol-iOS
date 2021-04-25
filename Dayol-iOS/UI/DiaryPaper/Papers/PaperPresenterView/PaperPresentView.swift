@@ -73,10 +73,10 @@ class PaperPresentView: UIView {
         reginterIdentifier()
         
         setupPaperBorder()
-        
-        addSubViewPinEdge(drawingContentView)
-        addSubViewPinEdge(stickerContentView)
+
         addSubview(tableView)
+        tableView.addSubViewPinEdge(drawingContentView)
+        tableView.addSubViewPinEdge(stickerContentView)
         
         setupConstraint()
     }
