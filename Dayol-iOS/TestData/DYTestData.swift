@@ -18,6 +18,7 @@ struct DiaryInnerModel {
         let id: Int
         let paperStyle: PaperStyle
         let paperType: PaperType
+        var numberOfPapers: Int
         // TODO: - 속지 추가 스펙이 있어서 [DrawModel] 로 변경되어야 할 것 같습니다.
         var drawModelList: DrawModel
     }
@@ -71,30 +72,37 @@ class DYTestData {
                             DiaryInnerModel.PaperModel(id: 0,
                                                        paperStyle: .vertical,
                                                        paperType: .daily(date: Date()),
+                                                       numberOfPapers: 1,
                                                        drawModelList: testDrawModel),
                             DiaryInnerModel.PaperModel(id: 1,
                                                        paperStyle: .vertical,
                                                        paperType: .cornell,
+                                                       numberOfPapers: 1,
                                                        drawModelList: testDrawModel),
                             DiaryInnerModel.PaperModel(id: 2,
                                                        paperStyle: .vertical,
                                                        paperType: .grid,
+                                                       numberOfPapers: 1,
                                                        drawModelList: testDrawModel),
                             DiaryInnerModel.PaperModel(id: 3,
                                                        paperStyle: .vertical,
                                                        paperType: .monthly,
+                                                       numberOfPapers: 1,
                                                        drawModelList: testDrawModel),
                             DiaryInnerModel.PaperModel(id: 4,
                                                        paperStyle: .vertical,
                                                        paperType: .weekly,
+                                                       numberOfPapers: 1,
                                                        drawModelList: testDrawModel),
                             DiaryInnerModel.PaperModel(id: 5,
                                                        paperStyle: .vertical,
                                                        paperType: .four,
+                                                       numberOfPapers: 1,
                                                        drawModelList: testDrawModel),
                             DiaryInnerModel.PaperModel(id: 6,
                                                        paperStyle: .vertical,
                                                        paperType: .tracker,
+                                                       numberOfPapers: 1,
                                                        drawModelList: testDrawModel)
                         ])
     ]

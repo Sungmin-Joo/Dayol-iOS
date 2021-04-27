@@ -31,8 +31,9 @@ class AddPaperContentViewModel {
         // TODO: confirm id login
         let paperModel = DiaryInnerModel.PaperModel(
             id: 999,
-            paperStyle:model.paperStyle,
+            paperStyle: model.paperStyle,
             paperType: model.paperType,
+            numberOfPapers: 1,
             drawModelList: DrawModel()
         )
         
