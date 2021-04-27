@@ -13,10 +13,7 @@ private enum Design {
     static let paletteHeight: CGFloat = 50
 }
 
-class DiaryEditViewController: UIViewController {
-
-    let disposeBag = DisposeBag()
-    var currentTool: DYNavigationDrawingToolbar.ToolType = .pencil
+class DiaryEditViewController: DYDrawableViewController {
 
     // MARK: - Private Properties
 
@@ -44,21 +41,19 @@ class DiaryEditViewController: UIViewController {
         return view
     }()
 
-    let accessoryView = DYKeyboardInputAccessoryView(currentColor: .black)
     let diaryEditCoverView: DiaryEditCoverView = {
         let view = DiaryEditCoverView()
         view.translatesAutoresizingMaskIntoConstraints = false
 
         return view
     }()
-
-    let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
     
     // MARK: - Override
     
     override func viewDidLoad() {
         self.view.backgroundColor = .white
         super.viewDidLoad()
+        delegate = self
         setupNavigationBar()
         initView()
 
@@ -111,7 +106,6 @@ class DiaryEditViewController: UIViewController {
         colorBind()
         navigationBind()
         switchBind()
-        toolBarBind()
     }
     
     private func switchBind() {

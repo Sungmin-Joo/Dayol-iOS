@@ -87,8 +87,8 @@ class EraseSettingView: UIView {
 
     private let disposeBag = DisposeBag()
 
-    private var currentEraseType: EraseType
-    private var isObjectErase: Bool
+    private(set) var currentEraseType: EraseType
+    private(set) var isObjectErase: Bool
 
     // MARK: UI Property
 
