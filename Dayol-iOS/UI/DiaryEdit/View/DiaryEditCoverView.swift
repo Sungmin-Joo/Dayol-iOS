@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
-    static let maximumZoomIn: CGFloat = 3.0
+    static let maximumZoomIn: CGFloat = 2.0
     static let minimumZoomOut: CGFloat = 1.0
     
     static let coverCenterY: CGFloat = 30.0
@@ -47,7 +47,9 @@ class DiaryEditCoverView: UIView {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.minimumZoomScale = Design.minimumZoomOut
         scrollView.maximumZoomScale = Design.maximumZoomIn
-        
+        scrollView.bouncesZoom = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }()
     
@@ -137,6 +139,8 @@ extension DiaryEditCoverView {
             diaryView.leftAnchor.constraint(equalTo: contentGuide.leftAnchor),
             diaryView.topAnchor.constraint(equalTo: contentGuide.topAnchor),
             diaryView.leadingAnchor.constraint(equalTo: contentGuide.leadingAnchor),
+            diaryView.widthAnchor.constraint(equalTo: contentGuide.widthAnchor),
+            diaryView.heightAnchor.constraint(equalTo: contentGuide.heightAnchor),
 
             diaryWidthConstraint,
             diaryHeightConstraint,
@@ -152,6 +156,7 @@ extension DiaryEditCoverView {
 }
 
 extension DiaryEditCoverView {
+
     func setCoverColor(color: DiaryCoverColor) {
         diaryView.setCover(color: color)
     }
@@ -159,10 +164,22 @@ extension DiaryEditCoverView {
     func setDayolLogoHidden(_ isHidden: Bool) {
         diaryView.setDayolLogoHidden(isHidden)
     }
+
 }
 
 extension DiaryEditCoverView: UIScrollViewDelegate {
+
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return diaryView
     }
+
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        zoomLabel.isHidden = true
+    }
+
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        guard scale == 1.0 else { return }
+        zoomLabel.isHidden = false
+    }
+
 }

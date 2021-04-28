@@ -1,13 +1,27 @@
 //
-//  DiaryEditViewController+ToolBar.swift
+//  DYDrawableViewController.swift
 //  Dayol-iOS
 //
-//  Created by 주성민 on 2021/03/29.
+//  Created by 주성민 on 2021/04/26.
 //
 
 import UIKit
 import RxCocoa
 import RxSwift
+import Photos
+import PhotosUI
+
+protocol DYDrawableDelegate: AnyObject {
+    func didTapEraseButton()
+    func didTapPencilButton()
+    func didTapTextButton(_ textField: UITextField)
+    func didEndEraseSetting(eraseType: EraseType, isObjectErase: Bool)
+    func didEndPencilSetting()
+    func didEndTextStyle()
+    func showStickerPicekr()
+    func didEndPhotoPick(_ image: UIImage)
+    func didEndStickerPick(_ image: UIImage)
+}
 
 private enum Design {
     static let defaultTextFieldSize = CGSize(width: 20, height: 30)
@@ -32,9 +46,24 @@ private enum Text {
     }
 }
 
-extension DiaryEditViewController {
+class DYDrawableViewController: UIViewController {
 
-    func toolBarBind() {
+    let disposeBag = DisposeBag()
+    let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
+    let accessoryView = DYKeyboardInputAccessoryView(currentColor: .black)
+    var currentTool: DYNavigationDrawingToolbar.ToolType = .pencil
+    weak var delegate: DYDrawableDelegate?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        bindToolBarEvent()
+    }
+
+}
+
+extension DYDrawableViewController {
+
+    func bindToolBarEvent() {
         accessoryViewBind()
         lassoToolBind()
         eraseBind()
@@ -42,10 +71,14 @@ extension DiaryEditViewController {
         textFieldBind()
         photoBind()
     }
+
 }
 
-extension DiaryEditViewController {
+// MARK: - Tool Bar Event
 
+extension DYDrawableViewController {
+    // TODO: - 텍스트 필드의 악세사리 뷰와 텍스트 필드를 동기화 해야함.
+    // 추후에 accessoryView 관련 로직은 크게 변경될 여지가 있음.
     private func accessoryViewBind() {
         accessoryView.keyboardDownButton.rx.tap
             .bind { [weak self] in
@@ -80,6 +113,31 @@ extension DiaryEditViewController {
             .disposed(by: disposeBag)
     }
 
+    private func eraseBind() {
+        toolBar.eraserButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                guard self.currentTool == .eraser else {
+                    self.currentTool = .eraser
+                    self.delegate?.didTapEraseButton()
+                    return
+                }
+                let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .small)
+                let modalVC = DYModalViewController(configure: configuration,
+                                                    title: Text.eraseTitle,
+                                                    hasDownButton: true)
+                let contentView = EraseSettingView()
+                modalVC.dismissCompeletion = {
+                    let eraseType = contentView.currentEraseType
+                    let isObjectErase = contentView.isObjectErase
+                    self.delegate?.didEndEraseSetting(eraseType: eraseType, isObjectErase: isObjectErase)
+                }
+                modalVC.contentView = contentView
+                self.presentCustomModal(modalVC)
+            }
+            .disposed(by: disposeBag)
+    }
+
     private func lassoToolBind() {
         toolBar.snareButton.rx.tap
             .bind { [weak self] in
@@ -93,24 +151,6 @@ extension DiaryEditViewController {
                                                     title: Text.lassoTitle,
                                                     hasDownButton: true)
                 modalVC.contentView = LassoInfoView()
-                self.presentCustomModal(modalVC)
-            }
-            .disposed(by: disposeBag)
-    }
-
-    private func eraseBind() {
-        toolBar.eraserButton.rx.tap
-            .bind { [weak self] in
-                guard let self = self else { return }
-                guard self.currentTool == .eraser else {
-                    self.currentTool = .eraser
-                    return
-                }
-                let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .small)
-                let modalVC = DYModalViewController(configure: configuration,
-                                                    title: Text.eraseTitle,
-                                                    hasDownButton: true)
-                modalVC.contentView = EraseSettingView()
                 self.presentCustomModal(modalVC)
             }
             .disposed(by: disposeBag)
@@ -143,11 +183,7 @@ extension DiaryEditViewController {
                     self.currentTool = .text
                     let textField = UITextField()
                     textField.inputAccessoryView = self.accessoryView
-                    textField.backgroundColor = .darkGray
-                    textField.frame.size = Design.defaultTextFieldSize
-                    textField.frame.origin = .zero
-                    self.diaryEditCoverView.diaryView.addSubview(textField)
-                    textField.becomeFirstResponder()
+                    self.delegate?.didTapTextButton(textField)
                     return
                 }
             }
@@ -157,9 +193,56 @@ extension DiaryEditViewController {
     private func photoBind() {
         toolBar.photoButton.rx.tap
             .bind { [weak self] in
-                self?.showPicker()
+                self?.showImagePicker()
             }
             .disposed(by: disposeBag)
     }
 
+}
+
+extension DYDrawableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
+
+    func showImagePicker() {
+        if #available(iOS 14.0, *) {
+            var configuration = PHPickerConfiguration()
+            configuration.selectionLimit = 1
+            configuration.filter = .any(of: [.images])
+
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            present(picker, animated: true, completion: nil)
+
+        } else {
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.sourceType = .photoLibrary
+
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                present(picker, animated: true)
+            }
+        }
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            delegate?.didEndPhotoPick(image)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+
+    @available(iOS 14.0, *)
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+
+        let itemProvider = results.first?.itemProvider
+        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+                guard let self = self, let image = image as? UIImage else { return }
+
+                DispatchQueue.main.async {
+                    self.delegate?.didEndPhotoPick(image)
+                }
+            }
+        }
+    }
 }

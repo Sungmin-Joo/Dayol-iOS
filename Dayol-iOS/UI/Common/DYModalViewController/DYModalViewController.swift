@@ -27,6 +27,7 @@ class DYModalViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
     private var lastMoved: CGFloat = .greatestFiniteMagnitude
+    var dismissCompeletion: (() -> Void)?
 
     // MARK: - DYModalConfiguration
 
@@ -135,6 +136,7 @@ class DYModalViewController: UIViewController {
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         dismissContentView(animated: flag) {
             super.dismiss(animated: false, completion: completion)
+            self.dismissCompeletion?()
         }
     }
 
