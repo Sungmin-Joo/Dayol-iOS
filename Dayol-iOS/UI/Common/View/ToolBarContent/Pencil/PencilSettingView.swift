@@ -15,14 +15,15 @@ private enum Design {
 }
 
 class PencilSettingView: UIView {
+    typealias PencilInfo = (color: UIColor, pencilType: PencilTypeSettingView.PencilType)
 
-    let colorSubject: CurrentValueSubject<UIColor, Never>
+    var currentPencilInfo: PencilInfo
     private var cancellable: [AnyCancellable] = []
 
     // MARK: UI Property
 
     private let pencilTypeSettingView: PencilTypeSettingView = {
-        let view = PencilTypeSettingView(type: .pen)
+        let view = PencilTypeSettingView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -48,9 +49,11 @@ class PencilSettingView: UIView {
         return stackView
     }()
 
-    init(currentColor: UIColor) {
-        // TODO: 현재 pencil 상태를 가져와서 세팅해주는 로직 추가
-        self.colorSubject = CurrentValueSubject<UIColor, Never>(currentColor)
+    init(currentColor: UIColor, pencilType: PencilTypeSettingView.PencilType) {
+        pencilTypeSettingView.pencilTypeSubject.send(pencilType)
+        colorSettingView.colorSubject.send(currentColor)
+
+        self.currentPencilInfo = (color: currentColor, pencilType: pencilType)
         super.init(frame: .zero)
         initView()
         setupConstraints()
@@ -90,16 +93,18 @@ extension PencilSettingView {
     }
 
     private func bindEvent() {
+
+        pencilTypeSettingView.pencilTypeSubject.sink { [weak self] pencilType in
+            self?.currentPencilInfo.pencilType = pencilType
+        }
+        .store(in: &cancellable)
+
         colorSettingView.colorSubject.sink { [weak self] color in
+            self?.currentPencilInfo.color = color
             self?.pencilAlphaSettingView.set(color: color)
         }
         .store(in: &cancellable)
 
-        colorSubject.sink { [weak self] color in
-            self?.pencilAlphaSettingView.set(color: color)
-            self?.colorSettingView.set(color: color)
-        }
-        .store(in: &cancellable)
     }
 
 }

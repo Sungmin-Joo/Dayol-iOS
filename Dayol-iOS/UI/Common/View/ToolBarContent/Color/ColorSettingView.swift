@@ -35,7 +35,7 @@ private enum Text {
 
 class ColorSettingView: UIView {
 
-    let colorSubject = PassthroughSubject<UIColor, Never>()
+    let colorSubject = CurrentValueSubject<UIColor, Never>(.white)
     private var cancellable: [AnyCancellable] = []
 
     // MARK: UI Property
@@ -74,12 +74,6 @@ class ColorSettingView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-extension ColorSettingView {
-    func set(color: UIColor) {
-        colorPickerContentView.set(color: color)
     }
 }
 
@@ -128,8 +122,14 @@ extension ColorSettingView {
 
     private func bindEvent() {
         colorPickerContentView.colorSubject.sink { [weak self] color in
-            self?.colorSettingPaletteView.set(color: color)
             self?.colorSubject.send(color)
+        }
+        .store(in: &cancellable)
+
+        colorSubject.sink { [weak self] color in
+            self?.colorPickerContentView.set(color: color)
+            self?.colorSettingPaletteView.set(color: color)
+            self?.colorPickerContentView.set(color: color)
         }
         .store(in: &cancellable)
     }
