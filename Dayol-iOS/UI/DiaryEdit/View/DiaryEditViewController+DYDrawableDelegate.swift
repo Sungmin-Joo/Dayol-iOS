@@ -10,11 +10,16 @@ import UIKit
 extension DiaryEditViewController: DYDrawableDelegate {
 
     func didTapEraseButton() {
-
+        let isObjectErase = drawableViewModel.currentEraseTool.isObjectErase
+        let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
+        diaryEditCoverView.diaryView.currentToolSubject.send(eraseTool)
     }
 
     func didTapPencilButton() {
-
+        let pencilColor = drawableViewModel.currentPencilTool.color
+        let isHighlighter = drawableViewModel.currentPencilTool.isHighlighter
+        let pencilTool = DYPencilTool(color: pencilColor, isHighlighter: isHighlighter)
+        diaryEditCoverView.diaryView.currentToolSubject.send(pencilTool)
     }
 
     func didTapTextButton(_ textField: UITextField) {
@@ -22,11 +27,15 @@ extension DiaryEditViewController: DYDrawableDelegate {
     }
 
     func didEndEraseSetting(eraseType: EraseType, isObjectErase: Bool) {
-
+        let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
+        drawableViewModel.currentEraseTool = eraseTool
+        diaryEditCoverView.diaryView.currentToolSubject.send(eraseTool)
     }
 
-    func didEndPencilSetting() {
-
+    func didEndPencilSetting(color: UIColor, isHighlighter: Bool) {
+        let pencilTool = DYPencilTool(color: color, isHighlighter: isHighlighter)
+        drawableViewModel.currentPencilTool = pencilTool
+        diaryEditCoverView.diaryView.currentToolSubject.send(pencilTool)
     }
 
     func didEndTextStyle() {

@@ -19,9 +19,9 @@ class DiaryEditViewController: DYDrawableViewController {
 
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    private let viewModel = DiaryEditViewModel()
     private var currentCoverColor: DiaryCoverColor = .DYBrown
-    
+    let viewModel = DiaryEditViewModel()
+
     // MARK: - UI Components
 
     private let titleView = DYNavigationItemCreator.editableTitleView("새 다이어리")
@@ -56,9 +56,6 @@ class DiaryEditViewController: DYDrawableViewController {
         delegate = self
         setupNavigationBar()
         initView()
-
-        // TODO: - 편집화면 첫 진입 시 pencil tool이 선택되도록 하는 스펙 확인
-        toolBar.pencilButton.isSelected = true
     }
     
     // MARK: - Setup Method

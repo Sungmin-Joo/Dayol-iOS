@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import PencilKit
+import Combine
 
 private enum Design {
     enum Standard {
@@ -16,8 +18,15 @@ private enum Design {
 }
 
 class DiaryView: UIView {
+
+    let currentToolSubject = CurrentValueSubject<DYDrawTool?, Never>(nil)
+    private var cancellable: [AnyCancellable] = []
+
+    // MARK: - UI Properties
+
     private let coverView = DiaryCoverView()
     private let lockerView = DiaryLockerView()
+    private let canvas = PKCanvasView()
 
     private var lockerMarginConstraint: NSLayoutConstraint?
     private var lockerWidthConstraint: NSLayoutConstraint?
@@ -33,15 +42,11 @@ class DiaryView: UIView {
         }
     }
 	
-	init() {
+    init() {
 		super.init(frame: .zero)
-		addSubview(coverView)
-		addSubview(lockerView)
-        
-        coverView.translatesAutoresizingMaskIntoConstraints = false
-        lockerView.translatesAutoresizingMaskIntoConstraints = false
-
-		setConstraints()
+        initView()
+        setConstraints()
+        bindEvent()
 	}
 
 	required init?(coder: NSCoder) {
@@ -55,6 +60,22 @@ class DiaryView: UIView {
         lockerMarginConstraint?.constant = Const.lockerMargin * ratio
         lockerWidthConstraint?.constant = Const.lockerSize.width * ratio
         lockerHeightConstraint?.constant = Const.lockerSize.height * ratio
+    }
+
+    private func initView() {
+        canvas.backgroundColor = .clear
+
+        if #available(iOS 14.0, *) {
+            canvas.drawingPolicy = .anyInput
+        }
+
+        addSubview(coverView)
+        addSubViewPinEdge(canvas)
+        addSubview(lockerView)
+
+        coverView.translatesAutoresizingMaskIntoConstraints = false
+        lockerView.translatesAutoresizingMaskIntoConstraints = false
+
     }
 
 	private func setConstraints() {
@@ -78,6 +99,18 @@ class DiaryView: UIView {
         self.lockerWidthConstraint = lockerWidthConstraint
         self.lockerHeightConstraint = lockerHeightConstraint
 	}
+
+    private func bindEvent() {
+        currentToolSubject.sink { [weak self] tool in
+            guard let pkTool = tool?.pkTool else {
+                self?.canvas.isUserInteractionEnabled = false
+                return
+            }
+            self?.canvas.isUserInteractionEnabled = true
+            self?.canvas.tool = pkTool
+        }
+        .store(in: &cancellable)
+    }
 }
 
 extension DiaryView {
