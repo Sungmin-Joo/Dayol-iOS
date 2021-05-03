@@ -19,8 +19,8 @@ class DiaryEditViewController: DYDrawableViewController {
 
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    private let viewModel = DiaryEditViewModel()
     private var currentCoverColor: DiaryCoverColor = .DYBrown
-    let viewModel = DiaryEditViewModel()
 
     // MARK: - UI Components
 
