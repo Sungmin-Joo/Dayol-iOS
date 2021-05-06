@@ -63,6 +63,9 @@ class DiaryView: UIView {
     }
 
     private func initView() {
+        coverView.translatesAutoresizingMaskIntoConstraints = false
+        lockerView.translatesAutoresizingMaskIntoConstraints = false
+
         canvas.backgroundColor = .clear
 
         if #available(iOS 14.0, *) {
@@ -72,10 +75,6 @@ class DiaryView: UIView {
         addSubview(coverView)
         addSubViewPinEdge(canvas)
         addSubview(lockerView)
-
-        coverView.translatesAutoresizingMaskIntoConstraints = false
-        lockerView.translatesAutoresizingMaskIntoConstraints = false
-
     }
 
 	private func setConstraints() {
