@@ -342,6 +342,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0DFF4D7F2642E84A00B8218B /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */,
+				DAF18E8125B6FB21007ACFAC /* VolteW03Semibold.otf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		0DFF4D802642E8B900B8218B /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				DA4899F4257A08A8005E39ED /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		0DFF4D822642E9DA00B8218B /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCAE8258D292A007738EA /* UIFont+Extension.swift */,
+				CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
 		340E569F25C2DC4E007F2EF7 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,12 +596,12 @@
 			path = ToolBarContent;
 			sourceTree = "<group>";
 		};
-		34C6A3812594F4F900658499 /* Util */ = {
+		34C6A3812594F4F900658499 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				CE8DCC96259101B6007738EA /* DeviceInfo.swift */,
 			);
-			path = Util;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		34C7B3662619748C00BC6A28 /* Erase */ = {
@@ -697,12 +723,10 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
-		CE8DCAE6258D292A007738EA /* Extension */ = {
+		CE8DCAE6258D292A007738EA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				CE8DCAE7258D292A007738EA /* NSAttributedString+Extension.swift */,
-				CE8DCAE8258D292A007738EA /* UIFont+Extension.swift */,
-				CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */,
 				CE8DCB24258FAE72007738EA /* Array+extension.swift */,
 				34CA254125A613CE0057404D /* String+Extension.swift */,
 				34CA255325A61DD10057404D /* NSObject+Extension.swift */,
@@ -710,7 +734,7 @@
 				340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */,
 				3416447E25DAB62100A81FD2 /* CALayer+Extension.swift */,
 			);
-			path = Extension;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		CE8DCAF9258FA181007738EA /* Main */ = {
@@ -829,10 +853,10 @@
 		CEF135E5258115740098BEC3 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				0DFF4D7F2642E84A00B8218B /* Font */,
+				34CA253625A612DF0057404D /* Localization */,
 				DA4899EF257A08A8005E39ED /* Assets.xcassets */,
 				CEF135EE25811D130098BEC3 /* Common.xcassets */,
-				DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */,
-				DAF18E8125B6FB21007ACFAC /* VolteW03Semibold.otf */,
 				CEF135F125811DE30098BEC3 /* Assets.swift */,
 			);
 			path = Resource;
@@ -944,6 +968,7 @@
 		DA4899DA257A08A6005E39ED = {
 			isa = PBXGroup;
 			children = (
+				0DFF4D802642E8B900B8218B /* SupportingFiles */,
 				DA4899E5257A08A6005E39ED /* Dayol-iOS */,
 				DA4899E4257A08A6005E39ED /* Products */,
 				97879934D128660B8AD5B126 /* Pods */,
@@ -962,15 +987,14 @@
 		DA4899E5257A08A6005E39ED /* Dayol-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				DA27AC7925D1750500C71CDE /* TestData */,
-				34CA253625A612DF0057404D /* Localization */,
-				34C6A3812594F4F900658499 /* Util */,
-				CE8DCAE6258D292A007738EA /* Extension */,
-				CEF135E7258115C60098BEC3 /* UI */,
-				CEF135E5258115740098BEC3 /* Resource */,
 				DA4899E6257A08A6005E39ED /* AppDelegate.swift */,
 				DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */,
-				DA4899F4257A08A8005E39ED /* Info.plist */,
+				DA27AC7925D1750500C71CDE /* TestData */,
+				CEF135E7258115C60098BEC3 /* UI */,
+				34C6A3812594F4F900658499 /* Utils */,
+				CE8DCAE6258D292A007738EA /* Extensions */,
+				0DFF4D822642E9DA00B8218B /* Style */,
+				CEF135E5258115740098BEC3 /* Resource */,
 			);
 			path = "Dayol-iOS";
 			sourceTree = "<group>";
@@ -1613,7 +1637,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9X869773GM;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "Dayol-iOS/Info.plist";
+				INFOPLIST_FILE = SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1637,7 +1661,7 @@
 				DAYOL_Name = DAYOL;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "Dayol-iOS/Info.plist";
+				INFOPLIST_FILE = SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
