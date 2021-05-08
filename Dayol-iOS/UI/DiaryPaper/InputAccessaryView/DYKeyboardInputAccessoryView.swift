@@ -74,7 +74,7 @@ class DYKeyboardInputAccessoryView: UIView {
         return stackView
     }()
 
-    private(set) var currentColor: UIColor {
+    var currentColor: UIColor {
         didSet {
             updateCurrentTextColor()
         }

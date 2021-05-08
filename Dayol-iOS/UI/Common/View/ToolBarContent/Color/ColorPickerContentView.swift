@@ -10,13 +10,7 @@ import Combine
 
 class ColorPickerContentView: UIView {
 
-    enum PickMode {
-        case custom, palette
-    }
-
     let colorSubject = PassthroughSubject<UIColor, Never>()
-    let pickModeSubject = CurrentValueSubject<PickMode, Never>(.custom)
-    private var cancellable: [AnyCancellable] = []
     
     // MARK: UIProperty
 
@@ -30,7 +24,6 @@ class ColorPickerContentView: UIView {
     init() {
         super.init(frame: .zero)
         initView()
-        bindEvent()
     }
 
     required init?(coder: NSCoder) {
@@ -53,18 +46,6 @@ extension ColorPickerContentView {
         colorPicker.addTarget(self, action: #selector(handleColorChanged(picker:)), for: .valueChanged)
         addSubview(colorPicker)
         addSubViewPinEdge(colorPicker)
-    }
-
-    private func bindEvent() {
-        pickModeSubject.sink { [weak self] value in
-            guard let self = self else { return }
-            if value == .custom {
-                self.colorPicker.isHidden = false
-            } else {
-                self.colorPicker.isHidden = true
-            }
-        }
-        .store(in: &cancellable)
     }
 
 }

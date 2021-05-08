@@ -23,7 +23,11 @@ extension DiaryEditViewController: DYDrawableDelegate {
     }
 
     func didTapTextButton(_ textField: UITextField) {
-
+        // TODO: - 복수의 텍스트 필드 관리를 어떻게 하면 좋을 지..
+        textField.frame = CGRect(x: 0, y: 0, width: 200, height: 30)
+        textField.backgroundColor = .red
+        diaryEditCoverView.diaryView.addSubview(textField)
+        textField.becomeFirstResponder()
     }
 
     func didEndEraseSetting(eraseType: EraseType, isObjectErase: Bool) {
@@ -38,8 +42,12 @@ extension DiaryEditViewController: DYDrawableDelegate {
         diaryEditCoverView.diaryView.currentToolSubject.send(pencilTool)
     }
 
-    func didEndTextStyle() {
+    func didEndTextStyleSetting() {
 
+    }
+
+    func didEndTextColorSetting(color: UIColor) {
+        // TODO: currentTextField에 color를 연동하는 로직 추가
     }
 
     func showStickerPicekr() {

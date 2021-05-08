@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 private enum Design {
     static let currentColorViewRadius: CGFloat = 18.0
@@ -25,6 +26,7 @@ private enum Design {
 
 class ColorSettingPaletteView: UIView {
 
+    let colorSubject = PassthroughSubject<UIColor, Never>()
     private var colors: [DiaryCoverColor] {
         return DiaryCoverColor.penColorPreset
     }
