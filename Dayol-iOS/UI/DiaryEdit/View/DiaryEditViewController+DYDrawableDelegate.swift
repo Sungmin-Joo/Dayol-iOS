@@ -23,6 +23,7 @@ extension DiaryEditViewController: DYDrawableDelegate {
     }
 
     func didTapTextButton(_ textField: UITextField) {
+        diaryEditCoverView.diaryView.currentToolSubject.send(nil)
         // TODO: - 복수의 텍스트 필드 관리를 어떻게 하면 좋을 지..
         textField.frame = CGRect(x: 0, y: 0, width: 200, height: 30)
         textField.backgroundColor = .red
@@ -51,11 +52,13 @@ extension DiaryEditViewController: DYDrawableDelegate {
     }
 
     func showStickerPicekr() {
-
+        diaryEditCoverView.diaryView.currentToolSubject.send(nil)
     }
 
     func didEndPhotoPick(_ image: UIImage) {
         // 사용 예시 코드
+        diaryEditCoverView.diaryView.currentToolSubject.send(nil)
+        
         let imageView = UIImageView(image: image)
         let imageRatio = image.size.height / image.size.width
         let defaultImageWith: CGFloat = 76.0
