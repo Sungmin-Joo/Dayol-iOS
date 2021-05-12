@@ -12,6 +12,7 @@ private enum Design {
     static let pencilTypeSettingViewHeight: CGFloat = 55.0
     static let pencilAlphaSettingViewHeight: CGFloat = 30.0
     static let pencilAlphaSettingViewWidth: CGFloat = 275.0
+    static let stackViewBottomMargin: CGFloat = 25.0
 }
 
 class PencilSettingView: UIView {
@@ -51,7 +52,8 @@ class PencilSettingView: UIView {
 
     init(currentColor: UIColor, pencilType: PencilTypeSettingView.PencilType) {
         pencilTypeSettingView.pencilTypeSubject.send(pencilType)
-        colorSettingView.colorSubject.send(currentColor)
+        colorSettingView.set(color: currentColor)
+        pencilAlphaSettingView.set(color: currentColor)
 
         self.currentPencilInfo = (color: currentColor, pencilType: pencilType)
         super.init(frame: .zero)
@@ -86,7 +88,8 @@ extension PencilSettingView {
             pencilAlphaSettingView.heightAnchor.constraint(equalToConstant: Design.pencilAlphaSettingViewHeight),
 
             contentStackView.topAnchor.constraint(equalTo: topAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
+                                                     constant: -Design.stackViewBottomMargin),
             contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])

@@ -21,7 +21,7 @@ private enum Design {
     static let segmentedControlHeight: CGFloat = 32.0
 
     static let colorPickerContentViewWidth: CGFloat = 275.0
-    static let colorPickerContentViewHeight: CGFloat = 246.0
+    static let colorPickerContentViewHeight: CGFloat = 262.0
 }
 
 private enum Text {
@@ -35,7 +35,7 @@ private enum Text {
 
 class ColorSettingView: UIView {
 
-    let colorSubject = CurrentValueSubject<UIColor, Never>(.white)
+    let colorSubject = CurrentValueSubject<UIColor, Never>(.black)
     private var cancellable: [AnyCancellable] = []
 
     // MARK: UI Property
@@ -53,14 +53,14 @@ class ColorSettingView: UIView {
         return view
     }()
 
-    private let segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: [Text.paletteTab, Text.customTab])
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        return segmentedControl
+    private let colorPicker: ColorPicker = {
+        let picker = ColorPicker()
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        return picker
     }()
 
-    private let colorPickerContentView: ColorPickerContentView = {
-        let view = ColorPickerContentView()
+    private let spacer: UIView = {
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -79,21 +79,28 @@ class ColorSettingView: UIView {
 
 extension ColorSettingView {
 
+    func set(color: UIColor) {
+        colorSettingPaletteView.set(color: color)
+        colorPicker.set(color: color)
+    }
+
+}
+
+extension ColorSettingView {
+
     private func initView() {
+        colorPicker.addTarget(self, action: #selector(handleColorChanged(picker:)), for: .valueChanged)
+
         addSubview(colorSettingPaletteView)
         addSubview(separator)
-        addSubview(segmentedControl)
-        addSubview(colorPickerContentView)
-
-        segmentedControl.addTarget(self,
-                                   action: #selector(segconChanged(segcon:)),
-                                   for: .valueChanged)
-        segmentedControl.selectedSegmentIndex = 0
+        addSubview(colorPicker)
+        addSubview(spacer)
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            colorSettingPaletteView.topAnchor.constraint(equalTo: topAnchor),
+            colorSettingPaletteView.topAnchor.constraint(equalTo: topAnchor,
+                                                         constant: Design.contentSpacing),
             colorSettingPaletteView.widthAnchor.constraint(equalTo: widthAnchor),
             colorSettingPaletteView.heightAnchor.constraint(equalToConstant: Design.colorSettingPalletViewHeight),
             colorSettingPaletteView.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -105,31 +112,23 @@ extension ColorSettingView {
             separator.heightAnchor.constraint(equalToConstant: Design.separatorHeight),
             separator.centerXAnchor.constraint(equalTo: centerXAnchor),
 
-            segmentedControl.topAnchor.constraint(equalTo: separator.bottomAnchor,
-                                                  constant: Design.contentSpacing),
-            segmentedControl.widthAnchor.constraint(equalToConstant: Design.segmentedControlWidth),
-            segmentedControl.heightAnchor.constraint(equalToConstant: Design.segmentedControlHeight),
-            segmentedControl.centerXAnchor.constraint(equalTo: centerXAnchor),
-
-            colorPickerContentView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor,
+            colorPicker.topAnchor.constraint(equalTo: separator.bottomAnchor,
                                                         constant: Design.contentSpacing),
-            colorPickerContentView.widthAnchor.constraint(equalToConstant: Design.colorPickerContentViewWidth),
-            colorPickerContentView.heightAnchor.constraint(equalToConstant: Design.colorPickerContentViewHeight),
-            colorPickerContentView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            colorPickerContentView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            colorPicker.widthAnchor.constraint(equalToConstant: Design.colorPickerContentViewWidth),
+            colorPicker.heightAnchor.constraint(equalToConstant: Design.colorPickerContentViewHeight),
+            colorPicker.centerXAnchor.constraint(equalTo: centerXAnchor),
+            colorPicker.bottomAnchor.constraint(equalTo: spacer.topAnchor),
+
+            spacer.leftAnchor.constraint(equalTo: leftAnchor),
+            spacer.rightAnchor.constraint(equalTo: rightAnchor),
+            spacer.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 
     private func bindEvent() {
-        colorPickerContentView.colorSubject.sink { [weak self] color in
+        colorSettingPaletteView.colorSubject.sink { [weak self] color in
+            self?.colorPicker.set(color: color)
             self?.colorSubject.send(color)
-        }
-        .store(in: &cancellable)
-
-        colorSubject.sink { [weak self] color in
-            self?.colorPickerContentView.set(color: color)
-            self?.colorSettingPaletteView.set(color: color)
-            self?.colorPickerContentView.set(color: color)
         }
         .store(in: &cancellable)
     }
@@ -138,13 +137,9 @@ extension ColorSettingView {
 
 extension ColorSettingView {
 
-    @objc
-    func segconChanged(segcon: UISegmentedControl) {
-        if segcon.selectedSegmentIndex == 0 {
-            colorPickerContentView.pickModeSubject.send(.custom)
-        } else {
-            colorPickerContentView.pickModeSubject.send(.palette)
-        }
+    @objc func handleColorChanged(picker: ColorPicker) {
+        colorSettingPaletteView.set(color: picker.color)
+        colorSubject.send(picker.color)
     }
-    
+
 }

@@ -18,7 +18,8 @@ protocol DYDrawableDelegate: AnyObject {
     func didTapTextButton(_ textField: UITextField)
     func didEndEraseSetting(eraseType: EraseType, isObjectErase: Bool)
     func didEndPencilSetting(color: UIColor, isHighlighter: Bool)
-    func didEndTextStyle()
+    func didEndTextStyleSetting()
+    func didEndTextColorSetting(color: UIColor)
     func showStickerPicekr()
     func didEndPhotoPick(_ image: UIImage)
     func didEndStickerPick(_ image: UIImage)
@@ -27,6 +28,7 @@ protocol DYDrawableDelegate: AnyObject {
 private enum Design {
     static let defaultTextFieldSize = CGSize(width: 20, height: 30)
     static let penSettingModalHeight: CGFloat = 554.0
+    static let textColorSettingModalHeight: CGFloat = 441.0
 }
 
 private enum Text {
@@ -110,7 +112,24 @@ extension DYDrawableViewController {
             self?.delegate?.didEndPencilSetting(color: newColor, isHighlighter: newIsHighlighter)
         }
         modalVC.contentView = contentView
-        self.presentCustomModal(modalVC)
+        presentCustomModal(modalVC)
+    }
+
+    private func showColorModal() {
+        let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .custom(containerHeight: Design.textColorSettingModalHeight))
+        let modalVC = DYModalViewController(configure: configuration,
+                                            title: Text.penTitle,
+                                            hasDownButton: true)
+        // TODO: 현재 텍스트 필드의 컬러의 색상 연동
+        let currentTextColor = UIColor.blue
+        let contentView = ColorSettingView()
+        contentView.set(color: currentTextColor)
+        modalVC.dismissCompeletion = { [weak self] in
+            let newColor = contentView.colorSubject.value
+            self?.delegate?.didEndTextColorSetting(color: newColor)
+        }
+        modalVC.contentView = contentView
+        presentCustomModal(modalVC)
     }
 
 }
@@ -149,7 +168,7 @@ extension DYDrawableViewController {
             .bind { [weak self] in
                 guard let self = self else { return }
                 self.view.endEditing(true)
-                // TODO: - 추후 컬러피커 완성되면 추가 예정
+                self.showColorModal()
             }
             .disposed(by: disposeBag)
     }
@@ -204,15 +223,19 @@ extension DYDrawableViewController {
     private func textFieldBind() {
         toolBar.textButton.rx.tap
             .bind { [weak self] in
-                // TODO: - 다욜 텍스트 필드 구현 후 연동해야합니다.
+                // TODO: 다욜 텍스트 필드 구현 후 연동해야합니다.
                 guard let self = self else { return }
-                guard self.currentTool == .text else {
-                    self.currentTool = .text
-                    let textField = UITextField()
-                    textField.inputAccessoryView = self.accessoryView
-                    self.delegate?.didTapTextButton(textField)
-                    return
-                }
+                guard self.currentTool != .text else { return }
+                self.currentTool = .text
+                let textField = UITextField()
+                // testCode
+                textField.textColor = .blue
+                let textColor = textField.textColor ?? .black
+
+                self.accessoryView.currentColor = textColor
+                textField.inputAccessoryView = self.accessoryView
+                self.delegate?.didTapTextButton(textField)
+                return
             }
             .disposed(by: disposeBag)
     }
