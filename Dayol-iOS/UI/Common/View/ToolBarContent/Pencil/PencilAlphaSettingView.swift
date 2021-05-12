@@ -21,6 +21,9 @@ private enum Design {
     static let alphaInfoViewWidth: CGFloat = 48.0
     static let alphaInfoViewHeight: CGFloat = 30.0
 
+    static let plusMinusButtonWidth: CGFloat = 30.0
+    static let stackViewSpacing: CGFloat = 10.0
+
 }
 
 private enum Text {
@@ -73,6 +76,7 @@ class PencilAlphaSettingView: UIView {
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .center
+        stackView.spacing = Design.stackViewSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -111,6 +115,10 @@ extension PencilAlphaSettingView {
         NSLayoutConstraint.activate([
             alphaLabelView.widthAnchor.constraint(equalToConstant: Design.alphaInfoViewWidth),
             alphaLabelView.heightAnchor.constraint(equalToConstant: Design.alphaInfoViewHeight),
+            plusButton.widthAnchor.constraint(equalToConstant: Design.plusMinusButtonWidth),
+            plusButton.heightAnchor.constraint(equalToConstant: Design.plusMinusButtonWidth),
+            minusButton.widthAnchor.constraint(equalToConstant: Design.plusMinusButtonWidth),
+            minusButton.heightAnchor.constraint(equalToConstant: Design.plusMinusButtonWidth),
 
             contentStackView.topAnchor.constraint(equalTo: topAnchor),
             contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
