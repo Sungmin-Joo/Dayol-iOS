@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Combine
 
 private enum Design {
     static let maximumZoomIn: CGFloat = 2.0
@@ -39,6 +40,8 @@ private enum Text {
 }
 
 class DiaryEditCoverView: UIView {
+
+    private var cancellable: [AnyCancellable] = []
 
     // UI Porperty
 
@@ -84,6 +87,7 @@ class DiaryEditCoverView: UIView {
     init() {
         super.init(frame: .zero)
         initView()
+        bindEvent()
     }
     
     required init?(coder: NSCoder) {
@@ -153,6 +157,17 @@ extension DiaryEditCoverView {
         self.diaryHeightConstraint = diaryHeightConstraint
     }
 
+    private func bindEvent() {
+        diaryView.currentToolSubject.sink { [weak self] tool in
+            guard tool != nil else {
+                self?.scrollView.panGestureRecognizer.minimumNumberOfTouches = 1
+                return
+            }
+            self?.scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
+        }
+        .store(in: &cancellable)
+    }
+
 }
 
 extension DiaryEditCoverView {
@@ -174,12 +189,20 @@ extension DiaryEditCoverView: UIScrollViewDelegate {
     }
 
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        scrollView.panGestureRecognizer.isEnabled = false
         zoomLabel.isHidden = true
     }
 
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        guard scale == 1.0 else { return }
-        zoomLabel.isHidden = false
+        scrollView.panGestureRecognizer.isEnabled = true
+
+        if scale == 1.0 {
+            zoomLabel.isHidden = false
+        }
+    }
+
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        scrollView.setContentOffset(scrollView.contentOffset, animated: false)
     }
 
 }
