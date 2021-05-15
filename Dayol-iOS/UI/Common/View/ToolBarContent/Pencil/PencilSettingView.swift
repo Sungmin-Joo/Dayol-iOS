@@ -12,17 +12,19 @@ private enum Design {
     static let pencilTypeSettingViewHeight: CGFloat = 55.0
     static let pencilAlphaSettingViewHeight: CGFloat = 30.0
     static let pencilAlphaSettingViewWidth: CGFloat = 275.0
+    static let stackViewBottomMargin: CGFloat = 25.0
 }
 
 class PencilSettingView: UIView {
+    typealias PencilInfo = (color: UIColor, pencilType: PencilTypeSettingView.PencilType)
 
-    let colorSubject: CurrentValueSubject<UIColor, Never>
+    var currentPencilInfo: PencilInfo
     private var cancellable: [AnyCancellable] = []
 
     // MARK: UI Property
 
     private let pencilTypeSettingView: PencilTypeSettingView = {
-        let view = PencilTypeSettingView(type: .pen)
+        let view = PencilTypeSettingView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -48,9 +50,12 @@ class PencilSettingView: UIView {
         return stackView
     }()
 
-    init(currentColor: UIColor) {
-        // TODO: 현재 pencil 상태를 가져와서 세팅해주는 로직 추가
-        self.colorSubject = CurrentValueSubject<UIColor, Never>(currentColor)
+    init(currentColor: UIColor, pencilType: PencilTypeSettingView.PencilType) {
+        pencilTypeSettingView.pencilTypeSubject.send(pencilType)
+        colorSettingView.set(color: currentColor)
+        pencilAlphaSettingView.set(color: currentColor)
+
+        self.currentPencilInfo = (color: currentColor, pencilType: pencilType)
         super.init(frame: .zero)
         initView()
         setupConstraints()
@@ -83,23 +88,26 @@ extension PencilSettingView {
             pencilAlphaSettingView.heightAnchor.constraint(equalToConstant: Design.pencilAlphaSettingViewHeight),
 
             contentStackView.topAnchor.constraint(equalTo: topAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
+                                                     constant: -Design.stackViewBottomMargin),
             contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 
     private func bindEvent() {
+
+        pencilTypeSettingView.pencilTypeSubject.sink { [weak self] pencilType in
+            self?.currentPencilInfo.pencilType = pencilType
+        }
+        .store(in: &cancellable)
+
         colorSettingView.colorSubject.sink { [weak self] color in
+            self?.currentPencilInfo.color = color
             self?.pencilAlphaSettingView.set(color: color)
         }
         .store(in: &cancellable)
 
-        colorSubject.sink { [weak self] color in
-            self?.pencilAlphaSettingView.set(color: color)
-            self?.colorSettingView.set(color: color)
-        }
-        .store(in: &cancellable)
     }
 
 }

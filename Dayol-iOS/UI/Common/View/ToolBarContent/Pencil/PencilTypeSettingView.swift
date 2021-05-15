@@ -52,7 +52,7 @@ class PencilTypeSettingView: UIView {
 
     private let disposeBag = DisposeBag()
     private var cancellable: [AnyCancellable] = []
-    let typeSubject = CurrentValueSubject<PencilType, Never>(.pen)
+    let pencilTypeSubject = CurrentValueSubject<PencilType, Never>(.pen)
 
     // MARK: UI Property
 
@@ -91,8 +91,7 @@ class PencilTypeSettingView: UIView {
         return stackView
     }()
 
-    init(type: PencilType) {
-        self.typeSubject.send(type)
+    init() {
         super.init(frame: .zero)
         initView()
         setupConstraints()
@@ -120,7 +119,7 @@ extension PencilTypeSettingView {
     }
 
     private func bindEvent() {
-        typeSubject.sink { [weak self] value in
+        pencilTypeSubject.sink { [weak self] value in
             guard let self = self else { return }
 
             let isPen = value == .pen
@@ -136,13 +135,13 @@ extension PencilTypeSettingView {
 
         penButton.rx.tap
             .bind { [weak self] in
-                self?.typeSubject.send(.pen)
+                self?.pencilTypeSubject.send(.pen)
             }
             .disposed(by: disposeBag)
 
         highlightButton.rx.tap
             .bind { [weak self] in
-                self?.typeSubject.send(.highlighter)
+                self?.pencilTypeSubject.send(.highlighter)
             }
             .disposed(by: disposeBag)
     }

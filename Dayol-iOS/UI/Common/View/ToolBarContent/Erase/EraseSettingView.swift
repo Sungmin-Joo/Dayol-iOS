@@ -165,6 +165,7 @@ class EraseSettingView: UIView {
         super.init(frame: .zero)
         initView()
         setupConstraints()
+        bindEvent()
     }
 
     required init?(coder: NSCoder) {
@@ -180,6 +181,7 @@ extension EraseSettingView {
         setupEraseSettingArea()
         setupObjectEraseSettingArea()
 
+        objectEraseSwitch.isOn = isObjectErase
         backgroundColor = .gray100
         addSubview(separatorView)
     }
@@ -262,6 +264,16 @@ extension EraseSettingView {
 
     private func clearButtons() {
         buttons.forEach { $0.isSelected = false }
+    }
+
+    private func bindEvent() {
+        objectEraseSwitch.rx
+            .controlEvent(.valueChanged)
+            .withLatestFrom(objectEraseSwitch.rx.value)
+            .subscribe { [weak self] isObjectErase in
+                self?.isObjectErase = isObjectErase
+            }
+            .disposed(by: disposeBag)
     }
 
 }
