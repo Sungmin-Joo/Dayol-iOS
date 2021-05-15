@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D27B097264FBCB0001AD911 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B096264FBCB0001AD911 /* LaunchViewController.swift */; };
+		0D27B099264FF8EC001AD911 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */; };
+		0D27B09B264FFD12001AD911 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09A264FFD12001AD911 /* Thread.swift */; };
+		0D27B09D264FFD48001AD911 /* LaunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09C264FFD48001AD911 /* LaunchManager.swift */; };
+		0D27B0A02650008B001AD911 /* DayolUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09F2650008B001AD911 /* DayolUserDefault.swift */; };
 		340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A025C2DC73007F2EF7 /* DYToastView.swift */; };
 		340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */; };
 		340E56AA25C831E2007F2EF7 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A925C831E2007F2EF7 /* InfoView.swift */; };
@@ -166,6 +171,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D27B096264FBCB0001AD911 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		0D27B09A264FFD12001AD911 /* Thread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
+		0D27B09C264FFD48001AD911 /* LaunchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchManager.swift; sourceTree = "<group>"; };
+		0D27B09F2650008B001AD911 /* DayolUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolUserDefault.swift; sourceTree = "<group>"; };
+		0D27B0A326500770001AD911 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2D2405592E98948CDE582F1F /* Pods-Dayol-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		340E56A025C2DC73007F2EF7 /* DYToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYToastView.swift; sourceTree = "<group>"; };
 		340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -342,6 +353,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D27B095264FBC6B001AD911 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				0D27B09C264FFD48001AD911 /* LaunchManager.swift */,
+				0D27B096264FBCB0001AD911 /* LaunchViewController.swift */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		0D27B09E26500059001AD911 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				0D27B09F2650008B001AD911 /* DayolUserDefault.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
 		0DFF4D7F2642E84A00B8218B /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -600,6 +628,7 @@
 			isa = PBXGroup;
 			children = (
 				CE8DCC96259101B6007738EA /* DeviceInfo.swift */,
+				0D27B09A264FFD12001AD911 /* Thread.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -733,6 +762,7 @@
 				DAF18E9325B70C26007ACFAC /* Date+Calendar.swift */,
 				340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */,
 				3416447E25DAB62100A81FD2 /* CALayer+Extension.swift */,
+				0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -866,6 +896,7 @@
 			isa = PBXGroup;
 			children = (
 				CEB9EE402583C7AF005B66C9 /* Common */,
+				0D27B095264FBC6B001AD911 /* Launch */,
 				CEF135E8258115E30098BEC3 /* Home */,
 				DAE29CE92584F1F80028010B /* Password */,
 				DAD66732259B54FD00E8F59A /* DiaryEdit */,
@@ -989,6 +1020,7 @@
 			children = (
 				DA4899E6257A08A6005E39ED /* AppDelegate.swift */,
 				DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */,
+				0D27B09E26500059001AD911 /* UserDefaults */,
 				DA27AC7925D1750500C71CDE /* TestData */,
 				CEF135E7258115C60098BEC3 /* UI */,
 				34C6A3812594F4F900658499 /* Utils */,
@@ -1338,6 +1370,7 @@
 				DAD66751259F44D300E8F59A /* DYNavigationDrawingToolbar.swift in Sources */,
 				340E56B325C85B5F007F2EF7 /* AddPaperHeaderView.swift in Sources */,
 				DAD66751259F44D300E8F59A /* DYNavigationDrawingToolbar.swift in Sources */,
+				0D27B099264FF8EC001AD911 /* UIViewController+Extension.swift in Sources */,
 				DAEF76B225F90D6E007CAA93 /* DiaryPaperViewerViewController+UIPageViewController.swift in Sources */,
 				DADD0AD425AF24FC004D6CF0 /* DYStickerView.swift in Sources */,
 				DAD6674E259C8C5B00E8F59A /* DYNavigationEditableTitle.swift in Sources */,
@@ -1379,6 +1412,7 @@
 				CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */,
 				DAD48A29260CCAEC008B542E /* DiaryPaperEditViewModel.swift in Sources */,
 				34A2EDC225B856D1008DB98D /* PaperModel.swift in Sources */,
+				0D27B0A02650008B001AD911 /* DayolUserDefault.swift in Sources */,
 				DAD48A36260CD563008B542E /* StickerModalCollectionView.swift in Sources */,
 				34AD5A8425C9A87600D9E29C /* PaperListAddCell.swift in Sources */,
 				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
@@ -1408,6 +1442,7 @@
 				DAD6675425A18BAE00E8F59A /* DYNavigationFunctionToolBar.swift in Sources */,
 				DAA54B9A262EE4910085A304 /* DYFloatingView.swift in Sources */,
 				CE8DCAEA258D292A007738EA /* NSAttributedString+Extension.swift in Sources */,
+				0D27B09B264FFD12001AD911 /* Thread.swift in Sources */,
 				DAD66734259B551600E8F59A /* DiaryEditViewController.swift in Sources */,
 				34CA254625A6190D0057404D /* SettingsViewController.swift in Sources */,
 				DA27AC7B25D1751A00C71CDE /* DYTestData.swift in Sources */,
@@ -1465,6 +1500,7 @@
 				DAD489EF26026A33008B542E /* DrawingContentView.swift in Sources */,
 				DA9A872F2610A93200ABCD07 /* DYStickerBaseView.swift in Sources */,
 				DA9A87322610A98100ABCD07 /* DYStickerWidthStretchableView.swift in Sources */,
+				0D27B097264FBCB0001AD911 /* LaunchViewController.swift in Sources */,
 				34CA255B25A75A340057404D /* SettingCellProtocol.swift in Sources */,
 				3416447F25DAB62100A81FD2 /* CALayer+Extension.swift in Sources */,
 				DAD48A33260CD551008B542E /* StickerModalHeaderView.swift in Sources */,
@@ -1478,6 +1514,7 @@
 				DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */,
 				34A07156262DCE1E009BA700 /* ColorPickerContentView.swift in Sources */,
 				34C7B36C2619765500BC6A28 /* TextStyleModel.swift in Sources */,
+				0D27B09D264FFD48001AD911 /* LaunchManager.swift in Sources */,
 				34A11A4F25ADC93300678F98 /* AddPaperContentView.swift in Sources */,
 				34C7B37E2619E2C800BC6A28 /* TextStyleAdditionalOptionView.swift in Sources */,
 			);
@@ -1500,6 +1537,7 @@
 			children = (
 				DA4899F2257A08A8005E39ED /* Base */,
 				34CA253E25A613540057404D /* ko */,
+				0D27B0A326500770001AD911 /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1684,7 +1722,7 @@
 				DA4899F6257A08A8005E39ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		DA4899F7257A08A8005E39ED /* Build configuration list for PBXNativeTarget "Dayol-iOS" */ = {
 			isa = XCConfigurationList;
@@ -1693,7 +1731,7 @@
 				DA4899F9257A08A8005E39ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

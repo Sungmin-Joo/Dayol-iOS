@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController(rootViewController: homeViewController)
 
         navigationController.isNavigationBarHidden = true
+
+        let splashVC = LaunchViewController()
         window.rootViewController = navigationController
         
 		self.window = window
