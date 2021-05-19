@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D139025265009AF0034A360 /* OnboadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D139024265009AF0034A360 /* OnboadingView.swift */; };
 		0D27B097264FBCB0001AD911 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B096264FBCB0001AD911 /* LaunchViewController.swift */; };
 		0D27B099264FF8EC001AD911 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */; };
 		0D27B09B264FFD12001AD911 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09A264FFD12001AD911 /* Thread.swift */; };
 		0D27B09D264FFD48001AD911 /* LaunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09C264FFD48001AD911 /* LaunchManager.swift */; };
 		0D27B0A02650008B001AD911 /* DayolUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09F2650008B001AD911 /* DayolUserDefault.swift */; };
+		0DC56E96265510020056C28E /* OnboadingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E95265510020056C28E /* OnboadingContentView.swift */; };
+		0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E9726551AA40056C28E /* UILabel+Extension.swift */; };
 		340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A025C2DC73007F2EF7 /* DYToastView.swift */; };
 		340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */; };
 		340E56AA25C831E2007F2EF7 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A925C831E2007F2EF7 /* InfoView.swift */; };
@@ -172,12 +175,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D139024265009AF0034A360 /* OnboadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingView.swift; sourceTree = "<group>"; };
 		0D27B096264FBCB0001AD911 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		0D27B09A264FFD12001AD911 /* Thread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		0D27B09C264FFD48001AD911 /* LaunchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchManager.swift; sourceTree = "<group>"; };
 		0D27B09F2650008B001AD911 /* DayolUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolUserDefault.swift; sourceTree = "<group>"; };
 		0D27B0A326500770001AD911 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		0DC56E95265510020056C28E /* OnboadingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingContentView.swift; sourceTree = "<group>"; };
+		0DC56E9726551AA40056C28E /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		2D2405592E98948CDE582F1F /* Pods-Dayol-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		340E56A025C2DC73007F2EF7 /* DYToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYToastView.swift; sourceTree = "<group>"; };
 		340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -360,6 +366,8 @@
 			children = (
 				0D27B09C264FFD48001AD911 /* LaunchManager.swift */,
 				0D27B096264FBCB0001AD911 /* LaunchViewController.swift */,
+				0D139024265009AF0034A360 /* OnboadingView.swift */,
+				0DC56E95265510020056C28E /* OnboadingContentView.swift */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -773,6 +781,7 @@
 				340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */,
 				3416447E25DAB62100A81FD2 /* CALayer+Extension.swift */,
 				0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */,
+				0DC56E9726551AA40056C28E /* UILabel+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1375,6 +1384,7 @@
 			files = (
 				CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */,
 				DA9A87392610AA3800ABCD07 /* DYStickerSizeStretchableView.swift in Sources */,
+				0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */,
 				DAC04CCA25920C16003A7BC8 /* DiaryCoverView.swift in Sources */,
 				DADD09FB25A33674004D6CF0 /* DiaryEditCoverView.swift in Sources */,
 				3452670C25DD644B00EC6F9D /* DataBackupViewModel.swift in Sources */,
@@ -1397,6 +1407,7 @@
 				3452671025DD64AE00EC6F9D /* DataBackupCloudContentView.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
 				3416445325D8C0A900A81FD2 /* DeletedPageListView.swift in Sources */,
+				0D139025265009AF0034A360 /* OnboadingView.swift in Sources */,
 				DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */,
 				DAD489F326026A41008B542E /* StickerContentView.swift in Sources */,
 				3452671325DD66F400EC6F9D /* DataBackupExportContentView.swift in Sources */,
@@ -1528,6 +1539,7 @@
 				34C7B36C2619765500BC6A28 /* TextStyleModel.swift in Sources */,
 				0D27B09D264FFD48001AD911 /* LaunchManager.swift in Sources */,
 				34A11A4F25ADC93300678F98 /* AddPaperContentView.swift in Sources */,
+				0DC56E96265510020056C28E /* OnboadingContentView.swift in Sources */,
 				34C7B37E2619E2C800BC6A28 /* TextStyleAdditionalOptionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

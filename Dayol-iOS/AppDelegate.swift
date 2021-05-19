@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.isNavigationBarHidden = true
 
         let splashVC = LaunchViewController()
-        window.rootViewController = navigationController
+        window.rootViewController = splashVC
         
 		self.window = window
 		self.window?.makeKeyAndVisible()

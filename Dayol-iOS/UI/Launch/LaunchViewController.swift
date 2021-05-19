@@ -29,6 +29,13 @@ final class LaunchViewController: UIViewController {
         return imageView
     }()
 
+    private lazy var onboadingView: OnboadingView = {
+        let onboadingView = OnboadingView()
+        onboadingView.translatesAutoresizingMaskIntoConstraints = false
+        onboadingView.isHidden = true
+        return onboadingView
+    }()
+
     private let splashManager = LaunchManager()
     private let disposeBag = DisposeBag()
 
@@ -50,10 +57,23 @@ final class LaunchViewController: UIViewController {
         splashManager.showOnboarding
             .observeOn(MainScheduler.instance)
             .subscribe { [weak self] result in
-                guard let shouldOnboading = result.element, !shouldOnboading else { return }
-                UIView.animate(withDuration: 2) {
-                    self?.logoImageView.isHidden = true
-                    self?.labelImageView.isHidden = true
+                guard
+                    let self = self,
+                    let shouldOnboading = result.element,
+                    shouldOnboading
+                else {
+                    return
+                }
+                UIView.animate(withDuration: 0.2) {
+                    self.logoImageView.isHidden = true
+                    self.labelImageView.isHidden = true
+
+                    self.view.addSubview(self.onboadingView)
+                    self.configureOnboadingConstraints()
+
+                    self.onboadingView.isHidden = false
+                    self.onboadingView.layoutIfNeeded()
+                    self.onboadingView.configureOnboard()
                 }
 //                DYUserDefaults.shouldOnboading = !shouldOnboading
             }
@@ -75,6 +95,15 @@ private extension LaunchViewController {
             labelImageView.heightAnchor.constraint(equalToConstant: 17),
             labelImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             labelImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 30)
+        ])
+    }
+
+    func configureOnboadingConstraints() {
+        NSLayoutConstraint.activate([
+            onboadingView.topAnchor.constraint(equalTo: view.topAnchor),
+            onboadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            onboadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            onboadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
