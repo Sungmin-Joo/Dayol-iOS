@@ -98,8 +98,14 @@ class OnboadingView: UIView {
     private let startButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 6
+        button.layer.masksToBounds = true
         button.setTitle("시작하기", for: .normal)
-        button.isHidden = true
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
+        button.titleLabel?.addLetterSpacing(-0.31)
+        button.setBackgroundColor(.dayolBrown, for: .normal)
+        button.alpha = 0
         return button
     }()
 
@@ -126,6 +132,8 @@ class OnboadingView: UIView {
         pageControl.isUserInteractionEnabled = false
 
         skipButton.addTarget(self, action: #selector(skipAction(_:)), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(nextAction(_:)), for: .touchUpInside)
+        startButton.addTarget(self, action: #selector(startAction(_:)), for: .touchUpInside)
 
         configureConstraints()
     }
@@ -152,9 +160,21 @@ class OnboadingView: UIView {
 
 private extension OnboadingView {
     @objc func skipAction(_ sender: UIButton) {
-        let posX = contentPageScrollView.contentSize.width - contentPageScrollView.frame.width
+        let posX = contentPageScrollView.contentSize.width - self.frame.width
         contentPageScrollView.setContentOffset(CGPoint(x: posX, y: .zero), animated: true)
+    }
 
+    @objc func nextAction(_ sender: UIButton) {
+        let posX = (self.frame.width * CGFloat((pageControl.currentPage + 1)) + 1)
+        contentPageScrollView.setContentOffset(CGPoint(x: posX, y: .zero), animated: true)
+    }
+
+    @objc func startAction(_ sender: UIButton) {
+        let homeViewController = HomeViewController()
+        let navigationController = UINavigationController(rootViewController: homeViewController)
+        navigationController.isNavigationBarHidden = true
+
+        AppDelegate.shared?.window?.switchRootViewController(navigationController)
     }
 }
 
@@ -168,14 +188,17 @@ private extension OnboadingView {
 
             skipButton.widthAnchor.constraint(equalToConstant: 55),
             skipButton.heightAnchor.constraint(equalToConstant: 19),
-            skipButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -34),
+            skipButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -34),
             skipButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             nextButton.widthAnchor.constraint(equalToConstant: 31),
             nextButton.heightAnchor.constraint(equalToConstant: 21),
-            nextButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -34),
+            nextButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -34),
             nextButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
 
-            startButton.widthAnchor.constraint(lessThanOrEqualToConstant: 335)
+            startButton.heightAnchor.constraint(equalToConstant: 50),
+            startButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            startButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            startButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
 
             pageStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             pageStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -189,5 +212,12 @@ private extension OnboadingView {
 extension OnboadingView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.pageControl.currentPage = Int(scrollView.contentOffset.x / self.frame.width)
+
+        let shouldShowStartButton = (pageControl.currentPage + 1) >= datas.count
+        UIView.animate(withDuration: 0.3) {
+            self.skipButton.alpha = shouldShowStartButton ? 0.0 : 1.0
+            self.nextButton.alpha = shouldShowStartButton ? 0.0 : 1.0
+            self.startButton.alpha = shouldShowStartButton ? 1.0 : 0.0
+        }
     }
 }

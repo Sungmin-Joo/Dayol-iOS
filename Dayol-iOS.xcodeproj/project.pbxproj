@@ -15,6 +15,7 @@
 		0D27B0A02650008B001AD911 /* DayolUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09F2650008B001AD911 /* DayolUserDefault.swift */; };
 		0DC56E96265510020056C28E /* OnboadingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E95265510020056C28E /* OnboadingContentView.swift */; };
 		0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E9726551AA40056C28E /* UILabel+Extension.swift */; };
+		0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E992655530D0056C28E /* UIButton.Extension.swift */; };
 		340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A025C2DC73007F2EF7 /* DYToastView.swift */; };
 		340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */; };
 		340E56AA25C831E2007F2EF7 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A925C831E2007F2EF7 /* InfoView.swift */; };
@@ -184,6 +185,7 @@
 		0D27B0A326500770001AD911 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0DC56E95265510020056C28E /* OnboadingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingContentView.swift; sourceTree = "<group>"; };
 		0DC56E9726551AA40056C28E /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		0DC56E992655530D0056C28E /* UIButton.Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.Extension.swift; sourceTree = "<group>"; };
 		2D2405592E98948CDE582F1F /* Pods-Dayol-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		340E56A025C2DC73007F2EF7 /* DYToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYToastView.swift; sourceTree = "<group>"; };
 		340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -782,6 +784,7 @@
 				3416447E25DAB62100A81FD2 /* CALayer+Extension.swift */,
 				0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */,
 				0DC56E9726551AA40056C28E /* UILabel+Extension.swift */,
+				0DC56E992655530D0056C28E /* UIButton.Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1438,6 +1441,7 @@
 				DAD48A36260CD563008B542E /* StickerModalCollectionView.swift in Sources */,
 				344AD29726398CBF0055562D /* DYDrawTool.swift in Sources */,
 				34AD5A8425C9A87600D9E29C /* PaperListAddCell.swift in Sources */,
+				0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */,
 				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
 				34A2EDD425B88DB0008DB98D /* BasePaper.swift in Sources */,
 				CE8DCAE2258D28F4007738EA /* HomeTabBarView.swift in Sources */,

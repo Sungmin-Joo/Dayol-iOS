@@ -32,6 +32,7 @@ final class LaunchViewController: UIViewController {
     private lazy var onboadingView: OnboadingView = {
         let onboadingView = OnboadingView()
         onboadingView.translatesAutoresizingMaskIntoConstraints = false
+        onboadingView.alpha = 0
         onboadingView.isHidden = true
         return onboadingView
     }()
@@ -64,16 +65,18 @@ final class LaunchViewController: UIViewController {
                 else {
                     return
                 }
-                UIView.animate(withDuration: 0.2) {
+
+                self.view.addSubview(self.onboadingView)
+                self.configureOnboadingConstraints()
+
+                self.view.layoutIfNeeded()
+                self.onboadingView.configureOnboard()
+
+                UIView.animate(withDuration: 0.3) {
                     self.logoImageView.isHidden = true
                     self.labelImageView.isHidden = true
-
-                    self.view.addSubview(self.onboadingView)
-                    self.configureOnboadingConstraints()
-
                     self.onboadingView.isHidden = false
-                    self.onboadingView.layoutIfNeeded()
-                    self.onboadingView.configureOnboard()
+                    self.onboadingView.alpha = 1.0
                 }
 //                DYUserDefaults.shouldOnboading = !shouldOnboading
             }
