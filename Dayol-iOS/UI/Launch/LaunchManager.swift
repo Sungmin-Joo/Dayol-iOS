@@ -9,9 +9,9 @@ import Foundation
 import RxSwift
 
 final class LaunchManager {
-    let showOnboarding: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: true)
+    let onboardingObserver: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: true)
 
     init() {
-        showOnboarding.onNext(DYUserDefaults.shouldOnboading)
+        onboardingObserver.onNext(DYUserDefaults.shouldOnboading)
     }
 }

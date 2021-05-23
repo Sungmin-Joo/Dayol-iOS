@@ -55,7 +55,7 @@ final class LaunchViewController: UIViewController {
     }
 
     private func bind() {
-        splashManager.showOnboarding
+        splashManager.onboardingObserver
             .observeOn(MainScheduler.instance)
             .subscribe { [weak self] result in
                 guard
@@ -78,6 +78,7 @@ final class LaunchViewController: UIViewController {
                     self.onboadingView.isHidden = false
                     self.onboadingView.alpha = 1.0
                 }
+                // 온보딩이 잘 되는지 테스트를 위해 항상 활성화
 //                DYUserDefaults.shouldOnboading = !shouldOnboading
             }
             .disposed(by: disposeBag)
