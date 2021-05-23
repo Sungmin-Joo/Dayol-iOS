@@ -87,7 +87,6 @@ class PaperPresentView: UIView {
 
         NSLayoutConstraint.activate([
             contentTop, contentBottom,
-            tableView.centerYAnchor.constraint(equalTo: centerYAnchor),
             tableView.centerXAnchor.constraint(equalTo: centerXAnchor),
             tableView.widthAnchor.constraint(equalToConstant: style.size.width),
             tableView.heightAnchor.constraint(equalToConstant: height)

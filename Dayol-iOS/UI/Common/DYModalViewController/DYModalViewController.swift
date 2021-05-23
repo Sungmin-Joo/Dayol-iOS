@@ -135,7 +135,11 @@ class DYModalViewController: UIViewController {
 
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         dismissContentView(animated: flag) {
-            super.dismiss(animated: false, completion: self.dismissCompeletion)
+            if let completionHandler = self.dismissCompeletion {
+                super.dismiss(animated: false, completion: self.dismissCompeletion)
+            } else {
+                super.dismiss(animated: false, completion: completion)
+            }
         }
     }
 

@@ -48,7 +48,6 @@ class MonthlyCalendarView: BasePaper {
         bind()
     }
 
-
     private func setupConstraints() {
         guard let paperStyle = self.paperStyle else { return }
         NSLayoutConstraint.activate([
@@ -72,6 +71,7 @@ class MonthlyCalendarView: BasePaper {
                 let _ = dateModel.month
                 let days = dateModel.days
                 self.collectionView.days = days
+                self.headerView.month = dateModel.month
             })
             .disposed(by: disposeBag)
     }
