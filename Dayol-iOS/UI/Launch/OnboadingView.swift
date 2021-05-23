@@ -119,9 +119,8 @@ class OnboadingView: UIView {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     private func configureView() {
-        pageStackView.addArrangedSubview(contentPageScrollView)
-        pageStackView.addArrangedSubview(pageControl)
-        addSubview(pageStackView)
+        addSubview(contentPageScrollView)
+        addSubview(pageControl)
         addSubview(skipButton)
         addSubview(nextButton)
         addSubview(startButton)
@@ -200,9 +199,13 @@ private extension OnboadingView {
             startButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             startButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
 
-            pageStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            pageStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            pageStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            pageControl.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -110),
+            pageControl.leadingAnchor.constraint(equalTo: leadingAnchor),
+            pageControl.trailingAnchor.constraint(equalTo: trailingAnchor),
+
+            contentPageScrollView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -100),
+            contentPageScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentPageScrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }
