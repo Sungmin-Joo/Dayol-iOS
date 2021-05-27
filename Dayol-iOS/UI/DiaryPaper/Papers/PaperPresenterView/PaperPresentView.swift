@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import RxSwift
 
 class PaperPresentView: UIView {
     
@@ -17,6 +18,9 @@ class PaperPresentView: UIView {
     private let numberOfPapers: Int
     private var contentTop = NSLayoutConstraint()
     private var contentBottom = NSLayoutConstraint()
+    private var disposeBag = DisposeBag()
+    
+    let showDatePicker = PublishSubject<Void>()
     
     var scaleForFit: CGFloat = 0.0 {
         didSet {
@@ -87,7 +91,6 @@ class PaperPresentView: UIView {
 
         NSLayoutConstraint.activate([
             contentTop, contentBottom,
-            tableView.centerYAnchor.constraint(equalTo: centerYAnchor),
             tableView.centerXAnchor.constraint(equalTo: centerXAnchor),
             tableView.widthAnchor.constraint(equalToConstant: style.size.width),
             tableView.heightAnchor.constraint(equalToConstant: height)
@@ -170,6 +173,12 @@ extension PaperPresentView: UITableViewDataSource {
         if let monthCell = cell as? MonthlyCalendarView {
             let monthViewModel = MonthlyCalendarViewModel()
             monthCell.configure(viewModel: monthViewModel, paperStyle: paper.paperStyle)
+            monthCell.showDatePicker
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self] in
+                    self?.showDatePicker.onNext(())
+                })
+                .disposed(by: disposeBag)
             return monthCell
         }
         

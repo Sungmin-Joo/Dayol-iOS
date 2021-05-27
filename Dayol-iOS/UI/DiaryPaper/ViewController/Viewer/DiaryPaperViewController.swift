@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import RxSwift
 
 class DiaryPaperViewController: UIViewController {
     let index: Int
@@ -15,7 +16,8 @@ class DiaryPaperViewController: UIViewController {
     
     private var cancellable = [AnyCancellable]()
     private var paperHeight = NSLayoutConstraint()
-
+    private let disposeBag = DisposeBag()
+    
     private var scaleVariable: CGFloat {
         let paperStyle = viewModel.paper.paperStyle
         if isPadDevice {
@@ -83,6 +85,8 @@ class DiaryPaperViewController: UIViewController {
         view.backgroundColor = UIColor(decimalRed: 246, green: 248, blue: 250)
         
         combine()
+        setupConstraint()
+        paperActionBind()
     }
     
     private func setupConstraint() {
@@ -110,5 +114,17 @@ extension DiaryPaperViewController: UIScrollViewDelegate {
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         paperScrollView.isPagingEnabled = (scrollView.zoomScale == 1.0)
+    }
+}
+
+extension DiaryPaperViewController {
+    func paperActionBind() {
+        paper.showDatePicker
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                let datePickerVC = DatePickerModalViewController()
+                self?.presentCustomModal(datePickerVC)
+            })
+            .disposed(by: disposeBag)
     }
 }

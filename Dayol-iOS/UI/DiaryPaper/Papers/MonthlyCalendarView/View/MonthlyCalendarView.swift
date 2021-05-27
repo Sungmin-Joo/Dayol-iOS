@@ -25,10 +25,13 @@ class MonthlyCalendarView: BasePaper {
     private var containerViewRight = NSLayoutConstraint()
     private let disposeBag = DisposeBag()
     
+    let showDatePicker = PublishSubject<Void>()
+    
     private let headerView: MonthlyCalendarHeaderView = {
         let header = MonthlyCalendarHeaderView(month: .january)
         header.translatesAutoresizingMaskIntoConstraints = false
-        
+        header.isUserInteractionEnabled = true
+
         return header
     }()
     
@@ -48,13 +51,12 @@ class MonthlyCalendarView: BasePaper {
         bind()
     }
 
-
     private func setupConstraints() {
         guard let paperStyle = self.paperStyle else { return }
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            headerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            headerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(style: paperStyle)),
             
             collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
@@ -74,5 +76,12 @@ class MonthlyCalendarView: BasePaper {
                 self.collectionView.days = days
             })
             .disposed(by: disposeBag)
+
+        headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTappedHeaderView(_:))))
+    }
+    
+    @objc
+    private func didTappedHeaderView(_ sender: MonthlyCalendarHeaderView) {
+        showDatePicker.onNext(())
     }
 }
