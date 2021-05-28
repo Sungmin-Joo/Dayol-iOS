@@ -5,7 +5,7 @@
 //  Created by 박종상 on 2021/02/08.
 //
 
-import Foundation
+import UIKit
 import RxSwift
 
 // MARK: - 다이어리 한 개당 내부에 표현될 데이터를 테스트하기위해 작성한 코드입니다.

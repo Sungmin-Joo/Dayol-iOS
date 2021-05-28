@@ -5,7 +5,7 @@
 //  Created by 박종상 on 2021/03/08.
 //
 
-import Foundation
+import UIKit
 import RxSwift
 
 class DiaryPaperViewerViewModel {
