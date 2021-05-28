@@ -26,6 +26,10 @@ extension UIColor {
 // MARK: - Dayol Common Color
 
 extension UIColor {
+    @nonobjc class var splashBackground: UIColor {
+        return UIColor(red: 253 / 255, green: 243 / 255, blue: 236 / 255, alpha: 1.0)
+    }
+
     @nonobjc class var dayolBrown: UIColor {
         return UIColor(red: 187.0 / 255.0, green: 120.0 / 255.0, blue: 76.0 / 255.0, alpha: 1.0)
     }
