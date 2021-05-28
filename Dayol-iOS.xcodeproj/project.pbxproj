@@ -200,6 +200,7 @@
 		0DC56E95265510020056C28E /* OnboadingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingContentView.swift; sourceTree = "<group>"; };
 		0DC56E9726551AA40056C28E /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		0DC56E992655530D0056C28E /* UIButton.Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.Extension.swift; sourceTree = "<group>"; };
+		0DE0D1EC26611ED000A302EB /* DAYOL Beta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DAYOL Beta.entitlements"; sourceTree = "<group>"; };
 		340E56A025C2DC73007F2EF7 /* DYToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYToastView.swift; sourceTree = "<group>"; };
 		340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		340E56A925C831E2007F2EF7 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -422,6 +423,7 @@
 			isa = PBXGroup;
 			children = (
 				0DA235A326611352003AA15F /* GoogleService */,
+				0DE0D1EC26611ED000A302EB /* DAYOL Beta.entitlements */,
 				DA4899F4257A08A8005E39ED /* Info.plist */,
 			);
 			path = SupportingFiles;
@@ -1682,11 +1684,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SupportingFiles/Beta.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DAYOL_Bundle_Identifier = com.dayolstudio.Dayol.beta;
 				DAYOL_Name = "DAYOL Beta\n";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 9X869773GM;
+				DEVELOPMENT_TEAM = UB34G768WF;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1710,10 +1713,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SupportingFiles/Beta.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DAYOL_Bundle_Identifier = com.dayolstudio.Dayol;
 				DAYOL_Name = DAYOL;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = UB34G768WF;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
