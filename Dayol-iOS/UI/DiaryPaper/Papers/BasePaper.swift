@@ -5,6 +5,7 @@
 //  Created by 주성민 on 2021/01/21.
 //
 
+import UIKit
 import RxSwift
 
 class BasePaper: UITableViewCell {
