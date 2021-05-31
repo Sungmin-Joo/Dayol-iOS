@@ -120,7 +120,7 @@ class DiaryPaperViewerViewController: UIViewController {
     
     private func bindTitle() {
         viewModel.title
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] titleValue in
                 let titleView = DYNavigationItemCreator.titleView(titleValue, color: .white)
                 self?.navigationItem.titleView = titleView
@@ -130,7 +130,7 @@ class DiaryPaperViewerViewController: UIViewController {
 
     private func bindPaperModel() {
         viewModel.paperList
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .filter({ [weak self] inners -> Bool in
                 let shouldShowDiaryPeper = !inners[0].paperList.isEmpty
                 
@@ -148,6 +148,16 @@ class DiaryPaperViewerViewController: UIViewController {
                 for (index, paper) in paperList.enumerated() {
                     let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: paper.numberOfPapers)
                     let paperViewController = DiaryPaperViewController(index: index, viewModel: paperViewModel)
+
+                    paperViewController.didReceivedEvent
+                        .subscribe(onNext: { event in
+                            switch event {
+                            case .showDatePicker:
+                                self.presentDatePickerModal()
+                            }
+                        })
+                        .disposed(by: self.disposeBag)
+
                     diaryPaperViewControllers.append(paperViewController)
                 }
                 self.paperViewControllers = diaryPaperViewControllers
@@ -177,7 +187,7 @@ class DiaryPaperViewerViewController: UIViewController {
                 self?.navigationController?.pushViewController(paperEditViewController, animated: true)
             }
             .disposed(by: disposeBag)
-        
+
         let tapGesture = UITapGestureRecognizer()
         tapGesture.addTarget(self, action: #selector(didTapEmptyView))
         emptyView.addGestureRecognizer(tapGesture)
@@ -209,6 +219,13 @@ class DiaryPaperViewerViewController: UIViewController {
 
         presentCustomModal(modalVC)
     }
+
+    private func presentDatePickerModal() {
+        let datePicker = DatePickerModalViewController()
+        datePicker.delegate = self
+
+        presentCustomModal(datePicker)
+    }
 }
 
 extension DiaryPaperViewerViewController {
@@ -228,5 +245,11 @@ extension DiaryPaperViewerViewController: PaperModalViewDelegate {
     
     func didTappedAdd() {
         presentPaperModal(toolType: .add)
+    }
+}
+
+extension DiaryPaperViewerViewController: DatePickerModalViewControllerDelegate {
+    func datePicker(_ datePicker: DatePickerModalViewController, didSelected date: Date?) {
+        
     }
 }

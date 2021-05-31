@@ -13,10 +13,19 @@ private enum Design {
     static let modalHeight: CGFloat = 300
 }
 
+protocol DatePickerModalViewControllerDelegate: NSObject {
+    func datePicker(_ datePicker: DatePickerModalViewController, didSelected date: Date?)
+}
+
 final class DatePickerModalViewController: DYModalViewController {
     private var month: String?
     private var year: String?
     private let disposeBag = DisposeBag()
+    private var dateString: String? {
+        return "\(year ?? "") \(month ?? "")"
+    }
+
+    weak var delegate: DatePickerModalViewControllerDelegate?
 
     private let datePickerView: DatePickerView = {
         let pickerView = DatePickerView()
@@ -58,14 +67,16 @@ final class DatePickerModalViewController: DYModalViewController {
             .subscribe(onNext: { [weak self] year, month in
                 self?.month = month
                 self?.year = year
-
-                print("\(self?.year) - \(self?.month)")
             })
             .disposed(by: disposeBag)
 
         datePickerHeaderView.didTappedConfirmButton
             .subscribe(onNext: { [weak self] in
-                self?.dismiss(animated: true)
+                guard let self = self, let dateString = self.dateString else { return }
+                self.dismiss(animated: true) {
+                    let date = DateFormatter.yearMonthDate(from: dateString)
+                    self.delegate?.datePicker(self, didSelected: date)
+                }
             })
             .disposed(by: disposeBag)
     }

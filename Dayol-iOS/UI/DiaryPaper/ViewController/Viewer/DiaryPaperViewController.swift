@@ -9,11 +9,16 @@ import UIKit
 import Combine
 import RxSwift
 
+enum DiaryPaperEventType {
+    case showDatePicker
+}
+
 class DiaryPaperViewController: UIViewController {
+    let didReceivedEvent = PublishSubject<DiaryPaperEventType>()
     let index: Int
     let scaleSubject = PassthroughSubject<CGFloat, Error>()
     let viewModel: DiaryPaperViewModel
-    
+
     private var cancellable = [AnyCancellable]()
     private var paperHeight = NSLayoutConstraint()
     private let disposeBag = DisposeBag()
@@ -110,10 +115,9 @@ extension DiaryPaperViewController: UIScrollViewDelegate {
 extension DiaryPaperViewController {
     func paperActionBind() {
         paper.showDatePicker
-            .observeOn(MainScheduler.instance)
+            .observe(on:MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
-                let datePickerVC = DatePickerModalViewController()
-                self?.presentCustomModal(datePickerVC)
+                self?.didReceivedEvent.onNext(.showDatePicker)
             })
             .disposed(by: disposeBag)
     }
