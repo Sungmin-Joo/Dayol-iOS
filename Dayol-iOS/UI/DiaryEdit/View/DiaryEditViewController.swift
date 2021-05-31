@@ -108,7 +108,7 @@ class DiaryEditViewController: DYDrawableViewController {
     private func switchBind() {
         diaryEditToggleView.changedSwitch
             .distinctUntilChanged()
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] show in
                 self?.diaryEditCoverView.setDayolLogoHidden(!show)
             })
@@ -118,7 +118,7 @@ class DiaryEditViewController: DYDrawableViewController {
     private func colorBind() {
         diaryEditPaletteView.changedColor
             .distinctUntilChanged()
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] DYCoverColor in
                 guard let self = self else { return }
                 self.diaryEditCoverView.setCoverColor(color: DYCoverColor)

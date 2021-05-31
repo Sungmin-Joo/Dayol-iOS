@@ -174,7 +174,7 @@ extension PaperPresentView: UITableViewDataSource {
             let monthViewModel = MonthlyCalendarViewModel()
             monthCell.configure(viewModel: monthViewModel, paperStyle: paper.paperStyle)
             monthCell.showDatePicker
-                .observeOn(MainScheduler.instance)
+                .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] in
                     self?.showDatePicker.onNext(())
                 })

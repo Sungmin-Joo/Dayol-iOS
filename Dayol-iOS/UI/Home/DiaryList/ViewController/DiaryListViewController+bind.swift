@@ -33,7 +33,7 @@ extension DiaryListViewController {
             .disposed(by: disposeBag)
         
         viewModel.diaryEvent
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] state in
                 guard let self = self else { return }
                 switch state {
