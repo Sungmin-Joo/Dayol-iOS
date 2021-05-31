@@ -17,32 +17,21 @@ class DiaryPaperViewController: UIViewController {
     private var cancellable = [AnyCancellable]()
     private var paperHeight = NSLayoutConstraint()
     private let disposeBag = DisposeBag()
-    
+
     private var scaleVariable: CGFloat {
         let paperStyle = viewModel.paper.paperStyle
         if isPadDevice {
-            switch Orientation.currentState {
-            case .portrait:
-                switch paperStyle {
-                case .vertical:
-                    return paperScrollView.frame.height / paperStyle.size.height
-                case .horizontal:
-                    return paperScrollView.frame.width / paperStyle.size.width
-                }
-            case .landscape:
-                switch paperStyle {
-                case .vertical:
-                    return paperScrollView.frame.height / paperStyle.size.height
-                case .horizontal:
-                    return paperScrollView.frame.width / paperStyle.size.width
-                }
-            default: return 0.0
+            switch paperStyle {
+            case .vertical:
+                return paperScrollView.frame.height / paperStyle.size.height
+            case .horizontal:
+                return paperScrollView.frame.width / paperStyle.size.width
             }
         } else {
             return paperScrollView.frame.width / paperStyle.size.width
         }
     }
-    
+
     lazy var paper = PaperPresentView(paper: viewModel.paper, count: viewModel.numberOfPapers)
     
     private let paperScrollView: UIScrollView = {
