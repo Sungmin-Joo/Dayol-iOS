@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA4899E2257A08A6005E39ED"
-               BuildableName = "DAYOL.app"
+               BuildableName = "DAYOL Beta.app"
                BlueprintName = "Dayol-iOS"
                ReferencedContainer = "container:Dayol-iOS.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA4899E2257A08A6005E39ED"
-            BuildableName = "DAYOL.app"
+            BuildableName = "DAYOL Beta.app"
             BlueprintName = "Dayol-iOS"
             ReferencedContainer = "container:Dayol-iOS.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA4899E2257A08A6005E39ED"
-            BuildableName = "DAYOL.app"
+            BuildableName = "DAYOL Beta.app"
             BlueprintName = "Dayol-iOS"
             ReferencedContainer = "container:Dayol-iOS.xcodeproj">
          </BuildableReference>

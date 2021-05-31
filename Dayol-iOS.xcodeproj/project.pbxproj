@@ -3,10 +3,31 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D139025265009AF0034A360 /* OnboadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D139024265009AF0034A360 /* OnboadingView.swift */; };
+		0D27B097264FBCB0001AD911 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B096264FBCB0001AD911 /* LaunchViewController.swift */; };
+		0D27B099264FF8EC001AD911 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */; };
+		0D27B09B264FFD12001AD911 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09A264FFD12001AD911 /* Thread.swift */; };
+		0D27B09D264FFD48001AD911 /* LaunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09C264FFD48001AD911 /* LaunchManager.swift */; };
+		0D27B0A02650008B001AD911 /* DayolUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09F2650008B001AD911 /* DayolUserDefault.swift */; };
+		0DA235A52661135F003AA15F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0DA235A42661135F003AA15F /* GoogleService-Info.plist */; };
+		0DA235A72661145B003AA15F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA235A62661145B003AA15F /* Config.swift */; };
+		0DA235A9266115B7003AA15F /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA235A8266115B7003AA15F /* UIWindow+Extension.swift */; };
+		0DA235AC26611793003AA15F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235AB26611793003AA15F /* FirebaseAnalytics */; };
+		0DA235AE26611793003AA15F /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235AD26611793003AA15F /* FirebaseCrashlytics */; };
+		0DA235B026611793003AA15F /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235AF26611793003AA15F /* FirebaseStorage */; };
+		0DA235B226611793003AA15F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235B126611793003AA15F /* FirebaseAuth */; };
+		0DA235B426611793003AA15F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235B326611793003AA15F /* FirebaseFirestore */; };
+		0DA235B626611793003AA15F /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235B526611793003AA15F /* FirebaseMessaging */; };
+		0DA235B92661186E003AA15F /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235B82661186E003AA15F /* FSCalendar */; };
+		0DA235BC266118AC003AA15F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235BB266118AC003AA15F /* RxCocoa */; };
+		0DA235BE266118AC003AA15F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235BD266118AC003AA15F /* RxSwift */; };
+		0DC56E96265510020056C28E /* OnboadingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E95265510020056C28E /* OnboadingContentView.swift */; };
+		0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E9726551AA40056C28E /* UILabel+Extension.swift */; };
+		0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E992655530D0056C28E /* UIButton.Extension.swift */; };
 		340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A025C2DC73007F2EF7 /* DYToastView.swift */; };
 		340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */; };
 		340E56AA25C831E2007F2EF7 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A925C831E2007F2EF7 /* InfoView.swift */; };
@@ -81,7 +102,6 @@
 		34E61391262F02EA0076FE74 /* ColorMapCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61390262F02EA0076FE74 /* ColorMapCursor.swift */; };
 		34E61395262F03260076FE74 /* ColorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61394262F03260076FE74 /* ColorEntity.swift */; };
 		34E61399262F1AE10076FE74 /* ColorBrightSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61398262F1AE10076FE74 /* ColorBrightSlider.swift */; };
-		CC7CC488D36CE71AEE14FCCC /* Pods_Dayol_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */; };
 		CE0603542588EDB600FBBEF0 /* PopupPresentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */; };
 		CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */; };
 		CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */; };
@@ -170,7 +190,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2D2405592E98948CDE582F1F /* Pods-Dayol-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		0D139024265009AF0034A360 /* OnboadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingView.swift; sourceTree = "<group>"; };
+		0D27B096264FBCB0001AD911 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		0D27B09A264FFD12001AD911 /* Thread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
+		0D27B09C264FFD48001AD911 /* LaunchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchManager.swift; sourceTree = "<group>"; };
+		0D27B09F2650008B001AD911 /* DayolUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolUserDefault.swift; sourceTree = "<group>"; };
+		0D27B0A326500770001AD911 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		0DA235A42661135F003AA15F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0DA235A62661145B003AA15F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		0DA235A8266115B7003AA15F /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
+		0DC56E95265510020056C28E /* OnboadingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingContentView.swift; sourceTree = "<group>"; };
+		0DC56E9726551AA40056C28E /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		0DC56E992655530D0056C28E /* UIButton.Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.Extension.swift; sourceTree = "<group>"; };
+		0DE0D1EC26611ED000A302EB /* DAYOL Beta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DAYOL Beta.entitlements"; sourceTree = "<group>"; };
 		340E56A025C2DC73007F2EF7 /* DYToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYToastView.swift; sourceTree = "<group>"; };
 		340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		340E56A925C831E2007F2EF7 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -247,7 +280,6 @@
 		34E61390262F02EA0076FE74 /* ColorMapCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapCursor.swift; sourceTree = "<group>"; };
 		34E61394262F03260076FE74 /* ColorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorEntity.swift; sourceTree = "<group>"; };
 		34E61398262F1AE10076FE74 /* ColorBrightSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBrightSlider.swift; sourceTree = "<group>"; };
-		972D81BFA99D271110503E85 /* Pods-Dayol-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dayol-iOS.release.xcconfig"; path = "Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPresentDelegate.swift; sourceTree = "<group>"; };
 		CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertAction.swift; sourceTree = "<group>"; };
 		CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
@@ -335,7 +367,6 @@
 		DAF18E8125B6FB21007ACFAC /* VolteW03Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = VolteW03Semibold.otf; sourceTree = "<group>"; };
 		DAF18E9325B70C26007ACFAC /* Date+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Calendar.swift"; sourceTree = "<group>"; };
 		DAF18EA725B70FFD007ACFAC /* MonthlyCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewModel.swift; sourceTree = "<group>"; };
-		F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dayol_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,13 +374,48 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC7CC488D36CE71AEE14FCCC /* Pods_Dayol_iOS.framework in Frameworks */,
+				0DA235BC266118AC003AA15F /* RxCocoa in Frameworks */,
+				0DA235AE26611793003AA15F /* FirebaseCrashlytics in Frameworks */,
+				0DA235BE266118AC003AA15F /* RxSwift in Frameworks */,
+				0DA235B226611793003AA15F /* FirebaseAuth in Frameworks */,
+				0DA235B626611793003AA15F /* FirebaseMessaging in Frameworks */,
+				0DA235B026611793003AA15F /* FirebaseStorage in Frameworks */,
+				0DA235AC26611793003AA15F /* FirebaseAnalytics in Frameworks */,
+				0DA235B92661186E003AA15F /* FSCalendar in Frameworks */,
+				0DA235B426611793003AA15F /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D27B095264FBC6B001AD911 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				0D27B09C264FFD48001AD911 /* LaunchManager.swift */,
+				0D27B096264FBCB0001AD911 /* LaunchViewController.swift */,
+				0D139024265009AF0034A360 /* OnboadingView.swift */,
+				0DC56E95265510020056C28E /* OnboadingContentView.swift */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		0D27B09E26500059001AD911 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				0D27B09F2650008B001AD911 /* DayolUserDefault.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		0DA235A326611352003AA15F /* GoogleService */ = {
+			isa = PBXGroup;
+			children = (
+				0DA235A42661135F003AA15F /* GoogleService-Info.plist */,
+			);
+			path = GoogleService;
+			sourceTree = "<group>";
+		};
 		0DFF4D7F2642E84A00B8218B /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,6 +428,8 @@
 		0DFF4D802642E8B900B8218B /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				0DA235A326611352003AA15F /* GoogleService */,
+				0DE0D1EC26611ED000A302EB /* DAYOL Beta.entitlements */,
 				DA4899F4257A08A8005E39ED /* Info.plist */,
 			);
 			path = SupportingFiles;
@@ -616,6 +684,7 @@
 			isa = PBXGroup;
 			children = (
 				CE8DCC96259101B6007738EA /* DeviceInfo.swift */,
+				0D27B09A264FFD12001AD911 /* Thread.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -714,23 +783,6 @@
 			path = ColorPicker;
 			sourceTree = "<group>";
 		};
-		84E9977FFA5A77108057AB68 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F9B784880CAEBCC10F25DE99 /* Pods_Dayol_iOS.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		97879934D128660B8AD5B126 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				2D2405592E98948CDE582F1F /* Pods-Dayol-iOS.debug.xcconfig */,
-				972D81BFA99D271110503E85 /* Pods-Dayol-iOS.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		CE0603522588EDA100FBBEF0 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -742,6 +794,7 @@
 		CE8DCAE6258D292A007738EA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0DA235A8266115B7003AA15F /* UIWindow+Extension.swift */,
 				CE8DCAE7258D292A007738EA /* NSAttributedString+Extension.swift */,
 				CE8DCB24258FAE72007738EA /* Array+extension.swift */,
 				34CA254125A613CE0057404D /* String+Extension.swift */,
@@ -749,6 +802,9 @@
 				DAF18E9325B70C26007ACFAC /* Date+Calendar.swift */,
 				340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */,
 				3416447E25DAB62100A81FD2 /* CALayer+Extension.swift */,
+				0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */,
+				0DC56E9726551AA40056C28E /* UILabel+Extension.swift */,
+				0DC56E992655530D0056C28E /* UIButton.Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -883,6 +939,7 @@
 			isa = PBXGroup;
 			children = (
 				CEB9EE402583C7AF005B66C9 /* Common */,
+				0D27B095264FBC6B001AD911 /* Launch */,
 				CEF135E8258115E30098BEC3 /* Home */,
 				DAE29CE92584F1F80028010B /* Password */,
 				DAD66732259B54FD00E8F59A /* DiaryEdit */,
@@ -989,8 +1046,6 @@
 				0DFF4D802642E8B900B8218B /* SupportingFiles */,
 				DA4899E5257A08A6005E39ED /* Dayol-iOS */,
 				DA4899E4257A08A6005E39ED /* Products */,
-				97879934D128660B8AD5B126 /* Pods */,
-				84E9977FFA5A77108057AB68 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1006,7 +1061,9 @@
 			isa = PBXGroup;
 			children = (
 				DA4899E6257A08A6005E39ED /* AppDelegate.swift */,
+				0DA235A62661145B003AA15F /* Config.swift */,
 				DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */,
+				0D27B09E26500059001AD911 /* UserDefaults */,
 				DA27AC7925D1750500C71CDE /* TestData */,
 				CEF135E7258115C60098BEC3 /* UI */,
 				34C6A3812594F4F900658499 /* Utils */,
@@ -1247,17 +1304,26 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA4899F7257A08A8005E39ED /* Build configuration list for PBXNativeTarget "Dayol-iOS" */;
 			buildPhases = (
-				EF634B6C55F174AA3DD90320 /* [CP] Check Pods Manifest.lock */,
 				DA4899DF257A08A6005E39ED /* Sources */,
 				DA4899E0257A08A6005E39ED /* Frameworks */,
 				DA4899E1257A08A6005E39ED /* Resources */,
-				2BFF8567F230B761710FA6CC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Dayol-iOS";
+			packageProductDependencies = (
+				0DA235AB26611793003AA15F /* FirebaseAnalytics */,
+				0DA235AD26611793003AA15F /* FirebaseCrashlytics */,
+				0DA235AF26611793003AA15F /* FirebaseStorage */,
+				0DA235B126611793003AA15F /* FirebaseAuth */,
+				0DA235B326611793003AA15F /* FirebaseFirestore */,
+				0DA235B526611793003AA15F /* FirebaseMessaging */,
+				0DA235B82661186E003AA15F /* FSCalendar */,
+				0DA235BB266118AC003AA15F /* RxCocoa */,
+				0DA235BD266118AC003AA15F /* RxSwift */,
+			);
 			productName = Dayol;
 			productReference = DA4899E3257A08A6005E39ED /* DAYOL Beta.app */;
 			productType = "com.apple.product-type.application";
@@ -1286,6 +1352,11 @@
 				ko,
 			);
 			mainGroup = DA4899DA257A08A6005E39ED;
+			packageReferences = (
+				0DA235AA26611793003AA15F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				0DA235B72661186E003AA15F /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				0DA235BA266118AC003AA15F /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = DA4899E4257A08A6005E39ED /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1306,52 +1377,11 @@
 				DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */,
 				DAF18E8225B6FB21007ACFAC /* VolteW03Semibold.otf in Resources */,
 				CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */,
+				0DA235A52661135F003AA15F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		2BFF8567F230B761710FA6CC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dayol-iOS/Pods-Dayol-iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EF634B6C55F174AA3DD90320 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Dayol-iOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DA4899DF257A08A6005E39ED /* Sources */ = {
@@ -1360,12 +1390,14 @@
 			files = (
 				CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */,
 				DA9A87392610AA3800ABCD07 /* DYStickerSizeStretchableView.swift in Sources */,
+				0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */,
 				DAC04CCA25920C16003A7BC8 /* DiaryCoverView.swift in Sources */,
 				DADD09FB25A33674004D6CF0 /* DiaryEditCoverView.swift in Sources */,
 				3452670C25DD644B00EC6F9D /* DataBackupViewModel.swift in Sources */,
 				DAD66751259F44D300E8F59A /* DYNavigationDrawingToolbar.swift in Sources */,
 				340E56B325C85B5F007F2EF7 /* AddPaperHeaderView.swift in Sources */,
 				DAD66751259F44D300E8F59A /* DYNavigationDrawingToolbar.swift in Sources */,
+				0D27B099264FF8EC001AD911 /* UIViewController+Extension.swift in Sources */,
 				DAEF76B225F90D6E007CAA93 /* DiaryPaperViewerViewController+UIPageViewController.swift in Sources */,
 				DADD0AD425AF24FC004D6CF0 /* DYStickerView.swift in Sources */,
 				DAD6674E259C8C5B00E8F59A /* DYNavigationEditableTitle.swift in Sources */,
@@ -1381,6 +1413,7 @@
 				3452671025DD64AE00EC6F9D /* DataBackupCloudContentView.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
 				3416445325D8C0A900A81FD2 /* DeletedPageListView.swift in Sources */,
+				0D139025265009AF0034A360 /* OnboadingView.swift in Sources */,
 				DAEB92DE2596F72E00FA5551 /* DifferentEdgeSettableView.swift in Sources */,
 				DAD489F326026A41008B542E /* StickerContentView.swift in Sources */,
 				3452671325DD66F400EC6F9D /* DataBackupExportContentView.swift in Sources */,
@@ -1410,9 +1443,11 @@
 				CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */,
 				DAD48A29260CCAEC008B542E /* DiaryPaperEditViewModel.swift in Sources */,
 				34A2EDC225B856D1008DB98D /* PaperModel.swift in Sources */,
+				0D27B0A02650008B001AD911 /* DayolUserDefault.swift in Sources */,
 				DAD48A36260CD563008B542E /* StickerModalCollectionView.swift in Sources */,
 				344AD29726398CBF0055562D /* DYDrawTool.swift in Sources */,
 				34AD5A8425C9A87600D9E29C /* PaperListAddCell.swift in Sources */,
+				0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */,
 				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
 				34A2EDD425B88DB0008DB98D /* BasePaper.swift in Sources */,
 				CE8DCAE2258D28F4007738EA /* HomeTabBarView.swift in Sources */,
@@ -1440,8 +1475,10 @@
 				DAD6675425A18BAE00E8F59A /* DYNavigationFunctionToolBar.swift in Sources */,
 				DAA54B9A262EE4910085A304 /* DYFloatingView.swift in Sources */,
 				CE8DCAEA258D292A007738EA /* NSAttributedString+Extension.swift in Sources */,
+				0D27B09B264FFD12001AD911 /* Thread.swift in Sources */,
 				DAD66734259B551600E8F59A /* DiaryEditViewController.swift in Sources */,
 				34CA254625A6190D0057404D /* SettingsViewController.swift in Sources */,
+				0DA235A72661145B003AA15F /* Config.swift in Sources */,
 				DA27AC7B25D1751A00C71CDE /* DYTestData.swift in Sources */,
 				CE8DCAE0258D28F4007738EA /* DiaryListViewController.swift in Sources */,
 				DAF18EA825B70FFD007ACFAC /* MonthlyCalendarViewModel.swift in Sources */,
@@ -1473,6 +1510,7 @@
 				34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */,
 				DADD09F725A335C2004D6CF0 /* DiaryEditToggleView.swift in Sources */,
 				DAEF76A425F66EE7007CAA93 /* DiaryPaperViewerViewModel.swift in Sources */,
+				0DA235A9266115B7003AA15F /* UIWindow+Extension.swift in Sources */,
 				345128762636FEB900D65627 /* DYDrawableViewController.swift in Sources */,
 				DADD0A1925A72907004D6CF0 /* DiaryPaperViewerViewController.swift in Sources */,
 				DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */,
@@ -1497,6 +1535,7 @@
 				DAD489EF26026A33008B542E /* DrawingContentView.swift in Sources */,
 				DA9A872F2610A93200ABCD07 /* DYStickerBaseView.swift in Sources */,
 				DA9A87322610A98100ABCD07 /* DYStickerWidthStretchableView.swift in Sources */,
+				0D27B097264FBCB0001AD911 /* LaunchViewController.swift in Sources */,
 				34CA255B25A75A340057404D /* SettingCellProtocol.swift in Sources */,
 				3416447F25DAB62100A81FD2 /* CALayer+Extension.swift in Sources */,
 				DAD48A33260CD551008B542E /* StickerModalHeaderView.swift in Sources */,
@@ -1510,7 +1549,9 @@
 				DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */,
 				34A07156262DCE1E009BA700 /* ColorPickerContentView.swift in Sources */,
 				34C7B36C2619765500BC6A28 /* TextStyleModel.swift in Sources */,
+				0D27B09D264FFD48001AD911 /* LaunchManager.swift in Sources */,
 				34A11A4F25ADC93300678F98 /* AddPaperContentView.swift in Sources */,
+				0DC56E96265510020056C28E /* OnboadingContentView.swift in Sources */,
 				34C7B37E2619E2C800BC6A28 /* TextStyleAdditionalOptionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1532,6 +1573,7 @@
 			children = (
 				DA4899F2257A08A8005E39ED /* Base */,
 				34CA253E25A613540057404D /* ko */,
+				0D27B0A326500770001AD911 /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1659,20 +1701,24 @@
 		};
 		DA4899F8257A08A8005E39ED /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D2405592E98948CDE582F1F /* Pods-Dayol-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SupportingFiles/Beta.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DAYOL_Bundle_Identifier = com.dayolstudio.Dayol.beta;
 				DAYOL_Name = "DAYOL Beta\n";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 9X869773GM;
+				DEVELOPMENT_TEAM = UB34G768WF;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.Dayol.beta;
 				PRODUCT_NAME = "DAYOL Beta";
@@ -1684,19 +1730,24 @@
 		};
 		DA4899F9257A08A8005E39ED /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 972D81BFA99D271110503E85 /* Pods-Dayol-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SupportingFiles/Beta.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DAYOL_Bundle_Identifier = com.dayolstudio.Dayol;
 				DAYOL_Name = DAYOL;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = UB34G768WF;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.Dayol;
 				PRODUCT_NAME = DAYOL;
@@ -1716,7 +1767,7 @@
 				DA4899F6257A08A8005E39ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		DA4899F7257A08A8005E39ED /* Build configuration list for PBXNativeTarget "Dayol-iOS" */ = {
 			isa = XCConfigurationList;
@@ -1725,9 +1776,84 @@
 				DA4899F9257A08A8005E39ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0DA235AA26611793003AA15F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = exactVersion;
+				version = 8.0.0;
+			};
+		};
+		0DA235B72661186E003AA15F /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.8.2;
+			};
+		};
+		0DA235BA266118AC003AA15F /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 6.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0DA235AB26611793003AA15F /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DA235AA26611793003AA15F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		0DA235AD26611793003AA15F /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DA235AA26611793003AA15F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		0DA235AF26611793003AA15F /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DA235AA26611793003AA15F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		0DA235B126611793003AA15F /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DA235AA26611793003AA15F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		0DA235B326611793003AA15F /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DA235AA26611793003AA15F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		0DA235B526611793003AA15F /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DA235AA26611793003AA15F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		0DA235B82661186E003AA15F /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DA235B72661186E003AA15F /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+		0DA235BB266118AC003AA15F /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DA235BA266118AC003AA15F /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		0DA235BD266118AC003AA15F /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DA235BA266118AC003AA15F /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DA4899DB257A08A6005E39ED /* Project object */;
 }

@@ -107,6 +107,14 @@ class MonthlyCalendarViewModel: PaperViewModel {
     private var year: Int = 0
     private var today = 0
     private var firstWeekDayOfMonth: WeekDay = .sunday
+    private var prevMontRemainDayCount: Int {
+        let weekdayRawValue = firstWeekDayOfMonth.rawValue - WeekDay.sunday.rawValue - 1
+        
+        if weekdayRawValue < 0 {
+            return weekdayRawValue + 7
+        }
+        return weekdayRawValue
+    }
     
     init() {
         super.init(drawModel: DrawModel())
@@ -137,7 +145,7 @@ class MonthlyCalendarViewModel: PaperViewModel {
         var daysResult = [MonthlyCalendarDayModel]()
         let maxCount = 42
         let prevMonth: Int = (month - 1 < 0) ? 11 : month - 1
-        let prevMonthRemainDaysCount = firstWeekDayOfMonth.rawValue - WeekDay.sunday.rawValue - 1
+        let prevMonthRemainDaysCount = self.prevMontRemainDayCount
         let prevMonthMaxDay = numOfDaysInMonth[prevMonth]
         let currentMonthCount = numOfDaysInMonth[month]
         
@@ -162,7 +170,6 @@ class MonthlyCalendarViewModel: PaperViewModel {
         
         return daysResult
     }
-
 }
 
 extension MonthlyCalendarViewModel {

@@ -73,6 +73,7 @@ class DiaryPaperViewController: UIViewController {
         paperScrollView.isPagingEnabled = true
         view.backgroundColor = UIColor(decimalRed: 246, green: 248, blue: 250)
         
+        setupConstraint()
         combine()
         setupConstraint()
         paperActionBind()
