@@ -17,10 +17,10 @@ enum PaperStyle: String, CaseIterable {
     case vertical
 }
 
-enum PaperType {
+enum PaperType: Equatable {
 
-    case monthly
-    case weekly
+    case monthly(date: Date)
+    case weekly(date: Date)
     case daily(date: Date)
     case cornell
     case muji
@@ -29,8 +29,8 @@ enum PaperType {
     case tracker
 
     static var allCases: [PaperType] {
-        return [.monthly,
-                .weekly,
+        return [.monthly(date: Date()),
+                .weekly(date: Date()),
                 .daily(date: Date()),
                 .cornell,
                 .muji,
@@ -62,6 +62,22 @@ enum PaperType {
         case .grid: return GridPaper.className
         case .four: return FourPaper.className
         case .tracker: return BasePaper.className
+        }
+    }
+
+    static func ==(lhs: PaperType, rhs: PaperType) -> Bool {
+        switch (lhs, rhs) {
+        case (.monthly(let lDate), .monthly(date: let rDate)):
+            let isSameYear = Date.year(from: lDate) == Date.year(from: rDate)
+            let isSameMonth = Date.month(from: lDate) == Date.month(from: rDate)
+            return isSameYear && isSameMonth
+        case (.daily(let lDate), .daily(date: let rDate)):
+            let isSameYear = Date.year(from: lDate) == Date.year(from: rDate)
+            let isSameMonth = Date.month(from: lDate) == Date.month(from: rDate)
+            let isSameDay = Date.day(from: lDate) == Date.day(from: rDate)
+            return isSameYear && isSameMonth && isSameDay
+        default:
+            return false
         }
     }
 }

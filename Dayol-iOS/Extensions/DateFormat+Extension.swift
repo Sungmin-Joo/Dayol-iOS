@@ -8,17 +8,31 @@
 import Foundation
 
 extension DateFormatter {
-    static func yearMonthDate(from date: String)-> Date? {
+    static var common: DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy MM"
 
-        return dateFormatter.date(from: date)
+        return dateFormatter
     }
 
-    static func yearMonthDayDate(from date: String)-> Date? {
+    static var year: DateFormatter {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy MM dd"
+        dateFormatter.dateFormat = "yyyy"
 
-        return dateFormatter.date(from: date)
+        return dateFormatter
+    }
+
+    static var month: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM"
+
+        return dateFormatter
+    }
+
+    static var day: DateFormatter{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+
+        return dateFormatter
     }
 }

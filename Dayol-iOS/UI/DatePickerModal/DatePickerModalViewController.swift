@@ -49,7 +49,7 @@ final class DatePickerModalViewController: DYModalViewController {
     }
     
     init() {
-        let config = DYModalConfiguration(dimStyle: .clear, modalStyle: .custom(containerHeight: Design.modalHeight))
+        let config = DYModalConfiguration(dimStyle: .black, modalStyle: .custom(containerHeight: Design.modalHeight))
         super.init(configure: config)
     }
     
@@ -74,7 +74,7 @@ final class DatePickerModalViewController: DYModalViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self = self, let dateString = self.dateString else { return }
                 self.dismiss(animated: true) {
-                    let date = DateFormatter.yearMonthDate(from: dateString)
+                    let date = DateFormatter.common.date(from: dateString)
                     self.delegate?.datePicker(self, didSelected: date)
                 }
             })
