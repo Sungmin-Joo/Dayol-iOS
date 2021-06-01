@@ -32,7 +32,7 @@ class DYTextBoxBulletPoint: UIView {
         case checkBox(isSelected: Bool)
         case none
 
-        static let BulletSize = CGSize(width: 18.0, height: 18.0)
+        static let bulletSize = CGSize(width: 18.0, height: 18.0)
     }
 
     private let disposeBag = DisposeBag()

@@ -18,22 +18,34 @@ private enum Design {
     static let delButtonSize = CGSize(width: 18, height: 18)
     static let delButtonImage = Assets.Image.DYTextField.delete
 
-    static let defaultFont: UIFont = .systemFont(ofSize: 15)
-    static let defaultTextFieldSize = CGSize(width: 20, height: 0)
-    static let defaultAttributes: [NSAttributedString.Key: Any] = [
-        .kern: -0.28,
-        .foregroundColor: UIColor.black
-    ]
-
     static let containerInset = UIEdgeInsets(top: 13,
                                              left: dotDiameter / 2,
                                              bottom: 0,
                                              right: dotDiameter / 2)
 
     static let textColorSettingModalHeight: CGFloat = 441.0
+    static let bulletTopMargin: CGFloat = 6.0
+    static let bulletLeftMargin: CGFloat = 7.0
 }
 
 class DYFlexibleTextField: UIView {
+
+    enum DefaultOption {
+        static let defaultFont: UIFont = .systemFont(ofSize: 15)
+        static let defaultTextFieldSize = CGSize(width: 60, height: 0)
+        static let defaultLineSpacing: CGFloat = 0
+        static let defaultAttributes: [NSAttributedString.Key: Any] = {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = NSTextAlignment.left
+            paragraphStyle.lineSpacing = defaultLineSpacing
+            return [
+                .font: defaultFont,
+                .kern: -0.28,
+                .foregroundColor: UIColor.black,
+                .paragraphStyle: paragraphStyle
+            ]
+        }()
+    }
 
     private var cancellable: [AnyCancellable] = []
     private var isEditMode = false {
@@ -83,11 +95,12 @@ class DYFlexibleTextField: UIView {
         button.frame.size = Design.delButtonSize
         return button
     }()
-    private let leadingAccessoryView: DYTextBoxBulletPoint = {
+    private let bulletPointView: DYTextBoxBulletPoint = {
         let view = DYTextBoxBulletPoint()
         view.isHidden = true
-        view.frame.origin.y = 6
-        view.frame.size = DYTextBoxBulletPoint.BulletType.BulletSize
+        view.frame.origin.y = Design.bulletTopMargin
+        view.frame.origin.x = Design.bulletLeftMargin
+        view.frame.size = DYTextBoxBulletPoint.BulletType.bulletSize
         return view
     }()
     private lazy var textView: UITextView = {
@@ -95,9 +108,9 @@ class DYFlexibleTextField: UIView {
         textView.textAlignment = .left
         textView.isScrollEnabled = false
         textView.backgroundColor = .clear
-        textView.font = Design.defaultFont
+        textView.font = DefaultOption.defaultFont
         textView.allowsEditingTextAttributes = true
-        textView.typingAttributes = Design.defaultAttributes
+        textView.typingAttributes = DefaultOption.defaultAttributes
         textView.inputAccessoryView = customInputAccessoryView
         return textView
     }()
@@ -111,7 +124,7 @@ class DYFlexibleTextField: UIView {
     }
 
     init(viewModel: DYFlexibleTextFieldViewModel) {
-        let defaultFrame = CGRect(origin: .zero, size: Design.defaultTextFieldSize)
+        let defaultFrame = CGRect(origin: .zero, size: DefaultOption.defaultTextFieldSize)
         self.viewModel = viewModel
         super.init(frame: defaultFrame)
         setupContainerView()
@@ -163,7 +176,7 @@ private extension DYFlexibleTextField {
         textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         textView.delegate = self
         containerView.addSubview(textView)
-        containerView.addSubview(leadingAccessoryView)
+        containerView.addSubview(bulletPointView)
         addSubview(containerView)
         addSubview(leftHandler)
         addSubview(rightHandler)
@@ -196,7 +209,7 @@ private extension DYFlexibleTextField {
 
         viewModel.leadingAccessoryTypeSubject.sink { [weak self] type in
             guard let self = self else { return }
-            self.updateLeadingAccessoryView(type)
+            self.updateBulletPointView(type)
         }
         .store(in: &cancellable)
 
@@ -260,7 +273,8 @@ private extension DYFlexibleTextField {
 private extension DYFlexibleTextField {
 
     func updateInputAccessoryView() {
-        // TODO: - inputAccessory update
+        let textColor = currentAttributes[.foregroundColor] as? UIColor
+        customInputAccessoryView.textColorButton.backgroundColor = textColor
     }
 
     func bindAccessroyViewEvent() {
@@ -273,7 +287,7 @@ private extension DYFlexibleTextField {
         customInputAccessoryView.textStyleButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-                // TODO: color 연동
+                // TODO: text style 연동
                 self.presentTextStyleModal()
             }
             .disposed(by: disposeBag)
@@ -281,7 +295,7 @@ private extension DYFlexibleTextField {
         customInputAccessoryView.textColorButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-                // TODO: text style 연동
+                // TODO: color 연동
                 self.presentTextColorModal()
             }
             .disposed(by: disposeBag)
@@ -335,15 +349,17 @@ private extension DYFlexibleTextField {
         let modalVC = DYModalViewController(configure: configuration,
                                             title: Text.textStyleTitle,
                                             hasDownButton: true)
+        let contentView = TextStyleView(attributes: currentAttributes)
 
-        // 현재 텍스트 뷰의 text설정값을 가져와야함
-        //
-        let viewModel = TextStyleViewModel(alignment: .leading,
-                                           textSize: 16,
-                                           additionalOptions: [.bold],
-                                           lineSpacing: 26,
-                                           font: .sandolGodic)
-        modalVC.contentView = TextStyleView(viewModel: viewModel)
+        contentView.attributesSubject.sink { [weak self] attributes in
+            attributes.forEach { key, value in
+                guard let value = value else { return }
+                self?.setAttributes(key: key, value: value)
+            }
+        }
+        .store(in: &cancellable)
+
+        modalVC.contentView = contentView
 
         keyWindow.rootViewController?.presentedViewController?.presentCustomModal(modalVC)
     }
@@ -355,9 +371,19 @@ private extension DYFlexibleTextField {
                                             title: Text.textStyleColor,
                                             hasDownButton: true)
         // TODO: 현재 텍스트 필드의 컬러의 색상 연동
-        let currentTextColor = UIColor.blue
+        var currentTextColor = UIColor.black
+
+        if let color = currentAttributes[.foregroundColor] as? UIColor {
+            currentTextColor = color
+        }
+
         let contentView = ColorSettingView()
         contentView.set(color: currentTextColor)
+        contentView.colorSubject.sink { [weak self] color in
+            self?.setAttributes(key: .foregroundColor, value: color)
+        }
+        .store(in: &cancellable)
+        
         modalVC.contentView = contentView
         keyWindow.rootViewController?.presentedViewController?.presentCustomModal(modalVC)
     }
@@ -370,14 +396,12 @@ private extension DYFlexibleTextField {
     func calcTextViewHeight() {
         let size = CGSize(width: textView.frame.width, height: .greatestFiniteMagnitude)
         let transedSize = textView.sizeThatFits(size)
-        print(transedSize)
         frame.size.height = transedSize.height + Design.containerInset.top + Design.containerInset.bottom
     }
 
     func calcTextViewWidth() {
         let size = CGSize(width: .greatestFiniteMagnitude, height: textView.frame.height)
         let transedSize = textView.sizeThatFits(size)
-        print(transedSize)
         let calcedWidth = transedSize.width + Design.containerInset.left + Design.containerInset.right
         frame.size.width = max(calcedWidth, frame.width)
     }
@@ -406,20 +430,24 @@ private extension DYFlexibleTextField {
     @objc func didRecogRightHandler(_ recog: UIPanGestureRecognizer) {
         let point = recog.translation(in: self)
         let newSize = CGSize(width: frame.width + point.x, height: frame.height)
-        let transedSize = sizeThatFits(newSize)
-        frame.size.width = newSize.width
-        frame.size.height = transedSize.height
+        updateTextViewFrameIfNeeded(newSize)
         recog.setTranslation(.zero, in: self)
-        calcTextViewHeight()
     }
 
     @objc func didRecogLeftHandler(_ recog: UIPanGestureRecognizer) {
         let point = recog.translation(in: self)
-        let changedX = center.x + point.x
-        let changedY = center.y + point.y
 
-        center = CGPoint(x: changedX, y: changedY)
+        let newSize = CGSize(width: frame.width - point.x, height: frame.height)
+        updateTextViewFrameIfNeeded(newSize)
+        frame.origin.x += point.x
         recog.setTranslation(.zero, in: self)
+    }
+
+    private func updateTextViewFrameIfNeeded(_ size: CGSize) {
+        guard size.width > DefaultOption.defaultTextFieldSize.width else { return }
+        let transedSize = sizeThatFits(size)
+        frame.size.width = size.width
+        frame.size.height = transedSize.height
         calcTextViewHeight()
     }
 
@@ -444,107 +472,101 @@ extension DYFlexibleTextField: UITextViewDelegate {
         if isEditMode {
             deleteButton.isHidden = textView.text.isEmpty
         }
+
+        // TODO: - 미모티콘 처리 필요
+        // 텍스트 처리 가능할 것 같은데..
         calcTextViewWidth()
+
+        // TODO: - fit mode일때 프레임 계산 로직 수정
+        if textView.text.last == "\n" {
+            calcTextViewHeight()
+        }
+    }
+
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        updateInputAccessoryView()
     }
 
 }
 
-// MARK: - Leding Accessory
+// MARK: - TextBox Bullet Point
 
 extension DYFlexibleTextField {
 
-    func updateLeadingAccessoryView(_ accessoryType: DYTextBoxBulletPoint.BulletType) {
+    func updateBulletPointView(_ accessoryType: DYTextBoxBulletPoint.BulletType) {
 
-        let textViewMargin = leadingAccessoryView.frame.size.width + 8
+        let textViewMargin = bulletPointView.frame.size.width + 8
         let currentConatinerFrame = containerView.frame
 
         switch accessoryType {
         case .dot, .checkBox(_):
-            leadingAccessoryView.isHidden = false
+            bulletPointView.isHidden = false
             textView.frame.origin.x = textViewMargin
             textView.frame.size.width = currentConatinerFrame.width - textViewMargin
         case .none:
-            leadingAccessoryView.isHidden = true
+            bulletPointView.isHidden = true
             textView.frame.origin.x = 0
             textView.frame.size.width = currentConatinerFrame.width
         }
 
-        leadingAccessoryView.updateAccessoryView(accessoryType)
+        bulletPointView.updateAccessoryView(accessoryType)
         calcTextViewHeight()
     }
 
 }
 
+// MARK: - Attributes
+
 extension DYFlexibleTextField {
-    private var currentAttr: NSRange {
-        guard textView.text.isEmpty == false else { return NSRange(location: 0, length: textView.text.count) }
-        let attrText = textView.attributedText
-        let attributes = attrText?.attributes(at: 0, effectiveRange: nil)
-        if let attributes = attributes {
-            for attr in attributes {
-                print(attr.key, attr.value)
-            }
+
+    /// 현재 textView의 커서, 혹은 선택된 범위에 대한 attributes를 반환
+    ///
+    /// - textView의 마지막 커서라면, 혹은 선택된 영역의 길이가 0 이라면, typingAttributes를 그대로 반환
+    /// - select된 부분이 있다면 os 기준으로 해당 범위에 있는 attributes를 반환
+    private var currentAttributes: [NSAttributedString.Key : Any?] {
+        let lastCursorRange = NSRange(location: textView.text.count, length: 0)
+
+        guard
+            lastCursorRange != textView.selectedRange,
+            textView.selectedRange.length != 0,
+            let attributedText = textView.attributedText
+        else {
+            return textView.typingAttributes
         }
-        return NSRange(location: 0, length: textView.text.count)
-    }
-}
 
-// MARK: - Font Style
-
-extension DYFlexibleTextField {
-
-    private var currentTextRange: NSRange {
-        return NSRange(location: 0, length: textView.text.count)
+        var selectedRange = textView.selectedRange
+        let attributes = attributedText.attributes(at: selectedRange.location,
+                                                   effectiveRange: &selectedRange)
+        return attributes
     }
 
-    func setBoldStyle() {
-        let currentAttributedString = NSMutableAttributedString(attributedString: textView.attributedText)
-        currentAttributedString.addAttribute(.strokeWidth,
-                                             value: UIFont.Weight.bold.strokeWidth,
-                                             range: currentTextRange)
-        textView.attributedText = currentAttributedString
-    }
+    /// 현재 textView의  typingAttributes, 범위의 텍스트에 attribute 적용
+    private func setAttributes(key: NSAttributedString.Key, value: Any) {
+        guard let attributedText = textView.attributedText else { return }
 
-    func removeBoldStyle() {
-        let currentAttributedString = NSMutableAttributedString(attributedString: textView.attributedText)
-        currentAttributedString.addAttribute(.strokeWidth,
-                                             value: UIFont.Weight.regular.strokeWidth,
-                                             range: currentTextRange)
-        textView.attributedText = currentAttributedString
-    }
+        defer {
+            updateInputAccessoryView()
+        }
 
-    func setCancelLine() {
-        let currentAttributedString = NSMutableAttributedString(attributedString: textView.attributedText)
-        currentAttributedString.addAttribute(.strikethroughStyle,
-                                             value: NSUnderlineStyle.single.rawValue,
-                                             range: currentTextRange)
-        textView.attributedText = currentAttributedString
-    }
+        var typingAttributes = textView.typingAttributes
+        typingAttributes[key] = value
+        textView.typingAttributes = typingAttributes
 
-    func removeCancelLine() {
-        let currentAttributedString = NSMutableAttributedString(attributedString: textView.attributedText)
-        currentAttributedString.addAttribute(.strikethroughStyle,
-                                             value: 0,
-                                             range: currentTextRange)
-        textView.attributedText = currentAttributedString
-    }
+        var targetRange = textView.selectedRange
+        let tempSelectRange = textView.selectedRange
 
-    func setUnderLine() {
-        let currentAttributedString = NSMutableAttributedString(attributedString: textView.attributedText)
-        currentAttributedString.addAttribute(.underlineStyle,
-                                             value: NSUnderlineStyle.single.rawValue,
-                                             range: currentTextRange)
-        textView.attributedText = currentAttributedString
-    }
+        // paragraphStyle일 경우 targetRange를 전체로 적용한다.
+        if key == .paragraphStyle {
+            targetRange = NSRange(location: 0, length:  textView.text.count)
+        }
 
-    func removeUnderLine() {
-        let currentAttributedString = NSMutableAttributedString(attributedString: textView.attributedText)
-        currentAttributedString.addAttribute(.underlineStyle,
-                                             value: 0,
-                                             range: currentTextRange)
-        textView.attributedText = currentAttributedString
-    }
+        let mutableAttributedString = NSMutableAttributedString(attributedString: attributedText)
+        mutableAttributedString.addAttribute(key, value: value, range: targetRange)
+        textView.attributedText = mutableAttributedString
+        textView.selectedRange = tempSelectRange
 
+        calcTextViewHeight()
+    }
 }
 
 // MARK: - Util
@@ -578,14 +600,4 @@ extension DYFlexibleTextField {
 
     }
 
-}
-
-private extension UIFont.Weight {
-    var strokeWidth: CGFloat {
-        switch self {
-        case .bold: return -3
-        case .regular: return 0
-        default: return 0
-        }
-    }
 }

@@ -85,7 +85,6 @@
 		34BB086226135E030000377E /* EraseOptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BB086126135E030000377E /* EraseOptionButton.swift */; };
 		34C7B3692619763300BC6A28 /* TextStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B3682619763300BC6A28 /* TextStyleView.swift */; };
 		34C7B36C2619765500BC6A28 /* TextStyleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B36B2619765500BC6A28 /* TextStyleModel.swift */; };
-		34C7B36F26197C4600BC6A28 /* TextStyleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B36E26197C4600BC6A28 /* TextStyleViewModel.swift */; };
 		34C7B3722619818F00BC6A28 /* TextStyleOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B3712619818F00BC6A28 /* TextStyleOptionView.swift */; };
 		34C7B3752619819D00BC6A28 /* TextStyleFontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B3742619819D00BC6A28 /* TextStyleFontView.swift */; };
 		34C7B37926199DA600BC6A28 /* TextStyleTextSizeOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B37826199DA600BC6A28 /* TextStyleTextSizeOptionView.swift */; };
@@ -261,7 +260,6 @@
 		34BB086126135E030000377E /* EraseOptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseOptionButton.swift; sourceTree = "<group>"; };
 		34C7B3682619763300BC6A28 /* TextStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleView.swift; sourceTree = "<group>"; };
 		34C7B36B2619765500BC6A28 /* TextStyleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleModel.swift; sourceTree = "<group>"; };
-		34C7B36E26197C4600BC6A28 /* TextStyleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleViewModel.swift; sourceTree = "<group>"; };
 		34C7B3712619818F00BC6A28 /* TextStyleOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleOptionView.swift; sourceTree = "<group>"; };
 		34C7B3742619819D00BC6A28 /* TextStyleFontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleFontView.swift; sourceTree = "<group>"; };
 		34C7B37826199DA600BC6A28 /* TextStyleTextSizeOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleTextSizeOptionView.swift; sourceTree = "<group>"; };
@@ -713,7 +711,6 @@
 			isa = PBXGroup;
 			children = (
 				34C7B36B2619765500BC6A28 /* TextStyleModel.swift */,
-				34C7B36E26197C4600BC6A28 /* TextStyleViewModel.swift */,
 				34C7B3682619763300BC6A28 /* TextStyleView.swift */,
 				34C7B3712619818F00BC6A28 /* TextStyleOptionView.swift */,
 				34C7B37826199DA600BC6A28 /* TextStyleTextSizeOptionView.swift */,
@@ -1483,7 +1480,6 @@
 				DAF18EA825B70FFD007ACFAC /* MonthlyCalendarViewModel.swift in Sources */,
 				CE8DCB2D258FB1A0007738EA /* DiaryListViewController+bind.swift in Sources */,
 				340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */,
-				34C7B36F26197C4600BC6A28 /* TextStyleViewModel.swift in Sources */,
 				DADD09FE25A33695004D6CF0 /* DiaryEditColorPaletteView.swift in Sources */,
 				34A11A4725ADC3CA00678F98 /* PaperModalViewController.swift in Sources */,
 				34C7B37926199DA600BC6A28 /* TextStyleTextSizeOptionView.swift in Sources */,

@@ -32,3 +32,43 @@ extension UIFont {
         return UIFont.nonOptionalFont(name: "Helvetica-Bold", size)
     }
 }
+
+extension UIFont {
+
+    var canBold: Bool {
+        return fontDescriptor.withSymbolicTraits(.traitBold) != nil
+    }
+
+    var isBold: Bool {
+        return fontDescriptor.symbolicTraits.contains(.traitBold)
+    }
+
+    func toBoldFont() -> UIFont {
+        guard isBold == false else { return self }
+
+        var symbolicTraits = fontDescriptor.symbolicTraits
+        symbolicTraits.insert([.traitBold])
+
+        if let fontDescriptor = fontDescriptor.withSymbolicTraits(symbolicTraits) {
+            let fontSize = pointSize
+            return UIFont(descriptor: fontDescriptor, size: fontSize)
+        }
+
+        return self
+    }
+
+    func toRegularFont()-> UIFont {
+        guard isBold else { return self }
+
+        var symbolicTraits = fontDescriptor.symbolicTraits
+        symbolicTraits.remove([.traitBold])
+
+        if let fontDescriptor = fontDescriptor.withSymbolicTraits(symbolicTraits) {
+            let fontSize = pointSize
+            return UIFont(descriptor: fontDescriptor, size: fontSize)
+        }
+
+        return self
+    }
+
+}

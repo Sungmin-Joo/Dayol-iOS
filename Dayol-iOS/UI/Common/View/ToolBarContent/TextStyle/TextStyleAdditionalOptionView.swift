@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Combine
 
 private enum Design {
     static let selectedButtonImage = UIImage(named: TextStyleModel.AdditionalOption.selectedImageName)
@@ -17,10 +18,10 @@ private enum Design {
 class TextStyleAdditionalOptionView: UIView {
 
     private let disposeBag = DisposeBag()
-    var currnetOptions: Set<TextStyleModel.AdditionalOption> = [] {
+    var currentOptions: Set<TextStyleModel.AdditionalOption> = [] {
         didSet { updateCurrentState() }
     }
-
+    var optionsSubject = CurrentValueSubject<Set<TextStyleModel.AdditionalOption>, Never>([])
     // MARK: - UI Property
 
     private let boldButton: UIButton = {
@@ -68,13 +69,15 @@ class TextStyleAdditionalOptionView: UIView {
     }
 
     private func updateCurrentState() {
-        let hasBoldOption = currnetOptions.contains(.bold)
-        let hasCancelLineOption = currnetOptions.contains(.cancelLine)
-        let hasUnderLineOption = currnetOptions.contains(.underLine)
+        let hasBoldOption = currentOptions.contains(.bold)
+        let hasCancelLineOption = currentOptions.contains(.cancelLine)
+        let hasUnderLineOption = currentOptions.contains(.underLine)
 
         boldButton.isSelected = hasBoldOption
         cancelLineButton.isSelected = hasCancelLineOption
         underLineButton.isSelected = hasUnderLineOption
+
+        optionsSubject.send(currentOptions)
     }
 
 }
@@ -94,10 +97,10 @@ extension TextStyleAdditionalOptionView {
         boldButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-                if self.currnetOptions.contains(.bold) {
-                    self.currnetOptions.remove(.bold)
+                if self.currentOptions.contains(.bold) {
+                    self.currentOptions.remove(.bold)
                 } else {
-                    self.currnetOptions.insert(.bold)
+                    self.currentOptions.insert(.bold)
                 }
             }
             .disposed(by: disposeBag)
@@ -105,10 +108,10 @@ extension TextStyleAdditionalOptionView {
         cancelLineButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-                if self.currnetOptions.contains(.cancelLine) {
-                    self.currnetOptions.remove(.cancelLine)
+                if self.currentOptions.contains(.cancelLine) {
+                    self.currentOptions.remove(.cancelLine)
                 } else {
-                    self.currnetOptions.insert(.cancelLine)
+                    self.currentOptions.insert(.cancelLine)
                 }
             }
             .disposed(by: disposeBag)
@@ -116,10 +119,10 @@ extension TextStyleAdditionalOptionView {
         underLineButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-                if self.currnetOptions.contains(.underLine) {
-                    self.currnetOptions.remove(.underLine)
+                if self.currentOptions.contains(.underLine) {
+                    self.currentOptions.remove(.underLine)
                 } else {
-                    self.currnetOptions.insert(.underLine)
+                    self.currentOptions.insert(.underLine)
                 }
             }
             .disposed(by: disposeBag)
