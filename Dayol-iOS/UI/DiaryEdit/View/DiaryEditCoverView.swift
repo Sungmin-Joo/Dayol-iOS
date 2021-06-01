@@ -75,7 +75,8 @@ class DiaryEditCoverView: UIView {
         let view = DiaryView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setCover(color: .DYBrown)
-        
+        // TODO: 마스킹 기능을 구현하면 아래 옵션을 제거
+        view.clipsToBounds = true
         return view
     }()
 

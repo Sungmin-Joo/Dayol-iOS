@@ -30,10 +30,10 @@ private enum Design {
 
 class DYKeyboardInputAccessoryView: UIView {
 
+    // 버튼들 selected image 추가 필요
     private(set) var checkButton: UIButton = {
         let button = UIButton()
         button.setImage(Design.checkImage, for: .normal)
-        button.adjustsImageWhenHighlighted = true
         return button
     }()
     private(set) var bulletButton: UIButton = {
