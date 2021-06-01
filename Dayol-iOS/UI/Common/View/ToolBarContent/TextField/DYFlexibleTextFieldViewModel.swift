@@ -11,12 +11,12 @@ import Combine
 class DYFlexibleTextFieldViewModel: NSObject {
     var isFitStyle: Bool
     var text: NSAttributedString
-    let leadingAccessoryTypeSubject = CurrentValueSubject<DYTextLeadingAccessoryView.AccessoryType, Never>(.none)
+    let leadingAccessoryTypeSubject = CurrentValueSubject<DYTextBoxBulletPoint.BulletType, Never>(.none)
 
     init(
         isFitStyle: Bool,
         text: NSAttributedString = NSAttributedString(),
-        leadingAccessoryType: DYTextLeadingAccessoryView.AccessoryType = .none
+        leadingAccessoryType: DYTextBoxBulletPoint.BulletType = .none
     ) {
         self.isFitStyle = isFitStyle
         self.text = text

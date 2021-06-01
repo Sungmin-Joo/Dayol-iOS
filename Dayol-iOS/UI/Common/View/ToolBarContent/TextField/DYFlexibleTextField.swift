@@ -83,11 +83,11 @@ class DYFlexibleTextField: UIView {
         button.frame.size = Design.delButtonSize
         return button
     }()
-    private let leadingAccessoryView: DYTextLeadingAccessoryView = {
-        let view = DYTextLeadingAccessoryView()
+    private let leadingAccessoryView: DYTextBoxBulletPoint = {
+        let view = DYTextBoxBulletPoint()
         view.isHidden = true
         view.frame.origin.y = 6
-        view.frame.size = DYTextLeadingAccessoryView.AccessoryType.accessoryViewSize
+        view.frame.size = DYTextBoxBulletPoint.BulletType.BulletSize
         return view
     }()
     private lazy var textView: UITextView = {
@@ -291,10 +291,10 @@ private extension DYFlexibleTextField {
                 guard let self = self else { return }
 
                 switch self.viewModel.leadingAccessoryTypeSubject.value {
-                case .bullet:
+                case .dot:
                     self.viewModel.leadingAccessoryTypeSubject.send(.none)
                 default:
-                    self.viewModel.leadingAccessoryTypeSubject.send(.bullet)
+                    self.viewModel.leadingAccessoryTypeSubject.send(.dot)
                 }
             }
             .disposed(by: disposeBag)
@@ -453,13 +453,13 @@ extension DYFlexibleTextField: UITextViewDelegate {
 
 extension DYFlexibleTextField {
 
-    func updateLeadingAccessoryView(_ accessoryType: DYTextLeadingAccessoryView.AccessoryType) {
+    func updateLeadingAccessoryView(_ accessoryType: DYTextBoxBulletPoint.BulletType) {
 
         let textViewMargin = leadingAccessoryView.frame.size.width + 8
         let currentConatinerFrame = containerView.frame
 
         switch accessoryType {
-        case .bullet, .checkBox(_):
+        case .dot, .checkBox(_):
             leadingAccessoryView.isHidden = false
             textView.frame.origin.x = textViewMargin
             textView.frame.size.width = currentConatinerFrame.width - textViewMargin

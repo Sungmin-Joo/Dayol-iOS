@@ -1,5 +1,5 @@
 //
-//  DYTextLeadingAccessoryView.swift
+//  DYTextBoxBulletPoint.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/06/01.
@@ -25,21 +25,21 @@ private enum Design {
 
 }
 
-class DYTextLeadingAccessoryView: UIView {
+class DYTextBoxBulletPoint: UIView {
 
-    enum AccessoryType {
-        case bullet
+    enum BulletType {
+        case dot
         case checkBox(isSelected: Bool)
         case none
 
-        static let accessoryViewSize = CGSize(width: 18.0, height: 18.0)
+        static let BulletSize = CGSize(width: 18.0, height: 18.0)
     }
 
     private let disposeBag = DisposeBag()
 
     // MARK: UI
 
-    private var bullet: UIView = {
+    private var dotView: UIView = {
         let view = UIView()
         view.isHidden = true
         view.layer.masksToBounds = true
@@ -70,26 +70,26 @@ class DYTextLeadingAccessoryView: UIView {
 
     // MARK: UI Update
 
-    func updateAccessoryView(_ accessoryType: AccessoryType) {
+    func updateAccessoryView(_ accessoryType: BulletType) {
         switch accessoryType {
-        case .bullet:
-            bullet.isHidden = false
+        case .dot:
+            dotView.isHidden = false
             checkBox.isHidden = true
         case .checkBox(let isSelected):
-            bullet.isHidden = true
+            dotView.isHidden = true
             checkBox.isHidden = false
             checkBox.isSelected = isSelected
         case .none:
-            bullet.isHidden = false
+            dotView.isHidden = false
             checkBox.isHidden = false
         }
     }
 }
 
-private extension DYTextLeadingAccessoryView {
+private extension DYTextBoxBulletPoint {
 
     func initView() {
-        addSubview(bullet)
+        addSubview(dotView)
         addSubview(checkBox)
 
         checkBox.rx.tap.bind { [weak self] in
@@ -100,10 +100,10 @@ private extension DYTextLeadingAccessoryView {
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            bullet.centerYAnchor.constraint(equalTo: centerYAnchor),
-            bullet.centerXAnchor.constraint(equalTo: centerXAnchor),
-            bullet.widthAnchor.constraint(equalToConstant: Design.Bullet.size.width),
-            bullet.heightAnchor.constraint(equalToConstant: Design.Bullet.size.height),
+            dotView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            dotView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            dotView.widthAnchor.constraint(equalToConstant: Design.Bullet.size.width),
+            dotView.heightAnchor.constraint(equalToConstant: Design.Bullet.size.height),
 
             checkBox.centerYAnchor.constraint(equalTo: centerYAnchor),
             checkBox.centerXAnchor.constraint(equalTo: centerXAnchor),
