@@ -273,6 +273,7 @@ private extension DYFlexibleTextField {
         customInputAccessoryView.textStyleButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
+                // TODO: color 연동
                 self.presentTextStyleModal()
             }
             .disposed(by: disposeBag)
@@ -280,6 +281,7 @@ private extension DYFlexibleTextField {
         customInputAccessoryView.textColorButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
+                // TODO: text style 연동
                 self.presentTextColorModal()
             }
             .disposed(by: disposeBag)
