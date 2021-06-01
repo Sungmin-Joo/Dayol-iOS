@@ -59,6 +59,15 @@ enum Assets {
             static let lock = UIImage(named: "diaryCoverLock")
         }
 
+        enum DYTextField {
+            static let delete = UIImage(named: "textField_delete")
+
+            enum CheckBox {
+                static let on = UIImage(named: "textField_checkbox_on")
+                static let off = UIImage(named: "textField_checkbox_off")
+            }
+        }
+
         enum ToolBar {
             static let info = UIImage(named: "toolBar_info")
 
