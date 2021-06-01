@@ -189,8 +189,7 @@ class DiaryPaperViewerViewController: UIViewController {
             .bind { [weak self] in
                 guard let currentVC = self?.currentViewController else { return }
                 let viewModel = currentVC.viewModel
-                let paperEditViewController = DiaryPaperEditViewController(viewModel: viewModel)
-                paperEditViewController.modalTransitionStyle = .crossDissolve
+                let paperEditViewController = DiaryPaperEditViewController.make(viewModel: viewModel)
                 self?.present(paperEditViewController, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
@@ -237,9 +236,7 @@ class DiaryPaperViewerViewController: UIViewController {
 
 extension DiaryPaperViewerViewController {
     var currentViewController: DiaryPaperViewController? {
-        guard let viewControllers = pageViewController.viewControllers as? [DiaryPaperViewController] else { return nil }
-        
-        return viewControllers[safe: currentIndex]
+        return paperViewControllers?[safe: currentIndex];
     }
 }
 

@@ -83,8 +83,6 @@ class WeeklyCalendarView: BasePaper {
         collectionView.backgroundColor = .clear
     }
     
-    
-    
     private func bind() {
         guard let viewModel = self.viewModel as? WeeklyCalendarViewModel else { return }
         

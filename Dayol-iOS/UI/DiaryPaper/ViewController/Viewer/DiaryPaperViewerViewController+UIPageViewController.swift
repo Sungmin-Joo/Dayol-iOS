@@ -8,7 +8,13 @@
 import UIKit
 
 extension DiaryPaperViewerViewController: UIPageViewControllerDelegate {
-    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if completed {
+            if let currentViewController = pageViewController.viewControllers![0] as? DiaryPaperViewController {
+                currentIndex = currentViewController.index
+            }
+        }
+    }
 }
 
 extension DiaryPaperViewerViewController: UIPageViewControllerDataSource {
@@ -17,9 +23,8 @@ extension DiaryPaperViewerViewController: UIPageViewControllerDataSource {
             return nil
         }
         let prevIndex = paperViewController.index - 1
-        currentIndex = prevIndex
+
         return paperViewControllers[safe: prevIndex]
-        
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -27,13 +32,7 @@ extension DiaryPaperViewerViewController: UIPageViewControllerDataSource {
             return nil
         }
         let nextIndex = paperViewController.index + 1
-        currentIndex = nextIndex
+
         return paperViewControllers[safe: nextIndex]
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        guard let currentViewContoller = pageViewController.presentingViewController as? DiaryPaperViewController else { return }
-        
-        currentIndex = currentViewContoller.index
     }
 }

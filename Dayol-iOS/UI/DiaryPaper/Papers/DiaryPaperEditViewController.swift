@@ -27,7 +27,19 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
     private let titleView = DYNavigationItemCreator.titleView(Text.editTitle.stringValue)
-    
+
+    // MARK: - Make
+
+    static func make(viewModel: DiaryPaperViewModel) -> DYNavigationController {
+        let vc = DiaryPaperEditViewController(viewModel: viewModel)
+        let nav = DYNavigationController(rootViewController: vc)
+
+        nav.modalPresentationStyle = .overFullScreen
+        nav.modalTransitionStyle = .crossDissolve
+
+        return nav
+    }
+
     // MARK: - Init
     
     init(viewModel: DiaryPaperViewModel) {
@@ -53,13 +65,13 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
         
         setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
         
-        leftButton.addTarget(self, action: #selector(popWithAnimation), for: .touchUpInside)
+        leftButton.addTarget(self, action: #selector(dismissWithAnimation), for: .touchUpInside)
         toolBar.stickerButton.addTarget(self, action: #selector(presentStickerModal), for: .touchUpInside)
     }
     
     @objc
-    private func popWithAnimation() {
-        self.navigationController?.popViewController(animated: true)
+    private func dismissWithAnimation() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc
