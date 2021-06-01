@@ -8,6 +8,8 @@
 import Foundation
 
 extension Date {
+    static let now = Date()
+
     static var calendar: Calendar = {
         return Calendar(identifier: .gregorian)
     }()
@@ -27,7 +29,7 @@ extension Date {
     static func day(from date: Date, add value: Int = 0) -> String {
         let month = Date.calendar.date(byAdding: .day, value: value, to: date) ?? Date()
 
-        return DateFormatter.month.string(from: month)
+        return DateFormatter.day.string(from: month)
     }
 
     var weekday: Int {

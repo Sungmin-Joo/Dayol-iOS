@@ -31,18 +31,26 @@ struct DiaryInnerModel {
 class DYTestData {
     static let shared = DYTestData()
     static let testDrawModel = DrawModel(lines: [], stickers: [], labels: [])
-    
-    lazy var diaryListSubject = BehaviorSubject<[DiaryCoverModel]>(value: diaryList)
+
+    var currentDiaryId: Int {
+        diaryList.count
+    }
+
+    var currentPaperId: Int {
+        paperList.count
+    }
+
+    lazy var diaryListSubject = BehaviorSubject<[DiaryInfoModel]>(value: diaryList)
     lazy var deletedPageListSubject = BehaviorSubject<[DeletedPageCellModel]>(value: deletedPageList)
-    lazy var pageListSubject = BehaviorSubject<[DiaryInnerModel]>(value: pageList)
+    lazy var pageListSubject = BehaviorSubject<[DiaryInnerModel.PaperModel]>(value: paperList)
     
-    var diaryList: [DiaryCoverModel] = [
-        DiaryCoverModel(color: .DYRed, title: "1번 다이어리", totalPage: 3, password: "1234"),
-        DiaryCoverModel(color: .DYBlue, title: "2번 다이어리", totalPage: 2, password: "1234"),
-        DiaryCoverModel(color: .DYGreen, title: "3번 다이어리", totalPage: 5, password: "1234"),
-        DiaryCoverModel(color: .DYRed, title: "1번 다이어리", totalPage: 3, password: "1234"),
-        DiaryCoverModel(color: .DYBlue, title: "2번 다이어리", totalPage: 2, password: "1234"),
-        DiaryCoverModel(color: .DYGreen, title: "3번 다이어리", totalPage: 5, password: "1234")
+    var diaryList: [DiaryInfoModel] = [
+        DiaryInfoModel(id: 0, color: .DYRed, title: "1번 다이어리", totalPage: 3, password: "1234"),
+        DiaryInfoModel(id: 1, color: .DYBlue, title: "2번 다이어리", totalPage: 2, password: "1234"),
+        DiaryInfoModel(id: 2, color: .DYGreen, title: "3번 다이어리", totalPage: 5, password: "1234"),
+        DiaryInfoModel(id: 3, color: .DYRed, title: "4번 다이어리", totalPage: 3, password: "1234"),
+        DiaryInfoModel(id: 4, color: .DYBlue, title: "5번 다이어리", totalPage: 2, password: "1234"),
+        DiaryInfoModel(id: 5, color: .DYGreen, title: "6번 다이어리", totalPage: 5, password: "1234")
     ]
     
     var deletedPageList: [DeletedPageCellModel] = [
@@ -66,45 +74,42 @@ class DYTestData {
     
     
 
-    var pageList: [DiaryInnerModel] = [
-        DiaryInnerModel(diaryID: 0,
-                        paperList: [
-                            DiaryInnerModel.PaperModel(id: 0,
-                                                       paperStyle: .vertical,
-                                                       paperType: .daily(date: Date()),
-                                                       numberOfPapers: 1,
-                                                       drawModelList: testDrawModel),
-                            DiaryInnerModel.PaperModel(id: 1,
-                                                       paperStyle: .vertical,
-                                                       paperType: .cornell,
-                                                       numberOfPapers: 1,
-                                                       drawModelList: testDrawModel),
-                            DiaryInnerModel.PaperModel(id: 2,
-                                                       paperStyle: .vertical,
-                                                       paperType: .grid,
-                                                       numberOfPapers: 1,
-                                                       drawModelList: testDrawModel),
-                            DiaryInnerModel.PaperModel(id: 3,
-                                                       paperStyle: .vertical,
-                                                       paperType: .monthly(date: Date()),
-                                                       numberOfPapers: 1,
-                                                       drawModelList: testDrawModel),
-                            DiaryInnerModel.PaperModel(id: 4,
-                                                       paperStyle: .vertical,
-                                                       paperType: .weekly(date: Date()),
-                                                       numberOfPapers: 1,
-                                                       drawModelList: testDrawModel),
-                            DiaryInnerModel.PaperModel(id: 5,
-                                                       paperStyle: .vertical,
-                                                       paperType: .four,
-                                                       numberOfPapers: 1,
-                                                       drawModelList: testDrawModel),
-                            DiaryInnerModel.PaperModel(id: 6,
-                                                       paperStyle: .vertical,
-                                                       paperType: .tracker,
-                                                       numberOfPapers: 1,
-                                                       drawModelList: testDrawModel)
-                        ])
+    var paperList: [DiaryInnerModel.PaperModel] = [
+        DiaryInnerModel.PaperModel(id: 0,
+                                   paperStyle: .vertical,
+                                   paperType: .daily(date: Date()),
+                                   numberOfPapers: 1,
+                                   drawModelList: testDrawModel),
+        DiaryInnerModel.PaperModel(id: 1,
+                                   paperStyle: .vertical,
+                                   paperType: .cornell,
+                                   numberOfPapers: 1,
+                                   drawModelList: testDrawModel),
+        DiaryInnerModel.PaperModel(id: 2,
+                                   paperStyle: .vertical,
+                                   paperType: .grid,
+                                   numberOfPapers: 1,
+                                   drawModelList: testDrawModel),
+        DiaryInnerModel.PaperModel(id: 3,
+                                   paperStyle: .vertical,
+                                   paperType: .monthly(date: Date()),
+                                   numberOfPapers: 1,
+                                   drawModelList: testDrawModel),
+        DiaryInnerModel.PaperModel(id: 4,
+                                   paperStyle: .vertical,
+                                   paperType: .weekly(date: Date()),
+                                   numberOfPapers: 1,
+                                   drawModelList: testDrawModel),
+        DiaryInnerModel.PaperModel(id: 5,
+                                   paperStyle: .vertical,
+                                   paperType: .four,
+                                   numberOfPapers: 1,
+                                   drawModelList: testDrawModel),
+        DiaryInnerModel.PaperModel(id: 6,
+                                   paperStyle: .vertical,
+                                   paperType: .tracker,
+                                   numberOfPapers: 1,
+                                   drawModelList: testDrawModel)
     ]
     
     var stickerList: [UIImage?] = [
@@ -165,68 +170,40 @@ class DYTestData {
         UIImage(named: "testSticker3"),
         UIImage(named: "testSticker4"),
     ]
-   
-    
-    @discardableResult
-    func create(diary: DiaryCoverModel) -> Observable<DiaryCoverModel> {
-        diaryList.append(diary)
-        diaryListSubject.onNext(diaryList)
-        
-        return Observable.just(diary)
-    }
+
+// MARK: -Deleted Paper
 
     func addDeletedPage(_ page: DeletedPageCellModel) {
         deletedPageList.append(page)
-        pageListSubject.onNext(pageList)
+        pageListSubject.onNext(paperList)
     }
 
     func deleteDeletedPage(_ page: DeletedPageCellModel) {
         // TODO: - 임시로 다이어리 이름으로 비교하지만 추후에 데이터 연동 필요
         guard let index = deletedPageList.firstIndex(where: { $0.diaryName == page.diaryName }) else { return }
-        pageList.remove(at: index)
-        pageListSubject.onNext(pageList)
+        paperList.remove(at: index)
+        pageListSubject.onNext(paperList)
     }
 
     func deleteAllPage() {
-        pageList = []
-        pageListSubject.onNext(pageList)
+        paperList = []
+        pageListSubject.onNext(paperList)
     }
     
     func deleteAllDeletedPage() {
         deletedPageList = []
         deletedPageListSubject.onNext(deletedPageList)
     }
-    
-    func addDiary(_ diary: DiaryInnerModel) {
-        pageList.append(diary)
+
+// MARK: - Diary
+
+    func addDiary(_ diary: DiaryInfoModel) {
+        diaryList.append(diary)
         diaryListSubject.onNext(diaryList)
     }
-    
-    func reorderPage(from sourceIndex: Int, to destinationIndex: Int) {
-        guard var paperList = pageList[safe: 0]?.paperList else { return }
-        guard let source = paperList[safe: sourceIndex] else { return }
-        
-        if sourceIndex > destinationIndex {
-            paperList.remove(at: sourceIndex)
-            paperList.insert(source, at: destinationIndex)
-        } else {
-            paperList.insert(source, at: destinationIndex + 1)
-            paperList.remove(at: sourceIndex)
-        }
-        pageList[0].paperList = paperList
-        pageListSubject.onNext(pageList)
-    }
-    
-    func addPage(_ model: DiaryInnerModel.PaperModel) {
-        guard var paperList = pageList[safe: 0]?.paperList else { return }
-        
-        paperList.append(model)
-        pageList[0].paperList = paperList
-        pageListSubject.onNext(pageList)
-    }
 
-    func deleteDiary(_ diary: DiaryInnerModel) {
-        guard let index = pageList.firstIndex(where: { $0.diaryID == diary.diaryID }) else { return }
+    func deleteDiary(_ diary: DiaryInfoModel) {
+        guard let index = diaryList.firstIndex(where: { $0.id == diary.id }) else { return }
         diaryList.remove(at: index)
         diaryListSubject.onNext(diaryList)
     }
@@ -235,5 +212,30 @@ class DYTestData {
         diaryList = []
         diaryListSubject.onNext(diaryList)
     }
+
+// MARK: -Paper
     
+    func addPaper(_ model: DiaryInnerModel.PaperModel) {
+        paperList.append(model)
+        pageListSubject.onNext(paperList)
+    }
+
+    func deletePaper(_ model: DiaryInnerModel.PaperModel) {
+        guard let index = paperList.firstIndex(where: { $0.id == model.id }) else { return }
+        paperList.remove(at: index)
+        pageListSubject.onNext(paperList)
+    }
+
+    func reorderPaper(from sourceIndex: Int, to destinationIndex: Int) {
+        guard let source = paperList[safe: sourceIndex] else { return }
+
+        if sourceIndex > destinationIndex {
+            paperList.remove(at: sourceIndex)
+            paperList.insert(source, at: destinationIndex)
+        } else {
+            paperList.insert(source, at: destinationIndex + 1)
+            paperList.remove(at: sourceIndex)
+        }
+        pageListSubject.onNext(paperList)
+    }
 }

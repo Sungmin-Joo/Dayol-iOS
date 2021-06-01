@@ -51,7 +51,20 @@ enum PaperType: Equatable {
         case .tracker: return "memo_list_tracker".localized
         }
     }
-    
+
+    var cellType: UITableViewCell.Type {
+        switch self {
+        case .monthly: return MonthlyCalendarView.self
+        case .weekly: return WeeklyCalendarView.self
+        case .daily: return DailyPaper.self
+        case .cornell: return CornellPaper.self
+        case .muji: return MujiPaper.self
+        case .grid: return GridPaper.self
+        case .four: return FourPaper.self
+        case .tracker: return BasePaper.self
+        }
+    }
+
     var identifier: String {
         switch self {
         case .monthly: return MonthlyCalendarView.className

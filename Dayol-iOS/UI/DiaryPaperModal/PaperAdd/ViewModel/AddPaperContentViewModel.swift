@@ -37,7 +37,7 @@ class AddPaperContentViewModel {
             drawModelList: DrawModel()
         )
         
-        DYTestData.shared.addPage(paperModel)
+        DYTestData.shared.addPaper(paperModel)
     }
 }
 

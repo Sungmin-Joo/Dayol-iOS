@@ -22,9 +22,9 @@ class DiaryPaperViewerViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var cancellable = [Cancellable]()
     private let viewModel: DiaryPaperViewerViewModel
-    private var innerModels: [DiaryInnerModel]?
+    private var paperModels: [DiaryInnerModel.PaperModel]?
     
-    var currentIndex: Int = 0
+    var currentIndex: Int = -1
     
     // MARK: - UI Component
     
@@ -131,21 +131,20 @@ class DiaryPaperViewerViewController: UIViewController {
     private func bindPaperModel() {
         viewModel.paperList
             .observe(on: MainScheduler.instance)
-            .filter({ [weak self] inners -> Bool in
-                let shouldShowDiaryPeper = !inners[0].paperList.isEmpty
+            .filter({ [weak self] papers -> Bool in
+                let shouldShowDiaryPaper = !papers.isEmpty
                 
-                self?.emptyView.isHidden = (shouldShowDiaryPeper == true)
+                self?.emptyView.isHidden = (shouldShowDiaryPaper == true)
                 
-                return shouldShowDiaryPeper
+                return shouldShowDiaryPaper
             })
-            .subscribe(onNext: { [weak self] inners in
-                guard let self = self else { return }
-                
-                let paperList = inners[0].paperList
+            .subscribe(onNext: { [weak self] papers in
+                guard let self = self, papers.isEmpty == false else { return }
+
                 var diaryPaperViewControllers = [DiaryPaperViewController]()
-                self.innerModels = inners
+                self.paperModels = papers
                 
-                for (index, paper) in paperList.enumerated() {
+                for (index, paper) in papers.enumerated() {
                     let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: paper.numberOfPapers)
                     let paperViewController = DiaryPaperViewController(index: index, viewModel: paperViewModel)
 
@@ -161,7 +160,14 @@ class DiaryPaperViewerViewController: UIViewController {
                     diaryPaperViewControllers.append(paperViewController)
                 }
                 self.paperViewControllers = diaryPaperViewControllers
-                self.pageViewController.setViewControllers([diaryPaperViewControllers[self.currentIndex]], direction: .forward, animated: false, completion: nil)
+
+                if self.currentIndex == -1 {
+                    self.currentIndex = 0
+                } else {
+                    self.currentIndex = diaryPaperViewControllers.count - 1
+                }
+
+                self.pageViewController.setViewControllers([diaryPaperViewControllers[self.currentIndex]], direction: .forward, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
     }
@@ -184,7 +190,8 @@ class DiaryPaperViewerViewController: UIViewController {
                 guard let currentVC = self?.currentViewController else { return }
                 let viewModel = currentVC.viewModel
                 let paperEditViewController = DiaryPaperEditViewController(viewModel: viewModel)
-                self?.navigationController?.pushViewController(paperEditViewController, animated: true)
+                paperEditViewController.modalTransitionStyle = .crossDissolve
+                self?.present(paperEditViewController, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
 
@@ -199,7 +206,7 @@ class DiaryPaperViewerViewController: UIViewController {
     }
 
     private func presentPaperModal(toolType: PaperModalViewController.PaperToolType) {
-        guard let paperList = innerModels?[0].paperList else { return }
+        guard let paperModels = self.paperModels else { return }
         
         let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
         let screenHeight = keyWindow?.bounds.height ?? .zero
@@ -208,7 +215,7 @@ class DiaryPaperViewerViewController: UIViewController {
         let configuration = DYModalConfiguration(dimStyle: .black,
                                                  modalStyle: modalStyle)
 
-        let papers = paperList.compactMap {
+        let papers = paperModels.compactMap {
             PaperModalModel.PaperListCellModel(id: $0.id,
                                                isStarred: false,
                                                paperStyle: $0.paperStyle,
@@ -238,9 +245,16 @@ extension DiaryPaperViewerViewController {
 
 extension DiaryPaperViewerViewController: PaperModalViewDelegate {
     func didTappedItem(_ index: Int) {
-        guard let selectedViewController = self.paperViewControllers?[safe: index] else { return }
-        
-        self.pageViewController.setViewControllers([selectedViewController], direction: .forward, animated: false, completion: nil)
+        guard let selectedViewController = self.paperViewControllers?[safe: index], currentIndex != index else { return }
+        let direction: UIPageViewController.NavigationDirection
+        if currentIndex < index {
+            direction = .forward
+        } else {
+            direction = .reverse
+        }
+        currentIndex = index
+        self.pageViewController.setViewControllers([selectedViewController], direction: direction, animated: true, completion: nil)
+
     }
     
     func didTappedAdd() {
@@ -250,6 +264,9 @@ extension DiaryPaperViewerViewController: PaperModalViewDelegate {
 
 extension DiaryPaperViewerViewController: DatePickerModalViewControllerDelegate {
     func datePicker(_ datePicker: DatePickerModalViewController, didSelected date: Date?) {
-        
+        guard let currentVC = currentViewController, let pickedDate = date else { return }
+        let paperStyle = currentVC.paper.style
+
+        viewModel.addPaper(.monthly(date: pickedDate), style: paperStyle)
     }
 }

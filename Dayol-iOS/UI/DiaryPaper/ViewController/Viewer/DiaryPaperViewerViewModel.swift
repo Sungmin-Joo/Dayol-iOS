@@ -10,21 +10,32 @@ import RxSwift
 
 class DiaryPaperViewerViewModel {
     private let model: DiaryPaperViewerModel
-    private let coverModel: DiaryCoverModel
+    private let coverModel: DiaryInfoModel
     
     var title: Observable<String> {
         return model.diaryTitle.asObservable()
     }
     
-    var paperList: Observable<[DiaryInnerModel]> {
+    var paperList: Observable<[DiaryInnerModel.PaperModel]> {
         return model.innerModelsSubject.asObservable()
     }
     
     var coverColor: UIColor {
         return coverModel.color.coverColor
     }
-    
-    init(coverModel: DiaryCoverModel) {
+
+    func addPaper(_ type: PaperType, style: PaperStyle) {
+        guard model.contain(paperType: type) == false else { return }
+        let paper = DiaryInnerModel.PaperModel(id: model.innerModels.count + 1,
+                                               paperStyle: style,
+                                               paperType: type,
+                                               numberOfPapers: 1,
+                                               drawModelList: DrawModel()
+        )
+        model.add(paper: paper)
+    }
+
+    init(coverModel: DiaryInfoModel) {
         self.coverModel = coverModel
         self.model = DiaryPaperViewerModel(coverModel: coverModel)
     }

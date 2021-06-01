@@ -23,7 +23,7 @@ private enum Design {
 class MonthlyCalendarView: BasePaper {
     private var containerViewLeft = NSLayoutConstraint()
     private var containerViewRight = NSLayoutConstraint()
-    private let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     let showDatePicker = PublishSubject<Void>()
     
@@ -51,6 +51,11 @@ class MonthlyCalendarView: BasePaper {
         bind()
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+
     private func setupConstraints() {
         guard let paperStyle = self.paperStyle else { return }
         NSLayoutConstraint.activate([
@@ -68,7 +73,7 @@ class MonthlyCalendarView: BasePaper {
     
     private func bind() {
         guard let viewModel = self.viewModel as? MonthlyCalendarViewModel else { return }
-        viewModel.dateModel(date: Date())
+        viewModel.dateModel()
             .subscribe(onNext: { [weak self] dateModel in
                 guard let self = self else { return }
                 let _ = dateModel.month

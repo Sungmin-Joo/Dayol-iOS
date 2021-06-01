@@ -62,7 +62,7 @@ class DiaryListCell: UICollectionViewCell {
         }
     }
 
-    var viewModel: DiaryCoverModel? {
+    var viewModel: DiaryInfoModel? {
         didSet {
             configure()
         }

@@ -24,14 +24,14 @@ extension DateFormatter {
 
     static var month: DateFormatter {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM"
+        dateFormatter.dateFormat = "M"
 
         return dateFormatter
     }
 
     static var day: DateFormatter{
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd"
+        dateFormatter.dateFormat = "d"
 
         return dateFormatter
     }

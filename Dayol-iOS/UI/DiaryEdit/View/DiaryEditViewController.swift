@@ -167,8 +167,8 @@ private extension DiaryEditViewController {
             .subscribe(onNext: { [weak self] password in
                 guard let self = self else { return }
                 guard let title = self.titleView.titleLabel.text else { return }
-                
-                let diaryCoverModel = DiaryCoverModel(color: self.currentCoverColor, title: title, totalPage: 0, password: password)
+
+                let diaryCoverModel = DiaryInfoModel(id: self.viewModel.diaryIdToCreate, color: self.currentCoverColor, title: title, totalPage: 0, password: password)
                 self.viewModel.createDiaryInfo(model: diaryCoverModel)
                 
                 self.dismiss(animated: true, completion: nil)

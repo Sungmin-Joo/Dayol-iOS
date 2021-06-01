@@ -17,6 +17,7 @@ extension DiaryPaperViewerViewController: UIPageViewControllerDataSource {
             return nil
         }
         let prevIndex = paperViewController.index - 1
+        currentIndex = prevIndex
         return paperViewControllers[safe: prevIndex]
         
     }
@@ -26,6 +27,7 @@ extension DiaryPaperViewerViewController: UIPageViewControllerDataSource {
             return nil
         }
         let nextIndex = paperViewController.index + 1
+        currentIndex = nextIndex
         return paperViewControllers[safe: nextIndex]
     }
     

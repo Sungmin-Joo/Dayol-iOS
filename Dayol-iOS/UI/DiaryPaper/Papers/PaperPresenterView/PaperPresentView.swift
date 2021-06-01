@@ -135,53 +135,67 @@ extension PaperPresentView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: paper.paperType.identifier, for: indexPath) as? BasePaper else { return UITableViewCell() }
-        let baseViewModel = PaperViewModel(drawModel: DrawModel())
-
-        if let mujiCell = cell as? MujiPaper {
-            mujiCell.configure(viewModel: baseViewModel, paperStyle: paper.paperStyle)
-            return mujiCell
-        }
-        
-        if let dailyCell = cell as? DailyPaper {
-            let dailyViewModel = DailyPaperViewModel(date: Date(), drawModel: DrawModel())
-            dailyCell.configure(viewModel: dailyViewModel, paperStyle: paper.paperStyle)
-            return dailyCell
-        }
-        
-        if let gridCell = cell as? GridPaper {
-            gridCell.configure(viewModel: baseViewModel, paperStyle: paper.paperStyle)
-            return gridCell
-        }
-        
-        if let cornelCell = cell as? CornellPaper {
-            cornelCell.configure(viewModel: baseViewModel, paperStyle: paper.paperStyle)
-            return cornelCell
-        }
-        
-        if let fourCell = cell as? FourPaper {
-            fourCell.configure(viewModel: baseViewModel, paperStyle: paper.paperStyle)
-            return fourCell
-        }
-        
-        if let weekCell = cell as? WeeklyCalendarView {
-            let weekViewModel = WeeklyCalendarViewModel()
-            weekCell.configure(viewModel: weekViewModel, paperStyle: paper.paperStyle)
-            return weekCell
-        }
-        
-        if let monthCell = cell as? MonthlyCalendarView {
-            let monthViewModel = MonthlyCalendarViewModel()
-            monthCell.configure(viewModel: monthViewModel, paperStyle: paper.paperStyle)
-            monthCell.showDatePicker
+        switch paper.paperType {
+        case .monthly(date: let date):
+            let cell = tableView.dequeueReusableCell(MonthlyCalendarView.self, for: indexPath)
+            let viewModel = MonthlyCalendarViewModel(date: date)
+            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+            cell.showDatePicker
                 .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] in
                     self?.showDatePicker.onNext(())
                 })
-                .disposed(by: disposeBag)
-            return monthCell
+                .disposed(by: cell.disposeBag)
+
+            return cell
+        case .weekly(date: let date):
+            let cell = tableView.dequeueReusableCell(WeeklyCalendarView.self, for: indexPath)
+            let viewModel = WeeklyCalendarViewModel(date: date)
+            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+
+            return cell
+        case .daily(date: let date):
+            let cell = tableView.dequeueReusableCell(DailyPaper.self, for: indexPath)
+            let viewModel = DailyPaperViewModel(date: date, drawModel: DrawModel())
+
+            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+
+            return cell
+        case .four:
+            let cell = tableView.dequeueReusableCell(FourPaper.self, for: indexPath)
+            let viewModel = PaperViewModel(drawModel: DrawModel())
+
+            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+
+            return cell
+        case .grid:
+            let cell = tableView.dequeueReusableCell(GridPaper.self, for: indexPath)
+            let viewModel = PaperViewModel(drawModel: DrawModel())
+
+            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+
+            return cell
+        case .cornell:
+            let cell = tableView.dequeueReusableCell(CornellPaper.self, for: indexPath)
+            let viewModel = PaperViewModel(drawModel: DrawModel())
+
+            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+
+            return cell
+        case .tracker:
+            let cell = tableView.dequeueReusableCell(BasePaper.self, for: indexPath)
+            let viewModel = PaperViewModel(drawModel: DrawModel())
+
+            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+
+            return cell
+        case .muji:
+            let cell = tableView.dequeueReusableCell(MujiPaper.self, for: indexPath)
+            let viewModel = PaperViewModel(drawModel: DrawModel())
+
+            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+
+            return cell
         }
-        
-        return cell
     }
 }

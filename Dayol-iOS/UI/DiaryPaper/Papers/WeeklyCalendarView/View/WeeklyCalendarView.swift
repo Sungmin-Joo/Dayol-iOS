@@ -88,7 +88,7 @@ class WeeklyCalendarView: BasePaper {
     private func bind() {
         guard let viewModel = self.viewModel as? WeeklyCalendarViewModel else { return }
         
-        viewModel.dateModel(date: Date())
+        viewModel.dateModel()
             .subscribe(onNext: {[weak self] models in
                 guard let month = models[safe: 1]?.month else { return }
                 self?.headerView.month = month

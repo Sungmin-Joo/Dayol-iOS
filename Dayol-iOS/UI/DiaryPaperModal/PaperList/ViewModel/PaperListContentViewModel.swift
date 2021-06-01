@@ -34,11 +34,10 @@ class PaperListContentViewModel {
     
     func bind() {
         DYTestData.shared.pageListSubject
-            .subscribe(onNext: { [weak self] diary in
+            .subscribe(onNext: { [weak self] resultPapers in
                 guard let self = self else { return }
-                guard let pages = diary[safe: 0]?.paperList else { return }
                 
-                self.papers = pages.map {
+                self.papers = resultPapers.map {
                     CellModel(id: $0.id, isStarred: false, paperStyle: $0.paperStyle, paperType: $0.paperType)
                 }
                 self.paperListEvent.onNext(.fetch)
@@ -48,7 +47,7 @@ class PaperListContentViewModel {
 
     func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
         // TODO: Temporary Logic
-        DYTestData.shared.reorderPage(from: sourceIndex, to: destinationIndex)
+        DYTestData.shared.reorderPaper(from: sourceIndex, to: destinationIndex)
     }
 
 }
