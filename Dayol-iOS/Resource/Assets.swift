@@ -51,8 +51,8 @@ enum Assets {
         }
 
         enum InfoView {
-            static let info = UIImage(named: "infoView_icon_info")
-            static let close = UIImage(named: "infoView_icon_close")
+            static let info = UIImage(named: "InfoView_Icon_Info")
+            static let close = UIImage(named: "InfoView_Icon_Close")
         }
 
         enum DiaryCover {

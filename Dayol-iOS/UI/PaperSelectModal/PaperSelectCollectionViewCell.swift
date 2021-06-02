@@ -101,7 +101,6 @@ final class PaperSelectCollectionViewCell: UICollectionViewCell {
         paperPresentView.frame.size = size
         paperPresentView.layoutIfNeeded()
 
-        print(paperPresentView.asImage())
         return paperPresentView.asImage()
     }
 }

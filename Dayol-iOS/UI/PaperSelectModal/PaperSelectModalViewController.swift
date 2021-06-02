@@ -43,6 +43,7 @@ final class PaperSelectModalViewController: DYModalViewController {
 
     private let infoView: InfoView = {
         let infoView = InfoView(text: Text.infoText)
+
         infoView.translatesAutoresizingMaskIntoConstraints = false
 
         return infoView
@@ -98,6 +99,12 @@ final class PaperSelectModalViewController: DYModalViewController {
                 case .more:
                     self.delegate?.paperSelectCollectionViewDidSelectAdd()
                 }
+            })
+            .disposed(by: disposeBag)
+
+        infoView.closeButton.rx.tap
+            .bind(onNext: { [weak self] in
+                self?.infoView.isHidden = true
             })
             .disposed(by: disposeBag)
     }
