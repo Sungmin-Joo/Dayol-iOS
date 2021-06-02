@@ -8,9 +8,16 @@
 import Foundation
 
 extension DateFormatter {
-    static var common: DateFormatter {
+    static var yearMonthDay: DateFormatter {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy MM"
+        dateFormatter.dateFormat = "yyyy.M dd"
+
+        return dateFormatter
+    }
+
+    static var yearMonth: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.M"
 
         return dateFormatter
     }

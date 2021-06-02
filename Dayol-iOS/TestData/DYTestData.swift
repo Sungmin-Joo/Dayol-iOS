@@ -18,9 +18,19 @@ struct DiaryInnerModel {
         let id: Int
         let paperStyle: PaperStyle
         let paperType: PaperType
+        let paperTitle: String
         var numberOfPapers: Int
         // TODO: - 속지 추가 스펙이 있어서 [DrawModel] 로 변경되어야 할 것 같습니다.
         var drawModelList: DrawModel
+
+        init(id: Int, paperStyle: PaperStyle, paperType: PaperType, numberOfPapers: Int, drawModelList: DrawModel) {
+            self.id = id
+            self.paperType = paperType
+            self.paperStyle = paperStyle
+            self.numberOfPapers = numberOfPapers
+            self.drawModelList = drawModelList
+            self.paperTitle = paperType.title
+        }
     }
 
     let diaryID: Int

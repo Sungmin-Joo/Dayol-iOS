@@ -25,7 +25,7 @@ class MonthlyCalendarView: BasePaper {
     private var containerViewRight = NSLayoutConstraint()
     var disposeBag = DisposeBag()
     
-    let showDatePicker = PublishSubject<Void>()
+    let showSelectPaper = PublishSubject<Void>()
     
     private let headerView: MonthlyCalendarHeaderView = {
         let header = MonthlyCalendarHeaderView(month: .january)
@@ -88,6 +88,6 @@ class MonthlyCalendarView: BasePaper {
     
     @objc
     private func didTappedHeaderView(_ sender: MonthlyCalendarHeaderView) {
-        showDatePicker.onNext(())
+        showSelectPaper.onNext(())
     }
 }

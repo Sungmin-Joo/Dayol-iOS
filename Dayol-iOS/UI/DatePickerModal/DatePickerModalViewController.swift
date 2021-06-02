@@ -74,7 +74,7 @@ final class DatePickerModalViewController: DYModalViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self = self, let dateString = self.dateString else { return }
                 self.dismiss(animated: true) {
-                    let date = DateFormatter.common.date(from: dateString)
+                    let date = DateFormatter.yearMonth.date(from: dateString)
                     self.delegate?.datePicker(self, didSelected: date)
                 }
             })

@@ -11,6 +11,7 @@ import RxSwift
 
 enum DiaryPaperEventType {
     case showDatePicker
+    case showPaperSelect
 }
 
 class DiaryPaperViewController: UIViewController {
@@ -113,11 +114,15 @@ extension DiaryPaperViewController: UIScrollViewDelegate {
 }
 
 extension DiaryPaperViewController {
+    var paperType: PaperType {
+        return viewModel.paper.paperType
+    }
+
     func paperActionBind() {
-        paper.showDatePicker
+        paper.showPaperSelect
             .observe(on:MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
-                self?.didReceivedEvent.onNext(.showDatePicker)
+                self?.didReceivedEvent.onNext(.showPaperSelect)
             })
             .disposed(by: disposeBag)
     }

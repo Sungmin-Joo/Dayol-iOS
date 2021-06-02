@@ -35,6 +35,17 @@ class DiaryPaperViewerViewModel {
         model.add(paper: paper)
     }
 
+    func findModels(type: PaperType) -> [DiaryInnerModel.PaperModel] {
+        var inners = [DiaryInnerModel.PaperModel]()
+        model.innerModels.forEach { paper in
+            if case paper.paperType = type {
+                inners.append(paper)
+            }
+        }
+
+        return inners
+    }
+
     init(coverModel: DiaryInfoModel) {
         self.coverModel = coverModel
         self.model = DiaryPaperViewerModel(coverModel: coverModel)

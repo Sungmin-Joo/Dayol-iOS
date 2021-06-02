@@ -41,9 +41,13 @@ enum PaperType: Equatable {
 
     var title: String {
         switch self {
-        case .monthly: return "memo_list_monthly".localized
-        case .weekly: return "memo_list_weekly".localized
-        case .daily(_): return "memo_list_daily".localized
+        case .monthly(let date): return DateFormatter.yearMonth.string(from: date)
+        case .weekly(let date):
+            let startDateString = DateFormatter.yearMonthDay.string(from: date)
+            let endDate = Date.calendar.date(byAdding: .day, value: 7, to: date) ?? Date()
+            let endDateString = DateFormatter.yearMonthDay.string(from: endDate)
+            return "\(startDateString) ~ \(endDateString)"
+        case .daily(let date): return DateFormatter.yearMonthDay.string(from: date)
         case .cornell: return "memo_list_kornell".localized
         case .muji: return "memo_list_muji".localized
         case .grid: return "memo_list_grid".localized
@@ -75,6 +79,19 @@ enum PaperType: Equatable {
         case .grid: return GridPaper.className
         case .four: return FourPaper.className
         case .tracker: return BasePaper.className
+        }
+    }
+
+    var thumbnail: UIImage? {
+        switch self {
+        case .monthly: return UIImage(named: "PaperSelectThumbMonthly")
+        case .weekly: return nil
+        case .daily(_): return nil
+        case .cornell: return nil
+        case .muji: return nil
+        case .grid: return nil
+        case .four: return nil
+        case .tracker: return nil
         }
     }
 

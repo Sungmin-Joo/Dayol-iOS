@@ -14,6 +14,10 @@ private enum Design {
     static let addPageModalTopMargin: CGFloat = 57.0
 }
 
+private enum Text {
+    static var selectMonth: String { "Monthly 메모지 선택" }
+}
+
 class DiaryPaperViewerViewController: UIViewController {
     // MARK: - Properties
     
@@ -153,6 +157,8 @@ class DiaryPaperViewerViewController: UIViewController {
                             switch event {
                             case .showDatePicker:
                                 self.presentDatePickerModal()
+                            case .showPaperSelect:
+                                self.presentPaperSelectModal()
                             }
                         })
                         .disposed(by: self.disposeBag)
@@ -232,6 +238,17 @@ class DiaryPaperViewerViewController: UIViewController {
 
         presentCustomModal(datePicker)
     }
+
+    private func presentPaperSelectModal() {
+        guard let paperType = currentViewController?.paperType else { return }
+        let papers = viewModel.findModels(type: paperType)
+        let viewModel = PaperSelectModalViewModel(paperModels: papers)
+        let paperSelectModal = PaperSelectModalViewController(title: Text.selectMonth, viewModel: viewModel)
+
+        paperSelectModal.delegate = self
+
+        presentCustomModal(paperSelectModal)
+    }
 }
 
 extension DiaryPaperViewerViewController {
@@ -265,5 +282,15 @@ extension DiaryPaperViewerViewController: DatePickerModalViewControllerDelegate 
         let paperStyle = currentVC.paper.style
 
         viewModel.addPaper(.monthly(date: pickedDate), style: paperStyle)
+    }
+}
+
+extension DiaryPaperViewerViewController: PaperSelectCollectionViewControllerDelegate {
+    func paperSelectCollectionViewDidSelectAdd() {
+        print("add!!")
+    }
+
+    func paperSelectCollectionView(_ paperSelectCollectionView: PaperSelectModalViewController, didSelectItem: DiaryInnerModel.PaperModel) {
+        print(didSelectItem)
     }
 }

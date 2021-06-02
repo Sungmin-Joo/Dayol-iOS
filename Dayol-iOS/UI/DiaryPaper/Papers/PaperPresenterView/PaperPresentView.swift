@@ -19,8 +19,9 @@ class PaperPresentView: UIView {
     private var contentTop = NSLayoutConstraint()
     private var contentBottom = NSLayoutConstraint()
     private var disposeBag = DisposeBag()
-    
-    let showDatePicker = PublishSubject<Void>()
+    private let flexibleSize: Bool
+
+    let showPaperSelect = PublishSubject<Void>()
     
     var scaleForFit: CGFloat = 0.0 {
         didSet {
@@ -56,9 +57,10 @@ class PaperPresentView: UIView {
         return view
     }()
     
-    init(paper: PaperModel, count: Int = 1) {
+    init(paper: PaperModel, count: Int = 1, flexibleSize: Bool = false) {
         self.paper = paper
         self.numberOfPapers = count
+        self.flexibleSize = flexibleSize
         super.init(frame: .zero)
         
         initView()
@@ -89,12 +91,14 @@ class PaperPresentView: UIView {
         contentTop = tableView.topAnchor.constraint(equalTo: topAnchor)
         contentBottom = tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
 
-        NSLayoutConstraint.activate([
-            contentTop, contentBottom,
-            tableView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            tableView.widthAnchor.constraint(equalToConstant: style.size.width),
-            tableView.heightAnchor.constraint(equalToConstant: height)
-        ])
+        if self.flexibleSize == false {
+            NSLayoutConstraint.activate([
+                contentTop, contentBottom,
+                tableView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                tableView.widthAnchor.constraint(equalToConstant: style.size.width),
+                tableView.heightAnchor.constraint(equalToConstant: height)
+            ])
+        }
     }
     
     private func reginterIdentifier() {
@@ -140,10 +144,10 @@ extension PaperPresentView: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(MonthlyCalendarView.self, for: indexPath)
             let viewModel = MonthlyCalendarViewModel(date: date)
             cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
-            cell.showDatePicker
+            cell.showSelectPaper
                 .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] in
-                    self?.showDatePicker.onNext(())
+                    self?.showPaperSelect.onNext(())
                 })
                 .disposed(by: cell.disposeBag)
 
