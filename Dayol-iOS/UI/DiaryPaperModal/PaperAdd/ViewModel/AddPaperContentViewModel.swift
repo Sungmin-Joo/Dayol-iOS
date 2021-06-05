@@ -30,7 +30,7 @@ class AddPaperContentViewModel {
         
         // TODO: confirm id login
         let paperModel = DiaryInnerModel.PaperModel(
-            id: 999,
+            id: DYTestData.shared.currentPaperId,
             paperStyle: model.paperStyle,
             paperType: model.paperType,
             numberOfPapers: 1,

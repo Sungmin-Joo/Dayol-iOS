@@ -22,6 +22,8 @@ struct DiaryInnerModel {
         var numberOfPapers: Int
         // TODO: - 속지 추가 스펙이 있어서 [DrawModel] 로 변경되어야 할 것 같습니다.
         var drawModelList: DrawModel
+        var thumbnail: UIImage?
+        let updateThumbnail = PublishSubject<Void>()
 
         init(id: Int, paperStyle: PaperStyle, paperType: PaperType, numberOfPapers: Int, drawModelList: DrawModel) {
             self.id = id
@@ -31,11 +33,14 @@ struct DiaryInnerModel {
             self.drawModelList = drawModelList
             self.paperTitle = paperType.title
         }
+
+        mutating func setThumbnail(_ image: UIImage?) {
+            self.thumbnail = image
+        }
     }
 
     let diaryID: Int
     var paperList: [PaperModel]
-
 }
 
 class DYTestData {
@@ -85,41 +90,7 @@ class DYTestData {
     
 
     var paperList: [DiaryInnerModel.PaperModel] = [
-        DiaryInnerModel.PaperModel(id: 0,
-                                   paperStyle: .vertical,
-                                   paperType: .daily(date: Date()),
-                                   numberOfPapers: 1,
-                                   drawModelList: testDrawModel),
-        DiaryInnerModel.PaperModel(id: 1,
-                                   paperStyle: .vertical,
-                                   paperType: .cornell,
-                                   numberOfPapers: 1,
-                                   drawModelList: testDrawModel),
-        DiaryInnerModel.PaperModel(id: 2,
-                                   paperStyle: .vertical,
-                                   paperType: .grid,
-                                   numberOfPapers: 1,
-                                   drawModelList: testDrawModel),
-        DiaryInnerModel.PaperModel(id: 3,
-                                   paperStyle: .vertical,
-                                   paperType: .monthly(date: Date()),
-                                   numberOfPapers: 1,
-                                   drawModelList: testDrawModel),
-        DiaryInnerModel.PaperModel(id: 4,
-                                   paperStyle: .vertical,
-                                   paperType: .weekly(date: Date()),
-                                   numberOfPapers: 1,
-                                   drawModelList: testDrawModel),
-        DiaryInnerModel.PaperModel(id: 5,
-                                   paperStyle: .vertical,
-                                   paperType: .four,
-                                   numberOfPapers: 1,
-                                   drawModelList: testDrawModel),
-        DiaryInnerModel.PaperModel(id: 6,
-                                   paperStyle: .vertical,
-                                   paperType: .tracker,
-                                   numberOfPapers: 1,
-                                   drawModelList: testDrawModel)
+
     ]
     
     var stickerList: [UIImage?] = [
@@ -246,6 +217,13 @@ class DYTestData {
             paperList.insert(source, at: destinationIndex + 1)
             paperList.remove(at: sourceIndex)
         }
+        pageListSubject.onNext(paperList)
+    }
+
+    func addPaperThumbnail(id: Int, thumbnail: UIImage?) {
+        guard let index = paperList.firstIndex(where: { $0.id == id }) else { return }
+        paperList[index].thumbnail = thumbnail
+
         pageListSubject.onNext(paperList)
     }
 }

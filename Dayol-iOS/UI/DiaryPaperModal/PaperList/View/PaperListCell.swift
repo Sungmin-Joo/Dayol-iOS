@@ -107,7 +107,7 @@ class PaperListCell: UICollectionViewCell {
     func configure(_ viewModel: ViewModel?) {
         guard let viewModel = viewModel else { return }
         debugPrint(viewModel.thumbnailName)
-        imageView.image = UIImage(named: viewModel.thumbnailName)
+        imageView.image = viewModel.thumbnail
         titleLabel.attributedText = NSAttributedString.build(
             text: viewModel.title,
             font: Design.titleFont,

@@ -5,7 +5,7 @@
 //  Created by 주성민 on 2021/01/13.
 //
 
-import Foundation
+import UIKit
 
 enum PaperModalModel {
     struct AddPaperCellModel {
@@ -25,6 +25,7 @@ enum PaperModalModel {
         let isStarred: Bool
         let paperStyle: PaperStyle
         let paperType: PaperType
+        let thumbnail: UIImage?
 
         var title: String {
             paperType.title

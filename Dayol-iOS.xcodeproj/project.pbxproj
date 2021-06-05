@@ -136,6 +136,8 @@
 		DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4899E6257A08A6005E39ED /* AppDelegate.swift */; };
 		DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA4899EF257A08A8005E39ED /* Assets.xcassets */; };
 		DA4899F3257A08A8005E39ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */; };
+		DA5A10FB266B7BA4002C7EA8 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A10FA266B7BA4002C7EA8 /* UIImage+Extension.swift */; };
+		DA5A10FE266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A10FD266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift */; };
 		DA6FF5D126654EA9006B0B34 /* DateFormat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6FF5D026654EA8006B0B34 /* DateFormat+Extension.swift */; };
 		DA6FF5D5266650BE006B0B34 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6FF5D4266650BE006B0B34 /* UITableView+Extension.swift */; };
 		DA6FF5E32667AE1C006B0B34 /* PaperSelectCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6FF5E22667AE1C006B0B34 /* PaperSelectCollectionView.swift */; };
@@ -323,6 +325,8 @@
 		DA4899EF257A08A8005E39ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA4899F2257A08A8005E39ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA4899F4257A08A8005E39ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA5A10FA266B7BA4002C7EA8 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		DA5A10FD266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperEmptyViewController.swift; sourceTree = "<group>"; };
 		DA6FF5D026654EA8006B0B34 /* DateFormat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormat+Extension.swift"; sourceTree = "<group>"; };
 		DA6FF5D4266650BE006B0B34 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		DA6FF5E22667AE1C006B0B34 /* PaperSelectCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperSelectCollectionView.swift; sourceTree = "<group>"; };
@@ -822,6 +826,7 @@
 				DA6FF5D026654EA8006B0B34 /* DateFormat+Extension.swift */,
 				DA6FF5D4266650BE006B0B34 /* UITableView+Extension.swift */,
 				DA6FF5F12667B5DB006B0B34 /* UICollectionView+Extension.swift */,
+				DA5A10FA266B7BA4002C7EA8 /* UIImage+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1097,6 +1102,7 @@
 			children = (
 				DAEF76BB25F90ED6007CAA93 /* DiaryPaperViewController.swift */,
 				DAD48A25260CC943008B542E /* DiaryPaperViewModel.swift */,
+				DA5A10FD266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift */,
 			);
 			path = Paper;
 			sourceTree = "<group>";
@@ -1483,6 +1489,7 @@
 				CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */,
 				DAD48A29260CCAEC008B542E /* DiaryPaperEditViewModel.swift in Sources */,
 				34A2EDC225B856D1008DB98D /* PaperModel.swift in Sources */,
+				DA5A10FB266B7BA4002C7EA8 /* UIImage+Extension.swift in Sources */,
 				0D27B0A02650008B001AD911 /* DayolUserDefault.swift in Sources */,
 				DAD48A36260CD563008B542E /* StickerModalCollectionView.swift in Sources */,
 				344AD29726398CBF0055562D /* DYDrawTool.swift in Sources */,
@@ -1583,6 +1590,7 @@
 				34CA255B25A75A340057404D /* SettingCellProtocol.swift in Sources */,
 				3416447F25DAB62100A81FD2 /* CALayer+Extension.swift in Sources */,
 				DAD48A33260CD551008B542E /* StickerModalHeaderView.swift in Sources */,
+				DA5A10FE266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift in Sources */,
 				DA31142B260CE313002F99F7 /* StickerModalCollectionViewCell.swift in Sources */,
 				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
 				DAEF76A725F66F15007CAA93 /* DiaryPaperViewerModel.swift in Sources */,

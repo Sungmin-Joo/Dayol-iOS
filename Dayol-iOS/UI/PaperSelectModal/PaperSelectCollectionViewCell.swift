@@ -20,6 +20,8 @@ private enum Design {
 
     enum Margin {
         static let titleImageSpace: CGFloat = 10
+        static let verticalThumhailSize: CGSize = .init(width: 90, height: 134)
+        static let horizontalThumhailSize: CGSize = .init(width: 90, height: 61)
     }
 }
 
@@ -31,6 +33,7 @@ final class PaperSelectCollectionViewCell: UICollectionViewCell {
     private let paperImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .center
 
         return imageView
     }()
@@ -59,6 +62,7 @@ final class PaperSelectCollectionViewCell: UICollectionViewCell {
             paperImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             paperImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             paperImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            paperImageView.heightAnchor.constraint(equalToConstant: Design.Margin.verticalThumhailSize.height),
 
             paperNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             paperNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -72,7 +76,9 @@ final class PaperSelectCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(model: DiaryInnerModel.PaperModel) {
-        paperImageView.image = makePaperThumbnail(model)
+        let size = model.paperStyle == .vertical ? Design.Margin.verticalThumhailSize : Design.Margin.horizontalThumhailSize
+        let thumbnail = model.thumbnail?.resizeImage(targetSize: size)
+        paperImageView.image = thumbnail
         paperNameLabel.attributedText = makeText(model.paperType.title)
     }
 
@@ -84,23 +90,5 @@ final class PaperSelectCollectionViewCell: UICollectionViewCell {
             letterSpacing: Design.Title.titleLetterSpace,
             foregroundColor: Design.Title.titleFontColor
         )
-    }
-
-    private func makePaperThumbnail(_ model: DiaryInnerModel.PaperModel) -> UIImage? {
-        let paperPresentView = PaperPresentView(paper: model, flexibleSize: true)
-        let style = model.paperStyle
-
-        let size: CGSize
-        switch style {
-        case .horizontal:
-            size = CGSize(width: 90, height: 61)
-        case .vertical:
-            size = CGSize(width: 90, height: 134)
-        }
-
-        paperPresentView.frame.size = size
-        paperPresentView.layoutIfNeeded()
-
-        return paperPresentView.asImage()
     }
 }

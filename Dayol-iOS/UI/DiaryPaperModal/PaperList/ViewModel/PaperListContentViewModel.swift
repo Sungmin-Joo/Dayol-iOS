@@ -38,7 +38,7 @@ class PaperListContentViewModel {
                 guard let self = self else { return }
                 
                 self.papers = resultPapers.map {
-                    CellModel(id: $0.id, isStarred: false, paperStyle: $0.paperStyle, paperType: $0.paperType)
+                    CellModel(id: $0.id, isStarred: false, paperStyle: $0.paperStyle, paperType: $0.paperType, thumbnail: $0.thumbnail)
                 }
                 self.paperListEvent.onNext(.fetch)
             })

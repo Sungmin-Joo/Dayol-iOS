@@ -40,13 +40,6 @@ class DiaryPaperViewerViewController: UIViewController {
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     private(set) var paperViewControllers: [DiaryPaperViewController]?
     
-    private let emptyView: DiaryPaperEmptyView = {
-        let view = DiaryPaperEmptyView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
     // MARK: - Init
     
     init(viewModel: DiaryPaperViewerViewModel) {
@@ -78,10 +71,8 @@ class DiaryPaperViewerViewController: UIViewController {
     
     private func initView() {
         view.backgroundColor = .white
-        view.addSubview(emptyView)
         setupPageViewController()
         setupNavigationBars()
-        setConstraint()
     }
     
     private func setupNavigationBars() {
@@ -95,15 +86,6 @@ class DiaryPaperViewerViewController: UIViewController {
                 self?.dismiss(animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
-    }
-    
-    private func setConstraint() {
-        NSLayoutConstraint.activate([
-            emptyView.topAnchor.constraint(equalTo: view.topAnchor),
-            emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            emptyView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            emptyView.rightAnchor.constraint(equalTo: view.rightAnchor),
-        ])
     }
     
     private func setupPageViewController() {
@@ -135,45 +117,45 @@ class DiaryPaperViewerViewController: UIViewController {
     private func bindPaperModel() {
         viewModel.paperList
             .observe(on: MainScheduler.instance)
-            .filter({ [weak self] papers -> Bool in
-                let shouldShowDiaryPaper = !papers.isEmpty
-                
-                self?.emptyView.isHidden = (shouldShowDiaryPaper == true)
-                
-                return shouldShowDiaryPaper
-            })
+            .filter { self.paperModels?.count != $0.count }
             .subscribe(onNext: { [weak self] papers in
-                guard let self = self, papers.isEmpty == false else { return }
+                guard let self = self else { return }
 
-                var diaryPaperViewControllers = [DiaryPaperViewController]()
-                self.paperModels = papers
-                
-                for (index, paper) in papers.enumerated() {
-                    let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: paper.numberOfPapers)
-                    let paperViewController = DiaryPaperViewController(index: index, viewModel: paperViewModel)
+                if papers.isEmpty {
+                    let vc = DiaryPaperEmptyViewController()
 
-                    paperViewController.didReceivedEvent
-                        .subscribe(onNext: { event in
-                            switch event {
-                            case .showDatePicker:
-                                self.presentDatePickerModal()
-                            case .showPaperSelect:
-                                self.presentPaperSelectModal()
-                            }
-                        })
-                        .disposed(by: self.disposeBag)
-
-                    diaryPaperViewControllers.append(paperViewController)
-                }
-                self.paperViewControllers = diaryPaperViewControllers
-
-                if self.currentIndex == -1 {
-                    self.currentIndex = 0
+                    self.pageViewController.setViewControllers([vc], direction: .forward, animated: false, completion: nil)
                 } else {
-                    self.currentIndex = diaryPaperViewControllers.count - 1
-                }
+                    var diaryPaperViewControllers = [DiaryPaperViewController]()
+                    self.paperModels = papers
 
-                self.pageViewController.setViewControllers([diaryPaperViewControllers[self.currentIndex]], direction: .forward, animated: true, completion: nil)
+                    for (index, paper) in papers.enumerated() {
+                        let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: paper.numberOfPapers)
+                        let paperViewController = DiaryPaperViewController(index: index, viewModel: paperViewModel)
+
+                        paperViewController.didReceivedEvent
+                            .subscribe(onNext: { event in
+                                switch event {
+                                case .showDatePicker:
+                                    self.presentDatePickerModal()
+                                case .showPaperSelect:
+                                    self.presentPaperSelectModal()
+                                }
+                            })
+                            .disposed(by: self.disposeBag)
+
+                        diaryPaperViewControllers.append(paperViewController)
+                    }
+                    self.paperViewControllers = diaryPaperViewControllers
+
+                    if self.currentIndex == -1 {
+                        self.currentIndex = 0
+                    } else {
+                        self.currentIndex = diaryPaperViewControllers.count - 1
+                    }
+
+                    self.pageViewController.setViewControllers([diaryPaperViewControllers[self.currentIndex]], direction: .forward, animated: true, completion: nil)
+                }
             })
             .disposed(by: disposeBag)
     }
@@ -199,15 +181,6 @@ class DiaryPaperViewerViewController: UIViewController {
                 self?.present(paperEditViewController, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
-
-        let tapGesture = UITapGestureRecognizer()
-        tapGesture.addTarget(self, action: #selector(didTapEmptyView))
-        emptyView.addGestureRecognizer(tapGesture)
-    }
-
-    @objc
-    private func didTapEmptyView() {
-        presentPaperModal(toolType: .add)
     }
 
     private func presentPaperModal(toolType: PaperModalViewController.PaperToolType) {
@@ -224,7 +197,8 @@ class DiaryPaperViewerViewController: UIViewController {
             PaperModalModel.PaperListCellModel(id: $0.id,
                                                isStarred: false,
                                                paperStyle: $0.paperStyle,
-                                               paperType: $0.paperType)
+                                               paperType: $0.paperType,
+                                               thumbnail: $0.thumbnail)
         }
         let modalVC = PaperModalViewController(toolType: toolType, configure: configuration, papers: papers)
         modalVC.delegate = self
@@ -240,9 +214,7 @@ class DiaryPaperViewerViewController: UIViewController {
     }
 
     private func presentPaperSelectModal() {
-        guard let paperType = currentViewController?.paperType else { return }
-        let papers = viewModel.findModels(type: paperType)
-        let viewModel = PaperSelectModalViewModel(paperModels: papers)
+        let viewModel = PaperSelectModalViewModel()
         let paperSelectModal = PaperSelectModalViewController(title: Text.selectMonth, viewModel: viewModel)
 
         paperSelectModal.delegate = self

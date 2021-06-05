@@ -14,7 +14,7 @@ class PaperPresentView: UIView {
     // MARK: - Properties
     
     typealias PaperModel = DiaryInnerModel.PaperModel
-    private let paper: PaperModel
+    private var paper: PaperModel
     private let numberOfPapers: Int
     private var contentTop = NSLayoutConstraint()
     private var contentBottom = NSLayoutConstraint()
@@ -62,14 +62,14 @@ class PaperPresentView: UIView {
         self.numberOfPapers = count
         self.flexibleSize = flexibleSize
         super.init(frame: .zero)
-        
         initView()
+        thumbnailBind()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Init
     
     private func initView() {
@@ -85,6 +85,19 @@ class PaperPresentView: UIView {
         tableView.addSubViewPinEdge(stickerContentView)
         
         setupConstraint()
+    }
+
+    private func thumbnailBind() {
+        Observable<Int>
+            .interval(RxTimeInterval.seconds(5), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self,
+                      let cell = self.tableView.cellForRow(at: IndexPath.init(item: 0, section: 0))
+                else { return }
+                let thumbnail = cell.asImage()
+                DYTestData.shared.addPaperThumbnail(id: self.paper.id, thumbnail: thumbnail)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setupConstraint() {
