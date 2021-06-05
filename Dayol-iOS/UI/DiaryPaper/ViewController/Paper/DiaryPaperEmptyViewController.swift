@@ -57,6 +57,8 @@ final class DiaryPaperEmptyViewController: UIViewController {
 }
 
 extension DiaryPaperEmptyViewController: PaperModalViewDelegate {
-    func didTappedItem(_ index: Int) { }
+    func didSelectedDate(didSelected date: Date?) { }
+    func didTappedMonthlyAdd() { }
+    func didTappedItem(_ paper: DiaryInnerModel.PaperModel) { }
     func didTappedAdd() { }
 }

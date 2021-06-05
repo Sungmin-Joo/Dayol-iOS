@@ -14,13 +14,19 @@ private enum Design {
     static let cellInset: UIEdgeInsets = .init(top: 34, left: 25, bottom: 34, right: 25)
 }
 
-final class PaperSelectCollectionView: UIView {
+private enum Text {
+    static var infoText: String { "생성한 먼슬리 플랜으로 바로 이동할 수 있어요. 원하는 월이 없다면 속지를 추가해보세요!" }
+}
+
+final class PaperSelectContentView: UIView {
     enum SelectEvent {
         case item(paper: DiaryInnerModel.PaperModel)
         case add
     }
 
+    private let disposeBag = DisposeBag()
     private var paperModels: [DiaryInnerModel.PaperModel]?
+    private let viewModel = PaperSelectModalViewModel()
 
     let didSelect = PublishSubject<SelectEvent>()
 
@@ -32,19 +38,44 @@ final class PaperSelectCollectionView: UIView {
         return collectionView
     }()
 
+    private let containerView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 0
+
+        return stackView
+    }()
+
+    private let infoView: InfoView = {
+        let infoView = InfoView(text: Text.infoText)
+
+        infoView.translatesAutoresizingMaskIntoConstraints = false
+
+        return infoView
+    }()
+
     init() {
         super.init(frame: .zero)
         setupView()
+        bind()
+        self.models = viewModel.paperModels
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func layoutCollectionView() {
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+
     private func setupView() {
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
 
-        addSubview(collectionView)
+        addSubview(containerView)
+        containerView.addArrangedSubview(infoView)
+        containerView.addArrangedSubview(collectionView)
 
         layout.itemSize = Design.cellSize
         layout.minimumLineSpacing = Design.cellSpace
@@ -61,15 +92,23 @@ final class PaperSelectCollectionView: UIView {
 
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            containerView.topAnchor.constraint(equalTo: topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+
+    private func bind() {
+        infoView.closeButton.rx.tap
+            .bind(onNext: { [weak self] in
+                self?.infoView.isHidden = true
+            })
+            .disposed(by: disposeBag)
     }
 }
 
-extension PaperSelectCollectionView {
+extension PaperSelectContentView {
     var models: [DiaryInnerModel.PaperModel]? {
         get {
             return self.paperModels
@@ -81,7 +120,7 @@ extension PaperSelectCollectionView {
     }
 }
 
-extension PaperSelectCollectionView: UICollectionViewDataSource {
+extension PaperSelectContentView: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -102,7 +141,7 @@ extension PaperSelectCollectionView: UICollectionViewDataSource {
     }
 }
 
-extension PaperSelectCollectionView: UICollectionViewDelegate {
+extension PaperSelectContentView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
             didSelect.onNext(.add)

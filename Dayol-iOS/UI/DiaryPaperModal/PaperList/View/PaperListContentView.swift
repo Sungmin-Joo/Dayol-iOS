@@ -28,15 +28,15 @@ private enum Text: String {
 class PaperListContentView: UIView {
 
     let disposeBag = DisposeBag()
-    let didSelectItem = PublishSubject<Int>()
+    let didSelectItem = PublishSubject<DiaryInnerModel.PaperModel>()
     let didSelectAddCell = PublishSubject<Void>()
     
-    private let papers: [PaperModalModel.PaperListCellModel]
+    private var papers: [PaperModalModel.PaperListCellModel] = []
     private var shouldShowInfoLabel: Bool {
         return true
     }
 
-    private(set) lazy var viewModel: PaperListContentViewModel = PaperListContentViewModel(papers: papers)
+    private(set) lazy var viewModel: PaperListContentViewModel = PaperListContentViewModel()
     var isEditMode = false
     // MARK: - UI Property
 
@@ -69,8 +69,7 @@ class PaperListContentView: UIView {
     }()
 
     // TODO: - init에서 viewModel 받아서 바인딩 로직 추가
-    init(papers: [PaperModalModel.PaperListCellModel]) {
-        self.papers = papers
+    init() {
         super.init(frame: .zero)
         setupViews()
         setupConstraints()
@@ -98,6 +97,8 @@ class PaperListContentView: UIView {
 private extension PaperListContentView {
 
     private func setupViews() {
+        papers = viewModel.cellModels
+
         if shouldShowInfoLabel {
             contentStackView.addArrangedSubview(infoView)
         }

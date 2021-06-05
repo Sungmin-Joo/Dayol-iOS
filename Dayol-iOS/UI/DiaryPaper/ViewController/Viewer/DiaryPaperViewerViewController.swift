@@ -14,10 +14,6 @@ private enum Design {
     static let addPageModalTopMargin: CGFloat = 57.0
 }
 
-private enum Text {
-    static var selectMonth: String { "Monthly 메모지 선택" }
-}
-
 class DiaryPaperViewerViewController: UIViewController {
     // MARK: - Properties
     
@@ -137,9 +133,9 @@ class DiaryPaperViewerViewController: UIViewController {
                             .subscribe(onNext: { event in
                                 switch event {
                                 case .showDatePicker:
-                                    self.presentDatePickerModal()
+                                    self.presentPaperModal(toolType: .date)
                                 case .showPaperSelect:
-                                    self.presentPaperSelectModal()
+                                    self.presentPaperModal(toolType: .monthList)
                                 }
                             })
                             .disposed(by: self.disposeBag)
@@ -184,43 +180,33 @@ class DiaryPaperViewerViewController: UIViewController {
     }
 
     private func presentPaperModal(toolType: PaperModalViewController.PaperToolType) {
-        guard let paperModels = self.paperModels else { return }
-        
         let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
         let screenHeight = keyWindow?.bounds.height ?? .zero
         let modalHeight: CGFloat = screenHeight - Design.addPageModalTopMargin
         let modalStyle: DYModalConfiguration.ModalStyle = isPadDevice ? .normal : .custom(containerHeight: modalHeight)
         let configuration = DYModalConfiguration(dimStyle: .black,
                                                  modalStyle: modalStyle)
-
-        let papers = paperModels.compactMap {
-            PaperModalModel.PaperListCellModel(id: $0.id,
-                                               isStarred: false,
-                                               paperStyle: $0.paperStyle,
-                                               paperType: $0.paperType,
-                                               thumbnail: $0.thumbnail)
-        }
-        let modalVC = PaperModalViewController(toolType: toolType, configure: configuration, papers: papers)
+        let modalVC = PaperModalViewController(toolType: toolType, configure: configuration)
         modalVC.delegate = self
 
         presentCustomModal(modalVC)
     }
+//
+//    private func presentDatePickerModal() {
+//        let datePicker = DatePickerModalViewController()
+//        datePicker.delegate = self
+//
+//        presentCustomModal(datePicker)
+//    }
 
-    private func presentDatePickerModal() {
-        let datePicker = DatePickerModalViewController()
-        datePicker.delegate = self
-
-        presentCustomModal(datePicker)
-    }
-
-    private func presentPaperSelectModal() {
-        let viewModel = PaperSelectModalViewModel()
-        let paperSelectModal = PaperSelectModalViewController(title: Text.selectMonth, viewModel: viewModel)
-
-        paperSelectModal.delegate = self
-
-        presentCustomModal(paperSelectModal)
-    }
+//    private func presentPaperSelectModal() {
+//        let viewModel = PaperSelectModalViewModel()
+//        let paperSelectModal = PaperSelectModalViewController(title: Text.selectMonth, viewModel: viewModel)
+//
+//        paperSelectModal.delegate = self
+//
+//        presentCustomModal(paperSelectModal)
+//    }
 
     private func moveToPage(index: Int) {
         guard let selectedViewController = self.paperViewControllers?[safe: index], currentIndex != index else { return }
@@ -242,31 +228,23 @@ extension DiaryPaperViewerViewController {
 }
 
 extension DiaryPaperViewerViewController: PaperModalViewDelegate {
-    func didTappedItem(_ index: Int) {
+    func didTappedItem(_ paper: DiaryInnerModel.PaperModel) {
+        guard let index = paperModels?.firstIndex(where: { $0.id == paper.id }) else { return }
         moveToPage(index: index)
     }
     
     func didTappedAdd() {
         presentPaperModal(toolType: .add)
     }
-}
 
-extension DiaryPaperViewerViewController: DatePickerModalViewControllerDelegate {
-    func datePicker(_ datePicker: DatePickerModalViewController, didSelected date: Date?) {
+    func didTappedMonthlyAdd() {
+        presentPaperModal(toolType: .date)
+    }
+
+    func didSelectedDate(didSelected date: Date?) {
         guard let currentVC = currentViewController, let pickedDate = date else { return }
         let paperStyle = currentVC.paper.style
 
         viewModel.addPaper(.monthly(date: pickedDate), style: paperStyle)
-    }
-}
-
-extension DiaryPaperViewerViewController: PaperSelectCollectionViewControllerDelegate {
-    func paperSelectCollectionViewDidSelectAdd() {
-        presentDatePickerModal()
-    }
-
-    func paperSelectCollectionView(_ paperSelectCollectionView: PaperSelectModalViewController, didSelectItem: DiaryInnerModel.PaperModel) {
-        guard let index = paperModels?.firstIndex(where: { $0.id == didSelectItem.id }) else { return }
-        moveToPage(index: index)
     }
 }

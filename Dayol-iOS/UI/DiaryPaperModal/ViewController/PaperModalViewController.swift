@@ -14,12 +14,14 @@ private enum Design {
 }
 
 private enum Text {
-
+    static var selectMonth: String { "Monthly 메모지 선택" }
 }
 
-public protocol PaperModalViewDelegate: NSObject {
-    func didTappedItem(_ index: Int)
+protocol PaperModalViewDelegate: NSObject {
+    func didTappedItem(_ index: DiaryInnerModel.PaperModel)
     func didTappedAdd()
+    func didSelectedDate(didSelected date: Date?)
+    func didTappedMonthlyAdd()
 }
 
 class PaperModalViewController: DYModalViewController {
@@ -27,29 +29,27 @@ class PaperModalViewController: DYModalViewController {
     enum PaperToolType {
         case add
         case list
+        case monthList
+        case date
     }
 
     private let disposeBag = DisposeBag()
-    private let papers: [PaperModalModel.PaperListCellModel]
     // MARK: - UI Property
 
     private lazy var addPaperHeaderView = AddPaperHeaderView()
     private lazy var addPaperContentView = AddPaperContentView()
     private lazy var paperListHeaderView = PaperListHeaderView()
-    private lazy var paperListContentView = PaperListContentView(papers: papers)
+    private lazy var paperListContentView = PaperListContentView()
+    private lazy var monthltPageListHeaderView = PaperSelectHeaderView()
+    private lazy var monthlyPageListContentView = PaperSelectContentView()
+    private lazy var datePickerHeaderView = DatePickerHeaderView()
+    private lazy var datePickerContentView = DatePickerView()
     
     public weak var delegate: PaperModalViewDelegate?
 
     var toolType: PaperToolType
-    var didSelectContentItem: Observable<Int> {
-        return paperListContentView.didSelectItem.asObservable()
-    }
-    var didSelectAddItem: Observable<Void> {
-        return paperListContentView.didSelectAddCell.asObservable()
-    }
 
-    init(toolType: PaperToolType, configure: DYModalConfiguration, papers: [PaperModalModel.PaperListCellModel] = [PaperModalModel.PaperListCellModel]()) {
-        self.papers = papers
+    init(toolType: PaperToolType, configure: DYModalConfiguration) {
         self.toolType = toolType
         super.init(configure: configure)
     }
@@ -71,6 +71,10 @@ class PaperModalViewController: DYModalViewController {
             addPaperContentView.layoutCollectionView(width: size.width)
         case .list:
             paperListContentView.layoutCollectionView()
+        case .monthList:
+            monthlyPageListContentView.layoutCollectionView()
+        case .date:
+            datePickerContentView.setNeedsLayout()
         }
 
     }
@@ -81,6 +85,11 @@ class PaperModalViewController: DYModalViewController {
             titleView = addPaperHeaderView
         case .list:
             titleView = paperListHeaderView
+        case .monthList:
+            setupTitleLabel(Text.selectMonth)
+            setupRightDownButton()
+        case .date:
+            titleView = datePickerHeaderView
         }
     }
 
@@ -90,6 +99,10 @@ class PaperModalViewController: DYModalViewController {
             contentView = addPaperContentView
         case .list:
             contentView = paperListContentView
+        case .monthList:
+            contentView = monthlyPageListContentView
+        case .date:
+            contentView = datePickerContentView
         }
     }
 }
@@ -102,6 +115,10 @@ private extension PaperModalViewController {
             bindAddPaperEvent()
         case .list:
             bindPaperListEvent()
+        case .monthList:
+            bindMonthListEvent()
+        case .date:
+            bindDatePickerEvent()
         }
     }
 
@@ -127,19 +144,60 @@ private extension PaperModalViewController {
                 self?.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
-        
-        didSelectAddItem
+
+        paperListContentView.didSelectAddCell
             .subscribe(onNext: { [weak self] in
                 self?.dismiss(animated: true) {
                     self?.delegate?.didTappedAdd()
                 }
             })
             .disposed(by: disposeBag)
-        
-        didSelectContentItem
-            .subscribe(onNext: { [weak self] index in
+
+        paperListContentView.didSelectItem
+            .subscribe(onNext: { [weak self] paper in
                 self?.dismiss(animated: true) {
-                    self?.delegate?.didTappedItem(index)
+                    self?.delegate?.didTappedItem(paper)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func bindDatePickerEvent() {
+        var month: String? = ""
+        var year: String? = ""
+        Observable.combineLatest(datePickerContentView.didSelectYear, datePickerContentView.didSelectMonth)
+            .subscribe(onNext: { selectedYear, selectedMonth in
+                month = selectedMonth
+                year = selectedYear
+            })
+            .disposed(by: disposeBag)
+
+        datePickerHeaderView.didTappedConfirmButton
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                let dateString = "\(year ?? "") \(month ?? "")"
+                self.dismiss(animated: true) {
+                    let date = DateFormatter.yearMonth.date(from: dateString)
+                    self.delegate?.didSelectedDate(didSelected: date)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func bindMonthListEvent() {
+        monthlyPageListContentView.didSelect
+            .subscribe(onNext: { [weak self] selectEvent in
+                guard let self = self else { return }
+
+                switch selectEvent {
+                case .item(paper: let paper):
+                    self.dismiss(animated: true) {
+                        self.delegate?.didTappedItem(paper)
+                    }
+                case .add:
+                    self.dismiss(animated: true) {
+                        self.delegate?.didTappedMonthlyAdd()
+                    }
                 }
             })
             .disposed(by: disposeBag)
