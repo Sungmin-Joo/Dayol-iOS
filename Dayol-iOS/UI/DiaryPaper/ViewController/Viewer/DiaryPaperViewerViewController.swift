@@ -221,6 +221,18 @@ class DiaryPaperViewerViewController: UIViewController {
 
         presentCustomModal(paperSelectModal)
     }
+
+    private func moveToPage(index: Int) {
+        guard let selectedViewController = self.paperViewControllers?[safe: index], currentIndex != index else { return }
+        let direction: UIPageViewController.NavigationDirection
+        if currentIndex < index {
+            direction = .forward
+        } else {
+            direction = .reverse
+        }
+        currentIndex = index
+        self.pageViewController.setViewControllers([selectedViewController], direction: direction, animated: true, completion: nil)
+    }
 }
 
 extension DiaryPaperViewerViewController {
@@ -231,16 +243,7 @@ extension DiaryPaperViewerViewController {
 
 extension DiaryPaperViewerViewController: PaperModalViewDelegate {
     func didTappedItem(_ index: Int) {
-        guard let selectedViewController = self.paperViewControllers?[safe: index], currentIndex != index else { return }
-        let direction: UIPageViewController.NavigationDirection
-        if currentIndex < index {
-            direction = .forward
-        } else {
-            direction = .reverse
-        }
-        currentIndex = index
-        self.pageViewController.setViewControllers([selectedViewController], direction: direction, animated: true, completion: nil)
-
+        moveToPage(index: index)
     }
     
     func didTappedAdd() {
@@ -259,10 +262,11 @@ extension DiaryPaperViewerViewController: DatePickerModalViewControllerDelegate 
 
 extension DiaryPaperViewerViewController: PaperSelectCollectionViewControllerDelegate {
     func paperSelectCollectionViewDidSelectAdd() {
-        print("add!!")
+        presentDatePickerModal()
     }
 
     func paperSelectCollectionView(_ paperSelectCollectionView: PaperSelectModalViewController, didSelectItem: DiaryInnerModel.PaperModel) {
-        print(didSelectItem)
+        guard let index = paperModels?.firstIndex(where: { $0.id == didSelectItem.id }) else { return }
+        moveToPage(index: index)
     }
 }

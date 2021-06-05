@@ -17,7 +17,7 @@ private enum Design {
 final class PaperSelectCollectionView: UIView {
     enum SelectEvent {
         case item(paper: DiaryInnerModel.PaperModel)
-        case more
+        case add
     }
 
     private var paperModels: [DiaryInnerModel.PaperModel]?
@@ -105,7 +105,7 @@ extension PaperSelectCollectionView: UICollectionViewDataSource {
 extension PaperSelectCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
-            didSelect.onNext(.more)
+            didSelect.onNext(.add)
         } else if let model = paperModels?[safe: indexPath.item - 1] {
             didSelect.onNext(.item(paper: model))
         }

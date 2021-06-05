@@ -13,7 +13,7 @@ enum PaperModalModel {
         let paperType: PaperType
         
         var title: String {
-            paperType.title
+            paperType.typeName
         }
         var thumbnailName: String {
             paperType.tumbNailImageName + "_\(paperStyle.rawValue)"

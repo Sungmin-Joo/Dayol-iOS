@@ -96,8 +96,10 @@ final class PaperSelectModalViewController: DYModalViewController {
                 switch selectEvent {
                 case .item(paper: let paper):
                     self.delegate?.paperSelectCollectionView(self, didSelectItem: paper)
-                case .more:
-                    self.delegate?.paperSelectCollectionViewDidSelectAdd()
+                case .add:
+                    self.dismiss(animated: true) {
+                        self.delegate?.paperSelectCollectionViewDidSelectAdd()
+                    }
                 }
             })
             .disposed(by: disposeBag)

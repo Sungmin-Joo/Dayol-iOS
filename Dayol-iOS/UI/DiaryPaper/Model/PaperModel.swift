@@ -56,6 +56,19 @@ enum PaperType: Equatable {
         }
     }
 
+    var typeName: String {
+        switch self {
+        case .monthly(let _): return "memo_list_monthly".localized
+        case .weekly(let _): return "memo_list_weekly".localized
+        case .daily(let _): return "memo_list_daily".localized
+        case .cornell: return "memo_list_kornell".localized
+        case .muji: return "memo_list_muji".localized
+        case .grid: return "memo_list_grid".localized
+        case .four: return "memo_list_4cell".localized
+        case .tracker: return "memo_list_tracker".localized
+        }
+    }
+
     var cellType: UITableViewCell.Type {
         switch self {
         case .monthly: return MonthlyCalendarView.self
