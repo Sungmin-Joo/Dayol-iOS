@@ -12,6 +12,7 @@ import RxSwift
 enum DiaryPaperEventType {
     case showDatePicker
     case showPaperSelect
+    case showAddSchedule(date: Date)
 }
 
 class DiaryPaperViewController: UIViewController {
@@ -123,6 +124,13 @@ extension DiaryPaperViewController {
             .observe(on:MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
                 self?.didReceivedEvent.onNext(.showPaperSelect)
+            })
+            .disposed(by: disposeBag)
+
+        paper.showAddSchedule
+            .observe(on:MainScheduler.instance)
+            .subscribe(onNext: { [weak self] date in
+                self?.didReceivedEvent.onNext(.showAddSchedule(date: date))
             })
             .disposed(by: disposeBag)
     }

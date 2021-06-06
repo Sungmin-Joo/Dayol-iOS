@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Design {
     static let daySize: CGSize = CGSize(width: 16, height: 16)
@@ -27,7 +28,10 @@ private enum Design {
 
 class MonthlyCalendarViewDayCell: UICollectionViewCell {
     static let identifier = "\(MonthlyCalendarViewDayCell.self)"
-    
+
+    let didLongTapped = PublishSubject<Void>()
+    var disposeBag = DisposeBag()
+
     private let rightSeparatorLine: UIView = {
         let view = UIView()
         view.backgroundColor = Design.verticalSeparatorLineColor
@@ -66,7 +70,7 @@ class MonthlyCalendarViewDayCell: UICollectionViewCell {
         super.init(frame: .zero)
         initView()
     }
-    
+
     private override init(frame: CGRect) {
         super.init(frame: frame)
         initView()
@@ -75,13 +79,19 @@ class MonthlyCalendarViewDayCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+
     private func initView() {
         contentView.addSubview(dayBackgroundView)
         contentView.addSubview(rightSeparatorLine)
         contentView.addSubview(bottomSeparatorLine)
         dayBackgroundView.addSubview(dayLabel)
         setConstraint()
+        setupGestureRecognizer()
     }
     
     private func setConstraint() {
@@ -117,6 +127,16 @@ class MonthlyCalendarViewDayCell: UICollectionViewCell {
         ]
         
         return NSAttributedString(string: dayString, attributes: attributes)
+    }
+
+    private func setupGestureRecognizer() {
+        let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongTappedCell(_:)))
+        addGestureRecognizer(longTapGesture)
+    }
+
+    @objc
+    func didLongTappedCell(_ sender: Any?) {
+        didLongTapped.onNext(())
     }
     
     func configure(model: MonthlyCalendarDayModel) {

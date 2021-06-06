@@ -8,9 +8,16 @@
 import Foundation
 
 extension DateFormatter {
+    static func createDate(year: Int, month: Int = 1, day: Int = 1) -> Date? {
+        let string = "\(year).\(month) \(day)"
+        let date = Self.yearMonthDay.date(from: string)
+
+        return date
+    }
+
     static var yearMonthDay: DateFormatter {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.M dd"
+        dateFormatter.dateFormat = "yyyy.M d"
 
         return dateFormatter
     }

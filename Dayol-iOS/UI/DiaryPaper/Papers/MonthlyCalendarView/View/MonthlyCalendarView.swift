@@ -21,12 +21,15 @@ private enum Design {
 }
 
 class MonthlyCalendarView: BasePaper {
+    private var dateModel: MonthlyCalendarDataModel?
     private var containerViewLeft = NSLayoutConstraint()
     private var containerViewRight = NSLayoutConstraint()
+
     var disposeBag = DisposeBag()
     
     let showSelectPaper = PublishSubject<Void>()
-    
+    let showAddSchedule = PublishSubject<Date>()
+
     private let headerView: MonthlyCalendarHeaderView = {
         let header = MonthlyCalendarHeaderView(month: .january)
         header.translatesAutoresizingMaskIntoConstraints = false
@@ -76,10 +79,24 @@ class MonthlyCalendarView: BasePaper {
         viewModel.dateModel()
             .subscribe(onNext: { [weak self] dateModel in
                 guard let self = self else { return }
+                self.dateModel = dateModel
                 let _ = dateModel.month
                 let days = dateModel.days
                 self.collectionView.days = days
                 self.headerView.month = dateModel.month
+            })
+            .disposed(by: disposeBag)
+
+        collectionView.longTappedIndex
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                let day = self.dateModel?.days[index].dayNumber ?? 0
+                let month = self.dateModel?.month.rawValue ?? 0
+                let year = self.dateModel?.year ?? 0
+
+                let date = DateFormatter.createDate(year: year, month: month + 1, day: day) ?? Date()
+
+                self.showAddSchedule.onNext(date)
             })
             .disposed(by: disposeBag)
 

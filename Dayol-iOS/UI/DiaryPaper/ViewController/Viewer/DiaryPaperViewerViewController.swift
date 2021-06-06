@@ -14,6 +14,13 @@ private enum Design {
     static let addPageModalTopMargin: CGFloat = 57.0
 }
 
+private enum Text {
+    static var addScheduleTitle: String { "속지 또는 일정 등록" }
+    static var addScheduleDesc: String { "선택한 날짜에 새로운 일정을 등록하거나 작성한 속지를 연결할 수 있습니다" }
+    static var addScheduleAddButton: String { "일정추가" }
+    static var addScheduleLinkButton: String { "속지연결" }
+}
+
 class DiaryPaperViewerViewController: UIViewController {
     // MARK: - Properties
     
@@ -134,6 +141,8 @@ class DiaryPaperViewerViewController: UIViewController {
                                     self.presentPaperModal(toolType: .date)
                                 case .showPaperSelect:
                                     self.presentPaperModal(toolType: .monthList)
+                                case .showAddSchedule(date: let date):
+                                    self.presentAddSchedule(date: date)
                                 }
                             })
                             .disposed(by: self.disposeBag)
@@ -201,6 +210,18 @@ class DiaryPaperViewerViewController: UIViewController {
         }
         currentIndex = index
         self.pageViewController.setViewControllers([selectedViewController], direction: direction, animated: true, completion: nil)
+    }
+
+    private func presentAddSchedule(date: Date) {
+        let alert = DayolAlertController(title: Text.addScheduleTitle, message: Text.addScheduleDesc)
+        alert.addAction(.init(title: Text.addScheduleLinkButton, style: .cancel, handler: {
+            print("LinkButton")
+        }))
+        alert.addAction(.init(title: Text.addScheduleAddButton, style: .default, handler: {
+            print("AddButton")
+        }))
+        present(alert, animated: true, completion: nil)
+
     }
 }
 

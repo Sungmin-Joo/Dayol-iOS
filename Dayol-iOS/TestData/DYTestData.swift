@@ -66,12 +66,12 @@ class DYTestData {
     lazy var pageListSubject = BehaviorSubject<[PaperModel]>(value: paperList)
     
     var diaryList: [DiaryInfoModel] = [
-        DiaryInfoModel(id: 0, color: .DYRed, title: "1번 다이어리", totalPage: 3, password: "1234"),
-        DiaryInfoModel(id: 1, color: .DYBlue, title: "2번 다이어리", totalPage: 2, password: "1234"),
-        DiaryInfoModel(id: 2, color: .DYGreen, title: "3번 다이어리", totalPage: 5, password: "1234"),
-        DiaryInfoModel(id: 3, color: .DYRed, title: "4번 다이어리", totalPage: 3, password: "1234"),
-        DiaryInfoModel(id: 4, color: .DYBlue, title: "5번 다이어리", totalPage: 2, password: "1234"),
-        DiaryInfoModel(id: 5, color: .DYGreen, title: "6번 다이어리", totalPage: 5, password: "1234")
+        DiaryInfoModel(id: 0, color: .DYRed, title: "1번 다이어리", totalPage: 0, password: "1234"),
+        DiaryInfoModel(id: 1, color: .DYBlue, title: "2번 다이어리", totalPage: 0, password: "1234"),
+        DiaryInfoModel(id: 2, color: .DYGreen, title: "3번 다이어리", totalPage: 0, password: "1234"),
+        DiaryInfoModel(id: 3, color: .DYRed, title: "4번 다이어리", totalPage: 0, password: "1234"),
+        DiaryInfoModel(id: 4, color: .DYBlue, title: "5번 다이어리", totalPage: 0, password: "1234"),
+        DiaryInfoModel(id: 5, color: .DYGreen, title: "6번 다이어리", totalPage: 0, password: "1234")
     ]
     
     var deletedPageList: [DeletedPageCellModel] = [

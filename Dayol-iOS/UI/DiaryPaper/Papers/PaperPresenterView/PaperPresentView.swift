@@ -21,6 +21,7 @@ class PaperPresentView: UIView {
     private let flexibleSize: Bool
 
     let showPaperSelect = PublishSubject<Void>()
+    let showAddSchedule = PublishSubject<Date>()
     
     var scaleForFit: CGFloat = 0.0 {
         didSet {
@@ -160,6 +161,13 @@ extension PaperPresentView: UITableViewDataSource {
                 .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] in
                     self?.showPaperSelect.onNext(())
+                })
+                .disposed(by: cell.disposeBag)
+
+            cell.showAddSchedule
+                .observe(on: MainScheduler.instance)
+                .subscribe(onNext: { [weak self] date in
+                    self?.showAddSchedule.onNext(date)
                 })
                 .disposed(by: cell.disposeBag)
 
