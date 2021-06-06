@@ -9,9 +9,11 @@ import UIKit
 import Combine
 
 private enum Design {
-    static let pencilTypeSettingViewHeight: CGFloat = 55.0
+    static let backgroundColor: UIColor = .gray100
+    static let pencilTypeSettingViewHeight: CGFloat = 35.0
     static let pencilAlphaSettingViewHeight: CGFloat = 30.0
     static let pencilAlphaSettingViewWidth: CGFloat = 275.0
+    static let stackViewTopMargin: CGFloat = 16.0
     static let stackViewBottomMargin: CGFloat = 25.0
 }
 
@@ -71,6 +73,7 @@ class PencilSettingView: UIView {
 extension PencilSettingView {
 
     private func initView() {
+        backgroundColor = Design.backgroundColor
         contentStackView.addArrangedSubview(pencilTypeSettingView)
         contentStackView.addArrangedSubview(colorSettingView)
         contentStackView.addArrangedSubview(pencilAlphaSettingView)
@@ -87,7 +90,8 @@ extension PencilSettingView {
             pencilAlphaSettingView.widthAnchor.constraint(equalToConstant: Design.pencilAlphaSettingViewWidth),
             pencilAlphaSettingView.heightAnchor.constraint(equalToConstant: Design.pencilAlphaSettingViewHeight),
 
-            contentStackView.topAnchor.constraint(equalTo: topAnchor),
+            contentStackView.topAnchor.constraint(equalTo: topAnchor,
+                                                  constant: Design.stackViewTopMargin),
             contentStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
                                                      constant: -Design.stackViewBottomMargin),
             contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
