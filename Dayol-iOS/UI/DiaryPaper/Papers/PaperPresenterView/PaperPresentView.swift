@@ -13,7 +13,6 @@ class PaperPresentView: UIView {
     
     // MARK: - Properties
     
-    typealias PaperModel = DiaryInnerModel.PaperModel
     private var paper: PaperModel
     private let numberOfPapers: Int
     private var contentTop = NSLayoutConstraint()

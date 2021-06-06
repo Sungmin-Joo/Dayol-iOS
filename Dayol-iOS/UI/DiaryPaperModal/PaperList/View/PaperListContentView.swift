@@ -26,9 +26,8 @@ private enum Text: String {
 }
 
 class PaperListContentView: UIView {
-
     let disposeBag = DisposeBag()
-    let didSelectItem = PublishSubject<DiaryInnerModel.PaperModel>()
+    let didSelectItem = PublishSubject<PaperModel>()
     let didSelectAddCell = PublishSubject<Void>()
     
     private var papers: [PaperModalModel.PaperListCellModel] = []

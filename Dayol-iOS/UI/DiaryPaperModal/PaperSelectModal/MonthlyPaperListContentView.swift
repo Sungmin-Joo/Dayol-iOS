@@ -18,15 +18,15 @@ private enum Text {
     static var infoText: String { "생성한 먼슬리 플랜으로 바로 이동할 수 있어요. 원하는 월이 없다면 속지를 추가해보세요!" }
 }
 
-final class PaperSelectContentView: UIView {
+final class MonthlyPaperListContentView: UIView {
     enum SelectEvent {
-        case item(paper: DiaryInnerModel.PaperModel)
+        case item(paper: PaperModel)
         case add
     }
 
     private let disposeBag = DisposeBag()
-    private var paperModels: [DiaryInnerModel.PaperModel]?
-    private let viewModel = PaperSelectModalViewModel()
+    private var paperModels: [PaperModel]?
+    private let viewModel = MonthlyPaperListViewModel()
 
     let didSelect = PublishSubject<SelectEvent>()
 
@@ -83,7 +83,7 @@ final class PaperSelectContentView: UIView {
 
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(PaperSelectCollectionViewCell.self)
+        collectionView.register(MonthlyPaperListCollectionViewCell.self)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = UIColor.gray100
 
@@ -108,8 +108,8 @@ final class PaperSelectContentView: UIView {
     }
 }
 
-extension PaperSelectContentView {
-    var models: [DiaryInnerModel.PaperModel]? {
+extension MonthlyPaperListContentView {
+    var models: [PaperModel]? {
         get {
             return self.paperModels
         }
@@ -120,7 +120,7 @@ extension PaperSelectContentView {
     }
 }
 
-extension PaperSelectContentView: UICollectionViewDataSource {
+extension MonthlyPaperListContentView: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -130,7 +130,7 @@ extension PaperSelectContentView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(PaperSelectCollectionViewCell.self, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(MonthlyPaperListCollectionViewCell.self, for: indexPath)
         if indexPath.item == 0 {
             cell.configureAddCell()
         } else if let model = paperModels?[safe: indexPath.item - 1] {
@@ -141,7 +141,7 @@ extension PaperSelectContentView: UICollectionViewDataSource {
     }
 }
 
-extension PaperSelectContentView: UICollectionViewDelegate {
+extension MonthlyPaperListContentView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
             didSelect.onNext(.add)

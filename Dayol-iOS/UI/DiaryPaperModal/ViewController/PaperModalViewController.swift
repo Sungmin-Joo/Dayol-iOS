@@ -18,7 +18,7 @@ private enum Text {
 }
 
 protocol PaperModalViewDelegate: NSObject {
-    func didTappedItem(_ index: DiaryInnerModel.PaperModel)
+    func didTappedItem(_ index: PaperModel)
     func didTappedAdd()
     func didSelectedDate(didSelected date: Date?)
     func didTappedMonthlyAdd()
@@ -34,22 +34,24 @@ class PaperModalViewController: DYModalViewController {
     }
 
     private let disposeBag = DisposeBag()
+    private let diaryId: Int
     // MARK: - UI Property
 
     private lazy var addPaperHeaderView = AddPaperHeaderView()
     private lazy var addPaperContentView = AddPaperContentView()
     private lazy var paperListHeaderView = PaperListHeaderView()
     private lazy var paperListContentView = PaperListContentView()
-    private lazy var monthltPageListHeaderView = PaperSelectHeaderView()
-    private lazy var monthlyPageListContentView = PaperSelectContentView()
+    private lazy var monthltPageListHeaderView = MonthlyPaperListHeaderView()
+    private lazy var monthlyPageListContentView = MonthlyPaperListContentView()
     private lazy var datePickerHeaderView = DatePickerHeaderView()
     private lazy var datePickerContentView = DatePickerView()
-    
+
     public weak var delegate: PaperModalViewDelegate?
 
     var toolType: PaperToolType
 
-    init(toolType: PaperToolType, configure: DYModalConfiguration) {
+    init(diaryId: Int, toolType: PaperToolType, configure: DYModalConfiguration) {
+        self.diaryId = diaryId
         self.toolType = toolType
         super.init(configure: configure)
     }
@@ -131,8 +133,9 @@ private extension PaperModalViewController {
 
         addPaperHeaderView.barRightButton.rx.tap
             .bind { [weak self] in
-                self?.dismiss(animated: true, completion: {
-                    self?.addPaperContentView.viewModel.addPaper()
+                guard let self = self else { return }
+                self.dismiss(animated: true, completion: {
+                    self.addPaperContentView.viewModel.addPaper(diaryId: self.diaryId)
                 })
             }
             .disposed(by: disposeBag)

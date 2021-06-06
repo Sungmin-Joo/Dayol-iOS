@@ -29,7 +29,7 @@ private enum Text {
     static let add = "Add"
 }
 
-final class PaperSelectCollectionViewCell: UICollectionViewCell {
+final class MonthlyPaperListCollectionViewCell: UICollectionViewCell {
     private let paperImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +75,7 @@ final class PaperSelectCollectionViewCell: UICollectionViewCell {
         paperNameLabel.attributedText = makeText(Text.add)
     }
 
-    func configure(model: DiaryInnerModel.PaperModel) {
+    func configure(model: PaperModel) {
         let size = model.paperStyle == .vertical ? Design.Margin.verticalThumhailSize : Design.Margin.horizontalThumhailSize
         let thumbnail = model.thumbnail?.resizeImage(targetSize: size)
         paperImageView.image = thumbnail

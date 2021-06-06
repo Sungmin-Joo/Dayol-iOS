@@ -17,12 +17,10 @@ private enum Design {
 class DiaryPaperViewerViewController: UIViewController {
     // MARK: - Properties
     
-    typealias PaperModel = DiaryInnerModel.PaperModel
-    
     private let disposeBag = DisposeBag()
     private var cancellable = [Cancellable]()
     private let viewModel: DiaryPaperViewerViewModel
-    private var paperModels: [DiaryInnerModel.PaperModel]?
+    private var paperModels: [PaperModel]?
     
     var currentIndex: Int = -1
     
@@ -111,15 +109,15 @@ class DiaryPaperViewerViewController: UIViewController {
     }
 
     private func bindPaperModel() {
-        viewModel.paperList
+        viewModel.paperList(diaryId: viewModel.diaryId)
             .observe(on: MainScheduler.instance)
-            .filter { self.paperModels?.count != $0.count }
             .subscribe(onNext: { [weak self] papers in
                 guard let self = self else { return }
 
                 if papers.isEmpty {
                     let vc = DiaryPaperEmptyViewController()
 
+                    vc.delegate = self
                     self.pageViewController.setViewControllers([vc], direction: .forward, animated: false, completion: nil)
                 } else {
                     var diaryPaperViewControllers = [DiaryPaperViewController]()
@@ -186,27 +184,12 @@ class DiaryPaperViewerViewController: UIViewController {
         let modalStyle: DYModalConfiguration.ModalStyle = isPadDevice ? .normal : .custom(containerHeight: modalHeight)
         let configuration = DYModalConfiguration(dimStyle: .black,
                                                  modalStyle: modalStyle)
-        let modalVC = PaperModalViewController(toolType: toolType, configure: configuration)
+
+        let modalVC = PaperModalViewController(diaryId: viewModel.diaryId, toolType: toolType, configure: configuration)
         modalVC.delegate = self
 
         presentCustomModal(modalVC)
     }
-//
-//    private func presentDatePickerModal() {
-//        let datePicker = DatePickerModalViewController()
-//        datePicker.delegate = self
-//
-//        presentCustomModal(datePicker)
-//    }
-
-//    private func presentPaperSelectModal() {
-//        let viewModel = PaperSelectModalViewModel()
-//        let paperSelectModal = PaperSelectModalViewController(title: Text.selectMonth, viewModel: viewModel)
-//
-//        paperSelectModal.delegate = self
-//
-//        presentCustomModal(paperSelectModal)
-//    }
 
     private func moveToPage(index: Int) {
         guard let selectedViewController = self.paperViewControllers?[safe: index], currentIndex != index else { return }
@@ -228,7 +211,7 @@ extension DiaryPaperViewerViewController {
 }
 
 extension DiaryPaperViewerViewController: PaperModalViewDelegate {
-    func didTappedItem(_ paper: DiaryInnerModel.PaperModel) {
+    func didTappedItem(_ paper: PaperModel) {
         guard let index = paperModels?.firstIndex(where: { $0.id == paper.id }) else { return }
         moveToPage(index: index)
     }
@@ -246,5 +229,11 @@ extension DiaryPaperViewerViewController: PaperModalViewDelegate {
         let paperStyle = currentVC.paper.style
 
         viewModel.addPaper(.monthly(date: pickedDate), style: paperStyle)
+    }
+}
+
+extension DiaryPaperViewerViewController: DiaryPaperEmptyViewControllerDelegate {
+    func didTapEmptyView() {
+        presentPaperModal(toolType: .add)
     }
 }

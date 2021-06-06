@@ -11,32 +11,39 @@ import RxSwift
 class DiaryPaperViewerViewModel {
     private let model: DiaryPaperViewerModel
     private let coverModel: DiaryInfoModel
-    
+
+    var diaryId: Int {
+        return coverModel.id
+    }
+
     var title: Observable<String> {
         return model.diaryTitle.asObservable()
-    }
-    
-    var paperList: Observable<[DiaryInnerModel.PaperModel]> {
-        return model.innerModelsSubject.asObservable()
     }
     
     var coverColor: UIColor {
         return coverModel.color.coverColor
     }
 
+    func paperList(diaryId: Int) -> Observable<[PaperModel]> {
+        return model.innerModelsSubject
+            .map { $0.filter { $0.diaryId == diaryId } }
+            .asObservable()
+    }
+
     func addPaper(_ type: PaperType, style: PaperStyle) {
         guard model.contain(paperType: type) == false else { return }
-        let paper = DiaryInnerModel.PaperModel(id: model.innerModels.count + 1,
-                                               paperStyle: style,
-                                               paperType: type,
-                                               numberOfPapers: 1,
-                                               drawModelList: DrawModel()
+        let paper = PaperModel(id: DYTestData.shared.currentPaperId,
+                               diaryId: coverModel.id,
+                               paperStyle: style,
+                               paperType: type,
+                               numberOfPapers: 1,
+                               drawModelList: DrawModel()
         )
         model.add(paper: paper)
     }
 
-    func findModels(type: PaperType) -> [DiaryInnerModel.PaperModel] {
-        var inners = [DiaryInnerModel.PaperModel]()
+    func findModels(type: PaperType) -> [PaperModel] {
+        var inners = [PaperModel]()
         model.innerModels.forEach { paper in
             if case paper.paperType = type {
                 inners.append(paper)

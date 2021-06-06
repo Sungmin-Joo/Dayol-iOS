@@ -11,36 +11,42 @@ import RxSwift
 // MARK: - 다이어리 한 개당 내부에 표현될 데이터를 테스트하기위해 작성한 코드입니다.
 
 // 다이어리 한 개의 내부 데이터에 대한 테스트 모델
-struct DiaryInnerModel {
+struct PaperModel {
+    let id: Int
+    let diaryId: Int
+    let paperStyle: PaperStyle
+    let paperType: PaperType
+    let paperTitle: String
+    var numberOfPapers: Int
+    // TODO: - 속지 추가 스펙이 있어서 [DrawModel] 로 변경되어야 할 것 같습니다.
+    var drawModelList: DrawModel
+    var thumbnail: UIImage?
+    let updateThumbnail = PublishSubject<Void>()
 
-    // 다이어리 내부 다양한 종류의 메모에 대한 테스트 모델
-    struct PaperModel {
-        let id: Int
-        let paperStyle: PaperStyle
-        let paperType: PaperType
-        let paperTitle: String
-        var numberOfPapers: Int
-        // TODO: - 속지 추가 스펙이 있어서 [DrawModel] 로 변경되어야 할 것 같습니다.
-        var drawModelList: DrawModel
-        var thumbnail: UIImage?
-        let updateThumbnail = PublishSubject<Void>()
-
-        init(id: Int, paperStyle: PaperStyle, paperType: PaperType, numberOfPapers: Int, drawModelList: DrawModel) {
-            self.id = id
-            self.paperType = paperType
-            self.paperStyle = paperStyle
-            self.numberOfPapers = numberOfPapers
-            self.drawModelList = drawModelList
-            self.paperTitle = paperType.title
-        }
-
-        mutating func setThumbnail(_ image: UIImage?) {
-            self.thumbnail = image
-        }
+    init(id: Int, diaryId: Int, paperStyle: PaperStyle, paperType: PaperType, numberOfPapers: Int, drawModelList: DrawModel) {
+        self.id = id
+        self.diaryId = diaryId
+        self.paperType = paperType
+        self.paperStyle = paperStyle
+        self.numberOfPapers = numberOfPapers
+        self.drawModelList = drawModelList
+        self.paperTitle = paperType.title
     }
 
-    let diaryID: Int
-    var paperList: [PaperModel]
+    mutating func setThumbnail(_ image: UIImage?) {
+        self.thumbnail = image
+    }
+}
+
+struct ScheduleModel {
+    let id: Int
+    let diaryId: Int
+    let start: Date
+    let end: Date
+    let content: String
+    let color: UIColor
+    let linkPaperId: Int
+    let appliedType: PaperType
 }
 
 class DYTestData {
@@ -57,7 +63,7 @@ class DYTestData {
 
     lazy var diaryListSubject = BehaviorSubject<[DiaryInfoModel]>(value: diaryList)
     lazy var deletedPageListSubject = BehaviorSubject<[DeletedPageCellModel]>(value: deletedPageList)
-    lazy var pageListSubject = BehaviorSubject<[DiaryInnerModel.PaperModel]>(value: paperList)
+    lazy var pageListSubject = BehaviorSubject<[PaperModel]>(value: paperList)
     
     var diaryList: [DiaryInfoModel] = [
         DiaryInfoModel(id: 0, color: .DYRed, title: "1번 다이어리", totalPage: 3, password: "1234"),
@@ -89,7 +95,7 @@ class DYTestData {
     
     
 
-    var paperList: [DiaryInnerModel.PaperModel] = [
+    var paperList: [PaperModel] = [
 
     ]
     
@@ -196,12 +202,12 @@ class DYTestData {
 
 // MARK: -Paper
     
-    func addPaper(_ model: DiaryInnerModel.PaperModel) {
+    func addPaper(_ model: PaperModel) {
         paperList.append(model)
         pageListSubject.onNext(paperList)
     }
 
-    func deletePaper(_ model: DiaryInnerModel.PaperModel) {
+    func deletePaper(_ model: PaperModel) {
         guard let index = paperList.firstIndex(where: { $0.id == model.id }) else { return }
         paperList.remove(at: index)
         pageListSubject.onNext(paperList)
@@ -223,7 +229,5 @@ class DYTestData {
     func addPaperThumbnail(id: Int, thumbnail: UIImage?) {
         guard let index = paperList.firstIndex(where: { $0.id == id }) else { return }
         paperList[index].thumbnail = thumbnail
-
-        pageListSubject.onNext(paperList)
     }
 }

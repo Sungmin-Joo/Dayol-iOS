@@ -11,6 +11,10 @@ private enum Design {
     static let addPageModalTopMargin: CGFloat = 57.0
 }
 
+protocol DiaryPaperEmptyViewControllerDelegate: NSObject {
+    func didTapEmptyView()
+}
+
 final class DiaryPaperEmptyViewController: UIViewController {
     private let emptyView: DiaryPaperEmptyView = {
         let view = DiaryPaperEmptyView()
@@ -18,6 +22,8 @@ final class DiaryPaperEmptyViewController: UIViewController {
 
         return view
     }()
+
+    weak var delegate: DiaryPaperEmptyViewControllerDelegate?
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -38,27 +44,6 @@ final class DiaryPaperEmptyViewController: UIViewController {
 
     @objc
     private func didTapEmptyView() {
-        presentAddPaperModal()
+        delegate?.didTapEmptyView()
     }
-
-    private func presentAddPaperModal() {
-        let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
-        let screenHeight = keyWindow?.bounds.height ?? .zero
-        let modalHeight: CGFloat = screenHeight - Design.addPageModalTopMargin
-        let modalStyle: DYModalConfiguration.ModalStyle = isPadDevice ? .normal : .custom(containerHeight: modalHeight)
-        let configuration = DYModalConfiguration(dimStyle: .black,
-                                                 modalStyle: modalStyle)
-
-        let modalVC = PaperModalViewController(toolType: .add, configure: configuration)
-        modalVC.delegate = self
-
-        presentCustomModal(modalVC)
-    }
-}
-
-extension DiaryPaperEmptyViewController: PaperModalViewDelegate {
-    func didSelectedDate(didSelected date: Date?) { }
-    func didTappedMonthlyAdd() { }
-    func didTappedItem(_ paper: DiaryInnerModel.PaperModel) { }
-    func didTappedAdd() { }
 }
