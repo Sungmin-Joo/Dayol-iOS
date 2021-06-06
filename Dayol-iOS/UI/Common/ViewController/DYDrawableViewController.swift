@@ -16,7 +16,7 @@ protocol DYDrawableDelegate: AnyObject {
     func didTapEraseButton()
     func didTapPencilButton()
     func didTapTextButton(_ textField: DYFlexibleTextField)
-    func didEndEraseSetting(eraseType: EraseType, isObjectErase: Bool)
+    func didEndEraseSetting(isObjectErase: Bool)
     func didEndPencilSetting(color: UIColor, isHighlighter: Bool)
     func didEndTextStyleSetting()
     func didEndTextColorSetting(color: UIColor)
@@ -80,16 +80,16 @@ extension DYDrawableViewController {
     }
 
     private func showEraseModal() {
-        let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .small)
+        let modalHeight = DYModalViewController.headerAreaHeight + EraseSettingView.contentHeight
+        let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .custom(containerHeight: modalHeight))
         let modalVC = DYModalViewController(configure: configuration,
                                             title: Text.eraseTitle,
                                             hasDownButton: true)
         let isObjectErase = drawableViewModel.currentEraseTool.isObjectErase
-        let contentView = EraseSettingView(currentEraseType: .small, isObjectErase: isObjectErase)
+        let contentView = EraseSettingView(isObjectErase: isObjectErase)
         modalVC.dismissCompeletion = { [weak self] in
-            let newEraseType = contentView.currentEraseType
             let newIsObjectErase = contentView.isObjectErase
-            self?.delegate?.didEndEraseSetting(eraseType: newEraseType, isObjectErase: newIsObjectErase)
+            self?.delegate?.didEndEraseSetting(isObjectErase: newIsObjectErase)
         }
         modalVC.contentView = contentView
         self.presentCustomModal(modalVC)

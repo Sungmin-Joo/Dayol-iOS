@@ -25,6 +25,7 @@ private enum Design {
 
 class DYModalViewController: UIViewController {
 
+    static let headerAreaHeight = Design.headerAreaHeight
     private let disposeBag = DisposeBag()
     private var lastMoved: CGFloat = .greatestFiniteMagnitude
     var dismissCompeletion: (() -> Void)?
