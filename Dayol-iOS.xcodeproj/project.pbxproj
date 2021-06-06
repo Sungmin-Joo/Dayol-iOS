@@ -969,6 +969,7 @@
 				34A11A4425ADC35500678F98 /* DiaryPaperModal */,
 				DAD48A2B260CD2F7008B542E /* StickerModal */,
 				34CA254425A618E40057404D /* Settings */,
+				DA5A1112266CADC0002C7EA8 /* ScheduleList */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1101,6 +1102,13 @@
 				DA6FF5F52667C07B006B0B34 /* MonthlyPaperListViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DA5A1112266CADC0002C7EA8 /* ScheduleList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ScheduleList;
 			sourceTree = "<group>";
 		};
 		DA6FF5DC2667AD0A006B0B34 /* Paper */ = {
