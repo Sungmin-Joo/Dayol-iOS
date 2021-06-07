@@ -15,7 +15,8 @@ extension DYPaletteColor {
     }
 }
 
-enum DYPaletteColor: CaseIterable {
+enum DYPaletteColor: Int, CaseIterable, Codable {
+
     case DYRed
     case DYOrange
     case DYYellow
@@ -70,7 +71,7 @@ enum DYPaletteColor: CaseIterable {
         }
     }
     
-    var coverColor: UIColor {
+    var uiColor: UIColor {
         return UIColor(decimalRed: colorSet.red, green: colorSet.green, blue: colorSet.blue)
     }
     
@@ -93,11 +94,16 @@ extension DYPaletteColor {
         let presetColors = [
             DYPaletteColor.DYDark,
             DYPaletteColor.DYRed,
+            DYPaletteColor.DYOrange,
             DYPaletteColor.DYYellow,
             DYPaletteColor.DYGreen,
             DYPaletteColor.DYMint,
             DYPaletteColor.DYSkyblue,
-            DYPaletteColor.DYBlue
+            DYPaletteColor.DYBlue,
+            DYPaletteColor.DYPurple,
+            DYPaletteColor.DYPink,
+            DYPaletteColor.DYLightBrown,
+            DYPaletteColor.DYBrown
         ]
         return presetColors
     }

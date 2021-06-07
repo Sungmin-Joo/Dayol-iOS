@@ -119,7 +119,7 @@ extension DiaryView {
             delay: 0,
             options: .curveEaseInOut
         ) {
-            self.coverView.backgroundColor = color.coverColor
+            self.coverView.backgroundColor = color.uiColor
             self.lockerView.backgroundColor = color.lockerColor
         }
     }

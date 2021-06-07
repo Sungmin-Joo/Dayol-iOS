@@ -21,7 +21,7 @@ class DiaryPaperViewerViewModel {
     }
     
     var coverColor: UIColor {
-        return coverModel.color.coverColor
+        return coverModel.color.uiColor
     }
     
     init(coverModel: DiaryCoverModel) {

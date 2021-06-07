@@ -80,7 +80,7 @@ class ColorSettingView: UIView {
 extension ColorSettingView {
 
     func set(color: UIColor) {
-        colorSettingPaletteView.set(color: color)
+        colorSettingPaletteView.viewModel.currentHexColor.send(color.toHexString)
         colorPicker.set(color: color)
     }
 
@@ -126,9 +126,10 @@ extension ColorSettingView {
     }
 
     private func bindEvent() {
-        colorSettingPaletteView.colorSubject.sink { [weak self] color in
-            self?.colorPicker.set(color: color)
-            self?.colorSubject.send(color)
+        colorSettingPaletteView.viewModel.currentHexColor.sink { [weak self] hexString in
+            guard let self = self, let color = UIColor(hex: hexString) else { return }
+            self.colorPicker.set(color: color)
+            self.colorSubject.send(color)
         }
         .store(in: &cancellable)
     }
@@ -138,7 +139,7 @@ extension ColorSettingView {
 extension ColorSettingView {
 
     @objc func handleColorChanged(picker: ColorPicker) {
-        colorSettingPaletteView.set(color: picker.color)
+        colorSettingPaletteView.viewModel.currentHexColor.send(picker.color.toHexString)
         colorSubject.send(picker.color)
     }
 

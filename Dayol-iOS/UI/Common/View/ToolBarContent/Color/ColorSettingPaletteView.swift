@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import RxSwift
 
 private enum Design {
     static let currentColorViewRadius: CGFloat = 18.0
@@ -26,10 +27,9 @@ private enum Design {
 
 class ColorSettingPaletteView: UIView {
 
-    let colorSubject = PassthroughSubject<UIColor, Never>()
-    private var colors: [DYPaletteColor] {
-        return DYPaletteColor.penColorPreset
-    }
+    private let disposeBag = DisposeBag()
+    private var cancellable: [AnyCancellable] = []
+    let viewModel = ColorSettingPaletteViewModel()
 
     // MARK: UI Property
 
@@ -88,8 +88,23 @@ class ColorSettingPaletteView: UIView {
 
 extension ColorSettingPaletteView {
 
-    func set(color: UIColor) {
+    private func set(color: UIColor) {
         currentColorView.backgroundColor = color
+
+        if let oldColor = palleteView.currentColor {
+            if oldColor != color {
+                palleteView.deselectColorItem()
+            }
+        } else {
+            guard
+                let colors = palleteView.colors?.enumerated(),
+                let index = colors.filter({ $1.uiColor == color }).first?.offset
+            else { return }
+
+            let indexPath = IndexPath(item: index, section: 0)
+            palleteView.selectItem(indexPath)
+        }
+
     }
     
 }
@@ -97,7 +112,6 @@ extension ColorSettingPaletteView {
 extension ColorSettingPaletteView {
 
     private func initView() {
-        palleteView.colors = colors
         contentStackView.addArrangedSubview(currentColorView)
         contentStackView.addArrangedSubview(separator)
         contentStackView.addArrangedSubview(plusButton)
@@ -126,6 +140,28 @@ extension ColorSettingPaletteView {
 
     private func bindEvent() {
 
+        viewModel.paletteColors.sink { [weak self] colors in
+            guard let self = self else { return }
+            // TODO: - 디테일 구현
+            // -> 모달 노출 후 셀렉트된 셀로 이동하도록 구현 필요
+            self.palleteView.colors = colors
+        }
+        .store(in: &cancellable)
+
+        viewModel.currentHexColor.sink { [weak self] hexString in
+            guard let color = UIColor(hex: hexString) else { return }
+            self?.set(color: color)
+        }
+        .store(in: &cancellable)
+
+        palleteView.changedColor
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] color in
+                guard let self = self else { return }
+                let hexString = color.uiColor.toHexString
+                self.viewModel.currentHexColor.send(hexString)
+            })
+            .disposed(by: disposeBag)
     }
 
 }

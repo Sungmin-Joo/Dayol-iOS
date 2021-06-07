@@ -147,3 +147,27 @@ extension DYColorPaletteView: UICollectionViewDelegate {
         changedColor.onNext(color)
     }
 }
+
+// MARK: - Public Color Palette Function
+
+extension DYColorPaletteView {
+    var currentColor: UIColor? {
+        guard
+            let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first,
+            let color = colors?[selectedIndexPath.row]
+        else {
+            return nil
+        }
+        return color.uiColor
+    }
+
+    func selectItem(_ indexPath: IndexPath) {
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)
+    }
+
+    func deselectColorItem() {
+        collectionView.indexPathsForSelectedItems?.forEach {
+            collectionView.deselectItem(at: $0, animated: true)
+        }
+    }
+}

@@ -34,7 +34,7 @@ class DiaryEditColorPaletteCell: UICollectionViewCell {
     init(color: DYPaletteColor) {
         super.init(frame: .zero)
         initView()
-        backgroundColor = color.coverColor
+        backgroundColor = color.uiColor
     }
     
     private override init(frame: CGRect) {
@@ -68,6 +68,6 @@ class DiaryEditColorPaletteCell: UICollectionViewCell {
     }
     
     func configure(color: DYPaletteColor) {
-        backgroundColor = color.coverColor
+        backgroundColor = color.uiColor
     }
 }
