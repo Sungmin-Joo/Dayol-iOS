@@ -1,5 +1,5 @@
 //
-//  DiaryEditColorPaletteView.swift
+//  DYColorPaletteView.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/01/04.
@@ -14,10 +14,10 @@ private enum Design {
     static let cellSpace: CGFloat = 11
 }
 
-class DiaryEditColorPaletteView: UIView {
+class DYColorPaletteView: UIView {
     // MARK: - Private Properties
     
-    private var model: [DiaryCoverColor]? {
+    private var model: [DYPaletteColor]? {
         didSet {
             collectionView.reloadData()
         }
@@ -25,7 +25,7 @@ class DiaryEditColorPaletteView: UIView {
     
     // MARK: - Subjects
 
-    let changedColor = PublishSubject<DiaryCoverColor>()
+    let changedColor = PublishSubject<DYPaletteColor>()
     
     // MARK: - UI Components
     
@@ -94,8 +94,8 @@ class DiaryEditColorPaletteView: UIView {
     }
 }
 
-extension DiaryEditColorPaletteView {
-    var colors: [DiaryCoverColor]? {
+extension DYColorPaletteView {
+    var colors: [DYPaletteColor]? {
         get {
             return self.model
         }
@@ -121,7 +121,7 @@ extension DiaryEditColorPaletteView {
 
 // MARK: - CollectionView DataSource
 
-extension DiaryEditColorPaletteView: UICollectionViewDataSource {
+extension DYColorPaletteView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let colors = model else { return 0 }
         return colors.count
@@ -140,7 +140,7 @@ extension DiaryEditColorPaletteView: UICollectionViewDataSource {
 
 // MARK: - ColletionView Delegate
 
-extension DiaryEditColorPaletteView: UICollectionViewDelegate {
+extension DYColorPaletteView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let color = self.model?[safe: indexPath.item] else { return }
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)

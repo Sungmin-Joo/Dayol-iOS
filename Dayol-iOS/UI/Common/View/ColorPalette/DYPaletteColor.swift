@@ -1,5 +1,5 @@
 //
-//  DiaryCoverColor.swift
+//  DYPaletteColor.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/01/04.
@@ -7,13 +7,15 @@
 
 import UIKit
 
-struct CoverColorSet {
-    let red: Int
-    let green: Int
-    let blue: Int
+extension DYPaletteColor {
+    struct ColorSet {
+        let red: Int
+        let green: Int
+        let blue: Int
+    }
 }
 
-enum DiaryCoverColor: CaseIterable {
+enum DYPaletteColor: CaseIterable {
     case DYRed
     case DYOrange
     case DYYellow
@@ -31,40 +33,40 @@ enum DiaryCoverColor: CaseIterable {
     case DYDarkBlue
     case DYGrey
     
-    private var colorSet: CoverColorSet {
+    private var colorSet: ColorSet {
         switch self {
         case .DYRed:
-            return CoverColorSet(red: 231, green: 76, blue: 67)
+            return ColorSet(red: 231, green: 76, blue: 67)
         case .DYOrange:
-            return CoverColorSet(red: 237, green: 122, blue: 81)
+            return ColorSet(red: 237, green: 122, blue: 81)
         case .DYYellow:
-            return CoverColorSet(red: 255, green: 178, blue: 67)
+            return ColorSet(red: 255, green: 178, blue: 67)
         case .DYGreen:
-            return CoverColorSet(red: 57, green: 161, blue: 103)
+            return ColorSet(red: 57, green: 161, blue: 103)
         case .DYMint:
-            return CoverColorSet(red: 63, green: 174, blue: 179)
+            return ColorSet(red: 63, green: 174, blue: 179)
         case .DYSkyblue:
-            return CoverColorSet(red: 48, green: 138, blue: 201)
+            return ColorSet(red: 48, green: 138, blue: 201)
         case .DYBlue:
-            return CoverColorSet(red: 40, green: 106, blue: 174)
+            return ColorSet(red: 40, green: 106, blue: 174)
         case .DYPurple:
-            return CoverColorSet(red: 108, green: 89, blue: 173)
+            return ColorSet(red: 108, green: 89, blue: 173)
         case .DYPink:
-            return CoverColorSet(red: 255, green: 145, blue: 184)
+            return ColorSet(red: 255, green: 145, blue: 184)
         case .DYLightBrown:
-            return CoverColorSet(red: 200, green: 144, blue: 123)
+            return ColorSet(red: 200, green: 144, blue: 123)
         case .DYBrown:
-            return CoverColorSet(red: 187, green: 120, blue: 76)
+            return ColorSet(red: 187, green: 120, blue: 76)
         case .DYDark:
-            return CoverColorSet(red: 0, green: 0, blue: 0)
+            return ColorSet(red: 0, green: 0, blue: 0)
         case .DYDarkYellow:
-            return CoverColorSet(red: 137, green: 127, blue: 109)
+            return ColorSet(red: 137, green: 127, blue: 109)
         case .DYDarkGreen:
-            return CoverColorSet(red: 92, green: 115, blue: 104)
+            return ColorSet(red: 92, green: 115, blue: 104)
         case .DYDarkBlue:
-            return CoverColorSet(red: 75, green: 92, blue: 115)
+            return ColorSet(red: 75, green: 92, blue: 115)
         case .DYGrey:
-            return CoverColorSet(red: 72, green: 77, blue: 85)
+            return ColorSet(red: 72, green: 77, blue: 85)
         }
     }
     
@@ -84,18 +86,18 @@ enum DiaryCoverColor: CaseIterable {
     }
 }
 
-extension DiaryCoverColor {
+extension DYPaletteColor {
 
-    static var penColorPreset: [DiaryCoverColor] {
+    static var penColorPreset: [DYPaletteColor] {
         // TODO: 컬러피커에서 등록한 컬러를 추가하는 로직 필요
         let presetColors = [
-            DiaryCoverColor.DYDark,
-            DiaryCoverColor.DYRed,
-            DiaryCoverColor.DYYellow,
-            DiaryCoverColor.DYGreen,
-            DiaryCoverColor.DYMint,
-            DiaryCoverColor.DYSkyblue,
-            DiaryCoverColor.DYBlue
+            DYPaletteColor.DYDark,
+            DYPaletteColor.DYRed,
+            DYPaletteColor.DYYellow,
+            DYPaletteColor.DYGreen,
+            DYPaletteColor.DYMint,
+            DYPaletteColor.DYSkyblue,
+            DYPaletteColor.DYBlue
         ]
         return presetColors
     }

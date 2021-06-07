@@ -67,7 +67,7 @@ class PasswordViewController: UIViewController {
 
 	//MARK: - Init()
 
-    init(inputType: PasswordViewModel.InputType, diaryColor: DiaryCoverColor ,password: String? = nil) {
+    init(inputType: PasswordViewModel.InputType, diaryColor: DYPaletteColor ,password: String? = nil) {
         self.viewModel = PasswordViewModel(inputType: inputType, password: password)
         self.titleView.diaryView.setCover(color: diaryColor)
         self.inputType = inputType

@@ -27,8 +27,8 @@ private enum Design {
 class ColorSettingPaletteView: UIView {
 
     let colorSubject = PassthroughSubject<UIColor, Never>()
-    private var colors: [DiaryCoverColor] {
-        return DiaryCoverColor.penColorPreset
+    private var colors: [DYPaletteColor] {
+        return DYPaletteColor.penColorPreset
     }
 
     // MARK: UI Property
@@ -38,14 +38,12 @@ class ColorSettingPaletteView: UIView {
         view.layer.cornerRadius = Design.currentColorViewRadius
         view.layer.borderWidth = Design.currentColorBorderWidth
         view.layer.borderColor = Design.currentColorBorderColor.cgColor
-        // 임시코드
-        view.backgroundColor = .red
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    private let palleteView: DiaryEditColorPaletteView = {
-        let view = DiaryEditColorPaletteView()
+    private let palleteView: DYColorPaletteView = {
+        let view = DYColorPaletteView()
         view.setContentHuggingPriority(.defaultLow, for: .horizontal)
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false

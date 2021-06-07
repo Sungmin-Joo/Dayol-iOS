@@ -30,8 +30,8 @@ class DiaryEditColorPaletteCell: UICollectionViewCell {
             selectedImage.isHidden = !isSelected
         }
     }
-    
-    init(color: DiaryCoverColor) {
+
+    init(color: DYPaletteColor) {
         super.init(frame: .zero)
         initView()
         backgroundColor = color.coverColor
@@ -67,7 +67,7 @@ class DiaryEditColorPaletteCell: UICollectionViewCell {
         ])
     }
     
-    func configure(color: DiaryCoverColor) {
+    func configure(color: DYPaletteColor) {
         backgroundColor = color.coverColor
     }
 }

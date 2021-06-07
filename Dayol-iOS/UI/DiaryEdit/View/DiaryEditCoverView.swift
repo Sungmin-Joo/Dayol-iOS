@@ -171,7 +171,7 @@ extension DiaryEditCoverView {
 
 extension DiaryEditCoverView {
 
-    func setCoverColor(color: DiaryCoverColor) {
+    func setCoverColor(color: DYPaletteColor) {
         diaryView.setCover(color: color)
     }
     
