@@ -53,13 +53,13 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
         
         setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
         
-        leftButton.addTarget(self, action: #selector(dismissWithAnimation), for: .touchUpInside)
+        leftButton.addTarget(self, action: #selector(dismissWithNoAnimation), for: .touchUpInside)
         toolBar.stickerButton.addTarget(self, action: #selector(presentStickerModal), for: .touchUpInside)
     }
     
     @objc
-    private func dismissWithAnimation() {
-        self.dismiss(animated: true, completion: nil)
+    private func dismissWithNoAnimation() {
+        self.dismiss(animated: false, completion: nil)
     }
     
     @objc
