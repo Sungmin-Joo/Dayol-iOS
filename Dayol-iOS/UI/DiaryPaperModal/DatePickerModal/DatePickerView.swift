@@ -25,7 +25,7 @@ final class DatePickerView: UIView {
 
     let didSelectYear = BehaviorSubject<String?>(value: "")
     let didSelectMonth =  BehaviorSubject<String?>(value: "")
-    let years = [Date.year(from: Date(), add: -1), Date.year(from: Date(), add: 0), Date.year(from: Date(), add: 1)]
+    let years = [Date.now.year(add: -1), Date.now.year(), Date.now.year(add: 1)]
 
     init() {
         super.init(frame: .zero)

@@ -233,7 +233,7 @@ private extension PaperModalViewController {
                 guard let self = self else { return }
                 let dateString = "\(year ?? "") \(month ?? "")"
                 self.dismiss(animated: true) {
-                    let date = DateFormatter.yearMonth.date(from: dateString)
+                    let date = DateType.yearMonth.formatter.date(from: dateString)
                     self.delegate?.didSelectedDate(didSelected: date)
                 }
             })

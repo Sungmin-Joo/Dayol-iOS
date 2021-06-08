@@ -94,7 +94,7 @@ class MonthlyCalendarView: BasePaper {
                 let month = self.dateModel?.month.rawValue ?? 0
                 let year = self.dateModel?.year ?? 0
 
-                let date = DateFormatter.createDate(year: year, month: month + 1, day: day) ?? Date()
+                let date = DateType.yearMonthDay.date(year: year, month: month + 1, day: day) ?? Date.now
 
                 self.showAddSchedule.onNext(date)
             })

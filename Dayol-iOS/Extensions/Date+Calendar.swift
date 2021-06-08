@@ -14,22 +14,22 @@ extension Date {
         return Calendar(identifier: .gregorian)
     }()
 
-    static func year(from date: Date, add value: Int = 0) -> String {
-        let year = Date.calendar.date(byAdding: .year, value: value, to: date) ?? Date()
+    func year(add value: Int = 0) -> String {
+        let year = Date.calendar.date(byAdding: .year, value: value, to: self) ?? Date()
 
-        return DateFormatter.year.string(from: year)
+        return DateType.year.formatter.string(from: year)
     }
 
-    static func month(from date: Date, add value: Int = 0) -> String {
-        let month = Date.calendar.date(byAdding: .month, value: value, to: date) ?? Date()
+    func month(add value: Int = 0) -> String {
+        let month = Date.calendar.date(byAdding: .month, value: value, to: self) ?? Date()
 
-        return DateFormatter.month.string(from: month)
+        return DateType.month.formatter.string(from: month)
     }
 
-    static func day(from date: Date, add value: Int = 0) -> String {
-        let month = Date.calendar.date(byAdding: .day, value: value, to: date) ?? Date()
+    func day(add value: Int = 0) -> String {
+        let month = Date.calendar.date(byAdding: .day, value: value, to: self) ?? Date()
 
-        return DateFormatter.day.string(from: month)
+        return DateType.day.formatter.string(from: month)
     }
 
     var weekday: Int {

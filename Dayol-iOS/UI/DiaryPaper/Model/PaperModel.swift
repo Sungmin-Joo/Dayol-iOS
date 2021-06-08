@@ -40,13 +40,14 @@ enum PaperType: Equatable {
 
     var title: String {
         switch self {
-        case .monthly(let date): return DateFormatter.yearMonth.string(from: date)
+        case .monthly(let date):
+            return DateType.yearMonth.formatter.string(from: date)
         case .weekly(let date):
-            let startDateString = DateFormatter.yearMonthDay.string(from: date)
+            let startDateString = DateType.yearMonthDay.formatter.string(from: date)
             let endDate = Date.calendar.date(byAdding: .day, value: 7, to: date) ?? Date()
-            let endDateString = DateFormatter.yearMonthDay.string(from: endDate)
+            let endDateString = DateType.yearMonthDay.formatter.string(from: endDate)
             return "\(startDateString) ~ \(endDateString)"
-        case .daily(let date): return DateFormatter.yearMonthDay.string(from: date)
+        case .daily(let date): return DateType.yearMonthDay.formatter.string(from: date)
         case .cornell: return "memo_list_kornell".localized
         case .muji: return "memo_list_muji".localized
         case .grid: return "memo_list_grid".localized
@@ -110,13 +111,13 @@ enum PaperType: Equatable {
     static func ==(lhs: PaperType, rhs: PaperType) -> Bool {
         switch (lhs, rhs) {
         case (.monthly(let lDate), .monthly(date: let rDate)):
-            let isSameYear = Date.year(from: lDate) == Date.year(from: rDate)
-            let isSameMonth = Date.month(from: lDate) == Date.month(from: rDate)
+            let isSameYear = lDate.year() == rDate.year()
+            let isSameMonth = lDate.month() == rDate.month()
             return isSameYear && isSameMonth
         case (.daily(let lDate), .daily(date: let rDate)):
-            let isSameYear = Date.year(from: lDate) == Date.year(from: rDate)
-            let isSameMonth = Date.month(from: lDate) == Date.month(from: rDate)
-            let isSameDay = Date.day(from: lDate) == Date.day(from: rDate)
+            let isSameYear = lDate.year() == rDate.year()
+            let isSameMonth = lDate.month() == rDate.month()
+            let isSameDay = lDate.day() == rDate.day()
             return isSameYear && isSameMonth && isSameDay
         default:
             return false

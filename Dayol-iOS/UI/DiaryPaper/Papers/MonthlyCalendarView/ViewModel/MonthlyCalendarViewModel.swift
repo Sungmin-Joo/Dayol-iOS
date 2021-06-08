@@ -160,7 +160,7 @@ class MonthlyCalendarViewModel: PaperViewModel {
                 daysResult.append(dayModel)
             } else if isCurrentMonth {
                 let day = index - prevMonthRemainDaysCount + 1
-                let isToday = String(day) == Date.day(from: Date.now) && String(month+1) == Date.month(from: Date.now) && String(year) == Date.year(from: Date.now)
+                let isToday = String(day) == Date.now.day() && String(month+1) == Date.now.month() && String(year) == Date.now.year()
                 let dayModel = MonthlyCalendarDayModel(dayNumber: day, isCurrentMonth: true, isToday: isToday)
                 daysResult.append(dayModel)
             } else {

@@ -7,46 +7,32 @@
 
 import Foundation
 
-extension DateFormatter {
-    static func createDate(year: Int, month: Int = 1, day: Int = 1) -> Date? {
-        let string = "\(year).\(month) \(day)"
-        let date = Self.yearMonthDay.date(from: string)
+enum DateType {
+    case yearMonthDay
+    case yearMonth
+    case year
+    case month
+    case day
 
-        return date
+    var formatter: DateFormatter {
+        let dateForamtter = DateFormatter()
+        switch self {
+        case .yearMonthDay:
+            dateForamtter.dateFormat = "yyyy.M d"
+        case .yearMonth:
+            dateForamtter.dateFormat = "yyyy.M"
+        case .year:
+            dateForamtter.dateFormat = "yyyy"
+        case .month:
+            dateForamtter.dateFormat = "M"
+        case .day:
+            dateForamtter.dateFormat = "d"
+        }
+        return dateForamtter
     }
 
-    static var yearMonthDay: DateFormatter {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.M d"
-
-        return dateFormatter
-    }
-
-    static var yearMonth: DateFormatter {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.M"
-
-        return dateFormatter
-    }
-
-    static var year: DateFormatter {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy"
-
-        return dateFormatter
-    }
-
-    static var month: DateFormatter {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "M"
-
-        return dateFormatter
-    }
-
-    static var day: DateFormatter{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d"
-
-        return dateFormatter
+    func date(year: Int, month: Int, day: Int) -> Date? {
+        let dateString = "\(year).\(month) \(day)"
+        return self.formatter.date(from: dateString)
     }
 }
