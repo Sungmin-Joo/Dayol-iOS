@@ -18,7 +18,6 @@ enum PaperStyle: String, CaseIterable {
 }
 
 enum PaperType: Equatable {
-
     case monthly(date: Date)
     case weekly(date: Date)
     case daily(date: Date)

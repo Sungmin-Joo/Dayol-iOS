@@ -12,18 +12,16 @@ import RxSwift
 
 // 다이어리 한 개의 내부 데이터에 대한 테스트 모델
 struct PaperModel {
-    let id: Int
-    let diaryId: Int
+    let id: String
+    let diaryId: String
     let paperStyle: PaperStyle
     let paperType: PaperType
     let paperTitle: String
     var numberOfPapers: Int
-    // TODO: - 속지 추가 스펙이 있어서 [DrawModel] 로 변경되어야 할 것 같습니다.
     var drawModelList: DrawModel
-    var thumbnail: UIImage?
-    let updateThumbnail = PublishSubject<Void>()
+    var thumbnail: Data?
 
-    init(id: Int, diaryId: Int, paperStyle: PaperStyle, paperType: PaperType, numberOfPapers: Int, drawModelList: DrawModel) {
+    init(id: String, diaryId: String, paperStyle: PaperStyle, paperType: PaperType, numberOfPapers: Int, drawModelList: DrawModel) {
         self.id = id
         self.diaryId = diaryId
         self.paperType = paperType
@@ -32,14 +30,10 @@ struct PaperModel {
         self.drawModelList = drawModelList
         self.paperTitle = paperType.title
     }
-
-    mutating func setThumbnail(_ image: UIImage?) {
-        self.thumbnail = image
-    }
 }
 
 struct ScheduleModel {
-    let id: Int
+    let id: String
     let diaryId: Int
     let start: Date
     let end: Date
@@ -53,12 +47,12 @@ class DYTestData {
     static let shared = DYTestData()
     static let testDrawModel = DrawModel(lines: [], stickers: [], labels: [])
 
-    var currentDiaryId: Int {
-        diaryList.count
+    var currentDiaryId: String {
+        return "Diary_\(diaryList.count)"
     }
 
-    var currentPaperId: Int {
-        paperList.count
+    var currentPaperId: String {
+        return "Paper_\(paperList.count)"
     }
 
     lazy var diaryListSubject = BehaviorSubject<[DiaryInfoModel]>(value: diaryList)
@@ -66,12 +60,12 @@ class DYTestData {
     lazy var pageListSubject = BehaviorSubject<[PaperModel]>(value: paperList)
     
     var diaryList: [DiaryInfoModel] = [
-        DiaryInfoModel(id: 0, color: .DYRed, title: "1번 다이어리", totalPage: 0, password: "1234"),
-        DiaryInfoModel(id: 1, color: .DYBlue, title: "2번 다이어리", totalPage: 0, password: "1234"),
-        DiaryInfoModel(id: 2, color: .DYGreen, title: "3번 다이어리", totalPage: 0, password: "1234"),
-        DiaryInfoModel(id: 3, color: .DYRed, title: "4번 다이어리", totalPage: 0, password: "1234"),
-        DiaryInfoModel(id: 4, color: .DYBlue, title: "5번 다이어리", totalPage: 0, password: "1234"),
-        DiaryInfoModel(id: 5, color: .DYGreen, title: "6번 다이어리", totalPage: 0, password: "1234")
+        DiaryInfoModel(id: "Diary_0", color: .DYRed, title: "1번 다이어리", totalPage: 0, password: "1234"),
+        DiaryInfoModel(id: "Diary_1", color: .DYBlue, title: "2번 다이어리", totalPage: 0, password: "1234"),
+        DiaryInfoModel(id: "Diary_2", color: .DYGreen, title: "3번 다이어리", totalPage: 0, password: "1234"),
+        DiaryInfoModel(id: "Diary_3", color: .DYRed, title: "4번 다이어리", totalPage: 0, password: "1234"),
+        DiaryInfoModel(id: "Diary_4", color: .DYBlue, title: "5번 다이어리", totalPage: 0, password: "1234"),
+        DiaryInfoModel(id: "Diary_5", color: .DYGreen, title: "6번 다이어리", totalPage: 0, password: "1234")
     ]
     
     var deletedPageList: [DeletedPageCellModel] = [
@@ -226,8 +220,8 @@ class DYTestData {
         pageListSubject.onNext(paperList)
     }
 
-    func addPaperThumbnail(id: Int, thumbnail: UIImage?) {
+    func addPaperThumbnail(id: String, thumbnail: UIImage?) {
         guard let index = paperList.firstIndex(where: { $0.id == id }) else { return }
-        paperList[index].thumbnail = thumbnail
+        paperList[index].thumbnail = thumbnail?.jpegData(compressionQuality: .greatestFiniteMagnitude)
     }
 }

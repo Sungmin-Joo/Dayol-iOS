@@ -25,7 +25,7 @@ class AddPaperContentViewModel {
         selectedPaper = cell
     }
     
-    func addPaper(diaryId: Int) {
+    func addPaper(diaryId: String) {
         guard let model = selectedPaper else { return }
         
         // TODO: confirm id login

@@ -34,23 +34,14 @@ class PaperModalViewController: DYModalViewController {
     }
 
     private let disposeBag = DisposeBag()
-    private let diaryId: Int
+    private let diaryId: String
     // MARK: - UI Property
-
-    private lazy var addPaperHeaderView = AddPaperHeaderView()
-    private lazy var addPaperContentView = AddPaperContentView()
-    private lazy var paperListHeaderView = PaperListHeaderView()
-    private lazy var paperListContentView = PaperListContentView()
-    private lazy var monthltPageListHeaderView = MonthlyPaperListHeaderView()
-    private lazy var monthlyPageListContentView = MonthlyPaperListContentView()
-    private lazy var datePickerHeaderView = DatePickerHeaderView()
-    private lazy var datePickerContentView = DatePickerView()
 
     public weak var delegate: PaperModalViewDelegate?
 
     var toolType: PaperToolType
 
-    init(diaryId: Int, toolType: PaperToolType, configure: DYModalConfiguration) {
+    init(diaryId: String, toolType: PaperToolType, configure: DYModalConfiguration) {
         self.diaryId = diaryId
         self.toolType = toolType
         super.init(configure: configure)
@@ -60,54 +51,106 @@ class PaperModalViewController: DYModalViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTitleArea()
-        setupContentArea()
-        bindEvent()
+        setupViews()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        switch toolType {
-        case .add:
-            addPaperContentView.layoutCollectionView(width: size.width)
-        case .list:
-            paperListContentView.layoutCollectionView()
-        case .monthList:
-            monthlyPageListContentView.layoutCollectionView()
-        case .date:
-            datePickerContentView.setNeedsLayout()
-        }
-
+        viewNeedsLayout(size: size)
     }
 
-    private func setupTitleArea() {
+    // MARK: - Setup
+
+    private func setupViews() {
         switch toolType {
         case .add:
-            titleView = addPaperHeaderView
+            setupPaperAddView()
         case .list:
-            titleView = paperListHeaderView
+            setupPaperListtView()
         case .monthList:
-            setupTitleLabel(Text.selectMonth)
-            setupRightDownButton()
+            setupMonthListView()
         case .date:
-            titleView = datePickerHeaderView
+            setupDatePickerView()
         }
     }
 
-    private func setupContentArea() {
+    private func setupPaperAddView() {
+        let titleView = AddPaperHeaderView()
+        let contentView = AddPaperContentView()
+        self.titleView = titleView
+        self.contentView = contentView
+
+        bindAddPaperEvent()
+    }
+
+    private func setupPaperListtView() {
+        let titleView = PaperListHeaderView()
+        let contentView = PaperListContentView()
+        self.titleView = titleView
+        self.contentView = contentView
+
+        bindPaperListEvent()
+    }
+
+    private func setupMonthListView() {
+        let titleView = MonthlyPaperListHeaderView()
+        let contentView = MonthlyPaperListContentView()
+        self.titleView = titleView
+        self.contentView = contentView
+
+        setupTitleLabel(Text.selectMonth)
+        setupRightDownButton()
+
+        bindMonthListEvent()
+    }
+
+    private func setupDatePickerView() {
+        let titleView = DatePickerHeaderView()
+        let contentView = DatePickerView()
+        self.titleView = titleView
+        self.contentView = contentView
+
+        bindDatePickerEvent()
+    }
+
+    // MARK: - Layout Update
+
+    private func viewNeedsLayout(size: CGSize) {
         switch toolType {
         case .add:
-            contentView = addPaperContentView
+            paperAddViewNeedsLayout(size: size)
         case .list:
-            contentView = paperListContentView
+            paperListViewNeedsLayout()
         case .monthList:
-            contentView = monthlyPageListContentView
+            monthlyPaperListViewNeedsLayout()
         case .date:
-            contentView = datePickerContentView
+            datePickerViewNeedsLayout()
         }
+    }
+
+    private func paperAddViewNeedsLayout(size: CGSize) {
+        guard let paperAddContentView = contentView as? AddPaperContentView else { return }
+        paperAddContentView.layoutCollectionView(width: size.width)
+    }
+
+    private func paperListViewNeedsLayout() {
+        guard let paperListContentView = contentView as? PaperListContentView else { return }
+        paperListContentView.layoutCollectionView()
+    }
+
+    private func monthlyPaperListViewNeedsLayout() {
+        guard let monthlyPaperListContentView = contentView as? MonthlyPaperListContentView else { return }
+        monthlyPaperListContentView.layoutCollectionView()
+    }
+
+    private func datePickerViewNeedsLayout() {
+        guard let datePickerContentView = contentView as? DatePickerView else { return }
+        datePickerContentView.setNeedsLayout()
     }
 }
+
+// MARK: - Bind
 
 private extension PaperModalViewController {
 
@@ -125,6 +168,12 @@ private extension PaperModalViewController {
     }
 
     func bindAddPaperEvent() {
+        guard let addPaperHeaderView = titleView as? AddPaperHeaderView,
+              let addPaperContentView = contentView as? AddPaperContentView
+        else {
+            return
+        }
+
         addPaperHeaderView.barLeftButton.rx.tap
             .bind { [weak self] in
                 self?.dismiss(animated: true)
@@ -135,13 +184,19 @@ private extension PaperModalViewController {
             .bind { [weak self] in
                 guard let self = self else { return }
                 self.dismiss(animated: true, completion: {
-                    self.addPaperContentView.viewModel.addPaper(diaryId: self.diaryId)
+                    addPaperContentView.viewModel.addPaper(diaryId: self.diaryId)
                 })
             }
             .disposed(by: disposeBag)
     }
 
     func bindPaperListEvent() {
+        guard let paperListHeaderView = titleView as? PaperListHeaderView,
+              let paperListContentView = contentView as? PaperListContentView
+        else {
+            return
+        }
+
         paperListHeaderView.closeButton.rx.tap
             .bind { [weak self] in
                 self?.dismiss(animated: true)
@@ -166,17 +221,15 @@ private extension PaperModalViewController {
     }
 
     func bindDatePickerEvent() {
-        var month: String? = ""
-        var year: String? = ""
-        Observable.combineLatest(datePickerContentView.didSelectYear, datePickerContentView.didSelectMonth)
-            .subscribe(onNext: { selectedYear, selectedMonth in
-                month = selectedMonth
-                year = selectedYear
-            })
-            .disposed(by: disposeBag)
+        guard let datePickerHeaderView = titleView as? DatePickerHeaderView,
+              let datePickerContentView = contentView as? DatePickerView
+        else {
+            return
+        }
 
-        datePickerHeaderView.didTappedConfirmButton
-            .subscribe(onNext: { [weak self] in
+        Observable.combineLatest(datePickerContentView.didSelectYear, datePickerContentView.didSelectMonth, datePickerHeaderView.didTappedConfirmButton)
+            .filter { $0.0?.isEmpty == false && $0.1?.isEmpty == false }
+            .subscribe(onNext: { [weak self] year, month, _ -> Void in
                 guard let self = self else { return }
                 let dateString = "\(year ?? "") \(month ?? "")"
                 self.dismiss(animated: true) {
@@ -188,7 +241,9 @@ private extension PaperModalViewController {
     }
 
     func bindMonthListEvent() {
-        monthlyPageListContentView.didSelect
+        guard let monthlyPagerListContentView = contentView as? MonthlyPaperListContentView else { return }
+
+        monthlyPagerListContentView.didSelect
             .subscribe(onNext: { [weak self] selectEvent in
                 guard let self = self else { return }
 

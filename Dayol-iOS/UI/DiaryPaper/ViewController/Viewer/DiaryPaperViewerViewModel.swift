@@ -5,26 +5,26 @@
 //  Created by 박종상 on 2021/03/08.
 //
 
-import UIKit
+import Foundation
 import RxSwift
 
 class DiaryPaperViewerViewModel {
     private let model: DiaryPaperViewerModel
     private let coverModel: DiaryInfoModel
 
-    var diaryId: Int {
+    var diaryId: String {
         return coverModel.id
+    }
+
+    var coverHex: String {
+        return coverModel.colorHex
     }
 
     var title: Observable<String> {
         return model.diaryTitle.asObservable()
     }
-    
-    var coverColor: UIColor {
-        return coverModel.color.coverColor
-    }
 
-    func paperList(diaryId: Int) -> Observable<[PaperModel]> {
+    func paperList(diaryId: String) -> Observable<[PaperModel]> {
         return model.innerModelsSubject
             .map { $0.filter { $0.diaryId == diaryId } }
             .asObservable()

@@ -13,7 +13,7 @@ struct CoverColorSet {
     let blue: Int
 }
 
-enum DiaryCoverColor: CaseIterable {
+enum DiaryCoverColor: String, CaseIterable {
     case DYRed
     case DYOrange
     case DYYellow
@@ -30,7 +30,11 @@ enum DiaryCoverColor: CaseIterable {
     case DYDarkGreen
     case DYDarkBlue
     case DYGrey
-    
+
+    static func find(hex: String) -> DiaryCoverColor? {
+        return DiaryCoverColor.allCases.first { $0.hexString == hex }
+    }
+
     private var colorSet: CoverColorSet {
         switch self {
         case .DYRed:
@@ -82,10 +86,13 @@ enum DiaryCoverColor: CaseIterable {
         
         return UIColor(decimalRed: lockerRed, green: lockerGreen, blue: lockerBlue)
     }
+
+    var hexString: String {
+        return self.coverColor.hexString
+    }
 }
 
 extension DiaryCoverColor {
-
     static var penColorPreset: [DiaryCoverColor] {
         // TODO: 컬러피커에서 등록한 컬러를 추가하는 로직 필요
         let presetColors = [

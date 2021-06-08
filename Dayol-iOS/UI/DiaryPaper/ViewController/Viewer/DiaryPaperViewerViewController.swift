@@ -61,7 +61,9 @@ class DiaryPaperViewerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.barTintColor = viewModel.coverColor
+        let coverColor: DiaryCoverColor = DiaryCoverColor.find(hex: viewModel.coverHex) ?? .DYBrown
+
+        navigationController?.navigationBar.barTintColor = coverColor.coverColor
         super.viewWillAppear(animated)
     }
     

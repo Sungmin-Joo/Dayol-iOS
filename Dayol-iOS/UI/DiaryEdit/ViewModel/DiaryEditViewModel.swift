@@ -13,7 +13,7 @@ class DiaryEditViewModel {
     let diaryColors: [DiaryCoverColor] = DiaryCoverColor.allCases.filter { $0 != .DYDark}
     let diaryInitalTitle: String = "새 다이어리"
 
-    var diaryIdToCreate: Int {
+    var diaryIdToCreate: String {
         DYTestData.shared.currentDiaryId
     }
 
