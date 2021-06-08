@@ -28,18 +28,6 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
     private let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
     private let titleView = DYNavigationItemCreator.titleView(Text.editTitle.stringValue)
 
-    // MARK: - Make
-
-    static func make(viewModel: DiaryPaperViewModel) -> DYNavigationController {
-        let vc = DiaryPaperEditViewController(viewModel: viewModel)
-        let nav = DYNavigationController(rootViewController: vc)
-
-        nav.modalPresentationStyle = .overFullScreen
-        nav.modalTransitionStyle = .crossDissolve
-
-        return nav
-    }
-
     // MARK: - Init
     
     init(viewModel: DiaryPaperViewModel) {

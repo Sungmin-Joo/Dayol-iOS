@@ -182,8 +182,13 @@ class DiaryPaperViewerViewController: UIViewController {
             .bind { [weak self] in
                 guard let currentVC = self?.currentViewController else { return }
                 let viewModel = currentVC.viewModel
-                let paperEditViewController = DiaryPaperEditViewController.make(viewModel: viewModel)
-                self?.present(paperEditViewController, animated: true, completion: nil)
+
+                let paperEditViewController = DiaryPaperEditViewController(viewModel: viewModel)
+                let nav = DYNavigationController(rootViewController: paperEditViewController)
+                nav.modalPresentationStyle = .overFullScreen
+                nav.modalTransitionStyle = .crossDissolve
+
+                self?.present(nav, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
     }
