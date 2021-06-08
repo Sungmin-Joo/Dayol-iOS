@@ -223,3 +223,42 @@ extension TextStyleOptionView {
     }
 
 }
+
+// MARK: - NSAttribute -> TextStyleModel
+
+private extension TextStyleModel {
+
+    /// NSParagraphStyle -> TextStyleModel.Alignment 전환
+    /// - default: Alignment.leading
+    static func alignment(paragraphStyle: NSParagraphStyle?) -> Alignment {
+        guard let alignment = paragraphStyle?.alignment else { return .leading }
+        switch alignment {
+        case .center: return .center
+        case .right: return .trailing
+        default: return .leading
+        }
+    }
+
+    /// NSAttirbutes -> TextStyleModel.AdditionalOptions
+    static func addtionalOptions(attributes: [NSAttributedString.Key : Any?]) -> [AdditionalOption] {
+        var additionalOption: [AdditionalOption] = []
+
+        if let font = attributes[.font] as? UIFont,
+           font.isBold {
+            additionalOption.append(.bold)
+        }
+
+        if let strikethroughStyle = attributes[.strikethroughStyle] as? Int,
+           strikethroughStyle == NSUnderlineStyle.single.rawValue {
+            additionalOption.append(.cancelLine)
+        }
+
+        if let underlineStyle = attributes[.underlineStyle] as? Int,
+           underlineStyle == NSUnderlineStyle.single.rawValue {
+            additionalOption.append(.underLine)
+        }
+
+        return additionalOption
+    }
+
+}
