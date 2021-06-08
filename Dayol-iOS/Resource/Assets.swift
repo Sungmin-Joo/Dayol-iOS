@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: - 애셋 뎁스가 깊어져서, 한번 정리하는 것도 좋을 것 같습니다.
 enum Assets {
     enum Image {
         enum Home {
