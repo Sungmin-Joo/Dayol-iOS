@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Design {
     static let defaultTextColor = UIColor.black
@@ -26,6 +27,14 @@ private enum Design {
     static let textStyleImage = UIImage(named: "keyboard_accessory_textstyle")
     static let keyboardImage = UIImage(named: "keyboard_accessory_keyboarddown")
 
+}
+
+protocol DYKeyboardInputAccessoryViewDelegate: AnyObject {
+    func didTapKeyboardDownButton()
+    func didTapTextStyleButton()
+    func didTapTextColorButton()
+    func didTapBulletButton()
+    func didTapCheckboxButton()
 }
 
 class DYKeyboardInputAccessoryView: UIView {
@@ -74,11 +83,13 @@ class DYKeyboardInputAccessoryView: UIView {
         return stackView
     }()
 
+    private let disposeBag = DisposeBag()
     var currentColor: UIColor {
         didSet {
             updateCurrentTextColor()
         }
     }
+    weak var delegate: DYKeyboardInputAccessoryViewDelegate?
 
     init(currentColor: UIColor = Design.defaultTextColor) {
         self.currentColor = currentColor
@@ -87,6 +98,7 @@ class DYKeyboardInputAccessoryView: UIView {
         setupConstraints()
         setupHorizontalSeparator()
         updateCurrentTextColor()
+        bindEvent()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -155,6 +167,39 @@ private extension DYKeyboardInputAccessoryView {
         lowerSeparator.backgroundColor = Design.horizontalSeparatorColor
         lowerSeparator.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
         addSubview(lowerSeparator)
+    }
+
+    func bindEvent() {
+        keyboardDownButton.rx.tap
+            .bind { [weak self] in
+                self?.delegate?.didTapKeyboardDownButton()
+            }
+            .disposed(by: disposeBag)
+
+        textStyleButton.rx.tap
+            .bind { [weak self] in
+                self?.delegate?.didTapTextStyleButton()
+            }
+            .disposed(by: disposeBag)
+
+        textColorButton.rx.tap
+            .bind { [weak self] in
+                self?.delegate?.didTapTextColorButton()
+            }
+            .disposed(by: disposeBag)
+
+        bulletButton.rx.tap
+            .bind { [weak self] in
+                self?.delegate?.didTapBulletButton()
+            }
+            .disposed(by: disposeBag)
+
+        checkButton.rx.tap
+            .bind { [weak self] in
+                self?.delegate?.didTapCheckboxButton()
+            }
+            .disposed(by: disposeBag)
+
     }
 
 }

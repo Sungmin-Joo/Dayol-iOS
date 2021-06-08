@@ -170,7 +170,7 @@ private extension DYFlexibleTextField {
 
     func setupContainerView() {
         containerView.layer.addSublayer(containerLayer)
-
+        customInputAccessoryView.delegate = self
         // 디폴트 세팅
         textView.frame = containerView.bounds
         textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -212,8 +212,6 @@ private extension DYFlexibleTextField {
             self.updateBulletPointView(type)
         }
         .store(in: &cancellable)
-
-        bindAccessroyViewEvent()
     }
 
 }
@@ -270,62 +268,41 @@ private extension DYFlexibleTextField {
 }
 
 // MARK: - Input Accessory View
-private extension DYFlexibleTextField {
+
+extension DYFlexibleTextField: DYKeyboardInputAccessoryViewDelegate {
+    func didTapKeyboardDownButton() {
+        textView.endEditing(true)
+    }
+
+    func didTapTextStyleButton() {
+        presentTextStyleModal()
+    }
+
+    func didTapTextColorButton() {
+        presentTextColorModal()
+    }
+
+    func didTapBulletButton() {
+        switch self.viewModel.leadingAccessoryTypeSubject.value {
+        case .dot:
+            viewModel.leadingAccessoryTypeSubject.send(.none)
+        default:
+            viewModel.leadingAccessoryTypeSubject.send(.dot)
+        }
+    }
+
+    func didTapCheckboxButton() {
+        switch self.viewModel.leadingAccessoryTypeSubject.value {
+        case .checkBox(_):
+            viewModel.leadingAccessoryTypeSubject.send(.none)
+        default:
+            viewModel.leadingAccessoryTypeSubject.send(.checkBox(isSelected: false))
+        }
+    }
 
     func updateInputAccessoryView() {
         let textColor = currentAttributes[.foregroundColor] as? UIColor
         customInputAccessoryView.textColorButton.backgroundColor = textColor
-    }
-
-    func bindAccessroyViewEvent() {
-        customInputAccessoryView.keyboardDownButton.rx.tap
-            .bind { [weak self] in
-                self?.textView.endEditing(true)
-            }
-            .disposed(by: disposeBag)
-
-        customInputAccessoryView.textStyleButton.rx.tap
-            .bind { [weak self] in
-                guard let self = self else { return }
-                // TODO: text style 연동
-                self.presentTextStyleModal()
-            }
-            .disposed(by: disposeBag)
-
-        customInputAccessoryView.textColorButton.rx.tap
-            .bind { [weak self] in
-                guard let self = self else { return }
-                // TODO: color 연동
-                self.presentTextColorModal()
-            }
-            .disposed(by: disposeBag)
-
-        customInputAccessoryView.bulletButton.rx.tap
-            .bind { [weak self] in
-                guard let self = self else { return }
-
-                switch self.viewModel.leadingAccessoryTypeSubject.value {
-                case .dot:
-                    self.viewModel.leadingAccessoryTypeSubject.send(.none)
-                default:
-                    self.viewModel.leadingAccessoryTypeSubject.send(.dot)
-                }
-            }
-            .disposed(by: disposeBag)
-
-        customInputAccessoryView.checkButton.rx.tap
-            .bind { [weak self] in
-                guard let self = self else { return }
-
-                switch self.viewModel.leadingAccessoryTypeSubject.value {
-                case .checkBox(_):
-                    self.viewModel.leadingAccessoryTypeSubject.send(.none)
-                default:
-                    self.viewModel.leadingAccessoryTypeSubject.send(.checkBox(isSelected: false))
-                }
-            }
-            .disposed(by: disposeBag)
-
     }
 
 }
