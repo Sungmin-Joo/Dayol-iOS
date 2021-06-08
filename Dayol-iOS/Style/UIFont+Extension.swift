@@ -43,7 +43,7 @@ extension UIFont {
         return fontDescriptor.symbolicTraits.contains(.traitBold)
     }
 
-    func toBoldFont() -> UIFont {
+    var toBoldFont: UIFont {
         guard isBold == false else { return self }
 
         var symbolicTraits = fontDescriptor.symbolicTraits
@@ -57,7 +57,7 @@ extension UIFont {
         return self
     }
 
-    func toRegularFont()-> UIFont {
+    var toRegularFont: UIFont {
         guard isBold else { return self }
 
         var symbolicTraits = fontDescriptor.symbolicTraits

@@ -199,9 +199,9 @@ extension TextStyleOptionView {
             var newAttributes = self.attributesSubject.value
 
             if optionSet.contains(.bold) {
-                newAttributes[.font] = font.toBoldFont()
+                newAttributes[.font] = font.toBoldFont
             } else {
-                newAttributes[.font] = font.toRegularFont()
+                newAttributes[.font] = font.toRegularFont
             }
 
             if optionSet.contains(.cancelLine) {
