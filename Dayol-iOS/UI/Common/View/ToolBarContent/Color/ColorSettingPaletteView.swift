@@ -42,6 +42,7 @@ class ColorSettingPaletteView: UIView {
         return view
     }()
 
+    // TODO: - 오타 수정
     private let palleteView: DYColorPaletteView = {
         let view = DYColorPaletteView()
         view.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -57,7 +58,7 @@ class ColorSettingPaletteView: UIView {
         return view
     }()
 
-    private let plusButton: UIButton = {
+    private let paletteActionButton: UIButton = {
         let button = UIButton()
         button.setImage(Design.plusButtonImage, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -96,15 +97,10 @@ extension ColorSettingPaletteView {
                 palleteView.deselectColorItem()
             }
         } else {
-            guard
-                let colors = palleteView.colors?.enumerated(),
-                let index = colors.filter({ $1.uiColor == color }).first?.offset
-            else { return }
-
-            let indexPath = IndexPath(item: index, section: 0)
-            palleteView.selectItem(indexPath)
+            if let paletteColor = color.toDYPaletteColor {
+                palleteView.selectColor(paletteColor)
+            }
         }
-
     }
     
 }
@@ -114,7 +110,7 @@ extension ColorSettingPaletteView {
     private func initView() {
         contentStackView.addArrangedSubview(currentColorView)
         contentStackView.addArrangedSubview(separator)
-        contentStackView.addArrangedSubview(plusButton)
+        contentStackView.addArrangedSubview(paletteActionButton)
         contentStackView.addArrangedSubview(palleteView)
         addSubview(contentStackView)
     }
@@ -154,6 +150,7 @@ extension ColorSettingPaletteView {
         }
         .store(in: &cancellable)
 
+        // TODO: - 공통 palleteView 개편 시 rx 제거하는게 좋겠습니다.
         palleteView.changedColor
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] color in
@@ -162,6 +159,46 @@ extension ColorSettingPaletteView {
                 self.viewModel.currentHexColor.send(hexString)
             })
             .disposed(by: disposeBag)
+
+        paletteActionButton.addTarget(self,
+                                      action: #selector(didTapPaletteActionButton),
+                                      for: .touchUpInside)
+    }
+
+    @objc func didTapPaletteActionButton() {
+        // 파레트 액션 (컬러 추가, 삭제)
+        if let currentPalleteColor = palleteView.currentColor {
+            // 파레트 제거 기능
+        } else {
+            let currentHexColor = viewModel.currentHexColor.value
+            if let paletteColor = UIColor(hex: currentHexColor)?.toDYPaletteColor {
+                viewModel.addCustomColor(paletteColor)
+                palleteView.selectColor(paletteColor)
+            }
+        }
+    }
+
+}
+
+private extension UIColor {
+
+    var toDYPaletteColor: DYPaletteColor? {
+        var hexFormatted: String = toHexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
+        if hexFormatted.hasPrefix("#") {
+            hexFormatted = String(hexFormatted.dropFirst())
+        }
+
+        if hexFormatted.count != 6 {
+            return nil
+        }
+
+        var rgbValue: UInt64 = 0
+        Scanner(string: hexFormatted).scanHexInt64(&rgbValue)
+        let r: Int = Int((rgbValue & 0xFF0000) >> 16)
+        let g: Int = Int((rgbValue & 0x00FF00) >> 8)
+        let b: Int = Int(rgbValue & 0x0000FF)
+
+        return DYPaletteColor.custom(red: r, green: g, blue: b)
     }
 
 }

@@ -10,10 +10,16 @@ import Combine
 
 struct ColorSettingPaletteViewModel {
     let currentHexColor = CurrentValueSubject<String, Never>("#FFFFFF")
-    var paletteColors = CurrentValueSubject<[DYPaletteColor], Never>(DYPaletteColor.penColorPreset)
+    var paletteColors = CurrentValueSubject<[DYPaletteColor], Never>(DYPaletteColor.colorPreset)
 
     init() {
         archivePaletteColors()
+    }
+
+    func addCustomColor(_ color: DYPaletteColor) {
+        var newPaletteColors = paletteColors.value
+        newPaletteColors.append(color)
+        paletteColors.send(newPaletteColors)
     }
 }
 

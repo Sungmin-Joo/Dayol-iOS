@@ -15,7 +15,7 @@ extension DYPaletteColor {
     }
 }
 
-enum DYPaletteColor: Int, CaseIterable, Codable {
+enum DYPaletteColor: Equatable {
 
     case DYRed
     case DYOrange
@@ -33,6 +33,7 @@ enum DYPaletteColor: Int, CaseIterable, Codable {
     case DYDarkGreen
     case DYDarkBlue
     case DYGrey
+    case custom(red: Int, green: Int, blue: Int)
     
     private var colorSet: ColorSet {
         switch self {
@@ -68,6 +69,8 @@ enum DYPaletteColor: Int, CaseIterable, Codable {
             return ColorSet(red: 75, green: 92, blue: 115)
         case .DYGrey:
             return ColorSet(red: 72, green: 77, blue: 85)
+        case .custom(let red, let green, let blue):
+            return ColorSet(red: red, green: green, blue: blue)
         }
     }
     
@@ -89,9 +92,8 @@ enum DYPaletteColor: Int, CaseIterable, Codable {
 
 extension DYPaletteColor {
 
-    static var penColorPreset: [DYPaletteColor] {
-        // TODO: 컬러피커에서 등록한 컬러를 추가하는 로직 필요
-        let presetColors = [
+    static var colorPreset: [DYPaletteColor] {
+        return [
             DYPaletteColor.DYDark,
             DYPaletteColor.DYRed,
             DYPaletteColor.DYOrange,
@@ -105,7 +107,6 @@ extension DYPaletteColor {
             DYPaletteColor.DYLightBrown,
             DYPaletteColor.DYBrown
         ]
-        return presetColors
     }
 
 }

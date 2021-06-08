@@ -161,13 +161,20 @@ extension DYColorPaletteView {
         return color.uiColor
     }
 
-    func selectItem(_ indexPath: IndexPath) {
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)
-    }
-
     func deselectColorItem() {
         collectionView.indexPathsForSelectedItems?.forEach {
             collectionView.deselectItem(at: $0, animated: true)
         }
     }
+
+    func selectColor(_ color: DYPaletteColor) {
+        guard
+            let colors = colors?.enumerated(),
+            let index = colors.filter({ $1 == color }).first?.offset
+        else { return }
+
+        let indexPath = IndexPath(item: index, section: 0)
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)
+    }
+
 }
