@@ -25,11 +25,32 @@ private enum Design {
 
 class TextStyleOptionView: UIView {
 
+    enum Alignment: String {
+        case leading, center, trailing
+
+        var nextAlignment: Alignment {
+            switch self {
+            case .leading: return .center
+            case .center: return .trailing
+            case .trailing: return .leading
+            }
+        }
+
+        var imageName: String {
+            switch self {
+            case .leading: return "toolBar_textStyle_align_\(rawValue)"
+            case .center: return "toolBar_textStyle_align_\(rawValue)"
+            case .trailing: return "toolBar_textStyle_align_\(rawValue)"
+            }
+        }
+
+    }
+
     private let disposeBag = DisposeBag()
     private var cancellable: [AnyCancellable] = []
 
     // alignment는 customView 없이 버튼으로 관리
-    private var alignment: TextStyleModel.Alignment = .leading {
+    private var alignment: Alignment = .leading {
         didSet { updateAlignmentButton() }
     }
 
@@ -132,14 +153,13 @@ extension TextStyleOptionView {
     private func configureAttributes() {
         typealias Default = DYFlexibleTextField.DefaultOption
         let paragraphStyle = currentAttributes[.paragraphStyle] as? NSParagraphStyle
-        let alignment = TextStyleModel.alignment(paragraphStyle: paragraphStyle)
+        let alignment = getAlignment(paragraphStyle: paragraphStyle)
         let font = currentAttributes[.font] as? UIFont ?? Default.defaultFont
-        let additionalOptions = TextStyleModel.addtionalOptions(attributes: currentAttributes)
         let lineSpacing = paragraphStyle?.lineSpacing ?? Default.defaultLineSpacing
 
         self.alignment = alignment
         self.textSizeView.currentSize = Int(font.pointSize)
-        self.additionalOptionView.currentOptions = Set(additionalOptions)
+        self.additionalOptionView.setAdditionalOption(attributes: currentAttributes)
         self.lineSpaceOptionView.currentLineSpacing = lineSpacing
     }
 
@@ -226,11 +246,11 @@ extension TextStyleOptionView {
 
 // MARK: - NSAttribute -> TextStyleModel
 
-private extension TextStyleModel {
+extension TextStyleOptionView {
 
-    /// NSParagraphStyle -> TextStyleModel.Alignment 전환
+    /// NSParagraphStyle -> Alignment 전환
     /// - default: Alignment.leading
-    static func alignment(paragraphStyle: NSParagraphStyle?) -> Alignment {
+    func getAlignment(paragraphStyle: NSParagraphStyle?) -> Alignment {
         guard let alignment = paragraphStyle?.alignment else { return .leading }
         switch alignment {
         case .center: return .center
@@ -239,26 +259,5 @@ private extension TextStyleModel {
         }
     }
 
-    /// NSAttirbutes -> TextStyleModel.AdditionalOptions
-    static func addtionalOptions(attributes: [NSAttributedString.Key : Any?]) -> [AdditionalOption] {
-        var additionalOption: [AdditionalOption] = []
-
-        if let font = attributes[.font] as? UIFont,
-           font.isBold {
-            additionalOption.append(.bold)
-        }
-
-        if let strikethroughStyle = attributes[.strikethroughStyle] as? Int,
-           strikethroughStyle == NSUnderlineStyle.single.rawValue {
-            additionalOption.append(.cancelLine)
-        }
-
-        if let underlineStyle = attributes[.underlineStyle] as? Int,
-           underlineStyle == NSUnderlineStyle.single.rawValue {
-            additionalOption.append(.underLine)
-        }
-
-        return additionalOption
-    }
-
 }
+

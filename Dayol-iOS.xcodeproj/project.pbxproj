@@ -84,7 +84,6 @@
 		34BB085E2612178F0000377E /* EraseSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BB085D2612178F0000377E /* EraseSettingView.swift */; };
 		34BB086226135E030000377E /* EraseOptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BB086126135E030000377E /* EraseOptionButton.swift */; };
 		34C7B3692619763300BC6A28 /* TextStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B3682619763300BC6A28 /* TextStyleView.swift */; };
-		34C7B36C2619765500BC6A28 /* TextStyleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B36B2619765500BC6A28 /* TextStyleModel.swift */; };
 		34C7B3722619818F00BC6A28 /* TextStyleOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B3712619818F00BC6A28 /* TextStyleOptionView.swift */; };
 		34C7B3752619819D00BC6A28 /* TextStyleFontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B3742619819D00BC6A28 /* TextStyleFontView.swift */; };
 		34C7B37926199DA600BC6A28 /* TextStyleTextSizeOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B37826199DA600BC6A28 /* TextStyleTextSizeOptionView.swift */; };
@@ -259,7 +258,6 @@
 		34BB085D2612178F0000377E /* EraseSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseSettingView.swift; sourceTree = "<group>"; };
 		34BB086126135E030000377E /* EraseOptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseOptionButton.swift; sourceTree = "<group>"; };
 		34C7B3682619763300BC6A28 /* TextStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleView.swift; sourceTree = "<group>"; };
-		34C7B36B2619765500BC6A28 /* TextStyleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleModel.swift; sourceTree = "<group>"; };
 		34C7B3712619818F00BC6A28 /* TextStyleOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleOptionView.swift; sourceTree = "<group>"; };
 		34C7B3742619819D00BC6A28 /* TextStyleFontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleFontView.swift; sourceTree = "<group>"; };
 		34C7B37826199DA600BC6A28 /* TextStyleTextSizeOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleTextSizeOptionView.swift; sourceTree = "<group>"; };
@@ -710,7 +708,6 @@
 		34C7B3672619749B00BC6A28 /* TextStyle */ = {
 			isa = PBXGroup;
 			children = (
-				34C7B36B2619765500BC6A28 /* TextStyleModel.swift */,
 				34C7B3682619763300BC6A28 /* TextStyleView.swift */,
 				34C7B3712619818F00BC6A28 /* TextStyleOptionView.swift */,
 				34C7B37826199DA600BC6A28 /* TextStyleTextSizeOptionView.swift */,
@@ -1544,7 +1541,6 @@
 				34C7B3692619763300BC6A28 /* TextStyleView.swift in Sources */,
 				DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */,
 				34A07156262DCE1E009BA700 /* ColorPickerContentView.swift in Sources */,
-				34C7B36C2619765500BC6A28 /* TextStyleModel.swift in Sources */,
 				0D27B09D264FFD48001AD911 /* LaunchManager.swift in Sources */,
 				34A11A4F25ADC93300678F98 /* AddPaperContentView.swift in Sources */,
 				0DC56E96265510020056C28E /* OnboadingContentView.swift in Sources */,
