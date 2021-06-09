@@ -9,7 +9,6 @@ import RxSwift
 
 class PaperListContentViewModel {
     typealias CellModel = PaperModalModel.PaperListCellModel
-
     enum PaperListevent {
 
         enum Action {
@@ -24,31 +23,18 @@ class PaperListContentViewModel {
         case reorder(at: Int, to: Int)
         case activity(action: Action, at: Int)
     }
-    private(set) var papers: [CellModel] = []
-    let paperListEvent = ReplaySubject<PaperListevent>.createUnbounded()
-    let disposeBag = DisposeBag()
 
-    init(papers: [CellModel]) {
-        bind()
+    var cellModels: [CellModel] {
+        return DYTestData.shared.paperList.map {
+            CellModel(id: $0.id, isStarred: false, paperStyle: $0.paperStyle, paperType: $0.paperType, thumbnailData: $0.thumbnail)
+        }
     }
-    
-    func bind() {
-        DYTestData.shared.pageListSubject
-            .subscribe(onNext: { [weak self] diary in
-                guard let self = self else { return }
-                guard let pages = diary[safe: 0]?.paperList else { return }
-                
-                self.papers = pages.map {
-                    CellModel(id: $0.id, isStarred: false, paperStyle: $0.paperStyle, paperType: $0.paperType)
-                }
-                self.paperListEvent.onNext(.fetch)
-            })
-            .disposed(by: disposeBag)
+
+    var paperModels: [PaperModel] {
+        DYTestData.shared.paperList
     }
 
     func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
-        // TODO: Temporary Logic
-        DYTestData.shared.reorderPage(from: sourceIndex, to: destinationIndex)
+        DYTestData.shared.reorderPaper(from: sourceIndex, to: destinationIndex)
     }
-
 }

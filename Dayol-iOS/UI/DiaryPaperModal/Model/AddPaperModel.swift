@@ -5,7 +5,7 @@
 //  Created by 주성민 on 2021/01/13.
 //
 
-import Foundation
+import UIKit
 
 enum PaperModalModel {
     struct AddPaperCellModel {
@@ -13,7 +13,7 @@ enum PaperModalModel {
         let paperType: PaperType
         
         var title: String {
-            paperType.title
+            paperType.typeName
         }
         var thumbnailName: String {
             paperType.tumbNailImageName + "_\(paperStyle.rawValue)"
@@ -21,15 +21,24 @@ enum PaperModalModel {
     }
 
     struct PaperListCellModel {
-        let id: Int
+        let id: String
         let isStarred: Bool
         let paperStyle: PaperStyle
         let paperType: PaperType
+        let thumbnailData: Data?
+
+        init(id: String, isStarred: Bool, paperStyle: PaperStyle, paperType: PaperType, thumbnailData: Data?) {
+            self.id = id
+            self.isStarred = isStarred
+            self.paperStyle = paperStyle
+            self.paperType = paperType
+            self.thumbnailData = thumbnailData
+        }
 
         var title: String {
             paperType.title
         }
-        // TODO: - 실제 썸네일 캡쳐 후 사용 시 모델 변경 필요
+
         var thumbnailName: String {
             return paperType.tumbNailImageName + "_\(paperStyle.rawValue)"
         }

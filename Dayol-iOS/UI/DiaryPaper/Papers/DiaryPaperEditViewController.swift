@@ -27,7 +27,7 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
     private let titleView = DYNavigationItemCreator.titleView(Text.editTitle.stringValue)
-    
+
     // MARK: - Init
     
     init(viewModel: DiaryPaperViewModel) {
@@ -53,13 +53,13 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
         
         setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
         
-        leftButton.addTarget(self, action: #selector(popWithAnimation), for: .touchUpInside)
+        leftButton.addTarget(self, action: #selector(dismissWithNoAnimation), for: .touchUpInside)
         toolBar.stickerButton.addTarget(self, action: #selector(presentStickerModal), for: .touchUpInside)
     }
     
     @objc
-    private func popWithAnimation() {
-        self.navigationController?.popViewController(animated: true)
+    private func dismissWithNoAnimation() {
+        self.dismiss(animated: false, completion: nil)
     }
     
     @objc

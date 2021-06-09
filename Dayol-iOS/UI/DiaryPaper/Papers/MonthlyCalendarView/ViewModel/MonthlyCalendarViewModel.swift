@@ -102,6 +102,7 @@ struct MonthlyCalendarDayModel {
 }
 
 class MonthlyCalendarViewModel: PaperViewModel {
+    private let date: Date
     private var numOfDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]
     private var monthIndex: Int = 0
     private var year: Int = 0
@@ -116,9 +117,9 @@ class MonthlyCalendarViewModel: PaperViewModel {
         return weekdayRawValue
     }
     
-    init() {
+    init(date: Date) {
+        self.date = date
         super.init(drawModel: DrawModel())
-        calcDate(date: Date())
     }
     
     private func calcDate(date: Date) {
@@ -154,12 +155,13 @@ class MonthlyCalendarViewModel: PaperViewModel {
             let isCurrentMonth = index >= prevMonthRemainDaysCount && index < prevMonthRemainDaysCount + currentMonthCount
             
             if isPrevMonth {
-                let day = prevMonthMaxDay - prevMonthRemainDaysCount + index
+                let day = prevMonthMaxDay - prevMonthRemainDaysCount + index + 1
                 let dayModel = MonthlyCalendarDayModel(dayNumber: day, isCurrentMonth: false)
                 daysResult.append(dayModel)
             } else if isCurrentMonth {
                 let day = index - prevMonthRemainDaysCount + 1
-                let dayModel = MonthlyCalendarDayModel(dayNumber: day, isCurrentMonth: true, isToday: day == today)
+                let isToday = String(day) == Date.now.day() && String(month+1) == Date.now.month() && String(year) == Date.now.year()
+                let dayModel = MonthlyCalendarDayModel(dayNumber: day, isCurrentMonth: true, isToday: isToday)
                 daysResult.append(dayModel)
             } else {
                 let day = index - prevMonthRemainDaysCount - currentMonthCount + 1
@@ -173,12 +175,12 @@ class MonthlyCalendarViewModel: PaperViewModel {
 }
 
 extension MonthlyCalendarViewModel {
-    func dateModel(date: Date) -> Observable<MonthlyCalendarDataModel> {
+    func dateModel() -> Observable<MonthlyCalendarDataModel> {
         return Observable.create { [weak self] observer -> Disposable in
             guard let self = self else {
                 return Disposables.create()
             }
-            self.calcDate(date: date)
+            self.calcDate(date: self.date)
             let days = self.days(year: self.year, month: self.monthIndex)
             let month = Month(rawValue: self.monthIndex) ?? .january
             let dateModel = MonthlyCalendarDataModel(
