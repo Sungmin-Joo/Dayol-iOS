@@ -44,8 +44,8 @@ class ColorSettingPaletteView: UIView {
         return view
     }()
 
-    private let palleteView: DiaryEditColorPaletteView = {
-        let view = DiaryEditColorPaletteView()
+    private let palleteView: DefaultColorCollectionView = {
+        let view = DefaultColorCollectionView()
         view.setContentHuggingPriority(.defaultLow, for: .horizontal)
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false

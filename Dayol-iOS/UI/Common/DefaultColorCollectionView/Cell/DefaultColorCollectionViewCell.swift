@@ -1,5 +1,5 @@
 //
-//  DiaryEditColorPaletteCell.swift
+//  DefaultColorCollectionViewCell.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/01/04.
@@ -13,9 +13,8 @@ private enum Design {
     static let selectedImage = UIImage(named: "colorSelect")
 }
 
-class DiaryEditColorPaletteCell: UICollectionViewCell {
+class DefaultColorCollectionViewCell: UICollectionViewCell {
     static let size = Design.cellSize
-    static let identifier = "\(DiaryEditColorPaletteCell.self)"
     
     private let selectedImage: UIImageView = {
         let imageView = UIImageView()

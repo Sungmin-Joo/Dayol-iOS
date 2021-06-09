@@ -139,6 +139,10 @@
 		DA5A10FB266B7BA4002C7EA8 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A10FA266B7BA4002C7EA8 /* UIImage+Extension.swift */; };
 		DA5A10FE266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A10FD266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift */; };
 		DA5A110A266BBE81002C7EA8 /* MonthlyPaperListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A1109266BBE80002C7EA8 /* MonthlyPaperListHeaderView.swift */; };
+		DA5A1117267104F3002C7EA8 /* ScheduleModalContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A1116267104F3002C7EA8 /* ScheduleModalContentView.swift */; };
+		DA5A111A267104FF002C7EA8 /* ScheduleModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A1119267104FF002C7EA8 /* ScheduleModalHeaderView.swift */; };
+		DA5A111E267106E3002C7EA8 /* ScheduleModalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A111D267106E3002C7EA8 /* ScheduleModalType.swift */; };
+		DA5A1124267109FF002C7EA8 /* DefaultColorCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A1123267109FF002C7EA8 /* DefaultColorCollectionView.swift */; };
 		DA6FF5D126654EA9006B0B34 /* DateFormat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6FF5D026654EA8006B0B34 /* DateFormat+Extension.swift */; };
 		DA6FF5D5266650BE006B0B34 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6FF5D4266650BE006B0B34 /* UITableView+Extension.swift */; };
 		DA6FF5E32667AE1C006B0B34 /* MonthlyPaperListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6FF5E22667AE1C006B0B34 /* MonthlyPaperListContentView.swift */; };
@@ -180,9 +184,8 @@
 		DAD6675425A18BAE00E8F59A /* DYNavigationFunctionToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD6675325A18BAD00E8F59A /* DYNavigationFunctionToolBar.swift */; };
 		DADD09F725A335C2004D6CF0 /* DiaryEditToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD09F625A335C2004D6CF0 /* DiaryEditToggleView.swift */; };
 		DADD09FB25A33674004D6CF0 /* DiaryEditCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD09FA25A33674004D6CF0 /* DiaryEditCoverView.swift */; };
-		DADD09FE25A33695004D6CF0 /* DiaryEditColorPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD09FD25A33695004D6CF0 /* DiaryEditColorPaletteView.swift */; };
 		DADD0A0125A34ED6004D6CF0 /* DiaryCoverColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A0025A34ED6004D6CF0 /* DiaryCoverColor.swift */; };
-		DADD0A0525A35445004D6CF0 /* DiaryEditColorPaletteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A0425A35445004D6CF0 /* DiaryEditColorPaletteCell.swift */; };
+		DADD0A0525A35445004D6CF0 /* DefaultColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A0425A35445004D6CF0 /* DefaultColorCollectionViewCell.swift */; };
 		DADD0A1925A72907004D6CF0 /* DiaryPaperViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A1825A72907004D6CF0 /* DiaryPaperViewerViewController.swift */; };
 		DADD0A2025A72A6A004D6CF0 /* DiaryPaperEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A1F25A72A6A004D6CF0 /* DiaryPaperEmptyView.swift */; };
 		DADD0AD425AF24FC004D6CF0 /* DYStickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0AD325AF24FC004D6CF0 /* DYStickerView.swift */; };
@@ -327,6 +330,10 @@
 		DA5A10FA266B7BA4002C7EA8 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		DA5A10FD266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperEmptyViewController.swift; sourceTree = "<group>"; };
 		DA5A1109266BBE80002C7EA8 /* MonthlyPaperListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyPaperListHeaderView.swift; sourceTree = "<group>"; };
+		DA5A1116267104F3002C7EA8 /* ScheduleModalContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModalContentView.swift; sourceTree = "<group>"; };
+		DA5A1119267104FF002C7EA8 /* ScheduleModalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModalHeaderView.swift; sourceTree = "<group>"; };
+		DA5A111D267106E3002C7EA8 /* ScheduleModalType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModalType.swift; sourceTree = "<group>"; };
+		DA5A1123267109FF002C7EA8 /* DefaultColorCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultColorCollectionView.swift; sourceTree = "<group>"; };
 		DA6FF5D026654EA8006B0B34 /* DateFormat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormat+Extension.swift"; sourceTree = "<group>"; };
 		DA6FF5D4266650BE006B0B34 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		DA6FF5E22667AE1C006B0B34 /* MonthlyPaperListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyPaperListContentView.swift; sourceTree = "<group>"; };
@@ -368,9 +375,8 @@
 		DAD6675325A18BAD00E8F59A /* DYNavigationFunctionToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationFunctionToolBar.swift; sourceTree = "<group>"; };
 		DADD09F625A335C2004D6CF0 /* DiaryEditToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditToggleView.swift; sourceTree = "<group>"; };
 		DADD09FA25A33674004D6CF0 /* DiaryEditCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditCoverView.swift; sourceTree = "<group>"; };
-		DADD09FD25A33695004D6CF0 /* DiaryEditColorPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditColorPaletteView.swift; sourceTree = "<group>"; };
 		DADD0A0025A34ED6004D6CF0 /* DiaryCoverColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoverColor.swift; sourceTree = "<group>"; };
-		DADD0A0425A35445004D6CF0 /* DiaryEditColorPaletteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditColorPaletteCell.swift; sourceTree = "<group>"; };
+		DADD0A0425A35445004D6CF0 /* DefaultColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		DADD0A1825A72907004D6CF0 /* DiaryPaperViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperViewerViewController.swift; sourceTree = "<group>"; };
 		DADD0A1F25A72A6A004D6CF0 /* DiaryPaperEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperEmptyView.swift; sourceTree = "<group>"; };
 		DADD0AD325AF24FC004D6CF0 /* DYStickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYStickerView.swift; sourceTree = "<group>"; };
@@ -614,6 +620,7 @@
 				340E56AE25C859D1007F2EF7 /* PaperAdd */,
 				DAD233BC265FB9F3002C353F /* DatePickerModal */,
 				DA6FF5E12667ADFD006B0B34 /* PaperSelectModal */,
+				DA5A1112266CADC0002C7EA8 /* Schedule */,
 			);
 			path = DiaryPaperModal;
 			sourceTree = "<group>";
@@ -920,6 +927,7 @@
 		CEB9EE402583C7AF005B66C9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DA5A1122267109E0002C7EA8 /* DefaultColorCollectionView */,
 				34A11A4D25ADC91100678F98 /* Button */,
 				DAA54B98262EE41D0085A304 /* DYFloatingView */,
 				DADD0AD125AF24E6004D6CF0 /* DYStickerView */,
@@ -969,7 +977,6 @@
 				34A11A4425ADC35500678F98 /* DiaryPaperModal */,
 				DAD48A2B260CD2F7008B542E /* StickerModal */,
 				34CA254425A618E40057404D /* Settings */,
-				DA5A1112266CADC0002C7EA8 /* ScheduleList */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1104,11 +1111,23 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		DA5A1112266CADC0002C7EA8 /* ScheduleList */ = {
+		DA5A1112266CADC0002C7EA8 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
+				DA5A1116267104F3002C7EA8 /* ScheduleModalContentView.swift */,
+				DA5A1119267104FF002C7EA8 /* ScheduleModalHeaderView.swift */,
+				DA5A111D267106E3002C7EA8 /* ScheduleModalType.swift */,
 			);
-			path = ScheduleList;
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		DA5A1122267109E0002C7EA8 /* DefaultColorCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				DADD0A0325A3542F004D6CF0 /* Cell */,
+				DA5A1123267109FF002C7EA8 /* DefaultColorCollectionView.swift */,
+			);
+			path = DefaultColorCollectionView;
 			sourceTree = "<group>";
 		};
 		DA6FF5DC2667AD0A006B0B34 /* Paper */ = {
@@ -1265,12 +1284,10 @@
 		DADD09F525A33367004D6CF0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DADD0A0325A3542F004D6CF0 /* Cell */,
 				DAD66733259B551600E8F59A /* DiaryEditViewController.swift */,
 				3451287A2637050900D65627 /* DiaryEditViewController+DYDrawableDelegate.swift */,
 				DADD09F625A335C2004D6CF0 /* DiaryEditToggleView.swift */,
 				DADD09FA25A33674004D6CF0 /* DiaryEditCoverView.swift */,
-				DADD09FD25A33695004D6CF0 /* DiaryEditColorPaletteView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1278,7 +1295,7 @@
 		DADD0A0325A3542F004D6CF0 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				DADD0A0425A35445004D6CF0 /* DiaryEditColorPaletteCell.swift */,
+				DADD0A0425A35445004D6CF0 /* DefaultColorCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1463,9 +1480,11 @@
 				34CA255425A61DD10057404D /* NSObject+Extension.swift in Sources */,
 				34A0714D262C78ED009BA700 /* ColorSettingPaletteView.swift in Sources */,
 				34A2EDC525B85EDA008DB98D /* MujiPaper.swift in Sources */,
+				DA5A1124267109FF002C7EA8 /* DefaultColorCollectionView.swift in Sources */,
 				DA27AC6625C81D2700C71CDE /* WeeklyCalendarView.swift in Sources */,
 				CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */,
 				DADD0A2025A72A6A004D6CF0 /* DiaryPaperEmptyView.swift in Sources */,
+				DA5A111A267104FF002C7EA8 /* ScheduleModalHeaderView.swift in Sources */,
 				340E56BC25C9748D007F2EF7 /* PaperListContentView.swift in Sources */,
 				3452671025DD64AE00EC6F9D /* DataBackupCloudContentView.swift in Sources */,
 				CEF135F225811DE30098BEC3 /* Assets.swift in Sources */,
@@ -1479,6 +1498,7 @@
 				DADD0A0125A34ED6004D6CF0 /* DiaryCoverColor.swift in Sources */,
 				3449D2D325AF23AE0050C02A /* AddPaperCell.swift in Sources */,
 				34BB086226135E030000377E /* EraseOptionButton.swift in Sources */,
+				DA5A1117267104F3002C7EA8 /* ScheduleModalContentView.swift in Sources */,
 				DAC04CCE25920C25003A7BC8 /* DiaryLockerView.swift in Sources */,
 				CE8DCC97259101B6007738EA /* DeviceInfo.swift in Sources */,
 				3446621125C0480700656775 /* PaperPresentView.swift in Sources */,
@@ -1546,7 +1566,6 @@
 				CE8DCB2D258FB1A0007738EA /* DiaryListViewController+bind.swift in Sources */,
 				340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */,
 				34C7B36F26197C4600BC6A28 /* TextStyleViewModel.swift in Sources */,
-				DADD09FE25A33695004D6CF0 /* DiaryEditColorPaletteView.swift in Sources */,
 				34A11A4725ADC3CA00678F98 /* PaperModalViewController.swift in Sources */,
 				34C7B37926199DA600BC6A28 /* TextStyleTextSizeOptionView.swift in Sources */,
 				DA27AC6A25C8288B00C71CDE /* WeeklyCalendarViewCell.swift in Sources */,
@@ -1607,9 +1626,10 @@
 				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
 				DAEF76A725F66F15007CAA93 /* DiaryPaperViewerModel.swift in Sources */,
 				3434B76F25A479D800506152 /* DYModalConfiguration.swift in Sources */,
-				DADD0A0525A35445004D6CF0 /* DiaryEditColorPaletteCell.swift in Sources */,
+				DADD0A0525A35445004D6CF0 /* DefaultColorCollectionViewCell.swift in Sources */,
 				34AD5A7A25C97D0900D9E29C /* PaperListCell.swift in Sources */,
 				34C7B3692619763300BC6A28 /* TextStyleView.swift in Sources */,
+				DA5A111E267106E3002C7EA8 /* ScheduleModalType.swift in Sources */,
 				DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */,
 				34A07156262DCE1E009BA700 /* ColorPickerContentView.swift in Sources */,
 				34C7B36C2619765500BC6A28 /* TextStyleModel.swift in Sources */,
