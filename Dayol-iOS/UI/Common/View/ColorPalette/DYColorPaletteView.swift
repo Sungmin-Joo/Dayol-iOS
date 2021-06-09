@@ -148,23 +148,21 @@ extension DYColorPaletteView: UICollectionViewDelegate {
     }
 }
 
-// MARK: - Public Color Palette Function
+// MARK: - Public Color Interaction
 
 extension DYColorPaletteView {
-    var currentColor: UIColor? {
+    var currentUIColor: UIColor? {
+        return currentDYColor?.uiColor
+    }
+
+    var currentDYColor: DYPaletteColor? {
         guard
             let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first,
             let color = colors?[selectedIndexPath.row]
         else {
             return nil
         }
-        return color.uiColor
-    }
-
-    func deselectColorItem() {
-        collectionView.indexPathsForSelectedItems?.forEach {
-            collectionView.deselectItem(at: $0, animated: true)
-        }
+        return color
     }
 
     func selectColor(_ color: DYPaletteColor) {
@@ -175,6 +173,23 @@ extension DYColorPaletteView {
 
         let indexPath = IndexPath(item: index, section: 0)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)
+    }
+
+    func deselectColorItem(animated: Bool = true) {
+        collectionView.indexPathsForSelectedItems?.forEach {
+            collectionView.deselectItem(at: $0, animated: animated)
+        }
+    }
+
+}
+
+// MARK: - Public CollectionView Control
+
+extension DYColorPaletteView {
+    func setInset(_ sectionInset: UIEdgeInsets) {
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.sectionInset = sectionInset
+        }
     }
 
 }

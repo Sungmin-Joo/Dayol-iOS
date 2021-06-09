@@ -15,12 +15,25 @@ struct ColorSettingPaletteViewModel {
     init() {
         archivePaletteColors()
     }
+}
+
+// MARK: - Public
+
+extension ColorSettingPaletteViewModel {
 
     func addCustomColor(_ color: DYPaletteColor) {
         var newPaletteColors = paletteColors.value
         newPaletteColors.append(color)
         paletteColors.send(newPaletteColors)
     }
+
+    func removeCustomColor(_ color: DYPaletteColor) {
+        var newPaletteColors = paletteColors.value
+        guard let index = newPaletteColors.firstIndex(of: color) else { return }
+        newPaletteColors.remove(at: index)
+        paletteColors.send(newPaletteColors)
+    }
+
 }
 
 private extension ColorSettingPaletteViewModel {

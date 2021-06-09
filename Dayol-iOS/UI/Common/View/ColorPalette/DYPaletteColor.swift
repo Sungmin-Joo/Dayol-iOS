@@ -8,7 +8,7 @@
 import UIKit
 
 extension DYPaletteColor {
-    struct ColorSet {
+    struct ColorSet: Equatable {
         let red: Int
         let green: Int
         let blue: Int
@@ -35,7 +35,7 @@ enum DYPaletteColor: Equatable {
     case DYGrey
     case custom(red: Int, green: Int, blue: Int)
     
-    private var colorSet: ColorSet {
+    var colorSet: ColorSet {
         switch self {
         case .DYRed:
             return ColorSet(red: 231, green: 76, blue: 67)
@@ -107,6 +107,10 @@ extension DYPaletteColor {
             DYPaletteColor.DYLightBrown,
             DYPaletteColor.DYBrown
         ]
+    }
+
+    var isPresetColor: Bool {
+        return Self.colorPreset.contains(self)
     }
 
 }
