@@ -76,21 +76,6 @@ enum Assets {
                 static let info = UIImage(named: "toolBar_lasso_info")
             }
 
-            enum Erase: String {
-                case small
-                case medium
-                case large
-
-                var image: UIImage? {
-                    return UIImage(named: "toolBar_\(self.rawValue)")
-                }
-
-                var selectedImage: UIImage? {
-                    return UIImage(named: "toolBar_\(self.rawValue)_select")
-                }
-
-            }
-
             enum Pencil {
                 static let penOn = UIImage(named: "toolBar_pencil_pen_on")
                 static let penOff = UIImage(named: "toolBar_pencil_pen_off")
