@@ -31,13 +31,7 @@ class DiaryEditColorPaletteCell: UICollectionViewCell {
         }
     }
 
-    init(color: DYPaletteColor) {
-        super.init(frame: .zero)
-        initView()
-        backgroundColor = color.uiColor
-    }
-    
-    private override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: .zero)
         initView()
         backgroundColor = .clear
