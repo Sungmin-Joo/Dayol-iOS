@@ -22,16 +22,17 @@ extension DiaryEditViewController: DYDrawableDelegate {
         diaryEditCoverView.diaryView.currentToolSubject.send(pencilTool)
     }
 
-    func didTapTextButton(_ textField: UITextField) {
+    func didTapTextButton(_ textField: DYFlexibleTextField) {
         diaryEditCoverView.diaryView.currentToolSubject.send(nil)
         // TODO: - 복수의 텍스트 필드 관리를 어떻게 하면 좋을 지..
-        textField.frame = CGRect(x: 0, y: 0, width: 200, height: 30)
-        textField.backgroundColor = .red
+        let center = CGPoint(x: diaryEditCoverView.diaryView.bounds.width / 2.0,
+                             y: diaryEditCoverView.diaryView.bounds.height / 2.0)
+        textField.center = center
         diaryEditCoverView.diaryView.addSubview(textField)
-        textField.becomeFirstResponder()
+        let _ = textField.becomeFirstResponder()
     }
 
-    func didEndEraseSetting(eraseType: EraseType, isObjectErase: Bool) {
+    func didEndEraseSetting(isObjectErase: Bool) {
         let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
         drawableViewModel.currentEraseTool = eraseTool
         diaryEditCoverView.diaryView.currentToolSubject.send(eraseTool)
