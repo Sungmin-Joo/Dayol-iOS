@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "imgEraser1.png",
+      "filename" : "imgThumbMonthly.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "imgEraser1@2x.png",
+      "filename" : "imgThumbMonthly@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "imgEraser1@3x.png",
+      "filename" : "imgThumbMonthly@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

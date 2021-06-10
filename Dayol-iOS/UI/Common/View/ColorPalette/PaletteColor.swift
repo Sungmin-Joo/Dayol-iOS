@@ -15,7 +15,7 @@ extension PaletteColor {
     }
 }
 
-enum PaletteColor: Equatable {
+enum PaletteColor: Equatable, CaseIterable {
 
     case DYRed
     case DYOrange
@@ -34,6 +34,19 @@ enum PaletteColor: Equatable {
     case DYDarkBlue
     case DYGrey
     case custom(red: Int, green: Int, blue: Int)
+
+    static var allCases: [PaletteColor] {
+        return [
+            DYRed, DYOrange, DYYellow, DYGreen,
+            DYMint, DYSkyblue, DYBlue, DYPurple,
+            DYPink, DYLightBrown, DYBrown, DYDark,
+            DYDarkYellow, DYDarkGreen, DYDarkBlue, DYGrey
+        ]
+    }
+
+    static func find(hex: String) -> PaletteColor? {
+        return PaletteColor.allCases.first { $0.hexString == hex }
+    }
     
     var colorSet: ColorSet {
         switch self {
@@ -87,6 +100,10 @@ enum PaletteColor: Equatable {
         let lockerBlue = colorSet.blue + blueSum > 255 ? 255 : colorSet.blue + blueSum
         
         return UIColor(decimalRed: lockerRed, green: lockerGreen, blue: lockerBlue)
+    }
+
+    var hexString: String {
+        return self.uiColor.hexString
     }
 }
 

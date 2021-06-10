@@ -25,6 +25,7 @@ private enum Design {
 
 class DYModalViewController: UIViewController {
 
+    static let headerAreaHeight = Design.headerAreaHeight
     private let disposeBag = DisposeBag()
     private var lastMoved: CGFloat = .greatestFiniteMagnitude
     var dismissCompeletion: (() -> Void)?
@@ -379,7 +380,7 @@ extension DYModalViewController {
 
 extension DYModalViewController {
 
-    private func setupTitleLabel(_ title: String) {
+    func setupTitleLabel(_ title: String) {
         let attributedString = NSAttributedString.build(text: title,
                                                         font: .boldSystemFont(ofSize: 18),
                                                         align: .center,
@@ -403,7 +404,7 @@ extension DYModalViewController {
         ])
     }
 
-    private func setupRightDownButton(completion: (() -> Void)? = nil) {
+    func setupRightDownButton(completion: (() -> Void)? = nil) {
         let downButton = UIButton()
         downButton.setImage(Design.downButton, for: .normal)
         downButton.translatesAutoresizingMaskIntoConstraints = false

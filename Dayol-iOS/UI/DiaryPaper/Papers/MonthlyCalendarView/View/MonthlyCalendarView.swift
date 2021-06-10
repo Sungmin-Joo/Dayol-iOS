@@ -21,14 +21,20 @@ private enum Design {
 }
 
 class MonthlyCalendarView: BasePaper {
+    private var dateModel: MonthlyCalendarDataModel?
     private var containerViewLeft = NSLayoutConstraint()
     private var containerViewRight = NSLayoutConstraint()
-    private let disposeBag = DisposeBag()
+
+    var disposeBag = DisposeBag()
     
+    let showSelectPaper = PublishSubject<Void>()
+    let showAddSchedule = PublishSubject<Date>()
+
     private let headerView: MonthlyCalendarHeaderView = {
         let header = MonthlyCalendarHeaderView(month: .january)
         header.translatesAutoresizingMaskIntoConstraints = false
-        
+        header.isUserInteractionEnabled = true
+
         return header
     }()
     
@@ -48,12 +54,17 @@ class MonthlyCalendarView: BasePaper {
         bind()
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+
     private func setupConstraints() {
         guard let paperStyle = self.paperStyle else { return }
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            headerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            headerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(style: paperStyle)),
             
             collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
@@ -65,14 +76,35 @@ class MonthlyCalendarView: BasePaper {
     
     private func bind() {
         guard let viewModel = self.viewModel as? MonthlyCalendarViewModel else { return }
-        viewModel.dateModel(date: Date())
+        viewModel.dateModel()
             .subscribe(onNext: { [weak self] dateModel in
                 guard let self = self else { return }
+                self.dateModel = dateModel
                 let _ = dateModel.month
                 let days = dateModel.days
                 self.collectionView.days = days
                 self.headerView.month = dateModel.month
             })
             .disposed(by: disposeBag)
+
+        collectionView.longTappedIndex
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                let day = self.dateModel?.days[index].dayNumber ?? 0
+                let month = self.dateModel?.month.rawValue ?? 0
+                let year = self.dateModel?.year ?? 0
+
+                let date = DateType.yearMonthDay.date(year: year, month: month + 1, day: day) ?? Date.now
+
+                self.showAddSchedule.onNext(date)
+            })
+            .disposed(by: disposeBag)
+
+        headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTappedHeaderView(_:))))
+    }
+    
+    @objc
+    private func didTappedHeaderView(_ sender: MonthlyCalendarHeaderView) {
+        showSelectPaper.onNext(())
     }
 }

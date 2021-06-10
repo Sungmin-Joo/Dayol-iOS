@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Design {
     enum IPadOrientation {
@@ -24,6 +25,8 @@ private enum Design {
 }
 
 class MonthlyCalendarCollectionView: UIView {
+    let longTappedIndex = PublishSubject<Int>()
+
     private var dayModel: [MonthlyCalendarDayModel]?
     private var iPadOrientation: Design.IPadOrientation {
         if self.frame.size.width > self.frame.size.height {
@@ -170,7 +173,15 @@ extension MonthlyCalendarCollectionView: UICollectionViewDataSource {
         else { return UICollectionViewCell() }
         
         cell.configure(model: day)
-        
+
+        cell.didLongTapped
+            .bind { [weak self] in
+                guard let self = self else { return }
+
+                self.longTappedIndex.onNext(indexPath.item)
+            }
+            .disposed(by: cell.disposeBag)
+
         return cell
     }
 }

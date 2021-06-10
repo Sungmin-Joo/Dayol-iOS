@@ -32,7 +32,7 @@ extension DiaryEditViewController: DYDrawableDelegate {
         let _ = textField.becomeFirstResponder()
     }
 
-    func didEndEraseSetting(eraseType: EraseType, isObjectErase: Bool) {
+    func didEndEraseSetting(isObjectErase: Bool) {
         let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
         drawableViewModel.currentEraseTool = eraseTool
         diaryEditCoverView.diaryView.currentToolSubject.send(eraseTool)

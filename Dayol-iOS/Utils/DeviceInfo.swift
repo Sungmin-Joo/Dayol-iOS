@@ -11,12 +11,15 @@ enum Orientation {
     case portrait
     case landscape
     case unknown
-    
+
     static var currentState: Orientation {
         switch UIDevice.current.orientation {
-        case .landscapeLeft, .landscapeRight: return .landscape
-        case .portraitUpsideDown, .portrait: return .portrait
-        default: return .unknown
+        case .landscapeLeft, .landscapeRight:
+            return .landscape
+        case .portraitUpsideDown, .portrait:
+            return .portrait
+        default:
+            return .unknown
         }
     }
 }

@@ -14,17 +14,22 @@ private enum Design {
     static let addPageModalTopMargin: CGFloat = 57.0
 }
 
+private enum Text {
+    static var addScheduleTitle: String { "속지 또는 일정 등록" }
+    static var addScheduleDesc: String { "선택한 날짜에 새로운 일정을 등록하거나 작성한 속지를 연결할 수 있습니다" }
+    static var addScheduleAddButton: String { "일정추가" }
+    static var addScheduleLinkButton: String { "속지연결" }
+}
+
 class DiaryPaperViewerViewController: UIViewController {
     // MARK: - Properties
-    
-    typealias PaperModel = DiaryInnerModel.PaperModel
     
     private let disposeBag = DisposeBag()
     private var cancellable = [Cancellable]()
     private let viewModel: DiaryPaperViewerViewModel
-    private var innerModels: [DiaryInnerModel]?
+    private var paperModels: [PaperModel]?
     
-    var currentIndex: Int = 0
+    var currentIndex: Int = -1
     
     // MARK: - UI Component
     
@@ -35,13 +40,6 @@ class DiaryPaperViewerViewController: UIViewController {
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     private(set) var paperViewControllers: [DiaryPaperViewController]?
-    
-    private let emptyView: DiaryPaperEmptyView = {
-        let view = DiaryPaperEmptyView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
     
     // MARK: - Init
     
@@ -63,7 +61,9 @@ class DiaryPaperViewerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.barTintColor = viewModel.coverColor
+        let coverColor: PaletteColor = PaletteColor.find(hex: viewModel.coverHex) ?? .DYBrown
+
+        navigationController?.navigationBar.barTintColor = coverColor.uiColor
         super.viewWillAppear(animated)
     }
     
@@ -74,10 +74,8 @@ class DiaryPaperViewerViewController: UIViewController {
     
     private func initView() {
         view.backgroundColor = .white
-        view.addSubview(emptyView)
         setupPageViewController()
         setupNavigationBars()
-        setConstraint()
     }
     
     private func setupNavigationBars() {
@@ -91,15 +89,6 @@ class DiaryPaperViewerViewController: UIViewController {
                 self?.dismiss(animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
-    }
-    
-    private func setConstraint() {
-        NSLayoutConstraint.activate([
-            emptyView.topAnchor.constraint(equalTo: view.topAnchor),
-            emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            emptyView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            emptyView.rightAnchor.constraint(equalTo: view.rightAnchor),
-        ])
     }
     
     private func setupPageViewController() {
@@ -120,7 +109,7 @@ class DiaryPaperViewerViewController: UIViewController {
     
     private func bindTitle() {
         viewModel.title
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] titleValue in
                 let titleView = DYNavigationItemCreator.titleView(titleValue, color: .white)
                 self?.navigationItem.titleView = titleView
@@ -129,29 +118,49 @@ class DiaryPaperViewerViewController: UIViewController {
     }
 
     private func bindPaperModel() {
-        viewModel.paperList
-            .observeOn(MainScheduler.instance)
-            .filter({ [weak self] inners -> Bool in
-                let shouldShowDiaryPeper = !inners[0].paperList.isEmpty
-                
-                self?.emptyView.isHidden = (shouldShowDiaryPeper == true)
-                
-                return shouldShowDiaryPeper
-            })
-            .subscribe(onNext: { [weak self] inners in
+        viewModel.paperList(diaryId: viewModel.diaryId)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] papers in
                 guard let self = self else { return }
-                
-                let paperList = inners[0].paperList
-                var diaryPaperViewControllers = [DiaryPaperViewController]()
-                self.innerModels = inners
-                
-                for (index, paper) in paperList.enumerated() {
-                    let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: paper.numberOfPapers)
-                    let paperViewController = DiaryPaperViewController(index: index, viewModel: paperViewModel)
-                    diaryPaperViewControllers.append(paperViewController)
+
+                if papers.isEmpty {
+                    let vc = DiaryPaperEmptyViewController()
+
+                    vc.delegate = self
+                    self.pageViewController.setViewControllers([vc], direction: .forward, animated: false, completion: nil)
+                } else {
+                    var diaryPaperViewControllers = [DiaryPaperViewController]()
+                    self.paperModels = papers
+
+                    for (index, paper) in papers.enumerated() {
+                        let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: paper.numberOfPapers)
+                        let paperViewController = DiaryPaperViewController(index: index, viewModel: paperViewModel)
+
+                        paperViewController.didReceivedEvent
+                            .subscribe(onNext: { event in
+                                switch event {
+                                case .showDatePicker:
+                                    self.presentPaperModal(toolType: .date)
+                                case .showPaperSelect:
+                                    self.presentPaperModal(toolType: .monthList)
+                                case .showAddSchedule(date: let date):
+                                    self.presentAddSchedule(date: date)
+                                }
+                            })
+                            .disposed(by: self.disposeBag)
+
+                        diaryPaperViewControllers.append(paperViewController)
+                    }
+                    self.paperViewControllers = diaryPaperViewControllers
+
+                    if self.currentIndex == -1 {
+                        self.currentIndex = 0
+                    } else {
+                        self.currentIndex = diaryPaperViewControllers.count - 1
+                    }
+
+                    self.pageViewController.setViewControllers([diaryPaperViewControllers[self.currentIndex]], direction: .forward, animated: true, completion: nil)
                 }
-                self.paperViewControllers = diaryPaperViewControllers
-                self.pageViewController.setViewControllers([diaryPaperViewControllers[self.currentIndex]], direction: .forward, animated: false, completion: nil)
             })
             .disposed(by: disposeBag)
     }
@@ -173,24 +182,18 @@ class DiaryPaperViewerViewController: UIViewController {
             .bind { [weak self] in
                 guard let currentVC = self?.currentViewController else { return }
                 let viewModel = currentVC.viewModel
+
                 let paperEditViewController = DiaryPaperEditViewController(viewModel: viewModel)
-                self?.navigationController?.pushViewController(paperEditViewController, animated: true)
+                let nav = DYNavigationController(rootViewController: paperEditViewController)
+                nav.modalPresentationStyle = .overFullScreen
+                nav.modalTransitionStyle = .crossDissolve
+
+                self?.present(nav, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
-        
-        let tapGesture = UITapGestureRecognizer()
-        tapGesture.addTarget(self, action: #selector(didTapEmptyView))
-        emptyView.addGestureRecognizer(tapGesture)
-    }
-
-    @objc
-    private func didTapEmptyView() {
-        presentPaperModal(toolType: .add)
     }
 
     private func presentPaperModal(toolType: PaperModalViewController.PaperToolType) {
-        guard let paperList = innerModels?[0].paperList else { return }
-        
         let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
         let screenHeight = keyWindow?.bounds.height ?? .zero
         let modalHeight: CGFloat = screenHeight - Design.addPageModalTopMargin
@@ -198,35 +201,67 @@ class DiaryPaperViewerViewController: UIViewController {
         let configuration = DYModalConfiguration(dimStyle: .black,
                                                  modalStyle: modalStyle)
 
-        let papers = paperList.compactMap {
-            PaperModalModel.PaperListCellModel(id: $0.id,
-                                               isStarred: false,
-                                               paperStyle: $0.paperStyle,
-                                               paperType: $0.paperType)
-        }
-        let modalVC = PaperModalViewController(toolType: toolType, configure: configuration, papers: papers)
+        let modalVC = PaperModalViewController(diaryId: viewModel.diaryId, toolType: toolType, configure: configuration)
         modalVC.delegate = self
 
         presentCustomModal(modalVC)
+    }
+
+    private func moveToPage(index: Int) {
+        guard let selectedViewController = self.paperViewControllers?[safe: index], currentIndex != index else { return }
+        let direction: UIPageViewController.NavigationDirection
+        if currentIndex < index {
+            direction = .forward
+        } else {
+            direction = .reverse
+        }
+        currentIndex = index
+        self.pageViewController.setViewControllers([selectedViewController], direction: direction, animated: true, completion: nil)
+    }
+
+    private func presentAddSchedule(date: Date) {
+        let alert = DayolAlertController(title: Text.addScheduleTitle, message: Text.addScheduleDesc)
+        alert.addAction(.init(title: Text.addScheduleLinkButton, style: .cancel, handler: {
+            print("LinkButton")
+        }))
+        alert.addAction(.init(title: Text.addScheduleAddButton, style: .default, handler: {
+            print("AddButton")
+        }))
+        present(alert, animated: true, completion: nil)
+
     }
 }
 
 extension DiaryPaperViewerViewController {
     var currentViewController: DiaryPaperViewController? {
-        guard let viewControllers = pageViewController.viewControllers as? [DiaryPaperViewController] else { return nil }
-        
-        return viewControllers[safe: currentIndex]
+        return paperViewControllers?[safe: currentIndex];
     }
 }
 
 extension DiaryPaperViewerViewController: PaperModalViewDelegate {
-    func didTappedItem(_ index: Int) {
-        guard let selectedViewController = self.paperViewControllers?[safe: index] else { return }
-        
-        self.pageViewController.setViewControllers([selectedViewController], direction: .forward, animated: false, completion: nil)
+    func didTappedItem(_ paper: PaperModel) {
+        guard let index = paperModels?.firstIndex(where: { $0.id == paper.id }) else { return }
+        moveToPage(index: index)
     }
     
     func didTappedAdd() {
+        presentPaperModal(toolType: .add)
+    }
+
+    func didTappedMonthlyAdd() {
+        presentPaperModal(toolType: .date)
+    }
+
+    func didSelectedDate(didSelected date: Date?) {
+        guard let currentVC = currentViewController, let pickedDate = date else { return }
+        let paperStyle = currentVC.paper.style
+
+        viewModel.addPaper(.monthly(date: pickedDate), style: paperStyle)
+    }
+}
+
+extension DiaryPaperViewerViewController: DiaryPaperEmptyViewControllerDelegate {
+    func didTapEmptyView() {
         presentPaperModal(toolType: .add)
     }
 }

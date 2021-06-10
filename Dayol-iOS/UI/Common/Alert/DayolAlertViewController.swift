@@ -227,6 +227,10 @@ extension DayolAlertController {
             messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,
                                               constant: Design.Constant.messageLabelTopMargin),
             messageLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            messageLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor,
+                                                  constant: Design.Constant.messageLabelLeading),
+            messageLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,
+                                                   constant: -Design.Constant.messageLabelTrailing),
 
             buttonStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,
                                                     constant: -Design.Constant.buttonStackViewBottomMargin),
@@ -320,6 +324,8 @@ extension DayolAlertController {
             static let titleLabelTopMargin: CGFloat = 30.0
             static let messageLabelTopMargin: CGFloat = 20.0
             static let messageLabelNumberOfLines = 2
+            static let messageLabelLeading: CGFloat = 20.0
+            static let messageLabelTrailing: CGFloat = 20.0
             static let buttonStackViewSpacing: CGFloat = 10.0
             static let buttonStackViewBottomMargin: CGFloat = 20.0
             static let buttonWidth: CGFloat = 125.0

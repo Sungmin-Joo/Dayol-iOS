@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "imgEraser2.png",
+      "filename" : "imgAddPage.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "imgEraser2@2x.png",
+      "filename" : "imgAddPage@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "imgEraser2@3x.png",
+      "filename" : "imgAddPage@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -79,7 +79,7 @@ class ColorSettingView: UIView {
 extension ColorSettingView {
 
     func set(color: UIColor) {
-        colorSettingPaletteView.viewModel.currentHexColor.send(color.toHexString)
+        colorSettingPaletteView.viewModel.currentHexColor.send(color.hexString)
         colorPicker.set(color: color)
     }
 
@@ -136,7 +136,7 @@ extension ColorSettingView {
 extension ColorSettingView {
 
     @objc func handleColorChanged(picker: ColorPicker) {
-        colorSettingPaletteView.viewModel.currentHexColor.send(picker.color.toHexString)
+        colorSettingPaletteView.viewModel.currentHexColor.send(picker.color.hexString)
         colorSubject.send(picker.color)
     }
 

@@ -17,10 +17,9 @@ enum PaperStyle: String, CaseIterable {
     case vertical
 }
 
-enum PaperType {
-
-    case monthly
-    case weekly
+enum PaperType: Equatable {
+    case monthly(date: Date)
+    case weekly(date: Date)
     case daily(date: Date)
     case cornell
     case muji
@@ -29,8 +28,8 @@ enum PaperType {
     case tracker
 
     static var allCases: [PaperType] {
-        return [.monthly,
-                .weekly,
+        return [.monthly(date: Date()),
+                .weekly(date: Date()),
                 .daily(date: Date()),
                 .cornell,
                 .muji,
@@ -41,9 +40,14 @@ enum PaperType {
 
     var title: String {
         switch self {
-        case .monthly: return "memo_list_monthly".localized
-        case .weekly: return "memo_list_weekly".localized
-        case .daily(_): return "memo_list_daily".localized
+        case .monthly(let date):
+            return DateType.yearMonth.formatter.string(from: date)
+        case .weekly(let date):
+            let startDateString = DateType.yearMonthDay.formatter.string(from: date)
+            let endDate = Date.calendar.date(byAdding: .day, value: 7, to: date) ?? Date()
+            let endDateString = DateType.yearMonthDay.formatter.string(from: endDate)
+            return "\(startDateString) ~ \(endDateString)"
+        case .daily(let date): return DateType.yearMonthDay.formatter.string(from: date)
         case .cornell: return "memo_list_kornell".localized
         case .muji: return "memo_list_muji".localized
         case .grid: return "memo_list_grid".localized
@@ -51,7 +55,33 @@ enum PaperType {
         case .tracker: return "memo_list_tracker".localized
         }
     }
-    
+
+    var typeName: String {
+        switch self {
+        case .monthly(let _): return "memo_list_monthly".localized
+        case .weekly(let _): return "memo_list_weekly".localized
+        case .daily(let _): return "memo_list_daily".localized
+        case .cornell: return "memo_list_kornell".localized
+        case .muji: return "memo_list_muji".localized
+        case .grid: return "memo_list_grid".localized
+        case .four: return "memo_list_4cell".localized
+        case .tracker: return "memo_list_tracker".localized
+        }
+    }
+
+    var cellType: UITableViewCell.Type {
+        switch self {
+        case .monthly: return MonthlyCalendarView.self
+        case .weekly: return WeeklyCalendarView.self
+        case .daily: return DailyPaper.self
+        case .cornell: return CornellPaper.self
+        case .muji: return MujiPaper.self
+        case .grid: return GridPaper.self
+        case .four: return FourPaper.self
+        case .tracker: return BasePaper.self
+        }
+    }
+
     var identifier: String {
         switch self {
         case .monthly: return MonthlyCalendarView.className
@@ -62,6 +92,35 @@ enum PaperType {
         case .grid: return GridPaper.className
         case .four: return FourPaper.className
         case .tracker: return BasePaper.className
+        }
+    }
+
+    var thumbnail: UIImage? {
+        switch self {
+        case .monthly: return UIImage(named: "PaperSelectThumbMonthly")
+        case .weekly: return nil
+        case .daily(_): return nil
+        case .cornell: return nil
+        case .muji: return nil
+        case .grid: return nil
+        case .four: return nil
+        case .tracker: return nil
+        }
+    }
+
+    static func ==(lhs: PaperType, rhs: PaperType) -> Bool {
+        switch (lhs, rhs) {
+        case (.monthly(let lDate), .monthly(date: let rDate)):
+            let isSameYear = lDate.year() == rDate.year()
+            let isSameMonth = lDate.month() == rDate.month()
+            return isSameYear && isSameMonth
+        case (.daily(let lDate), .daily(date: let rDate)):
+            let isSameYear = lDate.year() == rDate.year()
+            let isSameMonth = lDate.month() == rDate.month()
+            let isSameDay = lDate.day() == rDate.day()
+            return isSameYear && isSameMonth && isSameDay
+        default:
+            return false
         }
     }
 }

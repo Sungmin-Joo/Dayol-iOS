@@ -13,30 +13,34 @@ class DiaryPaperViewerModel {
     /// DB에 요청할 파라미터는 추후 논의 일단은 void로 둠(init)
     
     let testDrawModel = DYTestData.testDrawModel
-    var innerModels: [DiaryInnerModel] = DYTestData.shared.pageList
+    var innerModels: [PaperModel] = DYTestData.shared.paperList
     let innerModelsSubject = DYTestData.shared.pageListSubject
     let diaryTitle = BehaviorSubject<String>(value: "")
 
-    init(coverModel: DiaryCoverModel) {
+    init(coverModel: DiaryInfoModel) {
         diaryTitle.onNext(coverModel.title)
     }
     
     @discardableResult
-    func add(diary: DiaryInnerModel) -> Observable<DiaryInnerModel> {
-        DYTestData.shared.addDiary(diary)
+    func add(paper: PaperModel) -> Observable<PaperModel> {
+        DYTestData.shared.addPaper(paper)
         
-        return Observable.just(diary)
+        return Observable.just(paper)
     }
     
     @discardableResult
-    func delete(diary: DiaryInnerModel) -> Observable<DiaryInnerModel> {
-        DYTestData.shared.deleteDiary(diary)
+    func delete(paper: PaperModel) -> Observable<PaperModel> {
+        DYTestData.shared.deletePaper(paper)
         
-        return Observable.just(diary)
+        return Observable.just(paper)
     }
     
     func deleteAll() {
         DYTestData.shared.deleteAllPage()
+    }
+
+    func contain(paperType: PaperType) -> Bool {
+        return DYTestData.shared.paperList.contains(where: { $0.paperType  ==  paperType })
     }
 
 }

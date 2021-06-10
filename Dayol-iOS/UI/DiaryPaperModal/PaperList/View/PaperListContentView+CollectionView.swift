@@ -17,7 +17,7 @@ private enum Design {
 extension PaperListContentView: UICollectionViewDataSource {
 
     var pepersCount: Int {
-        return viewModel.papers.count
+        return viewModel.cellModels.count
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -46,7 +46,7 @@ extension PaperListContentView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PaperListCell.identifier, for: indexPath)
 
         if let paperListCell = cell as? PaperListCell {
-            paperListCell.viewModel = viewModel.papers[safe: indexPath.row]
+            paperListCell.viewModel = viewModel.cellModels[safe: indexPath.row]
         }
 
         return cell
@@ -71,7 +71,8 @@ extension PaperListContentView: UICollectionViewDataSource {
 
 extension PaperListContentView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didSelectItem.onNext(indexPath.item)
+        guard let paper = viewModel.paperModels[safe: indexPath.item] else { return }
+        didSelectItem.onNext(paper)
     }
 }
 
@@ -79,7 +80,7 @@ extension PaperListContentView: UICollectionViewDelegate {
 
 extension PaperListContentView {
     @objc func didRecongizeLongPress(_ recog: UIGestureRecognizer) {
-        guard viewModel.papers.count > 1 else { return }
+        guard viewModel.cellModels.count > 1 else { return }
         let point = recog.location(in: collectionView)
         switch recog.state {
         case .began:

@@ -64,4 +64,16 @@ extension UIView {
             view.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+
+    func asImage() -> UIImage? {
+        UIGraphicsBeginImageContext(frame.size)
+        if let graphicsContext = UIGraphicsGetCurrentContext() {
+            layer.render(in: graphicsContext)
+            if let cgImage = UIGraphicsGetImageFromCurrentImageContext()?.cgImage {
+                UIGraphicsEndImageContext()
+                return UIImage(cgImage: cgImage)
+            }
+        }
+        return UIImage()
+    }
 }

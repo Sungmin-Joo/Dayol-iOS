@@ -52,8 +52,8 @@ enum Assets {
         }
 
         enum InfoView {
-            static let info = UIImage(named: "infoView_icon_info")
-            static let close = UIImage(named: "infoView_icon_close")
+            static let info = UIImage(named: "InfoView_Icon_Info")
+            static let close = UIImage(named: "InfoView_Icon_Close")
         }
 
         enum DiaryCover {
@@ -74,21 +74,6 @@ enum Assets {
 
             enum Lasso {
                 static let info = UIImage(named: "toolBar_lasso_info")
-            }
-
-            enum Erase: String {
-                case small
-                case medium
-                case large
-
-                var image: UIImage? {
-                    return UIImage(named: "toolBar_\(self.rawValue)")
-                }
-
-                var selectedImage: UIImage? {
-                    return UIImage(named: "toolBar_\(self.rawValue)_select")
-                }
-
             }
 
             enum Pencil {

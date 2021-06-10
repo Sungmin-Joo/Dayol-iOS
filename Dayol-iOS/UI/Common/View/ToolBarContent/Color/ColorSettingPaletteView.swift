@@ -185,7 +185,7 @@ extension ColorSettingPaletteView {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] color in
                 guard let self = self else { return }
-                let hexString = color.uiColor.toHexString
+                let hexString = color.uiColor.hexString
                 self.viewModel.currentHexColor.send(hexString)
                 self.didChangePaletteColor?(color.uiColor)
             })
@@ -216,7 +216,7 @@ extension ColorSettingPaletteView {
 private extension UIColor {
 
     var rgbValue: (red: Int, green: Int, blue: Int)? {
-        var hexFormatted: String = toHexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
+        var hexFormatted: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
         if hexFormatted.hasPrefix("#") {
             hexFormatted = String(hexFormatted.dropFirst())
         }
