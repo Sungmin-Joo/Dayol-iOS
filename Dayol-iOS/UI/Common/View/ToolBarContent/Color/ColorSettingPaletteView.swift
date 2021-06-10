@@ -215,28 +215,7 @@ extension ColorSettingPaletteView {
 
 private extension UIColor {
 
-    var rgbValue: (red: Int, green: Int, blue: Int)? {
-        var hexFormatted: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
-        if hexFormatted.hasPrefix("#") {
-            hexFormatted = String(hexFormatted.dropFirst())
-        }
-
-        if hexFormatted.count != 6 {
-            return nil
-        }
-
-        var rgbValue: UInt64 = 0
-        Scanner(string: hexFormatted).scanHexInt64(&rgbValue)
-        let r: Int = Int((rgbValue & 0xFF0000) >> 16)
-        let g: Int = Int((rgbValue & 0x00FF00) >> 8)
-        let b: Int = Int(rgbValue & 0x0000FF)
-
-        return (r, g, b)
-    }
-
     var toPaletteColor: PaletteColor? {
-        guard let rgbValue = rgbValue else { return nil }
-
         let colorSet = PaletteColor.ColorSet(red: rgbValue.red,
                                                green: rgbValue.green,
                                                blue: rgbValue.blue)
@@ -251,8 +230,6 @@ private extension UIColor {
     }
 
     var isHighBrightness: Bool {
-        guard let rgbValue = rgbValue else { return false }
-
         let threshold = 200
 
         // spec: r, g, b 중 하나라도 200을 넘으면 밝은 컬러로 처리

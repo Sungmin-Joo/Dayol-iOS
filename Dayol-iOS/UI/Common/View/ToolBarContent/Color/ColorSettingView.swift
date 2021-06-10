@@ -81,6 +81,7 @@ extension ColorSettingView {
     func set(color: UIColor) {
         colorSettingPaletteView.viewModel.currentHexColor.send(color.hexString)
         colorPicker.set(color: color)
+        colorSubject.send(color)
     }
 
 }

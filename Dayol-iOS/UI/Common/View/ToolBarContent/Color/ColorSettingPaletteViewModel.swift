@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 struct ColorSettingPaletteViewModel {
-    let currentHexColor = CurrentValueSubject<String, Never>("#FFFFFF")
+    let currentHexColor = CurrentValueSubject<String, Never>("#FFFFFFFF")
     var paletteColors = CurrentValueSubject<[PaletteColor], Never>(PaletteColor.colorPreset)
 
     init() {

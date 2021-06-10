@@ -49,16 +49,26 @@ extension UIColor {
     }
 
     var hexString: String {
-        var r:CGFloat = 0
-        var g:CGFloat = 0
-        var b:CGFloat = 0
-        var a:CGFloat = 0
+        let ragValue = rgbValue
+        let r: Int = ragValue.red
+        let g: Int = ragValue.green
+        let b: Int = ragValue.blue
+        let a: Int = ragValue.alpha
+
+        let rgb:Int = r<<24 | g<<16 | b<<8 | a
+
+        return NSString(format:"#%08x", rgb) as String
+    }
+
+    var rgbValue: (red: Int, green: Int, blue: Int, alpha: Int) {
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
 
         getRed(&r, green: &g, blue: &b, alpha: &a)
 
-        let rgb:Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
-
-        return NSString(format:"#%06x", rgb) as String
+        return (red: Int(r * 255), green: Int(g * 255), blue: Int(b * 255), alpha:Int(a * 255))
     }
 }
 
