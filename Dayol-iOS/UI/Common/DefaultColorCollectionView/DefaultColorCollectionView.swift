@@ -45,7 +45,6 @@ final class DefaultColorCollectionView: UIView {
     private let containerView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .equalCentering
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = Design.cellSpace
 
@@ -175,7 +174,9 @@ extension DefaultColorCollectionView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let color = self.model?[safe: indexPath.item] else { return UICollectionViewCell() }
+        guard let color = self.model?[safe: indexPath.item] else {
+            return UICollectionViewCell()
+        }
 
         let cell = collectionView.dequeueReusableCell(DefaultColorCollectionViewCell.self, for: indexPath)
         cell.configure(color: color)
