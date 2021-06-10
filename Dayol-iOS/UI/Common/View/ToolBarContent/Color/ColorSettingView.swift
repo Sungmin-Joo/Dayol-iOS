@@ -36,7 +36,6 @@ private enum Text {
 class ColorSettingView: UIView {
 
     let colorSubject = CurrentValueSubject<UIColor, Never>(.black)
-    private var cancellable: [AnyCancellable] = []
 
     // MARK: UI Property
 
@@ -126,12 +125,10 @@ extension ColorSettingView {
     }
 
     private func bindEvent() {
-        colorSettingPaletteView.viewModel.currentHexColor.sink { [weak self] hexString in
-            guard let self = self, let color = UIColor(hex: hexString) else { return }
-            self.colorPicker.set(color: color)
-            self.colorSubject.send(color)
+        colorSettingPaletteView.didChangePaletteColor = { [weak self] color in
+            self?.colorPicker.set(color: color)
+            self?.colorSubject.send(color)
         }
-        .store(in: &cancellable)
     }
 
 }

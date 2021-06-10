@@ -32,6 +32,7 @@ class ColorSettingPaletteView: UIView {
 
     private let disposeBag = DisposeBag()
     private var cancellable: [AnyCancellable] = []
+    var didChangePaletteColor: ((UIColor) -> Void)?
     let viewModel = ColorSettingPaletteViewModel()
 
     // MARK: UI Property
@@ -186,6 +187,7 @@ extension ColorSettingPaletteView {
                 guard let self = self else { return }
                 let hexString = color.uiColor.toHexString
                 self.viewModel.currentHexColor.send(hexString)
+                self.didChangePaletteColor?(color.uiColor)
             })
             .disposed(by: disposeBag)
 
