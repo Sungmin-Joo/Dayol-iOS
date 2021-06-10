@@ -34,8 +34,8 @@ class DiaryEditViewController: DYDrawableViewController {
         return view
     }()
     
-    private let diaryEditPaletteView: DYColorPaletteView = {
-        let view = DYColorPaletteView()
+    private let diaryEditPaletteView: ColorPaletteView = {
+        let view = ColorPaletteView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view

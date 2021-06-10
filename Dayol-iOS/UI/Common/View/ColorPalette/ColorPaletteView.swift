@@ -1,5 +1,5 @@
 //
-//  DYColorPaletteView.swift
+//  ColorPaletteView.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/01/04.
@@ -14,7 +14,7 @@ private enum Design {
     static let cellSpace: CGFloat = 11
 }
 
-class DYColorPaletteView: UIView {
+class ColorPaletteView: UIView {
     // MARK: - Private Properties
     
     private var model: [DYPaletteColor]? {
@@ -94,7 +94,7 @@ class DYColorPaletteView: UIView {
     }
 }
 
-extension DYColorPaletteView {
+extension ColorPaletteView {
     var colors: [DYPaletteColor]? {
         get {
             return self.model
@@ -121,7 +121,7 @@ extension DYColorPaletteView {
 
 // MARK: - CollectionView DataSource
 
-extension DYColorPaletteView: UICollectionViewDataSource {
+extension ColorPaletteView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let colors = model else { return 0 }
         return colors.count
@@ -140,7 +140,7 @@ extension DYColorPaletteView: UICollectionViewDataSource {
 
 // MARK: - ColletionView Delegate
 
-extension DYColorPaletteView: UICollectionViewDelegate {
+extension ColorPaletteView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let color = self.model?[safe: indexPath.item] else { return }
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
@@ -150,7 +150,7 @@ extension DYColorPaletteView: UICollectionViewDelegate {
 
 // MARK: - Public Color Interaction
 
-extension DYColorPaletteView {
+extension ColorPaletteView {
 
     var currentDYColor: DYPaletteColor? {
         guard
@@ -182,11 +182,10 @@ extension DYColorPaletteView {
 
 // MARK: - Public CollectionView Control
 
-extension DYColorPaletteView {
+extension ColorPaletteView {
     func setInset(_ sectionInset: UIEdgeInsets) {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.sectionInset = sectionInset
         }
     }
-
 }

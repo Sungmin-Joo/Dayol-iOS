@@ -37,8 +37,8 @@ class ColorSettingPaletteView: UIView {
 
     // MARK: UI Property
 
-    private let paletteView: DYColorPaletteView = {
-        let view = DYColorPaletteView()
+    private let paletteView: ColorPaletteView = {
+        let view = ColorPaletteView()
         view.backgroundColor = .clear
         view.setInset(Design.paletteInset)
         view.setContentHuggingPriority(.defaultLow, for: .horizontal)
