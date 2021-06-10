@@ -87,7 +87,7 @@ class ColorSettingPaletteView: UIView {
 extension ColorSettingPaletteView {
 
     private func set(color: UIColor) {
-        if let oldColor = paletteView.currentUIColor {
+        if let oldColor = paletteView.currentDYColor?.uiColor {
             if oldColor != color {
                 paletteView.deselectColorItem()
             }
@@ -100,7 +100,7 @@ extension ColorSettingPaletteView {
     }
 
     private func updateActionButton(_ color: UIColor) {
-        if paletteView.currentUIColor != nil {
+        if paletteView.currentDYColor?.uiColor != nil {
             setMinusActionButton()
         } else {
             setPlusActionButton()
@@ -120,7 +120,7 @@ extension ColorSettingPaletteView {
     }
 
     private func setMinusActionButton() {
-        guard let color = paletteView.currentUIColor else { return }
+        guard let color = paletteView.currentDYColor?.uiColor else { return }
 
         if color.toDYPaletteColor?.isPresetColor == true {
             paletteActionButton.setImage(nil, for: .normal)

@@ -151,9 +151,6 @@ extension DYColorPaletteView: UICollectionViewDelegate {
 // MARK: - Public Color Interaction
 
 extension DYColorPaletteView {
-    var currentUIColor: UIColor? {
-        return currentDYColor?.uiColor
-    }
 
     var currentDYColor: DYPaletteColor? {
         guard
