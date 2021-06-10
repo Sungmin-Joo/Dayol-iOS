@@ -92,7 +92,7 @@ extension ColorSettingPaletteView {
                 paletteView.deselectColorItem()
             }
         } else {
-            if let paletteColor = color.toDYPaletteColor {
+            if let paletteColor = color.toPaletteColor {
                 paletteView.selectColor(paletteColor)
             }
         }
@@ -122,7 +122,7 @@ extension ColorSettingPaletteView {
     private func setMinusActionButton() {
         guard let color = paletteView.currentDYColor?.uiColor else { return }
 
-        if color.toDYPaletteColor?.isPresetColor == true {
+        if color.toPaletteColor?.isPresetColor == true {
             paletteActionButton.setImage(nil, for: .normal)
             return
         }
@@ -203,7 +203,7 @@ extension ColorSettingPaletteView {
             setPlusActionButton()
         } else {
             let currentHexColor = viewModel.currentHexColor.value
-            if let paletteColor = UIColor(hex: currentHexColor)?.toDYPaletteColor {
+            if let paletteColor = UIColor(hex: currentHexColor)?.toPaletteColor {
                 viewModel.addCustomColor(paletteColor)
                 paletteView.selectColor(paletteColor)
                 setMinusActionButton()
@@ -234,20 +234,20 @@ private extension UIColor {
         return (r, g, b)
     }
 
-    var toDYPaletteColor: DYPaletteColor? {
+    var toPaletteColor: PaletteColor? {
         guard let rgbValue = rgbValue else { return nil }
 
-        let colorSet = DYPaletteColor.ColorSet(red: rgbValue.red,
+        let colorSet = PaletteColor.ColorSet(red: rgbValue.red,
                                                green: rgbValue.green,
                                                blue: rgbValue.blue)
 
-        if let color = DYPaletteColor.colorPreset.filter({ $0.colorSet == colorSet }).first {
+        if let color = PaletteColor.colorPreset.filter({ $0.colorSet == colorSet }).first {
             return color
         }
-
-        return DYPaletteColor.custom(red: rgbValue.red,
-                                     green: rgbValue.green,
-                                     blue: rgbValue.blue)
+        
+        return PaletteColor.custom(red: rgbValue.red,
+                                   green: rgbValue.green,
+                                   blue: rgbValue.blue)
     }
 
     var isHighBrightness: Bool {

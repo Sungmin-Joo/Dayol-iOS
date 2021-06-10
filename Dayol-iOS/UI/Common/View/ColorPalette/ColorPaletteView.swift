@@ -17,7 +17,7 @@ private enum Design {
 class ColorPaletteView: UIView {
     // MARK: - Private Properties
     
-    private var model: [DYPaletteColor]? {
+    private var model: [PaletteColor]? {
         didSet {
             collectionView.reloadData()
         }
@@ -25,7 +25,7 @@ class ColorPaletteView: UIView {
     
     // MARK: - Subjects
 
-    let changedColor = PublishSubject<DYPaletteColor>()
+    let changedColor = PublishSubject<PaletteColor>()
     
     // MARK: - UI Components
     
@@ -95,7 +95,7 @@ class ColorPaletteView: UIView {
 }
 
 extension ColorPaletteView {
-    var colors: [DYPaletteColor]? {
+    var colors: [PaletteColor]? {
         get {
             return self.model
         }
@@ -152,7 +152,7 @@ extension ColorPaletteView: UICollectionViewDelegate {
 
 extension ColorPaletteView {
 
-    var currentDYColor: DYPaletteColor? {
+    var currentDYColor: PaletteColor? {
         guard
             let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first,
             let color = colors?[selectedIndexPath.row]
@@ -162,7 +162,7 @@ extension ColorPaletteView {
         return color
     }
 
-    func selectColor(_ color: DYPaletteColor) {
+    func selectColor(_ color: PaletteColor) {
         guard
             let colors = colors?.enumerated(),
             let index = colors.filter({ $1 == color }).first?.offset

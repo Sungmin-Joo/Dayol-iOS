@@ -10,7 +10,7 @@ import Combine
 
 struct ColorSettingPaletteViewModel {
     let currentHexColor = CurrentValueSubject<String, Never>("#FFFFFF")
-    var paletteColors = CurrentValueSubject<[DYPaletteColor], Never>(DYPaletteColor.colorPreset)
+    var paletteColors = CurrentValueSubject<[PaletteColor], Never>(PaletteColor.colorPreset)
 
     init() {
         archivePaletteColors()
@@ -21,13 +21,13 @@ struct ColorSettingPaletteViewModel {
 
 extension ColorSettingPaletteViewModel {
 
-    func addCustomColor(_ color: DYPaletteColor) {
+    func addCustomColor(_ color: PaletteColor) {
         var newPaletteColors = paletteColors.value
         newPaletteColors.append(color)
         paletteColors.send(newPaletteColors)
     }
 
-    func removeCustomColor(_ color: DYPaletteColor) {
+    func removeCustomColor(_ color: PaletteColor) {
         var newPaletteColors = paletteColors.value
         guard let index = newPaletteColors.firstIndex(of: color) else { return }
         newPaletteColors.remove(at: index)

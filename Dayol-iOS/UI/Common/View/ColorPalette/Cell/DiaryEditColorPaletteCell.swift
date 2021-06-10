@@ -61,7 +61,7 @@ class DiaryEditColorPaletteCell: UICollectionViewCell {
         ])
     }
     
-    func configure(color: DYPaletteColor) {
+    func configure(color: PaletteColor) {
         backgroundColor = color.uiColor
     }
 }

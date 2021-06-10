@@ -1,5 +1,5 @@
 //
-//  DYPaletteColor.swift
+//  PaletteColor.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/01/04.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension DYPaletteColor {
+extension PaletteColor {
     struct ColorSet: Equatable {
         let red: Int
         let green: Int
@@ -15,7 +15,7 @@ extension DYPaletteColor {
     }
 }
 
-enum DYPaletteColor: Equatable {
+enum PaletteColor: Equatable {
 
     case DYRed
     case DYOrange
@@ -90,22 +90,22 @@ enum DYPaletteColor: Equatable {
     }
 }
 
-extension DYPaletteColor {
+extension PaletteColor {
 
-    static var colorPreset: [DYPaletteColor] {
+    static var colorPreset: [PaletteColor] {
         return [
-            DYPaletteColor.DYDark,
-            DYPaletteColor.DYRed,
-            DYPaletteColor.DYOrange,
-            DYPaletteColor.DYYellow,
-            DYPaletteColor.DYGreen,
-            DYPaletteColor.DYMint,
-            DYPaletteColor.DYSkyblue,
-            DYPaletteColor.DYBlue,
-            DYPaletteColor.DYPurple,
-            DYPaletteColor.DYPink,
-            DYPaletteColor.DYLightBrown,
-            DYPaletteColor.DYBrown
+            PaletteColor.DYDark,
+            PaletteColor.DYRed,
+            PaletteColor.DYOrange,
+            PaletteColor.DYYellow,
+            PaletteColor.DYGreen,
+            PaletteColor.DYMint,
+            PaletteColor.DYSkyblue,
+            PaletteColor.DYBlue,
+            PaletteColor.DYPurple,
+            PaletteColor.DYPink,
+            PaletteColor.DYLightBrown,
+            PaletteColor.DYBrown
         ]
     }
 
