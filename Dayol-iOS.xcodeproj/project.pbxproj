@@ -28,6 +28,7 @@
 		0DC56E96265510020056C28E /* OnboadingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E95265510020056C28E /* OnboadingContentView.swift */; };
 		0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E9726551AA40056C28E /* UILabel+Extension.swift */; };
 		0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E992655530D0056C28E /* UIButton.Extension.swift */; };
+		0DF60D9C26739D5500F0A1E8 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */; };
 		340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A025C2DC73007F2EF7 /* DYToastView.swift */; };
 		340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */; };
 		340E56AA25C831E2007F2EF7 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A925C831E2007F2EF7 /* InfoView.swift */; };
@@ -213,6 +214,7 @@
 		0DC56E992655530D0056C28E /* UIButton.Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.Extension.swift; sourceTree = "<group>"; };
 		0DE0D1EC26611ED000A302EB /* DAYOLBeta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DAYOLBeta.entitlements; sourceTree = "<group>"; };
 		0DF60D992673927F00F0A1E8 /* DAYOL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DAYOL.entitlements; path = SupportingFiles/DAYOL.entitlements; sourceTree = SOURCE_ROOT; };
+		0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		340E56A025C2DC73007F2EF7 /* DYToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYToastView.swift; sourceTree = "<group>"; };
 		340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		340E56A925C831E2007F2EF7 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				0DA235BE266118AC003AA15F /* RxSwift in Frameworks */,
 				0DA235B226611793003AA15F /* FirebaseAuth in Frameworks */,
 				0DA235B626611793003AA15F /* FirebaseMessaging in Frameworks */,
+				0DF60D9C26739D5500F0A1E8 /* CloudKit.framework in Frameworks */,
 				0DA235B026611793003AA15F /* FirebaseStorage in Frameworks */,
 				0DA235AC26611793003AA15F /* FirebaseAnalytics in Frameworks */,
 				0DA235B92661186E003AA15F /* FSCalendar in Frameworks */,
@@ -431,6 +434,14 @@
 				0DA235A42661135F003AA15F /* GoogleService-Info.plist */,
 			);
 			path = GoogleService;
+			sourceTree = "<group>";
+		};
+		0DF60D9A26739D5500F0A1E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		0DFF4D7F2642E84A00B8218B /* Font */ = {
@@ -1070,6 +1081,7 @@
 				0DFF4D802642E8B900B8218B /* SupportingFiles */,
 				DA4899E5257A08A6005E39ED /* Dayol-iOS */,
 				DA4899E4257A08A6005E39ED /* Products */,
+				0DF60D9A26739D5500F0A1E8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
