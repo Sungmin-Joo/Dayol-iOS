@@ -135,7 +135,10 @@ class DYModalViewController: UIViewController {
 
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         dismissContentView(animated: flag) {
-            super.dismiss(animated: false, completion: self.dismissCompeletion)
+            super.dismiss(animated: false, completion: { [weak self] in
+                completion?()
+                self?.dismissCompeletion?()
+            })
         }
     }
 
@@ -376,7 +379,7 @@ extension DYModalViewController {
 
 extension DYModalViewController {
 
-    private func setupTitleLabel(_ title: String) {
+    func setupTitleLabel(_ title: String) {
         let attributedString = NSAttributedString.build(text: title,
                                                         font: .boldSystemFont(ofSize: 18),
                                                         align: .center,
@@ -400,7 +403,7 @@ extension DYModalViewController {
         ])
     }
 
-    private func setupRightDownButton(completion: (() -> Void)? = nil) {
+    func setupRightDownButton(completion: (() -> Void)? = nil) {
         let downButton = UIButton()
         downButton.setImage(Design.downButton, for: .normal)
         downButton.translatesAutoresizingMaskIntoConstraints = false

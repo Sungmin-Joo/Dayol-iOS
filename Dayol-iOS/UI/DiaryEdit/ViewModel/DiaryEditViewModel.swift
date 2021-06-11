@@ -12,8 +12,12 @@ import RxCocoa
 class DiaryEditViewModel {
     let diaryColors: [DiaryCoverColor] = DiaryCoverColor.allCases.filter { $0 != .DYDark}
     let diaryInitalTitle: String = "새 다이어리"
-    
-    func createDiaryInfo(model: DiaryCoverModel) {
-        DYTestData.shared.create(diary: model)
+
+    var diaryIdToCreate: String {
+        DYTestData.shared.currentDiaryId
+    }
+
+    func createDiaryInfo(model: DiaryInfoModel) {
+        DYTestData.shared.addDiary(model)
     }
 }

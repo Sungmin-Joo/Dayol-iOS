@@ -56,7 +56,7 @@ final class LaunchViewController: UIViewController {
 
     private func bind() {
         splashManager.onboardingObserver
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe { [weak self] result in
                 guard
                     let self = self,

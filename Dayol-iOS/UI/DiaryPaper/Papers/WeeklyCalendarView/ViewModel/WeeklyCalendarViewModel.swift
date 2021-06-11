@@ -42,10 +42,11 @@ class WeeklyCalendarViewModel: PaperViewModel {
     private var year: Int = 0
     private var today = 0
     private var weekDay: WeekDay = .sunday
-    
-    init() {
+    private let date: Date
+
+    init(date: Date) {
+        self.date = date
         super.init(drawModel: DrawModel())
-        calcDate(date: Date())
     }
     
     private func calcDate(date: Date) {
@@ -103,12 +104,12 @@ class WeeklyCalendarViewModel: PaperViewModel {
 }
 
 extension WeeklyCalendarViewModel {
-    func dateModel(date: Date) -> Observable<[WeeklyCalendarDataModel]> {
+    func dateModel() -> Observable<[WeeklyCalendarDataModel]> {
         return Observable.create { [weak self] observer -> Disposable in
             guard let self = self else {
                 return Disposables.create()
             }
-            self.calcDate(date: date)
+            self.calcDate(date: self.date)
             let dayModels = self.days(year: self.year, month: self.monthIndex, weekDay: self.weekDay)
             observer.onNext(dayModels)
             observer.onCompleted()

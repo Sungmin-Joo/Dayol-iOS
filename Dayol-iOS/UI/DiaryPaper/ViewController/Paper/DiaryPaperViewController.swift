@@ -7,40 +7,38 @@
 
 import UIKit
 import Combine
+import RxSwift
+
+enum DiaryPaperEventType {
+    case showDatePicker
+    case showPaperSelect
+    case showAddSchedule(date: Date)
+}
 
 class DiaryPaperViewController: UIViewController {
+    let didReceivedEvent = PublishSubject<DiaryPaperEventType>()
     let index: Int
     let scaleSubject = PassthroughSubject<CGFloat, Error>()
     let viewModel: DiaryPaperViewModel
-    
+
     private var cancellable = [AnyCancellable]()
     private var paperHeight = NSLayoutConstraint()
+    private let disposeBag = DisposeBag()
 
     private var scaleVariable: CGFloat {
         let paperStyle = viewModel.paper.paperStyle
         if isPadDevice {
-            switch Orientation.currentState {
-            case .portrait:
-                switch paperStyle {
-                case .vertical:
-                    return paperScrollView.frame.height / paperStyle.size.height
-                case .horizontal:
-                    return paperScrollView.frame.width / paperStyle.size.width
-                }
-            case .landscape:
-                switch paperStyle {
-                case .vertical:
-                    return paperScrollView.frame.height / paperStyle.size.height
-                case .horizontal:
-                    return paperScrollView.frame.width / paperStyle.size.width
-                }
-            default: return 0.0
+            switch paperStyle {
+            case .vertical:
+                return paperScrollView.frame.height / paperStyle.size.height
+            case .horizontal:
+                return paperScrollView.frame.width / paperStyle.size.width
             }
         } else {
             return paperScrollView.frame.width / paperStyle.size.width
         }
     }
-    
+
     lazy var paper = PaperPresentView(paper: viewModel.paper, count: viewModel.numberOfPapers)
     
     private let paperScrollView: UIScrollView = {
@@ -82,7 +80,10 @@ class DiaryPaperViewController: UIViewController {
         paperScrollView.isPagingEnabled = true
         view.backgroundColor = UIColor(decimalRed: 246, green: 248, blue: 250)
         
+        setupConstraint()
         combine()
+        setupConstraint()
+        paperActionBind()
     }
     
     private func setupConstraint() {
@@ -110,5 +111,27 @@ extension DiaryPaperViewController: UIScrollViewDelegate {
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         paperScrollView.isPagingEnabled = (scrollView.zoomScale == 1.0)
+    }
+}
+
+extension DiaryPaperViewController {
+    var paperType: PaperType {
+        return viewModel.paper.paperType
+    }
+
+    func paperActionBind() {
+        paper.showPaperSelect
+            .observe(on:MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                self?.didReceivedEvent.onNext(.showPaperSelect)
+            })
+            .disposed(by: disposeBag)
+
+        paper.showAddSchedule
+            .observe(on:MainScheduler.instance)
+            .subscribe(onNext: { [weak self] date in
+                self?.didReceivedEvent.onNext(.showAddSchedule(date: date))
+            })
+            .disposed(by: disposeBag)
     }
 }

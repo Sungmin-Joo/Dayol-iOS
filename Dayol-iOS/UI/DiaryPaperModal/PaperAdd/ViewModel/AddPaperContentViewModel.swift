@@ -25,19 +25,20 @@ class AddPaperContentViewModel {
         selectedPaper = cell
     }
     
-    func addPaper() {
+    func addPaper(diaryId: String) {
         guard let model = selectedPaper else { return }
         
         // TODO: confirm id login
-        let paperModel = DiaryInnerModel.PaperModel(
-            id: 999,
+        let paperModel = PaperModel(
+            id: DYTestData.shared.currentPaperId,
+            diaryId: diaryId,
             paperStyle: model.paperStyle,
             paperType: model.paperType,
             numberOfPapers: 1,
             drawModelList: DrawModel()
         )
         
-        DYTestData.shared.addPage(paperModel)
+        DYTestData.shared.addPaper(paperModel)
     }
 }
 

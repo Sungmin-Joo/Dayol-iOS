@@ -144,7 +144,7 @@ private extension PasswordViewController {
 private extension PasswordViewController {
     func bindInputButton() {
         buttonsView.buttonEvent
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] state in
                 guard let self = self else { return }
                 switch state {
@@ -161,7 +161,7 @@ private extension PasswordViewController {
     
     func bindAnimation() {
         viewModel.shouldShowVibeAniamtion
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .delay(.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] showAnimation in
                 guard let self = self else { return }
@@ -178,7 +178,7 @@ private extension PasswordViewController {
 
     func bindCorrectness() {
         viewModel.isCorrect
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] isCorrect in
                 guard let self = self else { return }
                 let password = self.viewModel.inputtedPassword
@@ -195,7 +195,7 @@ private extension PasswordViewController {
     
     func bindPreparePassword() {
         viewModel.shouldCheckPassword
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.titleView.descText.onNext(Strings.inputPassword)
@@ -203,7 +203,7 @@ private extension PasswordViewController {
             .disposed(by: disposeBag)
         
         viewModel.shouldCreatePassword
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.titleView.descText.onNext(Strings.inputNewPassword)
@@ -211,7 +211,7 @@ private extension PasswordViewController {
             .disposed(by: disposeBag)
         
         viewModel.shouldReInputPassword
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.titleView.descText.onNext(Strings.inputNewPasswordMore)

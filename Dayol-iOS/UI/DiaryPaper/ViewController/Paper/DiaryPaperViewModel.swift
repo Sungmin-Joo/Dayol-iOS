@@ -11,7 +11,6 @@ class DiaryPaperViewModel {
     
     // MARK: - Properties
     
-    typealias PaperModel = DiaryInnerModel.PaperModel
     let paper: PaperModel
     let numberOfPapers: Int
     

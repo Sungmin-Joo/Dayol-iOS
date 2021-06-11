@@ -76,14 +76,14 @@ class DailyPaper: BasePaper {
         guard let viewModel = viewModel as? DailyPaperViewModel else { return }
 
         viewModel.date
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] dateString in
                 self?.dateText = dateString
             })
             .disposed(by: disposeBag)
 
         viewModel.day
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] day in
                 self?.dayText = day
             })
