@@ -25,9 +25,18 @@ private enum Design {
 final class ScheduleColorSelectView: UIView {
     private let colorSelectView: DefaultColorCollectionView = {
         let colorSelectView = DefaultColorCollectionView()
+        let colorSet: [DiaryCoverColor] = [
+            .DYRed,
+            .DYOrange,
+            .DYYellow,
+            .DYGreen,
+            .DYMint,
+            .DYBlue,
+            .DYPurple
+        ]
         colorSelectView.translatesAutoresizingMaskIntoConstraints = false
         colorSelectView.showHeader = true
-        colorSelectView.colors = DiaryCoverColor.allCases
+        colorSelectView.colors = colorSet
         colorSelectView.backgroundColor = .white
 
         return colorSelectView

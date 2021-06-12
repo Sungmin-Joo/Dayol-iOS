@@ -13,6 +13,7 @@ private enum Design {
         static let placeHolerColor = UIColor.gray500
         static let textColor = UIColor.gray900
         static let letterSpace: CGFloat = -0.31
+        static let maxTextLength: Int = 10
     }
 
     enum View {
@@ -71,6 +72,8 @@ final class ScheduleTextFieldView: UIView {
     private func setupViews() {
         addSubview(textField)
         addSubview(underLine)
+
+        textField.delegate = self
     }
 
     private func setupConstraints() {
@@ -85,5 +88,18 @@ final class ScheduleTextFieldView: UIView {
             underLine.heightAnchor.constraint(equalToConstant: Design.Size.underLineHeight),
             underLine.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+}
+
+extension ScheduleTextFieldView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        let newLength = text.count + string.count - range.length
+        return newLength <= Design.Label.maxTextLength
     }
 }
