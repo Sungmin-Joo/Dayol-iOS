@@ -13,6 +13,7 @@ class Config {
 
     func initalize() {
         FirebaseApp.configure()
+        FirebaseStorage.shared.loadImages()
     }
 }
 
@@ -25,7 +26,7 @@ extension Config {
         private var baseURL: String {
             switch self {
             case .debug: return "gs://dayol-beta.appspot.com/"
-            case .real: return "gs://dayol-beta.appspot.com/"
+            case .real: return "gs://dayol.appspot.com/"
             }
         }
     }
