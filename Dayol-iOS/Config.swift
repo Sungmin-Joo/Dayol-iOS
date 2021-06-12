@@ -12,10 +12,13 @@ class Config {
     static let shared: Config = Config()
     var deviceToken: String = ""
 
+
     func initalize() {
         FirebaseApp.configure()
-        FirebaseStorage.shared.loadImages()
+        DYICloudMananger.shared.syncDocuments()
     }
+
+
 }
 
 // MARK: - ImageStorage

@@ -7,20 +7,20 @@
 
 import Firebase
 
-enum LogType: String {
-    case impression
-    case click
-    case error
-
-    enum Menu: String {
-        case home
-        case diary
-        case paper
-        case sticket
-    }
-}
-
 final class FBLog: Analytics {
+    enum LogType: String {
+        case impression
+        case click
+        case error
+
+        enum Menu: String {
+            case home
+            case diary
+            case paper
+            case sticket
+        }
+    }
+
     override class func logEvent(_ name: String, parameters: [String : Any]?) {
         self.setUserID(Config.shared.deviceToken)
         super.logEvent(name, parameters: parameters)
@@ -52,8 +52,12 @@ final class FBLog: Analytics {
 }
 
 enum DYLog {
+    enum LogType {
+        case iCloud
+    }
+
     /// error log
-    static func e(_ key: String, value: String) {
+    static func e(_ key: LogType, value: String) {
         #if DEBUG
         print("\(Date.now) [🧨] - [ERROR] KEY: \(key) Message: \(value)")
         #endif
@@ -61,7 +65,7 @@ enum DYLog {
     }
 
     /// debuging log
-    static func d(_ key: String, value: String) {
+    static func d(_ key: LogType, value: String) {
         #if DEBUG
         print("\(Date.now) [🔧] - [DEBUG] KEY: \(key) Message: \(value)")
         #endif
