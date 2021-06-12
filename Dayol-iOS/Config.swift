@@ -10,6 +10,7 @@ import Firebase
 
 class Config {
     static let shared: Config = Config()
+    var deviceToken: String = ""
 
     func initalize() {
         FirebaseApp.configure()
