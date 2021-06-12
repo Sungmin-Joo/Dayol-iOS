@@ -283,7 +283,19 @@ private extension PaperModalViewController {
     }
 
     func bindSchduleEvent() {
-        guard let scheduleContentView = contentView as? ScheduleModalContentView else { return }
-        print(scheduleContentView)
+        guard let scheduleContentView = contentView as? ScheduleModalContentView,
+              let scheduleHeaderView = titleView as? ScheduleModalHeaderView
+        else { return }
+
+        scheduleHeaderView.didTappedButton
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] event in
+                guard let self = self else { return }
+                switch event {
+                case .done: self.dismiss(animated: true)
+                case .cancel: self.dismiss(animated: true)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }

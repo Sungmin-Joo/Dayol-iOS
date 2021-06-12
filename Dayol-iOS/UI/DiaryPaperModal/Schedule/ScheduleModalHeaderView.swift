@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Design {
     enum Label {
@@ -34,6 +35,14 @@ private enum Text: String {
 }
 
 final class ScheduleModalHeaderView: UIView {
+    enum Event {
+        case done
+        case cancel
+    }
+
+    private let disposeBag = DisposeBag()
+    let didTappedButton = PublishSubject<Event>()
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.attributedText = NSAttributedString.build(text: Text.title.rawValue,
@@ -68,6 +77,7 @@ final class ScheduleModalHeaderView: UIView {
         super.init(frame: .zero)
         setupViews()
         setupConstraints()
+        bind()
     }
 
     required init?(coder: NSCoder) {
@@ -91,5 +101,20 @@ final class ScheduleModalHeaderView: UIView {
             cancelButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Design.Margin.cancelLeading),
             cancelButton.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
+    }
+
+    private func bind() {
+        cancelButton.rx.tap
+            .bind(onNext: { [weak self] in
+                self?.didTappedButton.onNext(.cancel)
+            })
+            .disposed(by: disposeBag)
+
+        doneButton.rx.tap
+            .bind(onNext: { [weak self] in
+                self?.didTappedButton.onNext(.done)
+            })
+            .disposed(by: disposeBag)
+
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Design {
     enum DateLabel {
@@ -30,7 +31,29 @@ private enum Design {
 }
 
 final class ScheduleDateDisplayView: UIView {
+    private let disposeBag = DisposeBag()
+    let didChangedDate = PublishSubject<Date>()
+
     // MARK: - UI Component
+
+    private let _inputAccessoryToolbar: UIToolbar = {
+        let toolBar = UIToolbar()
+        toolBar.barStyle = .default
+        toolBar.isTranslucent = true
+
+        toolBar.sizeToFit()
+
+        return toolBar
+    }()
+
+    private let datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+        }
+
+        return datePicker
+    }()
 
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -63,10 +86,24 @@ final class ScheduleDateDisplayView: UIView {
         super.init(frame: .zero)
         setupViews()
         setupConstraints()
+        setupGesture()
+        setupDatePickerAccesary()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override var inputView: UIView? {
+        return datePicker
+    }
+
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+
+    override var inputAccessoryView: UIView? {
+        return _inputAccessoryToolbar
     }
 
     // MARK: - Setup
@@ -85,6 +122,34 @@ final class ScheduleDateDisplayView: UIView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+
+    private func setupDatePickerAccesary() {
+        let doneButton = UIBarButtonItem(title: "선택", style: .plain, target: self, action: #selector(didSelectDate(_:)))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+
+        self._inputAccessoryToolbar.setItems([spaceButton, doneButton], animated: false)
+    }
+
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTappedDisplayView(_:)))
+        addGestureRecognizer(tapGesture)
+    }
+
+    @objc
+    private func didSelectDate(_ sender: Any) {
+        let date = datePicker.date
+        setDate(date)
+        resignFirstResponder()
+    }
+
+    @objc
+    private func didTappedDisplayView(_ sender: Any) {
+        presentDatePicker()
+    }
+
+    private func presentDatePicker() {
+        becomeFirstResponder()
     }
 
     // MARK: - Set
