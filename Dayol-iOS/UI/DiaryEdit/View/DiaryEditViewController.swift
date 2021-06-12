@@ -147,6 +147,16 @@ class DiaryEditViewController: DYDrawableViewController {
                 self.showPasswordViewController()
             }
             .disposed(by: disposeBag)
+
+        diaryEditCoverView.didTappedLocker
+            .bind { [weak self] in
+                guard let self = self else { return }
+
+                self.hideKeyboard()
+
+                self.showPasswordViewController()
+            }
+            .disposed(by: disposeBag)
         
         titleView.editButton.rx.tap
             .bind { [weak self] in
@@ -188,14 +198,16 @@ private extension DiaryEditViewController {
     func bindDidCreatePassword(_ viewController: PasswordViewController) {
         viewController.didCreatePassword
             .subscribe(onNext: { [weak self] password in
-                guard let self = self else { return }
-                guard let title = self.titleView.titleLabel.text else { return }
-
-                let diaryCoverModel = DiaryInfoModel(id: self.viewModel.diaryIdToCreate, color: self.currentCoverColor, title: title, totalPage: 0, password: password)
-                self.viewModel.createDiaryInfo(model: diaryCoverModel)
-                
-                self.dismiss(animated: true, completion: nil)
+                viewController.dismiss(animated: true, completion: nil)
+                self?.diaryEditCoverView.setCoverLock(isLock: true)
             }).disposed(by: self.disposeBag)
+    }
+
+    func createDiaryInfo(_ password: String?) {
+        guard let title = self.titleView.titleLabel.text else { return }
+        let diaryCoverModel = DiaryInfoModel(id: self.viewModel.diaryIdToCreate, color: self.currentCoverColor, title: title, totalPage: 0, password: password)
+        self.viewModel.createDiaryInfo(model: diaryCoverModel)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

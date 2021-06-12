@@ -12,18 +12,18 @@ extension DiaryEditViewController: DYDrawableDelegate {
     func didTapEraseButton() {
         let isObjectErase = drawableViewModel.currentEraseTool.isObjectErase
         let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
-        diaryEditCoverView.diaryView.currentToolSubject.send(eraseTool)
+        diaryEditCoverView.diaryView.currentToolSubject.onNext(eraseTool)
     }
 
     func didTapPencilButton() {
         let pencilColor = drawableViewModel.currentPencilTool.color
         let isHighlighter = drawableViewModel.currentPencilTool.isHighlighter
         let pencilTool = DYPencilTool(color: pencilColor, isHighlighter: isHighlighter)
-        diaryEditCoverView.diaryView.currentToolSubject.send(pencilTool)
+        diaryEditCoverView.diaryView.currentToolSubject.onNext(pencilTool)
     }
 
     func didTapTextButton(_ textField: UITextField) {
-        diaryEditCoverView.diaryView.currentToolSubject.send(nil)
+        diaryEditCoverView.diaryView.currentToolSubject.onNext(nil)
         // TODO: - 복수의 텍스트 필드 관리를 어떻게 하면 좋을 지..
         textField.frame = CGRect(x: 0, y: 0, width: 200, height: 30)
         textField.backgroundColor = .red
@@ -34,13 +34,13 @@ extension DiaryEditViewController: DYDrawableDelegate {
     func didEndEraseSetting(eraseType: EraseType, isObjectErase: Bool) {
         let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
         drawableViewModel.currentEraseTool = eraseTool
-        diaryEditCoverView.diaryView.currentToolSubject.send(eraseTool)
+        diaryEditCoverView.diaryView.currentToolSubject.onNext(eraseTool)
     }
 
     func didEndPencilSetting(color: UIColor, isHighlighter: Bool) {
         let pencilTool = DYPencilTool(color: color, isHighlighter: isHighlighter)
         drawableViewModel.currentPencilTool = pencilTool
-        diaryEditCoverView.diaryView.currentToolSubject.send(pencilTool)
+        diaryEditCoverView.diaryView.currentToolSubject.onNext(pencilTool)
     }
 
     func didEndTextStyleSetting() {
@@ -52,12 +52,12 @@ extension DiaryEditViewController: DYDrawableDelegate {
     }
 
     func showStickerPicekr() {
-        diaryEditCoverView.diaryView.currentToolSubject.send(nil)
+        diaryEditCoverView.diaryView.currentToolSubject.onNext(nil)
     }
 
     func didEndPhotoPick(_ image: UIImage) {
         // 사용 예시 코드
-        diaryEditCoverView.diaryView.currentToolSubject.send(nil)
+        diaryEditCoverView.diaryView.currentToolSubject.onNext(nil)
         
         let imageView = UIImageView(image: image)
         let imageRatio = image.size.height / image.size.width
