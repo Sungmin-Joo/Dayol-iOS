@@ -21,18 +21,12 @@ private enum Design {
     static let infoStackViewSpacing: CGFloat = 4.0
 
     static let titleStackViewSpacing: CGFloat = 5.0
-    static let titleStackViewTop: CGFloat = 24.0
+    static let titleStackViewTop: CGFloat = 20.0
     static let titleStackViewLeading: CGFloat = 30.0
     static let titleStackViewWidth: CGFloat = 315.0
 
-    static let eraseOptionStackViewTopMargin: CGFloat = 40.0
-    static let eraseOptionStackViewSideMargin: CGFloat = 60.0
-    static let eraseOptionTitleKern: CGFloat = -0.24
-    static let eraseOptionTitleFont = UIFont.systemFont(ofSize: 13.0, weight: .regular)
-    static let eraseOptionTitleColor: UIColor = .gray800
-
     static let separatorViewColor = UIColor(decimalRed: 233, green: 233, blue: 233)
-    static let separatorViewBottomMargin: CGFloat = 23
+    static let separatorViewTopMargin: CGFloat = 20.0
 
     static let objectEraseOptionStackViewBottomMargin: CGFloat = 20.0
     static let objectEraseOptionStackViewSideMargin: CGFloat = 30.0
@@ -41,41 +35,16 @@ private enum Design {
     static let objectEraseOptionTitleFont = UIFont.appleRegular(size: 16.0)
     static let objectEraseOptionBoldTitleFont = UIFont.appleBold(size: 16.0)
     static let objectEraseOptionTitleColor: UIColor = .gray900
-
-    static func eraseOptionButtonSpacing(_ eraseType: EraseType) -> CGFloat {
-        switch eraseType {
-        case .small: return 25.0
-        case .medium: return 15.0
-        case .large: return 5.0
-        }
-    }
     
 }
 
-enum EraseType: String, CaseIterable {
-    case small, medium, large
-
-    var image: UIImage? {
-        switch self {
-        case .small: return Assets.Image.ToolBar.Erase.small.image
-        case .medium: return Assets.Image.ToolBar.Erase.medium.image
-        case .large: return Assets.Image.ToolBar.Erase.large.image
-        }
-    }
-
-    var selectedImage: UIImage? {
-        switch self {
-        case .small: return Assets.Image.ToolBar.Erase.small.selectedImage
-        case .medium: return Assets.Image.ToolBar.Erase.medium.selectedImage
-        case .large: return Assets.Image.ToolBar.Erase.large.selectedImage
-        }
-    }
-}
-
 private enum Text {
-    static let title = "edit_eraser_size".localized
-    static let infoTitle = "edit_eraser_text".localized
-    static let ovjectEraseTitle = "edit_eraser_option".localized
+    static var infoTitle: String {
+        return "edit_eraser_text".localized
+    }
+    static var ovjectEraseTitle: String {
+        return "edit_eraser_option".localized
+    }
 
     static var ovjectEraseBoldRange: NSRange {
         let nsString = NSString(string: ovjectEraseTitle)
@@ -85,9 +54,8 @@ private enum Text {
 
 class EraseSettingView: UIView {
 
+    static let contentHeight: CGFloat = 130.0
     private let disposeBag = DisposeBag()
-
-    private(set) var currentEraseType: EraseType
     private(set) var isObjectErase: Bool
 
     // MARK: UI Property
@@ -99,42 +67,6 @@ class EraseSettingView: UIView {
         stackView.spacing = Design.titleStackViewSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
-    }()
-
-    private let eraseOptionStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.alignment = .bottom
-        stackView.distribution = .equalSpacing
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-
-    private lazy var buttons: [EraseOptionButton] = {
-        let buttons: [EraseOptionButton] = EraseType.allCases.map { eraseType in
-            let spacing = Design.eraseOptionButtonSpacing(eraseType)
-            let button = EraseOptionButton(spacing: spacing)
-            let attributedString = NSAttributedString.build(text: eraseType.rawValue,
-                                                            font: Design.eraseOptionTitleFont,
-                                                            align: .center,
-                                                            letterSpacing: Design.eraseOptionTitleKern,
-                                                            foregroundColor: Design.eraseOptionTitleColor)
-            button.setImage(eraseType.image, for: .normal)
-            button.setImage(eraseType.selectedImage, for: .selected)
-            button.setAttributedTitle(attributedString, for: .normal)
-            button.adjustsImageWhenHighlighted = false
-            button.rx.tap
-                .bind { [weak self] in
-                    self?.clearButtons()
-                    self?.currentEraseType = eraseType
-                    button.isSelected = true
-                }
-                .disposed(by: disposeBag)
-            if currentEraseType == eraseType {
-                button.isSelected = true
-            }
-            return button
-        }
-        return buttons
     }()
 
     private let separatorView: UIView = {
@@ -159,18 +91,15 @@ class EraseSettingView: UIView {
         return objectEraseSwitch
     }()
 
-    init(currentEraseType: EraseType = .small, isObjectErase: Bool = false) {
+    init(isObjectErase: Bool = false) {
         self.isObjectErase = isObjectErase
-        self.currentEraseType = currentEraseType
         super.init(frame: .zero)
         initView()
         setupConstraints()
         bindEvent()
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
 }
 
@@ -178,7 +107,6 @@ extension EraseSettingView {
 
     private func initView() {
         setupTitleArea()
-        setupEraseSettingArea()
         setupObjectEraseSettingArea()
 
         objectEraseSwitch.isOn = isObjectErase
@@ -187,12 +115,6 @@ extension EraseSettingView {
     }
 
     private func setupTitleArea() {
-        let titleLabel = UILabel()
-        titleLabel.attributedText = NSAttributedString.build(text: Text.title,
-                                                             font: Design.titleFont,
-                                                             align: .left,
-                                                             letterSpacing: Design.titleKern,
-                                                                foregroundColor: Design.titleColor)
         let infoTitleLabel = UILabel()
         infoTitleLabel.attributedText = NSAttributedString.build(text: Text.infoTitle,
                                                                  font: Design.infoTitleFont,
@@ -204,15 +126,9 @@ extension EraseSettingView {
         infoStackView.spacing = Design.infoStackViewSpacing
         infoStackView.alignment = .center
 
-        titleStackView.addArrangedSubview(titleLabel)
         titleStackView.addArrangedSubview(infoStackView)
 
         addSubview(titleStackView)
-    }
-
-    private func setupEraseSettingArea() {
-        buttons.forEach { eraseOptionStackView.addArrangedSubview($0) }
-        addSubview(eraseOptionStackView)
     }
 
     private func setupObjectEraseSettingArea() {
@@ -235,18 +151,10 @@ extension EraseSettingView {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            titleStackView.widthAnchor.constraint(equalToConstant: Design.titleStackViewWidth),
             titleStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
                                                     constant: Design.titleStackViewLeading),
             titleStackView.topAnchor.constraint(equalTo: topAnchor,
                                                 constant: Design.titleStackViewTop),
-
-            eraseOptionStackView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor,
-                                                      constant: Design.eraseOptionStackViewTopMargin),
-            eraseOptionStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
-                                                          constant: Design.eraseOptionStackViewSideMargin),
-            eraseOptionStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor,
-                                                          constant: -Design.eraseOptionStackViewSideMargin),
 
             objectEraseOptionStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
                                                                constant: -Design.objectEraseOptionStackViewBottomMargin),
@@ -254,16 +162,12 @@ extension EraseSettingView {
                                                                 constant: Design.objectEraseOptionStackViewSideMargin),
             objectEraseOptionStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor,
                                                                 constant: -Design.objectEraseOptionStackViewSideMargin),
-            separatorView.bottomAnchor.constraint(equalTo: objectEraseOptionStackView.topAnchor,
-                                                  constant: -Design.separatorViewBottomMargin),
+            separatorView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor,
+                                                  constant: Design.separatorViewTopMargin),
             separatorView.leadingAnchor.constraint(equalTo: objectEraseOptionStackView.leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: objectEraseOptionStackView.trailingAnchor),
             separatorView.heightAnchor.constraint(equalToConstant: 1)
         ])
-    }
-
-    private func clearButtons() {
-        buttons.forEach { $0.isSelected = false }
     }
 
     private func bindEvent() {
