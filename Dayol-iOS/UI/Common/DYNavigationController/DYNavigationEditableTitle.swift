@@ -25,6 +25,8 @@ private enum Design {
 }
 
 class DYNavigationEditableTitle: DYNavigationTitle {
+    let updatedTitle = PublishSubject<String?>()
+
     var isEditting = false {
         didSet {
             updateCurrentTitle()
@@ -95,6 +97,12 @@ class DYNavigationEditableTitle: DYNavigationTitle {
 
     private func updateCurrentTitle() {
         titleLabel.text = titleTextField.text
+        updatedTitle.onNext(titleLabel.text)
+    }
+
+    func setTitle(_ title: String) {
+        titleLabel.text = title
+        titleTextField.text = title
     }
 }
 

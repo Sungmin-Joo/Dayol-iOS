@@ -13,6 +13,10 @@ private enum Design {
     static let paletteHeight: CGFloat = 50
 }
 
+private enum Text: String {
+    case defaultTitle = "새 다이어리"
+}
+
 class DiaryEditViewController: DYDrawableViewController {
 
     // MARK: - Private Properties
@@ -24,7 +28,7 @@ class DiaryEditViewController: DYDrawableViewController {
 
     // MARK: - UI Components
 
-    private let titleView = DYNavigationItemCreator.editableTitleView("새 다이어리")
+    private let titleView = DYNavigationItemCreator.editableTitleView(Text.defaultTitle.rawValue)
     private let leftButton = DYNavigationItemCreator.barButton(type: .back)
     private let rightButton = DYNavigationItemCreator.barButton(type: .done)
     private let diaryEditToggleView: DiaryEditToggleView = {
@@ -149,8 +153,27 @@ class DiaryEditViewController: DYDrawableViewController {
                 self?.titleView.titleTextField.becomeFirstResponder()
             }
             .disposed(by: disposeBag)
+
+        titleView.updatedTitle
+            .bind { [weak self] title in
+                guard let self = self else { return }
+                let titleString = title ?? ""
+                self.checkTitleValidation(titleString)
+            }
+            .disposed(by: disposeBag)
     }
 
+    private func checkTitleValidation(_ title: String) {
+        if title.isEmpty {
+            let alert = DayolAlertController.init(title: "빈 타이틀", message:"빈 타이틀")
+            alert.addAction(.init(title: "확인", style: .default, handler: {
+                self.titleView.setTitle(Text.defaultTitle.rawValue)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            self.titleView.setTitle(title)
+        }
+    }
 }
 
 // MARK: - Password ViewController Subjects
