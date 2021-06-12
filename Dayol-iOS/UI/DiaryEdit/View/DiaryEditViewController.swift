@@ -15,6 +15,12 @@ private enum Design {
 
 private enum Text: String {
     case defaultTitle = "새 다이어리"
+    case emptyAlertTitle = "빈타이틀 Title"
+    case emptyAlertDesc = "빈타이틀 Desc"
+    case backAlertTitle = "뒤로가기 Title"
+    case backAlertDesc = "뒤로가기 Desc"
+    case confirm = "확인"
+    case cancel = "취소"
 }
 
 class DiaryEditViewController: DYDrawableViewController {
@@ -25,6 +31,7 @@ class DiaryEditViewController: DYDrawableViewController {
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let viewModel = DiaryEditViewModel()
     private var currentCoverColor: DiaryCoverColor = .DYBrown
+    private var password: String?
 
     // MARK: - UI Components
 
@@ -134,7 +141,14 @@ class DiaryEditViewController: DYDrawableViewController {
     private func navigationBind() {
         leftButton.rx.tap
             .bind { [weak self] in
-                self?.dismiss(animated: true, completion: nil)
+                guard let self = self else { return }
+
+                self.presentAlert(title: Text.backAlertTitle.rawValue,
+                                  desc: Text.backAlertDesc.rawValue,
+                                  confirm: {
+                                    self.dismiss(animated: true, completion: nil)
+                                  },
+                                  cancel: { })
             }
             .disposed(by: disposeBag)
         
@@ -144,7 +158,7 @@ class DiaryEditViewController: DYDrawableViewController {
                 
                 self.hideKeyboard()
                 
-                self.showPasswordViewController()
+                self.createDiaryInfo(self.password)
             }
             .disposed(by: disposeBag)
 
@@ -175,14 +189,26 @@ class DiaryEditViewController: DYDrawableViewController {
 
     private func checkTitleValidation(_ title: String) {
         if title.isEmpty {
-            let alert = DayolAlertController.init(title: "빈 타이틀", message:"빈 타이틀")
-            alert.addAction(.init(title: "확인", style: .default, handler: {
-                self.titleView.setTitle(Text.defaultTitle.rawValue)
-            }))
-            self.present(alert, animated: true, completion: nil)
+            presentAlert(title: Text.emptyAlertTitle.rawValue,
+                                desc: Text.emptyAlertDesc.rawValue,
+                                confirm: { [weak self] in
+                                    self?.titleView.setTitle(Text.defaultTitle.rawValue)
+                                },
+                                cancel: nil)
         } else {
             self.titleView.setTitle(title)
         }
+    }
+
+    private func presentAlert(title: String, desc: String, confirm: (() -> Void)?, cancel: (() -> Void)?) {
+        let alert = DayolAlertController.init(title: title, message: desc)
+        alert.addAction(.init(title: Text.confirm.rawValue, style: .default, handler: confirm))
+
+        if let cancelAction = cancel {
+            alert.addAction(.init(title: Text.cancel.rawValue, style: .cancel, handler: cancelAction))
+        }
+
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -200,6 +226,7 @@ private extension DiaryEditViewController {
             .subscribe(onNext: { [weak self] password in
                 viewController.dismiss(animated: true, completion: nil)
                 self?.diaryEditCoverView.setCoverLock(isLock: true)
+                self?.password = password
             }).disposed(by: self.disposeBag)
     }
 
