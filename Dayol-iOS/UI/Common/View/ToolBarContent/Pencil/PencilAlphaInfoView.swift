@@ -17,6 +17,7 @@ private enum Design {
     static let titleFont: UIFont = .appleBold(size: 14.0)
     static let titleSpacing: CGFloat = -0.26
     static let titleColor: UIColor = .gray900
+    static let titleSubColor: UIColor = .white
     static let titleSuffix: String = "%"
 }
 
@@ -53,15 +54,29 @@ extension PencilAlphaInfoView {
 
     func set(color: UIColor) {
         currentColorView.backgroundColor = color
+        updateLabelColor()
     }
 
-    func set(decimalAlpha: Int) {
+    func set(alpha: CGFloat) {
+        let decimalAlpha = Int(alpha * 100)
         let text = String(decimalAlpha) + Design.titleSuffix
         let attributedText = NSAttributedString.build(text: text,
                                                       font: Design.titleFont,
                                                       align: .center,
                                                       letterSpacing: Design.titleSpacing, foregroundColor: Design.titleColor)
         infoLabel.attributedText = attributedText
+        currentColorView.alpha = alpha
+        updateLabelColor()
+    }
+
+    private func updateLabelColor() {
+        if currentColorView.alpha < 0.5 {
+            infoLabel.textColor = Design.titleColor
+        } else if currentColorView.backgroundColor?.isHighBrightness == true {
+            infoLabel.textColor = Design.titleColor
+        } else {
+            infoLabel.textColor = Design.titleSubColor
+        }
     }
 
 }
@@ -79,4 +94,22 @@ extension PencilAlphaInfoView {
         addSubViewPinEdge(infoLabel)
     }
 
+}
+
+private extension UIColor {
+    var isHighBrightness: Bool {
+        var red : CGFloat = 0
+        var green : CGFloat = 0
+        var blue : CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: nil)
+
+        let threshold: CGFloat = 200 / 255
+
+        // spec: r, g, b 중 하나라도 200을 넘으면 밝은 컬러로 처리
+        if red > threshold || green > threshold || blue > threshold {
+            return true
+        }
+
+        return false
+    }
 }
