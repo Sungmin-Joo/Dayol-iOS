@@ -30,3 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
     }
 }
+
+extension AppDelegate {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Config.shared.deviceToken = deviceToken.map { String(format: "%02x", $0) }.joined()
+    }
+}
