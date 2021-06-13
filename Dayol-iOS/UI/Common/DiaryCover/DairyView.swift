@@ -7,6 +7,7 @@
 
 import UIKit
 import PencilKit
+import RxSwift
 import Combine
 
 private enum Design {
@@ -18,9 +19,11 @@ private enum Design {
 }
 
 class DiaryView: UIView {
-
-    let currentToolSubject = CurrentValueSubject<DYDrawTool?, Never>(nil)
-    private var cancellable: [AnyCancellable] = []
+    private let disposeBag = DisposeBag()
+    let currentToolSubject = BehaviorSubject<DYDrawTool?>(value: nil)
+    let didTappedLocker = PublishSubject<Void>()
+    //let currentToolSubject = CurrentValueSubject<DYDrawTool?, Never>(nil)
+    //private var cancellable: [AnyCancellable] = []
 
     // MARK: - UI Properties
 
@@ -75,6 +78,8 @@ class DiaryView: UIView {
         addSubview(coverView)
         addSubViewPinEdge(canvas)
         addSubview(lockerView)
+
+        setupGetsture()
     }
 
 	private func setConstraints() {
@@ -99,8 +104,18 @@ class DiaryView: UIView {
         self.lockerHeightConstraint = lockerHeightConstraint
 	}
 
+    private func setupGetsture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTappedLockerView))
+        lockerView.addGestureRecognizer(tapGesture)
+    }
+
+    @objc
+    private func didTappedLockerView() {
+        didTappedLocker.onNext(())
+    }
+
     private func bindEvent() {
-        currentToolSubject.sink { [weak self] tool in
+        currentToolSubject.bind { [weak self] tool in
             guard let pkTool = tool?.pkTool else {
                 self?.canvas.isUserInteractionEnabled = false
                 return
@@ -108,7 +123,7 @@ class DiaryView: UIView {
             self?.canvas.isUserInteractionEnabled = true
             self?.canvas.tool = pkTool
         }
-        .store(in: &cancellable)
+        .disposed(by: disposeBag)
     }
 }
 
