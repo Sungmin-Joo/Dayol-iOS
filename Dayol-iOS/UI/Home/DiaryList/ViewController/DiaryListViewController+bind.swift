@@ -73,15 +73,15 @@ extension DiaryListViewController {
 // MARK: - Password View Controller Subjects
 
 extension DiaryListViewController {
-    func showPasswordViewController(diaryCover: DiaryInfoModel) {
-        let coverColor: DiaryCoverColor = DiaryCoverColor.find(hex: diaryCover.colorHex) ?? .DYBrown
-
-        let passwordViewController = PasswordViewController(inputType: .check, diaryColor: coverColor, password: diaryCover.password)
+    func showPasswordViewController(diaryCover: Diary) {
+        let coverColor: PaletteColor = PaletteColor.find(hex: diaryCover.colorHex) ?? .DYBrown
+        // TODO: 패스워드 모델 정해지면 수정
+        let passwordViewController = PasswordViewController(inputType: .check, diaryColor: coverColor)
         bindDidPassedPassword(passwordViewController, diaryCover: diaryCover)
         present(passwordViewController, animated: true, completion: nil)
     }
     
-    func bindDidPassedPassword(_ viewController: PasswordViewController, diaryCover: DiaryInfoModel) {
+    func bindDidPassedPassword(_ viewController: PasswordViewController, diaryCover: Diary) {
         viewController.didPassedPassword
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -91,7 +91,7 @@ extension DiaryListViewController {
     }
     
     // TODO: Need Some Diary Inner Inpo. ex) Paper is Empty, Present Paper's Detail
-    private func showDiaryPaperViewController(diaryCover: DiaryInfoModel) {
+    private func showDiaryPaperViewController(diaryCover: Diary) {
         // TODO: - 다이어리 속지 표현을 위해 테스트 데이터를 넣어두었습니다.
         let diaryPaperViewModel = DiaryPaperViewerViewModel(coverModel: diaryCover)
         let diaryPaperViewController = DiaryPaperViewerViewController(viewModel: diaryPaperViewModel)

@@ -16,7 +16,7 @@ class DiaryListViewModel {
         case update(index: Int)
     }
 
-    private(set) var diaryList: [DiaryInfoModel] = []
+    private(set) var diaryList: [Diary] = []
     var diaryEvent = ReplaySubject<DiaryListEvent>.createUnbounded()
 
     init() {

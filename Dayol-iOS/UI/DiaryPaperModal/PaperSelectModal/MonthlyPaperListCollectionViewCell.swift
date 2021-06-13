@@ -75,11 +75,15 @@ final class MonthlyPaperListCollectionViewCell: UICollectionViewCell {
         paperNameLabel.attributedText = makeText(Text.add)
     }
 
-    func configure(model: PaperModel) {
-        let size = model.paperStyle == .vertical ? Design.Margin.verticalThumhailSize : Design.Margin.horizontalThumhailSize
+    func configure(model: Paper) {
+        guard let orientation = Paper.PaperOrientation(rawValue: model.orientation),
+              let paperType = PaperType(rawValue: model.type, date: model.date)
+        else { return }
+        
+        let size = orientation == .portrait ? Design.Margin.verticalThumhailSize : Design.Margin.horizontalThumhailSize
         let thumbnailImage = UIImage(data: model.thumbnail ?? Data())?.resizeImage(targetSize: size)
         paperImageView.image = thumbnailImage
-        paperNameLabel.attributedText = makeText(model.paperType.title)
+        paperNameLabel.attributedText = makeText(paperType.title)
     }
 
     private func makeText(_ text: String) -> NSAttributedString {

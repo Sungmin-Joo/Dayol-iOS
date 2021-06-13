@@ -1,0 +1,102 @@
+default_platform(:ios)
+
+platform :ios do
+	before_all do
+		if ! ENV['FL_BUILD_NUMBER'] then
+			ENV['FL_BUILD_NUMBER'] = DateTime.now.strftime("%Y.%m%d.%H%M")
+		end
+	end
+
+	## ================================================================================== ##
+	## =================================== TestFlight =================================== ##
+	## ================================================================================== ##
+
+	lane :build_testflight_prod do
+		desc "build TestFlight Product"
+
+		match(
+			app_identifier: "com.dayolstudio.dayol",
+	    	type: "appstore",
+	    	readonly: true
+		)
+
+	    increment_build_number(
+      		build_number: "#{upload_date}",
+      		xcodeproj: project
+    	)
+
+    	build_app(
+      		scheme: scheme_prod,
+      		workspace: workspace,
+      		configuration: "Release",
+      		export_method: "app-store"
+    	)
+
+    	upload_to_testflight(
+      		skip_waiting_for_build_processing: true
+    	)
+	end
+
+	lane :build_testflight_beta do
+		desc "build TestFlight Beta"
+
+		match(
+			app_identifier: "com.dayolstudio.dayol.beta",
+	    	type: "appstore",
+	    	readonly: true
+		)
+
+	    increment_build_number(
+      		build_number: "#{upload_date}",
+      		xcodeproj: project
+    	)
+
+    	build_app(
+      		scheme: scheme_beta,
+      		workspace: workspace,
+      		configuration: "Debug",
+      		export_method: "app-store"
+    	)
+
+    	upload_to_testflight(
+      		skip_waiting_for_build_processing: true
+    	)
+	end
+
+	## ============================================================================== ##
+	## =================================== Define =================================== ##
+	## ============================================================================== ##
+
+	## ================ Xcode Project ================ ##
+	def workspace
+		"Dayol-iOS.xcworkspace"
+	end
+
+	def project
+		"Dayol-iOS.xcodeproj"
+	end
+
+	## ================ Scheme ================ ##
+	def scheme
+		"DAYOL"
+	end
+
+	def scheme_beta
+		"DAYOL-BETA"
+	end
+
+	## ================ Path ================ ##
+	def archive_path
+		"#{output_directory}/archive"
+	end
+
+	def output_directory
+		"#{ENV["PWD"]}/builds/output/#{upload_date}"
+	end
+
+	## ================ Build Date ================ ##
+
+	def upload_date
+		"#{ENV['FL_BUILD_NUMBER']}"
+	end
+end

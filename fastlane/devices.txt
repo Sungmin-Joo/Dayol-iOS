@@ -1,0 +1,3 @@
+Device ID	Device Name
+00008101-001C604821F0001E	Seonho iPhone 12 Mini
+00008103-001C49100C3A001E	Seonho MacBook Air

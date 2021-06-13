@@ -18,7 +18,7 @@ private enum Text {
 }
 
 protocol PaperModalViewDelegate: NSObject {
-    func didTappedItem(_ index: PaperModel)
+    func didTappedItem(_ index: Paper)
     func didTappedAdd()
     func didSelectedDate(didSelected date: Date?)
     func didTappedMonthlyAdd()

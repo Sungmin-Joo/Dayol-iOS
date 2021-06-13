@@ -20,7 +20,7 @@ class DiaryEditViewController: DYDrawableViewController {
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let viewModel = DiaryEditViewModel()
-    private var currentCoverColor: DiaryCoverColor = .DYBrown
+    private var currentCoverColor: PaletteColor = .DYBrown
 
     // MARK: - UI Components
 
@@ -34,8 +34,8 @@ class DiaryEditViewController: DYDrawableViewController {
         return view
     }()
     
-    private let diaryEditPaletteView: DefaultColorCollectionView = {
-        let view = DefaultColorCollectionView()
+    private let diaryEditPaletteView: ColorPaletteView = {
+        let view = ColorPaletteView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -119,10 +119,10 @@ class DiaryEditViewController: DYDrawableViewController {
         diaryEditPaletteView.changedColor
             .distinctUntilChanged()
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] DYCoverColor in
+            .subscribe(onNext: { [weak self] paletteColor in
                 guard let self = self else { return }
-                self.diaryEditCoverView.setCoverColor(color: DYCoverColor)
-                self.currentCoverColor = DYCoverColor
+                self.diaryEditCoverView.setCoverColor(color: paletteColor)
+                self.currentCoverColor = paletteColor
             })
             .disposed(by: disposeBag)
     }
@@ -167,9 +167,18 @@ private extension DiaryEditViewController {
             .subscribe(onNext: { [weak self] password in
                 guard let self = self else { return }
                 guard let title = self.titleView.titleLabel.text else { return }
+                guard let thumbnail = self.diaryEditCoverView.asThumbnail?.pngData() else { return }
+                //TODO: 캔버스 수정할 것
+                let drawCanvasData = Data()
 
-                let diaryCoverModel = DiaryInfoModel(id: self.viewModel.diaryIdToCreate, color: self.currentCoverColor, title: title, totalPage: 0, password: password)
-                self.viewModel.createDiaryInfo(model: diaryCoverModel)
+                let diaryInfo = Diary(id: self.viewModel.diaryIdToCreate,
+                                      title: title,
+                                      colorHex: self.currentCoverColor.hexString,
+                                      thumbnail: thumbnail,
+                                      drawCanvas: drawCanvasData,
+                                      papers: [],
+                                      contents: [])
+                self.viewModel.createDiaryInfo(model: diaryInfo)
                 
                 self.dismiss(animated: true, completion: nil)
             }).disposed(by: self.disposeBag)

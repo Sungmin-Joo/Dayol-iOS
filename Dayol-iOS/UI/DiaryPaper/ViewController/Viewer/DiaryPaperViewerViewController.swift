@@ -27,7 +27,7 @@ class DiaryPaperViewerViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var cancellable = [Cancellable]()
     private let viewModel: DiaryPaperViewerViewModel
-    private var paperModels: [PaperModel]?
+    private var paperModels: [Paper]?
     
     var currentIndex: Int = -1
     
@@ -61,9 +61,9 @@ class DiaryPaperViewerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let coverColor: DiaryCoverColor = DiaryCoverColor.find(hex: viewModel.coverHex) ?? .DYBrown
+        let coverColor: PaletteColor = PaletteColor.find(hex: viewModel.coverHex) ?? .DYBrown
 
-        navigationController?.navigationBar.barTintColor = coverColor.coverColor
+        navigationController?.navigationBar.barTintColor = coverColor.uiColor
         super.viewWillAppear(animated)
     }
     
@@ -133,7 +133,7 @@ class DiaryPaperViewerViewController: UIViewController {
                     self.paperModels = papers
 
                     for (index, paper) in papers.enumerated() {
-                        let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: paper.numberOfPapers)
+                        let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: Int(paper.pageCount))
                         let paperViewController = DiaryPaperViewController(index: index, viewModel: paperViewModel)
 
                         paperViewController.didReceivedEvent
@@ -238,7 +238,7 @@ extension DiaryPaperViewerViewController {
 }
 
 extension DiaryPaperViewerViewController: PaperModalViewDelegate {
-    func didTappedItem(_ paper: PaperModel) {
+    func didTappedItem(_ paper: Paper) {
         guard let index = paperModels?.firstIndex(where: { $0.id == paper.id }) else { return }
         moveToPage(index: index)
     }
@@ -253,9 +253,9 @@ extension DiaryPaperViewerViewController: PaperModalViewDelegate {
 
     func didSelectedDate(didSelected date: Date?) {
         guard let currentVC = currentViewController, let pickedDate = date else { return }
-        let paperStyle = currentVC.paper.style
+        let orientaion = currentVC.paper.orientaion
 
-        viewModel.addPaper(.monthly(date: pickedDate), style: paperStyle)
+        viewModel.addPaper(.monthly(date: pickedDate), orientation: orientaion)
     }
 }
 
