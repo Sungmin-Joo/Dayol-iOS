@@ -36,9 +36,12 @@ class PencilAlphaSettingView: UIView {
     private let maxDecimalAlpha = 100
     private let minDecimalAlpha = 20
 
-    let decimalAlphaSubject = CurrentValueSubject<Int, Never>(100)
     private var cancellable: [AnyCancellable] = []
     private let disposeBag = DisposeBag()
+    let decimalAlphaSubject = CurrentValueSubject<Int, Never>(100)
+    var currentAlpha: CGFloat {
+        return CGFloat(decimalAlphaSubject.value) / 100.0
+    }
 
     // MARK: UI Property
 
@@ -96,8 +99,18 @@ class PencilAlphaSettingView: UIView {
 
 extension PencilAlphaSettingView {
 
-    func set(color: UIColor) {
+    func set(color: UIColor, alpha: CGFloat? = nil) {
+        if let alpha = alpha {
+            alphaLabelView.set(alpha: alpha)
+            decimalAlphaSubject.send(Int(alpha * 100))
+        } else {
+            alphaLabelView.set(alpha: currentAlpha)
+        }
         alphaLabelView.set(color: color)
+    }
+
+    func updateCurrentState() {
+        alphaLabelView.set(alpha: currentAlpha)
     }
 }
 
@@ -128,11 +141,6 @@ extension PencilAlphaSettingView {
     }
 
     private func bindEvent() {
-        decimalAlphaSubject.sink { [weak self] decimalAlpha in
-            self?.alphaLabelView.set(decimalAlpha: decimalAlpha)
-        }
-        .store(in: &cancellable)
-
         plusButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
@@ -140,6 +148,7 @@ extension PencilAlphaSettingView {
                 if decimalAlpha < self.maxDecimalAlpha {
                     self.decimalAlphaSubject.send(decimalAlpha + 20)
                 }
+                self.updateCurrentState()
             }
             .disposed(by: disposeBag)
 
@@ -150,6 +159,7 @@ extension PencilAlphaSettingView {
                 if decimalAlpha > self.minDecimalAlpha {
                     self.decimalAlphaSubject.send(decimalAlpha - 20)
                 }
+                self.updateCurrentState()
             }
             .disposed(by: disposeBag)
     }

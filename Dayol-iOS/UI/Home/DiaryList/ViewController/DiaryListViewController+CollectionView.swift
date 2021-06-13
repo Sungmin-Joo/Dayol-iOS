@@ -14,10 +14,10 @@ extension DiaryListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let diaryInfo = viewModel.diaryList[safe: indexPath.item] else { return }
 
-        if diaryInfo.password == nil {
-            showDiaryPaperViewController(diaryCover: diaryInfo)
-        } else {
+        if diaryInfo.isLock {
             showPasswordViewController(diaryCover: diaryInfo)
+        } else {
+            showDiaryPaperViewController(diaryCover: diaryInfo)
         }
     }
 
@@ -57,11 +57,14 @@ extension DiaryListViewController: UICollectionViewDataSource {
             let viewModel = viewModel.diaryList[safe: indexPath.row],
             let diaryListCell = cell as? DiaryListCell
         else {
-            return UICollectionViewCell()
+            return cell
         }
         diaryListCell.viewModel = viewModel
         diaryListCell.isEditMode = isEditMode
 
+        diaryListCell.didTapModeMenuButtonWithDiaryId = { [weak self] diaryID in
+            self?.showDiaryMoreMenu(diaryID: diaryID)
+        }
         return diaryListCell
     }
 

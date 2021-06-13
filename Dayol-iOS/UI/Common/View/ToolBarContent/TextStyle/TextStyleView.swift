@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 private enum Design {
     static let optionViewHeight: CGFloat = 110
@@ -13,12 +14,16 @@ private enum Design {
 
 class TextStyleView: UIView {
 
-    private let viewModel: TextStyleViewModel
+    private var cancellable: [AnyCancellable] = []
+    let attributesSubject: CurrentValueSubject<[NSAttributedString.Key: Any?], Never>
+    var currentAttributes: [NSAttributedString.Key: Any?] {
+        return attributesSubject.value
+    }
 
     // MARK: - UI Property
 
-    private let optionView: TextStyleOptionView = {
-        let view = TextStyleOptionView()
+    private lazy var optionView: TextStyleOptionView = {
+        let view = TextStyleOptionView(attributes: currentAttributes)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -29,26 +34,21 @@ class TextStyleView: UIView {
         return view
     }()
 
-    init(viewModel: TextStyleViewModel) {
-        self.viewModel = viewModel
+    init(attributes: [NSAttributedString.Key: Any?]) {
+        self.attributesSubject = CurrentValueSubject(attributes)
         super.init(frame: .zero)
         initView()
         setupConstraint()
+        bindEvent()
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
 }
 
 extension TextStyleView {
 
     private func initView() {
-        optionView.setTextStyleOption(alignment: viewModel.alignment,
-                                      textSize: viewModel.textSize,
-                                      additionalOptions: viewModel.additionalOptions,
-                                      lineSpacing: viewModel.lineSpacing)
         backgroundColor = .gray100
         addSubview(optionView)
         addSubview(fontView)
@@ -67,5 +67,19 @@ extension TextStyleView {
             fontView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
+
+    private func bindEvent() {
+
+        optionView.attributesSubject.sink { [weak self] attributes in
+            self?.attributesSubject.send(attributes)
+        }
+        .store(in: &cancellable)
+
+    }
+
+}
+
+extension TextStyleView {
+
 
 }

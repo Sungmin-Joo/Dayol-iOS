@@ -61,14 +61,14 @@ class AddPaperContentView: UIView {
         return collectionView
     }()
 
-    private(set) var currentTabType: PaperStyle {
+    private(set) var currentTabType: Paper.PaperOrientation {
         didSet {
             updateCurrentTabType()
         }
     }
 
     init() {
-        self.currentTabType = isPadDevice ? .horizontal : .vertical
+        self.currentTabType = isPadDevice ? .landscape : .portrait
         super.init(frame: .zero)
         setupViews()
         setupConstraints()
@@ -83,8 +83,8 @@ class AddPaperContentView: UIView {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     private func updateCurrentTabType() {
-        portraitTabButton.isSelected = currentTabType == .vertical
-        landscapeTabButton.isSelected = currentTabType == .horizontal
+        portraitTabButton.isSelected = currentTabType == .portrait
+        landscapeTabButton.isSelected = currentTabType == .landscape
         reloadData()
     }
 
@@ -159,13 +159,13 @@ extension AddPaperContentView {
 
         portraitTabButton.rx.tap
             .bind { [weak self] in
-                self?.currentTabType = .vertical
+                self?.currentTabType = .portrait
             }
             .disposed(by: disposeBag)
 
         landscapeTabButton.rx.tap
             .bind { [weak self] in
-                self?.currentTabType = .horizontal
+                self?.currentTabType = .landscape
             }
             .disposed(by: disposeBag)
     }

@@ -11,8 +11,8 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
-    static let contentLeftMargin: CGFloat = 30.0
-    static let contentRightMargin: CGFloat = 60.0
+    static let contentLeftMargin: CGFloat = 20.0
+    static let contentRightMargin: CGFloat = 20.0
 
     static let titleFont = UIFont.appleBold(size: 15)
     static let titleLineSpacing: CGFloat = -0.28
@@ -22,11 +22,19 @@ private enum Design {
     static let highlightOnImage = Assets.Image.ToolBar.Pencil.highlightOn
     static let highlightOffImage = Assets.Image.ToolBar.Pencil.highlightOff
 
+    enum OptionStackView {
+        static let buttonSize = CGSize(width: 130, height: 35)
+        static let spacing: CGFloat = 1.0
+        static let borderWidth: CGFloat = 1.0
+        static let borderColor: UIColor = .gray400
+        static let cornerRadius: CGFloat = 4.0
+    }
+
     static func titleAttributedText(_ text: String, isSelected: Bool = true) -> NSAttributedString {
         let textColor: UIColor = isSelected ? .gray900 : .gray600
         return NSAttributedString.build(text: text,
                                         font: Design.titleFont,
-                                        align: .center,
+                                        align: .left,
                                         letterSpacing: Design.titleLineSpacing,
                                         foregroundColor: textColor)
     }
@@ -83,10 +91,21 @@ class PencilTypeSettingView: UIView {
         return  button
     }()
 
+    private lazy var pencilOpionStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [penButton, highlightButton])
+        stackView.spacing = Design.OptionStackView.spacing
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        stackView.layer.borderWidth = Design.OptionStackView.borderWidth
+        stackView.layer.borderColor = Design.OptionStackView.borderColor.cgColor
+        stackView.layer.cornerRadius = Design.OptionStackView.cornerRadius
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
     private lazy var contentStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, penButton, highlightButton])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, pencilOpionStackView])
         stackView.alignment = .fill
-        stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -111,6 +130,11 @@ extension PencilTypeSettingView {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            penButton.widthAnchor.constraint(equalToConstant: Design.OptionStackView.buttonSize.width),
+            penButton.heightAnchor.constraint(equalToConstant: Design.OptionStackView.buttonSize.height),
+            highlightButton.widthAnchor.constraint(equalToConstant: Design.OptionStackView.buttonSize.width),
+            highlightButton.heightAnchor.constraint(equalToConstant: Design.OptionStackView.buttonSize.height),
+
             contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Design.contentLeftMargin),
             contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Design.contentRightMargin),
             contentStackView.topAnchor.constraint(equalTo: topAnchor),
@@ -125,10 +149,14 @@ extension PencilTypeSettingView {
             let isPen = value == .pen
             if isPen {
                 self.penButton.isSelected = true
+                self.penButton.backgroundColor = .white
                 self.highlightButton.isSelected = false
+                self.highlightButton.backgroundColor = .clear
             } else {
                 self.penButton.isSelected = false
+                self.penButton.backgroundColor = .clear
                 self.highlightButton.isSelected = true
+                self.highlightButton.backgroundColor = .white
             }
         }
         .store(in: &cancellable)

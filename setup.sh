@@ -76,28 +76,6 @@ echo "..."
 echo "${title_color}Install fastlane${defaults_color}"
 brew install fastlane
 
-# Install CocoaPod
-if ! command -v pod ;then
-	echo "${title_color}* Cocoapods install...${defualts_color}"
-	sudo gem install cocoapods
-else
-	echo "${title_color}* Cocoapods update...${defualts_color}"
-	sudo gem update cocoapods
-fi
-
-cocoaPods_version=$(pod --version)
-echo "${success_color}Cocoapods Version: ${cocoaPods_version}${defualts_color}"
-
-echo ""
-echo "${title_color}* pod clean...${defualts_color}"
-pod deintegrate
-pod cache clean --all
-rm -rf Podfile.lock
-
-echo ""
-echo "${title_color}* pod install...${defualts_color}"
-pod install
-
 echo "${success_color}"
 echo "================================"
 echo "Success Setup DAYOL-iOS Project"

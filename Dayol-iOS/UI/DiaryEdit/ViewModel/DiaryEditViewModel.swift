@@ -10,14 +10,14 @@ import RxSwift
 import RxCocoa
 
 class DiaryEditViewModel {
-    let diaryColors: [DiaryCoverColor] = DiaryCoverColor.allCases.filter { $0 != .DYDark}
+    let diaryColors: [PaletteColor] = PaletteColor.colorPreset.filter { $0 != .DYDark}
     let diaryInitalTitle: String = "새 다이어리"
 
     var diaryIdToCreate: String {
         DYTestData.shared.currentDiaryId
     }
 
-    func createDiaryInfo(model: DiaryInfoModel) {
+    func createDiaryInfo(model: Diary) {
         DYTestData.shared.addDiary(model)
     }
 }

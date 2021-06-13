@@ -10,5 +10,5 @@ import Foundation
 
 final class MonthlyPaperListViewModel {
     private let disposeBag = DisposeBag()
-    var paperModels: [PaperModel] { DYTestData.shared.paperList }
+    var paperModels: [Paper] { DYTestData.shared.paperList }
 }

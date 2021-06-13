@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Combine
 
 private enum Design {
     static let alignmentButtonLeftMargin: CGFloat = 16.0
@@ -24,22 +25,38 @@ private enum Design {
 
 class TextStyleOptionView: UIView {
 
-    private let disposeBag = DisposeBag()
+    enum Alignment: String {
+        case leading, center, trailing
 
-    private var alignment: TextStyleModel.Alignment = .leading {
+        var nextAlignment: Alignment {
+            switch self {
+            case .leading: return .center
+            case .center: return .trailing
+            case .trailing: return .leading
+            }
+        }
+
+        var imageName: String {
+            switch self {
+            case .leading: return "toolBar_textStyle_align_\(rawValue)"
+            case .center: return "toolBar_textStyle_align_\(rawValue)"
+            case .trailing: return "toolBar_textStyle_align_\(rawValue)"
+            }
+        }
+
+    }
+
+    private let disposeBag = DisposeBag()
+    private var cancellable: [AnyCancellable] = []
+
+    // alignment는 customView 없이 버튼으로 관리
+    private var alignment: Alignment = .leading {
         didSet { updateAlignmentButton() }
     }
 
-    private var textSize = 0 {
-        didSet { updateTextSize() }
-    }
-
-    private var additionalOptions: [TextStyleModel.AdditionalOption] = [] {
-        didSet { updateAdditionalOptions() }
-    }
-
-    private var lineSpacing = 0 {
-        didSet { updateLineSpacing() }
+    let attributesSubject: CurrentValueSubject<[NSAttributedString.Key: Any?], Never>
+    var currentAttributes: [NSAttributedString.Key: Any?] {
+        return attributesSubject.value
     }
 
     // MARK: - UI Property
@@ -52,7 +69,7 @@ class TextStyleOptionView: UIView {
     }()
 
     // 텍스트 사이즈 옵션 설정 뷰
-    private let textSizeView: TextStyleTextSizeOptionView = {
+    let textSizeView: TextStyleTextSizeOptionView = {
         let view = TextStyleTextSizeOptionView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -72,28 +89,16 @@ class TextStyleOptionView: UIView {
         return view
     }()
 
-    init() {
+    init(attributes: [NSAttributedString.Key: Any?]) {
+        self.attributesSubject = CurrentValueSubject(attributes)
         super.init(frame: .zero)
         initView()
         setupConstraints()
+        configureAttributes()
         bindEvent()
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func setTextStyleOption(
-        alignment: TextStyleModel.Alignment,
-        textSize: Int,
-        additionalOptions: [TextStyleModel.AdditionalOption],
-        lineSpacing: Int
-    ) {
-        self.alignment = alignment
-        self.textSize = textSize
-        self.additionalOptions = additionalOptions
-        self.lineSpacing = lineSpacing
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
 }
 
@@ -104,18 +109,6 @@ extension TextStyleOptionView {
     private func updateAlignmentButton() {
         let image = UIImage(named: alignment.imageName)
         alignmentButton.setImage(image, for: .normal)
-    }
-
-    private func updateTextSize() {
-        textSizeView.currentSize = textSize
-    }
-
-    private func updateAdditionalOptions() {
-        additionalOptionView.currnetOptions = Set(additionalOptions)
-    }
-
-    private func updateLineSpacing() {
-        lineSpaceOptionView.currentLineSpacing = lineSpacing
     }
 
 }
@@ -157,13 +150,114 @@ extension TextStyleOptionView {
         ])
     }
 
+    private func configureAttributes() {
+        typealias Default = DYFlexibleTextField.DefaultOption
+        let paragraphStyle = currentAttributes[.paragraphStyle] as? NSParagraphStyle
+        let alignment = getAlignment(paragraphStyle: paragraphStyle)
+        let font = currentAttributes[.font] as? UIFont ?? Default.defaultFont
+        let lineSpacing = paragraphStyle?.lineSpacing ?? Default.defaultLineSpacing
+
+        self.alignment = alignment
+        self.textSizeView.currentSize = Int(font.pointSize)
+        self.additionalOptionView.setAdditionalOption(attributes: currentAttributes)
+        self.lineSpaceOptionView.currentLineSpacing = lineSpacing
+    }
+
     private func bindEvent() {
         alignmentButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
                 self.alignment = self.alignment.nextAlignment
+
+                let paragraphStyle = NSMutableParagraphStyle()
+                switch self.alignment {
+                case .leading:
+                    paragraphStyle.alignment = .left
+                case .center:
+                    paragraphStyle.alignment = .center
+                case .trailing:
+                    paragraphStyle.alignment = .right
+                }
+
+                var currentAttributes = self.attributesSubject.value
+                currentAttributes[.paragraphStyle] = paragraphStyle
+                self.attributesSubject.send(currentAttributes)
             }
             .disposed(by: disposeBag)
+
+        textSizeView.textSizeSubject.sink { [weak self] fontSize in
+            guard
+                let self = self,
+                let font = self.attributesSubject.value[.font] as? UIFont
+            else { return }
+
+            let newFont = font.withSize(CGFloat(fontSize))
+            var newAttributes = self.attributesSubject.value
+            newAttributes[.font] = newFont
+            self.attributesSubject.send(newAttributes)
+        }
+        .store(in: &cancellable)
+
+        lineSpaceOptionView.currentLineSpacingSubject.sink { [weak self] lineSpacing in
+            guard let self = self else { return }
+
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = lineSpacing
+            var currentAttributes = self.attributesSubject.value
+            currentAttributes[.paragraphStyle] = paragraphStyle
+
+            self.attributesSubject.send(currentAttributes)
+        }
+        .store(in: &cancellable)
+
+        additionalOptionView.optionsSubject.sink { [weak self] optionSet in
+            guard
+                let self = self,
+                let font = self.attributesSubject.value[.font] as? UIFont
+            else { return }
+
+            var newAttributes = self.attributesSubject.value
+
+            if optionSet.contains(.bold) {
+                newAttributes[.font] = font.toBoldFont
+            } else {
+                newAttributes[.font] = font.toRegularFont
+            }
+
+            if optionSet.contains(.cancelLine) {
+                newAttributes[.strikethroughStyle] =  NSUnderlineStyle.single.rawValue
+            } else {
+                newAttributes[.strikethroughStyle] = 0
+            }
+
+            if optionSet.contains(.underLine) {
+                newAttributes[.underlineStyle] =  NSUnderlineStyle.single.rawValue
+            } else {
+                newAttributes[.underlineStyle] = 0
+            }
+
+            self.attributesSubject.send(newAttributes)
+        }
+        .store(in: &cancellable)
+
     }
 
 }
+
+// MARK: - NSAttribute -> TextStyleModel
+
+extension TextStyleOptionView {
+
+    /// NSParagraphStyle -> Alignment 전환
+    /// - default: Alignment.leading
+    func getAlignment(paragraphStyle: NSParagraphStyle?) -> Alignment {
+        guard let alignment = paragraphStyle?.alignment else { return .leading }
+        switch alignment {
+        case .center: return .center
+        case .right: return .trailing
+        default: return .leading
+        }
+    }
+
+}
+
