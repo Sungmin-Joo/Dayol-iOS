@@ -75,7 +75,6 @@ class DiaryEditCoverView: UIView {
         let view = DiaryView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setCover(color: .DYBrown)
-        
         return view
     }()
 
@@ -172,7 +171,7 @@ extension DiaryEditCoverView {
 
 extension DiaryEditCoverView {
 
-    func setCoverColor(color: DiaryCoverColor) {
+    func setCoverColor(color: PaletteColor) {
         diaryView.setCover(color: color)
     }
     

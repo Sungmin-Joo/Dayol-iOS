@@ -9,9 +9,11 @@ import UIKit
 import Combine
 
 private enum Design {
-    static let pencilTypeSettingViewHeight: CGFloat = 55.0
+    static let backgroundColor: UIColor = .gray100
+    static let pencilTypeSettingViewHeight: CGFloat = 35.0
     static let pencilAlphaSettingViewHeight: CGFloat = 30.0
     static let pencilAlphaSettingViewWidth: CGFloat = 275.0
+    static let stackViewTopMargin: CGFloat = 16.0
     static let stackViewBottomMargin: CGFloat = 25.0
 }
 
@@ -52,8 +54,9 @@ class PencilSettingView: UIView {
 
     init(currentColor: UIColor, pencilType: PencilTypeSettingView.PencilType) {
         pencilTypeSettingView.pencilTypeSubject.send(pencilType)
-        colorSettingView.set(color: currentColor)
-        pencilAlphaSettingView.set(color: currentColor)
+        pencilAlphaSettingView.set(color: currentColor,
+                                   alpha: currentColor.cgColor.alpha)
+        colorSettingView.set(color: currentColor.withAlphaComponent(1))
 
         self.currentPencilInfo = (color: currentColor, pencilType: pencilType)
         super.init(frame: .zero)
@@ -71,6 +74,7 @@ class PencilSettingView: UIView {
 extension PencilSettingView {
 
     private func initView() {
+        backgroundColor = Design.backgroundColor
         contentStackView.addArrangedSubview(pencilTypeSettingView)
         contentStackView.addArrangedSubview(colorSettingView)
         contentStackView.addArrangedSubview(pencilAlphaSettingView)
@@ -87,7 +91,8 @@ extension PencilSettingView {
             pencilAlphaSettingView.widthAnchor.constraint(equalToConstant: Design.pencilAlphaSettingViewWidth),
             pencilAlphaSettingView.heightAnchor.constraint(equalToConstant: Design.pencilAlphaSettingViewHeight),
 
-            contentStackView.topAnchor.constraint(equalTo: topAnchor),
+            contentStackView.topAnchor.constraint(equalTo: topAnchor,
+                                                  constant: Design.stackViewTopMargin),
             contentStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
                                                      constant: -Design.stackViewBottomMargin),
             contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -103,8 +108,17 @@ extension PencilSettingView {
         .store(in: &cancellable)
 
         colorSettingView.colorSubject.sink { [weak self] color in
-            self?.currentPencilInfo.color = color
-            self?.pencilAlphaSettingView.set(color: color)
+            guard let self = self else { return }
+            let currentAlpha = self.pencilAlphaSettingView.currentAlpha
+            self.currentPencilInfo.color = color.withAlphaComponent(currentAlpha)
+            self.pencilAlphaSettingView.set(color: color)
+        }
+        .store(in: &cancellable)
+
+        pencilAlphaSettingView.decimalAlphaSubject.sink { [weak self] decimalAlpha in
+            guard let currentColor = self?.currentPencilInfo.color else { return }
+            let alpha = CGFloat(decimalAlpha) / 100
+            self?.currentPencilInfo.color = currentColor.withAlphaComponent(alpha)
         }
         .store(in: &cancellable)
 

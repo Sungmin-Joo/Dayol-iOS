@@ -113,13 +113,13 @@ class DiaryView: UIView {
 }
 
 extension DiaryView {
-    func setCover(color: DiaryCoverColor) {
+    func setCover(color: PaletteColor) {
         UIViewPropertyAnimator.runningPropertyAnimator(
             withDuration: 0.2,
             delay: 0,
             options: .curveEaseInOut
         ) {
-            self.coverView.backgroundColor = color.coverColor
+            self.coverView.backgroundColor = color.uiColor
             self.lockerView.backgroundColor = color.lockerColor
         }
     }

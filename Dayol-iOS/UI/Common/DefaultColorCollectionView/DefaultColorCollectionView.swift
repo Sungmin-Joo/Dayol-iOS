@@ -1,5 +1,9 @@
 //
+<<<<<<< HEAD:Dayol-iOS/UI/Common/DefaultColorCollectionView/DefaultColorCollectionView.swift
 //  DefaultColorCollectionView.swift
+=======
+//  ColorPaletteView.swift
+>>>>>>> 3fc72df91b5b3c46f32bd17f191407eba1b81b17:Dayol-iOS/UI/Common/View/ColorPalette/ColorPaletteView.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/01/04.
@@ -20,6 +24,7 @@ private enum Design {
     }
 }
 
+<<<<<<< HEAD:Dayol-iOS/UI/Common/DefaultColorCollectionView/DefaultColorCollectionView.swift
 private enum Text: String {
     case select = "색상"
 }
@@ -29,6 +34,12 @@ final class DefaultColorCollectionView: UIView {
     private var usesHeader: Bool = false
 
     private var model: [DiaryCoverColor]? {
+=======
+class ColorPaletteView: UIView {
+    // MARK: - Private Properties
+    
+    private var model: [PaletteColor]? {
+>>>>>>> 3fc72df91b5b3c46f32bd17f191407eba1b81b17:Dayol-iOS/UI/Common/View/ColorPalette/ColorPaletteView.swift
         didSet {
             collectionView.reloadData()
         }
@@ -36,8 +47,13 @@ final class DefaultColorCollectionView: UIView {
 
     // MARK: - Subjects
 
+<<<<<<< HEAD:Dayol-iOS/UI/Common/DefaultColorCollectionView/DefaultColorCollectionView.swift
     let changedColor = PublishSubject<DiaryCoverColor>()
 
+=======
+    let changedColor = PublishSubject<PaletteColor>()
+    
+>>>>>>> 3fc72df91b5b3c46f32bd17f191407eba1b81b17:Dayol-iOS/UI/Common/View/ColorPalette/ColorPaletteView.swift
     // MARK: - UI Components
 
     private var collectionViewWidthForIpad = NSLayoutConstraint()
@@ -131,8 +147,13 @@ final class DefaultColorCollectionView: UIView {
     }
 }
 
+<<<<<<< HEAD:Dayol-iOS/UI/Common/DefaultColorCollectionView/DefaultColorCollectionView.swift
 extension DefaultColorCollectionView {
     var colors: [DiaryCoverColor]? {
+=======
+extension ColorPaletteView {
+    var colors: [PaletteColor]? {
+>>>>>>> 3fc72df91b5b3c46f32bd17f191407eba1b81b17:Dayol-iOS/UI/Common/View/ColorPalette/ColorPaletteView.swift
         get {
             return self.model
         }
@@ -168,7 +189,11 @@ extension DefaultColorCollectionView {
 
 // MARK: - CollectionView DataSource
 
+<<<<<<< HEAD:Dayol-iOS/UI/Common/DefaultColorCollectionView/DefaultColorCollectionView.swift
 extension DefaultColorCollectionView: UICollectionViewDataSource {
+=======
+extension ColorPaletteView: UICollectionViewDataSource {
+>>>>>>> 3fc72df91b5b3c46f32bd17f191407eba1b81b17:Dayol-iOS/UI/Common/View/ColorPalette/ColorPaletteView.swift
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let colors = model else { return 0 }
         return colors.count
@@ -186,10 +211,56 @@ extension DefaultColorCollectionView: UICollectionViewDataSource {
 
 // MARK: - ColletionView Delegate
 
+<<<<<<< HEAD:Dayol-iOS/UI/Common/DefaultColorCollectionView/DefaultColorCollectionView.swift
 extension DefaultColorCollectionView: UICollectionViewDelegate {
+=======
+extension ColorPaletteView: UICollectionViewDelegate {
+>>>>>>> 3fc72df91b5b3c46f32bd17f191407eba1b81b17:Dayol-iOS/UI/Common/View/ColorPalette/ColorPaletteView.swift
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let color = self.model?[safe: indexPath.item] else { return }
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         changedColor.onNext(color)
+    }
+}
+
+// MARK: - Public Color Interaction
+
+extension ColorPaletteView {
+
+    var currentDYColor: PaletteColor? {
+        guard
+            let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first,
+            let color = colors?[selectedIndexPath.row]
+        else {
+            return nil
+        }
+        return color
+    }
+
+    func selectColor(_ color: PaletteColor) {
+        guard
+            let colors = colors?.enumerated(),
+            let index = colors.filter({ $1 == color }).first?.offset
+        else { return }
+
+        let indexPath = IndexPath(item: index, section: 0)
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)
+    }
+
+    func deselectColorItem(animated: Bool = true) {
+        collectionView.indexPathsForSelectedItems?.forEach {
+            collectionView.deselectItem(at: $0, animated: animated)
+        }
+    }
+
+}
+
+// MARK: - Public CollectionView Control
+
+extension ColorPaletteView {
+    func setInset(_ sectionInset: UIEdgeInsets) {
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.sectionInset = sectionInset
+        }
     }
 }

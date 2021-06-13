@@ -61,7 +61,7 @@ class DiaryListCell: UICollectionViewCell {
             self.diaryViewHeightConstraint?.constant = diaryHeight
         }
     }
-
+    var didTapModeMenuButtonWithDiaryId: ((String) -> Void)?
     var viewModel: DiaryInfoModel? {
         didSet {
             configure()
@@ -132,7 +132,7 @@ class DiaryListCell: UICollectionViewCell {
     private func configure() {
         guard let viewModel = viewModel else { return }
         let subTitle = "\(viewModel.totalPage)page"
-        let coverColor: DiaryCoverColor = DiaryCoverColor.find(hex: viewModel.colorHex) ?? .DYBrown
+        let coverColor: PaletteColor = PaletteColor.find(hex: viewModel.colorHex) ?? .DYBrown
 
         diaryCoverView.setCover(color: coverColor)
         titleLabel.attributedText = Design.attributedTitle(text: viewModel.title)
@@ -185,10 +185,11 @@ extension DiaryListCell {
 extension DiaryListCell {
 
     private func bind() {
-        actionButton.rx.tap.subscribe(onNext: {
+        actionButton.rx.tap.bind { [weak self] in
+            guard let self = self, let viewModel = self.viewModel else { return }
             // TODO: - action sheet
-            debugPrint("TODO: - action sheet")
-        })
+            self.didTapModeMenuButtonWithDiaryId?(viewModel.id)
+        }
         .disposed(by: disposeBag)
     }
 
