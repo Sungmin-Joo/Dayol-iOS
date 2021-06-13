@@ -29,12 +29,14 @@ class DiaryView: UIView {
 
     private let coverView = DiaryCoverView()
     private let lockerView = DiaryLockerView()
-    private let canvas = PKCanvasView()
+    let canvas = PKCanvasView()
 
     private var lockerMarginConstraint: NSLayoutConstraint?
     private var lockerWidthConstraint: NSLayoutConstraint?
     private var lockerHeightConstraint: NSLayoutConstraint?
+    private var items: [DecorationItem] = []
 
+    var hasLogo: Bool = false
     var isLock: Bool = false {
         didSet {
             guard isLock else {
@@ -140,6 +142,17 @@ extension DiaryView {
     }
     
     func setDayolLogoHidden(_ isHidden: Bool) {
+        hasLogo = isHidden
         coverView.setDayolLogoHidden(isHidden)
     }
+}
+
+// MARK: - Control Decoration Item
+
+extension DiaryView {
+
+    var toItems: [DecorationItem] {
+        return []
+    }
+
 }

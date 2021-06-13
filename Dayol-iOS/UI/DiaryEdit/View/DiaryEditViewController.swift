@@ -233,18 +233,34 @@ private extension DiaryEditViewController {
 
     func createDiaryInfo(_ password: String?) {
         guard let title = self.titleView.titleLabel.text else { return }
+        let diaryView = self.diaryEditCoverView.diaryView
         let isLock = password != nil
+        let drawing = diaryView.canvas.drawing
+        let hasLogo = diaryView.hasLogo
+        let contents = createContents()
+        var drawCanvasData = Data()
+
+        let encoder = JSONEncoder()
+        if let drawingData = try? encoder.encode(drawing) {
+            drawCanvasData = drawingData
+        }
+
         let diaryModel = Diary(id: viewModel.diaryIdToCreate,
                                isLock: isLock,
                                title: title,
                                colorHex: currentCoverColor.hexString,
+                               hasLogo: hasLogo,
                                thumbnail: diaryEditCoverView.asThumbnail?.pngData() ?? Data(),
-                               drawCanvas: Data(),
+                               drawCanvas: drawCanvasData,
                                papers: [],
-                               contents: [])
+                               contents: contents)
 
         self.viewModel.createDiaryInfo(model: diaryModel)
         self.dismiss(animated: true, completion: nil)
+    }
+
+    func createContents() -> [DecorationItem] {
+        return []
     }
 }
 
