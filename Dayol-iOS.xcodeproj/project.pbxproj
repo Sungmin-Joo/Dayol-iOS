@@ -242,6 +242,8 @@
 		0DEAD262267606C8009A3554 /* DecorationTextFieldItemMO+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecorationTextFieldItemMO+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0DEAD263267606C8009A3554 /* DecorationStickerItemMO+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecorationStickerItemMO+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0DEAD2732676082E009A3554 /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
+		0DEAD27726765785009A3554 /* Beta.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Beta.xcconfig; sourceTree = "<group>"; };
+		0DEAD27826765793009A3554 /* Product.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Product.xcconfig; sourceTree = "<group>"; };
 		0DF60D992673927F00F0A1E8 /* DAYOL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DAYOL.entitlements; path = SupportingFiles/DAYOL.entitlements; sourceTree = SOURCE_ROOT; };
 		0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		0DF60D9F2673AC8D00F0A1E8 /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
@@ -518,6 +520,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		0DEAD275267650A7009A3554 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				0DEAD27726765785009A3554 /* Beta.xcconfig */,
+				0DEAD27826765793009A3554 /* Product.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		0DF60D9A26739D5500F0A1E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -556,6 +567,7 @@
 		0DFF4D802642E8B900B8218B /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				0DEAD275267650A7009A3554 /* Config */,
 				0DA235A326611352003AA15F /* GoogleService */,
 				0DF60D992673927F00F0A1E8 /* DAYOL.entitlements */,
 				0DE0D1EC26611ED000A302EB /* DAYOLBeta.entitlements */,
@@ -1835,6 +1847,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "$(OTHER_SWIFT_FLAGS)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1899,14 +1912,13 @@
 		};
 		DA4899F8257A08A8005E39ED /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DEAD27726765785009A3554 /* Beta.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SupportingFiles/DAYOLBeta.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DAYOL_Bundle_Identifier = com.dayolstudio.dayol.beta;
-				DAYOL_Name = "DAYOL Beta\n";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UB34G768WF;
 				ENABLE_BITCODE = NO;
@@ -1919,6 +1931,7 @@
 					"$(inherited)",
 					"-ObjC",
 				);
+				OTHER_SWIFT_FLAGS = "$(OTHER_SWIFT_FLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.dayol.beta;
 				PRODUCT_NAME = "DAYOL Beta";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1930,14 +1943,13 @@
 		};
 		DA4899F9257A08A8005E39ED /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DEAD27826765793009A3554 /* Product.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SupportingFiles/DAYOL.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DAYOL_Bundle_Identifier = com.dayolstudio.dayol;
-				DAYOL_Name = DAYOL;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UB34G768WF;
 				ENABLE_BITCODE = NO;
@@ -1950,6 +1962,7 @@
 					"$(inherited)",
 					"-ObjC",
 				);
+				OTHER_SWIFT_FLAGS = "$(OTHER_SWIFT_FLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.dayol;
 				PRODUCT_NAME = DAYOL;
 				PROVISIONING_PROFILE_SPECIFIER = "";

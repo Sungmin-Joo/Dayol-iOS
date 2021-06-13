@@ -52,15 +52,16 @@ final class FBLog: Analytics {
 }
 
 enum DYLog {
-    enum LogType {
-        case coreData
-        case cloudKit
+    enum LogType: String {
+        case debug = "🍎"
+        case coreData = "📒"
+        case cloudKit = "☁️"
     }
 
     /// error log
     static func e(_ key: LogType, value: String) {
         #if DEBUG
-        print("\(Date.now) [🧨] - [ERROR] KEY: \(key) Message: \(value)")
+        print("\(Date.now) [🩸] - [ERROR] KEY: \(key) Message: \(value)")
         #endif
         return
     }
@@ -68,7 +69,7 @@ enum DYLog {
     /// debuging log
     static func d(_ key: LogType, value: String) {
         #if DEBUG
-        print("\(Date.now) [🔧] - [DEBUG] KEY: \(key) Message: \(value)")
+        print("\(Date.now) [\(key.rawValue)] - [DEBUG] KEY: \(key) Message: \(value)")
         #endif
         return
     }
