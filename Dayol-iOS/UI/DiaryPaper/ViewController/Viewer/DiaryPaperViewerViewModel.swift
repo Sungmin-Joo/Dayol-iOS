@@ -30,7 +30,7 @@ class DiaryPaperViewerViewModel {
             .asObservable()
     }
 
-    func addPaper(_ type: PaperType, style: PaperStyle) {
+    func addPaper(_ type: PaperType, orientation: Paper.PaperOrientation) {
         guard model.contain(paperType: type) == false else { return }
         // TODO: 모델 init 간편화 필요
         // TODO: Model을 따로두고 Model이 Entity와 소통하도록 변경해야함
@@ -38,20 +38,13 @@ class DiaryPaperViewerViewModel {
                           diaryId: diaryId,
                           title: type.title,
                           pageCount: 1,
-                          orientation: .init(value: style),
+                          orientation: orientation,
                           type: .init(value: type),
-                          width: style.size.width,
-                          height: style.size.height,
+                          size: PaperOrientationConstant.size(orentantion: orientation),
                           thumbnail: nil,
                           drawCanvas: Data(),
                           contents: [],
                           date: type.date)
-//        let paper = PaperModel(id: DYTestData.shared.currentPaperId,
-//                               diaryId: coverModel.id,
-//                               paperStyle: style,
-//                               paperType: type,
-//                               numberOfPapers: 1,
-//                               drawModelList: DrawModel()
         model.add(paper: paper)
     }
 

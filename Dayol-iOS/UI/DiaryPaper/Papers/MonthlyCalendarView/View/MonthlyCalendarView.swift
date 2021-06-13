@@ -10,11 +10,11 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
-    static func headerHeight(style: PaperStyle) -> CGFloat {
+    static func headerHeight(style: Paper.PaperOrientation) -> CGFloat {
         switch style {
-        case .vertical:
+        case .portrait:
             return 125
-        case .horizontal:
+        case .landscape:
             return 81
         }
     }
@@ -45,8 +45,8 @@ class MonthlyCalendarView: BasePaper {
         return collectionView
     }()
     
-    override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
-        super.configure(viewModel: viewModel, paperStyle: paperStyle)
+    override func configure(viewModel: PaperViewModel, orientation: Paper.PaperOrientation) {
+        super.configure(viewModel: viewModel, orientation: orientation)
         contentView.addSubview(headerView)
         contentView.addSubview(collectionView)
         setupConstraints()
@@ -60,12 +60,12 @@ class MonthlyCalendarView: BasePaper {
     }
 
     private func setupConstraints() {
-        guard let paperStyle = self.paperStyle else { return }
+        guard let orientation = self.orientation else { return }
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(style: paperStyle)),
+            headerView.heightAnchor.constraint(equalToConstant: Design.headerHeight(style: orientation)),
             
             collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
             collectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor),

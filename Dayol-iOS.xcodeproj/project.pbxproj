@@ -43,7 +43,7 @@
 		3416445725D8C20600A81FD2 /* DeletedPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416445625D8C20600A81FD2 /* DeletedPageViewModel.swift */; };
 		3416446225D96C3100A81FD2 /* DeletedPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416446125D96C3100A81FD2 /* DeletedPageCell.swift */; };
 		3416447F25DAB62100A81FD2 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416447E25DAB62100A81FD2 /* CALayer+Extension.swift */; };
-		3416448925DC05A900A81FD2 /* FourPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416448825DC05A900A81FD2 /* FourPaper.swift */; };
+		3416448925DC05A900A81FD2 /* QuartetPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416448825DC05A900A81FD2 /* QuartetPaper.swift */; };
 		3434B76B25A4797B00506152 /* DYModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434B76A25A4797B00506152 /* DYModalViewController.swift */; };
 		3434B76F25A479D800506152 /* DYModalConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434B76E25A479D800506152 /* DYModalConfiguration.swift */; };
 		3446621125C0480700656775 /* PaperPresentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3446621025C0480700656775 /* PaperPresentView.swift */; };
@@ -234,7 +234,7 @@
 		3416445625D8C20600A81FD2 /* DeletedPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedPageViewModel.swift; sourceTree = "<group>"; };
 		3416446125D96C3100A81FD2 /* DeletedPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedPageCell.swift; sourceTree = "<group>"; };
 		3416447E25DAB62100A81FD2 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
-		3416448825DC05A900A81FD2 /* FourPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourPaper.swift; sourceTree = "<group>"; };
+		3416448825DC05A900A81FD2 /* QuartetPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuartetPaper.swift; sourceTree = "<group>"; };
 		3434B76A25A4797B00506152 /* DYModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYModalViewController.swift; sourceTree = "<group>"; };
 		3434B76E25A479D800506152 /* DYModalConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYModalConfiguration.swift; sourceTree = "<group>"; };
 		3446621025C0480700656775 /* PaperPresentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperPresentView.swift; sourceTree = "<group>"; };
@@ -742,7 +742,7 @@
 				34A2EDC725B86082008DB98D /* DailyPaper.swift */,
 				34A2EDCE25B87953008DB98D /* GridPaper.swift */,
 				3446621E25C1A07A00656775 /* CornellPaper.swift */,
-				3416448825DC05A900A81FD2 /* FourPaper.swift */,
+				3416448825DC05A900A81FD2 /* QuartetPaper.swift */,
 				DA27AC5725C6D68600C71CDE /* WeeklyCalendarView */,
 				DAF18EA025B70FAB007ACFAC /* MonthlyCalendarView */,
 			);
@@ -1651,7 +1651,7 @@
 				340E56AA25C831E2007F2EF7 /* InfoView.swift in Sources */,
 				CE8DCB25258FAE72007738EA /* Array+extension.swift in Sources */,
 				DA27AC5B25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift in Sources */,
-				3416448925DC05A900A81FD2 /* FourPaper.swift in Sources */,
+				3416448925DC05A900A81FD2 /* QuartetPaper.swift in Sources */,
 				CE8DCAE1258D28F4007738EA /* HomeViewController.swift in Sources */,
 				DAD489EF26026A33008B542E /* DrawingContentView.swift in Sources */,
 				DA9A872F2610A93200ABCD07 /* DYStickerBaseView.swift in Sources */,

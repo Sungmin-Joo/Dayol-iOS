@@ -172,10 +172,11 @@ private extension DiaryEditViewController {
                 let drawCanvasData = Data()
 
                 let diaryInfo = Diary(id: self.viewModel.diaryIdToCreate,
-                                      title: title, papers: [],
+                                      title: title,
                                       colorHex: self.currentCoverColor.hexString,
                                       thumbnail: thumbnail,
                                       drawCanvas: drawCanvasData,
+                                      papers: [],
                                       contents: [])
                 self.viewModel.createDiaryInfo(model: diaryInfo)
                 

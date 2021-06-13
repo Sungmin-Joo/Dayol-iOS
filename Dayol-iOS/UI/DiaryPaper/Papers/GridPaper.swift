@@ -11,23 +11,21 @@ import RxSwift
 private enum Design {
     static let gridLineWidth: CGFloat = 1
     static let gridColor = UIColor(decimalRed: 233, green: 233, blue: 233, alpha: 0.5)
-}
 
-private extension PaperStyle {
     static let gridCellWidth: CGFloat = 20.0
     static let gridCellHeight: CGFloat = 20.0
 
-    var numberOfCellInRow: Int {
-        return Int(size.width / Self.gridCellWidth) + 1
+    static func numberOfCellInRow(orientation: Paper.PaperOrientation) -> Int {
+        return Int(PaperOrientationConstant.size(orentantion: orientation).width / Self.gridCellWidth) + 1
     }
 
-    var numberOfCellInCol: Int {
-        return Int(size.height / Self.gridCellHeight) + 1
+    static func numberOfCellInCol(orientation: Paper.PaperOrientation) -> Int {
+        return Int(PaperOrientationConstant.size(orentantion: orientation).height / Self.gridCellHeight) + 1
     }
 
-    var gridSize: CGSize {
-        return CGSize(width: Self.gridCellWidth * CGFloat(numberOfCellInRow),
-                      height: Self.gridCellHeight * CGFloat(numberOfCellInCol))
+    static func gridSize(orientation: Paper.PaperOrientation) -> CGSize {
+        return CGSize(width: Self.gridCellWidth * CGFloat(Self.numberOfCellInRow(orientation: orientation)),
+                      height: Self.gridCellHeight * CGFloat(Self.numberOfCellInCol(orientation: orientation)))
     }
 }
 
@@ -40,8 +38,8 @@ class GridPaper: BasePaper {
         return imageView
     }()
 
-    override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
-        super.configure(viewModel: viewModel, paperStyle: paperStyle)
+    override func configure(viewModel: PaperViewModel, orientation: Paper.PaperOrientation) {
+        super.configure(viewModel: viewModel, orientation: orientation)
         gridImageView.image = getGridImage()
         gridImageView.contentMode = .topLeft
 
@@ -52,9 +50,9 @@ class GridPaper: BasePaper {
 private extension GridPaper {
 
     func getGridImage() -> UIImage? {
-        guard let paperStyle = self.paperStyle else { return nil }
+        guard let orientation = self.orientation else { return nil }
         
-        UIGraphicsBeginImageContextWithOptions(paperStyle.gridSize, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(Design.gridSize(orientation: orientation), false, 0.0)
 
         guard let context = UIGraphicsGetCurrentContext() else {
             UIGraphicsEndImageContext()
@@ -65,19 +63,19 @@ private extension GridPaper {
         context.setLineWidth(Design.gridLineWidth)
         context.setLineCap(.square)
 
-        for row in 0..<paperStyle.numberOfCellInCol + 1 {
-            let positionY = row * Int(PaperStyle.gridCellHeight)
+        for row in 0..<Design.numberOfCellInCol(orientation: orientation) + 1 {
+            let positionY = row * Int(Design.gridCellHeight)
             let startPoint = CGPoint(x: 0, y: positionY)
-            let endPoint = CGPoint(x: Int(paperStyle.gridSize.width), y: positionY)
+            let endPoint = CGPoint(x: Int(Design.gridSize(orientation: orientation).width), y: positionY)
 
             context.move(to: startPoint)
             context.addLine(to: endPoint)
         }
 
-        for col in 0..<paperStyle.numberOfCellInRow + 1{
-            let positionX = col * Int(PaperStyle.gridCellWidth)
+        for col in 0..<Design.numberOfCellInRow(orientation: orientation) + 1{
+            let positionX = col * Int(Design.gridCellWidth)
             let startPoint = CGPoint(x: positionX, y: 0)
-            let endPoint = CGPoint(x: positionX, y: Int(paperStyle.gridSize.height))
+            let endPoint = CGPoint(x: positionX, y: Int(Design.gridSize(orientation: orientation).height))
 
             context.move(to: startPoint)
             context.addLine(to: endPoint)

@@ -26,16 +26,17 @@ class DiaryPaperViewController: UIViewController {
     private let disposeBag = DisposeBag()
 
     private var scaleVariable: CGFloat {
-        let paperStyle = viewModel.paperStyle
+        let orientation = viewModel.orientation
+        let paperSize = PaperOrientationConstant.size(orentantion: orientation)
         if isPadDevice {
-            switch paperStyle {
-            case .vertical:
-                return paperScrollView.frame.height / paperStyle.size.height
-            case .horizontal:
-                return paperScrollView.frame.width / paperStyle.size.width
+            switch orientation {
+            case .portrait:
+                return paperScrollView.frame.height / paperSize.height
+            case .landscape:
+                return paperScrollView.frame.width / paperSize.width
             }
         } else {
-            return paperScrollView.frame.width / paperStyle.size.width
+            return paperScrollView.frame.width / paperSize.width
         }
     }
 

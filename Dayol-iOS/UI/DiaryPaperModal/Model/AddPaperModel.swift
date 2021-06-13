@@ -9,28 +9,28 @@ import UIKit
 
 enum PaperModalModel {
     struct AddPaperCellModel {
-        let paperStyle: PaperStyle
+        let orientation: Paper.PaperOrientation
         let paperType: PaperType
         
         var title: String {
             paperType.typeName
         }
         var thumbnailName: String {
-            paperType.tumbNailImageName + "_\(paperStyle.rawValue)"
+            paperType.tumbNailImageName + "_\(orientation.rawValue.lowercased())"
         }
     }
 
     struct PaperListCellModel {
         let id: String
         let isStarred: Bool
-        let paperStyle: PaperStyle
+        let orientation: Paper.PaperOrientation
         let paperType: PaperType
         let thumbnailData: Data?
 
-        init(id: String, isStarred: Bool, paperStyle: PaperStyle, paperType: PaperType, thumbnailData: Data?) {
+        init(id: String, isStarred: Bool, orientation: Paper.PaperOrientation, paperType: PaperType, thumbnailData: Data?) {
             self.id = id
             self.isStarred = isStarred
-            self.paperStyle = paperStyle
+            self.orientation = orientation
             self.paperType = paperType
             self.thumbnailData = thumbnailData
         }
@@ -40,7 +40,7 @@ enum PaperModalModel {
         }
 
         var thumbnailName: String {
-            return paperType.tumbNailImageName + "_\(paperStyle.rawValue)"
+            return paperType.tumbNailImageName + "_\(orientation.rawValue.lowercased())"
         }
     }
 }
@@ -54,7 +54,7 @@ private extension PaperType {
         case .cornell: return "paper_add_cornell"
         case .muji: return "paper_add_muji"
         case .grid: return "paper_add_grid"
-        case .four: return "paper_add_four"
+        case .quartet: return "paper_add_four"
         case .tracker: return "paper_add_tracker"
         }
     }

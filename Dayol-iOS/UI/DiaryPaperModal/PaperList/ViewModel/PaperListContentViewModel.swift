@@ -27,8 +27,8 @@ class PaperListContentViewModel {
     var cellModels: [CellModel] {
         return DYTestData.shared.paperList.map {
             let paperType = PaperType(rawValue: $0.type, date: $0.date) ?? .muji
-            let paperStyle = PaperStyle(rawValue: $0.orientation) ?? .vertical
-            return CellModel(id: $0.id, isStarred: false, paperStyle: paperStyle, paperType: paperType, thumbnailData: $0.thumbnail)
+            let orientaion = Paper.PaperOrientation(rawValue: $0.orientation) ?? .portrait
+            return CellModel(id: $0.id, isStarred: false, orientation: orientaion, paperType: paperType, thumbnailData: $0.thumbnail)
         }
     }
 

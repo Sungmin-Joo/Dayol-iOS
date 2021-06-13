@@ -8,15 +8,15 @@
 import Foundation
 
 class AddPaperContentViewModel {
-    private(set) var papers: [PaperStyle: [PaperModalModel.AddPaperCellModel]]
+    private(set) var papers: [Paper.PaperOrientation: [PaperModalModel.AddPaperCellModel]]
     private(set) var selectedPaper: PaperModalModel.AddPaperCellModel?
     
     init() {
         papers = [:]
 
-        PaperStyle.allCases.forEach { orientation in
+        [Paper.PaperOrientation.landscape, Paper.PaperOrientation.portrait].forEach { orientation in
             papers[orientation] = PaperType.allCases.map {
-                PaperModalModel.AddPaperCellModel(paperStyle: orientation, paperType: $0)
+                PaperModalModel.AddPaperCellModel(orientation: orientation, paperType: $0)
             }
         }
     }
@@ -34,10 +34,9 @@ class AddPaperContentViewModel {
                                       diaryId: diaryId,
                                       title: model.title,
                                       pageCount: 1,
-                                      orientation: .init(value: model.paperStyle),
+                                      orientation: model.orientation,
                                       type: .init(value: model.paperType),
-                                      width: model.paperStyle.size.width,
-                                      height: model.paperStyle.size.height,
+                                      size: PaperOrientationConstant.size(orentantion: model.orientation),
                                       thumbnail: nil,
                                       drawCanvas: Data(),
                                       contents: [],
@@ -48,9 +47,9 @@ class AddPaperContentViewModel {
 }
 
 extension AddPaperContentViewModel {
-    func cellModel(_ indexPath: IndexPath, paperStyle: PaperStyle) -> PaperModalModel.AddPaperCellModel? {
+    func cellModel(_ indexPath: IndexPath, orientation: Paper.PaperOrientation) -> PaperModalModel.AddPaperCellModel? {
 
-        guard let cellModel = papers[paperStyle]?[safe: indexPath.row] else {
+        guard let cellModel = papers[orientation]?[safe: indexPath.row] else {
             return nil
         }
         return cellModel

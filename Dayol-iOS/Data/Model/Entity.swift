@@ -9,15 +9,14 @@ import UIKit
 
 struct Diary: Codable {
     let id: String // D1, D2
-    // TODO: - 컴퓨티드 프로퍼티로 구현 - @박종상
-//    let isLock: Bool
+    // TODO: - 패스워드 모델 정해진 후 재 구현(isLock)
+    var isLock: Bool = false
     let title: String
-    let papers: [Paper]
     let colorHex: String
 
-    var isLock: Bool = false
     var thumbnail: Data
     var drawCanvas: Data
+    var papers: [Paper]
     var contents: [DecorationItem]
 
     var paperCount: Int {
@@ -29,15 +28,6 @@ struct Paper: Codable {
     enum PaperOrientation: String {
         case portrait = "PORTRAIT"
         case landscape = "LANDSCAPE"
-
-        init(value: PaperStyle) {
-            switch value {
-            case .horizontal:
-                self = .landscape
-            case .vertical:
-                self = .portrait
-            }
-        }
     }
 
     enum PaperRawType: String {
@@ -47,7 +37,7 @@ struct Paper: Codable {
         case cornell = "CORNELL"
         case muji = "MUJI"
         case grid = "GRID"
-        case four = "FOUR"
+        case quartet = "QUARTET"
         case tracker = "TRACKER"
 
         init(value: PaperType) {
@@ -64,8 +54,8 @@ struct Paper: Codable {
                 self = .muji
             case .grid:
                 self = .grid
-            case .four:
-                self = .four
+            case .quartet:
+                self = .quartet
             case .tracker:
                 self = .tracker
             }
@@ -93,8 +83,7 @@ struct Paper: Codable {
          pageCount: Int,
          orientation: PaperOrientation,
          type: PaperRawType,
-         width: CGFloat,
-         height: CGFloat,
+         size: CGSize,
          thumbnail: UIImage?,
          drawCanvas: Data,
          contents: [DecorationItem],
@@ -105,8 +94,8 @@ struct Paper: Codable {
         self.pageCount = Int32(pageCount)
         self.orientation = orientation.rawValue
         self.type = type.rawValue
-        self.width = Float(width)
-        self.height = Float(height)
+        self.width = Float(size.width)
+        self.height = Float(size.height * CGFloat(pageCount))
         self.thumbnail = thumbnail?.pngData()
         self.drawCanvas = drawCanvas
         self.contents = contents

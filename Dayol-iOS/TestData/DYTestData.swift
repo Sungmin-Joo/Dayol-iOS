@@ -175,6 +175,7 @@ class DYTestData {
     func deletePaper(_ model: Paper) {
         guard let index = paperList.firstIndex(where: { $0.id == model.id }) else { return }
         paperList.remove(at: index)
+
         paperListSubject.onNext(paperList)
     }
 

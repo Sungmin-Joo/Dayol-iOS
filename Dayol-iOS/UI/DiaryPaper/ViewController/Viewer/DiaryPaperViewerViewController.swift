@@ -254,9 +254,9 @@ extension DiaryPaperViewerViewController: PaperModalViewDelegate {
 
     func didSelectedDate(didSelected date: Date?) {
         guard let currentVC = currentViewController, let pickedDate = date else { return }
-        let paperStyle = currentVC.paper.style
+        let orientaion = currentVC.paper.orientaion
 
-        viewModel.addPaper(.monthly(date: pickedDate), style: paperStyle)
+        viewModel.addPaper(.monthly(date: pickedDate), orientation: orientaion)
     }
 }
 

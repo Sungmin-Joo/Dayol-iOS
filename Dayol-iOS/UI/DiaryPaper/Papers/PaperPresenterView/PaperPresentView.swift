@@ -108,7 +108,7 @@ class PaperPresentView: UIView {
             NSLayoutConstraint.activate([
                 contentTop, contentBottom,
                 tableView.centerXAnchor.constraint(equalTo: centerXAnchor),
-                tableView.widthAnchor.constraint(equalToConstant: style.size.width),
+                tableView.widthAnchor.constraint(equalToConstant: size.width),
                 tableView.heightAnchor.constraint(equalToConstant: height)
             ])
         }
@@ -120,7 +120,7 @@ class PaperPresentView: UIView {
         tableView.register(DailyPaper.self, forCellReuseIdentifier: DailyPaper.className)
         tableView.register(GridPaper.self, forCellReuseIdentifier: GridPaper.className)
         tableView.register(CornellPaper.self, forCellReuseIdentifier: CornellPaper.className)
-        tableView.register(FourPaper.self, forCellReuseIdentifier: FourPaper.className)
+        tableView.register(QuartetPaper.self, forCellReuseIdentifier: QuartetPaper.className)
         tableView.register(WeeklyCalendarView.self, forCellReuseIdentifier: WeeklyCalendarView.className)
         tableView.register(MonthlyCalendarView.self, forCellReuseIdentifier: MonthlyCalendarView.className)
     }
@@ -132,17 +132,22 @@ class PaperPresentView: UIView {
 }
 
 extension PaperPresentView {
-    var style: PaperStyle {
-        return PaperStyle(rawValue: paper.orientation) ?? .vertical
+    var orientaion: Paper.PaperOrientation {
+        return Paper.PaperOrientation(rawValue: paper.orientation) ?? .portrait
     }
+
+    var size: CGSize {
+        return PaperOrientationConstant.size(orentantion: orientaion)
+    }
+
     var height: CGFloat {
-        return style.size.height * CGFloat(numberOfPapers)
+        return size.height * CGFloat(numberOfPapers)
     }
 }
 
 extension PaperPresentView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return style.size.height
+        return size.height
     }
 }
 
@@ -156,9 +161,7 @@ extension PaperPresentView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let paperType = PaperType(rawValue: paper.type, date: paper.date),
-              let paperStyle = PaperStyle(rawValue: paper.orientation)
-        else {
+        guard let paperType = PaperType(rawValue: paper.type, date: paper.date) else {
             return UITableViewCell()
         }
 
@@ -166,7 +169,7 @@ extension PaperPresentView: UITableViewDataSource {
         case .monthly(date: let date):
             let cell = tableView.dequeueReusableCell(MonthlyCalendarView.self, for: indexPath)
             let viewModel = MonthlyCalendarViewModel(date: date)
-            cell.configure(viewModel: viewModel, paperStyle:paperStyle)
+            cell.configure(viewModel: viewModel, orientation: orientaion)
             cell.showSelectPaper
                 .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] in
@@ -185,49 +188,49 @@ extension PaperPresentView: UITableViewDataSource {
         case .weekly(date: let date):
             let cell = tableView.dequeueReusableCell(WeeklyCalendarView.self, for: indexPath)
             let viewModel = WeeklyCalendarViewModel(date: date)
-            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
+            cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
         case .daily(date: let date):
             let cell = tableView.dequeueReusableCell(DailyPaper.self, for: indexPath)
             let viewModel = DailyPaperViewModel(date: date, drawModel: DrawModel())
 
-            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
+            cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
-        case .four:
-            let cell = tableView.dequeueReusableCell(FourPaper.self, for: indexPath)
+        case .quartet:
+            let cell = tableView.dequeueReusableCell(QuartetPaper.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
-            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
+            cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
         case .grid:
             let cell = tableView.dequeueReusableCell(GridPaper.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
-            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
+            cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
         case .cornell:
             let cell = tableView.dequeueReusableCell(CornellPaper.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
-            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
+            cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
         case .tracker:
             let cell = tableView.dequeueReusableCell(BasePaper.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
-            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
+            cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
         case .muji:
             let cell = tableView.dequeueReusableCell(MujiPaper.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
-            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
+            cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
         }
