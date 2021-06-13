@@ -58,8 +58,8 @@ class DailyPaper: BasePaper {
         return view
     }()
     
-    override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
-        super.configure(viewModel: viewModel, paperStyle: paperStyle)
+    override func configure(viewModel: PaperViewModel, orientation: Paper.PaperOrientation) {
+        super.configure(viewModel: viewModel, orientation: orientation)
         titleArea.addSubview(dateLabel)
         titleArea.addSubview(dayLabel)
         titleArea.addSubview(separatorView)

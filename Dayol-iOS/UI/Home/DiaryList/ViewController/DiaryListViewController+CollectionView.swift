@@ -13,7 +13,12 @@ extension DiaryListViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let diaryInfo = viewModel.diaryList[safe: indexPath.item] else { return }
-        showPasswordViewController(diaryCover: diaryInfo)
+
+        if diaryInfo.isLock {
+            showPasswordViewController(diaryCover: diaryInfo)
+        } else {
+            showDiaryPaperViewController(diaryCover: diaryInfo)
+        }
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -52,11 +57,14 @@ extension DiaryListViewController: UICollectionViewDataSource {
             let viewModel = viewModel.diaryList[safe: indexPath.row],
             let diaryListCell = cell as? DiaryListCell
         else {
-            return UICollectionViewCell()
+            return cell
         }
         diaryListCell.viewModel = viewModel
         diaryListCell.isEditMode = isEditMode
 
+        diaryListCell.didTapModeMenuButtonWithDiaryId = { [weak self] diaryID in
+            self?.showDiaryMoreMenu(diaryID: diaryID)
+        }
         return diaryListCell
     }
 
