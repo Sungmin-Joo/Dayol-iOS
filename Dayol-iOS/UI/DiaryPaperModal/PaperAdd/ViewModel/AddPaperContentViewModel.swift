@@ -28,15 +28,20 @@ class AddPaperContentViewModel {
     func addPaper(diaryId: String) {
         guard let model = selectedPaper else { return }
         
-        // TODO: confirm id login
-        let paperModel = PaperModel(
-            id: DYTestData.shared.currentPaperId,
-            diaryId: diaryId,
-            paperStyle: model.paperStyle,
-            paperType: model.paperType,
-            numberOfPapers: 1,
-            drawModelList: DrawModel()
-        )
+        // TODO: 모델 init 간편화 필요
+        // TODO: Model을 따로두고 Model이 Entity와 소통하도록 변경해야함
+        let paperModel: Paper = Paper(id: DYTestData.shared.currentPaperId,
+                                      diaryId: diaryId,
+                                      title: model.title,
+                                      pageCount: Int32(1),
+                                      orientation: model.paperStyle.entityValue,
+                                      type: model.paperType.entityValue,
+                                      width: Float(model.paperStyle.size.width),
+                                      height: Float(model.paperStyle.size.height),
+                                      thumbnail: nil,
+                                      drawCanvas: Data(),
+                                      contents: [],
+                                      date: model.paperType.date)
         
         DYTestData.shared.addPaper(paperModel)
     }

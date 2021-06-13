@@ -30,7 +30,7 @@ class PaperListContentViewModel {
         }
     }
 
-    var paperModels: [PaperModel] {
+    var paperModels: [Paper] {
         DYTestData.shared.paperList
     }
 

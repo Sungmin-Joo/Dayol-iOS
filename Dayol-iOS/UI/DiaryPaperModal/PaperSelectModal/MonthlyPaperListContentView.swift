@@ -20,12 +20,12 @@ private enum Text {
 
 final class MonthlyPaperListContentView: UIView {
     enum SelectEvent {
-        case item(paper: PaperModel)
+        case item(paper: Paper)
         case add
     }
 
     private let disposeBag = DisposeBag()
-    private var paperModels: [PaperModel]?
+    private var paperModels: [Paper]?
     private let viewModel = MonthlyPaperListViewModel()
 
     let didSelect = PublishSubject<SelectEvent>()
@@ -109,7 +109,7 @@ final class MonthlyPaperListContentView: UIView {
 }
 
 extension MonthlyPaperListContentView {
-    var models: [PaperModel]? {
+    var models: [Paper]? {
         get {
             return self.paperModels
         }

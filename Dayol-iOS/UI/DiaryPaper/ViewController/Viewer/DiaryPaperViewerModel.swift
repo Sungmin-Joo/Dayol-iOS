@@ -13,8 +13,8 @@ class DiaryPaperViewerModel {
     /// DB에 요청할 파라미터는 추후 논의 일단은 void로 둠(init)
     
     let testDrawModel = DYTestData.testDrawModel
-    var innerModels: [PaperModel] = DYTestData.shared.paperList
-    let innerModelsSubject = DYTestData.shared.pageListSubject
+    var papers: [Paper] = DYTestData.shared.paperList
+    let papersSubject = DYTestData.shared.paperListSubject
     let diaryTitle = BehaviorSubject<String>(value: "")
 
     init(coverModel: Diary) {
@@ -22,14 +22,14 @@ class DiaryPaperViewerModel {
     }
     
     @discardableResult
-    func add(paper: PaperModel) -> Observable<PaperModel> {
+    func add(paper: Paper) -> Observable<Paper> {
         DYTestData.shared.addPaper(paper)
         
         return Observable.just(paper)
     }
     
     @discardableResult
-    func delete(paper: PaperModel) -> Observable<PaperModel> {
+    func delete(paper: Paper) -> Observable<Paper> {
         DYTestData.shared.deletePaper(paper)
         
         return Observable.just(paper)

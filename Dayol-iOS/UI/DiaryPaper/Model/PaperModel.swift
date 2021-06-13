@@ -15,6 +15,13 @@ enum CommonPaperDesign {
 enum PaperStyle: String, CaseIterable {
     case horizontal
     case vertical
+
+    var entityValue: String {
+        switch self {
+        case .horizontal: return Paper.PaperOrientation.landscape.rawValue
+        case .vertical: return Paper.PaperOrientation.portrait.rawValue
+        }
+    }
 }
 
 enum PaperType: Equatable {
@@ -105,6 +112,28 @@ enum PaperType: Equatable {
         case .grid: return nil
         case .four: return nil
         case .tracker: return nil
+        }
+    }
+
+    var date: Date? {
+        switch self {
+        case .monthly(let date): return date
+        case .weekly(let date): return date
+        case .daily(let date): return date
+        default: return nil
+        }
+    }
+
+    var entityValue: String {
+        switch self {
+        case .monthly: return Paper.PaperRawType.monthly.rawValue
+        case .weekly: return Paper.PaperRawType.weekly.rawValue
+        case .daily: return Paper.PaperRawType.daily.rawValue
+        case .cornell: return Paper.PaperRawType.cornell.rawValue
+        case .muji: return Paper.PaperRawType.muji.rawValue
+        case .grid: return Paper.PaperRawType.grid.rawValue
+        case .four: return Paper.PaperRawType.four.rawValue
+        case .tracker: return Paper.PaperRawType.tracker.rawValue
         }
     }
 
