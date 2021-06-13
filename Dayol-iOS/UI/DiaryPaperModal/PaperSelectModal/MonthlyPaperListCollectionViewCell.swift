@@ -75,7 +75,7 @@ final class MonthlyPaperListCollectionViewCell: UICollectionViewCell {
         paperNameLabel.attributedText = makeText(Text.add)
     }
 
-    func configure(model: PaperModel) {
+    func configure(model: Paper) {
         let size = model.paperStyle == .vertical ? Design.Margin.verticalThumhailSize : Design.Margin.horizontalThumhailSize
         let thumbnailImage = UIImage(data: model.thumbnail ?? Data())?.resizeImage(targetSize: size)
         paperImageView.image = thumbnailImage
