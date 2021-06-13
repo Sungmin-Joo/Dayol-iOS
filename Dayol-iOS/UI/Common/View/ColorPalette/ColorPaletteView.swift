@@ -45,7 +45,6 @@ class ColorPaletteView: UIView {
     private let containerView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .equalCentering
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = Design.cellSpace
 
@@ -175,10 +174,11 @@ extension ColorPaletteView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiaryEditColorPaletteCell.identifier, for: indexPath) as? DiaryEditColorPaletteCell,
-              let color = self.model?[safe: indexPath.item] else {
+        guard let color = self.model?[safe: indexPath.item] else {
             return UICollectionViewCell()
         }
+
+        let cell = collectionView.dequeueReusableCell(DiaryEditColorPaletteCell.self, for: indexPath)
         cell.configure(color: color)
         
         return cell

@@ -145,6 +145,14 @@
 		DA5A10FB266B7BA4002C7EA8 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A10FA266B7BA4002C7EA8 /* UIImage+Extension.swift */; };
 		DA5A10FE266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A10FD266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift */; };
 		DA5A110A266BBE81002C7EA8 /* MonthlyPaperListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A1109266BBE80002C7EA8 /* MonthlyPaperListHeaderView.swift */; };
+		DA5A116626760818002C7EA8 /* ScheduleModalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A115D26760818002C7EA8 /* ScheduleModalType.swift */; };
+		DA5A116726760818002C7EA8 /* ScheduleModalContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A115E26760818002C7EA8 /* ScheduleModalContentView.swift */; };
+		DA5A116826760818002C7EA8 /* ScheduleColorSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A116026760818002C7EA8 /* ScheduleColorSelectView.swift */; };
+		DA5A116926760818002C7EA8 /* ScheduleDateDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A116126760818002C7EA8 /* ScheduleDateDisplayView.swift */; };
+		DA5A116A26760818002C7EA8 /* ScheduleCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A116226760818002C7EA8 /* ScheduleCheckView.swift */; };
+		DA5A116B26760818002C7EA8 /* ScheduleDateSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A116326760818002C7EA8 /* ScheduleDateSelectView.swift */; };
+		DA5A116C26760818002C7EA8 /* ScheduleTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A116426760818002C7EA8 /* ScheduleTextFieldView.swift */; };
+		DA5A116D26760818002C7EA8 /* ScheduleModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A116526760818002C7EA8 /* ScheduleModalHeaderView.swift */; };
 		DA6FF5D126654EA9006B0B34 /* DateFormat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6FF5D026654EA8006B0B34 /* DateFormat+Extension.swift */; };
 		DA6FF5D5266650BE006B0B34 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6FF5D4266650BE006B0B34 /* UITableView+Extension.swift */; };
 		DA6FF5E32667AE1C006B0B34 /* MonthlyPaperListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6FF5E22667AE1C006B0B34 /* MonthlyPaperListContentView.swift */; };
@@ -340,6 +348,14 @@
 		DA5A10FA266B7BA4002C7EA8 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		DA5A10FD266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperEmptyViewController.swift; sourceTree = "<group>"; };
 		DA5A1109266BBE80002C7EA8 /* MonthlyPaperListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyPaperListHeaderView.swift; sourceTree = "<group>"; };
+		DA5A115D26760818002C7EA8 /* ScheduleModalType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleModalType.swift; sourceTree = "<group>"; };
+		DA5A115E26760818002C7EA8 /* ScheduleModalContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleModalContentView.swift; sourceTree = "<group>"; };
+		DA5A116026760818002C7EA8 /* ScheduleColorSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleColorSelectView.swift; sourceTree = "<group>"; };
+		DA5A116126760818002C7EA8 /* ScheduleDateDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleDateDisplayView.swift; sourceTree = "<group>"; };
+		DA5A116226760818002C7EA8 /* ScheduleCheckView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCheckView.swift; sourceTree = "<group>"; };
+		DA5A116326760818002C7EA8 /* ScheduleDateSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleDateSelectView.swift; sourceTree = "<group>"; };
+		DA5A116426760818002C7EA8 /* ScheduleTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTextFieldView.swift; sourceTree = "<group>"; };
+		DA5A116526760818002C7EA8 /* ScheduleModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleModalHeaderView.swift; sourceTree = "<group>"; };
 		DA6FF5D026654EA8006B0B34 /* DateFormat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormat+Extension.swift"; sourceTree = "<group>"; };
 		DA6FF5D4266650BE006B0B34 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		DA6FF5E22667AE1C006B0B34 /* MonthlyPaperListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyPaperListContentView.swift; sourceTree = "<group>"; };
@@ -669,12 +685,13 @@
 		34A11A4425ADC35500678F98 /* DiaryPaperModal */ = {
 			isa = PBXGroup;
 			children = (
-				3449D2C825ADF63D0050C02A /* Model */,
-				34A11A4525ADC37800678F98 /* ViewController */,
-				340E56AF25C859DE007F2EF7 /* PaperList */,
-				340E56AE25C859D1007F2EF7 /* PaperAdd */,
 				DAD233BC265FB9F3002C353F /* DatePickerModal */,
+				3449D2C825ADF63D0050C02A /* Model */,
+				340E56AE25C859D1007F2EF7 /* PaperAdd */,
+				340E56AF25C859DE007F2EF7 /* PaperList */,
 				DA6FF5E12667ADFD006B0B34 /* PaperSelectModal */,
+				DA5A115C26760818002C7EA8 /* Schedule */,
+				34A11A4525ADC37800678F98 /* ViewController */,
 			);
 			path = DiaryPaperModal;
 			sourceTree = "<group>";
@@ -1167,6 +1184,29 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		DA5A115C26760818002C7EA8 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				DA5A115F26760818002C7EA8 /* ContentSubviews */,
+				DA5A115D26760818002C7EA8 /* ScheduleModalType.swift */,
+				DA5A115E26760818002C7EA8 /* ScheduleModalContentView.swift */,
+				DA5A116526760818002C7EA8 /* ScheduleModalHeaderView.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		DA5A115F26760818002C7EA8 /* ContentSubviews */ = {
+			isa = PBXGroup;
+			children = (
+				DA5A116026760818002C7EA8 /* ScheduleColorSelectView.swift */,
+				DA5A116126760818002C7EA8 /* ScheduleDateDisplayView.swift */,
+				DA5A116226760818002C7EA8 /* ScheduleCheckView.swift */,
+				DA5A116326760818002C7EA8 /* ScheduleDateSelectView.swift */,
+				DA5A116426760818002C7EA8 /* ScheduleTextFieldView.swift */,
+			);
+			path = ContentSubviews;
+			sourceTree = "<group>";
+		};
 		DA6FF5DC2667AD0A006B0B34 /* Paper */ = {
 			isa = PBXGroup;
 			children = (
@@ -1531,6 +1571,8 @@
 				3452671325DD66F400EC6F9D /* DataBackupExportContentView.swift in Sources */,
 				DA27AC7525D16E6800C71CDE /* DiaryEditViewModel.swift in Sources */,
 				3434B76B25A4797B00506152 /* DYModalViewController.swift in Sources */,
+				DA5A116A26760818002C7EA8 /* ScheduleCheckView.swift in Sources */,
+				DADD0A0125A34ED6004D6CF0 /* PaletteColor.swift in Sources */,
 				DADD0A0125A34ED6004D6CF0 /* PaletteColor.swift in Sources */,
 				3449D2D325AF23AE0050C02A /* AddPaperCell.swift in Sources */,
 				34BB086226135E030000377E /* EraseOptionButton.swift in Sources */,
@@ -1556,12 +1598,14 @@
 				DAD233BE265FBA0D002C353F /* DatePickerView.swift in Sources */,
 				CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */,
 				DAD48A29260CCAEC008B542E /* DiaryPaperEditViewModel.swift in Sources */,
+				DA5A116C26760818002C7EA8 /* ScheduleTextFieldView.swift in Sources */,
 				34A2EDC225B856D1008DB98D /* PaperModel.swift in Sources */,
 				DA5A10FB266B7BA4002C7EA8 /* UIImage+Extension.swift in Sources */,
 				0D27B0A02650008B001AD911 /* DayolUserDefault.swift in Sources */,
 				DAD48A36260CD563008B542E /* StickerModalCollectionView.swift in Sources */,
 				344AD29726398CBF0055562D /* DYDrawTool.swift in Sources */,
 				34AD5A8425C9A87600D9E29C /* PaperListAddCell.swift in Sources */,
+				DA5A116826760818002C7EA8 /* ScheduleColorSelectView.swift in Sources */,
 				0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */,
 				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
 				3454C6D0266521F400557450 /* DYFlexibleTextFieldViewModel.swift in Sources */,
@@ -1576,9 +1620,11 @@
 				CE8DCC912590E890007738EA /* DiaryListViewController+CollectionView.swift in Sources */,
 				DAD66738259B570800E8F59A /* DYNavigationController.swift in Sources */,
 				34A2EDC825B86082008DB98D /* DailyPaper.swift in Sources */,
+				DA5A116B26760818002C7EA8 /* ScheduleDateSelectView.swift in Sources */,
 				DA27AC5E25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift in Sources */,
 				3452670725DD63AF00EC6F9D /* DataBackupView.swift in Sources */,
 				3449D2DB25B0B9630050C02A /* AddPaperHeaderReusableView.swift in Sources */,
+				DA5A116626760818002C7EA8 /* ScheduleModalType.swift in Sources */,
 				DA9A87362610A9FB00ABCD07 /* DYStickerHeightStretchableView.swift in Sources */,
 				340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */,
 				0DF60DA02673AC8D00F0A1E8 /* FirebaseStorage.swift in Sources */,
@@ -1606,7 +1652,9 @@
 				34A11A4725ADC3CA00678F98 /* PaperModalViewController.swift in Sources */,
 				34C7B37926199DA600BC6A28 /* TextStyleTextSizeOptionView.swift in Sources */,
 				DA27AC6A25C8288B00C71CDE /* WeeklyCalendarViewCell.swift in Sources */,
+				DA5A116D26760818002C7EA8 /* ScheduleModalHeaderView.swift in Sources */,
 				34C7B3822619EA9200BC6A28 /* TextStyleLineSpaceOptionView.swift in Sources */,
+				DA5A116926760818002C7EA8 /* ScheduleDateDisplayView.swift in Sources */,
 				34E61391262F02EA0076FE74 /* ColorMapCursor.swift in Sources */,
 				34B6C14125BDB28400C2596F /* DYKeyboardInputAccessoryView.swift in Sources */,
 				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
@@ -1629,6 +1677,7 @@
 				34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */,
 				DADD09F725A335C2004D6CF0 /* DiaryEditToggleView.swift in Sources */,
 				DAEF76A425F66EE7007CAA93 /* DiaryPaperViewerViewModel.swift in Sources */,
+				DA5A116726760818002C7EA8 /* ScheduleModalContentView.swift in Sources */,
 				0DA235A9266115B7003AA15F /* UIWindow+Extension.swift in Sources */,
 				345128762636FEB900D65627 /* DYDrawableViewController.swift in Sources */,
 				DADD0A1925A72907004D6CF0 /* DiaryPaperViewerViewController.swift in Sources */,
