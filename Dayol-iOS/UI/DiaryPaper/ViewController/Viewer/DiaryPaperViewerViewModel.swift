@@ -30,28 +30,30 @@ class DiaryPaperViewerViewModel {
             .asObservable()
     }
 
-    func addPaper(_ type: PaperType, orientation: Paper.PaperOrientation) {
-        guard model.contain(paperType: type) == false else { return }
+    func addPaper(_ type: PaperType, orientation: Paper.PaperOrientation, date: Date = .now) {
         // TODO: 모델 init 간편화 필요
         // TODO: Model을 따로두고 Model이 Entity와 소통하도록 변경해야함
+
+        let paperSize = PaperOrientationConstant.size(orentantion: orientation)
         let paper = Paper(id: DYTestData.shared.currentPaperId,
                           diaryId: diaryId,
-                          title: type.title,
+                          title: type.typeName,
                           pageCount: 1,
                           orientation: orientation,
-                          type: .init(value: type),
-                          size: PaperOrientationConstant.size(orentantion: orientation),
+                          type: type,
+                          width: Float(paperSize.width),
+                          height: Float(paperSize.height),
                           thumbnail: nil,
                           drawCanvas: Data(),
                           contents: [],
-                          date: type.date)
+                          date: date)
         model.add(paper: paper)
     }
 
     func findModels(type: PaperType) -> [Paper] {
         var inners = [Paper]()
         model.papers.forEach { paper in
-            if case PaperType(rawValue: paper.type, date: paper.date) = type {
+            if case paper.type = type {
                 inners.append(paper)
             }
         }

@@ -42,22 +42,7 @@ class DYTestData {
     ]
     
     var deletedPageList: [DeletedPageCellModel] = [
-        DeletedPageCellModel(thumbnailImageName: "image",
-                             paperType: .cornell,
-                             diaryName: "1번 다이어리",
-                             deletedDate: Date()),
-        DeletedPageCellModel(thumbnailImageName: "image",
-                             paperType: .daily(date: Date()),
-                             diaryName: "2번 다이어리",
-                             deletedDate: Date()),
-        DeletedPageCellModel(thumbnailImageName: "image",
-                             paperType: .cornell,
-                             diaryName: "3번 다이어리",
-                             deletedDate: Date()),
-        DeletedPageCellModel(thumbnailImageName: "image",
-                             paperType: .daily(date: Date()),
-                             diaryName: "4번 다이어리",
-                             deletedDate: Date())
+
     ]
 
     var paperList: [Paper] = [
@@ -194,6 +179,7 @@ class DYTestData {
 
     func addPaperThumbnail(id: String, thumbnail: UIImage?) {
         guard let index = paperList.firstIndex(where: { $0.id == id }) else { return }
-        paperList[index].thumbnail = thumbnail?.pngData()
+        guard let thumbnailData = thumbnail?.pngData() else { return }
+        paperList[index].thumbnail = thumbnailData
     }
 }

@@ -65,9 +65,14 @@ class PaperPresentView: UIView {
         initView()
         thumbnailBind()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        drawThumbnail()
     }
 
     // MARK: - Init
@@ -91,11 +96,8 @@ class PaperPresentView: UIView {
         Observable<Int>
             .interval(RxTimeInterval.seconds(5), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
-                guard let self = self,
-                      let cell = self.tableView.cellForRow(at: IndexPath.init(item: 0, section: 0))
-                else { return }
-                let thumbnail = cell.asImage()
-                DYTestData.shared.addPaperThumbnail(id: self.paper.id, thumbnail: thumbnail)
+                guard let self = self else { return }
+                self.drawThumbnail()
             })
             .disposed(by: disposeBag)
     }
@@ -129,6 +131,13 @@ class PaperPresentView: UIView {
         layer.borderWidth = 1
         layer.borderColor = CommonPaperDesign.borderColor.cgColor
     }
+
+    private func drawThumbnail() {
+        let cell = self.tableView.cellForRow(at: IndexPath.init(item: 0, section: 0))
+        let thumbnail = cell?.asImage()
+        DYTestData.shared.addPaperThumbnail(id: self.paper.id, thumbnail: thumbnail)
+    }
+
 }
 
 extension PaperPresentView {
@@ -161,12 +170,10 @@ extension PaperPresentView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let paperType = PaperType(rawValue: paper.type, date: paper.date) else {
-            return UITableViewCell()
-        }
-
+        let paperType = paper.type
         switch paperType {
-        case .monthly(date: let date):
+        case .monthly:
+            guard let date = paper.date else { return UITableViewCell() }
             let cell = tableView.dequeueReusableCell(MonthlyCalendarView.self, for: indexPath)
             let viewModel = MonthlyCalendarViewModel(date: date)
             cell.configure(viewModel: viewModel, orientation: orientaion)
@@ -185,13 +192,15 @@ extension PaperPresentView: UITableViewDataSource {
                 .disposed(by: cell.disposeBag)
 
             return cell
-        case .weekly(date: let date):
+        case .weekly:
+            guard let date = paper.date else { return UITableViewCell() }
             let cell = tableView.dequeueReusableCell(WeeklyCalendarView.self, for: indexPath)
             let viewModel = WeeklyCalendarViewModel(date: date)
             cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
-        case .daily(date: let date):
+        case .daily:
+            guard let date = paper.date else { return UITableViewCell() }
             let cell = tableView.dequeueReusableCell(DailyPaper.self, for: indexPath)
             let viewModel = DailyPaperViewModel(date: date, drawModel: DrawModel())
 

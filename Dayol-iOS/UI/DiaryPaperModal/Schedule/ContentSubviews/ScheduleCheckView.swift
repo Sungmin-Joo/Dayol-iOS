@@ -135,16 +135,10 @@ final class ScheduleCheckView: UIView {
 
     @objc
     private func didTappedImageView(_ sender: Any) {
-        if isCheck == true {
-            isCheck = false
-            UIView.transition(with: checkImageView, duration: 0.2, options: .transitionCrossDissolve) {
-                self.checkImageView.image = Design.Image.uncheck
-            }
-        } else {
-            isCheck = true
-            UIView.transition(with: checkImageView, duration: 0.2, options: .transitionCrossDissolve) {
-                self.checkImageView.image = Design.Image.check
-            }
+        isCheck.toggle()
+        let image = isCheck ? Design.Image.check : Design.Image.uncheck
+        UIView.transition(with: checkImageView, duration: 0.3, options: .transitionCrossDissolve) {
+            self.checkImageView.image = image
         }
     }
 
