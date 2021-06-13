@@ -224,11 +224,10 @@ class DiaryPaperViewerViewController: UIViewController {
         alert.addAction(.init(title: Text.addScheduleLinkButton, style: .cancel, handler: {
             print("LinkButton")
         }))
-        alert.addAction(.init(title: Text.addScheduleAddButton, style: .default, handler: {
-            print("AddButton")
+        alert.addAction(.init(title: Text.addScheduleAddButton, style: .default, handler: { [weak self] in
+            self?.presentPaperModal(toolType: .shedule(scheduleType: .monthly))
         }))
         present(alert, animated: true, completion: nil)
-
     }
 }
 

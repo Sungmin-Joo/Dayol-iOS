@@ -13,6 +13,16 @@ private enum Design {
     static let paletteHeight: CGFloat = 50
 }
 
+private enum Text: String {
+    case defaultTitle = "새 다이어리"
+    case emptyAlertTitle = "빈타이틀 Title"
+    case emptyAlertDesc = "빈타이틀 Desc"
+    case backAlertTitle = "뒤로가기 Title"
+    case backAlertDesc = "뒤로가기 Desc"
+    case confirm = "확인"
+    case cancel = "취소"
+}
+
 class DiaryEditViewController: DYDrawableViewController {
 
     // MARK: - Private Properties
@@ -20,11 +30,13 @@ class DiaryEditViewController: DYDrawableViewController {
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let viewModel = DiaryEditViewModel()
+
+    private var password: String?
     private var currentCoverColor: PaletteColor = .DYBrown
 
     // MARK: - UI Components
 
-    private let titleView = DYNavigationItemCreator.editableTitleView("새 다이어리")
+    private let titleView = DYNavigationItemCreator.editableTitleView(Text.defaultTitle.rawValue)
     private let leftButton = DYNavigationItemCreator.barButton(type: .back)
     private let rightButton = DYNavigationItemCreator.barButton(type: .done)
     private let diaryEditToggleView: DiaryEditToggleView = {
@@ -130,7 +142,14 @@ class DiaryEditViewController: DYDrawableViewController {
     private func navigationBind() {
         leftButton.rx.tap
             .bind { [weak self] in
-                self?.dismiss(animated: true, completion: nil)
+                guard let self = self else { return }
+
+                self.presentAlert(title: Text.backAlertTitle.rawValue,
+                                  desc: Text.backAlertDesc.rawValue,
+                                  confirm: {
+                                    self.dismiss(animated: true, completion: nil)
+                                  },
+                                  cancel: { })
             }
             .disposed(by: disposeBag)
         
@@ -140,6 +159,16 @@ class DiaryEditViewController: DYDrawableViewController {
                 
                 self.hideKeyboard()
                 
+                self.createDiaryInfo(self.password)
+            }
+            .disposed(by: disposeBag)
+
+        diaryEditCoverView.didTappedLocker
+            .bind { [weak self] in
+                guard let self = self else { return }
+
+                self.hideKeyboard()
+
                 self.showPasswordViewController()
             }
             .disposed(by: disposeBag)
@@ -149,8 +178,39 @@ class DiaryEditViewController: DYDrawableViewController {
                 self?.titleView.titleTextField.becomeFirstResponder()
             }
             .disposed(by: disposeBag)
+
+        titleView.updatedTitle
+            .bind { [weak self] title in
+                guard let self = self else { return }
+                let titleString = title ?? ""
+                self.checkTitleValidation(titleString)
+            }
+            .disposed(by: disposeBag)
     }
 
+    private func checkTitleValidation(_ title: String) {
+        if title.isEmpty {
+            presentAlert(title: Text.emptyAlertTitle.rawValue,
+                                desc: Text.emptyAlertDesc.rawValue,
+                                confirm: { [weak self] in
+                                    self?.titleView.setTitle(Text.defaultTitle.rawValue)
+                                },
+                                cancel: nil)
+        } else {
+            self.titleView.setTitle(title)
+        }
+    }
+
+    private func presentAlert(title: String, desc: String, confirm: (() -> Void)?, cancel: (() -> Void)?) {
+        let alert = DayolAlertController.init(title: title, message: desc)
+        alert.addAction(.init(title: Text.confirm.rawValue, style: .default, handler: confirm))
+
+        if let cancelAction = cancel {
+            alert.addAction(.init(title: Text.cancel.rawValue, style: .cancel, handler: cancelAction))
+        }
+
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - Password ViewController Subjects
@@ -165,23 +225,26 @@ private extension DiaryEditViewController {
     func bindDidCreatePassword(_ viewController: PasswordViewController) {
         viewController.didCreatePassword
             .subscribe(onNext: { [weak self] password in
-                guard let self = self else { return }
-                guard let title = self.titleView.titleLabel.text else { return }
-                guard let thumbnail = self.diaryEditCoverView.asThumbnail?.pngData() else { return }
-                //TODO: 캔버스 수정할 것
-                let drawCanvasData = Data()
-
-                let diaryInfo = Diary(id: self.viewModel.diaryIdToCreate,
-                                      title: title,
-                                      colorHex: self.currentCoverColor.hexString,
-                                      thumbnail: thumbnail,
-                                      drawCanvas: drawCanvasData,
-                                      papers: [],
-                                      contents: [])
-                self.viewModel.createDiaryInfo(model: diaryInfo)
-                
-                self.dismiss(animated: true, completion: nil)
+                viewController.dismiss(animated: true, completion: nil)
+                self?.diaryEditCoverView.setCoverLock(isLock: true)
+                self?.password = password
             }).disposed(by: self.disposeBag)
+    }
+
+    func createDiaryInfo(_ password: String?) {
+        guard let title = self.titleView.titleLabel.text else { return }
+        let isLock = password != nil
+        let diaryModel = Diary(id: viewModel.diaryIdToCreate,
+                               isLock: isLock,
+                               title: title,
+                               colorHex: currentCoverColor.hexString,
+                               thumbnail: diaryEditCoverView.asThumbnail?.pngData() ?? Data(),
+                               drawCanvas: Data(),
+                               papers: [],
+                               contents: [])
+
+        self.viewModel.createDiaryInfo(model: diaryModel)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

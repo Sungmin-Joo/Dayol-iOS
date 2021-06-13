@@ -31,6 +31,7 @@ class PaperModalViewController: DYModalViewController {
         case list
         case monthList
         case date
+        case shedule(scheduleType: ScheduleModalType)
     }
 
     private let disposeBag = DisposeBag()
@@ -72,6 +73,8 @@ class PaperModalViewController: DYModalViewController {
             setupMonthListView()
         case .date:
             setupDatePickerView()
+        case .shedule(let scheduleType):
+            setupScheduleView(scheduleType: scheduleType)
         }
     }
 
@@ -114,6 +117,15 @@ class PaperModalViewController: DYModalViewController {
         bindDatePickerEvent()
     }
 
+    private func setupScheduleView(scheduleType: ScheduleModalType) {
+        let titleView = ScheduleModalHeaderView()
+        let contentView = ScheduleModalContentView(scheduleType: scheduleType)
+        self.titleView = titleView
+        self.contentView = contentView
+
+        bindSchduleEvent()
+    }
+
     // MARK: - Layout Update
 
     private func viewNeedsLayout(size: CGSize) {
@@ -126,6 +138,8 @@ class PaperModalViewController: DYModalViewController {
             monthlyPaperListViewNeedsLayout()
         case .date:
             datePickerViewNeedsLayout()
+        case .shedule:
+            scheduleViewNeedsLayout()
         }
     }
 
@@ -148,6 +162,11 @@ class PaperModalViewController: DYModalViewController {
         guard let datePickerContentView = contentView as? DatePickerView else { return }
         datePickerContentView.setNeedsLayout()
     }
+
+    private func scheduleViewNeedsLayout() {
+        guard let schduleContentView = contentView as? ScheduleModalContentView else { return }
+        schduleContentView.setNeedsLayout()
+    }
 }
 
 // MARK: - Bind
@@ -164,6 +183,8 @@ private extension PaperModalViewController {
             bindMonthListEvent()
         case .date:
             bindDatePickerEvent()
+        case .shedule:
+            bindSchduleEvent()
         }
     }
 
@@ -256,6 +277,23 @@ private extension PaperModalViewController {
                     self.dismiss(animated: true) {
                         self.delegate?.didTappedMonthlyAdd()
                     }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func bindSchduleEvent() {
+        guard let scheduleContentView = contentView as? ScheduleModalContentView,
+              let scheduleHeaderView = titleView as? ScheduleModalHeaderView
+        else { return }
+
+        scheduleHeaderView.didTappedButton
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] event in
+                guard let self = self else { return }
+                switch event {
+                case .done: self.dismiss(animated: true)
+                case .cancel: self.dismiss(animated: true)
                 }
             })
             .disposed(by: disposeBag)

@@ -9,17 +9,22 @@ import Foundation
 import Firebase
 import RxSwift
 
-class FirebaseStorage {
-    static let shared = FirebaseStorage()
+class DYSticker {
+    static let shared = DYSticker()
 
     private let storage = Storage.storage()
-    
+
+    // temp
+    private var stickerList: [String] = []
+
     init() {
+        loadStickerList()
         loadFreeImages()
+        loadPremiumImages()
     }
 
-    func loadImages() {
-        loadFreeImages()
+    private func loadStickerList() {
+
     }
 
     private func loadFreeImages() {
@@ -43,5 +48,9 @@ class FirebaseStorage {
                 }
             }
         }
+    }
+
+    private func loadPremiumImages() {
+
     }
 }

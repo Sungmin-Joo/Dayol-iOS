@@ -8,7 +8,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Combine
 
 private enum Design {
     static let maximumZoomIn: CGFloat = 2.0
@@ -41,8 +40,10 @@ private enum Text {
 
 class DiaryEditCoverView: UIView {
 
-    private var cancellable: [AnyCancellable] = []
-
+    private let disposeBag = DisposeBag()
+    var didTappedLocker: Observable<Void> {
+        return diaryView.didTappedLocker.asObservable()
+    }
     // UI Porperty
 
     private let scrollView: UIScrollView = {
@@ -157,14 +158,14 @@ extension DiaryEditCoverView {
     }
 
     private func bindEvent() {
-        diaryView.currentToolSubject.sink { [weak self] tool in
+        diaryView.currentToolSubject.bind { [weak self] tool in
             guard tool != nil else {
                 self?.scrollView.panGestureRecognizer.minimumNumberOfTouches = 1
                 return
             }
             self?.scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
         }
-        .store(in: &cancellable)
+        .disposed(by: disposeBag)
     }
 
 }
@@ -182,6 +183,12 @@ extension DiaryEditCoverView {
     
     func setDayolLogoHidden(_ isHidden: Bool) {
         diaryView.setDayolLogoHidden(isHidden)
+    }
+
+    func setCoverLock(isLock: Bool) {
+        UIView.transition(with: diaryView, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            self.diaryView.isLock = isLock
+        }, completion: nil)
     }
 
 }

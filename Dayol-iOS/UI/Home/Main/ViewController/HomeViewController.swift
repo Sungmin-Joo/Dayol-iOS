@@ -52,7 +52,6 @@ class HomeViewController: UIViewController {
 
 // MARK: - Event
 extension HomeViewController {
-
     private func bindEvent() {
         tabBarView.buttonEvent.subscribe(onNext: { [weak self] event in
             guard let self = self else { return }
@@ -68,7 +67,6 @@ extension HomeViewController {
         })
         .disposed(by: disposeBag)
     }
-
 }
 
 // MARK: - Controller ChildVC
