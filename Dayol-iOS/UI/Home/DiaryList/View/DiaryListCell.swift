@@ -132,7 +132,7 @@ class DiaryListCell: UICollectionViewCell {
     private func configure() {
         guard let viewModel = viewModel else { return }
         let subTitle = "\(viewModel.totalPage)page"
-        let coverColor: DiaryCoverColor = DiaryCoverColor.find(hex: viewModel.colorHex) ?? .DYBrown
+        let coverColor: PaletteColor = PaletteColor.find(hex: viewModel.colorHex) ?? .DYBrown
 
         diaryCoverView.setCover(color: coverColor)
         titleLabel.attributedText = Design.attributedTitle(text: viewModel.title)

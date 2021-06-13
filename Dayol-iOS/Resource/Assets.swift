@@ -85,7 +85,10 @@ enum Assets {
             }
 
             enum ColorPicker {
-                static let plus = UIImage(named: "toolBar_color_plus")
+                static let whitePlus = UIImage(named: "toolBar_color_plus_white")
+                static let blackPlus = UIImage(named: "toolBar_color_plus_black")
+                static let whiteMinus = UIImage(named: "toolBar_color_minus_white")
+                static let blackMinus = UIImage(named: "toolBar_color_minus_black")
             }
 
             enum TextStyle {

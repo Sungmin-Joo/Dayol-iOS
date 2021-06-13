@@ -43,6 +43,7 @@ public final class ColorPicker: UIControl {
     private lazy var hsvColor: HSVColor = HSVColor(color: .white, colorSpace: .sRGB)
 
     private let feedbackGenerator = UISelectionFeedbackGenerator()
+    var isPanning: Bool = false
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,10 +63,6 @@ public final class ColorPicker: UIControl {
         let colorMapPan = UIPanGestureRecognizer(target: self, action: #selector(self.handleColorMapPan(pan:)))
         colorMapPan.delegate = self
         colorMap.addGestureRecognizer(colorMapPan)
-
-        let colorMapTap = UITapGestureRecognizer(target: self, action: #selector(self.handleColorMapTap(tap:)))
-        colorMapTap.delegate = self
-        colorMap.addGestureRecognizer(colorMapTap)
 
         feedbackGenerator.prepare()
         setupConstraints()
@@ -87,6 +84,13 @@ public final class ColorPicker: UIControl {
         mapColorToView()
     }
 
+    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if isPanning == false {
+            handleColorMapTap(point: point)
+        }
+        return super.hitTest(point, with: event)
+    }
+
     private func mapColorToView() {
         let pickerPresentColor = hsvColor.hueAndSaturation.with(brightness: 1)
         colorMapCursor.center =  colorMap.convert(colorMap.position(for: hsvColor.hueAndSaturation), to: self)
@@ -96,6 +100,13 @@ public final class ColorPicker: UIControl {
 
     @objc
     private func handleColorMapPan(pan: UIPanGestureRecognizer) {
+        switch pan.state {
+        case .began, .changed:
+            isPanning = true
+        default:
+            isPanning = false
+        }
+
         let selected = colorMap.color(at: pan.location(in: colorMap))
         hsvColor = selected.with(brightness: hsvColor.brightness)
         mapColorToView()
@@ -103,9 +114,14 @@ public final class ColorPicker: UIControl {
         sendActionIfNeeds()
     }
 
-    @objc
-    private func handleColorMapTap(tap: UITapGestureRecognizer) {
-        let selectedColor = colorMap.color(at: tap.location(in: colorMap))
+    private func handleColorMapTap(point: CGPoint) {
+        let convertedPoint = convert(point, to: colorMap)
+
+        if colorMap.frame.contains(convertedPoint) == false {
+            return
+        }
+
+        let selectedColor = colorMap.color(at: convertedPoint)
         hsvColor = selectedColor.with(brightness: hsvColor.brightness)
         mapColorToView()
         feedbackIfNeeds()

@@ -74,7 +74,7 @@ extension DiaryListViewController {
 
 extension DiaryListViewController {
     func showPasswordViewController(diaryCover: DiaryInfoModel) {
-        let coverColor: DiaryCoverColor = DiaryCoverColor.find(hex: diaryCover.colorHex) ?? .DYBrown
+        let coverColor: PaletteColor = PaletteColor.find(hex: diaryCover.colorHex) ?? .DYBrown
 
         let passwordViewController = PasswordViewController(inputType: .check, diaryColor: coverColor, password: diaryCover.password)
         bindDidPassedPassword(passwordViewController, diaryCover: diaryCover)
