@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Paper: Codable {
+struct Paper {
     enum PaperOrientation: String {
         case portrait = "PORTRAIT"
         case landscape = "LANDSCAPE"
@@ -55,7 +55,7 @@ struct Paper: Codable {
     }
 }
 
-enum PaperType: String, Codable {
+enum PaperType: String {
     case monthly
     case weekly
     case daily

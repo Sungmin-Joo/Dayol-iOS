@@ -79,7 +79,7 @@ class DiaryEditViewController: DYDrawableViewController {
         diaryEditPaletteView.colors = viewModel.diaryColors
         setConstraint()
         setupGesture()
-        
+        setupViewModel()
         bind()
     }
     
@@ -107,6 +107,17 @@ class DiaryEditViewController: DYDrawableViewController {
         navigationItem.titleView = titleView
 
         setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
+    }
+
+    private func setupViewModel() {
+        viewModel.didSetDiaryInfo = { [weak self] info in
+            guard let self = self else { return }
+            self.titleView.titleLabel.text = info.title
+            let diaryView = self.diaryEditCoverView.diaryView
+            diaryView.setDrawingData(info.drawCanvas)
+            diaryView.setItems(info.contents)
+            diaryView.setLogo(info.hasLogo)
+        }
     }
     
     // MARK: - Bind
@@ -234,10 +245,11 @@ private extension DiaryEditViewController {
     func createDiaryInfo(_ password: String?) {
         guard let title = self.titleView.titleLabel.text else { return }
         let diaryView = self.diaryEditCoverView.diaryView
+        let diaryID = viewModel.diaryIdToCreate
         let isLock = password != nil
         let drawing = diaryView.canvas.drawing
         let hasLogo = diaryView.hasLogo
-        let contents = createContents()
+        let contents = createContents(dairyID: diaryID)
         var drawCanvasData = Data()
 
         let encoder = JSONEncoder()
@@ -245,7 +257,7 @@ private extension DiaryEditViewController {
             drawCanvasData = drawingData
         }
 
-        let diaryModel = Diary(id: viewModel.diaryIdToCreate,
+        let diaryModel = Diary(id: diaryID,
                                isLock: isLock,
                                title: title,
                                colorHex: currentCoverColor.hexString,
@@ -259,8 +271,14 @@ private extension DiaryEditViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
-    func createContents() -> [DecorationItem] {
-        return []
+    func createContents(dairyID: String) -> [DecorationItem] {
+        let items: [DecorationItem] = diaryEditCoverView.diaryView.subviews.compactMap { subView in
+            if let textField = subView as? DYFlexibleTextField {
+                return textField.toItem(id: "", parentId: dairyID)
+            }
+            return nil
+        }
+        return items
     }
 }
 

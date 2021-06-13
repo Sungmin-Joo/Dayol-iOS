@@ -119,7 +119,7 @@ class DYFlexibleTextField: UIView {
     // MARK: Initialize
 
     convenience init() {
-        let viewModel = DYFlexibleTextFieldViewModel(isFitStyle: false)
+        let viewModel = DYFlexibleTextFieldViewModel()
         self.init(viewModel: viewModel)
     }
 
@@ -212,6 +212,10 @@ private extension DYFlexibleTextField {
             self.updateBulletPointView(type)
         }
         .store(in: &cancellable)
+
+        viewModel.didSetAttributedString = { [weak self] attributedString in
+            self?.textView.attributedText = attributedString
+        }
     }
 
 }
@@ -544,6 +548,22 @@ extension DYFlexibleTextField {
 
         calcTextViewHeight()
     }
+}
+
+// MARK: - DecorationTextFieldItem
+
+extension DYFlexibleTextField {
+
+    func toItem(id: String, parentId: String) -> DecorationTextFieldItem? {
+        return viewModel.toItem(id: id,
+                                parentId: parentId,
+                                text: textView.attributedText,
+                                x: Float(frame.origin.x),
+                                y: Float(frame.origin.y),
+                                width: Float(frame.width),
+                                height: Float(frame.height))
+    }
+
 }
 
 // MARK: - Util

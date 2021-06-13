@@ -12,6 +12,7 @@ import RxCocoa
 class DiaryEditViewModel {
     let diaryColors: [PaletteColor] = PaletteColor.colorPreset.filter { $0 != .DYDark}
     let diaryInitalTitle: String = "새 다이어리"
+    var didSetDiaryInfo: ((Diary) -> Void)?
 
     var diaryIdToCreate: String {
         DYTestData.shared.currentDiaryId
@@ -19,5 +20,9 @@ class DiaryEditViewModel {
 
     func createDiaryInfo(model: Diary) {
         DYTestData.shared.addDiary(model)
+    }
+
+    func setDiaryInfo(model: Diary) {
+        didSetDiaryInfo?(model)
     }
 }

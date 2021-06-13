@@ -151,8 +151,20 @@ extension DiaryView {
 
 extension DiaryView {
 
-    var toItems: [DecorationItem] {
-        return []
+    func setDrawingData(_ data: Data) {
+        let decoder = JSONDecoder()
+        if let drawing = try? decoder.decode(PKDrawing.self, from: data) {
+            canvas.drawing = drawing
+        }
+    }
+
+    func setItems(_ items: [DecorationItem]) {
+        
+    }
+
+    func setLogo(_ hasLogo: Bool) {
+        let isHidden = hasLogo == false
+        setDayolLogoHidden(isHidden)
     }
 
 }
