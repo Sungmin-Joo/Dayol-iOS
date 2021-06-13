@@ -108,6 +108,7 @@
 		34E61391262F02EA0076FE74 /* ColorMapCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61390262F02EA0076FE74 /* ColorMapCursor.swift */; };
 		34E61395262F03260076FE74 /* ColorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61394262F03260076FE74 /* ColorEntity.swift */; };
 		34E61399262F1AE10076FE74 /* ColorBrightSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61398262F1AE10076FE74 /* ColorBrightSlider.swift */; };
+		34E83ACE2675B6380060BBE7 /* DiaryListViewController+MoreMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E83ACD2675B6380060BBE7 /* DiaryListViewController+MoreMenu.swift */; };
 		CE0603542588EDB600FBBEF0 /* PopupPresentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */; };
 		CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */; };
 		CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */; };
@@ -301,6 +302,7 @@
 		34E61390262F02EA0076FE74 /* ColorMapCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapCursor.swift; sourceTree = "<group>"; };
 		34E61394262F03260076FE74 /* ColorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorEntity.swift; sourceTree = "<group>"; };
 		34E61398262F1AE10076FE74 /* ColorBrightSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBrightSlider.swift; sourceTree = "<group>"; };
+		34E83ACD2675B6380060BBE7 /* DiaryListViewController+MoreMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaryListViewController+MoreMenu.swift"; sourceTree = "<group>"; };
 		CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPresentDelegate.swift; sourceTree = "<group>"; };
 		CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertAction.swift; sourceTree = "<group>"; };
 		CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
@@ -983,6 +985,7 @@
 				CE8DCAD9258D28F4007738EA /* DiaryListViewController.swift */,
 				CE8DCB2C258FB1A0007738EA /* DiaryListViewController+bind.swift */,
 				CE8DCC902590E88F007738EA /* DiaryListViewController+CollectionView.swift */,
+				34E83ACD2675B6380060BBE7 /* DiaryListViewController+MoreMenu.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1519,6 +1522,7 @@
 				DAEF76B225F90D6E007CAA93 /* DiaryPaperViewerViewController+UIPageViewController.swift in Sources */,
 				DA5A110A266BBE81002C7EA8 /* MonthlyPaperListHeaderView.swift in Sources */,
 				DADD0AD425AF24FC004D6CF0 /* DYStickerView.swift in Sources */,
+				34E83ACE2675B6380060BBE7 /* DiaryListViewController+MoreMenu.swift in Sources */,
 				DAD6674E259C8C5B00E8F59A /* DYNavigationEditableTitle.swift in Sources */,
 				34CA254C25A619B20057404D /* SettingsModel.swift in Sources */,
 				34A2EDCC25B86210008DB98D /* PaperViewModel.swift in Sources */,
