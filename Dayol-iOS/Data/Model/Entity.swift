@@ -13,6 +13,7 @@ struct Diary: Codable {
     let papers: [Paper]
     let colorHex: String
 
+    var isLock: Bool = false
     var thumbnail: Data
     var drawCanvas: Data
     var contents: [DecorationItem]
