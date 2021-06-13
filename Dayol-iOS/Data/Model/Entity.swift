@@ -9,6 +9,8 @@ import UIKit
 
 struct Diary: Codable {
     let id: String // D1, D2
+    // TODO: - 컴퓨티드 프로퍼티로 구현 - @박종상
+//    let isLock: Bool
     let title: String
     let papers: [Paper]
     let colorHex: String

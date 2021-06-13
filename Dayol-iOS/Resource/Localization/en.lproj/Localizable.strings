@@ -37,7 +37,7 @@
 "password_new" = "Please enter a new password.";
 "password_again" = "Please enter it again.";
 "password_enter" = "Please enter your password.";
-"password_unlock_title" = "";
+"password_unlock_title" = "Unlock Diary";
 "password_unlock_text" = "Unlock\nThe diary is currently locked.\nDo you want to unlock it?";
 "password_unlock_btn" = "Unlock";
 "password_unlock_cancel" = "Cancel";
@@ -88,6 +88,7 @@
 "diary_more_unlock" = "Unlock setting";
 "diary_more_edit" = "Edit Diary";
 "diary_more_delete" = "Delete Diary";
+"diary_more_cancel" = "Cancel";
 
 "create_add_memo" = "Add memo";
 "create_add_memo_v" = "Vertical";

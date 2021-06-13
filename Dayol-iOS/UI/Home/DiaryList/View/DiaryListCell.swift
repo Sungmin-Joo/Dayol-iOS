@@ -61,7 +61,7 @@ class DiaryListCell: UICollectionViewCell {
             self.diaryViewHeightConstraint?.constant = diaryHeight
         }
     }
-
+    var didTapModeMenuButtonWithDiaryId: ((String) -> Void)?
     var viewModel: Diary? {
         didSet {
             configure()
@@ -69,12 +69,6 @@ class DiaryListCell: UICollectionViewCell {
     }
 
     // MARK: - UI
-
-//    private(set) var diaryCoverView: DiaryView = {
-//        let coverView = DiaryView()
-//        coverView.translatesAutoresizingMaskIntoConstraints = false
-//        return coverView
-//    }()
 
     private(set) var diaryCoverView: UIImageView = {
         let coverView = UIImageView()
@@ -138,20 +132,11 @@ class DiaryListCell: UICollectionViewCell {
     private func configure() {
         guard let viewModel = viewModel else { return }
         let subTitle = "\(viewModel.paperCount)page"
-        let coverColor: PaletteColor = PaletteColor.find(hex: viewModel.colorHex) ?? .DYBrown
 
+        // TODO: 손잡이 부분 잘림
         diaryCoverView.image = UIImage(data: viewModel.thumbnail)
         titleLabel.attributedText = Design.attributedTitle(text: viewModel.title)
         subTitleLabel.attributedText = Design.attributedSubTitle(text: subTitle)
-
-        // TODO: 패스워드 모델 정해지면 수정
-//        if let password = viewModel.password {
-//            // 패스워드가 있는 경우!
-//            diaryCoverView.isLock = true
-//        } else {
-//            diaryCoverView.isLock = false
-//        }
-
     }
     
 }
@@ -192,10 +177,11 @@ extension DiaryListCell {
 extension DiaryListCell {
 
     private func bind() {
-        actionButton.rx.tap.subscribe(onNext: {
+        actionButton.rx.tap.bind { [weak self] in
+            guard let self = self, let viewModel = self.viewModel else { return }
             // TODO: - action sheet
-            debugPrint("TODO: - action sheet")
-        })
+            self.didTapModeMenuButtonWithDiaryId?(viewModel.id)
+        }
         .disposed(by: disposeBag)
     }
 
