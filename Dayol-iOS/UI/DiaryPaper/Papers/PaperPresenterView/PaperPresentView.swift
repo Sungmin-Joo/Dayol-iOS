@@ -13,7 +13,7 @@ class PaperPresentView: UIView {
     
     // MARK: - Properties
     
-    private var paper: PaperModel
+    private var paper: Paper
     private let numberOfPapers: Int
     private var contentTop = NSLayoutConstraint()
     private var contentBottom = NSLayoutConstraint()
@@ -57,7 +57,7 @@ class PaperPresentView: UIView {
         return view
     }()
     
-    init(paper: PaperModel, count: Int = 1, flexibleSize: Bool = false) {
+    init(paper: Paper, count: Int = 1, flexibleSize: Bool = false) {
         self.paper = paper
         self.numberOfPapers = count
         self.flexibleSize = flexibleSize

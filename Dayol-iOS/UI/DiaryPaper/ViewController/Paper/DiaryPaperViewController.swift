@@ -26,7 +26,7 @@ class DiaryPaperViewController: UIViewController {
     private let disposeBag = DisposeBag()
 
     private var scaleVariable: CGFloat {
-        let paperStyle = viewModel.paper.paperStyle
+        let paperStyle = viewModel.paperStyle
         if isPadDevice {
             switch paperStyle {
             case .vertical:
@@ -116,7 +116,7 @@ extension DiaryPaperViewController: UIScrollViewDelegate {
 
 extension DiaryPaperViewController {
     var paperType: PaperType {
-        return viewModel.paper.paperType
+        return viewModel.paperType
     }
 
     func paperActionBind() {

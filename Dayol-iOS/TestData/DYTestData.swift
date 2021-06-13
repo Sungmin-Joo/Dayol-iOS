@@ -10,28 +10,6 @@ import RxSwift
 
 // MARK: - 다이어리 한 개당 내부에 표현될 데이터를 테스트하기위해 작성한 코드입니다.
 
-// 다이어리 한 개의 내부 데이터에 대한 테스트 모델
-struct PaperModel {
-    let id: String
-    let diaryId: String
-    let paperStyle: PaperStyle
-    let paperType: PaperType
-    let paperTitle: String
-    var numberOfPapers: Int
-    var drawModelList: DrawModel
-    var thumbnail: Data?
-
-    init(id: String, diaryId: String, paperStyle: PaperStyle, paperType: PaperType, numberOfPapers: Int, drawModelList: DrawModel) {
-        self.id = id
-        self.diaryId = diaryId
-        self.paperType = paperType
-        self.paperStyle = paperStyle
-        self.numberOfPapers = numberOfPapers
-        self.drawModelList = drawModelList
-        self.paperTitle = paperType.title
-    }
-}
-
 struct ScheduleModel {
     let id: String
     let diaryId: Int
@@ -57,7 +35,7 @@ class DYTestData {
 
     lazy var diaryListSubject = BehaviorSubject<[Diary]>(value: diaryList)
     lazy var deletedPageListSubject = BehaviorSubject<[DeletedPageCellModel]>(value: deletedPageList)
-    lazy var pageListSubject = BehaviorSubject<[PaperModel]>(value: paperList)
+    lazy var paperListSubject = BehaviorSubject<[Paper]>(value: paperList)
     
     var diaryList: [Diary] = [
        
@@ -81,10 +59,8 @@ class DYTestData {
                              diaryName: "4번 다이어리",
                              deletedDate: Date())
     ]
-    
-    
 
-    var paperList: [PaperModel] = [
+    var paperList: [Paper] = [
 
     ]
     
@@ -151,19 +127,19 @@ class DYTestData {
 
     func addDeletedPage(_ page: DeletedPageCellModel) {
         deletedPageList.append(page)
-        pageListSubject.onNext(paperList)
+        paperListSubject.onNext(paperList)
     }
 
     func deleteDeletedPage(_ page: DeletedPageCellModel) {
         // TODO: - 임시로 다이어리 이름으로 비교하지만 추후에 데이터 연동 필요
         guard let index = deletedPageList.firstIndex(where: { $0.diaryName == page.diaryName }) else { return }
         paperList.remove(at: index)
-        pageListSubject.onNext(paperList)
+        paperListSubject.onNext(paperList)
     }
 
     func deleteAllPage() {
         paperList = []
-        pageListSubject.onNext(paperList)
+        paperListSubject.onNext(paperList)
     }
     
     func deleteAllDeletedPage() {
@@ -191,15 +167,15 @@ class DYTestData {
 
 // MARK: -Paper
     
-    func addPaper(_ model: PaperModel) {
+    func addPaper(_ model: Paper) {
         paperList.append(model)
-        pageListSubject.onNext(paperList)
+        paperListSubject.onNext(paperList)
     }
 
-    func deletePaper(_ model: PaperModel) {
+    func deletePaper(_ model: Paper) {
         guard let index = paperList.firstIndex(where: { $0.id == model.id }) else { return }
         paperList.remove(at: index)
-        pageListSubject.onNext(paperList)
+        paperListSubject.onNext(paperList)
     }
 
     func reorderPaper(from sourceIndex: Int, to destinationIndex: Int) {
@@ -212,11 +188,11 @@ class DYTestData {
             paperList.insert(source, at: destinationIndex + 1)
             paperList.remove(at: sourceIndex)
         }
-        pageListSubject.onNext(paperList)
+        paperListSubject.onNext(paperList)
     }
 
     func addPaperThumbnail(id: String, thumbnail: UIImage?) {
         guard let index = paperList.firstIndex(where: { $0.id == id }) else { return }
-        paperList[index].thumbnail = thumbnail?.jpegData(compressionQuality: .greatestFiniteMagnitude)
+        paperList[index].thumbnail = thumbnail?.pngData()
     }
 }
