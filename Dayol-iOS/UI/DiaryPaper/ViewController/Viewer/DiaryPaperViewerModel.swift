@@ -40,7 +40,7 @@ class DiaryPaperViewerModel {
     }
 
     func contain(paperType: PaperType) -> Bool {
-        return DYTestData.shared.paperList.contains(where: { $0.paperType  ==  paperType })
+        return DYTestData.shared.paperList.contains(where: { PaperType(rawValue: $0.type, date: $0.date)  ==  paperType })
     }
 
 }

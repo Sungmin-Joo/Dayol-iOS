@@ -16,10 +16,11 @@ enum PaperStyle: String, CaseIterable {
     case horizontal
     case vertical
 
-    var entityValue: String {
-        switch self {
-        case .horizontal: return Paper.PaperOrientation.landscape.rawValue
-        case .vertical: return Paper.PaperOrientation.portrait.rawValue
+    init?(rawValue: String) {
+        if rawValue == Paper.PaperOrientation.portrait.rawValue {
+            self = .vertical
+        } else {
+            self = .horizontal
         }
     }
 }
@@ -33,6 +34,29 @@ enum PaperType: Equatable {
     case grid
     case four
     case tracker
+
+    init?(rawValue: String, date: Date? = nil) {
+        if rawValue == Paper.PaperRawType.monthly.rawValue {
+            guard let date = date else { return nil }
+            self = .monthly(date: date)
+        } else if rawValue == Paper.PaperRawType.weekly.rawValue {
+            guard let date = date else { return nil }
+            self = .weekly(date: date)
+        } else if rawValue == Paper.PaperRawType.daily.rawValue {
+            guard let date = date else { return nil }
+            self = .daily(date: date)
+        } else if rawValue == Paper.PaperRawType.cornell.rawValue {
+            self = .cornell
+        } else if rawValue == Paper.PaperRawType.muji.rawValue {
+            self = .muji
+        } else if rawValue == Paper.PaperRawType.grid.rawValue {
+            self = .grid
+        } else if rawValue == Paper.PaperRawType.four.rawValue {
+            self = .four
+        } else {
+            self = .tracker
+        }
+    }
 
     static var allCases: [PaperType] {
         return [.monthly(date: Date()),
@@ -121,19 +145,6 @@ enum PaperType: Equatable {
         case .weekly(let date): return date
         case .daily(let date): return date
         default: return nil
-        }
-    }
-
-    var entityValue: String {
-        switch self {
-        case .monthly: return Paper.PaperRawType.monthly.rawValue
-        case .weekly: return Paper.PaperRawType.weekly.rawValue
-        case .daily: return Paper.PaperRawType.daily.rawValue
-        case .cornell: return Paper.PaperRawType.cornell.rawValue
-        case .muji: return Paper.PaperRawType.muji.rawValue
-        case .grid: return Paper.PaperRawType.grid.rawValue
-        case .four: return Paper.PaperRawType.four.rawValue
-        case .tracker: return Paper.PaperRawType.tracker.rawValue
         }
     }
 

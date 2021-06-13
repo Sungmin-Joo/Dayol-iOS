@@ -5,7 +5,7 @@
 //  Created by Seonho Ban on 2021/06/12.
 //
 
-import Foundation
+import UIKit
 
 struct Diary: Codable {
     let id: String // D1, D2
@@ -27,6 +27,15 @@ struct Paper: Codable {
     enum PaperOrientation: String {
         case portrait = "PORTRAIT"
         case landscape = "LANDSCAPE"
+
+        init(value: PaperStyle) {
+            switch value {
+            case .horizontal:
+                self = .landscape
+            case .vertical:
+                self = .portrait
+            }
+        }
     }
 
     enum PaperRawType: String {
@@ -38,6 +47,27 @@ struct Paper: Codable {
         case grid = "GRID"
         case four = "FOUR"
         case tracker = "TRACKER"
+
+        init(value: PaperType) {
+            switch value {
+            case .monthly(date: _):
+                self = .monthly
+            case .weekly(date: _):
+                self = .weekly
+            case .daily(date: _):
+                self = .daily
+            case .cornell:
+                self = .cornell
+            case .muji:
+                self = .muji
+            case .grid:
+                self = .grid
+            case .four:
+                self = .four
+            case .tracker:
+                self = .tracker
+            }
+        }
     }
 
     let id: String // P1, P2
@@ -54,38 +84,31 @@ struct Paper: Codable {
     var contents: [DecorationItem]
 
     var date: Date?
-}
 
-extension Paper {
-    var paperStyle: PaperStyle {
-        if orientation == PaperOrientation.portrait.rawValue {
-            return .vertical
-        } else {
-            return .horizontal
-        }
-    }
-
-    var paperType: PaperType {
-        if type == PaperRawType.monthly.rawValue {
-            guard let date = date else { return .muji }
-            return .monthly(date: date)
-        } else if type == PaperRawType.weekly.rawValue {
-            guard let date = date else { return .muji }
-            return .weekly(date: date)
-        } else if type == PaperRawType.daily.rawValue {
-            guard let date = date else { return .muji }
-            return .daily(date: date)
-        } else if type == PaperRawType.cornell.rawValue {
-            return .cornell
-        } else if type == PaperRawType.muji.rawValue {
-            return .muji
-        } else if type == PaperRawType.grid.rawValue {
-            return .grid
-        } else if type == PaperRawType.four.rawValue {
-            return .four
-        } else {
-            return .tracker
-        }
+    init(id: String,
+         diaryId: String,
+         title: String,
+         pageCount: Int,
+         orientation: PaperOrientation,
+         type: PaperRawType,
+         width: CGFloat,
+         height: CGFloat,
+         thumbnail: UIImage?,
+         drawCanvas: Data,
+         contents: [DecorationItem],
+         date: Date?) {
+        self.id = id
+        self.diaryId = diaryId
+        self.title = title
+        self.pageCount = Int32(pageCount)
+        self.orientation = orientation.rawValue
+        self.type = type.rawValue
+        self.width = Float(width)
+        self.height = Float(height)
+        self.thumbnail = thumbnail?.pngData()
+        self.drawCanvas = drawCanvas
+        self.contents = contents
+        self.date = date
     }
 }
 

@@ -38,10 +38,10 @@ class DiaryPaperViewerViewModel {
                           diaryId: diaryId,
                           title: type.title,
                           pageCount: 1,
-                          orientation: style.entityValue,
-                          type: type.entityValue,
-                          width: Float(style.size.width),
-                          height: Float(style.size.height),
+                          orientation: .init(value: style),
+                          type: .init(value: type),
+                          width: style.size.width,
+                          height: style.size.height,
                           thumbnail: nil,
                           drawCanvas: Data(),
                           contents: [],
@@ -58,7 +58,7 @@ class DiaryPaperViewerViewModel {
     func findModels(type: PaperType) -> [Paper] {
         var inners = [Paper]()
         model.papers.forEach { paper in
-            if case paper.paperType = type {
+            if case PaperType(rawValue: paper.type, date: paper.date) = type {
                 inners.append(paper)
             }
         }

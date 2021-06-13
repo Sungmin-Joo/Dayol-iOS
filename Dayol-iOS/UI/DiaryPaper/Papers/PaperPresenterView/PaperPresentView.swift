@@ -132,8 +132,12 @@ class PaperPresentView: UIView {
 }
 
 extension PaperPresentView {
-    var style: PaperStyle { paper.paperStyle }
-    var height: CGFloat { paper.paperStyle.size.height * CGFloat(numberOfPapers) }
+    var style: PaperStyle {
+        return PaperStyle(rawValue: paper.orientation) ?? .vertical
+    }
+    var height: CGFloat {
+        return style.size.height * CGFloat(numberOfPapers)
+    }
 }
 
 extension PaperPresentView: UITableViewDelegate {
@@ -152,11 +156,17 @@ extension PaperPresentView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch paper.paperType {
+        guard let paperType = PaperType(rawValue: paper.type, date: paper.date),
+              let paperStyle = PaperStyle(rawValue: paper.orientation)
+        else {
+            return UITableViewCell()
+        }
+
+        switch paperType {
         case .monthly(date: let date):
             let cell = tableView.dequeueReusableCell(MonthlyCalendarView.self, for: indexPath)
             let viewModel = MonthlyCalendarViewModel(date: date)
-            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+            cell.configure(viewModel: viewModel, paperStyle:paperStyle)
             cell.showSelectPaper
                 .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] in
@@ -175,49 +185,49 @@ extension PaperPresentView: UITableViewDataSource {
         case .weekly(date: let date):
             let cell = tableView.dequeueReusableCell(WeeklyCalendarView.self, for: indexPath)
             let viewModel = WeeklyCalendarViewModel(date: date)
-            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
 
             return cell
         case .daily(date: let date):
             let cell = tableView.dequeueReusableCell(DailyPaper.self, for: indexPath)
             let viewModel = DailyPaperViewModel(date: date, drawModel: DrawModel())
 
-            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
 
             return cell
         case .four:
             let cell = tableView.dequeueReusableCell(FourPaper.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
-            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
 
             return cell
         case .grid:
             let cell = tableView.dequeueReusableCell(GridPaper.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
-            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
 
             return cell
         case .cornell:
             let cell = tableView.dequeueReusableCell(CornellPaper.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
-            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
 
             return cell
         case .tracker:
             let cell = tableView.dequeueReusableCell(BasePaper.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
-            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
 
             return cell
         case .muji:
             let cell = tableView.dequeueReusableCell(MujiPaper.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
-            cell.configure(viewModel: viewModel, paperStyle: paper.paperStyle)
+            cell.configure(viewModel: viewModel, paperStyle: paperStyle)
 
             return cell
         }

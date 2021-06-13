@@ -21,6 +21,8 @@ class DiaryPaperViewModel {
 }
 
 extension DiaryPaperViewModel {
+    
+
     var paperId: String {
         return paper.id
     }
@@ -30,11 +32,11 @@ extension DiaryPaperViewModel {
     }
 
     var paperStyle: PaperStyle {
-        return paper.paperStyle
+        return PaperStyle(rawValue: paper.orientation) ?? .vertical
     }
 
     var paperType: PaperType {
-        return paper.paperType
+        return PaperType(rawValue: paper.type, date: paper.date) ?? .muji
     }
 
     var width: CGFloat {
