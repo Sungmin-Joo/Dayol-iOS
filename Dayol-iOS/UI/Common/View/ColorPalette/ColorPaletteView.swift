@@ -115,17 +115,17 @@ class ColorPaletteView: UIView {
         if isPadDevice {
             collectionViewWidthForIpad = collectionView.widthAnchor.constraint(equalToConstant: 0)
             NSLayoutConstraint.activate([
-                collectionView.topAnchor.constraint(equalTo: topAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                collectionView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                containerView.topAnchor.constraint(equalTo: topAnchor),
+                containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
                 collectionViewWidthForIpad
             ])
         } else {
             NSLayoutConstraint.activate([
-                collectionView.leftAnchor.constraint(equalTo: leftAnchor),
-                collectionView.topAnchor.constraint(equalTo: topAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                collectionView.rightAnchor.constraint(equalTo: rightAnchor),
+                containerView.leftAnchor.constraint(equalTo: leftAnchor),
+                containerView.topAnchor.constraint(equalTo: topAnchor),
+                containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                containerView.rightAnchor.constraint(equalTo: rightAnchor),
             ])
         }
     }
