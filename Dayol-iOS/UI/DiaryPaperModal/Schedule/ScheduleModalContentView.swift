@@ -21,6 +21,14 @@ private enum Design {
         static let dateSelectColorSelectSpace: CGFloat = 36
         static let colorSelectBottomSpace: CGFloat = 16
     }
+
+    enum Color {
+        static let buttonTextColor: UIColor = .red
+    }
+}
+
+private enum Text: String {
+    case deleteSchedule = "이 일정 삭제"
 }
 
 final class ScheduleModalContentView: UIView {
@@ -52,18 +60,19 @@ final class ScheduleModalContentView: UIView {
     }()
 
     private let addOtherPaperView: ScheduleCheckView = {
-        let view = ScheduleCheckView(checkType: .monthly)
+        let view = ScheduleCheckView()
         view.translatesAutoresizingMaskIntoConstraints = false
 
         return view
     }()
 
-    private let deleteScheduleView: UIButton = {
-        let view = UIButton()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = true
+    private let deleteScheduleButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(Design.Color.buttonTextColor, for: .normal)
+        button.setTitle(Text.deleteSchedule.rawValue, for: .normal)
 
-        return view
+        return button
     }()
 
     // MARK: - Init
@@ -86,7 +95,22 @@ final class ScheduleModalContentView: UIView {
         addSubview(dateSelectView)
         addSubview(colorSelectView)
         addSubview(addOtherPaperView)
-        addSubview(deleteScheduleView)
+        addSubview(deleteScheduleButton)
+
+        setupBottomView()
+    }
+
+    private func setupBottomView() {
+        switch scheduleType {
+        case .display:
+            addOtherPaperView.isHidden = true
+        case .monthly:
+            deleteScheduleButton.isHidden = true
+            addOtherPaperView.setLabel(checkType: .weekly)
+        case .weekly:
+            deleteScheduleButton.isHidden = true
+            addOtherPaperView.setLabel(checkType: .monthly)
+        }
     }
 
     private func setupConstrains() {
@@ -108,10 +132,10 @@ final class ScheduleModalContentView: UIView {
             addOtherPaperView.centerXAnchor.constraint(equalTo: centerXAnchor),
             addOtherPaperView.heightAnchor.constraint(equalToConstant: Design.Size.deleteButtonHeight),
 
-            deleteScheduleView.topAnchor.constraint(equalTo: colorSelectView.bottomAnchor, constant: Design.Margin.colorSelectBottomSpace),
-            deleteScheduleView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            deleteScheduleView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            deleteScheduleView.heightAnchor.constraint(equalToConstant: Design.Size.deleteButtonHeight)
+            deleteScheduleButton.topAnchor.constraint(equalTo: colorSelectView.bottomAnchor, constant: Design.Margin.colorSelectBottomSpace),
+            deleteScheduleButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            deleteScheduleButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            deleteScheduleButton.heightAnchor.constraint(equalToConstant: Design.Size.deleteButtonHeight)
         ])
     }
 }

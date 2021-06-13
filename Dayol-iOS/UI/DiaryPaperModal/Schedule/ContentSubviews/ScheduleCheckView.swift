@@ -88,10 +88,9 @@ final class ScheduleCheckView: UIView {
 
     // MARK: -Init
 
-    init(checkType: CheckType) {
+    init() {
         super.init(frame: .zero)
         setupViews()
-        setupLabel(checkType: checkType)
         setupConstraints()
         setupGesture()
     }
@@ -107,21 +106,6 @@ final class ScheduleCheckView: UIView {
         addSubview(labelContainerView)
         labelContainerView.addSubview(titleLabel)
         labelContainerView.addSubview(descLabel)
-    }
-
-    private func setupLabel(checkType: CheckType) {
-        let titleText = String(format: Text.title.rawValue, checkType.stringValue)
-        let descText = String(format: Text.desc.rawValue, checkType.stringValue)
-        titleLabel.attributedText = NSAttributedString.build(text: titleText,
-                                                             font: Design.Label.titleTextFont,
-                                                             align: .left,
-                                                             letterSpacing: Design.Label.titleLetterSpace,
-                                                             foregroundColor: Design.Label.titleTextColor)
-        descLabel.attributedText = NSAttributedString.build(text: descText,
-                                                            font: Design.Label.descTextFont,
-                                                            align: .left,
-                                                            letterSpacing: Design.Label.descLetterSpace,
-                                                            foregroundColor: Design.Label.descTextColor)
     }
 
     private func setupConstraints() {
@@ -162,5 +146,20 @@ final class ScheduleCheckView: UIView {
                 self.checkImageView.image = Design.Image.check
             }
         }
+    }
+
+    func setLabel(checkType: CheckType) {
+        let titleText = String(format: Text.title.rawValue, checkType.stringValue)
+        let descText = String(format: Text.desc.rawValue, checkType.stringValue)
+        titleLabel.attributedText = NSAttributedString.build(text: titleText,
+                                                             font: Design.Label.titleTextFont,
+                                                             align: .left,
+                                                             letterSpacing: Design.Label.titleLetterSpace,
+                                                             foregroundColor: Design.Label.titleTextColor)
+        descLabel.attributedText = NSAttributedString.build(text: descText,
+                                                            font: Design.Label.descTextFont,
+                                                            align: .left,
+                                                            letterSpacing: Design.Label.descLetterSpace,
+                                                            foregroundColor: Design.Label.descTextColor)
     }
 }

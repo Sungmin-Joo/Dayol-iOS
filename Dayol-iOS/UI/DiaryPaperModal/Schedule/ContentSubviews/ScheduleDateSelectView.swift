@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Design {
     enum Size {
@@ -23,6 +24,7 @@ private enum Design {
 }
 
 final class ScheduleDateSelectView: UIView {
+    private let disposeBag = DisposeBag()
 
     // MARK: - UI Component
 
