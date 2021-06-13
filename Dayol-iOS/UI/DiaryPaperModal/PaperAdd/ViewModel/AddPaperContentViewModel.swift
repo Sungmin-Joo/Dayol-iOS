@@ -8,15 +8,15 @@
 import Foundation
 
 class AddPaperContentViewModel {
-    private(set) var papers: [PaperStyle: [PaperModalModel.AddPaperCellModel]]
+    private(set) var papers: [Paper.PaperOrientation: [PaperModalModel.AddPaperCellModel]]
     private(set) var selectedPaper: PaperModalModel.AddPaperCellModel?
     
     init() {
         papers = [:]
 
-        PaperStyle.allCases.forEach { orientation in
+        [Paper.PaperOrientation.landscape, Paper.PaperOrientation.portrait].forEach { orientation in
             papers[orientation] = PaperType.allCases.map {
-                PaperModalModel.AddPaperCellModel(paperStyle: orientation, paperType: $0)
+                PaperModalModel.AddPaperCellModel(orientation: orientation, paperType: $0)
             }
         }
     }
@@ -28,24 +28,28 @@ class AddPaperContentViewModel {
     func addPaper(diaryId: String) {
         guard let model = selectedPaper else { return }
         
-        // TODO: confirm id login
-        let paperModel = PaperModel(
-            id: DYTestData.shared.currentPaperId,
-            diaryId: diaryId,
-            paperStyle: model.paperStyle,
-            paperType: model.paperType,
-            numberOfPapers: 1,
-            drawModelList: DrawModel()
-        )
+        // TODO: 모델 init 간편화 필요
+        // TODO: Model을 따로두고 Model이 Entity와 소통하도록 변경해야함
+        let paperModel: Paper = Paper(id: DYTestData.shared.currentPaperId,
+                                      diaryId: diaryId,
+                                      title: model.title,
+                                      pageCount: 1,
+                                      orientation: model.orientation,
+                                      type: .init(value: model.paperType),
+                                      size: PaperOrientationConstant.size(orentantion: model.orientation),
+                                      thumbnail: nil,
+                                      drawCanvas: Data(),
+                                      contents: [],
+                                      date: model.paperType.date)
         
         DYTestData.shared.addPaper(paperModel)
     }
 }
 
 extension AddPaperContentViewModel {
-    func cellModel(_ indexPath: IndexPath, paperStyle: PaperStyle) -> PaperModalModel.AddPaperCellModel? {
+    func cellModel(_ indexPath: IndexPath, orientation: Paper.PaperOrientation) -> PaperModalModel.AddPaperCellModel? {
 
-        guard let cellModel = papers[paperStyle]?[safe: indexPath.row] else {
+        guard let cellModel = papers[orientation]?[safe: indexPath.row] else {
             return nil
         }
         return cellModel

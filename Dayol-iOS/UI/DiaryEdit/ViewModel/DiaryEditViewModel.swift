@@ -17,7 +17,7 @@ class DiaryEditViewModel {
         DYTestData.shared.currentDiaryId
     }
 
-    func createDiaryInfo(model: DiaryInfoModel) {
+    func createDiaryInfo(model: Diary) {
         DYTestData.shared.addDiary(model)
     }
 }

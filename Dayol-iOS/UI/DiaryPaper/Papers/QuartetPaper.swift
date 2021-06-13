@@ -1,5 +1,5 @@
 //
-//  FourPaper.swift
+//  QuartetPaper.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/02/16.
@@ -13,7 +13,7 @@ private enum Design {
     static let lineColor = UIColor(decimalRed: 233, green: 233, blue: 233, alpha: 0.5)
 }
 
-class FourPaper: BasePaper {
+class QuartetPaper: BasePaper {
     private let fourImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .topLeft
@@ -21,17 +21,18 @@ class FourPaper: BasePaper {
         return imageView
     }()
     
-    override func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
-        super.configure(viewModel: viewModel, paperStyle: paperStyle)
+    override func configure(viewModel: PaperViewModel, orientation: Paper.PaperOrientation) {
+        super.configure(viewModel: viewModel, orientation: orientation)
         fourImageView.image = getGridImage()
         contentView.addSubViewPinEdge(fourImageView)
     }
 }
 
-private extension FourPaper {
+private extension QuartetPaper {
     func getGridImage() -> UIImage? {
-        guard let paperStyle = self.paperStyle else { return nil }
-        let paperSize = CGSize(width: paperStyle.size.width, height: paperStyle.size.height)
+        guard let orientation = self.orientation else { return nil }
+
+        let paperSize = PaperOrientationConstant.size(orentantion: orientation)
         UIGraphicsBeginImageContextWithOptions(paperSize, false, 0.0)
 
         guard let context = UIGraphicsGetCurrentContext() else {

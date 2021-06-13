@@ -62,7 +62,7 @@ class DiaryListCell: UICollectionViewCell {
         }
     }
     var didTapModeMenuButtonWithDiaryId: ((String) -> Void)?
-    var viewModel: DiaryInfoModel? {
+    var viewModel: Diary? {
         didSet {
             configure()
         }
@@ -70,8 +70,8 @@ class DiaryListCell: UICollectionViewCell {
 
     // MARK: - UI
 
-    private(set) var diaryCoverView: DiaryView = {
-        let coverView = DiaryView()
+    private(set) var diaryCoverView: UIImageView = {
+        let coverView = UIImageView()
         coverView.translatesAutoresizingMaskIntoConstraints = false
         return coverView
     }()
@@ -131,20 +131,12 @@ class DiaryListCell: UICollectionViewCell {
 
     private func configure() {
         guard let viewModel = viewModel else { return }
-        let subTitle = "\(viewModel.totalPage)page"
-        let coverColor: PaletteColor = PaletteColor.find(hex: viewModel.colorHex) ?? .DYBrown
+        let subTitle = "\(viewModel.paperCount)page"
 
-        diaryCoverView.setCover(color: coverColor)
+        // TODO: 손잡이 부분 잘림
+        diaryCoverView.image = UIImage(data: viewModel.thumbnail)
         titleLabel.attributedText = Design.attributedTitle(text: viewModel.title)
         subTitleLabel.attributedText = Design.attributedSubTitle(text: subTitle)
-
-        if let password = viewModel.password {
-            // 패스워드가 있는 경우!
-            diaryCoverView.isLock = true
-        } else {
-            diaryCoverView.isLock = false
-        }
-
     }
     
 }
