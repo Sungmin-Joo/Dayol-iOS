@@ -22,18 +22,6 @@
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSUbiquitousContainers</key>
-	<dict>
-		<key>$iCloud.com.dayolstudio.dayol.beta</key>
-		<dict>
-			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
-			<true/>
-			<key>NSUbiquitousContainerName</key>
-			<string>Dayol</string>
-			<key>NSUbiquitousContainerSupportedFolderLevels</key>
-			<string>Any</string>
-		</dict>
-	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>DXRMbxStd-B.otf</string>

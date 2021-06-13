@@ -15,7 +15,7 @@ class Config {
 
     func initalize() {
         FirebaseApp.configure()
-        DYICloudMananger.shared.syncDocuments()
+        
     }
 
 
