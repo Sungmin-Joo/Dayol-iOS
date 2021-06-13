@@ -57,7 +57,7 @@ extension DiaryListViewController: UICollectionViewDataSource {
         diaryListCell.viewModel = viewModel
         diaryListCell.isEditMode = isEditMode
 
-        diaryListCell.didTapMoreMenuButton = { [weak self] diaryID in
+        diaryListCell.didTapModeMenuButtonWithDiaryId = { [weak self] diaryID in
             self?.showDiaryMoreMenu(diaryID: diaryID)
         }
         return diaryListCell
