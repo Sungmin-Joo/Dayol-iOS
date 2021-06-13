@@ -61,7 +61,8 @@ class DiaryListCell: UICollectionViewCell {
             self.diaryViewHeightConstraint?.constant = diaryHeight
         }
     }
-
+    // (다이어리 아이디) -> Void
+    var didTapMoreMenuButton: ((String) -> Void)?
     var viewModel: DiaryInfoModel? {
         didSet {
             configure()
@@ -185,10 +186,11 @@ extension DiaryListCell {
 extension DiaryListCell {
 
     private func bind() {
-        actionButton.rx.tap.subscribe(onNext: {
+        actionButton.rx.tap.bind { [weak self] in
+            guard let self = self, let viewModel = self.viewModel else { return }
             // TODO: - action sheet
-            debugPrint("TODO: - action sheet")
-        })
+            self.didTapMoreMenuButton?(viewModel.id)
+        }
         .disposed(by: disposeBag)
     }
 

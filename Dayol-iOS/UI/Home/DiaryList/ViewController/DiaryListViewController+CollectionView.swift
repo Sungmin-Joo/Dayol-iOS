@@ -52,11 +52,14 @@ extension DiaryListViewController: UICollectionViewDataSource {
             let viewModel = viewModel.diaryList[safe: indexPath.row],
             let diaryListCell = cell as? DiaryListCell
         else {
-            return UICollectionViewCell()
+            return cell
         }
         diaryListCell.viewModel = viewModel
         diaryListCell.isEditMode = isEditMode
 
+        diaryListCell.didTapMoreMenuButton = { [weak self] diaryID in
+            self?.showDiaryMoreMenu(diaryID: diaryID)
+        }
         return diaryListCell
     }
 

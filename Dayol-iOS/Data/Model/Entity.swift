@@ -9,6 +9,7 @@ import Foundation
 
 struct Diary: Codable {
     let id: String // D1, D2
+    let isLock: Bool
     let title: String
     let papers: [Paper]
     let colorHex: String
