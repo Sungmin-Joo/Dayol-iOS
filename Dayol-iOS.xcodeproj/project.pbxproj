@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0D07CD732674C2010007E36D /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07CD722674C2010007E36D /* Entity.swift */; };
 		0D07CD752674C7260007E36D /* PaperContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07CD742674C7260007E36D /* PaperContents.swift */; };
+		0D07CD772674DCC70007E36D /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07CD762674DCC70007E36D /* Logging.swift */; };
+		0D07CD7A267528B70007E36D /* DYICloudMananger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07CD79267528B70007E36D /* DYICloudMananger.swift */; };
 		0D139025265009AF0034A360 /* OnboadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D139024265009AF0034A360 /* OnboadingView.swift */; };
 		0D27B097264FBCB0001AD911 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B096264FBCB0001AD911 /* LaunchViewController.swift */; };
 		0D27B099264FF8EC001AD911 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */; };
@@ -206,6 +208,8 @@
 /* Begin PBXFileReference section */
 		0D07CD722674C2010007E36D /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		0D07CD742674C7260007E36D /* PaperContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperContents.swift; sourceTree = "<group>"; };
+		0D07CD762674DCC70007E36D /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
+		0D07CD79267528B70007E36D /* DYICloudMananger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYICloudMananger.swift; sourceTree = "<group>"; };
 		0D139024265009AF0034A360 /* OnboadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingView.swift; sourceTree = "<group>"; };
 		0D27B096264FBCB0001AD911 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -428,6 +432,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		0D07CD782675289D0007E36D /* iCloud */ = {
+			isa = PBXGroup;
+			children = (
+				0D07CD79267528B70007E36D /* DYICloudMananger.swift */,
+			);
+			path = iCloud;
+			sourceTree = "<group>";
+		};
 		0D27B095264FBC6B001AD911 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
@@ -474,6 +486,8 @@
 		0DF60D9E2673AC5F00F0A1E8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				0D07CD782675289D0007E36D /* iCloud */,
+				0DF60D9D2673AC5700F0A1E8 /* Firebase */,
 				0D27B09E26500059001AD911 /* UserDefaults */,
 				0D07CD702674C1AD0007E36D /* Model */,
 			);
@@ -775,6 +789,7 @@
 			children = (
 				CE8DCC96259101B6007738EA /* DeviceInfo.swift */,
 				0D27B09A264FFD12001AD911 /* Thread.swift */,
+				0D07CD762674DCC70007E36D /* Logging.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1155,7 +1170,6 @@
 				DA4899E6257A08A6005E39ED /* AppDelegate.swift */,
 				0DA235A62661145B003AA15F /* Config.swift */,
 				DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */,
-				0DF60D9D2673AC5700F0A1E8 /* Firebase */,
 				0DF60D9E2673AC5F00F0A1E8 /* Data */,
 				DA27AC7925D1750500C71CDE /* TestData */,
 				CEF135E7258115C60098BEC3 /* UI */,
@@ -1573,6 +1587,7 @@
 				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
 				3454C6D0266521F400557450 /* DYFlexibleTextFieldViewModel.swift in Sources */,
 				34A2EDD425B88DB0008DB98D /* BasePaper.swift in Sources */,
+				0D07CD7A267528B70007E36D /* DYICloudMananger.swift in Sources */,
 				CE8DCAE2258D28F4007738EA /* HomeTabBarView.swift in Sources */,
 				34CA255E25A761060057404D /* OutAppSettingCell.swift in Sources */,
 				CE8DCAE3258D28F4007738EA /* HomeEmptyView.swift in Sources */,
@@ -1632,6 +1647,7 @@
 				DA311427260CE2FC002F99F7 /* StickerModalHeaderViewCell.swift in Sources */,
 				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
 				34A07144262C4864009BA700 /* PencilTypeSettingView.swift in Sources */,
+				0D07CD772674DCC70007E36D /* Logging.swift in Sources */,
 				3462FDB826304117008E4A6C /* PencilAlphaSettingView.swift in Sources */,
 				DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */,
 				34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */,
