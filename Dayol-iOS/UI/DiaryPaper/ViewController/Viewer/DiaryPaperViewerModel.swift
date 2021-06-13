@@ -17,7 +17,7 @@ class DiaryPaperViewerModel {
     let innerModelsSubject = DYTestData.shared.pageListSubject
     let diaryTitle = BehaviorSubject<String>(value: "")
 
-    init(coverModel: DiaryInfoModel) {
+    init(coverModel: Diary) {
         diaryTitle.onNext(coverModel.title)
     }
     

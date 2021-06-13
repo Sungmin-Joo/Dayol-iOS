@@ -10,7 +10,7 @@ import RxSwift
 
 class DiaryPaperViewerViewModel {
     private let model: DiaryPaperViewerModel
-    private let coverModel: DiaryInfoModel
+    private let coverModel: Diary
 
     var diaryId: String {
         return coverModel.id
@@ -53,7 +53,7 @@ class DiaryPaperViewerViewModel {
         return inners
     }
 
-    init(coverModel: DiaryInfoModel) {
+    init(coverModel: Diary) {
         self.coverModel = coverModel
         self.model = DiaryPaperViewerModel(coverModel: coverModel)
     }

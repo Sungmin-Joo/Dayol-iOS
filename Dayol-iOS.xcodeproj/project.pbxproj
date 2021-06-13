@@ -119,7 +119,6 @@
 		CE8DCAEB258D292A007738EA /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAE8258D292A007738EA /* UIFont+Extension.swift */; };
 		CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */; };
 		CE8DCB11258FA502007738EA /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCB10258FA502007738EA /* DiaryListViewModel.swift */; };
-		CE8DCB16258FA5FD007738EA /* DiaryInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCB15258FA5FD007738EA /* DiaryInfoModel.swift */; };
 		CE8DCB25258FAE72007738EA /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCB24258FAE72007738EA /* Array+extension.swift */; };
 		CE8DCB2D258FB1A0007738EA /* DiaryListViewController+bind.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCB2C258FB1A0007738EA /* DiaryListViewController+bind.swift */; };
 		CE8DCC912590E890007738EA /* DiaryListViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCC902590E88F007738EA /* DiaryListViewController+CollectionView.swift */; };
@@ -311,7 +310,6 @@
 		CE8DCAE8258D292A007738EA /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		CE8DCB10258FA502007738EA /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
-		CE8DCB15258FA5FD007738EA /* DiaryInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoModel.swift; sourceTree = "<group>"; };
 		CE8DCB24258FAE72007738EA /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
 		CE8DCB2C258FB1A0007738EA /* DiaryListViewController+bind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaryListViewController+bind.swift"; sourceTree = "<group>"; };
 		CE8DCC902590E88F007738EA /* DiaryListViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaryListViewController+CollectionView.swift"; sourceTree = "<group>"; };
@@ -947,14 +945,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		CE8DCB14258FA5EB007738EA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				CE8DCB15258FA5FD007738EA /* DiaryInfoModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		CE8DCB30258FB1B2007738EA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1033,7 +1023,6 @@
 		CEF135E8258115E30098BEC3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				CE8DCB14258FA5EB007738EA /* Model */,
 				CE8DCAF9258FA181007738EA /* Main */,
 				CE8DCAFB258FA1A9007738EA /* DiaryList */,
 				CE8DCAFE258FA1D9007738EA /* Favorite */,
@@ -1583,7 +1572,6 @@
 				DA27AC5E25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift in Sources */,
 				3452670725DD63AF00EC6F9D /* DataBackupView.swift in Sources */,
 				3449D2DB25B0B9630050C02A /* AddPaperHeaderReusableView.swift in Sources */,
-				CE8DCB16258FA5FD007738EA /* DiaryInfoModel.swift in Sources */,
 				DA9A87362610A9FB00ABCD07 /* DYStickerHeightStretchableView.swift in Sources */,
 				340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */,
 				0DF60DA02673AC8D00F0A1E8 /* FirebaseStorage.swift in Sources */,

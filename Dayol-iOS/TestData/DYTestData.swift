@@ -55,17 +55,12 @@ class DYTestData {
         return "Paper_\(paperList.count)"
     }
 
-    lazy var diaryListSubject = BehaviorSubject<[DiaryInfoModel]>(value: diaryList)
+    lazy var diaryListSubject = BehaviorSubject<[Diary]>(value: diaryList)
     lazy var deletedPageListSubject = BehaviorSubject<[DeletedPageCellModel]>(value: deletedPageList)
     lazy var pageListSubject = BehaviorSubject<[PaperModel]>(value: paperList)
     
-    var diaryList: [DiaryInfoModel] = [
-        DiaryInfoModel(id: "Diary_0", color: .DYRed, title: "1번 다이어리", totalPage: 0, password: "1234"),
-        DiaryInfoModel(id: "Diary_1", color: .DYBlue, title: "2번 다이어리", totalPage: 0, password: "1234"),
-        DiaryInfoModel(id: "Diary_2", color: .DYGreen, title: "3번 다이어리", totalPage: 0, password: "1234"),
-        DiaryInfoModel(id: "Diary_3", color: .DYRed, title: "4번 다이어리", totalPage: 0, password: "1234"),
-        DiaryInfoModel(id: "Diary_4", color: .DYBlue, title: "5번 다이어리", totalPage: 0, password: "1234"),
-        DiaryInfoModel(id: "Diary_5", color: .DYGreen, title: "6번 다이어리", totalPage: 0, password: "1234")
+    var diaryList: [Diary] = [
+       
     ]
     
     var deletedPageList: [DeletedPageCellModel] = [
@@ -178,12 +173,12 @@ class DYTestData {
 
 // MARK: - Diary
 
-    func addDiary(_ diary: DiaryInfoModel) {
+    func addDiary(_ diary: Diary) {
         diaryList.append(diary)
         diaryListSubject.onNext(diaryList)
     }
 
-    func deleteDiary(_ diary: DiaryInfoModel) {
+    func deleteDiary(_ diary: Diary) {
         guard let index = diaryList.firstIndex(where: { $0.id == diary.id }) else { return }
         diaryList.remove(at: index)
         diaryListSubject.onNext(diaryList)
