@@ -90,9 +90,7 @@ extension DiaryListViewController {
             .disposed(by: disposeBag)
     }
     
-    // TODO: Need Some Diary Inner Inpo. ex) Paper is Empty, Present Paper's Detail
-    private func showDiaryPaperViewController(diaryCover: Diary) {
-        // TODO: - 다이어리 속지 표현을 위해 테스트 데이터를 넣어두었습니다.
+    func showDiaryPaperViewController(diaryCover: Diary) {
         let diaryPaperViewModel = DiaryPaperViewerViewModel(coverModel: diaryCover)
         let diaryPaperViewController = DiaryPaperViewerViewController(viewModel: diaryPaperViewModel)
         let nav = DYNavigationController(rootViewController: diaryPaperViewController)
