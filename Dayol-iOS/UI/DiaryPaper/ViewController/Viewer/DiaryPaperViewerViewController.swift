@@ -256,7 +256,7 @@ extension DiaryPaperViewerViewController: PaperModalViewDelegate {
         guard let currentVC = currentViewController, let pickedDate = date else { return }
         let orientaion = currentVC.paper.orientaion
 
-        viewModel.addPaper(.monthly(date: pickedDate), orientation: orientaion)
+        viewModel.addPaper(.monthly, orientation: orientaion, date: pickedDate)
     }
 }
 

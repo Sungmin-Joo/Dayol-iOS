@@ -36,7 +36,7 @@ enum PaperModalModel {
         }
 
         var title: String {
-            paperType.title
+            paperType.typeName
         }
 
         var thumbnailName: String {
@@ -50,7 +50,7 @@ private extension PaperType {
         switch self {
         case .monthly: return "paper_add_monthly"
         case .weekly: return "paper_add_weekly"
-        case .daily(_): return "paper_add_daily"
+        case .daily: return "paper_add_daily"
         case .cornell: return "paper_add_cornell"
         case .muji: return "paper_add_muji"
         case .grid: return "paper_add_grid"

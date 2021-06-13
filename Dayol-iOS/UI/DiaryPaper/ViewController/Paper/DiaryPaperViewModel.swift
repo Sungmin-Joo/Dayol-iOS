@@ -34,7 +34,7 @@ extension DiaryPaperViewModel {
     }
 
     var paperType: PaperType {
-        return PaperType(rawValue: paper.type, date: paper.date) ?? .muji
+        return paper.type
     }
 
     var width: CGFloat {

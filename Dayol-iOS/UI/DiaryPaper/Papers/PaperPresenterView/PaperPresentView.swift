@@ -161,12 +161,10 @@ extension PaperPresentView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let paperType = PaperType(rawValue: paper.type, date: paper.date) else {
-            return UITableViewCell()
-        }
-
+        let paperType = paper.type
         switch paperType {
-        case .monthly(date: let date):
+        case .monthly:
+            guard let date = paper.date else { return UITableViewCell() }
             let cell = tableView.dequeueReusableCell(MonthlyCalendarView.self, for: indexPath)
             let viewModel = MonthlyCalendarViewModel(date: date)
             cell.configure(viewModel: viewModel, orientation: orientaion)
@@ -185,13 +183,15 @@ extension PaperPresentView: UITableViewDataSource {
                 .disposed(by: cell.disposeBag)
 
             return cell
-        case .weekly(date: let date):
+        case .weekly:
+            guard let date = paper.date else { return UITableViewCell() }
             let cell = tableView.dequeueReusableCell(WeeklyCalendarView.self, for: indexPath)
             let viewModel = WeeklyCalendarViewModel(date: date)
             cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
-        case .daily(date: let date):
+        case .daily:
+            guard let date = paper.date else { return UITableViewCell() }
             let cell = tableView.dequeueReusableCell(DailyPaper.self, for: indexPath)
             let viewModel = DailyPaperViewModel(date: date, drawModel: DrawModel())
 

@@ -79,6 +79,6 @@ struct DeletedPageCellModel {
     let deletedDate: Date
 
     var title: String {
-        return paperType.title
+        return paperType.typeName
     }
 }
