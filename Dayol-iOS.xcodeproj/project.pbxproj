@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D07CD732674C2010007E36D /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07CD722674C2010007E36D /* Entity.swift */; };
+		0D07CD752674C7260007E36D /* PaperContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07CD742674C7260007E36D /* PaperContents.swift */; };
 		0D139025265009AF0034A360 /* OnboadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D139024265009AF0034A360 /* OnboadingView.swift */; };
 		0D27B097264FBCB0001AD911 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B096264FBCB0001AD911 /* LaunchViewController.swift */; };
 		0D27B099264FF8EC001AD911 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */; };
@@ -28,6 +30,8 @@
 		0DC56E96265510020056C28E /* OnboadingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E95265510020056C28E /* OnboadingContentView.swift */; };
 		0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E9726551AA40056C28E /* UILabel+Extension.swift */; };
 		0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E992655530D0056C28E /* UIButton.Extension.swift */; };
+		0DF60D9C26739D5500F0A1E8 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */; };
+		0DF60DA02673AC8D00F0A1E8 /* FirebaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF60D9F2673AC8D00F0A1E8 /* FirebaseStorage.swift */; };
 		340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A025C2DC73007F2EF7 /* DYToastView.swift */; };
 		340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */; };
 		340E56AA25C831E2007F2EF7 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A925C831E2007F2EF7 /* InfoView.swift */; };
@@ -200,6 +204,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D07CD722674C2010007E36D /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		0D07CD742674C7260007E36D /* PaperContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperContents.swift; sourceTree = "<group>"; };
 		0D139024265009AF0034A360 /* OnboadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingView.swift; sourceTree = "<group>"; };
 		0D27B096264FBCB0001AD911 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -213,7 +219,10 @@
 		0DC56E95265510020056C28E /* OnboadingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingContentView.swift; sourceTree = "<group>"; };
 		0DC56E9726551AA40056C28E /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		0DC56E992655530D0056C28E /* UIButton.Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.Extension.swift; sourceTree = "<group>"; };
-		0DE0D1EC26611ED000A302EB /* DAYOL Beta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DAYOL Beta.entitlements"; sourceTree = "<group>"; };
+		0DE0D1EC26611ED000A302EB /* DAYOLBeta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DAYOLBeta.entitlements; sourceTree = "<group>"; };
+		0DF60D992673927F00F0A1E8 /* DAYOL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DAYOL.entitlements; path = SupportingFiles/DAYOL.entitlements; sourceTree = SOURCE_ROOT; };
+		0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		0DF60D9F2673AC8D00F0A1E8 /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
 		340E56A025C2DC73007F2EF7 /* DYToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYToastView.swift; sourceTree = "<group>"; };
 		340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		340E56A925C831E2007F2EF7 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -399,6 +408,7 @@
 				0DA235BE266118AC003AA15F /* RxSwift in Frameworks */,
 				0DA235B226611793003AA15F /* FirebaseAuth in Frameworks */,
 				0DA235B626611793003AA15F /* FirebaseMessaging in Frameworks */,
+				0DF60D9C26739D5500F0A1E8 /* CloudKit.framework in Frameworks */,
 				0DA235B026611793003AA15F /* FirebaseStorage in Frameworks */,
 				0DA235AC26611793003AA15F /* FirebaseAnalytics in Frameworks */,
 				0DA235B92661186E003AA15F /* FSCalendar in Frameworks */,
@@ -409,6 +419,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D07CD702674C1AD0007E36D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0D07CD722674C2010007E36D /* Entity.swift */,
+				0D07CD742674C7260007E36D /* PaperContents.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		0D27B095264FBC6B001AD911 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,6 +455,31 @@
 			path = GoogleService;
 			sourceTree = "<group>";
 		};
+		0DF60D9A26739D5500F0A1E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0DF60D9D2673AC5700F0A1E8 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				0DF60D9F2673AC8D00F0A1E8 /* FirebaseStorage.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		0DF60D9E2673AC5F00F0A1E8 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				0D27B09E26500059001AD911 /* UserDefaults */,
+				0D07CD702674C1AD0007E36D /* Model */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		0DFF4D7F2642E84A00B8218B /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,7 +493,8 @@
 			isa = PBXGroup;
 			children = (
 				0DA235A326611352003AA15F /* GoogleService */,
-				0DE0D1EC26611ED000A302EB /* DAYOL Beta.entitlements */,
+				0DF60D992673927F00F0A1E8 /* DAYOL.entitlements */,
+				0DE0D1EC26611ED000A302EB /* DAYOLBeta.entitlements */,
 				DA4899F4257A08A8005E39ED /* Info.plist */,
 			);
 			path = SupportingFiles;
@@ -1092,6 +1137,7 @@
 				0DFF4D802642E8B900B8218B /* SupportingFiles */,
 				DA4899E5257A08A6005E39ED /* Dayol-iOS */,
 				DA4899E4257A08A6005E39ED /* Products */,
+				0DF60D9A26739D5500F0A1E8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1109,7 +1155,8 @@
 				DA4899E6257A08A6005E39ED /* AppDelegate.swift */,
 				0DA235A62661145B003AA15F /* Config.swift */,
 				DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */,
-				0D27B09E26500059001AD911 /* UserDefaults */,
+				0DF60D9D2673AC5700F0A1E8 /* Firebase */,
+				0DF60D9E2673AC5F00F0A1E8 /* Data */,
 				DA27AC7925D1750500C71CDE /* TestData */,
 				CEF135E7258115C60098BEC3 /* UI */,
 				34C6A3812594F4F900658499 /* Utils */,
@@ -1542,6 +1589,7 @@
 				CE8DCB16258FA5FD007738EA /* DiaryInfoModel.swift in Sources */,
 				DA9A87362610A9FB00ABCD07 /* DYStickerHeightStretchableView.swift in Sources */,
 				340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */,
+				0DF60DA02673AC8D00F0A1E8 /* FirebaseStorage.swift in Sources */,
 				3449D2CA25ADF6520050C02A /* AddPaperModel.swift in Sources */,
 				34E6138E262F02D80076FE74 /* ColorMapView.swift in Sources */,
 				DAD48A23260C9DF8008B542E /* DiaryPaperEditViewController.swift in Sources */,
@@ -1559,6 +1607,7 @@
 				DA27AC7B25D1751A00C71CDE /* DYTestData.swift in Sources */,
 				CE8DCAE0258D28F4007738EA /* DiaryListViewController.swift in Sources */,
 				DAF18EA825B70FFD007ACFAC /* MonthlyCalendarViewModel.swift in Sources */,
+				0D07CD752674C7260007E36D /* PaperContents.swift in Sources */,
 				CE8DCB2D258FB1A0007738EA /* DiaryListViewController+bind.swift in Sources */,
 				340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */,
 				DADD09FE25A33695004D6CF0 /* ColorPaletteView.swift in Sources */,
@@ -1621,6 +1670,7 @@
 				DAD48A33260CD551008B542E /* StickerModalHeaderView.swift in Sources */,
 				DA5A10FE266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift in Sources */,
 				DA31142B260CE313002F99F7 /* StickerModalCollectionViewCell.swift in Sources */,
+				0D07CD732674C2010007E36D /* Entity.swift in Sources */,
 				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
 				DAEF76A725F66F15007CAA93 /* DiaryPaperViewerModel.swift in Sources */,
 				3434B76F25A479D800506152 /* DYModalConfiguration.swift in Sources */,
@@ -1784,9 +1834,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SupportingFiles/Beta.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SupportingFiles/DAYOLBeta.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DAYOL_Bundle_Identifier = com.dayolstudio.Dayol.beta;
+				DAYOL_Bundle_Identifier = com.dayolstudio.dayol.beta;
 				DAYOL_Name = "DAYOL Beta\n";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UB34G768WF;
@@ -1800,8 +1851,9 @@
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.Dayol.beta;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.dayol.beta;
 				PRODUCT_NAME = "DAYOL Beta";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1813,9 +1865,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SupportingFiles/Beta.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SupportingFiles/DAYOL.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DAYOL_Bundle_Identifier = com.dayolstudio.Dayol;
+				DAYOL_Bundle_Identifier = com.dayolstudio.dayol;
 				DAYOL_Name = DAYOL;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UB34G768WF;
@@ -1829,8 +1882,9 @@
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.Dayol;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.dayol;
 				PRODUCT_NAME = DAYOL;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

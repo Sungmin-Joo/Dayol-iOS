@@ -8,12 +8,7 @@
 import UIKit
 
 extension UIColor {
-    convenience init(
-        decimalRed: Int,
-        green: Int,
-        blue: Int,
-        alpha: CGFloat = 1.0
-    ) {
+    convenience init(decimalRed: Int, green: Int, blue: Int, alpha: CGFloat = 1.0) {
         self.init(
             red: CGFloat(decimalRed) / 255.0,
             green: CGFloat(green) / 255.0,
@@ -22,6 +17,7 @@ extension UIColor {
         )
     }
 
+    /// db
     convenience init?(hex: String) {
         let r, g, b, a: CGFloat
 
@@ -48,6 +44,7 @@ extension UIColor {
         return nil
     }
 
+    /// db
     var hexString: String {
         let ragValue = rgbValue
         let r: Int = ragValue.red
