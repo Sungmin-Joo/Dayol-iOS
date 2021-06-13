@@ -53,7 +53,8 @@ final class FBLog: Analytics {
 
 enum DYLog {
     enum LogType {
-        case iCloud
+        case coreData
+        case cloudKit
     }
 
     /// error log

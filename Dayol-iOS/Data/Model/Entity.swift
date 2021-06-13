@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 struct Diary: Codable {
     let id: String // D1, D2
@@ -19,6 +20,12 @@ struct Diary: Codable {
 
     var paperCount: Int {
         papers.count
+    }
+}
+
+extension Diary {
+    func makeMo() -> DiaryMO? {
+        return nil
     }
 }
 

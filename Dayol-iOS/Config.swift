@@ -7,31 +7,14 @@
 
 import Foundation
 import Firebase
+import CoreData
 
 class Config {
     static let shared: Config = Config()
     var deviceToken: String = ""
 
-
     func initalize() {
         FirebaseApp.configure()
-        
-    }
-
-
-}
-
-// MARK: - ImageStorage
-extension Config {
-    enum ImageStorage {
-        case debug
-        case real
-
-        private var baseURL: String {
-            switch self {
-            case .debug: return "gs://dayol-beta.appspot.com/"
-            case .real: return "gs://dayol.appspot.com/"
-            }
-        }
+        PersistentManager.shared.saveContext()
     }
 }
