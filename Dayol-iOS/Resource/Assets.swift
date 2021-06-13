@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: - 애셋 뎁스가 깊어져서, 한번 정리하는 것도 좋을 것 같습니다.
 enum Assets {
     enum Image {
         enum Home {
@@ -59,26 +60,20 @@ enum Assets {
             static let lock = UIImage(named: "diaryCoverLock")
         }
 
+        enum DYTextField {
+            static let delete = UIImage(named: "textField_delete")
+
+            enum CheckBox {
+                static let on = UIImage(named: "textField_checkbox_on")
+                static let off = UIImage(named: "textField_checkbox_off")
+            }
+        }
+
         enum ToolBar {
             static let info = UIImage(named: "toolBar_info")
 
             enum Lasso {
                 static let info = UIImage(named: "toolBar_lasso_info")
-            }
-
-            enum Erase: String {
-                case small
-                case medium
-                case large
-
-                var image: UIImage? {
-                    return UIImage(named: "toolBar_\(self.rawValue)")
-                }
-
-                var selectedImage: UIImage? {
-                    return UIImage(named: "toolBar_\(self.rawValue)_select")
-                }
-
             }
 
             enum Pencil {

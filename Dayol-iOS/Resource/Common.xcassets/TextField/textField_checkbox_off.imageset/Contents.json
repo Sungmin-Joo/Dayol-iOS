@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "imgEraser3Select.png",
+      "filename" : "icCheckboxOff.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "imgEraser3Select@2x.png",
+      "filename" : "icCheckboxOff@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "imgEraser3Select@3x.png",
+      "filename" : "icCheckboxOff@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
