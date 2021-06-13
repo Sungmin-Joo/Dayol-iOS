@@ -11,15 +11,47 @@ import UIKit
 
 extension DiaryListViewController {
 
-    private enum MoreMenu: String {
-        case edit = "diary_more_edit"
-        case lock = "diary_more_lock"
-        case unlock = "diary_more_unlock"
-        case delete = "diary_more_delete"
-        case cancel = "diary_more_cancel"
+    private enum Text {
+        enum Action: String {
+            case edit = "diary_more_edit"
+            case lock = "diary_more_lock"
+            case unlock = "diary_more_unlock"
+            case delete = "diary_more_delete"
+            case cancel = "diary_more_cancel"
+        }
+
+        enum Alert {
+            enum Delete: String {
+                case title = "home_dairy_delete_title"
+                case message = "home_dairy_delete_text"
+                case `default` = "home_dairy_delete_btn"
+                case cancel = "home_dairy_delete_cancel"
+            }
+            enum UnLock: String {
+                case title = "password_unlock_title"
+                case message = "password_unlock_text"
+                case `default` = "password_unlock_btn"
+                case cancel = "password_unlock_cancel"
+            }
+        }
+
+    }
+
+    private enum MoreMenu {
+        case edit
+        case lock
+        case unlock
+        case delete
+        case cancel
 
         var actionTitle: String {
-            return self.rawValue.localized
+            switch self {
+            case .edit: return Text.Action.edit.rawValue.localized
+            case .lock: return Text.Action.lock.rawValue.localized
+            case .unlock: return Text.Action.unlock.rawValue.localized
+            case .delete: return Text.Action.delete.rawValue.localized
+            case .cancel: return Text.Action.cancel.rawValue.localized
+            }
         }
 
         struct AlertInfo {
@@ -42,15 +74,15 @@ extension DiaryListViewController {
         var alertInfo: AlertInfo {
             switch self {
             case .delete:
-                return AlertInfo(title: "home_dairy_delete_title".localized,
-                                 message: "home_dairy_delete_text".localized,
-                                 default: "home_dairy_delete_btn".localized,
-                                 cancel: "home_dairy_delete_cancel".localized)
+                return AlertInfo(title: Text.Alert.Delete.title.rawValue.localized,
+                                 message: Text.Alert.Delete.message.rawValue.localized,
+                                 default: Text.Alert.Delete.default.rawValue.localized,
+                                 cancel: Text.Alert.Delete.cancel.rawValue.localized)
             case .unlock:
-                return AlertInfo(title: "password_unlock_title".localized,
-                                 message: "password_unlock_text".localized,
-                                 default: "password_unlock_btn".localized,
-                                 cancel: "password_unlock_cancel".localized)
+                return AlertInfo(title: Text.Alert.UnLock.title.rawValue.localized,
+                                 message: Text.Alert.UnLock.message.rawValue.localized,
+                                 default: Text.Alert.UnLock.default.rawValue.localized,
+                                 cancel: Text.Alert.UnLock.cancel.rawValue.localized)
             default:
                 return AlertInfo()
             }
