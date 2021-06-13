@@ -76,7 +76,11 @@ enum PaperType: String, Codable {
                 .tracker]
     }
 
-    var stringValue: String {
+    init?(string: String) {
+        self = PaperType(rawValue: string) ?? .muji
+    }
+
+    var asString: String {
         return self.rawValue.uppercased()
     }
 
