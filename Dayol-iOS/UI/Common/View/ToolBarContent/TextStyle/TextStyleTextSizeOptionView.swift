@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Combine
 
 private enum Design {
     static let borderRadius: CGFloat = 4.0
@@ -31,6 +32,7 @@ private enum Design {
 class TextStyleTextSizeOptionView: UIView {
 
     private let disposeBag = DisposeBag()
+    let textSizeSubject = CurrentValueSubject<Int, Never>(0)
     var currentSize = 0 {
         didSet { setTextSize() }
     }
@@ -75,6 +77,7 @@ class TextStyleTextSizeOptionView: UIView {
                                                       letterSpacing: Design.textKern,
                                                       foregroundColor: Design.textColor)
         sizeLabel.attributedText = attributedText
+        textSizeSubject.send(currentSize)
     }
 
 }
@@ -115,6 +118,7 @@ extension TextStyleTextSizeOptionView {
                 }
             }
             .disposed(by: disposeBag)
+
         minusButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }

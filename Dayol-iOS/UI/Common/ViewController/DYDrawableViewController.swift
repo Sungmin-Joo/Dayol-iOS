@@ -15,8 +15,8 @@ import PencilKit
 protocol DYDrawableDelegate: AnyObject {
     func didTapEraseButton()
     func didTapPencilButton()
-    func didTapTextButton(_ textField: UITextField)
-    func didEndEraseSetting(eraseType: EraseType, isObjectErase: Bool)
+    func didTapTextButton(_ textField: DYFlexibleTextField)
+    func didEndEraseSetting(isObjectErase: Bool)
     func didEndPencilSetting(color: UIColor, isHighlighter: Bool)
     func didEndTextStyleSetting()
     func didEndTextColorSetting(color: UIColor)
@@ -58,7 +58,6 @@ class DYDrawableViewController: UIViewController {
 
     let disposeBag = DisposeBag()
     let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
-    let accessoryView = DYKeyboardInputAccessoryView(currentColor: .black)
     var currentTool: DYNavigationDrawingToolbar.ToolType?
     var drawableViewModel = DYDrawableViewModel()
     weak var delegate: DYDrawableDelegate?
@@ -73,7 +72,6 @@ class DYDrawableViewController: UIViewController {
 extension DYDrawableViewController {
 
     private func bindToolBarEvent() {
-        accessoryViewBind()
         lassoToolBind()
         eraseBind()
         penBind()
@@ -82,16 +80,16 @@ extension DYDrawableViewController {
     }
 
     private func showEraseModal() {
-        let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .small)
+        let modalHeight = DYModalViewController.headerAreaHeight + EraseSettingView.contentHeight
+        let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .custom(containerHeight: modalHeight))
         let modalVC = DYModalViewController(configure: configuration,
                                             title: Text.eraseTitle,
                                             hasDownButton: true)
         let isObjectErase = drawableViewModel.currentEraseTool.isObjectErase
-        let contentView = EraseSettingView(currentEraseType: .small, isObjectErase: isObjectErase)
+        let contentView = EraseSettingView(isObjectErase: isObjectErase)
         modalVC.dismissCompeletion = { [weak self] in
-            let newEraseType = contentView.currentEraseType
             let newIsObjectErase = contentView.isObjectErase
-            self?.delegate?.didEndEraseSetting(eraseType: newEraseType, isObjectErase: newIsObjectErase)
+            self?.delegate?.didEndEraseSetting(isObjectErase: newIsObjectErase)
         }
         modalVC.contentView = contentView
         self.presentCustomModal(modalVC)
@@ -137,41 +135,6 @@ extension DYDrawableViewController {
 // MARK: - Tool Bar Event
 
 extension DYDrawableViewController {
-    // TODO: - 텍스트 필드의 악세사리 뷰와 텍스트 필드를 동기화 해야함.
-    // 추후에 accessoryView 관련 로직은 크게 변경될 여지가 있음.
-    private func accessoryViewBind() {
-        accessoryView.keyboardDownButton.rx.tap
-            .bind { [weak self] in
-                self?.view.endEditing(true)
-            }
-            .disposed(by: disposeBag)
-
-        accessoryView.textStyleButton.rx.tap
-            .bind { [weak self] in
-                guard let self = self else { return }
-                self.view.endEditing(true)
-                let configuration = DYModalConfiguration(dimStyle: .clear, modalStyle: .small)
-                let modalVC = DYModalViewController(configure: configuration,
-                                                    title: Text.textStyleTitle,
-                                                    hasDownButton: true)
-                let viewModel = TextStyleViewModel(alignment: .leading,
-                                                   textSize: 16,
-                                                   additionalOptions: [.bold],
-                                                   lineSpacing: 26,
-                                                   font: .sandolGodic)
-                modalVC.contentView = TextStyleView(viewModel: viewModel)
-                self.presentCustomModal(modalVC)
-            }
-            .disposed(by: disposeBag)
-
-        accessoryView.textColorButton.rx.tap
-            .bind { [weak self] in
-                guard let self = self else { return }
-                self.view.endEditing(true)
-                self.showColorModal()
-            }
-            .disposed(by: disposeBag)
-    }
 
     private func eraseBind() {
         toolBar.eraserButton.rx.tap
@@ -223,17 +186,11 @@ extension DYDrawableViewController {
     private func textFieldBind() {
         toolBar.textButton.rx.tap
             .bind { [weak self] in
-                // TODO: 다욜 텍스트 필드 구현 후 연동해야합니다.
+                // TODO: 다욜 텍스트 필드 구현 후 데이터 연동 필요.
                 guard let self = self else { return }
                 guard self.currentTool != .text else { return }
                 self.currentTool = .text
-                let textField = UITextField()
-                // testCode
-                textField.textColor = .blue
-                let textColor = textField.textColor ?? .black
-
-                self.accessoryView.currentColor = textColor
-                textField.inputAccessoryView = self.accessoryView
+                let textField = DYFlexibleTextField()
                 self.delegate?.didTapTextButton(textField)
                 return
             }

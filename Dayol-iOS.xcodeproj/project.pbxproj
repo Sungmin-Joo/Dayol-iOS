@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D07CD732674C2010007E36D /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07CD722674C2010007E36D /* Entity.swift */; };
+		0D07CD752674C7260007E36D /* PaperContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07CD742674C7260007E36D /* PaperContents.swift */; };
 		0D139025265009AF0034A360 /* OnboadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D139024265009AF0034A360 /* OnboadingView.swift */; };
 		0D27B097264FBCB0001AD911 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B096264FBCB0001AD911 /* LaunchViewController.swift */; };
 		0D27B099264FF8EC001AD911 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */; };
@@ -28,6 +30,8 @@
 		0DC56E96265510020056C28E /* OnboadingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E95265510020056C28E /* OnboadingContentView.swift */; };
 		0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E9726551AA40056C28E /* UILabel+Extension.swift */; };
 		0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E992655530D0056C28E /* UIButton.Extension.swift */; };
+		0DF60D9C26739D5500F0A1E8 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */; };
+		0DF60DA02673AC8D00F0A1E8 /* FirebaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF60D9F2673AC8D00F0A1E8 /* FirebaseStorage.swift */; };
 		340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A025C2DC73007F2EF7 /* DYToastView.swift */; };
 		340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */; };
 		340E56AA25C831E2007F2EF7 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A925C831E2007F2EF7 /* InfoView.swift */; };
@@ -56,8 +60,11 @@
 		3452670C25DD644B00EC6F9D /* DataBackupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3452670B25DD644B00EC6F9D /* DataBackupViewModel.swift */; };
 		3452671025DD64AE00EC6F9D /* DataBackupCloudContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3452670F25DD64AD00EC6F9D /* DataBackupCloudContentView.swift */; };
 		3452671325DD66F400EC6F9D /* DataBackupExportContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3452671225DD66F400EC6F9D /* DataBackupExportContentView.swift */; };
+		3454C6D0266521F400557450 /* DYFlexibleTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454C6CF266521F400557450 /* DYFlexibleTextFieldViewModel.swift */; };
+		3454C6D226665ACB00557450 /* DYTextBoxBulletPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454C6D126665ACB00557450 /* DYTextBoxBulletPoint.swift */; };
 		3462FDB826304117008E4A6C /* PencilAlphaSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3462FDB726304117008E4A6C /* PencilAlphaSettingView.swift */; };
 		3462FDBB26305066008E4A6C /* PencilAlphaInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3462FDBA26305066008E4A6C /* PencilAlphaInfoView.swift */; };
+		3465A643266E547000DF025D /* ColorSettingPaletteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3465A642266E547000DF025D /* ColorSettingPaletteViewModel.swift */; };
 		34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34733DC025D189F500C3A997 /* DetailSettingsViewController.swift */; };
 		34788856261E0B4B00692ED7 /* LassoInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34788855261E0B4B00692ED7 /* LassoInfoView.swift */; };
 		34A07141262C4856009BA700 /* PencilSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A07140262C4856009BA700 /* PencilSettingView.swift */; };
@@ -77,12 +84,11 @@
 		34AD5A7725C97C3F00D9E29C /* PaperListContentView+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AD5A7625C97C3F00D9E29C /* PaperListContentView+CollectionView.swift */; };
 		34AD5A7A25C97D0900D9E29C /* PaperListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AD5A7925C97D0900D9E29C /* PaperListCell.swift */; };
 		34AD5A8425C9A87600D9E29C /* PaperListAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AD5A8325C9A87600D9E29C /* PaperListAddCell.swift */; };
+		34ADE2B72663491A00412CAC /* DYFlexibleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ADE2B62663491A00412CAC /* DYFlexibleTextField.swift */; };
 		34B6C14125BDB28400C2596F /* DYKeyboardInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B6C14025BDB28400C2596F /* DYKeyboardInputAccessoryView.swift */; };
 		34BB085E2612178F0000377E /* EraseSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BB085D2612178F0000377E /* EraseSettingView.swift */; };
 		34BB086226135E030000377E /* EraseOptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BB086126135E030000377E /* EraseOptionButton.swift */; };
 		34C7B3692619763300BC6A28 /* TextStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B3682619763300BC6A28 /* TextStyleView.swift */; };
-		34C7B36C2619765500BC6A28 /* TextStyleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B36B2619765500BC6A28 /* TextStyleModel.swift */; };
-		34C7B36F26197C4600BC6A28 /* TextStyleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B36E26197C4600BC6A28 /* TextStyleViewModel.swift */; };
 		34C7B3722619818F00BC6A28 /* TextStyleOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B3712619818F00BC6A28 /* TextStyleOptionView.swift */; };
 		34C7B3752619819D00BC6A28 /* TextStyleFontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B3742619819D00BC6A28 /* TextStyleFontView.swift */; };
 		34C7B37926199DA600BC6A28 /* TextStyleTextSizeOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B37826199DA600BC6A28 /* TextStyleTextSizeOptionView.swift */; };
@@ -180,8 +186,8 @@
 		DAD6675425A18BAE00E8F59A /* DYNavigationFunctionToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD6675325A18BAD00E8F59A /* DYNavigationFunctionToolBar.swift */; };
 		DADD09F725A335C2004D6CF0 /* DiaryEditToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD09F625A335C2004D6CF0 /* DiaryEditToggleView.swift */; };
 		DADD09FB25A33674004D6CF0 /* DiaryEditCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD09FA25A33674004D6CF0 /* DiaryEditCoverView.swift */; };
-		DADD09FE25A33695004D6CF0 /* DiaryEditColorPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD09FD25A33695004D6CF0 /* DiaryEditColorPaletteView.swift */; };
-		DADD0A0125A34ED6004D6CF0 /* DiaryCoverColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A0025A34ED6004D6CF0 /* DiaryCoverColor.swift */; };
+		DADD09FE25A33695004D6CF0 /* ColorPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD09FD25A33695004D6CF0 /* ColorPaletteView.swift */; };
+		DADD0A0125A34ED6004D6CF0 /* PaletteColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A0025A34ED6004D6CF0 /* PaletteColor.swift */; };
 		DADD0A0525A35445004D6CF0 /* DiaryEditColorPaletteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A0425A35445004D6CF0 /* DiaryEditColorPaletteCell.swift */; };
 		DADD0A1925A72907004D6CF0 /* DiaryPaperViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A1825A72907004D6CF0 /* DiaryPaperViewerViewController.swift */; };
 		DADD0A2025A72A6A004D6CF0 /* DiaryPaperEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADD0A1F25A72A6A004D6CF0 /* DiaryPaperEmptyView.swift */; };
@@ -198,6 +204,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D07CD722674C2010007E36D /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		0D07CD742674C7260007E36D /* PaperContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperContents.swift; sourceTree = "<group>"; };
 		0D139024265009AF0034A360 /* OnboadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingView.swift; sourceTree = "<group>"; };
 		0D27B096264FBCB0001AD911 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -211,7 +219,10 @@
 		0DC56E95265510020056C28E /* OnboadingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingContentView.swift; sourceTree = "<group>"; };
 		0DC56E9726551AA40056C28E /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		0DC56E992655530D0056C28E /* UIButton.Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.Extension.swift; sourceTree = "<group>"; };
-		0DE0D1EC26611ED000A302EB /* DAYOL Beta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DAYOL Beta.entitlements"; sourceTree = "<group>"; };
+		0DE0D1EC26611ED000A302EB /* DAYOLBeta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DAYOLBeta.entitlements; sourceTree = "<group>"; };
+		0DF60D992673927F00F0A1E8 /* DAYOL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DAYOL.entitlements; path = SupportingFiles/DAYOL.entitlements; sourceTree = SOURCE_ROOT; };
+		0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		0DF60D9F2673AC8D00F0A1E8 /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
 		340E56A025C2DC73007F2EF7 /* DYToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYToastView.swift; sourceTree = "<group>"; };
 		340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		340E56A925C831E2007F2EF7 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -240,8 +251,11 @@
 		3452670B25DD644B00EC6F9D /* DataBackupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBackupViewModel.swift; sourceTree = "<group>"; };
 		3452670F25DD64AD00EC6F9D /* DataBackupCloudContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBackupCloudContentView.swift; sourceTree = "<group>"; };
 		3452671225DD66F400EC6F9D /* DataBackupExportContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBackupExportContentView.swift; sourceTree = "<group>"; };
+		3454C6CF266521F400557450 /* DYFlexibleTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYFlexibleTextFieldViewModel.swift; sourceTree = "<group>"; };
+		3454C6D126665ACB00557450 /* DYTextBoxBulletPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYTextBoxBulletPoint.swift; sourceTree = "<group>"; };
 		3462FDB726304117008E4A6C /* PencilAlphaSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilAlphaSettingView.swift; sourceTree = "<group>"; };
 		3462FDBA26305066008E4A6C /* PencilAlphaInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilAlphaInfoView.swift; sourceTree = "<group>"; };
+		3465A642266E547000DF025D /* ColorSettingPaletteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSettingPaletteViewModel.swift; sourceTree = "<group>"; };
 		34733DC025D189F500C3A997 /* DetailSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsViewController.swift; sourceTree = "<group>"; };
 		34788855261E0B4B00692ED7 /* LassoInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LassoInfoView.swift; sourceTree = "<group>"; };
 		34A07140262C4856009BA700 /* PencilSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilSettingView.swift; sourceTree = "<group>"; };
@@ -261,12 +275,11 @@
 		34AD5A7625C97C3F00D9E29C /* PaperListContentView+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PaperListContentView+CollectionView.swift"; sourceTree = "<group>"; };
 		34AD5A7925C97D0900D9E29C /* PaperListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperListCell.swift; sourceTree = "<group>"; };
 		34AD5A8325C9A87600D9E29C /* PaperListAddCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperListAddCell.swift; sourceTree = "<group>"; };
+		34ADE2B62663491A00412CAC /* DYFlexibleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYFlexibleTextField.swift; sourceTree = "<group>"; };
 		34B6C14025BDB28400C2596F /* DYKeyboardInputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DYKeyboardInputAccessoryView.swift; sourceTree = "<group>"; };
 		34BB085D2612178F0000377E /* EraseSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseSettingView.swift; sourceTree = "<group>"; };
 		34BB086126135E030000377E /* EraseOptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseOptionButton.swift; sourceTree = "<group>"; };
 		34C7B3682619763300BC6A28 /* TextStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleView.swift; sourceTree = "<group>"; };
-		34C7B36B2619765500BC6A28 /* TextStyleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleModel.swift; sourceTree = "<group>"; };
-		34C7B36E26197C4600BC6A28 /* TextStyleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleViewModel.swift; sourceTree = "<group>"; };
 		34C7B3712619818F00BC6A28 /* TextStyleOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleOptionView.swift; sourceTree = "<group>"; };
 		34C7B3742619819D00BC6A28 /* TextStyleFontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleFontView.swift; sourceTree = "<group>"; };
 		34C7B37826199DA600BC6A28 /* TextStyleTextSizeOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleTextSizeOptionView.swift; sourceTree = "<group>"; };
@@ -368,8 +381,8 @@
 		DAD6675325A18BAD00E8F59A /* DYNavigationFunctionToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYNavigationFunctionToolBar.swift; sourceTree = "<group>"; };
 		DADD09F625A335C2004D6CF0 /* DiaryEditToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditToggleView.swift; sourceTree = "<group>"; };
 		DADD09FA25A33674004D6CF0 /* DiaryEditCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditCoverView.swift; sourceTree = "<group>"; };
-		DADD09FD25A33695004D6CF0 /* DiaryEditColorPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditColorPaletteView.swift; sourceTree = "<group>"; };
-		DADD0A0025A34ED6004D6CF0 /* DiaryCoverColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoverColor.swift; sourceTree = "<group>"; };
+		DADD09FD25A33695004D6CF0 /* ColorPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPaletteView.swift; sourceTree = "<group>"; };
+		DADD0A0025A34ED6004D6CF0 /* PaletteColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteColor.swift; sourceTree = "<group>"; };
 		DADD0A0425A35445004D6CF0 /* DiaryEditColorPaletteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditColorPaletteCell.swift; sourceTree = "<group>"; };
 		DADD0A1825A72907004D6CF0 /* DiaryPaperViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperViewerViewController.swift; sourceTree = "<group>"; };
 		DADD0A1F25A72A6A004D6CF0 /* DiaryPaperEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPaperEmptyView.swift; sourceTree = "<group>"; };
@@ -395,6 +408,7 @@
 				0DA235BE266118AC003AA15F /* RxSwift in Frameworks */,
 				0DA235B226611793003AA15F /* FirebaseAuth in Frameworks */,
 				0DA235B626611793003AA15F /* FirebaseMessaging in Frameworks */,
+				0DF60D9C26739D5500F0A1E8 /* CloudKit.framework in Frameworks */,
 				0DA235B026611793003AA15F /* FirebaseStorage in Frameworks */,
 				0DA235AC26611793003AA15F /* FirebaseAnalytics in Frameworks */,
 				0DA235B92661186E003AA15F /* FSCalendar in Frameworks */,
@@ -405,6 +419,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D07CD702674C1AD0007E36D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0D07CD722674C2010007E36D /* Entity.swift */,
+				0D07CD742674C7260007E36D /* PaperContents.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		0D27B095264FBC6B001AD911 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +455,31 @@
 			path = GoogleService;
 			sourceTree = "<group>";
 		};
+		0DF60D9A26739D5500F0A1E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0DF60D9D2673AC5700F0A1E8 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				0DF60D9F2673AC8D00F0A1E8 /* FirebaseStorage.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		0DF60D9E2673AC5F00F0A1E8 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				0D27B09E26500059001AD911 /* UserDefaults */,
+				0D07CD702674C1AD0007E36D /* Model */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		0DFF4D7F2642E84A00B8218B /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,7 +493,8 @@
 			isa = PBXGroup;
 			children = (
 				0DA235A326611352003AA15F /* GoogleService */,
-				0DE0D1EC26611ED000A302EB /* DAYOL Beta.entitlements */,
+				0DF60D992673927F00F0A1E8 /* DAYOL.entitlements */,
+				0DE0D1EC26611ED000A302EB /* DAYOLBeta.entitlements */,
 				DA4899F4257A08A8005E39ED /* Info.plist */,
 			);
 			path = SupportingFiles;
@@ -471,6 +520,7 @@
 		340E56A825C831BB007F2EF7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3465A644266E578A00DF025D /* ColorPalette */,
 				34BB085C261217690000377E /* ToolBarContent */,
 				340E56A925C831E2007F2EF7 /* InfoView.swift */,
 			);
@@ -575,6 +625,16 @@
 			path = DataBackup;
 			sourceTree = "<group>";
 		};
+		3465A644266E578A00DF025D /* ColorPalette */ = {
+			isa = PBXGroup;
+			children = (
+				DADD0A0325A3542F004D6CF0 /* Cell */,
+				DADD09FD25A33695004D6CF0 /* ColorPaletteView.swift */,
+				DADD0A0025A34ED6004D6CF0 /* PaletteColor.swift */,
+			);
+			path = ColorPalette;
+			sourceTree = "<group>";
+		};
 		34788854261E0B1F00692ED7 /* Lasso */ = {
 			isa = PBXGroup;
 			children = (
@@ -600,6 +660,7 @@
 				34E61388262F02870076FE74 /* ColorPicker */,
 				34A07151262DBFA7009BA700 /* ColorSettingView.swift */,
 				34A0714C262C78ED009BA700 /* ColorSettingPaletteView.swift */,
+				3465A642266E547000DF025D /* ColorSettingPaletteViewModel.swift */,
 				34A07155262DCE1E009BA700 /* ColorPickerContentView.swift */,
 			);
 			path = Color;
@@ -662,6 +723,16 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		34ADE2B5266348F000412CAC /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				3454C6D126665ACB00557450 /* DYTextBoxBulletPoint.swift */,
+				34ADE2B62663491A00412CAC /* DYFlexibleTextField.swift */,
+				3454C6CF266521F400557450 /* DYFlexibleTextFieldViewModel.swift */,
+			);
+			path = TextField;
+			sourceTree = "<group>";
+		};
 		34B6C13325BB4F7A00C2596F /* Papers */ = {
 			isa = PBXGroup;
 			children = (
@@ -693,6 +764,7 @@
 				34788854261E0B1F00692ED7 /* Lasso */,
 				34C7B3662619748C00BC6A28 /* Erase */,
 				34A0713F262C4838009BA700 /* Pencil */,
+				34ADE2B5266348F000412CAC /* TextField */,
 				34C7B3672619749B00BC6A28 /* TextStyle */,
 			);
 			path = ToolBarContent;
@@ -719,8 +791,6 @@
 		34C7B3672619749B00BC6A28 /* TextStyle */ = {
 			isa = PBXGroup;
 			children = (
-				34C7B36B2619765500BC6A28 /* TextStyleModel.swift */,
-				34C7B36E26197C4600BC6A28 /* TextStyleViewModel.swift */,
 				34C7B3682619763300BC6A28 /* TextStyleView.swift */,
 				34C7B3712619818F00BC6A28 /* TextStyleOptionView.swift */,
 				34C7B37826199DA600BC6A28 /* TextStyleTextSizeOptionView.swift */,
@@ -969,7 +1039,6 @@
 				34A11A4425ADC35500678F98 /* DiaryPaperModal */,
 				DAD48A2B260CD2F7008B542E /* StickerModal */,
 				34CA254425A618E40057404D /* Settings */,
-				DA5A1112266CADC0002C7EA8 /* ScheduleList */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1068,6 +1137,7 @@
 				0DFF4D802642E8B900B8218B /* SupportingFiles */,
 				DA4899E5257A08A6005E39ED /* Dayol-iOS */,
 				DA4899E4257A08A6005E39ED /* Products */,
+				0DF60D9A26739D5500F0A1E8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1085,7 +1155,8 @@
 				DA4899E6257A08A6005E39ED /* AppDelegate.swift */,
 				0DA235A62661145B003AA15F /* Config.swift */,
 				DA4899F1257A08A8005E39ED /* LaunchScreen.storyboard */,
-				0D27B09E26500059001AD911 /* UserDefaults */,
+				0DF60D9D2673AC5700F0A1E8 /* Firebase */,
+				0DF60D9E2673AC5F00F0A1E8 /* Data */,
 				DA27AC7925D1750500C71CDE /* TestData */,
 				CEF135E7258115C60098BEC3 /* UI */,
 				34C6A3812594F4F900658499 /* Utils */,
@@ -1102,13 +1173,6 @@
 				DA6FF5F52667C07B006B0B34 /* MonthlyPaperListViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		DA5A1112266CADC0002C7EA8 /* ScheduleList */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ScheduleList;
 			sourceTree = "<group>";
 		};
 		DA6FF5DC2667AD0A006B0B34 /* Paper */ = {
@@ -1158,7 +1222,6 @@
 				DAC04CC925920C16003A7BC8 /* DiaryCoverView.swift */,
 				DAC04CCD25920C25003A7BC8 /* DiaryLockerView.swift */,
 				DAEB92DD2596F72E00FA5551 /* DifferentEdgeSettableView.swift */,
-				DADD0A0025A34ED6004D6CF0 /* DiaryCoverColor.swift */,
 			);
 			path = DiaryCover;
 			sourceTree = "<group>";
@@ -1265,12 +1328,10 @@
 		DADD09F525A33367004D6CF0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DADD0A0325A3542F004D6CF0 /* Cell */,
 				DAD66733259B551600E8F59A /* DiaryEditViewController.swift */,
 				3451287A2637050900D65627 /* DiaryEditViewController+DYDrawableDelegate.swift */,
 				DADD09F625A335C2004D6CF0 /* DiaryEditToggleView.swift */,
 				DADD09FA25A33674004D6CF0 /* DiaryEditCoverView.swift */,
-				DADD09FD25A33695004D6CF0 /* DiaryEditColorPaletteView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1446,6 +1507,7 @@
 			files = (
 				CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */,
 				DA9A87392610AA3800ABCD07 /* DYStickerSizeStretchableView.swift in Sources */,
+				3454C6D226665ACB00557450 /* DYTextBoxBulletPoint.swift in Sources */,
 				0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */,
 				DAC04CCA25920C16003A7BC8 /* DiaryCoverView.swift in Sources */,
 				DADD09FB25A33674004D6CF0 /* DiaryEditCoverView.swift in Sources */,
@@ -1476,7 +1538,7 @@
 				3452671325DD66F400EC6F9D /* DataBackupExportContentView.swift in Sources */,
 				DA27AC7525D16E6800C71CDE /* DiaryEditViewModel.swift in Sources */,
 				3434B76B25A4797B00506152 /* DYModalViewController.swift in Sources */,
-				DADD0A0125A34ED6004D6CF0 /* DiaryCoverColor.swift in Sources */,
+				DADD0A0125A34ED6004D6CF0 /* PaletteColor.swift in Sources */,
 				3449D2D325AF23AE0050C02A /* AddPaperCell.swift in Sources */,
 				34BB086226135E030000377E /* EraseOptionButton.swift in Sources */,
 				DAC04CCE25920C25003A7BC8 /* DiaryLockerView.swift in Sources */,
@@ -1509,6 +1571,7 @@
 				34AD5A8425C9A87600D9E29C /* PaperListAddCell.swift in Sources */,
 				0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */,
 				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
+				3454C6D0266521F400557450 /* DYFlexibleTextFieldViewModel.swift in Sources */,
 				34A2EDD425B88DB0008DB98D /* BasePaper.swift in Sources */,
 				CE8DCAE2258D28F4007738EA /* HomeTabBarView.swift in Sources */,
 				34CA255E25A761060057404D /* OutAppSettingCell.swift in Sources */,
@@ -1526,6 +1589,7 @@
 				CE8DCB16258FA5FD007738EA /* DiaryInfoModel.swift in Sources */,
 				DA9A87362610A9FB00ABCD07 /* DYStickerHeightStretchableView.swift in Sources */,
 				340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */,
+				0DF60DA02673AC8D00F0A1E8 /* FirebaseStorage.swift in Sources */,
 				3449D2CA25ADF6520050C02A /* AddPaperModel.swift in Sources */,
 				34E6138E262F02D80076FE74 /* ColorMapView.swift in Sources */,
 				DAD48A23260C9DF8008B542E /* DiaryPaperEditViewController.swift in Sources */,
@@ -1543,10 +1607,10 @@
 				DA27AC7B25D1751A00C71CDE /* DYTestData.swift in Sources */,
 				CE8DCAE0258D28F4007738EA /* DiaryListViewController.swift in Sources */,
 				DAF18EA825B70FFD007ACFAC /* MonthlyCalendarViewModel.swift in Sources */,
+				0D07CD752674C7260007E36D /* PaperContents.swift in Sources */,
 				CE8DCB2D258FB1A0007738EA /* DiaryListViewController+bind.swift in Sources */,
 				340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */,
-				34C7B36F26197C4600BC6A28 /* TextStyleViewModel.swift in Sources */,
-				DADD09FE25A33695004D6CF0 /* DiaryEditColorPaletteView.swift in Sources */,
+				DADD09FE25A33695004D6CF0 /* ColorPaletteView.swift in Sources */,
 				34A11A4725ADC3CA00678F98 /* PaperModalViewController.swift in Sources */,
 				34C7B37926199DA600BC6A28 /* TextStyleTextSizeOptionView.swift in Sources */,
 				DA27AC6A25C8288B00C71CDE /* WeeklyCalendarViewCell.swift in Sources */,
@@ -1559,6 +1623,7 @@
 				34C7B3752619819D00BC6A28 /* TextStyleFontView.swift in Sources */,
 				34E6138A262F02A10076FE74 /* ColorPicker.swift in Sources */,
 				34CA255825A74A7A0057404D /* SettingsViewModel.swift in Sources */,
+				34ADE2B72663491A00412CAC /* DYFlexibleTextField.swift in Sources */,
 				DA4899E7257A08A6005E39ED /* AppDelegate.swift in Sources */,
 				CE0603542588EDB600FBBEF0 /* PopupPresentDelegate.swift in Sources */,
 				340E56B825C8684A007F2EF7 /* PaperListHeaderView.swift in Sources */,
@@ -1584,6 +1649,7 @@
 				CE8DCC942590ECE8007738EA /* DiaryListCell.swift in Sources */,
 				CE8DCB11258FA502007738EA /* DiaryListViewModel.swift in Sources */,
 				DAF18E9425B70C26007ACFAC /* Date+Calendar.swift in Sources */,
+				3465A643266E547000DF025D /* ColorSettingPaletteViewModel.swift in Sources */,
 				DAEF76BC25F90ED6007CAA93 /* DiaryPaperViewController.swift in Sources */,
 				34BB085E2612178F0000377E /* EraseSettingView.swift in Sources */,
 				3449D2D725AF24DA0050C02A /* AddPaperContentView+UICollectionView.swift in Sources */,
@@ -1604,6 +1670,7 @@
 				DAD48A33260CD551008B542E /* StickerModalHeaderView.swift in Sources */,
 				DA5A10FE266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift in Sources */,
 				DA31142B260CE313002F99F7 /* StickerModalCollectionViewCell.swift in Sources */,
+				0D07CD732674C2010007E36D /* Entity.swift in Sources */,
 				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
 				DAEF76A725F66F15007CAA93 /* DiaryPaperViewerModel.swift in Sources */,
 				3434B76F25A479D800506152 /* DYModalConfiguration.swift in Sources */,
@@ -1612,7 +1679,6 @@
 				34C7B3692619763300BC6A28 /* TextStyleView.swift in Sources */,
 				DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */,
 				34A07156262DCE1E009BA700 /* ColorPickerContentView.swift in Sources */,
-				34C7B36C2619765500BC6A28 /* TextStyleModel.swift in Sources */,
 				0D27B09D264FFD48001AD911 /* LaunchManager.swift in Sources */,
 				34A11A4F25ADC93300678F98 /* AddPaperContentView.swift in Sources */,
 				0DC56E96265510020056C28E /* OnboadingContentView.swift in Sources */,
@@ -1768,9 +1834,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SupportingFiles/Beta.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SupportingFiles/DAYOLBeta.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DAYOL_Bundle_Identifier = com.dayolstudio.Dayol.beta;
+				DAYOL_Bundle_Identifier = com.dayolstudio.dayol.beta;
 				DAYOL_Name = "DAYOL Beta\n";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UB34G768WF;
@@ -1784,8 +1851,9 @@
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.Dayol.beta;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.dayol.beta;
 				PRODUCT_NAME = "DAYOL Beta";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1797,9 +1865,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SupportingFiles/Beta.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SupportingFiles/DAYOL.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DAYOL_Bundle_Identifier = com.dayolstudio.Dayol;
+				DAYOL_Bundle_Identifier = com.dayolstudio.dayol;
 				DAYOL_Name = DAYOL;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UB34G768WF;
@@ -1813,8 +1882,9 @@
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.Dayol;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.dayol;
 				PRODUCT_NAME = DAYOL;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

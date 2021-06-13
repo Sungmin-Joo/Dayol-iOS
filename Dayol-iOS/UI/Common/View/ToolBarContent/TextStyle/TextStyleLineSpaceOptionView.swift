@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Combine
 
 private enum Design {
     static let titleFont = UIFont.appleRegular(size: 16.0)
@@ -39,12 +40,12 @@ private enum Text {
 
 class TextStyleLineSpaceOptionView: UIView {
 
-    static let minimumLineSpace: Float = 20
-    static let maximumLineSpace: Float = 30
+    static let minimumLineSpace: CGFloat = 0
+    static let maximumLineSpace: CGFloat = 30
 
     private let disposeBag = DisposeBag()
-
-    var currentLineSpacing = 0 {
+    let currentLineSpacingSubject = CurrentValueSubject<CGFloat, Never>(minimumLineSpace)
+    var currentLineSpacing: CGFloat = 0 {
         didSet { updateCurrentState() }
     }
 
@@ -85,8 +86,8 @@ class TextStyleLineSpaceOptionView: UIView {
         let slider = UISlider()
         slider.maximumTrackTintColor = Design.sliderTintColor
         slider.minimumTrackTintColor = Design.sliderTintColor
-        slider.minimumValue = TextStyleLineSpaceOptionView.minimumLineSpace
-        slider.maximumValue = TextStyleLineSpaceOptionView.maximumLineSpace
+        slider.minimumValue = Float(TextStyleLineSpaceOptionView.minimumLineSpace)
+        slider.maximumValue = Float(TextStyleLineSpaceOptionView.maximumLineSpace)
         slider.translatesAutoresizingMaskIntoConstraints = false
         return slider
     }()
@@ -110,13 +111,14 @@ class TextStyleLineSpaceOptionView: UIView {
     }
 
     private func updateCurrentState() {
-        let text = String(currentLineSpacing) + Text.pt
+        let text = "\(Int(currentLineSpacing))" + Text.pt
         spacingInfoLabel.attributedText = NSAttributedString.build(text: text,
                                                                    font: Design.infoTitleFont,
                                                                    align: .center,
                                                                    letterSpacing: Design.infoTitleSpacing,
                                                                    foregroundColor: Design.titleColor)
         slider.setValue(Float(currentLineSpacing), animated: false)
+        currentLineSpacingSubject.send(currentLineSpacing)
     }
 
 }
@@ -158,17 +160,17 @@ extension TextStyleLineSpaceOptionView {
 
     private func bindEvent() {
         slider.rx.value
-            .bind { [weak self] value in
+            .bind { [weak self] lineSpacing in
                 guard let self = self else { return }
-                self.currentLineSpacing = Int(value)
+                self.currentLineSpacing = CGFloat(round(lineSpacing))
             }
             .disposed(by: disposeBag)
 
         plusButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-                if self.currentLineSpacing < Int(Self.maximumLineSpace) {
-                    self.currentLineSpacing += 1
+                if self.currentLineSpacing < Self.maximumLineSpace {
+                    self.currentLineSpacing = floor(self.currentLineSpacing) + 1
                 }
             }
             .disposed(by: disposeBag)
@@ -176,8 +178,8 @@ extension TextStyleLineSpaceOptionView {
         minusButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-                if self.currentLineSpacing > Int(Self.minimumLineSpace) {
-                    self.currentLineSpacing -= 1
+                if self.currentLineSpacing > Self.minimumLineSpace {
+                    self.currentLineSpacing = ceil(self.currentLineSpacing) - 1
                 }
             }
             .disposed(by: disposeBag)

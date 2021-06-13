@@ -30,8 +30,9 @@ class DiaryEditViewController: DYDrawableViewController {
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let viewModel = DiaryEditViewModel()
-    private var currentCoverColor: DiaryCoverColor = .DYBrown
+
     private var password: String?
+    private var currentCoverColor: PaletteColor = .DYBrown
 
     // MARK: - UI Components
 
@@ -45,8 +46,8 @@ class DiaryEditViewController: DYDrawableViewController {
         return view
     }()
     
-    private let diaryEditPaletteView: DiaryEditColorPaletteView = {
-        let view = DiaryEditColorPaletteView()
+    private let diaryEditPaletteView: ColorPaletteView = {
+        let view = ColorPaletteView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -130,10 +131,10 @@ class DiaryEditViewController: DYDrawableViewController {
         diaryEditPaletteView.changedColor
             .distinctUntilChanged()
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] DYCoverColor in
+            .subscribe(onNext: { [weak self] paletteColor in
                 guard let self = self else { return }
-                self.diaryEditCoverView.setCoverColor(color: DYCoverColor)
-                self.currentCoverColor = DYCoverColor
+                self.diaryEditCoverView.setCoverColor(color: paletteColor)
+                self.currentCoverColor = paletteColor
             })
             .disposed(by: disposeBag)
     }

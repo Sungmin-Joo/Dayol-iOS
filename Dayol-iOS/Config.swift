@@ -13,5 +13,21 @@ class Config {
 
     func initalize() {
         FirebaseApp.configure()
+        FirebaseStorage.shared.loadImages()
+    }
+}
+
+// MARK: - ImageStorage
+extension Config {
+    enum ImageStorage {
+        case debug
+        case real
+
+        private var baseURL: String {
+            switch self {
+            case .debug: return "gs://dayol-beta.appspot.com/"
+            case .real: return "gs://dayol.appspot.com/"
+            }
+        }
     }
 }
