@@ -12,11 +12,22 @@ import RxCocoa
 private enum Design {
     static let paletteBackgroundColor = UIColor.gray100
     static let cellSpace: CGFloat = 11
+
+    enum Label {
+        static let letterSpace: CGFloat = -0.28
+        static let textFont = UIFont.appleRegular(size: 15)
+        static let textColor = UIColor.gray900
+    }
+}
+
+private enum Text: String {
+    case select = "색상"
 }
 
 class ColorPaletteView: UIView {
     // MARK: - Private Properties
-    
+    private var usesHeader: Bool = false
+
     private var model: [PaletteColor]? {
         didSet {
             collectionView.reloadData()
@@ -30,7 +41,25 @@ class ColorPaletteView: UIView {
     // MARK: - UI Components
     
     private var collectionViewWidthForIpad = NSLayoutConstraint()
-    
+
+    private let containerView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .equalCentering
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = Design.cellSpace
+
+        return stackView
+    }()
+
+    private let headerView: UILabel = {
+        let label = UILabel()
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        return label
+    }()
+
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -68,8 +97,16 @@ class ColorPaletteView: UIView {
             layout.minimumInteritemSpacing = Design.cellSpace
             layout.minimumLineSpacing = Design.cellSpace
         }
+
+        headerView.attributedText = NSAttributedString.build(text: Text.select.rawValue,
+                                                             font: Design.Label.textFont,
+                                                             align: .natural,
+                                                             letterSpacing: Design.Label.letterSpace,
+                                                             foregroundColor: Design.Label.textColor)
         
-        addSubview(collectionView)
+        addSubview(containerView)
+        containerView.addArrangedSubview(headerView)
+        containerView.addArrangedSubview(collectionView)
         
         setConstraint()
     }
@@ -78,17 +115,17 @@ class ColorPaletteView: UIView {
         if isPadDevice {
             collectionViewWidthForIpad = collectionView.widthAnchor.constraint(equalToConstant: 0)
             NSLayoutConstraint.activate([
-                collectionView.topAnchor.constraint(equalTo: topAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                collectionView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                containerView.topAnchor.constraint(equalTo: topAnchor),
+                containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
                 collectionViewWidthForIpad
             ])
         } else {
             NSLayoutConstraint.activate([
-                collectionView.leftAnchor.constraint(equalTo: leftAnchor),
-                collectionView.topAnchor.constraint(equalTo: topAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                collectionView.rightAnchor.constraint(equalTo: rightAnchor),
+                containerView.leftAnchor.constraint(equalTo: leftAnchor),
+                containerView.topAnchor.constraint(equalTo: topAnchor),
+                containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                containerView.rightAnchor.constraint(equalTo: rightAnchor),
             ])
         }
     }
@@ -105,6 +142,16 @@ extension ColorPaletteView {
             if isPadDevice {
                 collectionViewWidthForIpad.constant = collectionViewWidth(cellCount: self.model?.count ?? 0)
             }
+        }
+    }
+
+    var showHeader: Bool {
+        get {
+            return self.usesHeader
+        }
+        set {
+            self.headerView.isHidden = !newValue
+            self.usesHeader = newValue
         }
     }
     

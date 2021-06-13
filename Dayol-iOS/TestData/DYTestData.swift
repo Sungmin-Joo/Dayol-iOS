@@ -16,7 +16,7 @@ struct ScheduleModel {
     let start: Date
     let end: Date
     let content: String
-    let color: UIColor
+    let colorHex: String
     let linkPaperId: Int
     let appliedType: PaperType
 }
