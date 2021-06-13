@@ -38,7 +38,7 @@ extension AddPaperContentView {
         typealias CellSize = AddPaperCell.Size
         let layout = UICollectionViewFlowLayout()
         let insets = calcCollectionViewInset(width: width)
-        let itmeSize = currentTabType == .vertical ? CellSize.portrait : CellSize.landscape
+        let itmeSize = currentTabType == .portrait ? CellSize.portrait : CellSize.landscape
         layout.sectionInset = insets
         layout.scrollDirection = .vertical
         layout.itemSize = itmeSize
@@ -50,7 +50,7 @@ extension AddPaperContentView {
 
     private func calcCollectionViewInset(width: CGFloat) -> UIEdgeInsets {
         typealias CellSize = AddPaperCell.Size
-        let itmeSize = currentTabType == .vertical ? CellSize.portrait : CellSize.landscape
+        let itmeSize = currentTabType == .portrait ? CellSize.portrait : CellSize.landscape
 
         let fourItemContentWidth = 4.0 * itmeSize.width + 3.0 * Design.itemSpacing
         let treeItemContentWidth = 3.0 * itmeSize.width + 2.0 * Design.itemSpacing
@@ -93,7 +93,7 @@ extension AddPaperContentView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddPaperCell.identifier, for: indexPath)
 
         guard
-            let viewModel = viewModel.cellModel(indexPath, paperStyle: currentTabType),
+            let viewModel = viewModel.cellModel(indexPath, orientation: currentTabType),
             let diaryListCell = cell as? AddPaperCell
         else {
             return cell
@@ -123,7 +123,7 @@ extension AddPaperContentView: UICollectionViewDataSource {
 extension AddPaperContentView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cellModel = viewModel.cellModel(indexPath, paperStyle: currentTabType) else { return }
+        guard let cellModel = viewModel.cellModel(indexPath, orientation: currentTabType) else { return }
         viewModel.selectCell(model: cellModel)
     }
 

@@ -12,7 +12,7 @@ class BasePaper: UITableViewCell {
     public var identifier: String { BasePaper.className }
     
     public var viewModel: PaperViewModel?
-    public var paperStyle: PaperStyle?
+    public var orientation: Paper.PaperOrientation?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,8 +23,8 @@ class BasePaper: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(viewModel: PaperViewModel, paperStyle: PaperStyle) {
+    func configure(viewModel: PaperViewModel, orientation: Paper.PaperOrientation) {
         self.viewModel = viewModel
-        self.paperStyle = paperStyle
+        self.orientation = orientation
     }
 }

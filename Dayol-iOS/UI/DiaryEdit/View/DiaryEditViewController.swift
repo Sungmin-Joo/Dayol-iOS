@@ -233,8 +233,17 @@ private extension DiaryEditViewController {
 
     func createDiaryInfo(_ password: String?) {
         guard let title = self.titleView.titleLabel.text else { return }
-        let diaryCoverModel = DiaryInfoModel(id: self.viewModel.diaryIdToCreate, color: self.currentCoverColor, title: title, totalPage: 0, password: password)
-        self.viewModel.createDiaryInfo(model: diaryCoverModel)
+        let isLock = password != nil
+        let diaryModel = Diary(id: viewModel.diaryIdToCreate,
+                               isLock: isLock,
+                               title: title,
+                               colorHex: currentCoverColor.hexString,
+                               thumbnail: diaryEditCoverView.asThumbnail?.pngData() ?? Data(),
+                               drawCanvas: Data(),
+                               papers: [],
+                               contents: [])
+
+        self.viewModel.createDiaryInfo(model: diaryModel)
         self.dismiss(animated: true, completion: nil)
     }
 }

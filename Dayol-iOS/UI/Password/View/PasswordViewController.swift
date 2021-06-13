@@ -182,13 +182,14 @@ private extension PasswordViewController {
             .subscribe(onNext: { [weak self] isCorrect in
                 guard let self = self else { return }
                 let password = self.viewModel.inputtedPassword
-                
-                if isCorrect {
-                    self.dismiss(animated: true, completion: {
-                        self.didPassedPassword.onNext(password)
-                        self.didCreatePassword.onNext(password)
-                    })
-                }
+
+                // TODO: 패스워드 모델 정해지면 수정
+                //if isCorrect || viewModel.pass {
+                self.dismiss(animated: true, completion: {
+                    self.didPassedPassword.onNext(password)
+                    self.didCreatePassword.onNext(password)
+                })
+                //}
             })
             .disposed(by: disposeBag)
     }
