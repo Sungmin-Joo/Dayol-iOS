@@ -13,7 +13,12 @@ extension DiaryListViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let diaryInfo = viewModel.diaryList[safe: indexPath.item] else { return }
-        showPasswordViewController(diaryCover: diaryInfo)
+
+        if diaryInfo.password == nil {
+            showDiaryPaperViewController(diaryCover: diaryInfo)
+        } else {
+            showPasswordViewController(diaryCover: diaryInfo)
+        }
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

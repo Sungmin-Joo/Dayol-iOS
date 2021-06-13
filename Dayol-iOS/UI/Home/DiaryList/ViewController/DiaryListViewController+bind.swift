@@ -91,7 +91,7 @@ extension DiaryListViewController {
     }
     
     // TODO: Need Some Diary Inner Inpo. ex) Paper is Empty, Present Paper's Detail
-    private func showDiaryPaperViewController(diaryCover: DiaryInfoModel) {
+    func showDiaryPaperViewController(diaryCover: DiaryInfoModel) {
         // TODO: - 다이어리 속지 표현을 위해 테스트 데이터를 넣어두었습니다.
         let diaryPaperViewModel = DiaryPaperViewerViewModel(coverModel: diaryCover)
         let diaryPaperViewController = DiaryPaperViewerViewController(viewModel: diaryPaperViewModel)
