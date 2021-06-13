@@ -34,7 +34,6 @@ extension DiaryListViewController {
                 case cancel = "password_unlock_cancel"
             }
         }
-
     }
 
     private enum MoreMenu {
@@ -173,7 +172,13 @@ extension DiaryListViewController {
     }
 
     private func editDiary(_ diaryID: String) {
-        // TODO: - 다이어리 편집 로직 연동
+        guard let diary = DYTestData.shared.diaryList.first(where: { $0.id == diaryID }) else { return }
+        let diaryEditViewController = DiaryEditViewController()
+        debugPrint(diary)
+        diaryEditViewController.viewModel.setDiaryInfo(model: diary)
+        let nav = DYNavigationController(rootViewController: diaryEditViewController)
+        nav.modalPresentationStyle = .fullScreen
+        navigationController?.topViewController?.present(nav, animated: true, completion: nil)
     }
 
     private func lockDiary(_ diaryID: String) {

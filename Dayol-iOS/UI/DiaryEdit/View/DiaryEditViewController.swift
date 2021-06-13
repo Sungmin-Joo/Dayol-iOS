@@ -29,10 +29,11 @@ class DiaryEditViewController: DYDrawableViewController {
 
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    private let viewModel = DiaryEditViewModel()
 
     private var password: String?
     private var currentCoverColor: PaletteColor = .DYBrown
+
+    let viewModel = DiaryEditViewModel()
 
     // MARK: - UI Components
 
@@ -110,14 +111,17 @@ class DiaryEditViewController: DYDrawableViewController {
     }
 
     private func setupViewModel() {
-        viewModel.didSetDiaryInfo = { [weak self] info in
-            guard let self = self else { return }
-            self.titleView.titleLabel.text = info.title
-            let diaryView = self.diaryEditCoverView.diaryView
-            diaryView.setDrawingData(info.drawCanvas)
-            diaryView.setItems(info.contents)
-            diaryView.setLogo(info.hasLogo)
-        }
+        viewModel.diarySubject
+            .observe(on: MainScheduler.instance)
+            .bind { [weak self] info in
+                guard let self = self else { return }
+                self.titleView.titleLabel.text = info.title
+                let diaryView = self.diaryEditCoverView.diaryView
+                diaryView.setDrawingData(info.drawCanvas)
+                diaryView.setItems(info.contents)
+                diaryView.setLogo(info.hasLogo)
+            }
+        .disposed(by: disposeBag)
     }
     
     // MARK: - Bind
@@ -245,6 +249,7 @@ private extension DiaryEditViewController {
     func createDiaryInfo(_ password: String?) {
         guard let title = self.titleView.titleLabel.text else { return }
         let diaryView = self.diaryEditCoverView.diaryView
+
         let diaryID = viewModel.diaryIdToCreate
         let isLock = password != nil
         let drawing = diaryView.canvas.drawing
