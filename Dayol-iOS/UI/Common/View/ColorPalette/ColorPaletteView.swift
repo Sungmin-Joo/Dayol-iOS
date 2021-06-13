@@ -178,7 +178,7 @@ extension ColorPaletteView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        let cell = collectionView.dequeueReusableCell(DefaultColorCollectionViewCell.self, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(DiaryEditColorPaletteCell.self, for: indexPath)
         cell.configure(color: color)
         
         return cell

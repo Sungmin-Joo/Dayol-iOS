@@ -23,9 +23,9 @@ private enum Design {
 }
 
 final class ScheduleColorSelectView: UIView {
-    private let colorSelectView: DefaultColorCollectionView = {
-        let colorSelectView = DefaultColorCollectionView()
-        let colorSet: [DiaryCoverColor] = [
+    private let colorSelectView: ColorPaletteView = {
+        let colorSelectView = ColorPaletteView()
+        let colorSet: [PaletteColor] = [
             .DYRed,
             .DYOrange,
             .DYYellow,
