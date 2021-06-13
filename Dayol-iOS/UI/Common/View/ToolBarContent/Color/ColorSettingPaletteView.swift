@@ -7,12 +7,13 @@
 
 import UIKit
 import Combine
+import RxSwift
 
 private enum Design {
-    static let currentColorViewRadius: CGFloat = 18.0
-    static let currentColorViewDiameter: CGFloat = 36.0
-    static let currentColorBorderWidth: CGFloat = 1.0
-    static let currentColorBorderColor: UIColor = .gray200
+    static let actionButtonRadius: CGFloat = 18.0
+    static let actionButtonDiameter: CGFloat = 36.0
+
+    static let paletteInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16.0)
 
     static let contentStackViewSpacing: CGFloat = 16.0
     static let contentSideMargin: CGFloat = 20.0
@@ -21,33 +22,26 @@ private enum Design {
     static let separatorWidth: CGFloat = 1
     static let separatorHeight: CGFloat = 24
 
-    static let plusButtonImage = Assets.Image.ToolBar.ColorPicker.plus
+    static let whitePlusImage = Assets.Image.ToolBar.ColorPicker.whitePlus
+    static let blackPlusImage = Assets.Image.ToolBar.ColorPicker.blackPlus
+    static let whiteMinusImage = Assets.Image.ToolBar.ColorPicker.whiteMinus
+    static let blackMinusImage = Assets.Image.ToolBar.ColorPicker.blackMinus
 }
 
 class ColorSettingPaletteView: UIView {
 
-    let colorSubject = PassthroughSubject<UIColor, Never>()
-    private var colors: [DiaryCoverColor] {
-        return DiaryCoverColor.penColorPreset
-    }
+    private let disposeBag = DisposeBag()
+    private var cancellable: [AnyCancellable] = []
+    var didChangePaletteColor: ((UIColor) -> Void)?
+    let viewModel = ColorSettingPaletteViewModel()
 
     // MARK: UI Property
 
-    private let currentColorView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = Design.currentColorViewRadius
-        view.layer.borderWidth = Design.currentColorBorderWidth
-        view.layer.borderColor = Design.currentColorBorderColor.cgColor
-        // 임시코드
-        view.backgroundColor = .red
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    private let palleteView: DiaryEditColorPaletteView = {
-        let view = DiaryEditColorPaletteView()
-        view.setContentHuggingPriority(.defaultLow, for: .horizontal)
+    private let paletteView: ColorPaletteView = {
+        let view = ColorPaletteView()
         view.backgroundColor = .clear
+        view.setInset(Design.paletteInset)
+        view.setContentHuggingPriority(.defaultLow, for: .horizontal)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -59,9 +53,11 @@ class ColorSettingPaletteView: UIView {
         return view
     }()
 
-    private let plusButton: UIButton = {
+    private let paletteActionButton: UIButton = {
         let button = UIButton()
-        button.setImage(Design.plusButtonImage, for: .normal)
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = Design.actionButtonDiameter / 2.0
+        button.setImage(Design.whitePlusImage, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -90,8 +86,52 @@ class ColorSettingPaletteView: UIView {
 
 extension ColorSettingPaletteView {
 
-    func set(color: UIColor) {
-        currentColorView.backgroundColor = color
+    private func set(color: UIColor) {
+        if let oldColor = paletteView.currentDYColor?.uiColor {
+            if oldColor != color {
+                paletteView.deselectColorItem()
+            }
+        } else {
+            if let paletteColor = color.toPaletteColor {
+                paletteView.selectColor(paletteColor)
+            }
+        }
+        updateActionButton(color)
+    }
+
+    private func updateActionButton(_ color: UIColor) {
+        if paletteView.currentDYColor?.uiColor != nil {
+            setMinusActionButton()
+        } else {
+            setPlusActionButton()
+        }
+        paletteActionButton.backgroundColor = color
+    }
+
+    private func setPlusActionButton() {
+        let hexString = viewModel.currentHexColor.value
+        let color = UIColor(hex: hexString)
+
+        if color?.isHighBrightness == true {
+            paletteActionButton.setImage(Design.blackPlusImage, for: .normal)
+        } else {
+            paletteActionButton.setImage(Design.whitePlusImage, for: .normal)
+        }
+    }
+
+    private func setMinusActionButton() {
+        guard let color = paletteView.currentDYColor?.uiColor else { return }
+
+        if color.toPaletteColor?.isPresetColor == true {
+            paletteActionButton.setImage(nil, for: .normal)
+            return
+        }
+
+        if color.isHighBrightness {
+            paletteActionButton.setImage(Design.blackMinusImage, for: .normal)
+        } else {
+            paletteActionButton.setImage(Design.whiteMinusImage, for: .normal)
+        }
     }
     
 }
@@ -99,23 +139,21 @@ extension ColorSettingPaletteView {
 extension ColorSettingPaletteView {
 
     private func initView() {
-        palleteView.colors = colors
-        contentStackView.addArrangedSubview(currentColorView)
+        contentStackView.addArrangedSubview(paletteActionButton)
         contentStackView.addArrangedSubview(separator)
-        contentStackView.addArrangedSubview(plusButton)
-        contentStackView.addArrangedSubview(palleteView)
+        contentStackView.addArrangedSubview(paletteView)
         addSubview(contentStackView)
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            currentColorView.widthAnchor.constraint(equalToConstant: Design.currentColorViewDiameter),
-            currentColorView.heightAnchor.constraint(equalToConstant: Design.currentColorViewDiameter),
+            paletteActionButton.widthAnchor.constraint(equalToConstant: Design.actionButtonDiameter),
+            paletteActionButton.heightAnchor.constraint(equalToConstant: Design.actionButtonDiameter),
 
-            separator.widthAnchor.constraint(equalToConstant: Design.currentColorBorderWidth),
+            separator.widthAnchor.constraint(equalToConstant: Design.separatorWidth),
             separator.heightAnchor.constraint(equalToConstant: Design.separatorHeight),
 
-            palleteView.heightAnchor.constraint(equalTo: contentStackView.heightAnchor),
+            paletteView.heightAnchor.constraint(equalTo: contentStackView.heightAnchor),
 
             contentStackView.topAnchor.constraint(equalTo: topAnchor),
             contentStackView.leftAnchor.constraint(equalTo: leftAnchor,
@@ -128,6 +166,78 @@ extension ColorSettingPaletteView {
 
     private func bindEvent() {
 
+        viewModel.paletteColors.sink { [weak self] colors in
+            guard let self = self else { return }
+            // TODO: - 디테일 구현
+            // -> 모달 노출 후 셀렉트된 셀로 이동하도록 구현 필요
+            self.paletteView.colors = colors
+        }
+        .store(in: &cancellable)
+
+        viewModel.currentHexColor.sink { [weak self] hexString in
+            guard let color = UIColor(hex: hexString) else { return }
+            self?.set(color: color)
+        }
+        .store(in: &cancellable)
+
+        // TODO: - 공통 paletteView 개편 시 rx 제거하는게 좋겠습니다.
+        paletteView.changedColor
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] color in
+                guard let self = self else { return }
+                let hexString = color.uiColor.hexString
+                self.viewModel.currentHexColor.send(hexString)
+                self.didChangePaletteColor?(color.uiColor)
+            })
+            .disposed(by: disposeBag)
+
+        paletteActionButton.addTarget(self,
+                                      action: #selector(didTapPaletteActionButton),
+                                      for: .touchUpInside)
+    }
+
+    @objc func didTapPaletteActionButton() {
+        // 파레트 액션 (컬러 추가, 삭제)
+        if let currentDYColor = paletteView.currentDYColor {
+            viewModel.removeCustomColor(currentDYColor)
+            setPlusActionButton()
+        } else {
+            let currentHexColor = viewModel.currentHexColor.value
+            if let paletteColor = UIColor(hex: currentHexColor)?.toPaletteColor {
+                viewModel.addCustomColor(paletteColor)
+                paletteView.selectColor(paletteColor)
+                setMinusActionButton()
+            }
+        }
+    }
+
+}
+
+private extension UIColor {
+
+    var toPaletteColor: PaletteColor? {
+        let colorSet = PaletteColor.ColorSet(red: rgbValue.red,
+                                               green: rgbValue.green,
+                                               blue: rgbValue.blue)
+
+        if let color = PaletteColor.colorPreset.filter({ $0.colorSet == colorSet }).first {
+            return color
+        }
+        
+        return PaletteColor.custom(red: rgbValue.red,
+                                   green: rgbValue.green,
+                                   blue: rgbValue.blue)
+    }
+
+    var isHighBrightness: Bool {
+        let threshold = 200
+
+        // spec: r, g, b 중 하나라도 200을 넘으면 밝은 컬러로 처리
+        if rgbValue.red > threshold || rgbValue.green > threshold || rgbValue.blue > threshold {
+            return true
+        }
+
+        return false
     }
 
 }

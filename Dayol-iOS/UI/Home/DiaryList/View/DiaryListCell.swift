@@ -138,6 +138,7 @@ class DiaryListCell: UICollectionViewCell {
     private func configure() {
         guard let viewModel = viewModel else { return }
         let subTitle = "\(viewModel.paperCount)page"
+        let coverColor: PaletteColor = PaletteColor.find(hex: viewModel.colorHex) ?? .DYBrown
 
         diaryCoverView.image = UIImage(data: viewModel.thumbnail)
         titleLabel.attributedText = Design.attributedTitle(text: viewModel.title)
