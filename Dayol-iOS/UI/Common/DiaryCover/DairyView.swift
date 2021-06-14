@@ -165,6 +165,11 @@ extension DiaryView {
                 textField.viewModel.set(textItem)
                 addSubview(textField)
             }
+
+            if let imageItem = item as? DecorationImageItem {
+                let imageStretchableView = DYImageSizeStretchableView(model: imageItem)
+                addSubview(imageStretchableView)
+            }
         }
     }
 
@@ -178,6 +183,11 @@ extension DiaryView {
             if let textField = subview as? DYFlexibleTextField {
                 // TODO: - textField ID 룰 정의
                 return textField.toItem(id: "", parentId: diaryID)
+            }
+
+            if let imageStrectchView = subview as? DYImageSizeStretchableView {
+                // TODO: - 유저 이미지 스티커 ID 룰 정의
+                return imageStrectchView.toItem(id: "", parentId: diaryID)
             }
 
             return nil

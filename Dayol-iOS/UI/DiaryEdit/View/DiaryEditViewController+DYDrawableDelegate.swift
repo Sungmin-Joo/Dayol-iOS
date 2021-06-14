@@ -55,11 +55,11 @@ extension DiaryEditViewController: DYDrawableDelegate {
         
         let imageView = UIImageView(image: image)
         let imageRatio = image.size.height / image.size.width
-        let defaultImageWith: CGFloat = 76.0
-        let calcedImageHeight: CGFloat = imageRatio * 76.0
+        let defaultImageWith: CGFloat = DYImageSizeStretchableView.defaultImageWidth
+        let calcedImageHeight: CGFloat = imageRatio * DYImageSizeStretchableView.defaultImageWidth
         imageView.frame.size = CGSize(width: defaultImageWith, height: calcedImageHeight)
 
-        let stickerView = DYStickerSizeStretchableView(contentView: imageView)
+        let stickerView = DYImageSizeStretchableView(contentView: imageView)
         stickerView.enableClose = true
         stickerView.enableRotate = true
         stickerView.enableHStretch = true
