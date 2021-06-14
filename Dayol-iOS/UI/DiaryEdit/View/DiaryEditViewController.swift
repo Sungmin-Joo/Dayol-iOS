@@ -254,7 +254,7 @@ private extension DiaryEditViewController {
         let isLock = password != nil
         let drawing = diaryView.canvas.drawing
         let hasLogo = diaryView.hasLogo
-        let contents = createContents(dairyID: diaryID)
+        let contents = createContents(diaryID: diaryID)
         var drawCanvasData = Data()
 
         let encoder = JSONEncoder()
@@ -276,14 +276,8 @@ private extension DiaryEditViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
-    func createContents(dairyID: String) -> [DecorationItem] {
-        let items: [DecorationItem] = diaryEditCoverView.diaryView.subviews.compactMap { subView in
-            if let textField = subView as? DYFlexibleTextField {
-                return textField.toItem(id: "", parentId: dairyID)
-            }
-            return nil
-        }
-        return items
+    func createContents(diaryID: String) -> [DecorationItem] {
+        return diaryEditCoverView.diaryView.getItems(diaryID: diaryID)
     }
 }
 

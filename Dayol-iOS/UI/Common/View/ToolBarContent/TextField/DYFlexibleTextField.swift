@@ -41,7 +41,7 @@ class DYFlexibleTextField: UIView {
             return [
                 .font: defaultFont,
                 .kern: -0.28,
-                .foregroundColor: UIColor.black,
+                .foregroundColor: PaletteColor.DYDark.uiColor,
                 .paragraphStyle: paragraphStyle
             ]
         }()
@@ -202,23 +202,44 @@ private extension DYFlexibleTextField {
     }
 
     func setupEvent() {
-        deleteButton.rx.tap.bind { [weak self] in
-            self?.removeDYTextField()
-        }
-        .disposed(by: disposeBag)
+        deleteButton.rx.tap
+            .bind { [weak self] in
+                self?.removeDYTextField()
+            }
+            .disposed(by: disposeBag)
 
-        viewModel.leadingAccessoryTypeSubject.sink { [weak self] type in
-            guard let self = self else { return }
-            self.updateBulletPointView(type)
-        }
-        .store(in: &cancellable)
+        viewModel.bulletTypeSubject
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] type in
+                guard let self = self else { return }
+                self.updateBulletPointView(type)
+            })
+            .disposed(by: disposeBag)
 
-        viewModel.didSetAttributedString = { [weak self] attributedString in
-            self?.textView.attributedText = attributedString
-        }
-    }
+        viewModel.attributedTextSubject
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] attributedString in
+                guard let self = self else { return }
+                self.textView.attributedText = attributedString
+            })
+            .disposed(by: disposeBag)
 
+        viewModel.pointSubject
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] point in
+                self?.frame.origin = CGPoint(x: CGFloat(point.x), y: CGFloat(point.y))
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.sizeSubject
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] size in
+                self?.frame.size = CGSize(width: CGFloat(size.width), height: CGFloat(size.height))
+            })
+            .disposed(by: disposeBag)    }
 }
+
+
 
 // MARK: View Update
 
@@ -287,20 +308,22 @@ extension DYFlexibleTextField: DYKeyboardInputAccessoryViewDelegate {
     }
 
     func didTapBulletButton() {
-        switch self.viewModel.leadingAccessoryTypeSubject.value {
+        guard let type = try? viewModel.bulletTypeSubject.value() else { return }
+        switch type {
         case .dot:
-            viewModel.leadingAccessoryTypeSubject.send(.none)
+            viewModel.bulletTypeSubject.onNext(.none)
         default:
-            viewModel.leadingAccessoryTypeSubject.send(.dot)
+            viewModel.bulletTypeSubject.onNext(.dot)
         }
     }
 
     func didTapCheckboxButton() {
-        switch self.viewModel.leadingAccessoryTypeSubject.value {
+        guard let type = try? viewModel.bulletTypeSubject.value() else { return }
+        switch type {
         case .checkBox(_):
-            viewModel.leadingAccessoryTypeSubject.send(.none)
+            viewModel.bulletTypeSubject.onNext(.none)
         default:
-            viewModel.leadingAccessoryTypeSubject.send(.checkBox(isSelected: false))
+            viewModel.bulletTypeSubject.onNext(.checkBox(isSelected: false))
         }
     }
 
@@ -441,6 +464,10 @@ extension DYFlexibleTextField: UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         updateInputAccessoryView()
         isEditMode = true
+
+        let newPosition = textView.endOfDocument
+        textView.selectedTextRange = textView.textRange(from: newPosition, to: newPosition)
+
         return true
     }
 

@@ -159,12 +159,30 @@ extension DiaryView {
     }
 
     func setItems(_ items: [DecorationItem]) {
-        
+        items.forEach { item in
+            if let textItem = item as? DecorationTextFieldItem {
+                let textField = DYFlexibleTextField()
+                textField.viewModel.set(textItem)
+                addSubview(textField)
+            }
+        }
     }
 
     func setLogo(_ hasLogo: Bool) {
         let isHidden = hasLogo == false
         setDayolLogoHidden(isHidden)
+    }
+
+    func getItems(diaryID: String) -> [DecorationItem] {
+        let items: [DecorationItem] = subviews.compactMap { subview in
+            if let textField = subview as? DYFlexibleTextField {
+                // TODO: - textField ID 룰 정의
+                return textField.toItem(id: "", parentId: diaryID)
+            }
+
+            return nil
+        }
+        return items
     }
 
 }

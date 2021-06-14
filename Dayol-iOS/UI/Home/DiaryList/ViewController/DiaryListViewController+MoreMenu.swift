@@ -174,7 +174,6 @@ extension DiaryListViewController {
     private func editDiary(_ diaryID: String) {
         guard let diary = DYTestData.shared.diaryList.first(where: { $0.id == diaryID }) else { return }
         let diaryEditViewController = DiaryEditViewController()
-        debugPrint(diary)
         diaryEditViewController.viewModel.setDiaryInfo(model: diary)
         let nav = DYNavigationController(rootViewController: diaryEditViewController)
         nav.modalPresentationStyle = .fullScreen

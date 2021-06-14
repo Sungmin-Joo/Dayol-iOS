@@ -6,18 +6,13 @@
 //
 
 import Foundation
-import Combine
+import RxSwift
 
 class DYFlexibleTextFieldViewModel {
-    // TODO: bullet을 NSAttachment로 구현
-    let leadingAccessoryTypeSubject = CurrentValueSubject<DYTextBoxBulletPoint.BulletType, Never>(.none)
-    var didSetAttributedString: ((NSAttributedString) -> Void)?
-
-    init(
-        leadingAccessoryType: DYTextBoxBulletPoint.BulletType = .none
-    ) {
-        self.leadingAccessoryTypeSubject.send(leadingAccessoryType)
-    }
+    let bulletTypeSubject = BehaviorSubject<DYTextBoxBulletPoint.BulletType>(value: .none)
+    let pointSubject = ReplaySubject<(x: Float, y: Float)>.createUnbounded()
+    let sizeSubject = ReplaySubject<(width: Float, height: Float)>.createUnbounded()
+    let attributedTextSubject = ReplaySubject<NSAttributedString>.createUnbounded()
 
 }
 
@@ -46,7 +41,12 @@ extension DYFlexibleTextFieldViewModel {
 
     func set(_ item: DecorationTextFieldItem) {
         if let attributedText = try? NSAttributedString(data: item.textData, documentAttributes: nil) {
-            didSetAttributedString?(attributedText)
+            pointSubject.onNext((item.x, item.y))
+            sizeSubject.onNext((item.width, item.height))
+            attributedTextSubject.onNext(attributedText)
+//
+//            selectedRange = textView.selectedRange
+//            debugPrint("joo: currentAttributes[.foregroundColor] = \(attributedText.attributes(at: selectedRange.location, effectiveRange: &selectedRange)])" )
         }
     }
 
