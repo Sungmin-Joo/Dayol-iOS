@@ -16,16 +16,17 @@ enum SettingModel {
 
     enum InApp: String, CaseIterable{
         case manual
+//        case mainOption
         case backup
         case widget
         case deleted
 
         var title: String {
-            string(suffix: "Title")
+            string(suffix: "title")
         }
 
         var subtitle: String {
-            string(suffix: "Subtitle")
+            string(suffix: "text")
         }
 
         var iconResourceName: String {
@@ -34,10 +35,10 @@ enum SettingModel {
 
         func string(suffix: String) -> String {
             switch self {
-            case .manual: return "Settings.Inapp.Manual.\(suffix)".localized
-            case .backup: return "Settings.Inapp.Backup.\(suffix)".localized
-            case .widget: return "Settings.Inapp.Widget.\(suffix)".localized
-            case .deleted: return "Settings.Inapp.Deleted.\(suffix)".localized
+            case .manual: return "setting_guide_\(suffix)".localized
+            case .backup: return "setting_backup_\(suffix)".localized
+            case .widget: return "setting_homewidget_\(suffix)".localized
+            case .deleted: return "setting_bin_\(suffix)".localized
             }
         }
 
@@ -57,9 +58,9 @@ enum SettingModel {
 
         var title: String {
             switch self {
-            case .rate: return "Settings.Outapp.Rate".localized
-            case .report: return "Settings.Outapp.Report".localized
-            case .instagram: return "Settings.Outapp.Instagram".localized
+            case .rate: return "setting_review_title".localized
+            case .report: return "setting_report_title".localized
+            case .instagram: return "setting_insta_title".localized
             }
         }
 
