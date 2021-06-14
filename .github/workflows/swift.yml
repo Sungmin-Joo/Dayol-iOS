@@ -14,4 +14,4 @@ jobs:
     - name: Setup Project
       run: ./setup.sh
     - name: Xcode Build
-      run: xcodebuild  -workspace Dayol-iOS.xcworkspace -scheme "Dayol-iOS Dev" -destination 'platform=iOS Simulator,name=iPhone 12 mini'
+      run: xcodebuild  -workspace Dayol-iOS.xcworkspace -scheme "Dayol Beta" -destination 'platform=iOS Simulator,name=iPhone 12 mini'
