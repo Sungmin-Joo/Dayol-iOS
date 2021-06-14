@@ -14,18 +14,6 @@ private enum Design {
 }
 
 private enum Text {
-    static func title(_ type: SettingModel.InApp) -> String {
-        switch type {
-        case .manual:
-            return "setting_guide_title".localized
-        case .backup:
-            return "setting_backup_title".localized
-        case .widget:
-            return "setting_homewidget_title".localized
-        case .deleted:
-            return "setting_bin_title".localized
-        }
-    }
     static let deleteAllButton = "bin_btn_empty".localized
     static let alertTitle = "bin_alert_title".localized
     static let alertMessage = "bin_alert_text".localized
@@ -78,7 +66,7 @@ class DetailSettingsViewController: UIViewController {
 private extension DetailSettingsViewController {
 
     func setupNavigationBar() {
-        let title = Text.title(settingType)
+        let title = settingType.title
         let titleView = DYNavigationItemCreator.titleView(title)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
         navigationItem.titleView = titleView
@@ -87,10 +75,12 @@ private extension DetailSettingsViewController {
     func initView() {
         switch settingType {
         case .manual:
+            // TODO: - 다욜 사용 설명서 뷰 붙이기
             contentView = UIView()
         case .backup:
             contentView = DataBackupView()
         case .widget:
+            // TODO: - 다욜 위젯 설명서 뷰 붙이기
             contentView = UIView()
         case .deleted:
             let deletedPageListView = DeletedPageListView()
@@ -103,6 +93,9 @@ private extension DetailSettingsViewController {
             contentView = deletedPageListView
 
             setDeleteAllButton()
+        case .homeOption:
+            // homeOption은 DetailSettingsViewController애 진입하는 경우가 없음
+            break
         }
 
         if let contentView = contentView {

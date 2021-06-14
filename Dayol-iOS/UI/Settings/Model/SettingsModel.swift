@@ -16,7 +16,7 @@ enum SettingModel {
 
     enum InApp: String, CaseIterable{
         case manual
-//        case mainOption
+        case homeOption
         case backup
         case widget
         case deleted
@@ -33,9 +33,17 @@ enum SettingModel {
             "settings_inapp_\(self.rawValue)"
         }
 
+        var isSwitchOption: Bool {
+            switch self {
+            case .homeOption: return true
+            default: return false
+            }
+        }
+
         func string(suffix: String) -> String {
             switch self {
             case .manual: return "setting_guide_\(suffix)".localized
+            case .homeOption: return "setting_homeoption_\(suffix)".localized
             case .backup: return "setting_backup_\(suffix)".localized
             case .widget: return "setting_homewidget_\(suffix)".localized
             case .deleted: return "setting_bin_\(suffix)".localized

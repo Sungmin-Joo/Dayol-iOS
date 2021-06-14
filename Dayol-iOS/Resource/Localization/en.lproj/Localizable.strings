@@ -24,6 +24,9 @@
 
 "setting_guide_title" = "Use Guide";
 "setting_guide_text" = "Guide the basic usage and for each inlay!";
+// TODO: - 번역 필요
+"setting_homeoption_title" = "앱 시작 첫 화면을 ‘즐겨찾기’로";
+"setting_homeoption_text" = "Off 시, 다이어리 목록으로 시작되어욜!";
 "setting_backup_title" = "Backup Data";
 "setting_backup_text" = "Keep sync icloud to prevent losing your data.";
 "setting_homewidget_title" = "Home Widget";

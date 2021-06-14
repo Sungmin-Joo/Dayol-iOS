@@ -28,7 +28,14 @@ enum DYUserDefaults {
         case shouldOnboarding
     }
 
+    enum Settings: String {
+        case homeListOption
+    }
+
     // Properties
     @DYUserDefault(key: Launch.shouldOnboarding.rawValue, value: true)
     static var shouldOnboading: Bool
+
+    @DYUserDefault(key: Settings.homeListOption.rawValue, value: false)
+    static var showFavoriteListAtLaunch: Bool
 }

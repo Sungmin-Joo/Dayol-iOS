@@ -38,9 +38,10 @@ class HomeTabBarView: UIView {
     }()
     private let diaryButton = HomeTabBarButton(style: .diary)
     private let favoriteButton = HomeTabBarButton(style: .favorite)
-    private(set) var currentTabMode: TabType {
+    var currentTabMode: TabType {
         didSet {
             updateTabBarState()
+            buttonEvent.onNext(.showList(tab: currentTabMode))
         }
     }
 
@@ -69,13 +70,11 @@ extension HomeTabBarView {
 
         diaryButton.rx.tap.bind { [weak self] in
             self?.currentTabMode = .diary
-            self?.buttonEvent.onNext(.showList(tab: .diary))
         }
         .disposed(by: disposeBag)
 
         favoriteButton.rx.tap.bind { [weak self] in
             self?.currentTabMode = .favorite
-            self?.buttonEvent.onNext(.showList(tab: .favorite))
         }
         .disposed(by: disposeBag)
     }

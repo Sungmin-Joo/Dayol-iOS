@@ -9,7 +9,8 @@ import UIKit
 import RxSwift
 
 private enum Design {
-    // Some Const
+    static let iPadContentSize = CGSize(width: 375, height: 667)
+    static let iPadContentCornerRadius: CGFloat = 12
 }
 
 class HomeViewController: UIViewController {
@@ -41,6 +42,7 @@ class HomeViewController: UIViewController {
         setupViews()
         setupLayoutConstraints()
         bindEvent()
+        configureFirstList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +68,31 @@ extension HomeViewController {
             }
         })
         .disposed(by: disposeBag)
+
+        diaryListVC.iconButton.rx.tap
+            .bind { [weak self] in
+                self?.presentSettingVC()
+            }
+            .disposed(by: disposeBag)
+
+        favoriteVC.iconButton.rx.tap
+            .bind { [weak self] in
+                self?.presentSettingVC()
+            }
+            .disposed(by: disposeBag)
+    }
+
+    private func presentSettingVC() {
+        let settingVC = SettingsViewController()
+        let nav = DYNavigationController(rootViewController: settingVC)
+        nav.modalPresentationStyle = isPadDevice ? .formSheet : .fullScreen
+
+        if isPadDevice {
+            nav.preferredContentSize = Design.iPadContentSize
+            nav.view.layer.cornerRadius = Design.iPadContentCornerRadius
+        }
+
+        present(nav, animated: true)
     }
 }
 
@@ -108,8 +135,16 @@ extension HomeViewController {
 
 // MARK: - Setup UI
 extension HomeViewController {
+
     private func setupViews() {
         view.addSubview(tabBarView)
+    }
+
+    private func configureFirstList() {
+        if DYUserDefaults.showFavoriteListAtLaunch {
+            currentTab = .favorite
+            tabBarView.currentTabMode = .favorite
+        }
     }
 }
 

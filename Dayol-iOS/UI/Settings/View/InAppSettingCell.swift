@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 private enum Design {
     static let chevronImage = Assets.Image.Settings.chevron
@@ -32,6 +34,7 @@ class InAppSettingCell: UITableViewCell, SettingCellPresentable {
     typealias ViewModel = SettingModel.InApp.CellModel
     static let identifier = className
 
+    private lazy var disposeBag = DisposeBag()
     var viewModel: SettingCellModelProtocol? = nil {
         didSet {
             configuration(viewModel)
@@ -59,7 +62,7 @@ class InAppSettingCell: UITableViewCell, SettingCellPresentable {
     private let subtitleLabel = UILabel()
     private let iconImageView = UIImageView()
     private let chevronImageView = UIImageView()
-
+    private let optionSwitch = UISwitch()
     // MARK: - Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -73,9 +76,7 @@ class InAppSettingCell: UITableViewCell, SettingCellPresentable {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        titleLabel.text = .none
-        subtitleLabel.text = .none
-        iconImageView.image = .none
+        hideSwitch()
     }
 
     func configuration(_ viewModel: SettingCellModelProtocol?) {
@@ -87,6 +88,9 @@ class InAppSettingCell: UITableViewCell, SettingCellPresentable {
                                                                  attributes: Design.subtitleAttributes)
         iconImageView.image = UIImage(named: viewModel.iconImageName)
 
+        if viewModel.settingType == .homeOption {
+            showSwitch()
+        }
     }
 }
 
@@ -95,12 +99,14 @@ extension InAppSettingCell {
     private func setupViews() {
         setupMainStackView()
         setupContentsStackView()
+        setupSwitch()
     }
 
     private func setupMainStackView() {
         chevronImageView.image = Design.chevronImage
         mainStackView.addArrangedSubview(contentsStackView)
         mainStackView.addArrangedSubview(chevronImageView)
+        mainStackView.addArrangedSubview(optionSwitch)
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(mainStackView)
 
@@ -144,4 +150,33 @@ extension InAppSettingCell {
         contentsStackView.addArrangedSubview(subtitleStackView)
     }
 
+    private func setupSwitch() {
+        optionSwitch.isOn = DYUserDefaults.showFavoriteListAtLaunch
+        optionSwitch.rx.isOn
+            .changed
+            .distinctUntilChanged()
+            .subscribe(onNext: { bool in
+                DYUserDefaults.showFavoriteListAtLaunch = bool
+            })
+            .disposed(by: disposeBag)
+        hideSwitch()
+    }
+
 }
+
+// MARK: - Option Swicth
+
+extension InAppSettingCell {
+
+    private func showSwitch() {
+        chevronImageView.isHidden = true
+        optionSwitch.isHidden = false
+    }
+
+    private func hideSwitch() {
+        chevronImageView.isHidden = false
+        optionSwitch.isHidden = true
+    }
+
+}
+
