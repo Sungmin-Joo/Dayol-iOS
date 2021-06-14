@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array>
-		<string>iCloud.$(DAYOL_Bundle_Identifier</string>
+		<string>iCloud.com.dayolstudio.dayol.beta</string>
 	</array>
 	<key>com.apple.developer.icloud-services</key>
 	<array>

@@ -18,3 +18,21 @@ class Config {
         PersistentManager.shared.saveContext()
     }
 }
+
+extension Config {
+    var isBeta: Bool {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }
+
+    var isProd: Bool {
+        #if PRODUCT
+        return true
+        #else
+        return false
+        #endif
+    }
+}

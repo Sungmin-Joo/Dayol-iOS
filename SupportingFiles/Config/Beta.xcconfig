@@ -1,0 +1,21 @@
+//
+//  Beta.xcconfig
+//  Dayol-iOS
+//
+//  Created by Seonho Ban on 2021/06/14.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// app info
+APP_VERSION      = 1
+APP_BUILD_NUMBER = 0
+
+// bundle
+BUNDLE_IDENTIFIER               = com.dayolstudio.dayol.beta
+BUNDLE_DISPLAY_NAME             = DAYOL Beta
+
+// compiler
+GCC_PREPROCESSOR_DEFINITIONS    = DEBUG=1
+OTHER_SWIFT_FLAGS               = -D "DEBUG" -D "BETA"
