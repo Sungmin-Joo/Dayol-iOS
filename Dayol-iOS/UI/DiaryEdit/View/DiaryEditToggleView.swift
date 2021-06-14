@@ -78,7 +78,7 @@ class DiaryEditToggleView: UIView {
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] bool in
                 guard let self = self else { return }
-                self.changedSwitch.onNext(self.toggleSwitch.isOn)
+                self.changedSwitch.onNext(bool)
             })
             .disposed(by: disposeBag)
     }
@@ -102,6 +102,7 @@ extension DiaryEditToggleView {
 
     func setLogoSwitch(_ hasLogo: Bool) {
         toggleSwitch.isOn = hasLogo
+        changedSwitch.onNext(hasLogo)
     }
 
 }
