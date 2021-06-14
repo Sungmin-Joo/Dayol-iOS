@@ -95,3 +95,13 @@ class DiaryEditToggleView: UIView {
         ])
     }
 }
+
+// MARK: - Pulic Control
+
+extension DiaryEditToggleView {
+
+    func setLogoSwitch(_ hasLogo: Bool) {
+        toggleSwitch.isOn = hasLogo
+    }
+
+}

@@ -142,7 +142,7 @@ extension DiaryView {
     }
     
     func setDayolLogoHidden(_ isHidden: Bool) {
-        hasLogo = isHidden
+        hasLogo = (isHidden == false)
         coverView.setDayolLogoHidden(isHidden)
     }
 }
@@ -151,31 +151,9 @@ extension DiaryView {
 
 extension DiaryView {
 
-    func setDrawingData(_ data: Data) {
-        let decoder = JSONDecoder()
-        if let drawing = try? decoder.decode(PKDrawing.self, from: data) {
-            canvas.drawing = drawing
-        }
-    }
-
-    func setItems(_ items: [DecorationItem]) {
-        items.forEach { item in
-            if let textItem = item as? DecorationTextFieldItem {
-                let textField = DYFlexibleTextField()
-                textField.viewModel.set(textItem)
-                addSubview(textField)
-            }
-
-            if let imageItem = item as? DecorationImageItem {
-                let imageStretchableView = DYImageSizeStretchableView(model: imageItem)
-                addSubview(imageStretchableView)
-            }
-        }
-    }
-
-    func setLogo(_ hasLogo: Bool) {
-        let isHidden = hasLogo == false
-        setDayolLogoHidden(isHidden)
+    func set(model: Diary) {
+        setDrawingData(model.drawCanvas)
+        setItems(model.contents)
     }
 
     func getItems(diaryID: String) -> [DecorationItem] {
@@ -193,6 +171,28 @@ extension DiaryView {
             return nil
         }
         return items
+    }
+
+    private func setDrawingData(_ data: Data) {
+        let decoder = JSONDecoder()
+        if let drawing = try? decoder.decode(PKDrawing.self, from: data) {
+            canvas.drawing = drawing
+        }
+    }
+
+    private  func setItems(_ items: [DecorationItem]) {
+        items.forEach { item in
+            if let textItem = item as? DecorationTextFieldItem {
+                let textField = DYFlexibleTextField()
+                textField.viewModel.set(textItem)
+                addSubview(textField)
+            }
+
+            if let imageItem = item as? DecorationImageItem {
+                let imageStretchableView = DYImageSizeStretchableView(model: imageItem)
+                addSubview(imageStretchableView)
+            }
+        }
     }
 
 }

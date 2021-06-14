@@ -80,7 +80,6 @@ class DiaryEditViewController: DYDrawableViewController {
         diaryEditPaletteView.colors = viewModel.diaryColors
         setConstraint()
         setupGesture()
-        setupViewModel()
         bind()
     }
     
@@ -109,20 +108,6 @@ class DiaryEditViewController: DYDrawableViewController {
 
         setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
     }
-
-    private func setupViewModel() {
-        viewModel.diarySubject
-            .observe(on: MainScheduler.instance)
-            .bind { [weak self] info in
-                guard let self = self else { return }
-                self.titleView.titleLabel.text = info.title
-                let diaryView = self.diaryEditCoverView.diaryView
-                diaryView.setDrawingData(info.drawCanvas)
-                diaryView.setItems(info.contents)
-                diaryView.setLogo(info.hasLogo)
-            }
-        .disposed(by: disposeBag)
-    }
     
     // MARK: - Bind
     
@@ -130,6 +115,7 @@ class DiaryEditViewController: DYDrawableViewController {
         colorBind()
         navigationBind()
         switchBind()
+        viewModelBind()
     }
     
     private func switchBind() {
@@ -201,6 +187,25 @@ class DiaryEditViewController: DYDrawableViewController {
                 self.checkTitleValidation(titleString)
             }
             .disposed(by: disposeBag)
+    }
+
+    private func viewModelBind() {
+        viewModel.diarySubject
+            .observe(on: MainScheduler.instance)
+            .bind { [weak self] diary in
+                guard let self = self else { return }
+                self.titleView.setTitle(diary.title)
+                self.diaryEditToggleView.setLogoSwitch(diary.hasLogo)
+
+                let diaryView = self.diaryEditCoverView.diaryView
+                diaryView.set(model: diary)
+
+                if let coverColor = PaletteColor.find(hex: diary.colorHex) {
+                    self.diaryEditPaletteView.changedColor.onNext(coverColor)
+                    self.diaryEditPaletteView.selectColor(coverColor)
+                }
+            }
+        .disposed(by: disposeBag)
     }
 
     private func checkTitleValidation(_ title: String) {
