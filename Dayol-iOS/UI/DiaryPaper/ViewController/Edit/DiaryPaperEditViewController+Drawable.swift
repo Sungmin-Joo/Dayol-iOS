@@ -1,8 +1,8 @@
 //
-//  DiaryEditViewController+Drawable.swift
+//  DiaryPaperEditViewController+Drawable.swift
 //  Dayol-iOS
 //
-//  Created by 주성민 on 2021/04/26.
+//  Created by 주성민 on 2021/06/15.
 //
 
 import UIKit
@@ -11,7 +11,7 @@ import PhotosUI
 
 // MARK: - Drawable
 
-extension DiaryEditViewController {
+extension DiaryPaperEditViewController {
 
     // MARK: - Pencil
 
@@ -19,13 +19,13 @@ extension DiaryEditViewController {
         let pencilColor = currentPencilTool.color
         let isHighlighter = currentPencilTool.isHighlighter
         let pencilTool = DYPencilTool(color: pencilColor, isHighlighter: isHighlighter)
-        diaryEditCoverView.diaryView.currentToolSubject.onNext(pencilTool)
+        paper.drawingContentView.currentToolSubject.onNext(pencilTool)
     }
 
     func didEndPencilSetting(color: UIColor, isHighlighter: Bool) {
         let pencilTool = DYPencilTool(color: color, isHighlighter: isHighlighter)
         currentPencilTool = pencilTool
-        diaryEditCoverView.diaryView.currentToolSubject.onNext(pencilTool)
+        paper.drawingContentView.currentToolSubject.onNext(pencilTool)
     }
 
     // MARK: - Erase
@@ -33,37 +33,31 @@ extension DiaryEditViewController {
     func didTapEraseButton() {
         let isObjectErase = currentEraseTool.isObjectErase
         let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
-        diaryEditCoverView.diaryView.currentToolSubject.onNext(eraseTool)
+        paper.drawingContentView.currentToolSubject.onNext(eraseTool)
     }
 
     func didEndEraseSetting(isObjectErase: Bool) {
         let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
         currentEraseTool = eraseTool
-        diaryEditCoverView.diaryView.currentToolSubject.onNext(eraseTool)
+        paper.drawingContentView.currentToolSubject.onNext(eraseTool)
     }
 
     // MARK: - TextField
 
     func didTapTextButton() {
-        diaryEditCoverView.diaryView.currentToolSubject.onNext(nil)
-        // TODO: - 탭 한 부분에 텍스트 필드를 생성하는 로직 추가
-        let center = CGPoint(x: diaryEditCoverView.diaryView.bounds.width / 2.0,
-                             y: diaryEditCoverView.diaryView.bounds.height / 2.0)
-        let textField = DYFlexibleTextField()
-        textField.center = center
-        diaryEditCoverView.diaryView.addSubview(textField)
-        let _ = textField.becomeFirstResponder()
+        paper.drawingContentView.currentToolSubject.onNext(nil)
     }
 
     // MARK: - Snare(Lasso)
 
     func didTapSnareButton() {
-        diaryEditCoverView.diaryView.currentToolSubject.onNext(nil)
+        paper.drawingContentView.currentToolSubject.onNext(nil)
     }
 
     // MARK: - Image(Sticker)
 
     func showImagePicker() {
+        paper.drawingContentView.currentToolSubject.onNext(nil)
         if #available(iOS 14.0, *) {
             var configuration = PHPickerConfiguration()
             configuration.selectionLimit = 1
@@ -85,37 +79,41 @@ extension DiaryEditViewController {
     }
 
     func didEndPhotoPick(_ image: UIImage) {
-        // 사용 예시 코드
-        diaryEditCoverView.diaryView.currentToolSubject.onNext(nil)
 
-        let imageView = UIImageView(image: image)
-        let imageRatio = image.size.height / image.size.width
-        let defaultImageWith: CGFloat = DYImageSizeStretchableView.defaultImageWidth
-        let calcedImageHeight: CGFloat = imageRatio * DYImageSizeStretchableView.defaultImageWidth
-        imageView.frame.size = CGSize(width: defaultImageWith, height: calcedImageHeight)
-
-        let stickerView = DYImageSizeStretchableView(contentView: imageView)
-        stickerView.enableClose = true
-        stickerView.enableRotate = true
-        stickerView.enableHStretch = true
-        stickerView.enableWStretch = true
-        stickerView.center = diaryEditCoverView.diaryView.center
-        diaryEditCoverView.diaryView.addSubview(stickerView)
     }
 
     // MARK: - DY Sticker
 
     func showStickerPicker() {
-        diaryEditCoverView.diaryView.currentToolSubject.onNext(nil)
+        paper.drawingContentView.currentToolSubject.onNext(nil)
     }
 
     func didEndStickerPick(_ image: UIImage) {
+        // TODO: - 속지 내부 컨텐츠 연동하면서 로직 수정 필요
+        // 현재는 이벤트 바인딩 용 로직 적용
+        let imageView = UIImageView(image: image)
+        imageView.frame = CGRect(x: 0, y: 0, width: 76.0, height: 66.0)
+        let stickerView = DYStickerSizeStretchableView(contentView: imageView)
+        stickerView.alpha = 0.0
+        stickerView.enableClose = true
+        stickerView.enableRotate = true
+        stickerView.enableHStretch = true
+        stickerView.enableWStretch = true
 
+        self.paper.addSubview(stickerView)
+
+        stickerView.center = self.view.center
+
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseInOut, animations: {
+            stickerView.alpha = 1.0
+        }, completion: nil)
     }
 
 }
 
-extension DiaryEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
+// MARK: - Picker Delegate
+
+extension DiaryPaperEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {

@@ -8,6 +8,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import Combine
 
 private enum Design {
     static let defaultTextFieldSize = CGSize(width: 20, height: 30)
@@ -34,6 +35,7 @@ private enum Text {
 }
 
 protocol Drawable: UIViewController {
+    var cancellable: Set<AnyCancellable> { get set }
     var disposeBag: DisposeBag { get }
 
     var toolBar: DYNavigationDrawingToolbar { get }
@@ -66,6 +68,7 @@ extension Drawable {
         penBind()
         textFieldBind()
         photoBind()
+        stickerBind()
     }
 
     private func showEraseModal() {
@@ -84,7 +87,7 @@ extension Drawable {
         self.presentCustomModal(modalVC)
     }
 
-    private func showPencilModal() {
+    private func presentPencilModal() {
         let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .custom(containerHeight: Design.penSettingModalHeight))
         let modalVC = DYModalViewController(configure: configuration,
                                             title: Text.penTitle,
@@ -100,6 +103,20 @@ extension Drawable {
         }
         modalVC.contentView = contentView
         presentCustomModal(modalVC)
+    }
+
+    private func presentStickerModal() {
+        let stickerModal = StickerModalViewContoller()
+        presentCustomModal(stickerModal)
+
+        stickerModal.didTappedSticker
+            .sink { _ in
+                // Some Error
+            } receiveValue: { stickerImage in
+                guard let stickerImage = stickerImage else { return }
+                self.didEndStickerPick(stickerImage)
+            }
+            .store(in: &cancellable)
     }
 
 }
@@ -150,8 +167,7 @@ extension Drawable {
                     self.didTapPencilButton()
                     return
                 }
-
-                self.showPencilModal()
+                self.presentPencilModal()
             }
             .disposed(by: disposeBag)
     }
@@ -172,6 +188,14 @@ extension Drawable {
         toolBar.photoButton.rx.tap
             .bind { [weak self] in
                 self?.showImagePicker()
+            }
+            .disposed(by: disposeBag)
+    }
+
+    private func stickerBind() {
+        toolBar.stickerButton.rx.tap
+            .bind { [weak self] in
+                self?.presentStickerModal()
             }
             .disposed(by: disposeBag)
     }

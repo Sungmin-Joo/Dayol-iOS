@@ -16,6 +16,7 @@ enum DiaryPaperEventType {
 }
 
 class DiaryPaperViewController: UIViewController {
+    let disposeBag = DisposeBag()
     let didReceivedEvent = PublishSubject<DiaryPaperEventType>()
     let index: Int
     let scaleSubject = PassthroughSubject<CGFloat, Error>()
@@ -23,7 +24,6 @@ class DiaryPaperViewController: UIViewController {
 
     private var cancellable = [AnyCancellable]()
     private var paperHeight = NSLayoutConstraint()
-    private let disposeBag = DisposeBag()
 
     private var scaleVariable: CGFloat {
         let orientation = viewModel.orientation

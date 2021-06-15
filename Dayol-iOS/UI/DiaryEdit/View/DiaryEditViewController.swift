@@ -8,6 +8,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import Combine
 
 private enum Design {
     static let paletteHeight: CGFloat = 50
@@ -27,9 +28,9 @@ class DiaryEditViewController: UIViewController, Drawable {
 
     // MARK: - Drawable Property
     let disposeBag = DisposeBag()
+    var cancellable = Set<AnyCancellable>()
 
     let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
-
     var currentTool: DYNavigationDrawingToolbar.ToolType?
     var currentEraseTool: DYEraseTool = DYEraseTool(isObjectErase: false)
     var currentPencilTool: DYPencilTool = DYPencilTool(color: .black, isHighlighter: false)

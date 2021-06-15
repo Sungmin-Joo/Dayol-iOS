@@ -42,9 +42,10 @@ class PaperPresentView: UIView {
         return tableView
     }()
     
-    private let drawingContentView: DrawingContentView = {
-        // TODO: - 아마 canvas 뷰로 대체
+    let drawingContentView: DrawingContentView = {
         let view = DrawingContentView()
+        // TODO: - 테스트 코드 제거
+        view.backgroundColor = .red
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
