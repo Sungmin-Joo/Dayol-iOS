@@ -109,7 +109,7 @@ class DiaryPaperViewController: UIViewController {
         NSLayoutConstraint.activate([
             paper.widthAnchor.constraint(equalTo: paperScrollView.widthAnchor),
 
-            progressView.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -300),
+            progressView.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: Design.Margin.contentProgressSpace),
             progressView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }

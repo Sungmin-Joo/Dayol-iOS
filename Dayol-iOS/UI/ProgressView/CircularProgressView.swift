@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Design {
     enum Color{
@@ -28,6 +29,7 @@ private enum Design {
 final class CircularProgressView: UIView {
     // MARK: - UI Components
     let usesClockwise: Bool
+    let progressDidChanged = PublishSubject<CGFloat>()
 
     private let progressImageView: UIImageView = {
         let imageView = UIImageView()
@@ -47,29 +49,45 @@ final class CircularProgressView: UIView {
     private var progress: CGFloat = 0.0
     var progressImage: UIImage? {
         didSet {
-            progressImageView.image = progressImage
+            UIView.transition(with: progressImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                self.progressImageView.image = self.progressImage
+            }, completion: nil)
         }
     }
 
     init(usesClockwise: Bool) {
         self.usesClockwise = usesClockwise
         super.init(frame: .zero)
-
-        layer.addSublayer(progressLayer)
-        progressLayer.lineWidth = 2
-        progressLayer.strokeColor = Design.Color.progressColor.cgColor
+        setupViews()
+        setupLayer()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-//        setupLayer()
-//        startAnimation()
-    }
-
     override func layoutSubviews() {
         super.layoutSubviews()
+        progressImageView.center = center
+        updateProgressLayer()
+    }
+
+    private func setupViews() {
+        contentMode = .redraw
+        backgroundColor = .clear
+
+        addSubview(progressImageView)
+
+        progressImageView.center = center
+        progressImageView.contentMode = .center
+    }
+
+    private func setupLayer() {
+        progressLayer.lineWidth = 2
+        progressLayer.strokeEnd = 0
+        progressLayer.strokeColor = Design.Color.progressColor.cgColor
+        layer.addSublayer(progressLayer)
+    }
+
+    private func updateProgressLayer() {
         let center = CGPoint(x: bounds.midX, y: bounds.midY)
         let radius = min(bounds.width, bounds.height) * 0.5 - (progressLayer.lineWidth * 0.5)
         let startAngle = CGFloat(-CGFloat.pi * 0.5)
@@ -84,38 +102,6 @@ final class CircularProgressView: UIView {
         )
 
         progressLayer.path = path.cgPath
-    }
-
-    private func setupViews() {
-        contentMode = .redraw
-        backgroundColor = .clear
-
-        addSubview(progressImageView)
-
-
-        progressImageView.center = center
-        progressImageView.contentMode = .center
-    }
-
-    private func setupLayer() {
-        updateProgressLayer()
-        layer.addSublayer(progressLayer)
-    }
-
-    private func updateProgressLayer() {
-        progressImageView.frame = bounds
-        progressLayer.frame = bounds
-
-        progressLayer.path = makeBezierPath(usesClockWise: usesClockwise).cgPath
-    }
-
-    private func makeBezierPath(usesClockWise: Bool) -> UIBezierPath {
-        let path: UIBezierPath = UIBezierPath(arcCenter: CGPoint(x: bounds.midX, y: bounds.midX),
-                                              radius: bounds.size.width / 2,
-                                              startAngle: 1.5 * .pi,
-                                              endAngle: -0.5 * .pi,
-                                              clockwise: usesClockWise)
-        return path
     }
 
     private func startAnimation() {
@@ -133,27 +119,28 @@ final class CircularProgressView: UIView {
 
 extension CircularProgressView {
     func setProgress(_ progress: CGFloat, animated: Bool) {
-//        if progress > 0 {
-//            if animated {
-//                progressAnimation.keyPath = Design.AnimationKey.strokeKeyPath
-//                progressAnimation.fromValue = self.progress == 0 ? 0 : nil
-//                progressAnimation.toValue = progress as NSNumber
-//                progressAnimation.duration = 0.5
-//
-//                progressLayer.strokeEnd = progress
-//                progressLayer.add(progressAnimation, forKey: Design.AnimationKey.progressKey)
-//            } else {
-//                CATransaction.begin()
-//                CATransaction.setDisableActions(true)
-//                progressLayer.strokeEnd = progress
-//                CATransaction.commit()
-//            }
-//        } else {
-//            progressLayer.strokeEnd = 0
-//            progressLayer.removeAnimation(forKey: Design.AnimationKey.progressKey)
-//        }
+        if progress > 0 {
+            if animated {
+                progressAnimation.keyPath = Design.AnimationKey.strokeKeyPath
+                progressAnimation.fromValue = self.progress == 0 ? 0 : nil
+                progressAnimation.toValue = progress as NSNumber
+                progressAnimation.duration = 0.5
+
+                progressLayer.strokeEnd = progress
+                progressLayer.add(progressAnimation, forKey: Design.AnimationKey.progressKey)
+            } else {
+                CATransaction.begin()
+                CATransaction.setDisableActions(true)
+                progressLayer.strokeEnd = progress
+                CATransaction.commit()
+            }
+        } else {
+            progressLayer.strokeEnd = 0
+            progressLayer.removeAnimation(forKey: Design.AnimationKey.progressKey)
+        }
 
         self.progress = progress
+        progressDidChanged.onNext(progress)
     }
 
     func startLoading() {

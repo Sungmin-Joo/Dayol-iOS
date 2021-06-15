@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Design {
     enum Image {
         static let swipeImage: UIImage? = UIImage(named: "progress_swipe")
+        static let plusImage: UIImage? = UIImage.add.withTintColor(.dayolBrown) // TODO: 이미지 요청
     }
 
     enum Margin {
@@ -25,11 +27,14 @@ private enum Design {
 }
 
 private enum Text: String {
-    case swipeToAddPaper = "당겨서 속지 추가"
+    case pullToAddPaper = "당겨서 속지 추가"
     case releaseToAddPaper = "놓으면 속지 추가"
 }
 
 final class DiarySwipeAddPaperView: UIView {
+    private let disposeBag = DisposeBag()
+    var readyToAdd: Bool = false
+
     private let progressView: CircularProgressView = {
         let progressView = CircularProgressView(usesClockwise: true)
         progressView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,11 +47,6 @@ final class DiarySwipeAddPaperView: UIView {
         let label = UILabel()
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.attributedText = NSAttributedString.build(text: Text.swipeToAddPaper.rawValue,
-                                                        font: Design.Label.textFont,
-                                                        align: .center,
-                                                        letterSpacing: Design.Label.letterSpace,
-                                                        foregroundColor: Design.Label.textColor)
 
         return label
     }()
@@ -64,6 +64,7 @@ final class DiarySwipeAddPaperView: UIView {
     private func setupViews() {
         addSubview(textLabel)
         addSubview(progressView)
+        bind()
     }
 
     private func setupConstraint() {
@@ -81,7 +82,43 @@ final class DiarySwipeAddPaperView: UIView {
         ])
     }
 
+    private func bind() {
+        progressView.progressDidChanged
+            .subscribe(onNext: { [weak self] progress in
+                guard let self = self else { return }
+
+                if progress > 1 {
+                    self.readyToAdd = true
+                    self.progressView.progressImage = Design.Image.plusImage
+                    self.descText = Text.releaseToAddPaper.rawValue
+                } else {
+                    self.readyToAdd = false
+                    self.progressView.progressImage = Design.Image.swipeImage
+                    self.descText = Text.pullToAddPaper.rawValue
+                }
+
+            })
+            .disposed(by: disposeBag)
+    }
+
     func setProgress(_ progress: CGFloat) {
         progressView.setProgress(progress, animated: true)
+    }
+}
+
+extension DiarySwipeAddPaperView {
+    var descText: String? {
+        get {
+            return textLabel.attributedText?.string
+        }
+        set {
+            UIView.transition(with: textLabel, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                self.textLabel.attributedText = NSAttributedString.build(text: newValue ?? "",
+                                                                    font: Design.Label.textFont,
+                                                                    align: .center,
+                                                                    letterSpacing: Design.Label.letterSpace,
+                                                                    foregroundColor: Design.Label.textColor)
+            }, completion: nil)
+        }
     }
 }
