@@ -22,11 +22,12 @@ extension DiaryEditViewController: DYDrawableDelegate {
         diaryEditCoverView.diaryView.currentToolSubject.onNext(pencilTool)
     }
 
-    func didTapTextButton(_ textField: DYFlexibleTextField) {
+    func didTapTextButton() {
         diaryEditCoverView.diaryView.currentToolSubject.onNext(nil)
-        // TODO: - 복수의 텍스트 필드 관리를 어떻게 하면 좋을 지..
+        // TODO: - 탭 한 부분에 텍스트 필드를 생성하는 로직 추가
         let center = CGPoint(x: diaryEditCoverView.diaryView.bounds.width / 2.0,
                              y: diaryEditCoverView.diaryView.bounds.height / 2.0)
+        let textField = DYFlexibleTextField()
         textField.center = center
         diaryEditCoverView.diaryView.addSubview(textField)
         let _ = textField.becomeFirstResponder()
@@ -44,15 +45,7 @@ extension DiaryEditViewController: DYDrawableDelegate {
         diaryEditCoverView.diaryView.currentToolSubject.onNext(pencilTool)
     }
 
-    func didEndTextStyleSetting() {
-
-    }
-
-    func didEndTextColorSetting(color: UIColor) {
-        // TODO: currentTextField에 color를 연동하는 로직 추가
-    }
-
-    func showStickerPicekr() {
+    func showStickerPicker() {
         diaryEditCoverView.diaryView.currentToolSubject.onNext(nil)
     }
 
@@ -62,17 +55,17 @@ extension DiaryEditViewController: DYDrawableDelegate {
         
         let imageView = UIImageView(image: image)
         let imageRatio = image.size.height / image.size.width
-        let defaultImageWith: CGFloat = 76.0
-        let calcedImageHeight: CGFloat = imageRatio * 76.0
+        let defaultImageWith: CGFloat = DYImageSizeStretchableView.defaultImageWidth
+        let calcedImageHeight: CGFloat = imageRatio * DYImageSizeStretchableView.defaultImageWidth
         imageView.frame.size = CGSize(width: defaultImageWith, height: calcedImageHeight)
 
-        let stickerView = DYStickerSizeStretchableView(contentView: imageView)
+        let stickerView = DYImageSizeStretchableView(contentView: imageView)
         stickerView.enableClose = true
         stickerView.enableRotate = true
         stickerView.enableHStretch = true
         stickerView.enableWStretch = true
-        stickerView.center = view.center
-        view.addSubview(stickerView)
+        stickerView.center = diaryEditCoverView.diaryView.center
+        diaryEditCoverView.diaryView.addSubview(stickerView)
     }
 
     func didEndStickerPick(_ image: UIImage) {

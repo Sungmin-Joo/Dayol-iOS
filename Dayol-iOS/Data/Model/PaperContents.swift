@@ -7,19 +7,50 @@
 
 import Foundation
 
-class DecorationItem: Codable {
-    let id: String // C1, C2
-    let parentId: String // Dx or Px
+protocol DecorationItem: Codable {
+    var id: String { get } // C1, C2
+    var parentId: String { get } // Dx or Px
+
+    var width: Float { get }
+    var height: Float { get }
+    var x: Float { get }
+    var y: Float { get }
+}
+
+struct DecorationImageItem: DecorationItem {
+    let id: String
+    let parentId: String
 
     let width: Float
     let height: Float
     let x: Float
     let y: Float
+
+    let image: Data
     let inclination: Float
 }
 
-final class DecorationImageItem: DecorationItem {}
+struct DecorationStickerItem: DecorationItem {
+    let id: String
+    let parentId: String
 
-final class DecorationStickerItem: DecorationItem {}
+    let width: Float
+    let height: Float
+    let x: Float
+    let y: Float
 
-final class DecorationTextFieldItem: DecorationItem {}
+    let image: Data
+    let inclination: Float
+}
+
+struct DecorationTextFieldItem: DecorationItem {
+    let id: String
+    let parentId: String
+
+    let width: Float
+    let height: Float
+    let x: Float
+    let y: Float
+
+    let textData: Data
+}

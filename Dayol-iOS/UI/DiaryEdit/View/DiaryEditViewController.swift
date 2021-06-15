@@ -29,10 +29,11 @@ class DiaryEditViewController: DYDrawableViewController {
 
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    private let viewModel = DiaryEditViewModel()
 
     private var password: String?
     private var currentCoverColor: PaletteColor = .DYBrown
+
+    let viewModel = DiaryEditViewModel()
 
     // MARK: - UI Components
 
@@ -79,7 +80,6 @@ class DiaryEditViewController: DYDrawableViewController {
         diaryEditPaletteView.colors = viewModel.diaryColors
         setConstraint()
         setupGesture()
-        
         bind()
     }
     
@@ -115,6 +115,7 @@ class DiaryEditViewController: DYDrawableViewController {
         colorBind()
         navigationBind()
         switchBind()
+        viewModelBind()
     }
     
     private func switchBind() {
@@ -188,6 +189,25 @@ class DiaryEditViewController: DYDrawableViewController {
             .disposed(by: disposeBag)
     }
 
+    private func viewModelBind() {
+        viewModel.diarySubject
+            .observe(on: MainScheduler.instance)
+            .bind { [weak self] diary in
+                guard let self = self else { return }
+                self.titleView.setTitle(diary.title)
+                self.diaryEditToggleView.setLogoSwitch(diary.hasLogo)
+
+                let diaryView = self.diaryEditCoverView.diaryView
+                diaryView.set(model: diary)
+
+                if let coverColor = PaletteColor.find(hex: diary.colorHex) {
+                    self.diaryEditPaletteView.changedColor.onNext(coverColor)
+                    self.diaryEditPaletteView.selectColor(coverColor)
+                }
+            }
+        .disposed(by: disposeBag)
+    }
+
     private func checkTitleValidation(_ title: String) {
         if title.isEmpty {
             presentAlert(title: Text.emptyAlertTitle.rawValue,
@@ -233,18 +253,36 @@ private extension DiaryEditViewController {
 
     func createDiaryInfo(_ password: String?) {
         guard let title = self.titleView.titleLabel.text else { return }
+        let diaryView = self.diaryEditCoverView.diaryView
+
+        let diaryID = viewModel.diaryIdToCreate
         let isLock = password != nil
-        let diaryModel = Diary(id: viewModel.diaryIdToCreate,
+        let drawing = diaryView.canvas.drawing
+        let hasLogo = diaryView.hasLogo
+        let contents = createContents(diaryID: diaryID)
+        var drawCanvasData = Data()
+
+        let encoder = JSONEncoder()
+        if let drawingData = try? encoder.encode(drawing) {
+            drawCanvasData = drawingData
+        }
+
+        let diaryModel = Diary(id: diaryID,
                                isLock: isLock,
                                title: title,
                                colorHex: currentCoverColor.hexString,
+                               hasLogo: hasLogo,
                                thumbnail: diaryEditCoverView.asThumbnail?.pngData() ?? Data(),
-                               drawCanvas: Data(),
+                               drawCanvas: drawCanvasData,
                                papers: [],
-                               contents: [])
+                               contents: contents)
 
         self.viewModel.createDiaryInfo(model: diaryModel)
         self.dismiss(animated: true, completion: nil)
+    }
+
+    func createContents(diaryID: String) -> [DecorationItem] {
+        return diaryEditCoverView.diaryView.getItems(diaryID: diaryID)
     }
 }
 

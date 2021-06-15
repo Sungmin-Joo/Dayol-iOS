@@ -12,12 +12,22 @@ import RxCocoa
 class DiaryEditViewModel {
     let diaryColors: [PaletteColor] = PaletteColor.colorPreset.filter { $0 != .DYDark}
     let diaryInitalTitle: String = "새 다이어리"
+    var diarySubject = ReplaySubject<Diary>.createUnbounded()
+    var currentDiaryId: String?
 
     var diaryIdToCreate: String {
-        DYTestData.shared.currentDiaryId
+        if let diaryId = currentDiaryId {
+            return diaryId
+        }
+        return DYTestData.shared.currentDiaryId
     }
 
     func createDiaryInfo(model: Diary) {
         DYTestData.shared.addDiary(model)
+    }
+
+    func setDiaryInfo(model: Diary) {
+        diarySubject.onNext(model)
+        currentDiaryId = model.id
     }
 }

@@ -209,7 +209,7 @@ public class DYStickerView: UIView {
     
     private var initialBounds = CGRect.zero
     private var initialDistance:CGFloat = 0
-    private var deltaAngle:CGFloat = 0
+    private(set) var deltaAngle:CGFloat = 0
    
     public init(contentView: UIView) {
         var frame = contentView.frame
@@ -598,6 +598,14 @@ private extension DYStickerView {
     func setEnableHStretch(_ enableClose: Bool) {
         self.hStretchImageView.isHidden = !enableClose
         self.hStretchImageView.isUserInteractionEnabled = enableClose
+    }
+}
+
+// MARK: - Set Degree
+extension DYStickerView {
+    // TODO: - 스티커 뷰 각도 세팅 로직 추가 필요
+    func setDegree(_ deltaAngle: CGFloat) {
+
     }
 }
 

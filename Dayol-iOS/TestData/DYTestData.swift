@@ -135,7 +135,11 @@ class DYTestData {
 // MARK: - Diary
 
     func addDiary(_ diary: Diary) {
-        diaryList.append(diary)
+        if let index = diaryList.firstIndex(where: { $0.id == diary.id }) {
+            diaryList[index] = diary
+        } else {
+            diaryList.append(diary)
+        }
         diaryListSubject.onNext(diaryList)
     }
 

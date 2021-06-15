@@ -15,12 +15,10 @@ import PencilKit
 protocol DYDrawableDelegate: AnyObject {
     func didTapEraseButton()
     func didTapPencilButton()
-    func didTapTextButton(_ textField: DYFlexibleTextField)
+    func didTapTextButton()
     func didEndEraseSetting(isObjectErase: Bool)
     func didEndPencilSetting(color: UIColor, isHighlighter: Bool)
-    func didEndTextStyleSetting()
-    func didEndTextColorSetting(color: UIColor)
-    func showStickerPicekr()
+    func showStickerPicker()
     func didEndPhotoPick(_ image: UIImage)
     func didEndStickerPick(_ image: UIImage)
 }
@@ -113,23 +111,6 @@ extension DYDrawableViewController {
         presentCustomModal(modalVC)
     }
 
-    private func showColorModal() {
-        let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .custom(containerHeight: Design.textColorSettingModalHeight))
-        let modalVC = DYModalViewController(configure: configuration,
-                                            title: Text.penTitle,
-                                            hasDownButton: true)
-        // TODO: 현재 텍스트 필드의 컬러의 색상 연동
-        let currentTextColor = UIColor.blue
-        let contentView = ColorSettingView()
-        contentView.set(color: currentTextColor)
-        modalVC.dismissCompeletion = { [weak self] in
-            let newColor = contentView.colorSubject.value
-            self?.delegate?.didEndTextColorSetting(color: newColor)
-        }
-        modalVC.contentView = contentView
-        presentCustomModal(modalVC)
-    }
-
 }
 
 // MARK: - Tool Bar Event
@@ -186,12 +167,10 @@ extension DYDrawableViewController {
     private func textFieldBind() {
         toolBar.textButton.rx.tap
             .bind { [weak self] in
-                // TODO: 다욜 텍스트 필드 구현 후 데이터 연동 필요.
                 guard let self = self else { return }
                 guard self.currentTool != .text else { return }
                 self.currentTool = .text
-                let textField = DYFlexibleTextField()
-                self.delegate?.didTapTextButton(textField)
+                self.delegate?.didTapTextButton()
                 return
             }
             .disposed(by: disposeBag)

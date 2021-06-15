@@ -29,12 +29,14 @@ class DiaryView: UIView {
 
     private let coverView = DiaryCoverView()
     private let lockerView = DiaryLockerView()
-    private let canvas = PKCanvasView()
+    let canvas = PKCanvasView()
 
     private var lockerMarginConstraint: NSLayoutConstraint?
     private var lockerWidthConstraint: NSLayoutConstraint?
     private var lockerHeightConstraint: NSLayoutConstraint?
+    private var items: [DecorationItem] = []
 
+    var hasLogo: Bool = false
     var isLock: Bool = false {
         didSet {
             guard isLock else {
@@ -140,6 +142,57 @@ extension DiaryView {
     }
     
     func setDayolLogoHidden(_ isHidden: Bool) {
+        hasLogo = (isHidden == false)
         coverView.setDayolLogoHidden(isHidden)
     }
+}
+
+// MARK: - Control Decoration Item
+
+extension DiaryView {
+
+    func set(model: Diary) {
+        setDrawingData(model.drawCanvas)
+        setItems(model.contents)
+    }
+
+    func getItems(diaryID: String) -> [DecorationItem] {
+        let items: [DecorationItem] = subviews.compactMap { subview in
+            if let textField = subview as? DYFlexibleTextField {
+                // TODO: - textField ID 룰 정의
+                return textField.toItem(id: "", parentId: diaryID)
+            }
+
+            if let imageStrectchView = subview as? DYImageSizeStretchableView {
+                // TODO: - 유저 이미지 스티커 ID 룰 정의
+                return imageStrectchView.toItem(id: "", parentId: diaryID)
+            }
+
+            return nil
+        }
+        return items
+    }
+
+    private func setDrawingData(_ data: Data) {
+        let decoder = JSONDecoder()
+        if let drawing = try? decoder.decode(PKDrawing.self, from: data) {
+            canvas.drawing = drawing
+        }
+    }
+
+    private  func setItems(_ items: [DecorationItem]) {
+        items.forEach { item in
+            if let textItem = item as? DecorationTextFieldItem {
+                let textField = DYFlexibleTextField()
+                textField.viewModel.set(textItem)
+                addSubview(textField)
+            }
+
+            if let imageItem = item as? DecorationImageItem {
+                let imageStretchableView = DYImageSizeStretchableView(model: imageItem)
+                addSubview(imageStretchableView)
+            }
+        }
+    }
+
 }
