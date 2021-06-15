@@ -40,12 +40,6 @@ final class CircularProgressView: UIView {
         let layer = CAShapeLayer()
         layer.lineCap = .round
         layer.fillColor = .none
-        layer.lineWidth = 3
-        layer.strokeColor = Design.Color.progressColor.cgColor
-        layer.strokeEnd = 0
-        layer.borderColor = UIColor.red.cgColor
-        layer.borderWidth = 3
-
         return layer
     }()
 
@@ -60,22 +54,36 @@ final class CircularProgressView: UIView {
     init(usesClockwise: Bool) {
         self.usesClockwise = usesClockwise
         super.init(frame: .zero)
-        setupViews()
+
+        layer.addSublayer(progressLayer)
+        progressLayer.lineWidth = 2
+        progressLayer.strokeColor = Design.Color.progressColor.cgColor
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        setupLayer()
-        startAnimation()
+//        setupLayer()
+//        startAnimation()
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        updateProgressLayer()
+        let center = CGPoint(x: bounds.midX, y: bounds.midY)
+        let radius = min(bounds.width, bounds.height) * 0.5 - (progressLayer.lineWidth * 0.5)
+        let startAngle = CGFloat(-CGFloat.pi * 0.5)
+        let endAngle = startAngle + CGFloat(CGFloat.pi * 2)
+
+        let path = UIBezierPath(
+            arcCenter: center,
+            radius: radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            clockwise: usesClockwise
+        )
+
+        progressLayer.path = path.cgPath
     }
 
     private func setupViews() {
@@ -102,7 +110,7 @@ final class CircularProgressView: UIView {
     }
 
     private func makeBezierPath(usesClockWise: Bool) -> UIBezierPath {
-        let path: UIBezierPath = UIBezieㄴrPath(arcCenter: CGPoint(x: bounds.midX, y: bounds.midX),
+        let path: UIBezierPath = UIBezierPath(arcCenter: CGPoint(x: bounds.midX, y: bounds.midX),
                                               radius: bounds.size.width / 2,
                                               startAngle: 1.5 * .pi,
                                               endAngle: -0.5 * .pi,
