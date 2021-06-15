@@ -15,6 +15,13 @@ enum DiaryPaperEventType {
     case showAddSchedule(date: Date)
 }
 
+private enum Design {
+    enum Margin {
+        static let contentProgressSpace: CGFloat = 34
+        static let progressSize: CGSize = .init(width: 48, height: 88)
+    }
+}
+
 class DiaryPaperViewController: UIViewController {
     let didReceivedEvent = PublishSubject<DiaryPaperEventType>()
     let index: Int
@@ -48,6 +55,14 @@ class DiaryPaperViewController: UIViewController {
         
         return scrollView
     }()
+
+    private let progressView: DiarySwipeAddPaperView = {
+        let progressView = DiarySwipeAddPaperView()
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.setProgress(0.0)
+
+        return progressView
+    }()
     
     init(index: Int, viewModel: DiaryPaperViewModel) {
         self.index = index
@@ -72,7 +87,7 @@ class DiaryPaperViewController: UIViewController {
     
     private func initView() {
         paper.translatesAutoresizingMaskIntoConstraints = false
-        
+
         paperScrollView.delegate = self
         paperScrollView.minimumZoomScale = 1.0
         paperScrollView.maximumZoomScale = 3.0
@@ -80,7 +95,10 @@ class DiaryPaperViewController: UIViewController {
         paperScrollView.addSubViewPinEdge(paper)
         paperScrollView.isPagingEnabled = true
         view.backgroundColor = UIColor(decimalRed: 246, green: 248, blue: 250)
-        
+
+        progressView.isHidden = true
+        view.insertSubview(progressView, aboveSubview: paperScrollView)
+
         setupConstraint()
         combine()
         setupConstraint()
@@ -89,8 +107,19 @@ class DiaryPaperViewController: UIViewController {
     
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            paper.widthAnchor.constraint(equalTo: paperScrollView.widthAnchor)
+            paper.widthAnchor.constraint(equalTo: paperScrollView.widthAnchor),
+
+            progressView.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -300),
+            progressView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+
+    func showProgressView(show: Bool) {
+        progressView.isHidden = !show
+    }
+
+    func setProgress(_ progress: CGFloat) {
+        progressView.setProgress(progress / 116)
     }
     
     private func combine() {

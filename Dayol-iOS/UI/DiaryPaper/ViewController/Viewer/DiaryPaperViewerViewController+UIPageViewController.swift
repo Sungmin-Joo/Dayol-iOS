@@ -7,11 +7,21 @@
 
 import UIKit
 
+extension DiaryPaperViewerViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let draggingDistance = scrollView.contentOffset.x - scrollView.frame.size.width
+        if isLastViewContrller {
+            currentViewController?.setProgress(draggingDistance)
+        }
+    }
+}
+
 extension DiaryPaperViewerViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
             if let currentViewController = pageViewController.viewControllers![0] as? DiaryPaperViewController {
                 currentIndex = currentViewController.index
+                setupLastViewContoller()
             }
         }
     }

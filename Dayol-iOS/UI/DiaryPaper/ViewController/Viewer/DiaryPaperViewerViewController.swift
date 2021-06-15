@@ -11,7 +11,9 @@ import RxCocoa
 import Combine
 
 private enum Design {
-    static let addPageModalTopMargin: CGFloat = 57.0
+    enum Margin {
+        static let addPageModalTopMargin: CGFloat = 57.0
+    }
 }
 
 private enum Text {
@@ -40,7 +42,7 @@ class DiaryPaperViewerViewController: UIViewController {
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     private(set) var paperViewControllers: [DiaryPaperViewController]?
-    
+
     // MARK: - Init
     
     init(viewModel: DiaryPaperViewerViewModel) {
@@ -73,7 +75,7 @@ class DiaryPaperViewerViewController: UIViewController {
     }
     
     private func initView() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(decimalRed: 246, green: 248, blue: 250)
         setupPageViewController()
         setupNavigationBars()
     }
@@ -92,11 +94,20 @@ class DiaryPaperViewerViewController: UIViewController {
     }
     
     private func setupPageViewController() {
+        for subview in  pageViewController.view.subviews {
+            if let scrollView = subview as? UIScrollView {
+                scrollView.delegate = self
+            }
+        }
         pageViewController.delegate = self
         pageViewController.dataSource = self
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
         pageViewController.didMove(toParent: self)
+    }
+
+    func setupLastViewContoller() {
+        currentViewController?.showProgressView(show: isLastViewContrller)
     }
     
     // MARK: - Bind
@@ -160,6 +171,7 @@ class DiaryPaperViewerViewController: UIViewController {
                     }
 
                     self.pageViewController.setViewControllers([diaryPaperViewControllers[self.currentIndex]], direction: .forward, animated: true, completion: nil)
+                    self.setupLastViewContoller()
                 }
             })
             .disposed(by: disposeBag)
@@ -196,7 +208,7 @@ class DiaryPaperViewerViewController: UIViewController {
     private func presentPaperModal(toolType: PaperModalViewController.PaperToolType) {
         let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
         let screenHeight = keyWindow?.bounds.height ?? .zero
-        let modalHeight: CGFloat = screenHeight - Design.addPageModalTopMargin
+        let modalHeight: CGFloat = screenHeight - Design.Margin.addPageModalTopMargin
         let modalStyle: DYModalConfiguration.ModalStyle = isPadDevice ? .normal : .custom(containerHeight: modalHeight)
         let configuration = DYModalConfiguration(dimStyle: .black,
                                                  modalStyle: modalStyle)
@@ -234,6 +246,10 @@ class DiaryPaperViewerViewController: UIViewController {
 extension DiaryPaperViewerViewController {
     var currentViewController: DiaryPaperViewController? {
         return paperViewControllers?[safe: currentIndex];
+    }
+
+    var isLastViewContrller: Bool {
+        return (currentViewController?.index ?? 0) == (paperViewControllers?.count ?? 0) - 1
     }
 }
 
