@@ -8,25 +8,25 @@
 import UIKit
 
 private enum Design {
-    static let iconImageTopMargin: CGFloat = 21.0
+    static let iconButtonTopMargin: CGFloat = 21.0
     static let topIcon = Assets.Image.Home.topIcon
     static let bgColor = UIColor.white
 }
 
 class FavoriteViewController: UIViewController {
 
-    private let iconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = Design.topIcon
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        return imageView
-    }()
     private let emptyView: HomeEmptyView = {
         let view = HomeEmptyView(style: .favorite)
         view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    let iconButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Design.topIcon, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+
+        return button
     }()
     var isEmpty: Bool = true {
         didSet {
@@ -49,7 +49,7 @@ class FavoriteViewController: UIViewController {
 // MARK: - Setup UI
 extension FavoriteViewController {
     private func setupViews() {
-        view.addSubview(iconImageView)
+        view.addSubview(iconButton)
         view.addSubview(emptyView)
         view.backgroundColor = Design.bgColor
     }
@@ -62,9 +62,9 @@ extension FavoriteViewController {
         let layoutGuide = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            iconImageView.topAnchor.constraint(equalTo: layoutGuide.topAnchor,
-                                               constant: Design.iconImageTopMargin),
-            iconImageView.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
+            iconButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor,
+                                            constant: Design.iconButtonTopMargin),
+            iconButton.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
 
             emptyView.topAnchor.constraint(equalTo: view.topAnchor),
             emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

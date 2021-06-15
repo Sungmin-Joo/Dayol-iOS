@@ -106,6 +106,7 @@ class HomeEmptyView: UIView {
 private extension HomeEmptyView {
 
     func setupViews() {
+        isUserInteractionEnabled = false
         addSubview(stackView)
         stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(textLabel)

@@ -24,6 +24,8 @@
 
 "setting_guide_title" = "다욜 사용설명서";
 "setting_guide_text" = "기본 사용법과 속지별 가이드를 설명해드려욜!";
+"setting_homeoption_title" = "앱 시작 첫 화면을 ‘즐겨찾기’로";
+"setting_homeoption_text" = "Off 시, 다이어리 목록으로 시작되어욜!";
 "setting_backup_title" = "데이터 백업";
 "setting_backup_text" = "소중한 데이터, 잃지 않으려면 동기화를 켜두세욜!";
 "setting_homewidget_title" = "홈 위젯 설정";
