@@ -6,18 +6,22 @@
 //
 
 import UIKit
+import Photos
+import PhotosUI
 
-extension DiaryEditViewController: DYDrawableDelegate {
+// MARK: - Drawable
+
+extension DiaryEditViewController {
 
     func didTapEraseButton() {
-        let isObjectErase = drawableViewModel.currentEraseTool.isObjectErase
+        let isObjectErase = currentEraseTool.isObjectErase
         let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
         diaryEditCoverView.diaryView.currentToolSubject.onNext(eraseTool)
     }
 
     func didTapPencilButton() {
-        let pencilColor = drawableViewModel.currentPencilTool.color
-        let isHighlighter = drawableViewModel.currentPencilTool.isHighlighter
+        let pencilColor = currentPencilTool.color
+        let isHighlighter = currentPencilTool.isHighlighter
         let pencilTool = DYPencilTool(color: pencilColor, isHighlighter: isHighlighter)
         diaryEditCoverView.diaryView.currentToolSubject.onNext(pencilTool)
     }
@@ -35,14 +39,39 @@ extension DiaryEditViewController: DYDrawableDelegate {
 
     func didEndEraseSetting(isObjectErase: Bool) {
         let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
-        drawableViewModel.currentEraseTool = eraseTool
+        currentEraseTool = eraseTool
         diaryEditCoverView.diaryView.currentToolSubject.onNext(eraseTool)
     }
 
     func didEndPencilSetting(color: UIColor, isHighlighter: Bool) {
         let pencilTool = DYPencilTool(color: color, isHighlighter: isHighlighter)
-        drawableViewModel.currentPencilTool = pencilTool
+        currentPencilTool = pencilTool
         diaryEditCoverView.diaryView.currentToolSubject.onNext(pencilTool)
+    }
+
+    func didTapSnareButton() {
+        diaryEditCoverView.diaryView.currentToolSubject.onNext(nil)
+    }
+
+    func showImagePicker() {
+        if #available(iOS 14.0, *) {
+            var configuration = PHPickerConfiguration()
+            configuration.selectionLimit = 1
+            configuration.filter = .any(of: [.images])
+
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            present(picker, animated: true, completion: nil)
+
+        } else {
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.sourceType = .photoLibrary
+
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                present(picker, animated: true)
+            }
+        }
     }
 
     func showStickerPicker() {
@@ -72,4 +101,30 @@ extension DiaryEditViewController: DYDrawableDelegate {
 
     }
 
+}
+
+extension DiaryEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            didEndPhotoPick(image)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+
+    @available(iOS 14.0, *)
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+
+        let itemProvider = results.first?.itemProvider
+        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+                guard let self = self, let image = image as? UIImage else { return }
+
+                DispatchQueue.main.async {
+                    self.didEndPhotoPick(image)
+                }
+            }
+        }
+    }
 }
