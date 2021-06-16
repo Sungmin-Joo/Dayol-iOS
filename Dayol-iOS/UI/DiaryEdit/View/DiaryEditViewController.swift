@@ -23,7 +23,15 @@ private enum Text: String {
     case cancel = "취소"
 }
 
-class DiaryEditViewController: DYDrawableViewController {
+class DiaryEditViewController: UIViewController, Drawable {
+
+    // MARK: - Drawable Property
+    let disposeBag = DisposeBag()
+
+    let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
+    var currentTool: DYNavigationDrawingToolbar.ToolType?
+    var currentEraseTool: DYEraseTool = DYEraseTool(isObjectErase: false)
+    var currentPencilTool: DYPencilTool = DYPencilTool(color: .black, isHighlighter: false)
 
     // MARK: - Private Properties
 
@@ -66,7 +74,6 @@ class DiaryEditViewController: DYDrawableViewController {
     override func viewDidLoad() {
         self.view.backgroundColor = .white
         super.viewDidLoad()
-        delegate = self
         setupNavigationBar()
         initView()
     }
@@ -81,6 +88,7 @@ class DiaryEditViewController: DYDrawableViewController {
         setConstraint()
         setupGesture()
         bind()
+        bindToolBarEvent()
     }
     
     private func setConstraint() {

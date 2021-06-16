@@ -8,7 +8,6 @@
 import UIKit
 import PencilKit
 import RxSwift
-import Combine
 
 private enum Design {
     enum Standard {
@@ -22,8 +21,6 @@ class DiaryView: UIView {
     private let disposeBag = DisposeBag()
     let currentToolSubject = BehaviorSubject<DYDrawTool?>(value: nil)
     let didTappedLocker = PublishSubject<Void>()
-    //let currentToolSubject = CurrentValueSubject<DYDrawTool?, Never>(nil)
-    //private var cancellable: [AnyCancellable] = []
 
     // MARK: - UI Properties
 

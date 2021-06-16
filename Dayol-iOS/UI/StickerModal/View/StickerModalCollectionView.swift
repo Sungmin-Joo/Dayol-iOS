@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Combine
+import RxSwift
 
 private enum Design {
     static let cellSize: CGSize = CGSize(width: 50, height: 50)
@@ -17,7 +17,7 @@ private enum Design {
 class StickerModalCollectionView: UIView {
     // MARK: - Properties
     
-    let didTappedSticker = PassthroughSubject<UIImage?, Error>()
+    let didTappedSticker = PublishSubject<UIImage?>()
     
     // MARK: - UI Components
     
@@ -72,7 +72,7 @@ extension StickerModalCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let stickerImage = models?[safe: indexPath.item] else { return }
         
-        didTappedSticker.send(stickerImage)
+        didTappedSticker.onNext(stickerImage)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  DYDrawableViewController.swift
+//  Drawable.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/04/26.
@@ -8,20 +8,6 @@
 import UIKit
 import RxCocoa
 import RxSwift
-import Photos
-import PhotosUI
-import PencilKit
-
-protocol DYDrawableDelegate: AnyObject {
-    func didTapEraseButton()
-    func didTapPencilButton()
-    func didTapTextButton()
-    func didEndEraseSetting(isObjectErase: Bool)
-    func didEndPencilSetting(color: UIColor, isHighlighter: Bool)
-    func showStickerPicker()
-    func didEndPhotoPick(_ image: UIImage)
-    func didEndStickerPick(_ image: UIImage)
-}
 
 private enum Design {
     static let defaultTextFieldSize = CGSize(width: 20, height: 30)
@@ -47,34 +33,40 @@ private enum Text {
     }
 }
 
-class DYDrawableViewModel {
-    var currentEraseTool: DYEraseTool = DYEraseTool(isObjectErase: false)
-    var currentPencilTool: DYPencilTool = DYPencilTool(color: .black, isHighlighter: false)
+protocol Drawable: UIViewController {
+    var disposeBag: DisposeBag { get }
+
+    var toolBar: DYNavigationDrawingToolbar { get }
+    var currentTool: DYNavigationDrawingToolbar.ToolType? { get set }
+    var currentEraseTool: DYEraseTool { get set }
+    var currentPencilTool: DYPencilTool { get set }
+
+    func didTapEraseButton()
+    func didEndEraseSetting(isObjectErase: Bool)
+
+    func didTapPencilButton()
+    func didEndPencilSetting(color: UIColor, isHighlighter: Bool)
+
+    func didTapSnareButton()
+
+    func didTapTextButton()
+
+    func showImagePicker()
+    func didEndPhotoPick(_ image: UIImage)
+
+    func showStickerPicker()
+    func didEndStickerPick(_ image: UIImage)
 }
 
-class DYDrawableViewController: UIViewController {
+extension Drawable {
 
-    let disposeBag = DisposeBag()
-    let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
-    var currentTool: DYNavigationDrawingToolbar.ToolType?
-    var drawableViewModel = DYDrawableViewModel()
-    weak var delegate: DYDrawableDelegate?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        bindToolBarEvent()
-    }
-
-}
-
-extension DYDrawableViewController {
-
-    private func bindToolBarEvent() {
+    func bindToolBarEvent() {
         lassoToolBind()
         eraseBind()
         penBind()
         textFieldBind()
         photoBind()
+        stickerBind()
     }
 
     private func showEraseModal() {
@@ -83,39 +75,51 @@ extension DYDrawableViewController {
         let modalVC = DYModalViewController(configure: configuration,
                                             title: Text.eraseTitle,
                                             hasDownButton: true)
-        let isObjectErase = drawableViewModel.currentEraseTool.isObjectErase
+        let isObjectErase = currentEraseTool.isObjectErase
         let contentView = EraseSettingView(isObjectErase: isObjectErase)
         modalVC.dismissCompeletion = { [weak self] in
             let newIsObjectErase = contentView.isObjectErase
-            self?.delegate?.didEndEraseSetting(isObjectErase: newIsObjectErase)
+            self?.didEndEraseSetting(isObjectErase: newIsObjectErase)
         }
         modalVC.contentView = contentView
         self.presentCustomModal(modalVC)
     }
 
-    private func showPencilModal() {
+    private func presentPencilModal() {
         let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .custom(containerHeight: Design.penSettingModalHeight))
         let modalVC = DYModalViewController(configure: configuration,
                                             title: Text.penTitle,
                                             hasDownButton: true)
-        let currentColor = drawableViewModel.currentPencilTool.color
-        let isHighlighter = drawableViewModel.currentPencilTool.isHighlighter
+        let currentColor = currentPencilTool.color
+        let isHighlighter = currentPencilTool.isHighlighter
         let currnetPencilType: PencilTypeSettingView.PencilType = isHighlighter ? .highlighter : .pen
         let contentView = PencilSettingView(currentColor: currentColor, pencilType: currnetPencilType)
         modalVC.dismissCompeletion = { [weak self] in
             let newColor = contentView.currentPencilInfo.color
             let newIsHighlighter = contentView.currentPencilInfo.pencilType == .highlighter ? true : false
-            self?.delegate?.didEndPencilSetting(color: newColor, isHighlighter: newIsHighlighter)
+            self?.didEndPencilSetting(color: newColor, isHighlighter: newIsHighlighter)
         }
         modalVC.contentView = contentView
         presentCustomModal(modalVC)
+    }
+
+    private func presentStickerModal() {
+        let stickerModal = StickerModalViewContoller()
+        presentCustomModal(stickerModal)
+
+        stickerModal.didTappedSticker
+            .subscribe(onNext: { stickerImage in
+                guard let stickerImage = stickerImage else { return }
+                self.didEndStickerPick(stickerImage)
+            })
+            .disposed(by: disposeBag)
     }
 
 }
 
 // MARK: - Tool Bar Event
 
-extension DYDrawableViewController {
+extension Drawable {
 
     private func eraseBind() {
         toolBar.eraserButton.rx.tap
@@ -123,7 +127,7 @@ extension DYDrawableViewController {
                 guard let self = self else { return }
                 guard self.currentTool == .eraser else {
                     self.currentTool = .eraser
-                    self.delegate?.didTapEraseButton()
+                    self.didTapEraseButton()
                     return
                 }
                 self.showEraseModal()
@@ -137,6 +141,7 @@ extension DYDrawableViewController {
                 guard let self = self else { return }
                 guard self.currentTool == .snare else {
                     self.currentTool = .snare
+                    self.didTapSnareButton()
                     return
                 }
                 let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .small)
@@ -155,11 +160,10 @@ extension DYDrawableViewController {
                 guard let self = self else { return }
                 guard self.currentTool == .pencil else {
                     self.currentTool = .pencil
-                    self.delegate?.didTapPencilButton()
+                    self.didTapPencilButton()
                     return
                 }
-
-                self.showPencilModal()
+                self.presentPencilModal()
             }
             .disposed(by: disposeBag)
     }
@@ -170,7 +174,7 @@ extension DYDrawableViewController {
                 guard let self = self else { return }
                 guard self.currentTool != .text else { return }
                 self.currentTool = .text
-                self.delegate?.didTapTextButton()
+                self.didTapTextButton()
                 return
             }
             .disposed(by: disposeBag)
@@ -184,51 +188,12 @@ extension DYDrawableViewController {
             .disposed(by: disposeBag)
     }
 
-}
-
-extension DYDrawableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
-
-    func showImagePicker() {
-        if #available(iOS 14.0, *) {
-            var configuration = PHPickerConfiguration()
-            configuration.selectionLimit = 1
-            configuration.filter = .any(of: [.images])
-
-            let picker = PHPickerViewController(configuration: configuration)
-            picker.delegate = self
-            present(picker, animated: true, completion: nil)
-
-        } else {
-            let picker = UIImagePickerController()
-            picker.delegate = self
-            picker.sourceType = .photoLibrary
-
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                present(picker, animated: true)
+    private func stickerBind() {
+        toolBar.stickerButton.rx.tap
+            .bind { [weak self] in
+                self?.presentStickerModal()
             }
-        }
+            .disposed(by: disposeBag)
     }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            delegate?.didEndPhotoPick(image)
-        }
-        dismiss(animated: true, completion: nil)
-    }
-
-    @available(iOS 14.0, *)
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true, completion: nil)
-
-        let itemProvider = results.first?.itemProvider
-        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
-                guard let self = self, let image = image as? UIImage else { return }
-
-                DispatchQueue.main.async {
-                    self.delegate?.didEndPhotoPick(image)
-                }
-            }
-        }
-    }
 }
