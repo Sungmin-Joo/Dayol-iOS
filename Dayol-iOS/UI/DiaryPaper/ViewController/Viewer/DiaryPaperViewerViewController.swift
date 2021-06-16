@@ -205,7 +205,7 @@ class DiaryPaperViewerViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
-    private func presentPaperModal(toolType: PaperModalViewController.PaperToolType) {
+    func presentPaperModal(toolType: PaperModalViewController.PaperToolType) {
         let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
         let screenHeight = keyWindow?.bounds.height ?? .zero
         let modalHeight: CGFloat = screenHeight - Design.Margin.addPageModalTopMargin

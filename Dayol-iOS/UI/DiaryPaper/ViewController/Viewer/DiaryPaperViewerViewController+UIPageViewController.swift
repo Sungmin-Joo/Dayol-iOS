@@ -9,9 +9,26 @@ import UIKit
 
 extension DiaryPaperViewerViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let draggingDistance = scrollView.contentOffset.x - scrollView.frame.size.width
+        switch scrollView.panGestureRecognizer.state {
+        case .possible:
+            presentAddModalIfNeeded()
+        case .changed:
+            let distance = scrollView.contentOffset.x - scrollView.frame.size.width
+            setProgressIfNeeded(distance: distance)
+        default:
+            return
+        }
+    }
+
+    private func presentAddModalIfNeeded() {
+        if currentViewController?.readyToAdd == true {
+            presentPaperModal(toolType: .add)
+        }
+    }
+
+    private func setProgressIfNeeded(distance: CGFloat) {
         if isLastViewContrller {
-            currentViewController?.setProgress(draggingDistance)
+            currentViewController?.setProgress(distance)
         }
     }
 }
