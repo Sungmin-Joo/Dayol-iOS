@@ -7,11 +7,38 @@
 
 import UIKit
 
+extension DiaryPaperViewerViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        switch scrollView.panGestureRecognizer.state {
+        case .possible:
+            presentAddModalIfNeeded()
+        case .changed:
+            let distance = scrollView.contentOffset.x - scrollView.frame.size.width
+            setProgressIfNeeded(distance: distance)
+        default:
+            return
+        }
+    }
+
+    private func presentAddModalIfNeeded() {
+        if currentViewController?.readyToAdd == true {
+            presentPaperModal(toolType: .add)
+        }
+    }
+
+    private func setProgressIfNeeded(distance: CGFloat) {
+        if isLastViewContrller {
+            currentViewController?.setProgress(distance)
+        }
+    }
+}
+
 extension DiaryPaperViewerViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
             if let currentViewController = pageViewController.viewControllers![0] as? DiaryPaperViewController {
                 currentIndex = currentViewController.index
+                setupLastViewContoller()
             }
         }
     }
