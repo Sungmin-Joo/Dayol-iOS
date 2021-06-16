@@ -145,6 +145,10 @@ extension DiaryPaperViewController: UIScrollViewDelegate {
 }
 
 extension DiaryPaperViewController {
+    var readyToAdd: Bool {
+        return progressView.readyToAdd
+    }
+
     var paperType: PaperType {
         return viewModel.paperType
     }
