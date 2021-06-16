@@ -8,7 +8,6 @@
 import UIKit
 import RxCocoa
 import RxSwift
-import Combine
 
 private enum Design {
     static let defaultTextFieldSize = CGSize(width: 20, height: 30)
@@ -35,7 +34,6 @@ private enum Text {
 }
 
 protocol Drawable: UIViewController {
-    var cancellable: Set<AnyCancellable> { get set }
     var disposeBag: DisposeBag { get }
 
     var toolBar: DYNavigationDrawingToolbar { get }
@@ -110,13 +108,11 @@ extension Drawable {
         presentCustomModal(stickerModal)
 
         stickerModal.didTappedSticker
-            .sink { _ in
-                // Some Error
-            } receiveValue: { stickerImage in
+            .subscribe(onNext: { stickerImage in
                 guard let stickerImage = stickerImage else { return }
                 self.didEndStickerPick(stickerImage)
-            }
-            .store(in: &cancellable)
+            })
+            .disposed(by: disposeBag)
     }
 
 }

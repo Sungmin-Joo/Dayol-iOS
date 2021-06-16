@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Combine
+import RxSwift
 
 private enum Design {
     static let cellSize: CGSize = CGSize(width: 44, height: 40)
@@ -20,7 +20,7 @@ private enum Design {
 class StickerModalHeaderView: UIView {
     // MARK: - Properties
     
-    let didTappedCloseButton = PassthroughSubject<Void, Error>()
+    let didTappedCloseButton = PublishSubject<Void>()
     
     // MARK: - UI Components
     
@@ -85,7 +85,7 @@ class StickerModalHeaderView: UIView {
     
     @objc
     private func tappedCloseButton(_ sender: Any) {
-        didTappedCloseButton.send(())
+        didTappedCloseButton.onNext(())
     }
 }
 

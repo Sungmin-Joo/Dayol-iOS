@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import RxSwift
 
 class DiaryPaperEditViewController: DiaryPaperViewController, Drawable {
@@ -22,7 +21,6 @@ class DiaryPaperEditViewController: DiaryPaperViewController, Drawable {
     var currentTool: DYNavigationDrawingToolbar.ToolType?
     var currentEraseTool: DYEraseTool = DYEraseTool(isObjectErase: false)
     var currentPencilTool: DYPencilTool = DYPencilTool(color: .black, isHighlighter: false)
-    var cancellable = Set<AnyCancellable>()
     
     // MARK: - UI Components
     

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Combine
+import RxSwift
 
 private enum Design {
     static let modalHeight: CGFloat = 300
@@ -15,10 +15,10 @@ private enum Design {
 class StickerModalViewContoller: DYModalViewController {
     // MARK: - Properties
     
-    private var cancellable = Set<AnyCancellable>()
+    private let disposeBag = DisposeBag()
     private var stickers: [UIImage]?
     
-    var didTappedSticker: PassthroughSubject<UIImage?, Error> {
+    var didTappedSticker: PublishSubject<UIImage?> {
         return stickerContentView.didTappedSticker
     }
     
@@ -67,11 +67,9 @@ class StickerModalViewContoller: DYModalViewController {
     
     private func combine() {
         headerView.didTappedCloseButton
-            .sink { _ in
-                // some Error
-            } receiveValue: { [weak self] _ in
+            .subscribe(onNext: { [weak self] _ in
                 self?.dismiss(animated: true)
-            }
-            .store(in: &cancellable)
+            })
+            .disposed(by: disposeBag)
     }
 }
