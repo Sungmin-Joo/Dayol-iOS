@@ -49,9 +49,7 @@ final class CircularProgressView: UIView {
     private var progress: CGFloat = 0.0
     var progressImage: UIImage? {
         didSet {
-            UIView.transition(with: progressImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {
-                self.progressImageView.image = self.progressImage
-            }, completion: nil)
+            self.progressImageView.image = self.progressImage
         }
     }
 
@@ -78,6 +76,9 @@ final class CircularProgressView: UIView {
 
         progressImageView.center = center
         progressImageView.contentMode = .center
+
+        layer.cornerRadius = Design.Size.progressCircleSize.width / 2
+        layer.masksToBounds = true
     }
 
     private func setupLayer() {
@@ -118,6 +119,10 @@ final class CircularProgressView: UIView {
 }
 
 extension CircularProgressView {
+    func setImageAlpha(_ alpha: CGFloat) {
+        progressImageView.alpha = alpha
+    }
+
     func setProgress(_ progress: CGFloat, animated: Bool) {
         if progress > 0 {
             if animated {

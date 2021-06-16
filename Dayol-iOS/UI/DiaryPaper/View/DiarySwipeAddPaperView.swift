@@ -23,12 +23,16 @@ private enum Design {
         static let letterSpace: CGFloat = -0.24
         static let textFont: UIFont = UIFont.appleMedium(size: 13)
         static let textColor: UIColor = .gray900
+
+        static let plusColor: UIColor = .dayolBrown
+        static let plusFont: UIFont = UIFont.appleBold(size: 15)
     }
 }
 
 private enum Text: String {
     case pullToAddPaper = "당겨서 속지 추가"
     case releaseToAddPaper = "놓으면 속지 추가"
+    case plusText = "+"
 }
 
 final class DiarySwipeAddPaperView: UIView {
@@ -41,6 +45,19 @@ final class DiarySwipeAddPaperView: UIView {
         progressView.progressImage = Design.Image.swipeImage
 
         return progressView
+    }()
+
+    private let plusLabel: UILabel = {
+        let label = UILabel()
+        label.attributedText = NSAttributedString.build(text: Text.plusText.rawValue,
+                                                        font: Design.Label.plusFont,
+                                                        align: .center,
+                                                        letterSpacing: 0.0,
+                                                        foregroundColor: Design.Label.plusColor)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.alpha = 0
+
+        return label
     }()
 
     private let textLabel: UILabel = {
@@ -64,6 +81,7 @@ final class DiarySwipeAddPaperView: UIView {
     private func setupViews() {
         addSubview(textLabel)
         addSubview(progressView)
+        addSubview(plusLabel)
         bind()
     }
 
@@ -74,6 +92,11 @@ final class DiarySwipeAddPaperView: UIView {
             progressView.trailingAnchor.constraint(equalTo: trailingAnchor),
             progressView.heightAnchor.constraint(equalToConstant: Design.Margin.progressSize.height),
             progressView.widthAnchor.constraint(equalToConstant: Design.Margin.progressSize.width),
+            plusLabel.topAnchor.constraint(equalTo: topAnchor),
+            plusLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            plusLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            plusLabel.heightAnchor.constraint(equalToConstant: Design.Margin.progressSize.height),
+            plusLabel.widthAnchor.constraint(equalToConstant: Design.Margin.progressSize.width),
 
             textLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: Design.Margin.progressLabelSpace),
             textLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -89,16 +112,32 @@ final class DiarySwipeAddPaperView: UIView {
 
                 if progress > 1 {
                     self.readyToAdd = true
-                    self.progressView.progressImage = Design.Image.plusImage
                     self.descText = Text.releaseToAddPaper.rawValue
+                    self.animationAdd()
                 } else {
                     self.readyToAdd = false
-                    self.progressView.progressImage = Design.Image.swipeImage
                     self.descText = Text.pullToAddPaper.rawValue
+                    self.animationPull()
                 }
 
             })
             .disposed(by: disposeBag)
+    }
+
+    private func animationAdd() {
+        UIView.animate(withDuration: 0.3) {
+            self.progressView.setImageAlpha(0.0)
+            self.plusLabel.alpha = 1.0
+            self.progressView.backgroundColor = .white
+        }
+    }
+
+    private func animationPull() {
+        UIView.animate(withDuration: 0.3) {
+            self.progressView.setImageAlpha(1.0)
+            self.plusLabel.alpha = 0.0
+            self.progressView.backgroundColor = .clear
+        }
     }
 
     func setProgress(_ progress: CGFloat) {
