@@ -22,7 +22,12 @@ extension DiaryPaperViewerViewController: UIScrollViewDelegate {
 
     private func presentAddModalIfNeeded() {
         if currentViewController?.readyToAdd == true {
-            presentPaperModal(toolType: .add)
+            let alert = DayolAlertController(title: Text.addPaperTitle, message: Text.addPaperDesc)
+            alert.addAction(.init(title: Text.addPaperCancel, style: .cancel))
+            alert.addAction(.init(title: Text.addPaperConfirm, style: .default, handler: { [weak self] in
+                self?.presentPaperModal(toolType: .add)
+            }))
+            present(alert, animated: true, completion: nil)
         }
     }
 

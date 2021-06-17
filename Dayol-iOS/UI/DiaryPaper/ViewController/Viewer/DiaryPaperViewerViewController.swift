@@ -16,14 +16,18 @@ private enum Design {
     }
 }
 
-private enum Text {
-    static var addScheduleTitle: String { "속지 또는 일정 등록" }
-    static var addScheduleDesc: String { "선택한 날짜에 새로운 일정을 등록하거나 작성한 속지를 연결할 수 있습니다" }
-    static var addScheduleAddButton: String { "일정추가" }
-    static var addScheduleLinkButton: String { "속지연결" }
-}
-
 class DiaryPaperViewerViewController: UIViewController {
+    enum Text {
+        static var addScheduleTitle: String { "속지 또는 일정 등록" }
+        static var addScheduleDesc: String { "선택한 날짜에 새로운 일정을 등록하거나 작성한 속지를 연결할 수 있습니다" }
+        static var addScheduleAddButton: String { "일정추가" }
+        static var addScheduleLinkButton: String { "속지연결" }
+        static var addPaperTitle: String { "속지추가" }
+        static var addPaperDesc: String { "새로운 속지를 추가 하시겠습니까?" }
+        static var addPaperCancel: String { "취소" }
+        static var addPaperConfirm: String { "추가" }
+    }
+
     // MARK: - Properties
     
     private let disposeBag = DisposeBag()
