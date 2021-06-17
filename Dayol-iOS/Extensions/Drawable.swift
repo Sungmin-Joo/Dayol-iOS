@@ -61,6 +61,7 @@ protocol Drawable: UIViewController {
 extension Drawable {
 
     func bindToolBarEvent() {
+        undoRedoBind()
         lassoToolBind()
         eraseBind()
         penBind()
@@ -120,6 +121,28 @@ extension Drawable {
 // MARK: - Tool Bar Event
 
 extension Drawable {
+
+    private func undoRedoBind() {
+        toolBar.undoButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                self.currentTool = nil
+                if self.undoManager?.canUndo == true {
+                    self.undoManager?.undo()
+                }
+            }
+            .disposed(by: disposeBag)
+
+        toolBar.redoButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                self.currentTool = nil
+                if self.undoManager?.canRedo == true {
+                    self.undoManager?.redo()
+                }
+            }
+            .disposed(by: disposeBag)
+    }
 
     private func eraseBind() {
         toolBar.eraserButton.rx.tap

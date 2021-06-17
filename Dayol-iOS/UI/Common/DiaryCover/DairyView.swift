@@ -31,7 +31,6 @@ class DiaryView: UIView {
     private var lockerMarginConstraint: NSLayoutConstraint?
     private var lockerWidthConstraint: NSLayoutConstraint?
     private var lockerHeightConstraint: NSLayoutConstraint?
-    private var items: [DecorationItem] = []
 
     var hasLogo: Bool = false
     var isLock: Bool = false {
@@ -144,6 +143,24 @@ extension DiaryView {
     }
 }
 
+// MARK: - Create Items
+
+extension DiaryView {
+    // 최초 생성
+    func createTextField(diaryID: String, targetPoint: CGPoint) {
+        let id = DYTestData.shared.textFieldIdToCreate
+        DYTestData.shared.increaseTextFieldID()
+
+        let viewModel = DYFlexibleTextFieldViewModel(id: id)
+        let textField = DYFlexibleTextField(viewModel: viewModel)
+        textField.center = targetPoint
+
+        addSubviewWithUndoManager(textField)
+
+        let _ = textField.becomeFirstResponder()
+    }
+}
+
 // MARK: - Control Decoration Item
 
 extension DiaryView {
@@ -156,8 +173,7 @@ extension DiaryView {
     func getItems(diaryID: String) -> [DecorationItem] {
         let items: [DecorationItem] = subviews.compactMap { subview in
             if let textField = subview as? DYFlexibleTextField {
-                // TODO: - textField ID 룰 정의
-                return textField.toItem(id: "", parentId: diaryID)
+                return textField.toItem(parentId: diaryID)
             }
 
             if let imageStrectchView = subview as? DYImageSizeStretchableView {
@@ -180,7 +196,8 @@ extension DiaryView {
     private  func setItems(_ items: [DecorationItem]) {
         items.forEach { item in
             if let textItem = item as? DecorationTextFieldItem {
-                let textField = DYFlexibleTextField()
+                let viewModel = DYFlexibleTextFieldViewModel(id: item.id)
+                let textField = DYFlexibleTextField(viewModel: viewModel)
                 textField.viewModel.set(textItem)
                 addSubview(textField)
             }

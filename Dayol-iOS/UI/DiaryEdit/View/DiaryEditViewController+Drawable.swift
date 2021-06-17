@@ -47,12 +47,11 @@ extension DiaryEditViewController {
     func didTapTextButton() {
         diaryEditCoverView.diaryView.currentToolSubject.onNext(nil)
         // TODO: - 탭 한 부분에 텍스트 필드를 생성하는 로직 추가
-        let center = CGPoint(x: diaryEditCoverView.diaryView.bounds.width / 2.0,
-                             y: diaryEditCoverView.diaryView.bounds.height / 2.0)
-        let textField = DYFlexibleTextField()
-        textField.center = center
-        diaryEditCoverView.diaryView.addSubview(textField)
-        let _ = textField.becomeFirstResponder()
+        let diaryID = viewModel.currentDiaryId ?? viewModel.diaryIdToCreate
+        // TODO: - 탭 한 부분에 텍스트 필드를 생성하는 로직 추가
+        // let convertedCenter = view.convert(view.center, to: diaryEditCoverView.diaryView)
+        let convertedCenter = diaryEditCoverView.diaryView.center
+        diaryEditCoverView.diaryView.createTextField(diaryID: diaryID, targetPoint: convertedCenter)
     }
 
     // MARK: - Snare(Lasso)

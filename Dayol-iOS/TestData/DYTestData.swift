@@ -187,3 +187,17 @@ class DYTestData {
         paperList[index].thumbnail = thumbnailData
     }
 }
+
+// MARK: - Diary Decorate Item Id
+
+extension DYTestData {
+    static var lastTextFieldID: Int = 0
+
+    var textFieldIdToCreate: String {
+        return String(Self.lastTextFieldID)
+    }
+
+    func increaseTextFieldID() {
+        Self.lastTextFieldID += 1
+    }
+}
