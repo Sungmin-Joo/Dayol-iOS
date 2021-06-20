@@ -89,7 +89,7 @@ class PaperModalViewController: DYModalViewController {
 
     private func setupPaperListtView() {
         let titleView = PaperListHeaderView()
-        let contentView = PaperListContentView()
+        let contentView = PaperListContentView(diaryId: diaryId)
         self.titleView = titleView
         self.contentView = contentView
 
