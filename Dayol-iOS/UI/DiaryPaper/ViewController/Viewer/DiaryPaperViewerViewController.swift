@@ -212,7 +212,8 @@ class DiaryPaperViewerViewController: UIViewController {
     func presentPaperModal(toolType: PaperModalViewController.PaperToolType) {
         let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
         let screenHeight = keyWindow?.bounds.height ?? .zero
-        let modalHeight: CGFloat = screenHeight - Design.Margin.addPageModalTopMargin
+        let topInset = keyWindow?.safeAreaInsets.top ?? 0
+        let modalHeight: CGFloat = screenHeight - (Design.Margin.addPageModalTopMargin + topInset)
         let modalStyle: DYModalConfiguration.ModalStyle = isPadDevice ? .normal : .custom(containerHeight: modalHeight)
         let configuration = DYModalConfiguration(dimStyle: .black,
                                                  modalStyle: modalStyle)
