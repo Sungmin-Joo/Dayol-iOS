@@ -43,7 +43,6 @@ class DYTestData {
     
     var deletedPageList: [DeletedPageCellModel] = [
         // TODO: - DeletedPageCellModel가 아닌 delete 모델 구현 후 연동
-        DeletedPageCellModel(id: "Deleted1", thumbnail: Data(), title: "테스트 타이틀", subTitle: "테스트 서브타이틀", deletedDate: Date())
     ]
 
     var paperList: [Paper] = [
