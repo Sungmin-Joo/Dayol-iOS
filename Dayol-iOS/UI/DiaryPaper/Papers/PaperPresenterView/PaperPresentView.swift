@@ -27,6 +27,8 @@ class PaperPresentView: UIView {
         didSet {
             let scale = CGAffineTransform(scaleX: self.scaleForFit, y: self.scaleForFit)
             self.tableView.transform = scale
+            self.drawingContentView.transform = scale
+            self.stickerContentView.transform = scale
             let constarintConstant: CGFloat = (self.height - self.tableView.frame.height) / 2
             self.contentTop.constant = -constarintConstant
             self.contentBottom.constant = constarintConstant
@@ -45,7 +47,7 @@ class PaperPresentView: UIView {
     let drawingContentView: DrawingContentView = {
         let view = DrawingContentView()
         // TODO: - 테스트 코드 제거
-        view.backgroundColor = .red
+        view.backgroundColor = UIColor.red.withAlphaComponent(0.5)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -87,8 +89,8 @@ class PaperPresentView: UIView {
         setupPaperBorder()
 
         addSubview(tableView)
-        tableView.addSubViewPinEdge(drawingContentView)
-        tableView.addSubViewPinEdge(stickerContentView)
+        addSubview(drawingContentView)
+        addSubview(stickerContentView)
         
         setupConstraint()
     }
@@ -112,7 +114,17 @@ class PaperPresentView: UIView {
                 contentTop, contentBottom,
                 tableView.centerXAnchor.constraint(equalTo: centerXAnchor),
                 tableView.widthAnchor.constraint(equalToConstant: size.width),
-                tableView.heightAnchor.constraint(equalToConstant: height)
+                tableView.heightAnchor.constraint(equalToConstant: height),
+
+                drawingContentView.topAnchor.constraint(equalTo: tableView.topAnchor),
+                drawingContentView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+                drawingContentView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+                drawingContentView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
+
+                stickerContentView.topAnchor.constraint(equalTo: tableView.topAnchor),
+                stickerContentView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+                stickerContentView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+                stickerContentView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)
             ])
         }
     }
