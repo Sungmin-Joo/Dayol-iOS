@@ -17,7 +17,7 @@ private enum Design {
     }
 }
 
-class DiaryView: UIView {
+class DiaryView: UIView, Undoable {
     private let disposeBag = DisposeBag()
     let currentToolSubject = BehaviorSubject<DYDrawTool?>(value: nil)
     let didTappedLocker = PublishSubject<Void>()

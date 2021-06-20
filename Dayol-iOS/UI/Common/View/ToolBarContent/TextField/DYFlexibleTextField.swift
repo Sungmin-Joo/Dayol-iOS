@@ -28,7 +28,7 @@ private enum Design {
     static let bulletLeftMargin: CGFloat = 7.0
 }
 
-class DYFlexibleTextField: UIView {
+class DYFlexibleTextField: UIView, Undoable {
     typealias ViewState = (text: NSAttributedString, frame: CGRect)
 
     enum DefaultOption {
