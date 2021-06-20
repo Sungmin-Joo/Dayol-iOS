@@ -21,20 +21,15 @@ private enum Design {
 
 }
 
-private enum Text {
-    static var info: String {
-        return "bin_information".localized
-    }
-    static var emptyLabel: String {
-        return "bin_empty_text".localized
-    }
-    static var resotre: String {
-        // TODO: - localized 최신화
-        return "복구".localized
-    }
-    static var deletePermanently: String {
-        // TODO: - localized 최신화
-        return "영구삭제".localized
+private enum Text: String {
+    case info = "bin_information"
+    case emptyLabel = "bin_empty_text"
+    // TODO: - localized 최신화
+    case resotre = "복구"
+    case deletePermanently = "영구삭제"
+
+    var localized: String {
+       return self.rawValue.localized
     }
 }
 
@@ -49,7 +44,7 @@ class DeletedPageListView: UIView {
     //MARK: UI Property
     private let emptyContentLabel: UILabel = {
         let label = UILabel()
-        label.attributedText = NSAttributedString.build(text: Text.emptyLabel,
+        label.attributedText = NSAttributedString.build(text: Text.emptyLabel.localized,
                                                         font: Design.emptyLabelFont,
                                                         align: .center,
                                                         letterSpacing: Design.emptyLabelContentSpacing,
@@ -76,7 +71,7 @@ class DeletedPageListView: UIView {
         return collectionView
     }()
     private(set) lazy var infoView: InfoView = {
-        let view = InfoView(text: Text.info)
+        let view = InfoView(text: Text.info.localized)
         view.closeButton.rx.tap
             .bind { [weak self] in
                 self?.contentStackView.removeArrangedSubview(view)
@@ -234,10 +229,10 @@ extension DeletedPageListView {
         else { return }
 
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let resotreActon = UIAlertAction(title: Text.resotre, style: .default) { _ in
+        let resotreActon = UIAlertAction(title: Text.resotre.localized, style: .default) { _ in
             // 복원 로직
         }
-        let deleteAcion = UIAlertAction(title: Text.deletePermanently, style: .destructive) { _ in
+        let deleteAcion = UIAlertAction(title: Text.deletePermanently.localized, style: .destructive) { _ in
             // 영구 삭제 로직
         }
         alert.addAction(resotreActon)
