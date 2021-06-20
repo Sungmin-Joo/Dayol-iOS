@@ -28,7 +28,6 @@ class PaperPresentView: UIView {
             let scale = CGAffineTransform(scaleX: self.scaleForFit, y: self.scaleForFit)
             self.tableView.transform = scale
             self.drawingContentView.transform = scale
-            self.stickerContentView.transform = scale
             let constarintConstant: CGFloat = (self.height - self.tableView.frame.height) / 2
             self.contentTop.constant = -constarintConstant
             self.contentBottom.constant = constarintConstant
@@ -52,14 +51,7 @@ class PaperPresentView: UIView {
         
         return view
     }()
-    
-    private let stickerContentView: StickerContentView = {
-        let view = StickerContentView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
+
     init(paper: Paper, count: Int = 1, flexibleSize: Bool = false) {
         self.paper = paper
         self.numberOfPapers = count
@@ -90,7 +82,6 @@ class PaperPresentView: UIView {
 
         addSubview(tableView)
         addSubview(drawingContentView)
-        addSubview(stickerContentView)
         
         setupConstraint()
     }
@@ -119,12 +110,7 @@ class PaperPresentView: UIView {
                 drawingContentView.topAnchor.constraint(equalTo: tableView.topAnchor),
                 drawingContentView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
                 drawingContentView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
-                drawingContentView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
-
-                stickerContentView.topAnchor.constraint(equalTo: tableView.topAnchor),
-                stickerContentView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
-                stickerContentView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
-                stickerContentView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)
+                drawingContentView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)
             ])
         }
     }
