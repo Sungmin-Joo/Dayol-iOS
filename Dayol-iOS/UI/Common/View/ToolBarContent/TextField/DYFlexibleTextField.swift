@@ -190,7 +190,7 @@ class DYFlexibleTextField: UIView, Undoable {
 
     private func checkIsEmpty() {
         if self.textView.text.isEmpty {
-            self.textView.backgroundColor = .red.withAlphaComponent(0.3)
+            self.textView.backgroundColor = UIColor.red.withAlphaComponent(0.3)
         } else {
             self.textView.backgroundColor = .clear
         }
