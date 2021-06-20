@@ -83,6 +83,8 @@ private extension DetailSettingsViewController {
             // TODO: - 다욜 위젯 설명서 뷰 붙이기
             contentView = UIView()
         case .deleted:
+            setDeleteAllButton()
+
             let deletedPageListView = DeletedPageListView()
             deletedPageListView.isEmpty
                 .subscribe(onNext: { [weak self] isEmpty in
@@ -91,8 +93,6 @@ private extension DetailSettingsViewController {
                 })
                 .disposed(by: disposeBag)
             contentView = deletedPageListView
-
-            setDeleteAllButton()
         case .homeOption:
             // homeOption은 DetailSettingsViewController애 진입하는 경우가 없음
             break
