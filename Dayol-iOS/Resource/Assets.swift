@@ -31,6 +31,7 @@ enum Assets {
 
         enum Settings {
             static let chevron = UIImage(named: "settings_chevron")
+            static let detail = UIImage(named: "settings_inapp_deleted_detail")
 
             enum Backup {
                 static let info = UIImage(named: "settings_backup_info")
