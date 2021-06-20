@@ -34,3 +34,9 @@ struct DYEraseTool: DYDrawTool {
     }
 
 }
+
+struct DYLassoTool: DYDrawTool {
+    var pkTool: PKTool {
+        return PKLassoTool()
+    }
+}
