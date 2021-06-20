@@ -194,12 +194,11 @@ extension DeletedPageListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeletedPageCell.identifier, for: indexPath)
 
-        guard
-            let deletedPageCell = cell as? DeletedPageCell,
-            let cellModel = viewModel.pageList[safe: indexPath.row]
-        else {
+        guard let deletedPageCell = cell as? DeletedPageCell else {
             return cell
         }
+
+        let cellModel = viewModel.pageList[safe: indexPath.row]
 
         deletedPageCell.viewModel = cellModel
         deletedPageCell.didTapModeMenuButtonWithDiaryId = { [weak self] id in
