@@ -42,7 +42,7 @@ class DYTestData {
     ]
     
     var deletedPageList: [DeletedPageCellModel] = [
-
+        // TODO: - DeletedPageCellModel가 아닌 delete 모델 구현 후 연동
     ]
 
     var paperList: [Paper] = [
@@ -116,8 +116,8 @@ class DYTestData {
     }
 
     func deleteDeletedPage(_ page: DeletedPageCellModel) {
-        // TODO: - 임시로 다이어리 이름으로 비교하지만 추후에 데이터 연동 필요
-        guard let index = deletedPageList.firstIndex(where: { $0.diaryName == page.diaryName }) else { return }
+        // TODO: - DeletedPageCellModel가 아닌 delete 모델 구현 후 연동
+        guard let index = deletedPageList.firstIndex(where: { $0.id == page.id }) else { return }
         paperList.remove(at: index)
         paperListSubject.onNext(paperList)
     }
