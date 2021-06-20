@@ -58,7 +58,8 @@ extension DiaryEditViewController {
     // MARK: - Snare(Lasso)
 
     func didTapSnareButton() {
-        diaryEditCoverView.diaryView.currentToolSubject.onNext(nil)
+        let lassoTool = DYLassoTool()
+        diaryEditCoverView.diaryView.currentToolSubject.onNext(lassoTool)
     }
 
     // MARK: - Image(Sticker)
