@@ -207,49 +207,59 @@ class DiaryPaperViewerViewController: UIViewController {
 
     private func setupViewControllers(papers: [Paper]) {
         if papers.isEmpty {
-            let vc = DiaryPaperEmptyViewController()
-
-            vc.delegate = self
-            pageViewController.setViewControllers([vc], direction: .forward, animated: false, completion: nil)
+            setupEmptyViewController()
         } else {
-            var diaryPaperViewControllers = [DiaryPaperViewController]()
-            paperModels = papers
-
-            for (index, paper) in papers.enumerated() {
-                let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: Int(paper.pageCount))
-                let paperViewController = DiaryPaperViewController(index: index, viewModel: paperViewModel)
-
-                paperViewController.didReceivedEvent
-                    .subscribe(onNext: { event in
-                        switch event {
-                        case .showDatePicker:
-                            self.presentPaperModal(toolType: .date)
-                        case .showPaperSelect:
-                            self.presentPaperModal(toolType: .monthList)
-                        case .showAddSchedule(date: let date):
-                            self.presentAddSchedule(date: date)
-                        }
-                    })
-                    .disposed(by: self.disposeBag)
-
-                diaryPaperViewControllers.append(paperViewController)
-            }
-            paperViewControllers = diaryPaperViewControllers
-
-            if currentIndex == -1 {
-                currentIndex = 0
-            } else {
-                currentIndex = diaryPaperViewControllers.count - 1
-            }
-
-            pageViewController.setViewControllers([diaryPaperViewControllers[self.currentIndex]], direction: .forward, animated: true, completion: nil)
-            setupCurrentViewController()
-            setupLastViewContoller()
+            setupPaperViewController(papers: papers)
         }
+    }
+
+    private func setupPaperViewController(papers: [Paper]) {
+        var diaryPaperViewControllers = [DiaryPaperViewController]()
+        paperModels = papers
+        toolBar.activateButtons()
+
+        for (index, paper) in papers.enumerated() {
+            let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: Int(paper.pageCount))
+            let paperViewController = DiaryPaperViewController(index: index, viewModel: paperViewModel)
+
+            paperViewController.didReceivedEvent
+                .subscribe(onNext: { event in
+                    switch event {
+                    case .showDatePicker:
+                        self.presentPaperModal(toolType: .date)
+                    case .showPaperSelect:
+                        self.presentPaperModal(toolType: .monthList)
+                    case .showAddSchedule(date: let date):
+                        self.presentAddSchedule(date: date)
+                    }
+                })
+                .disposed(by: self.disposeBag)
+
+            diaryPaperViewControllers.append(paperViewController)
+        }
+        paperViewControllers = diaryPaperViewControllers
+
+        if currentIndex == -1 {
+            currentIndex = 0
+        } else {
+            currentIndex = diaryPaperViewControllers.count - 1
+        }
+
+        pageViewController.setViewControllers([diaryPaperViewControllers[self.currentIndex]], direction: .forward, animated: true, completion: nil)
+        setupCurrentViewController()
+        setupLastViewContoller()
     }
 
     private func setupCurrentViewController() {
         toolBar.setFavorite(currentViewController?.viewModel.isFavorite ?? false)
+    }
+
+    private func setupEmptyViewController() {
+        let vc = DiaryPaperEmptyViewController()
+        vc.delegate = self
+
+        toolBar.inactivateButtons()
+        pageViewController.setViewControllers([vc], direction: .forward, animated: false, completion: nil)
     }
 
     private func moveToPage(index: Int) {

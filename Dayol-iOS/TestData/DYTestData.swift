@@ -195,3 +195,17 @@ class DYTestData {
         needsPaperUpdate.onNext(paperList[index])
     }
 }
+
+// MARK: - Diary Decorate Item Id
+
+extension DYTestData {
+    static var lastTextFieldID: Int = 0
+
+    var textFieldIdToCreate: String {
+        return String(Self.lastTextFieldID)
+    }
+
+    func increaseTextFieldID() {
+        Self.lastTextFieldID += 1
+    }
+}

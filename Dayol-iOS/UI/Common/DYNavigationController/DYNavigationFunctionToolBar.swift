@@ -99,4 +99,16 @@ class DYNavigationFunctionToolBar: UIView {
     func setFavorite(_ isFavorite: Bool) {
         favoriteButton.isSelected = isFavorite
     }
+
+    func inactivateButtons() {
+        editButton.isEnabled = false
+        favoriteButton.isEnabled = false
+        garbageButton.isEnabled = false
+    }
+
+    func activateButtons() {
+        editButton.isEnabled = true
+        favoriteButton.isEnabled = true
+        garbageButton.isEnabled = true
+    }
 }

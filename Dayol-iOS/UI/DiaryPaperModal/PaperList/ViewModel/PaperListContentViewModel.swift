@@ -24,8 +24,15 @@ class PaperListContentViewModel {
         case activity(action: Action, at: Int)
     }
 
+    private let diaryId: String
+
+    init(diaryId: String) {
+        self.diaryId = diaryId
+    }
+
     var cellModels: [CellModel] {
-        return DYTestData.shared.paperList.map {
+        let filteredPapers = DYTestData.shared.paperList.filter { $0.diaryId == diaryId }
+        return filteredPapers.map {
             let paperType = $0.type
             let orientaion = Paper.PaperOrientation(rawValue: $0.orientation) ?? .portrait
             return CellModel(id: $0.id, isStarred: false, orientation: orientaion, paperType: paperType, thumbnailData: $0.thumbnail)

@@ -28,11 +28,12 @@ private enum Design {
     static let bulletLeftMargin: CGFloat = 7.0
 }
 
-class DYFlexibleTextField: UIView {
+class DYFlexibleTextField: UIView, Undoable {
+    typealias ViewState = (text: NSAttributedString, frame: CGRect)
 
     enum DefaultOption {
         static let defaultFont: UIFont = .systemFont(ofSize: 15)
-        static let defaultTextFieldSize = CGSize(width: 60, height: 0)
+        static let defaultTextFieldSize = CGSize(width: 120, height: 47)
         static let defaultLineSpacing: CGFloat = 0
         static let defaultAttributes: [NSAttributedString.Key: Any] = {
             let paragraphStyle = NSMutableParagraphStyle()
@@ -46,20 +47,28 @@ class DYFlexibleTextField: UIView {
             ]
         }()
     }
-
+    private let tempDiaryID: String = "temp"
     private var cancellable: [AnyCancellable] = []
     private var isEditMode = false {
         didSet {
-            updateContainerPath()
-            if isEditMode {
-                showHandler()
-            } else {
-                hideHandler()
-            }
+            guard oldValue != isEditMode else { return }
+            updateCurrentState()
         }
     }
     let disposeBag = DisposeBag()
-    var deleteCompletion: (() -> Void)?
+    var oldViewState = ViewState(text: NSAttributedString(), frame: .zero) {
+        didSet {
+            if frame != oldViewState.frame {
+                frame = oldViewState.frame
+            }
+
+            if textView.attributedText != oldViewState.text {
+                textView.attributedText = oldViewState.text
+            }
+
+            checkIsEmpty()
+        }
+    }
     private(set) var viewModel: DYFlexibleTextFieldViewModel
 
     // MARK: UI Property
@@ -118,15 +127,12 @@ class DYFlexibleTextField: UIView {
 
     // MARK: Initialize
 
-    convenience init() {
-        let viewModel = DYFlexibleTextFieldViewModel()
-        self.init(viewModel: viewModel)
-    }
-
     init(viewModel: DYFlexibleTextFieldViewModel) {
-        let defaultFrame = CGRect(origin: .zero, size: DefaultOption.defaultTextFieldSize)
         self.viewModel = viewModel
+
+        let defaultFrame = CGRect(origin: .zero, size: DefaultOption.defaultTextFieldSize)
         super.init(frame: defaultFrame)
+
         setupContainerView()
         setupGesture()
         setupEvent()
@@ -149,9 +155,7 @@ class DYFlexibleTextField: UIView {
 
         if bounds.contains(selfPoint) == false && customInputAccessoryView.bounds.contains(inputAccessoryPoint) == false {
             endEditing(false)
-            if textView.text.isEmpty {
-                removeDYTextField()
-            }
+            checkIsEmpty()
         }
 
         return super.hitTest(point, with: event)
@@ -160,6 +164,36 @@ class DYFlexibleTextField: UIView {
     override func becomeFirstResponder() -> Bool {
         let _ = textView.becomeFirstResponder()
         return super.becomeFirstResponder()
+    }
+
+    private func updateCurrentState() {
+        updateContainerPath()
+
+        if isEditMode {
+            showHandler()
+            oldViewState = (text: textView.attributedText, frame: frame)
+        } else {
+            hideHandler()
+            let newState = (text: textView.attributedText ?? NSAttributedString(), frame: frame)
+            registerDataAtUndoManager(newState)
+        }
+    }
+
+    private func registerDataAtUndoManager(_ newState: ViewState) {
+        let oldState = oldViewState
+        undoManager?.registerUndo(withTarget: self, handler: {
+            $0.registerDataAtUndoManager(oldState)
+        })
+
+        oldViewState = newState
+    }
+
+    private func checkIsEmpty() {
+        if self.textView.text.isEmpty {
+            self.textView.backgroundColor = UIColor.red.withAlphaComponent(0.3)
+        } else {
+            self.textView.backgroundColor = .clear
+        }
     }
 
 }
@@ -221,6 +255,7 @@ private extension DYFlexibleTextField {
             .subscribe(onNext: { [weak self] attributedString in
                 guard let self = self else { return }
                 self.textView.attributedText = attributedString
+                self.checkIsEmpty()
             })
             .disposed(by: disposeBag)
 
@@ -286,8 +321,7 @@ private extension DYFlexibleTextField {
     }
 
     func removeDYTextField() {
-        deleteCompletion?()
-        removeFromSuperview()
+        removeFromSuperviewWithUndoManager()
     }
 
 }
@@ -416,9 +450,27 @@ private extension DYFlexibleTextField {
 
 private extension DYFlexibleTextField {
 
+    private func handleGestureState(_ recog: UIGestureRecognizer) {
+        switch recog.state {
+        case .began:
+            // editMode가 아닌데 움직일때
+            if isEditMode == false {
+                oldViewState = (text: textView.attributedText, frame: frame)
+            }
+        case .ended, .cancelled:
+            if isEditMode == false {
+                let newState = (text: textView.attributedText ?? NSAttributedString(), frame: frame)
+                registerDataAtUndoManager(newState)
+            }
+        default:
+            break
+        }
+    }
+
+    // TODO: - 제스처 한개만 인식하도록 수정
     @objc func didRecogDrag(_ recog: UIPanGestureRecognizer) {
         guard let superview = superview else { return }
-
+        handleGestureState(recog)
         let point = recog.translation(in: self)
         // 업데이트된 좌표가 superview를 벗어나면 변화를 현재 center 유지
         // TODO: - target view에 대한 마스킹
@@ -432,6 +484,7 @@ private extension DYFlexibleTextField {
     }
 
     @objc func didRecogRightHandler(_ recog: UIPanGestureRecognizer) {
+        handleGestureState(recog)
         let point = recog.translation(in: self)
         let newSize = CGSize(width: frame.width + point.x, height: frame.height)
         updateTextViewFrameIfNeeded(newSize)
@@ -439,8 +492,8 @@ private extension DYFlexibleTextField {
     }
 
     @objc func didRecogLeftHandler(_ recog: UIPanGestureRecognizer) {
+        handleGestureState(recog)
         let point = recog.translation(in: self)
-
         let newSize = CGSize(width: frame.width - point.x, height: frame.height)
         updateTextViewFrameIfNeeded(newSize)
         frame.origin.x += point.x
@@ -483,12 +536,14 @@ extension DYFlexibleTextField: UITextViewDelegate {
 
         // TODO: - 미모티콘 처리 필요
         // 텍스트 처리 가능할 것 같은데..
-        calcTextViewWidth()
+        calcTextViewHeight()
 
         // TODO: - fit mode일때 프레임 계산 로직 수정
         if textView.text.last == "\n" {
             calcTextViewHeight()
         }
+
+        checkIsEmpty()
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {
@@ -581,9 +636,8 @@ extension DYFlexibleTextField {
 
 extension DYFlexibleTextField {
 
-    func toItem(id: String, parentId: String) -> DecorationTextFieldItem? {
-        return viewModel.toItem(id: id,
-                                parentId: parentId,
+    func toItem(parentId: String) -> DecorationTextFieldItem? {
+        return viewModel.toItem(parentId: parentId,
                                 text: textView.attributedText,
                                 x: Float(frame.origin.x),
                                 y: Float(frame.origin.y),
