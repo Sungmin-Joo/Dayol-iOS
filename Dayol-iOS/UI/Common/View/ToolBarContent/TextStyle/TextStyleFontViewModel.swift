@@ -30,5 +30,4 @@ extension TextStyleFontViewModel {
 
 class TextStyleFontViewModel {
     let fonts: [Font] = Font.allCases
-    let currentFontName = ReplaySubject<String>.createUnbounded()
 }

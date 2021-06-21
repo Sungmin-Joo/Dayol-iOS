@@ -64,13 +64,13 @@ private extension TextStyleFontView {
     func setupCoantraints() {
         NSLayoutConstraint.activate([
             topLine.topAnchor.constraint(equalTo: topAnchor),
-            topLine.leftAnchor.constraint(equalTo: leftAnchor),
-            topLine.rightAnchor.constraint(equalTo: rightAnchor),
+            topLine.leadingAnchor.constraint(equalTo: leadingAnchor),
+            topLine.trailingAnchor.constraint(equalTo: trailingAnchor),
             topLine.heightAnchor.constraint(equalToConstant: Design.topLineHeight),
 
             tableView.topAnchor.constraint(equalTo: topLine.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: rightAnchor),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }

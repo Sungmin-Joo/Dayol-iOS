@@ -9,11 +9,11 @@ import UIKit
 
 private enum Design {
     static let backgroundColor = UIColor(white: 216, alpha: 1)
-    static let systemFontLabelText = NSAttributedString.build(text: Text.systemFont,
-                                                              font: .systemFont(ofSize: 16.0),
-                                                              align: .left,
-                                                              letterSpacing: -0.62,
-                                                              foregroundColor: .gray900)
+    static let systemFontLabelFont: UIFont = .systemFont(ofSize: 16.0)
+    static let systemFontLabelAlign: NSTextAlignment = .left
+    static let systemFontLabelKern: CGFloat = -0.62
+    static let systemFontLabelColor: UIColor = .gray900
+
     static let contentSideMargin: CGFloat = 18.0
 
     static let selectImage = Assets.Image.DYTextField.Font.selected
@@ -22,7 +22,7 @@ private enum Design {
 
 private enum Text {
     // TODO: - 이건 로컬라이제이션이 필요 없는건가유 (? 3 ?)
-    static var systemFont: String {
+    static var systemFontName: String {
         return "System Font".localized
     }
 }
@@ -35,7 +35,11 @@ class TextStyleFontCell: UITableViewCell {
 
     private let systemFontLabel: UILabel = {
         let label = UILabel()
-        label.attributedText = Design.systemFontLabelText
+        label.attributedText = NSAttributedString.build(text: Text.systemFontName,
+                                                        font: Design.systemFontLabelFont,
+                                                        align: Design.systemFontLabelAlign,
+                                                        letterSpacing: Design.systemFontLabelKern,
+                                                        foregroundColor: Design.systemFontLabelColor)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -95,23 +99,23 @@ private extension TextStyleFontCell {
         contentView.addSubview(customFontThumbnail)
         contentView.addSubview(selectButton)
     }
-
+    
     func setupCoantraints() {
         let layoutGuide = contentView.safeAreaLayoutGuide
-
+        
         NSLayoutConstraint.activate([
             systemFontLabel.centerYAnchor.constraint(equalTo: layoutGuide.centerYAnchor),
-            systemFontLabel.leftAnchor.constraint(equalTo: layoutGuide.leftAnchor,
-                                                  constant: Design.contentSideMargin),
-
+            systemFontLabel.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor,
+                                                     constant: Design.contentSideMargin),
+            
             customFontThumbnail.centerYAnchor.constraint(equalTo: layoutGuide.centerYAnchor),
-            customFontThumbnail.leftAnchor.constraint(equalTo: layoutGuide.leftAnchor,
-                                                      constant: Design.contentSideMargin),
-
+            customFontThumbnail.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor,
+                                                         constant: Design.contentSideMargin),
+            
             selectButton.centerYAnchor.constraint(equalTo: layoutGuide.centerYAnchor),
-            selectButton.rightAnchor.constraint(equalTo: layoutGuide.rightAnchor,
-                                                constant: -Design.contentSideMargin)
+            selectButton.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
+                                                   constant: -Design.contentSideMargin)
         ])
     }
-
+    
 }
