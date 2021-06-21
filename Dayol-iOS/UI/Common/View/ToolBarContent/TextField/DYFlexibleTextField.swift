@@ -32,7 +32,7 @@ class DYFlexibleTextField: UIView, Undoable {
     typealias ViewState = (text: NSAttributedString, frame: CGRect)
 
     enum DefaultOption {
-        static let defaultFont: UIFont = .nanumBold(size: 15)
+        static let defaultFont: UIFont = .systemFont(ofSize: 15)
         static let defaultTextFieldSize = CGSize(width: 120, height: 47)
         static let defaultLineSpacing: CGFloat = 0
         static let defaultAttributes: [NSAttributedString.Key: Any] = {
