@@ -91,6 +91,8 @@
 		34775E282680CF50009F5A59 /* NanumSquareR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E132680CED8009F5A59 /* NanumSquareR.ttf */; };
 		34775E292680CF50009F5A59 /* Binggrae-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E102680CED8009F5A59 /* Binggrae-Bold.ttf */; };
 		34775E2A2680CF50009F5A59 /* NanumDaHaengCe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E142680CED8009F5A59 /* NanumDaHaengCe.ttf */; };
+		34775E2C2680D028009F5A59 /* TextStyleFontViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34775E2B2680D028009F5A59 /* TextStyleFontViewModel.swift */; };
+		34775E2E2680DADB009F5A59 /* TextStyleFontCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34775E2D2680DADB009F5A59 /* TextStyleFontCell.swift */; };
 		34788856261E0B4B00692ED7 /* LassoInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34788855261E0B4B00692ED7 /* LassoInfoView.swift */; };
 		34A07141262C4856009BA700 /* PencilSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A07140262C4856009BA700 /* PencilSettingView.swift */; };
 		34A07144262C4864009BA700 /* PencilTypeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A07143262C4864009BA700 /* PencilTypeSettingView.swift */; };
@@ -323,6 +325,8 @@
 		34775E1A2680CED8009F5A59 /* RIDIBatang.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RIDIBatang.otf; sourceTree = "<group>"; };
 		34775E1B2680CED8009F5A59 /* BinggraeSamanco-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BinggraeSamanco-Bold.ttf"; sourceTree = "<group>"; };
 		34775E1C2680CED8009F5A59 /* GmarketSansTTFBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFBold.ttf; sourceTree = "<group>"; };
+		34775E2B2680D028009F5A59 /* TextStyleFontViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleFontViewModel.swift; sourceTree = "<group>"; };
+		34775E2D2680DADB009F5A59 /* TextStyleFontCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleFontCell.swift; sourceTree = "<group>"; };
 		34788855261E0B4B00692ED7 /* LassoInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LassoInfoView.swift; sourceTree = "<group>"; };
 		34A07140262C4856009BA700 /* PencilSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilSettingView.swift; sourceTree = "<group>"; };
 		34A07143262C4864009BA700 /* PencilTypeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilTypeSettingView.swift; sourceTree = "<group>"; };
@@ -945,7 +949,9 @@
 				34C7B37826199DA600BC6A28 /* TextStyleTextSizeOptionView.swift */,
 				34C7B37D2619E2C800BC6A28 /* TextStyleAdditionalOptionView.swift */,
 				34C7B3812619EA9200BC6A28 /* TextStyleLineSpaceOptionView.swift */,
+				34775E2D2680DADB009F5A59 /* TextStyleFontCell.swift */,
 				34C7B3742619819D00BC6A28 /* TextStyleFontView.swift */,
+				34775E2B2680D028009F5A59 /* TextStyleFontViewModel.swift */,
 			);
 			path = TextStyle;
 			sourceTree = "<group>";
@@ -1703,6 +1709,7 @@
 				DAC04CCA25920C16003A7BC8 /* DiaryCoverView.swift in Sources */,
 				DADD09FB25A33674004D6CF0 /* DiaryEditCoverView.swift in Sources */,
 				3452670C25DD644B00EC6F9D /* DataBackupViewModel.swift in Sources */,
+				34775E2E2680DADB009F5A59 /* TextStyleFontCell.swift in Sources */,
 				0DEAD26C267606C8009A3554 /* DiaryMO+CoreDataClass.swift in Sources */,
 				DAD66751259F44D300E8F59A /* DYNavigationDrawingToolbar.swift in Sources */,
 				340E56B325C85B5F007F2EF7 /* AddPaperHeaderView.swift in Sources */,
@@ -1830,6 +1837,7 @@
 				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
 				3462FDBB26305066008E4A6C /* PencilAlphaInfoView.swift in Sources */,
 				DA6FF5F62667C07B006B0B34 /* MonthlyPaperListViewModel.swift in Sources */,
+				34775E2C2680D028009F5A59 /* TextStyleFontViewModel.swift in Sources */,
 				34C7B3752619819D00BC6A28 /* TextStyleFontView.swift in Sources */,
 				34E6138A262F02A10076FE74 /* ColorPicker.swift in Sources */,
 				34CA255825A74A7A0057404D /* SettingsViewModel.swift in Sources */,

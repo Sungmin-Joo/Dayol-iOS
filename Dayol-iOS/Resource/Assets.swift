@@ -63,7 +63,10 @@ enum Assets {
 
         enum DYTextField {
             static let delete = UIImage(named: "textField_delete")
-
+            enum Font {
+                static let selected = UIImage(named: "font_selected")
+                static let deselected = UIImage(named: "font_deselected")
+            }
             enum CheckBox {
                 static let on = UIImage(named: "textField_checkbox_on")
                 static let off = UIImage(named: "textField_checkbox_off")
