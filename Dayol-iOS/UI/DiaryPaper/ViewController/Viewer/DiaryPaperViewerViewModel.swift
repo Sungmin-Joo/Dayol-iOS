@@ -46,7 +46,8 @@ class DiaryPaperViewerViewModel {
                           thumbnail: nil,
                           drawCanvas: Data(),
                           contents: [],
-                          date: date)
+                          date: date,
+                          isFavorite: false)
         model.add(paper: paper)
     }
 

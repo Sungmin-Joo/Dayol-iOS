@@ -42,7 +42,8 @@ class AddPaperContentViewModel {
                                       thumbnail: nil,
                                       drawCanvas: Data(),
                                       contents: [],
-                                      date: Date.now)
+                                      date: Date.now,
+                                      isFavorite: false)
         
         DYTestData.shared.addPaper(paperModel)
     }

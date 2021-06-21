@@ -22,6 +22,7 @@ struct Paper {
     let width: Float
     let height: Float
 
+    var isFavorite: Bool
     var thumbnail: Data?
     var drawCanvas: Data
     var contents: [DecorationItem]
@@ -39,7 +40,8 @@ struct Paper {
          thumbnail: Data?,
          drawCanvas: Data,
          contents: [DecorationItem],
-         date: Date?) {
+         date: Date?,
+         isFavorite: Bool) {
         self.id = id
         self.diaryId = diaryId
         self.title = title
@@ -52,6 +54,7 @@ struct Paper {
         self.drawCanvas = drawCanvas
         self.contents = contents
         self.date = date
+        self.isFavorite = isFavorite
     }
 }
 
