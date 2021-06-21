@@ -93,4 +93,16 @@ class DYNavigationFunctionToolBar: UIView {
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+
+    func inactivateButtons() {
+        editButton.isEnabled = false
+        favoriteButton.isEnabled = false
+        garbageButton.isEnabled = false
+    }
+
+    func activateButtons() {
+        editButton.isEnabled = true
+        favoriteButton.isEnabled = true
+        garbageButton.isEnabled = true
+    }
 }

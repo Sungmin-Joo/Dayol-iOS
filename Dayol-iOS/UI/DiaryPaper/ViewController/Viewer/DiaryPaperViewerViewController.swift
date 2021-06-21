@@ -143,9 +143,11 @@ class DiaryPaperViewerViewController: UIViewController {
 
                     vc.delegate = self
                     self.pageViewController.setViewControllers([vc], direction: .forward, animated: false, completion: nil)
+                    self.toolBar.inactivateButtons()
                 } else {
                     var diaryPaperViewControllers = [DiaryPaperViewController]()
                     self.paperModels = papers
+                    self.toolBar.activateButtons()
 
                     for (index, paper) in papers.enumerated() {
                         let paperViewModel = DiaryPaperViewModel(paper: paper, numberOfPapers: Int(paper.pageCount))
