@@ -44,6 +44,7 @@ extension DiaryPaperViewerViewController: UIPageViewControllerDelegate {
             if let currentViewController = pageViewController.viewControllers![0] as? DiaryPaperViewController {
                 currentIndex = currentViewController.index
                 setupLastViewContoller()
+                toolBar.setFavorite(currentViewController.viewModel.isFavorite)
             }
         }
     }

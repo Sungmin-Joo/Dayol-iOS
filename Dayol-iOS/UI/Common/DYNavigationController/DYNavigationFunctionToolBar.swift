@@ -49,7 +49,7 @@ class DYNavigationFunctionToolBar: UIView {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: Design.buttonSize.width, height: Design.buttonSize.height))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(Design.favoriteImageOff, for: .normal)
-        button.setImage(Design.favoriteImageOn, for: .highlighted)
+        button.setImage(Design.favoriteImageOn, for: .selected)
         button.setImage(Design.favoriteImageDisable, for: .disabled)
         
         return button
@@ -94,5 +94,9 @@ class DYNavigationFunctionToolBar: UIView {
             containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -Design.containerRight),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+
+    func setFavorite(_ isFavorite: Bool) {
+        favoriteButton.isSelected = isFavorite
     }
 }

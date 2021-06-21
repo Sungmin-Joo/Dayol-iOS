@@ -6,17 +6,30 @@
 //
 
 import UIKit
+import RxSwift
 
 class DiaryPaperViewModel {
     
     // MARK: - Properties
-    
-    let paper: Paper
+    private let disposeBag = DisposeBag()
+
+    var paper: Paper
     let numberOfPapers: Int
-    
+
     init(paper: Paper, numberOfPapers: Int) {
         self.paper = paper
         self.numberOfPapers = numberOfPapers
+
+        bind()
+    }
+
+    private func bind() {
+        DYTestData.shared.needsPaperUpdate
+            .filter { $0.id == self.paper.id }
+            .subscribe(onNext: { [weak self] paper in
+                self?.paper = paper
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -43,5 +56,9 @@ extension DiaryPaperViewModel {
 
     var height: CGFloat {
         return CGFloat(paper.height)
+    }
+
+    var isFavorite: Bool {
+        return paper.isFavorite
     }
 }

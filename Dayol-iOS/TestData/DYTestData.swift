@@ -36,6 +36,7 @@ class DYTestData {
     lazy var diaryListSubject = BehaviorSubject<[Diary]>(value: diaryList)
     lazy var deletedPageListSubject = BehaviorSubject<[DeletedPageCellModel]>(value: deletedPageList)
     lazy var paperListSubject = BehaviorSubject<[Paper]>(value: paperList)
+    lazy var needsPaperUpdate = PublishSubject<Paper>()
     
     var diaryList: [Diary] = [
        
@@ -185,5 +186,12 @@ class DYTestData {
         guard let index = paperList.firstIndex(where: { $0.id == id }) else { return }
         guard let thumbnailData = thumbnail?.pngData() else { return }
         paperList[index].thumbnail = thumbnailData
+    }
+
+    func updateFavorite(paperId: String, isFavorite: Bool) {
+        guard let index = paperList.firstIndex(where: { $0.id == paperId }) else { return }
+        paperList[index].isFavorite = isFavorite
+
+        needsPaperUpdate.onNext(paperList[index])
     }
 }
