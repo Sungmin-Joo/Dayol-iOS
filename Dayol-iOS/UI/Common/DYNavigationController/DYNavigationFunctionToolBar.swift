@@ -17,6 +17,7 @@ private enum Design {
     
     static let editImageOff = UIImage(named: "diaryEditButtonOff")
     static let editImageOn = UIImage(named: "diaryEditButtonOn")
+    static let favoriteImageDisable = UIImage(named: "diaryFavoriteButtonDisable")
     static let favoriteImageOff = UIImage(named: "diaryFavoriteButtonOff")
     static let favoriteImageOn = UIImage(named: "diaryFavoriteButtonOn")
     static let garbageImageOff = UIImage(named: "diaryGarbageButtonOff")
@@ -47,8 +48,9 @@ class DYNavigationFunctionToolBar: UIView {
     let favoriteButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: Design.buttonSize.width, height: Design.buttonSize.height))
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Design.favoriteImageOn, for: .normal)
-        button.setImage(Design.favoriteImageOff, for: .disabled)
+        button.setImage(Design.favoriteImageOff, for: .normal)
+        button.setImage(Design.favoriteImageOn, for: .selected)
+        button.setImage(Design.favoriteImageDisable, for: .disabled)
         
         return button
     }()
@@ -92,6 +94,10 @@ class DYNavigationFunctionToolBar: UIView {
             containerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -Design.containerRight),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+
+    func setFavorite(_ isFavorite: Bool) {
+        favoriteButton.isSelected = isFavorite
     }
 
     func inactivateButtons() {

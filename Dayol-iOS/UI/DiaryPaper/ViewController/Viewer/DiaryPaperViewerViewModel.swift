@@ -24,10 +24,17 @@ class DiaryPaperViewerViewModel {
         return model.diaryTitle.asObservable()
     }
 
-    func paperList(diaryId: String) -> Observable<[Paper]> {
-        return model.papersSubject
-            .map { $0.filter { $0.diaryId == diaryId } }
-            .asObservable()
+    var didFavoriteChanged: Observable<Bool> {
+        return model.changeFavorite
+    }
+
+    var didUpdatedPaper: Observable<[Paper]> {
+        return model.updatePapers
+    }
+
+    init(coverModel: Diary) {
+        self.coverModel = coverModel
+        self.model = DiaryPaperViewerModel(coverModel: coverModel)
     }
 
     func addPaper(_ type: PaperType, orientation: Paper.PaperOrientation, date: Date = .now) {
@@ -46,7 +53,8 @@ class DiaryPaperViewerViewModel {
                           thumbnail: nil,
                           drawCanvas: Data(),
                           contents: [],
-                          date: date)
+                          date: date,
+                          isFavorite: false)
         model.add(paper: paper)
     }
 
@@ -61,8 +69,7 @@ class DiaryPaperViewerViewModel {
         return inners
     }
 
-    init(coverModel: Diary) {
-        self.coverModel = coverModel
-        self.model = DiaryPaperViewerModel(coverModel: coverModel)
+    func updateFavorite(paperId: String, _ isFavorite: Bool) {
+        model.updateFavorite(paperId: paperId, isFavorite: isFavorite)
     }
 }
