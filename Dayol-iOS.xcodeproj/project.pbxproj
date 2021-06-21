@@ -77,6 +77,20 @@
 		3462FDBB26305066008E4A6C /* PencilAlphaInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3462FDBA26305066008E4A6C /* PencilAlphaInfoView.swift */; };
 		3465A643266E547000DF025D /* ColorSettingPaletteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3465A642266E547000DF025D /* ColorSettingPaletteViewModel.swift */; };
 		34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34733DC025D189F500C3A997 /* DetailSettingsViewController.swift */; };
+		34775E1D2680CF50009F5A59 /* NanumHimNaeRaNeunMarBoDan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E122680CED8009F5A59 /* NanumHimNaeRaNeunMarBoDan.ttf */; };
+		34775E1E2680CF50009F5A59 /* Binggrae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E182680CED8009F5A59 /* Binggrae.ttf */; };
+		34775E1F2680CF50009F5A59 /* BinggraeSamanco-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E1B2680CED8009F5A59 /* BinggraeSamanco-Bold.ttf */; };
+		34775E202680CF50009F5A59 /* NanumSquareRoundB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E0F2680CED8009F5A59 /* NanumSquareRoundB.ttf */; };
+		34775E212680CF50009F5A59 /* BinggraeSamanco.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E162680CED8009F5A59 /* BinggraeSamanco.ttf */; };
+		34775E222680CF50009F5A59 /* GmarketSansTTFBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E1C2680CED8009F5A59 /* GmarketSansTTFBold.ttf */; };
+		34775E232680CF50009F5A59 /* NanumSquareB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E172680CED8009F5A59 /* NanumSquareB.ttf */; };
+		34775E242680CF50009F5A59 /* GmarketSansTTFMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E152680CED8009F5A59 /* GmarketSansTTFMedium.ttf */; };
+		34775E252680CF50009F5A59 /* NanumSquareRoundR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E192680CED8009F5A59 /* NanumSquareRoundR.ttf */; };
+		34775E262680CF50009F5A59 /* RIDIBatang.otf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E1A2680CED8009F5A59 /* RIDIBatang.otf */; };
+		34775E272680CF50009F5A59 /* NanumBaeEunHyeCe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E112680CED8009F5A59 /* NanumBaeEunHyeCe.ttf */; };
+		34775E282680CF50009F5A59 /* NanumSquareR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E132680CED8009F5A59 /* NanumSquareR.ttf */; };
+		34775E292680CF50009F5A59 /* Binggrae-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E102680CED8009F5A59 /* Binggrae-Bold.ttf */; };
+		34775E2A2680CF50009F5A59 /* NanumDaHaengCe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E142680CED8009F5A59 /* NanumDaHaengCe.ttf */; };
 		34788856261E0B4B00692ED7 /* LassoInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34788855261E0B4B00692ED7 /* LassoInfoView.swift */; };
 		34A07141262C4856009BA700 /* PencilSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A07140262C4856009BA700 /* PencilSettingView.swift */; };
 		34A07144262C4864009BA700 /* PencilTypeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A07143262C4864009BA700 /* PencilTypeSettingView.swift */; };
@@ -295,6 +309,20 @@
 		3462FDBA26305066008E4A6C /* PencilAlphaInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilAlphaInfoView.swift; sourceTree = "<group>"; };
 		3465A642266E547000DF025D /* ColorSettingPaletteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSettingPaletteViewModel.swift; sourceTree = "<group>"; };
 		34733DC025D189F500C3A997 /* DetailSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsViewController.swift; sourceTree = "<group>"; };
+		34775E0F2680CED8009F5A59 /* NanumSquareRoundB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRoundB.ttf; sourceTree = "<group>"; };
+		34775E102680CED8009F5A59 /* Binggrae-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Binggrae-Bold.ttf"; sourceTree = "<group>"; };
+		34775E112680CED8009F5A59 /* NanumBaeEunHyeCe.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumBaeEunHyeCe.ttf; sourceTree = "<group>"; };
+		34775E122680CED8009F5A59 /* NanumHimNaeRaNeunMarBoDan.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumHimNaeRaNeunMarBoDan.ttf; sourceTree = "<group>"; };
+		34775E132680CED8009F5A59 /* NanumSquareR.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareR.ttf; sourceTree = "<group>"; };
+		34775E142680CED8009F5A59 /* NanumDaHaengCe.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumDaHaengCe.ttf; sourceTree = "<group>"; };
+		34775E152680CED8009F5A59 /* GmarketSansTTFMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFMedium.ttf; sourceTree = "<group>"; };
+		34775E162680CED8009F5A59 /* BinggraeSamanco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BinggraeSamanco.ttf; sourceTree = "<group>"; };
+		34775E172680CED8009F5A59 /* NanumSquareB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareB.ttf; sourceTree = "<group>"; };
+		34775E182680CED8009F5A59 /* Binggrae.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Binggrae.ttf; sourceTree = "<group>"; };
+		34775E192680CED8009F5A59 /* NanumSquareRoundR.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRoundR.ttf; sourceTree = "<group>"; };
+		34775E1A2680CED8009F5A59 /* RIDIBatang.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RIDIBatang.otf; sourceTree = "<group>"; };
+		34775E1B2680CED8009F5A59 /* BinggraeSamanco-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BinggraeSamanco-Bold.ttf"; sourceTree = "<group>"; };
+		34775E1C2680CED8009F5A59 /* GmarketSansTTFBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFBold.ttf; sourceTree = "<group>"; };
 		34788855261E0B4B00692ED7 /* LassoInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LassoInfoView.swift; sourceTree = "<group>"; };
 		34A07140262C4856009BA700 /* PencilSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilSettingView.swift; sourceTree = "<group>"; };
 		34A07143262C4864009BA700 /* PencilTypeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilTypeSettingView.swift; sourceTree = "<group>"; };
@@ -733,6 +761,27 @@
 			path = ColorPalette;
 			sourceTree = "<group>";
 		};
+		34775DC82680C471009F5A59 /* CustomFont */ = {
+			isa = PBXGroup;
+			children = (
+				34775E102680CED8009F5A59 /* Binggrae-Bold.ttf */,
+				34775E182680CED8009F5A59 /* Binggrae.ttf */,
+				34775E1B2680CED8009F5A59 /* BinggraeSamanco-Bold.ttf */,
+				34775E162680CED8009F5A59 /* BinggraeSamanco.ttf */,
+				34775E1C2680CED8009F5A59 /* GmarketSansTTFBold.ttf */,
+				34775E152680CED8009F5A59 /* GmarketSansTTFMedium.ttf */,
+				34775E112680CED8009F5A59 /* NanumBaeEunHyeCe.ttf */,
+				34775E142680CED8009F5A59 /* NanumDaHaengCe.ttf */,
+				34775E122680CED8009F5A59 /* NanumHimNaeRaNeunMarBoDan.ttf */,
+				34775E172680CED8009F5A59 /* NanumSquareB.ttf */,
+				34775E132680CED8009F5A59 /* NanumSquareR.ttf */,
+				34775E0F2680CED8009F5A59 /* NanumSquareRoundB.ttf */,
+				34775E192680CED8009F5A59 /* NanumSquareRoundR.ttf */,
+				34775E1A2680CED8009F5A59 /* RIDIBatang.otf */,
+			);
+			path = CustomFont;
+			sourceTree = "<group>";
+		};
 		34788854261E0B1F00692ED7 /* Lasso */ = {
 			isa = PBXGroup;
 			children = (
@@ -1112,6 +1161,7 @@
 		CEF135E5258115740098BEC3 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				34775DC82680C471009F5A59 /* CustomFont */,
 				0DFF4D7F2642E84A00B8218B /* Font */,
 				34CA253625A612DF0057404D /* Localization */,
 				DA4899EF257A08A8005E39ED /* Assets.xcassets */,
@@ -1617,11 +1667,25 @@
 			files = (
 				34CA253A25A613220057404D /* Localizable.strings in Resources */,
 				DA4899F3257A08A8005E39ED /* LaunchScreen.storyboard in Resources */,
+				34775E292680CF50009F5A59 /* Binggrae-Bold.ttf in Resources */,
 				DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */,
+				34775E282680CF50009F5A59 /* NanumSquareR.ttf in Resources */,
+				34775E202680CF50009F5A59 /* NanumSquareRoundB.ttf in Resources */,
 				DA4899F0257A08A8005E39ED /* Assets.xcassets in Resources */,
 				DAF18E8225B6FB21007ACFAC /* VolteW03Semibold.otf in Resources */,
 				CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */,
+				34775E222680CF50009F5A59 /* GmarketSansTTFBold.ttf in Resources */,
 				0DA235A52661135F003AA15F /* GoogleService-Info.plist in Resources */,
+				34775E212680CF50009F5A59 /* BinggraeSamanco.ttf in Resources */,
+				34775E232680CF50009F5A59 /* NanumSquareB.ttf in Resources */,
+				34775E2A2680CF50009F5A59 /* NanumDaHaengCe.ttf in Resources */,
+				34775E262680CF50009F5A59 /* RIDIBatang.otf in Resources */,
+				34775E252680CF50009F5A59 /* NanumSquareRoundR.ttf in Resources */,
+				34775E272680CF50009F5A59 /* NanumBaeEunHyeCe.ttf in Resources */,
+				34775E1F2680CF50009F5A59 /* BinggraeSamanco-Bold.ttf in Resources */,
+				34775E1E2680CF50009F5A59 /* Binggrae.ttf in Resources */,
+				34775E1D2680CF50009F5A59 /* NanumHimNaeRaNeunMarBoDan.ttf in Resources */,
+				34775E242680CF50009F5A59 /* GmarketSansTTFMedium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

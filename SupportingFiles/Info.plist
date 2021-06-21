@@ -27,6 +27,20 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>DXRMbxStd-B.otf</string>
+		<string>RIDIBatang.otf</string>
+		<string>GmarketSansTTFMedium.ttf</string>
+		<string>GmarketSansTTFBold.ttf</string>
+		<string>BinggraeSamanco-Bold.ttf</string>
+		<string>BinggraeSamanco.ttf</string>
+		<string>Binggrae.ttf</string>
+		<string>Binggrae-Bold.ttf</string>
+		<string>NanumHimNaeRaNeunMarBoDan.ttf</string>
+		<string>NanumBaeEunHyeCe.ttf</string>
+		<string>NanumDaHaengCe ttf</string>
+		<string>NanumSquareRoundR.ttf</string>
+		<string>NanumSquareRoundB.ttf</string>
+		<string>NanumSquareB.ttf</string>
+		<string>NanumSquareR.ttf</string>
 	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
