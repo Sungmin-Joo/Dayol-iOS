@@ -8,7 +8,7 @@
 import UIKit
 
 private enum Design {
-    static let backgroundColor = UIColor(white: 216, alpha: 1)
+    static let backgroundColor: UIColor = .white
     static let systemFontLabelFont: UIFont = .systemFont(ofSize: 16.0)
     static let systemFontLabelAlign: NSTextAlignment = .left
     static let systemFontLabelKern: CGFloat = -0.62
@@ -99,23 +99,23 @@ private extension TextStyleFontCell {
         contentView.addSubview(customFontThumbnail)
         contentView.addSubview(selectButton)
     }
-    
+
     func setupCoantraints() {
         let layoutGuide = contentView.safeAreaLayoutGuide
-        
+
         NSLayoutConstraint.activate([
             systemFontLabel.centerYAnchor.constraint(equalTo: layoutGuide.centerYAnchor),
             systemFontLabel.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor,
                                                      constant: Design.contentSideMargin),
-            
+
             customFontThumbnail.centerYAnchor.constraint(equalTo: layoutGuide.centerYAnchor),
             customFontThumbnail.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor,
                                                          constant: Design.contentSideMargin),
-            
+
             selectButton.centerYAnchor.constraint(equalTo: layoutGuide.centerYAnchor),
             selectButton.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor,
                                                    constant: -Design.contentSideMargin)
         ])
     }
-    
+
 }

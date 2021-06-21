@@ -9,10 +9,10 @@
 import UIKit
 
 private enum Design {
-    static let topLine = UIColor(white: 220, alpha: 1)
+    static let topLineColor = UIColor(white: 220 / 255, alpha: 1)
     static let topLineHeight: CGFloat = 1
 
-    static let tableViewSeparatorColor = UIColor(white: 247, alpha: 1)
+    static let tableViewSeparatorColor = UIColor(white: 247 / 255, alpha: 1)
 }
 
 class TextStyleFontView: UIView {
@@ -31,7 +31,7 @@ class TextStyleFontView: UIView {
     }()
     private let topLine: UIView = {
         let view = UIView()
-        view.backgroundColor = Design.topLine
+        view.backgroundColor = Design.topLineColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
