@@ -188,6 +188,17 @@ class DiaryPaperViewerViewController: UIViewController {
                 self.viewModel.updateFavorite(paperId: currentPaperId, !currentFavorite)
             }
             .disposed(by: disposeBag)
+
+        toolBar.garbageButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self,
+                      let currentVC = self.currentViewController
+                else { return }
+                let currentPaperId = currentVC.viewModel.paperId
+
+                self.viewModel.deletePaper(currentPaperId)
+            }
+            .disposed(by: disposeBag)
     }
 
     func presentPaperModal(toolType: PaperModalViewController.PaperToolType) {
@@ -215,6 +226,8 @@ class DiaryPaperViewerViewController: UIViewController {
 
     private func setupPaperViewController(papers: [Paper]) {
         var diaryPaperViewControllers = [DiaryPaperViewController]()
+        let currentPaperEvent = viewModel.currentPaperEvent
+
         paperModels = papers
         toolBar.activateButtons()
 
@@ -237,15 +250,29 @@ class DiaryPaperViewerViewController: UIViewController {
 
             diaryPaperViewControllers.append(paperViewController)
         }
+        let direction: UIPageViewController.NavigationDirection
+        let animated: Bool
         paperViewControllers = diaryPaperViewControllers
-
-        if currentIndex == -1 {
+        switch currentPaperEvent {
+        case .add:
+            animated = true
+            direction = .forward
+            currentIndex = papers.count - 1
+        case .delete:
+            animated = true
+            if currentIndex > papers.count - 1 {
+                currentIndex = papers.count - 1
+                direction = .reverse
+            } else {
+                direction = .forward
+            }
+        case .load:
+            direction = .forward
+            animated = false
             currentIndex = 0
-        } else {
-            currentIndex = diaryPaperViewControllers.count - 1
         }
 
-        pageViewController.setViewControllers([diaryPaperViewControllers[self.currentIndex]], direction: .forward, animated: true, completion: nil)
+        pageViewController.setViewControllers([diaryPaperViewControllers[self.currentIndex]], direction: direction, animated: animated, completion: nil)
         setupCurrentViewController()
         setupLastViewContoller()
     }
@@ -302,7 +329,7 @@ extension DiaryPaperViewerViewController: PaperModalViewDelegate {
         moveToPage(index: index)
     }
     
-    func didTappedAdd() {
+    func didTappedAddItem() {
         presentPaperModal(toolType: .add)
     }
 
@@ -315,6 +342,10 @@ extension DiaryPaperViewerViewController: PaperModalViewDelegate {
         let orientaion = currentVC.paper.orientaion
 
         viewModel.addPaper(.monthly, orientation: orientaion, date: pickedDate)
+    }
+
+    func didTappedAddDone(paperType: PaperType, orientation: Paper.PaperOrientation) {
+        viewModel.addPaper(paperType, orientation: orientation)
     }
 }
 
