@@ -100,6 +100,10 @@ class TextStyleOptionView: UIView {
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
+    func updateAttributes(_ attributes: [NSAttributedString.Key: Any?]) {
+        attributesSubject.send(attributes)
+        configureAttributes()
+    }
 }
 
 // MARK: - UI update

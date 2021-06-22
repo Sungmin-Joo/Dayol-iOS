@@ -8,6 +8,27 @@
 import Foundation
 import RxSwift
 
+class TextStyleFontViewModel {
+    let fonts: [Font] = Font.allCases
+    let currentFontSubject: BehaviorSubject<Font>
+
+    init(currentFontName: String?) {
+        if let name = currentFontName, let font = Font(rawValue: name) {
+            self.currentFontSubject = BehaviorSubject(value: font)
+        } else {
+            self.currentFontSubject = BehaviorSubject(value: .system)
+        }
+    }
+
+    func didSelectedRow(at index: Int) {
+        if let font = fonts[safe: index] {
+            currentFontSubject.onNext(font)
+        }
+    }
+}
+
+// MARK: - Font Type
+
 extension TextStyleFontViewModel {
     enum Font: String, CaseIterable {
         case system
@@ -25,9 +46,15 @@ extension TextStyleFontViewModel {
             guard self != .system else { return nil }
             return "img_thumb_\(self.rawValue)"
         }
-    }
-}
 
-class TextStyleFontViewModel {
-    let fonts: [Font] = Font.allCases
+        var hasBoldFont: Bool {
+            switch self {
+            case .baeeunhye, .dahaeng, .himnaera, .ridibatang:
+                return false
+            case .nanumsquare, .nanumsquareround, .binggrae,
+                 .binggraesamanco, .gmarketSans, .system:
+                return true
+            }
+        }
+    }
 }

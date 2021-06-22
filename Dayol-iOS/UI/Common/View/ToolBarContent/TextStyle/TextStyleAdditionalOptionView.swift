@@ -86,9 +86,16 @@ class TextStyleAdditionalOptionView: UIView {
     func setAdditionalOption(attributes: [NSAttributedString.Key: Any?]) {
         var additionalOption: [TextStyleAdditionalOptionView.AdditionalOption] = []
 
-        if let font = attributes[.font] as? UIFont,
-           font.isBold {
-            additionalOption.append(.bold)
+        if let font = attributes[.font] as? UIFont {
+            if font.toBoldFont == nil {
+                // bold font가 없으면 비활성화
+                boldButton.isEnabled = false
+            } else {
+                boldButton.isEnabled = true
+                if font.isBold {
+                    additionalOption.append(.bold)
+                }
+            }
         }
 
         if let strikethroughStyle = attributes[.strikethroughStyle] as? Int,
