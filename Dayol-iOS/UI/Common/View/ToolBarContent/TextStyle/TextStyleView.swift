@@ -93,9 +93,9 @@ extension TextStyleView {
     private func configureCustomFont(_ customFont: TextStyleFontViewModel.Font) {
         let defaultFont = DYFlexibleTextField.DefaultOption.defaultFont
 
-        var currentAttributes = currentAttributes
+        var copiedAttributes = currentAttributes
 
-        let font = currentAttributes[.font] as? UIFont ?? defaultFont
+        let font = copiedAttributes[.font] as? UIFont ?? defaultFont
         let isBoldFont = font.isBold
         let size = font.pointSize
 
@@ -116,8 +116,8 @@ extension TextStyleView {
             }
         }
 
-        currentAttributes[.font] = newFont
-        optionView.updateAttributes(currentAttributes)
+        copiedAttributes[.font] = newFont
+        optionView.updateAttributes(copiedAttributes)
     }
 
 }
