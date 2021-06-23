@@ -9,6 +9,12 @@ import Foundation
 import RxSwift
 
 class DiaryPaperViewerViewModel {
+    enum PaperUpdateEvent {
+        case add
+        case delete
+        case load
+    }
+
     private let model: DiaryPaperViewerModel
     private let coverModel: Diary
 
@@ -32,6 +38,8 @@ class DiaryPaperViewerViewModel {
         return model.updatePapers
     }
 
+    var currentPaperEvent: PaperUpdateEvent = .load
+
     init(coverModel: Diary) {
         self.coverModel = coverModel
         self.model = DiaryPaperViewerModel(coverModel: coverModel)
@@ -40,7 +48,7 @@ class DiaryPaperViewerViewModel {
     func addPaper(_ type: PaperType, orientation: Paper.PaperOrientation, date: Date = .now) {
         // TODO: 모델 init 간편화 필요
         // TODO: Model을 따로두고 Model이 Entity와 소통하도록 변경해야함
-
+        currentPaperEvent = .add
         let paperSize = PaperOrientationConstant.size(orentantion: orientation)
         let paper = Paper(id: DYTestData.shared.currentPaperId,
                           diaryId: diaryId,
@@ -56,6 +64,11 @@ class DiaryPaperViewerViewModel {
                           date: date,
                           isFavorite: false)
         model.add(paper: paper)
+    }
+
+    func deletePaper(_ paperId: String) {
+        currentPaperEvent = .delete
+        model.deletePaper(paperId: paperId)
     }
 
     func findModels(type: PaperType) -> [Paper] {

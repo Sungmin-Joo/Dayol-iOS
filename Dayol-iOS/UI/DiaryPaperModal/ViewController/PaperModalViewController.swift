@@ -19,7 +19,8 @@ private enum Text {
 
 protocol PaperModalViewDelegate: NSObject {
     func didTappedItem(_ index: Paper)
-    func didTappedAdd()
+    func didTappedAddItem()
+    func didTappedAddDone(paperType: PaperType, orientation: Paper.PaperOrientation)
     func didSelectedDate(didSelected date: Date?)
     func didTappedMonthlyAdd()
 }
@@ -205,7 +206,8 @@ private extension PaperModalViewController {
             .bind { [weak self] in
                 guard let self = self else { return }
                 self.dismiss(animated: true, completion: {
-                    addPaperContentView.viewModel.addPaper(diaryId: self.diaryId)
+                    guard let paper = addPaperContentView.viewModel.selectedPaper else { return }
+                    self.delegate?.didTappedAddDone(paperType: paper.paperType, orientation: paper.orientation)
                 })
             }
             .disposed(by: disposeBag)
@@ -227,7 +229,7 @@ private extension PaperModalViewController {
         paperListContentView.didSelectAddCell
             .subscribe(onNext: { [weak self] in
                 self?.dismiss(animated: true) {
-                    self?.delegate?.didTappedAdd()
+                    self?.delegate?.didTappedAddItem()
                 }
             })
             .disposed(by: disposeBag)
