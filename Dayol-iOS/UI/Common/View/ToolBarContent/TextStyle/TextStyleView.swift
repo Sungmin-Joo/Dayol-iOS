@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import RxSwift
 
 private enum Design {
     static let optionViewHeight: CGFloat = 110
@@ -15,6 +16,7 @@ private enum Design {
 class TextStyleView: UIView {
 
     private var cancellable: [AnyCancellable] = []
+    private let disposeBag = DisposeBag()
     let attributesSubject: CurrentValueSubject<[NSAttributedString.Key: Any?], Never>
     var currentAttributes: [NSAttributedString.Key: Any?] {
         return attributesSubject.value
@@ -28,14 +30,17 @@ class TextStyleView: UIView {
         return view
     }()
 
-    private let fontView: TextStyleFontView = {
-        let view = TextStyleFontView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let fontView: TextStyleFontView
 
     init(attributes: [NSAttributedString.Key: Any?]) {
         self.attributesSubject = CurrentValueSubject(attributes)
+
+        if let font = attributes[.font] as? UIFont {
+            self.fontView = TextStyleFontView(currentFontName: font.fontName)
+        } else {
+            self.fontView = TextStyleFontView(currentFontName: nil)
+        }
+
         super.init(frame: .zero)
         initView()
         setupConstraint()
@@ -49,6 +54,8 @@ class TextStyleView: UIView {
 extension TextStyleView {
 
     private func initView() {
+        fontView.translatesAutoresizingMaskIntoConstraints = false
+
         backgroundColor = .gray100
         addSubview(optionView)
         addSubview(fontView)
@@ -75,11 +82,42 @@ extension TextStyleView {
         }
         .store(in: &cancellable)
 
+        fontView.viewModel.currentFontSubject
+            .subscribe(onNext: { [weak self] customFont in
+                self?.configureCustomFont(customFont)
+            })
+            .disposed(by: disposeBag)
+
     }
 
-}
+    private func configureCustomFont(_ customFont: TextStyleFontViewModel.Font) {
+        let defaultFont = DYFlexibleTextField.DefaultOption.defaultFont
 
-extension TextStyleView {
+        var copiedAttributes = currentAttributes
 
+        let font = copiedAttributes[.font] as? UIFont ?? defaultFont
+        let isBoldFont = font.isBold
+        let size = font.pointSize
+
+
+        var newFont: UIFont?
+        if customFont == .system {
+            if isBoldFont {
+                newFont = .systemFont(ofSize: size, weight: .bold)
+            } else {
+                newFont = .systemFont(ofSize: size)
+            }
+
+        } else {
+            newFont = UIFont(name: customFont.rawValue, size: size)
+
+            if isBoldFont {
+                newFont = newFont?.toBoldFont
+            }
+        }
+
+        copiedAttributes[.font] = newFont
+        optionView.updateAttributes(copiedAttributes)
+    }
 
 }

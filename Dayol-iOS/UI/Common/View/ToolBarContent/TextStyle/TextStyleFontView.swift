@@ -17,7 +17,7 @@ private enum Design {
 
 class TextStyleFontView: UIView {
 
-    let viewModel = TextStyleFontViewModel()
+    let viewModel: TextStyleFontViewModel
 
     // MARK: - UI Property
 
@@ -38,7 +38,8 @@ class TextStyleFontView: UIView {
 
     // MARK: - Init
 
-    init() {
+    init(currentFontName: String?) {
+        self.viewModel = TextStyleFontViewModel(currentFontName: currentFontName)
         super.init(frame: .zero)
         initView()
         setupCoantraints()
@@ -74,6 +75,7 @@ private extension TextStyleFontView {
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+
 }
 
 // MARK: - UITableViewDataSource
@@ -93,12 +95,16 @@ extension TextStyleFontView: UITableViewDataSource {
 
         guard
             let fontCell = dequeCell as? TextStyleFontCell,
-            let thumbnailName = viewModel.fonts[safe: indexPath.row]?.thumbnailName,
-            let thumbnail = UIImage(named: thumbnailName)
+            let font = viewModel.fonts[safe: indexPath.row]
         else { return dequeCell }
 
-        fontCell.setFontImage(image: thumbnail)
+        if let thumbnailName = font.thumbnailName {
+            fontCell.setFontImage(image: UIImage(named: thumbnailName))
+        }
 
+        if let currentFont = try? viewModel.currentFontSubject.value(), currentFont == font {
+            tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+        }
         return fontCell
     }
 
@@ -110,6 +116,10 @@ extension TextStyleFontView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return TextStyleFontCell.cellHeight
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelectedRow(at: indexPath.row)
     }
 
 }
