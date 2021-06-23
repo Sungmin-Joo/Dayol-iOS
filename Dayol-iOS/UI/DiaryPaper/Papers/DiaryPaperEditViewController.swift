@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class DiaryPaperEditViewController: DiaryPaperViewController, Drawable {
+class DiaryPaperEditViewController: DiaryPaperViewController {
 
     private enum Text: String {
         case editTitle = "edit_memo_title"
@@ -18,17 +18,12 @@ class DiaryPaperEditViewController: DiaryPaperViewController, Drawable {
         }
     }
 
-    var currentTool: DYNavigationDrawingToolbar.ToolType?
-    var currentEraseTool: DYEraseTool = DYEraseTool(isObjectErase: false)
-    var currentPencilTool: DYPencilTool = DYPencilTool(color: .black, isHighlighter: false)
-    
     // MARK: - UI Components
     
     private let leftButton = DYNavigationItemCreator.barButton(type: .back)
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let titleView = DYNavigationItemCreator.titleView(Text.editTitle.stringValue)
-    let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
 
     // MARK: - Init
     
@@ -45,7 +40,22 @@ class DiaryPaperEditViewController: DiaryPaperViewController, Drawable {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationController()
-        bindToolBarEvent()
+    }
+
+    override func didTapTextButton() {
+        drawingContentView.currentToolSubject.onNext(nil)
+        // TODO: - 탭 한 부분에 텍스트 필드를 생성하는 로직 추가
+        // let convertedCenter = view.convert(view.center, to: diaryEditCoverView.diaryView)
+        let convertedCenter = CGPoint(x: drawingContentView.bounds.maxX / 2.0, y: drawingContentView.bounds.maxY / 2.0)
+        drawingContentView.createTextField(targetPoint: convertedCenter)
+    }
+
+    override func didEndPhotoPick(_ image: UIImage) {
+        drawingContentView.createImageSticker(image: image)
+    }
+
+    override func didEndStickerPick(_ image: UIImage) {
+        drawingContentView.createSticker(image: image)
     }
     
     // MARK: - Setup

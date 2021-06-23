@@ -22,8 +22,7 @@ private enum Design {
     }
 }
 
-class DiaryPaperViewController: UIViewController {
-    let disposeBag = DisposeBag()
+class DiaryPaperViewController: DrawableViewController {
     let didReceivedEvent = PublishSubject<DiaryPaperEventType>()
     let index: Int
     let scaleSubject = PassthroughSubject<CGFloat, Error>()
@@ -48,6 +47,13 @@ class DiaryPaperViewController: UIViewController {
     }
 
     lazy var paper = PaperPresentView(paper: viewModel.paper, count: viewModel.numberOfPapers)
+    override var drawingContentView: DrawingContentView {
+        get {
+            paper.drawingContentView
+        } set {
+            paper.drawingContentView = newValue
+        }
+    }
     
     private let paperScrollView: UIScrollView = {
         let scrollView = UIScrollView()
