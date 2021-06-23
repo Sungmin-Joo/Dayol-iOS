@@ -741,6 +741,7 @@
 				344AD29626398CBF0055562D /* DYDrawTool.swift */,
 				345128752636FEB900D65627 /* Drawable.swift */,
 				34CD66392683774800DECFF7 /* DrawableViewController.swift */,
+				DAD489EE26026A33008B542E /* DrawingContentView.swift */,
 			);
 			path = Draw;
 			sourceTree = "<group>";
@@ -1431,7 +1432,6 @@
 			isa = PBXGroup;
 			children = (
 				3446621025C0480700656775 /* PaperPresentView.swift */,
-				DAD489EE26026A33008B542E /* DrawingContentView.swift */,
 			);
 			path = PaperPresenterView;
 			sourceTree = "<group>";
