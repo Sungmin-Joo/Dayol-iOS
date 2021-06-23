@@ -169,6 +169,13 @@ class DYTestData {
         paperListSubject.onNext(paperList)
     }
 
+    func deletePaper(with paperId: String) {
+        guard let index = paperList.firstIndex(where: { $0.id == paperId }) else { return }
+        paperList.remove(at: index)
+
+        paperListSubject.onNext(paperList)
+    }
+
     func reorderPaper(from sourceIndex: Int, to destinationIndex: Int) {
         guard let source = paperList[safe: sourceIndex] else { return }
 

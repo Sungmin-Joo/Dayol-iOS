@@ -80,10 +80,12 @@ class TextStyleFontCell: UITableViewCell {
         customFontThumbnail.isHidden = true
     }
 
-    func setFontImage(image: UIImage) {
-        systemFontLabel.isHidden = true
-        customFontThumbnail.isHidden = false
-        customFontThumbnail.image = image
+    func setFontImage(image: UIImage?) {
+        if let image = image {
+            systemFontLabel.isHidden = true
+            customFontThumbnail.isHidden = false
+            customFontThumbnail.image = image
+        }
     }
 
 }

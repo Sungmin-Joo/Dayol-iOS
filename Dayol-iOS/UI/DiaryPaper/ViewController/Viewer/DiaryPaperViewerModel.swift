@@ -44,18 +44,18 @@ class DiaryPaperViewerModel {
         DYTestData.shared.addPaper(paper)
     }
 
-    func delete(paper: Paper) {
-        DYTestData.shared.deletePaper(paper)
+    func deletePaper(paperId: String) {
+        DYTestData.shared.deletePaper(with: paperId)
+    }
+    
+    func deleteAll() {
+        DYTestData.shared.deleteAllPage()
     }
 
     func updateFavorite(paperId: String, isFavorite: Bool) {
         DYTestData.shared.updateFavorite(paperId: paperId, isFavorite: isFavorite)
 
         changeFavorite.onNext(isFavorite)
-    }
-    
-    func deleteAll() {
-        DYTestData.shared.deleteAllPage()
     }
 
     func contain(paperType: PaperType) -> Bool {
