@@ -23,15 +23,17 @@ private enum Text: String {
     case cancel = "취소"
 }
 
-class DiaryEditViewController: UIViewController, Drawable {
+class DiaryEditViewController: DrawableViewController {
 
     // MARK: - Drawable Property
-    let disposeBag = DisposeBag()
-
-    let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
-    var currentTool: DYNavigationDrawingToolbar.ToolType?
-    var currentEraseTool: DYEraseTool = DYEraseTool(isObjectErase: false)
-    var currentPencilTool: DYPencilTool = DYPencilTool(color: .black, isHighlighter: false)
+    override var drawingContentView: DrawingContentView {
+        get {
+            return diaryEditCoverView.diaryView.drawingContentView
+        }
+        set {
+            diaryEditCoverView.diaryView.drawingContentView = newValue
+        }
+    }
 
     // MARK: - Private Properties
 
@@ -77,6 +79,22 @@ class DiaryEditViewController: UIViewController, Drawable {
         setupNavigationBar()
         initView()
     }
+
+    override func didTapTextButton() {
+        drawingContentView.currentToolSubject.onNext(nil)
+        // TODO: - 탭 한 부분에 텍스트 필드를 생성하는 로직 추가
+        // let convertedCenter = view.convert(view.center, to: diaryEditCoverView.diaryView)
+        let convertedCenter = CGPoint(x: drawingContentView.bounds.maxX / 2.0, y: drawingContentView.bounds.maxY / 2.0)
+        drawingContentView.createTextField(targetPoint: convertedCenter)
+    }
+
+    override func didEndPhotoPick(_ image: UIImage) {
+        drawingContentView.createImageSticker(image: image)
+    }
+
+    override func didEndStickerPick(_ image: UIImage) {
+        drawingContentView.createSticker(image: image)
+    }
     
     // MARK: - Setup Method
     
@@ -88,7 +106,6 @@ class DiaryEditViewController: UIViewController, Drawable {
         setConstraint()
         setupGesture()
         bind()
-        bindToolBarEvent()
     }
     
     private func setConstraint() {
@@ -204,9 +221,8 @@ class DiaryEditViewController: UIViewController, Drawable {
                 guard let self = self else { return }
                 self.titleView.setTitle(diary.title)
                 self.diaryEditToggleView.setLogoSwitch(diary.hasLogo)
-
-                let diaryView = self.diaryEditCoverView.diaryView
-                diaryView.set(model: diary)
+                self.drawingContentView.setItems(diary.contents)
+                self.drawingContentView.setDrawData(diary.drawCanvas)
 
                 if let coverColor = PaletteColor.find(hex: diary.colorHex) {
                     self.diaryEditPaletteView.changedColor.onNext(coverColor)
@@ -265,7 +281,7 @@ private extension DiaryEditViewController {
 
         let diaryID = viewModel.diaryIdToCreate
         let isLock = password != nil
-        let drawing = diaryView.canvas.drawing
+        let drawing = drawingContentView.canvas.drawing
         let hasLogo = diaryView.hasLogo
         let contents = createContents(diaryID: diaryID)
         var drawCanvasData = Data()
@@ -290,7 +306,7 @@ private extension DiaryEditViewController {
     }
 
     func createContents(diaryID: String) -> [DecorationItem] {
-        return diaryEditCoverView.diaryView.getItems(diaryID: diaryID)
+        return drawingContentView.getItems(diaryID: diaryID)
     }
 }
 
