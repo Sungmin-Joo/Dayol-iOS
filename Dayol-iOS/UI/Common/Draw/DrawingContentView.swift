@@ -77,7 +77,7 @@ extension DrawingContentView {
 
     private func setStreachableView( id: String, image: UIImage, currentPage: Int) {
         // TODO: - 속지에서 superview의 스케일때문에 센터가 잘 안맞는 것 같은데 종상이형이 한번 손봐주면 좋을 것 같습니다.
-        let center = CGPoint(x: center.x, y: center.y * CGFloat(currentPage + 1))
+        let calcedCenter = CGPoint(x: center.x, y: center.y * CGFloat(currentPage + 1))
         let imageView = UIImageView(image: image)
         let imageRatio = image.size.height / image.size.width
         let defaultImageWith: CGFloat = DYImageSizeStretchableView.defaultImageWidth
@@ -89,7 +89,7 @@ extension DrawingContentView {
         stickerView.enableRotate = true
         stickerView.enableHStretch = true
         stickerView.enableWStretch = true
-        stickerView.center = center
+        stickerView.center = calcedCenter
         addSubviewWithUndoManager(stickerView)
     }
 }
