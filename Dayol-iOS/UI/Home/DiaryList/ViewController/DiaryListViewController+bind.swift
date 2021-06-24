@@ -12,25 +12,16 @@ import RxSwift
 
 extension DiaryListViewController {
     func bind() {
-        viewModel.diaryEvent
+        viewModel.diaryFetchEvent
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] state in
+            .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                switch state {
-                case .fetch(let isEmpty):
-                    guard isEmpty == false else {
-                        self.showEmptyView()
-                        return
-                    }
+                if self.viewModel.diaryList.isEmpty {
+                    self.showEmptyView()
+                } else {
                     self.hideEmptyView()
-                    self.collectionView.reloadData()
-                case .insert(let index):
-                    print(index)
-                case .delete(let index):
-                    print(index)
-                case .update(let index):
-                    print(index)
                 }
+                self.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
     }
