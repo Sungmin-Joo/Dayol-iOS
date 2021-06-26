@@ -61,10 +61,20 @@ extension HomeViewController {
             case .showList(let tab):
                 self.currentTab = tab
             case .add:
-                let diaryEditViewController = DiaryEditViewController()
-                let nav = DYNavigationController(rootViewController: diaryEditViewController)
-                nav.modalPresentationStyle = .fullScreen
-                self.present(nav, animated: true, completion: nil)
+//                let diaryEditViewController = DiaryEditViewController()
+//                let nav = DYNavigationController(rootViewController: diaryEditViewController)
+//                nav.modalPresentationStyle = .fullScreen
+//                self.present(nav, animated: true, completion: nil)
+                let membershipVC = MembershipViewController(.new)
+                let nav = DYNavigationController(rootViewController: membershipVC)
+                nav.modalPresentationStyle = isPadDevice ? .formSheet : .fullScreen
+
+                if isPadDevice {
+                    nav.preferredContentSize = Design.iPadContentSize
+                    nav.view.layer.cornerRadius = Design.iPadContentCornerRadius
+                }
+
+                self.present(nav, animated: true)
             }
         })
         .disposed(by: disposeBag)

@@ -34,3 +34,17 @@ extension UIImage {
         return newImage
     }
 }
+
+
+// MARK: - 언어분기
+
+extension UIImage {
+    convenience init?(namedByLanguage: String) {
+        switch Config.shared.language {
+        case .en:
+            self.init(named: namedByLanguage + "_en")
+        default:
+            self.init(named: namedByLanguage)
+        }
+    }
+}

@@ -42,7 +42,6 @@ final class LaunchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureLunchScreen()
         bind()
     }
@@ -55,6 +54,7 @@ final class LaunchViewController: UIViewController {
     }
 
     private func bind() {
+        // TODO: 온보딩 뷰 안에서 뷰컨 스위칭하는것도 체크해서 델리게이트로 빼야함.
         splashManager.onboardingObserver
             .observe(on: MainScheduler.instance)
             .subscribe { [weak self] result in
@@ -63,6 +63,11 @@ final class LaunchViewController: UIViewController {
                     let shouldOnboading = result.element,
                     shouldOnboading
                 else {
+                    let homeViewController = HomeViewController()
+                    let navigationController = UINavigationController(rootViewController: homeViewController)
+                    navigationController.isNavigationBarHidden = true
+
+                    AppDelegate.shared?.window?.switchRootViewController(navigationController)
                     return
                 }
 
@@ -78,8 +83,7 @@ final class LaunchViewController: UIViewController {
                     self.onboadingView.isHidden = false
                     self.onboadingView.alpha = 1.0
                 }
-                // 온보딩이 잘 되는지 테스트를 위해 항상 활성화
-//                DYUserDefaults.shouldOnboading = !shouldOnboading
+                DYUserDefaults.shouldOnboading = !shouldOnboading
             }
             .disposed(by: disposeBag)
     }

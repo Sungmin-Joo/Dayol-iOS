@@ -6,6 +6,13 @@
   
 */
 
+// MARK: - Common
+
+"currency_suffix" = "원";
+"currency_symbol" = "₩";
+"data_year" = "연";
+"data_month" = "월";
+
 // MARK: - 홈 / 세팅
 
 "home_empty_tooltip" = "설정은 요기!";
@@ -194,3 +201,5 @@
 
 "tooltip_text" = "텍스트 박스를 선택 후, 칸을 선택하면\n자동으로 칸 크기에 맞춰져서 작성할 수 있어요!";
 "add_area" = "영역추가";
+
+// MARK: - Membership

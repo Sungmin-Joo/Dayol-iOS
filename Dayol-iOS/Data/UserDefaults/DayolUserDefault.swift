@@ -22,20 +22,24 @@ struct DYUserDefault<T> {
     }
 }
 
+// MARK: Type
+private enum DYUserDefaultsType: String {
+    case shouldOnboarding
+    case homeListOption
+    case deviceToken
+    case isMembership
+}
+
 enum DYUserDefaults {
-    // MARK: Type
-    enum Launch: String {
-        case shouldOnboarding
-    }
-
-    enum Settings: String {
-        case homeListOption
-    }
-
-    // Properties
-    @DYUserDefault(key: Launch.shouldOnboarding.rawValue, value: true)
+    // MARK: Launch Config Infomation
+    @DYUserDefault(key: DYUserDefaultsType.shouldOnboarding.rawValue, value: true)
     static var shouldOnboading: Bool
-
-    @DYUserDefault(key: Settings.homeListOption.rawValue, value: false)
+    @DYUserDefault(key: DYUserDefaultsType.homeListOption.rawValue, value: false)
     static var showFavoriteListAtLaunch: Bool
+    @DYUserDefault(key: DYUserDefaultsType.deviceToken.rawValue, value: "")
+    static var deviceToken: String
+    @DYUserDefault(key: DYUserDefaultsType.isMembership.rawValue, value: false)
+    static var isMembership: Bool
+
+    // MARK: ...
 }

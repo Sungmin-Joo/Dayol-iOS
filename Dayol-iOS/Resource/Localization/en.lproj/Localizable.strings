@@ -6,6 +6,13 @@
   
 */
 
+// MARK: - Common
+
+"currency_suffix" = "";
+"currency_symbol" = "$";
+"date_year" = "Year";
+"date_month" = "월";
+
 // MARK: - 홈 / 세팅
 
 "home_empty_tooltip" = "Setting";
@@ -196,3 +203,5 @@
 "tooltip_text" = "After selecting the text box and cell, it will automatically fit into the cell size and you can write it!";
 
 "add_area" = "Add Area";
+
+// MARK: - Membership

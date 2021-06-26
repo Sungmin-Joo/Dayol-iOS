@@ -9,7 +9,6 @@ import UIKit
 import RxSwift
 
 class DiaryPaperEditViewController: DiaryPaperViewController, Drawable {
-
     private enum Text: String {
         case editTitle = "edit_memo_title"
         
