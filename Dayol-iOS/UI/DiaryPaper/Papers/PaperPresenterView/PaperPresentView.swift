@@ -43,10 +43,8 @@ class PaperPresentView: UIView {
         return tableView
     }()
     
-    let drawingContentView: DrawingContentView = {
+    var drawingContentView: DrawingContentView = {
         let view = DrawingContentView()
-        // TODO: - 테스트 코드 제거
-        view.backgroundColor = UIColor.red.withAlphaComponent(0.5)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -82,7 +80,7 @@ class PaperPresentView: UIView {
 
         addSubview(tableView)
         addSubview(drawingContentView)
-        
+
         setupConstraint()
     }
 

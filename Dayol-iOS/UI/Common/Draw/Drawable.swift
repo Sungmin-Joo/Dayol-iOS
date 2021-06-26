@@ -36,29 +36,22 @@ private enum Text {
 protocol Drawable: UIViewController {
     var disposeBag: DisposeBag { get }
 
+    var drawingContentView: DrawingContentView { get set }
     var toolBar: DYNavigationDrawingToolbar { get }
     var currentTool: DYNavigationDrawingToolbar.ToolType? { get set }
     var currentEraseTool: DYEraseTool { get set }
     var currentPencilTool: DYPencilTool { get set }
 
-    func didTapEraseButton()
-    func didEndEraseSetting(isObjectErase: Bool)
-
-    func didTapPencilButton()
-    func didEndPencilSetting(color: UIColor, isHighlighter: Bool)
-
-    func didTapSnareButton()
-
-    func didTapTextButton()
-
+    // ImagePicker는 델리게이트 처리 떄문에 DrawableViewController에서 함수 구현
     func showImagePicker()
-    func didEndPhotoPick(_ image: UIImage)
 
-    func showStickerPicker()
+    // 씬 마다 동작이 달라서 override 후 추가 구현 필요
+    func didTapTextButton()
+    func didEndPhotoPick(_ image: UIImage)
     func didEndStickerPick(_ image: UIImage)
 }
 
-extension Drawable {
+extension Drawable where Self: UIViewController {
 
     func bindToolBarEvent() {
         undoRedoBind()
@@ -120,7 +113,7 @@ extension Drawable {
 
 // MARK: - Tool Bar Event
 
-extension Drawable {
+extension Drawable where Self: UIViewController {
 
     private func undoRedoBind() {
         toolBar.undoButton.rx.tap
@@ -219,4 +212,44 @@ extension Drawable {
             .disposed(by: disposeBag)
     }
 
+}
+
+extension Drawable where Self: UIViewController {
+
+    // MARK: - Pencil
+
+    func didTapPencilButton() {
+        let pencilColor = currentPencilTool.color
+        let isHighlighter = currentPencilTool.isHighlighter
+        let pencilTool = DYPencilTool(color: pencilColor, isHighlighter: isHighlighter)
+        drawingContentView.currentToolSubject.onNext(pencilTool)
+    }
+
+    func didEndPencilSetting(color: UIColor, isHighlighter: Bool) {
+        let pencilTool = DYPencilTool(color: color, isHighlighter: isHighlighter)
+        currentPencilTool = pencilTool
+        drawingContentView.currentToolSubject.onNext(pencilTool)
+    }
+
+
+    // MARK: - Erase
+
+    func didTapEraseButton() {
+        let isObjectErase = currentEraseTool.isObjectErase
+        let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
+        drawingContentView.currentToolSubject.onNext(eraseTool)
+    }
+
+    func didEndEraseSetting(isObjectErase: Bool) {
+        let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
+        currentEraseTool = eraseTool
+        drawingContentView.currentToolSubject.onNext(eraseTool)
+    }
+
+    // MARK: - Snare(Lasso)
+
+    func didTapSnareButton() {
+        let lassoTool = DYLassoTool()
+        drawingContentView.currentToolSubject.onNext(lassoTool)
+    }
 }

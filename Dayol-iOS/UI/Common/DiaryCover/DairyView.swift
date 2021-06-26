@@ -19,18 +19,18 @@ private enum Design {
 
 class DiaryView: UIView, Undoable {
     private let disposeBag = DisposeBag()
-    let currentToolSubject = BehaviorSubject<DYDrawTool?>(value: nil)
     let didTappedLocker = PublishSubject<Void>()
 
     // MARK: - UI Properties
 
     private let coverView = DiaryCoverView()
     private let lockerView = DiaryLockerView()
-    let canvas = PKCanvasView()
 
     private var lockerMarginConstraint: NSLayoutConstraint?
     private var lockerWidthConstraint: NSLayoutConstraint?
     private var lockerHeightConstraint: NSLayoutConstraint?
+
+    var drawingContentView = DrawingContentView()
 
     var hasLogo: Bool = false
     var isLock: Bool = false {
@@ -47,7 +47,7 @@ class DiaryView: UIView, Undoable {
 		super.init(frame: .zero)
         initView()
         setConstraints()
-        bindEvent()
+//        bindEvent()
 	}
 
 	required init?(coder: NSCoder) {
@@ -67,14 +67,9 @@ class DiaryView: UIView, Undoable {
         coverView.translatesAutoresizingMaskIntoConstraints = false
         lockerView.translatesAutoresizingMaskIntoConstraints = false
 
-        canvas.backgroundColor = .clear
-
-        if #available(iOS 14.0, *) {
-            canvas.drawingPolicy = .anyInput
-        }
 
         addSubview(coverView)
-        addSubViewPinEdge(canvas)
+        addSubViewPinEdge(drawingContentView)
         addSubview(lockerView)
 
         setupGetsture()
@@ -112,17 +107,6 @@ class DiaryView: UIView, Undoable {
         didTappedLocker.onNext(())
     }
 
-    private func bindEvent() {
-        currentToolSubject.bind { [weak self] tool in
-            guard let pkTool = tool?.pkTool else {
-                self?.canvas.isUserInteractionEnabled = false
-                return
-            }
-            self?.canvas.isUserInteractionEnabled = true
-            self?.canvas.tool = pkTool
-        }
-        .disposed(by: disposeBag)
-    }
 }
 
 extension DiaryView {
@@ -142,71 +126,72 @@ extension DiaryView {
         coverView.setDayolLogoHidden(isHidden)
     }
 }
-
-// MARK: - Create Items
-
-extension DiaryView {
-    // 최초 생성
-    func createTextField(diaryID: String, targetPoint: CGPoint) {
-        let id = DYTestData.shared.textFieldIdToCreate
-        DYTestData.shared.increaseTextFieldID()
-
-        let viewModel = DYFlexibleTextFieldViewModel(id: id)
-        let textField = DYFlexibleTextField(viewModel: viewModel)
-        textField.center = targetPoint
-
-        addSubviewWithUndoManager(textField)
-
-        let _ = textField.becomeFirstResponder()
-    }
-}
-
-// MARK: - Control Decoration Item
-
-extension DiaryView {
-
-    func set(model: Diary) {
-        setDrawingData(model.drawCanvas)
-        setItems(model.contents)
-    }
-
-    func getItems(diaryID: String) -> [DecorationItem] {
-        let items: [DecorationItem] = subviews.compactMap { subview in
-            if let textField = subview as? DYFlexibleTextField {
-                return textField.toItem(parentId: diaryID)
-            }
-
-            if let imageStrectchView = subview as? DYImageSizeStretchableView {
-                // TODO: - 유저 이미지 스티커 ID 룰 정의
-                return imageStrectchView.toItem(id: "", parentId: diaryID)
-            }
-
-            return nil
-        }
-        return items
-    }
-
-    private func setDrawingData(_ data: Data) {
-        let decoder = JSONDecoder()
-        if let drawing = try? decoder.decode(PKDrawing.self, from: data) {
-            canvas.drawing = drawing
-        }
-    }
-
-    private  func setItems(_ items: [DecorationItem]) {
-        items.forEach { item in
-            if let textItem = item as? DecorationTextFieldItem {
-                let viewModel = DYFlexibleTextFieldViewModel(id: item.id)
-                let textField = DYFlexibleTextField(viewModel: viewModel)
-                textField.viewModel.set(textItem)
-                addSubview(textField)
-            }
-
-            if let imageItem = item as? DecorationImageItem {
-                let imageStretchableView = DYImageSizeStretchableView(model: imageItem)
-                addSubview(imageStretchableView)
-            }
-        }
-    }
-
-}
+//
+//// MARK: - Create Items
+//
+//extension DiaryView {
+//    // 최초 생성
+//    func createTextField(diaryID: String, targetPoint: CGPoint) {
+//        let id = DYTestData.shared.textFieldIdToCreate
+//        DYTestData.shared.increaseTextFieldID()
+//
+//        let viewModel = DYFlexibleTextFieldViewModel(id: id)
+//        let textField = DYFlexibleTextField(viewModel: viewModel)
+//        textField.center = targetPoint
+//
+//        addSubviewWithUndoManager(textField)
+//
+//        let _ = textField.becomeFirstResponder()
+//    }
+//}
+//
+//// MARK: - Control Decoration Item
+//
+//extension DiaryView {
+//
+//    func set(model: Diary) {
+//        setDrawingData(model.drawCanvas)
+//        setItems(model.contents)
+//    }
+//
+//    func getItems(diaryID: String) -> [DecorationItem] {
+//        let items: [DecorationItem] = subviews.compactMap { subview in
+//            if let textField = subview as? DYFlexibleTextField {
+//                return textField.toItem(parentId: diaryID)
+//            }
+//
+//            if let imageStrectchView = subview as? DYImageSizeStretchableView {
+//                // TODO: - 유저 이미지 스티커 ID 룰 정의
+//                return imageStrectchView.toItem(id: "", parentId: diaryID)
+//            }
+//
+//            return nil
+//        }
+//        return items
+//    }
+//
+//    private func setDrawingData(_ data: Data) {
+//        let decoder = JSONDecoder()
+//        if let drawing = try? decoder.decode(PKDrawing.self, from: data) {
+//            canvas.drawing = drawing
+//        }
+//    }
+//
+//    private  func setItems(_ items: [DecorationItem]) {
+//        items.forEach { item in
+//            if let textItem = item as? DecorationTextFieldItem {
+//                let viewModel = DYFlexibleTextFieldViewModel(id: item.id)
+//                viewModel.set(textItem)
+//                let textField = DYFlexibleTextField(viewModel: viewModel)
+////                textField.viewModel.set(textItem)
+//                addSubview(textField)
+//            }
+//
+//            if let imageItem = item as? DecorationImageItem {
+//                let imageStretchableView = DYImageSizeStretchableView(model: imageItem)
+//                addSubview(imageStretchableView)
+//            }
+//        }
+//    }
+//
+//}
