@@ -44,7 +44,7 @@ extension TextStyleFontViewModel {
 
         var thumbnailName: String? {
             guard self != .system else { return nil }
-            return "img_thumb_\(self.rawValue)"
+            return "font_\(self.rawValue)"
         }
 
         var hasBoldFont: Bool {
