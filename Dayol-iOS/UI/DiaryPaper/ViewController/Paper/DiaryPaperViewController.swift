@@ -11,8 +11,8 @@ import RxSwift
 
 enum DiaryPaperEventType {
     case showDatePicker
-    case showPaperSelect
-    case showAddSchedule(date: Date)
+    case showPaperSelect(paperType: PaperType)
+    case showAddSchedule(date: Date, scheduleType: ScheduleModalType)
 }
 
 private enum Design {
@@ -162,15 +162,15 @@ extension DiaryPaperViewController {
     func paperActionBind() {
         paper.showPaperSelect
             .observe(on:MainScheduler.instance)
-            .subscribe(onNext: { [weak self] in
-                self?.didReceivedEvent.onNext(.showPaperSelect)
+            .subscribe(onNext: { [weak self] paperType in
+                self?.didReceivedEvent.onNext(.showPaperSelect(paperType: paperType))
             })
             .disposed(by: disposeBag)
 
         paper.showAddSchedule
             .observe(on:MainScheduler.instance)
-            .subscribe(onNext: { [weak self] date in
-                self?.didReceivedEvent.onNext(.showAddSchedule(date: date))
+            .subscribe(onNext: { [weak self] date, scheduleType in
+                self?.didReceivedEvent.onNext(.showAddSchedule(date: date, scheduleType: scheduleType))
             })
             .disposed(by: disposeBag)
     }

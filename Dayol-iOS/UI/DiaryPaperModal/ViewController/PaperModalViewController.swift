@@ -15,6 +15,7 @@ private enum Design {
 
 private enum Text {
     static var selectMonth: String { "Monthly 메모지 선택" }
+    static var selectWeek: String { "Weekly 메모지 선택" }
 }
 
 protocol PaperModalViewDelegate: NSObject {
@@ -30,7 +31,7 @@ class PaperModalViewController: DYModalViewController {
     enum PaperToolType {
         case add
         case list
-        case monthList
+        case paperType(type: PaperType)
         case date
         case shedule(scheduleType: ScheduleModalType)
     }
@@ -70,8 +71,8 @@ class PaperModalViewController: DYModalViewController {
             setupPaperAddView()
         case .list:
             setupPaperListtView()
-        case .monthList:
-            setupMonthListView()
+        case let .paperType(type: type):
+            setupMonthListView(paperType: type)
         case .date:
             setupDatePickerView()
         case .shedule(let scheduleType):
@@ -97,9 +98,9 @@ class PaperModalViewController: DYModalViewController {
         bindPaperListEvent()
     }
 
-    private func setupMonthListView() {
+    private func setupMonthListView(paperType: PaperType) {
         let titleView = MonthlyPaperListHeaderView()
-        let contentView = MonthlyPaperListContentView()
+        let contentView = MonthlyPaperListContentView(diaryId: diaryId, paperBeDisplayed: paperType)
         self.titleView = titleView
         self.contentView = contentView
 
@@ -135,7 +136,7 @@ class PaperModalViewController: DYModalViewController {
             paperAddViewNeedsLayout(size: size)
         case .list:
             paperListViewNeedsLayout()
-        case .monthList:
+        case let .paperType(type: _):
             monthlyPaperListViewNeedsLayout()
         case .date:
             datePickerViewNeedsLayout()
@@ -180,7 +181,7 @@ private extension PaperModalViewController {
             bindAddPaperEvent()
         case .list:
             bindPaperListEvent()
-        case .monthList:
+        case let .paperType(type: _):
             bindMonthListEvent()
         case .date:
             bindDatePickerEvent()

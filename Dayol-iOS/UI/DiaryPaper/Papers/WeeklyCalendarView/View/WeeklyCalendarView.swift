@@ -19,8 +19,11 @@ private enum Design {
 }
 
 class WeeklyCalendarView: BasePaper {
+    let showAddSchedule = PublishSubject<Date>()
+    let showSelectPaper = PublishSubject<Void>()
+
     private var dayModel: [WeeklyCalendarDataModel]?
-    private let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     private let headerView: MonthlyCalendarHeaderView = {
         let header = MonthlyCalendarHeaderView(month: .january)
@@ -40,6 +43,11 @@ class WeeklyCalendarView: BasePaper {
     override func layoutSubviews() {
         super.layoutSubviews()
         updateCollectionView()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
     
     override func configure(viewModel: PaperViewModel, orientation: Paper.PaperOrientation) {
@@ -94,11 +102,18 @@ class WeeklyCalendarView: BasePaper {
                 self?.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
+
+        headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTappedHeaderView(_:))))
     }
     
     private func updateCollectionView() {
         collectionView.layoutIfNeeded()
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+
+    @objc
+    private func didTappedHeaderView(_ sender: WeeklyCalendarHeaderView) {
+        showSelectPaper.onNext(())
     }
 }
 
@@ -125,6 +140,21 @@ extension WeeklyCalendarView: UICollectionViewDataSource {
         if model.isFirst {
             cell.setFirstCell(true)
         }
+
+        cell.didLongTapped
+            .bind { [weak self] in
+                guard let self = self,
+                      let dayModel = self.dayModel?[safe: indexPath.item]
+                else { return }
+                let day = dayModel.day
+                let month = dayModel.month.rawValue
+                let year = dayModel.year
+
+                let date = DateType.yearMonthDay.date(year: year, month: month, day: day) ?? .now
+
+                self.showAddSchedule.onNext(date)
+            }
+            .disposed(by: disposeBag)
         
         return cell
     }

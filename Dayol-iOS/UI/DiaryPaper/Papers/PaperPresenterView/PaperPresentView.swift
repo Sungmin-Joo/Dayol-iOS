@@ -20,8 +20,8 @@ class PaperPresentView: UIView {
     private var disposeBag = DisposeBag()
     private let flexibleSize: Bool
 
-    let showPaperSelect = PublishSubject<Void>()
-    let showAddSchedule = PublishSubject<Date>()
+    let showPaperSelect = PublishSubject<PaperType>()
+    let showAddSchedule = PublishSubject<(Date, ScheduleModalType)>()
     
     var scaleForFit: CGFloat = 0.0 {
         didSet {
@@ -46,6 +46,7 @@ class PaperPresentView: UIView {
     var drawingContentView: DrawingContentView = {
         let view = DrawingContentView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
         
         return view
     }()
@@ -177,14 +178,14 @@ extension PaperPresentView: UITableViewDataSource {
             cell.showSelectPaper
                 .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] in
-                    self?.showPaperSelect.onNext(())
+                    self?.showPaperSelect.onNext(.monthly)
                 })
                 .disposed(by: cell.disposeBag)
 
             cell.showAddSchedule
                 .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] date in
-                    self?.showAddSchedule.onNext(date)
+                    self?.showAddSchedule.onNext((date, .monthly))
                 })
                 .disposed(by: cell.disposeBag)
 
@@ -194,6 +195,19 @@ extension PaperPresentView: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(WeeklyCalendarView.self, for: indexPath)
             let viewModel = WeeklyCalendarViewModel(date: date)
             cell.configure(viewModel: viewModel, orientation: orientaion)
+            cell.showSelectPaper
+                .observe(on: MainScheduler.instance)
+                .subscribe(onNext: { [weak self] in
+                    self?.showPaperSelect.onNext(.weekly)
+                })
+                .disposed(by: cell.disposeBag)
+
+            cell.showAddSchedule
+                .observe(on: MainScheduler.instance)
+                .subscribe(onNext: { [weak self] date in
+                    self?.showAddSchedule.onNext((date, .weekly))
+                })
+                .disposed(by: disposeBag)
 
             return cell
         case .daily:
