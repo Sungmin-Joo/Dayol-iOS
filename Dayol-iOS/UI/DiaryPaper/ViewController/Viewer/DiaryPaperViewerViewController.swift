@@ -240,10 +240,10 @@ class DiaryPaperViewerViewController: UIViewController {
                     switch event {
                     case .showDatePicker:
                         self.presentPaperModal(toolType: .date)
-                    case .showPaperSelect:
-                        self.presentPaperModal(toolType: .monthList)
-                    case .showAddSchedule(date: let date):
-                        self.presentAddSchedule(date: date)
+                    case let .showPaperSelect(paperType: paperType):
+                        self.presentPaperModal(toolType: .paperType(type: paperType))
+                    case let .showAddSchedule(date: date, scheduleType: scheduleType):
+                        self.presentScheduleModal(date: date, scheduleType: scheduleType)
                     }
                 })
                 .disposed(by: self.disposeBag)
@@ -301,13 +301,13 @@ class DiaryPaperViewerViewController: UIViewController {
         self.pageViewController.setViewControllers([selectedViewController], direction: direction, animated: true, completion: nil)
     }
 
-    private func presentAddSchedule(date: Date) {
+    private func presentScheduleModal(date: Date, scheduleType: ScheduleModalType) {
         let alert = DayolAlertController(title: Text.addScheduleTitle, message: Text.addScheduleDesc)
         alert.addAction(.init(title: Text.addScheduleLinkButton, style: .cancel, handler: {
             print("LinkButton")
         }))
         alert.addAction(.init(title: Text.addScheduleAddButton, style: .default, handler: { [weak self] in
-            self?.presentPaperModal(toolType: .shedule(scheduleType: .monthly))
+            self?.presentPaperModal(toolType: .shedule(scheduleType: scheduleType))
         }))
         present(alert, animated: true, completion: nil)
     }

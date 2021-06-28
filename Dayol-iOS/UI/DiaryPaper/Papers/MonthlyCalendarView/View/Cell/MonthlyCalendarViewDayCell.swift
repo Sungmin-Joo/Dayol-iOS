@@ -135,7 +135,7 @@ class MonthlyCalendarViewDayCell: UICollectionViewCell {
     }
 
     @objc
-    func didLongTappedCell(_ sender: Any?) {
+    private func didLongTappedCell(_ sender: Any?) {
         didLongTapped.onNext(())
     }
     

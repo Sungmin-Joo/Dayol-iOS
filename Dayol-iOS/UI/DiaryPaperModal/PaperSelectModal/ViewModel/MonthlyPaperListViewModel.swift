@@ -10,5 +10,11 @@ import Foundation
 
 final class MonthlyPaperListViewModel {
     private let disposeBag = DisposeBag()
-    var paperModels: [Paper] { DYTestData.shared.paperList }
+    var paperModels: [Paper]?
+
+    init(diaryId: String, paperType: PaperType) {
+        self.paperModels = DYTestData.shared.paperList.filter({ paper -> Bool in
+            return (paper.diaryId == diaryId && paper.type == paperType)
+        })
+    }
 }

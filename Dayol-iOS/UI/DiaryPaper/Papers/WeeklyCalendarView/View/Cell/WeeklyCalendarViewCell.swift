@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 private enum Design {
     static let weekdayLetterSpace: CGFloat = -0.42
@@ -40,8 +42,12 @@ class WeeklyCalendarViewCell: UICollectionViewCell {
         case weekly
         case weekday
     }
-    
+
     static let identifier: String = "\(WeeklyCalendarViewCell.self)"
+
+    let didLongTapped = PublishSubject<Void>()
+    var disposeBag = DisposeBag()
+
     
     private let rightSeparatorLine: UIView = {
         let view = UIView()
@@ -100,6 +106,7 @@ class WeeklyCalendarViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         setFirstCell(true)
+        disposeBag = DisposeBag()
     }
     
     private func initView() {
@@ -109,6 +116,8 @@ class WeeklyCalendarViewCell: UICollectionViewCell {
         contentView.addSubview(rightSeparatorLine)
         contentView.addSubview(topSeparatorLine)
         setConstraint()
+
+        setupGestureRecognizer()
     }
     
     private func setConstraint() {
@@ -146,6 +155,16 @@ class WeeklyCalendarViewCell: UICollectionViewCell {
         dayLabel.isHidden = isFirst
         weekdayLabel.isHidden = isFirst
         weeklyLabel.isHidden = !isFirst
+    }
+
+    private func setupGestureRecognizer() {
+        let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongTappedCell(_:)))
+        addGestureRecognizer(longTapGesture)
+    }
+
+    @objc
+    private func didLongTappedCell(_ sender: Any?) {
+        didLongTapped.onNext(())
     }
     
     private func attributedString(type: LabelType, model: WeeklyCalendarDataModel) -> NSAttributedString {

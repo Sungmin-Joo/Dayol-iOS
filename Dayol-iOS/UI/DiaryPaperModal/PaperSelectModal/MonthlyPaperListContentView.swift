@@ -15,7 +15,8 @@ private enum Design {
 }
 
 private enum Text {
-    static var infoText: String { "생성한 먼슬리 플랜으로 바로 이동할 수 있어요. 원하는 월이 없다면 속지를 추가해보세요!" }
+    static var monthlyInfoText: String { "생성한 먼슬리 플랜으로 바로 이동할 수 있어요. 원하는 월이 없다면 속지를 추가해보세요!" }
+    static var weeklyInfoText: String { "생성한 위클리 플랜으로 바로 이동할 수 있어요. 원하는 주가 없다면 속지를 추가해보세요!" }
 }
 
 final class MonthlyPaperListContentView: UIView {
@@ -24,9 +25,11 @@ final class MonthlyPaperListContentView: UIView {
         case add
     }
 
+    private let viewModel: MonthlyPaperListViewModel
+    private let paperBeDisplayed: PaperType
     private let disposeBag = DisposeBag()
     private var paperModels: [Paper]?
-    private let viewModel = MonthlyPaperListViewModel()
+    private var infoView: InfoView?
 
     let didSelect = PublishSubject<SelectEvent>()
 
@@ -47,19 +50,14 @@ final class MonthlyPaperListContentView: UIView {
         return stackView
     }()
 
-    private let infoView: InfoView = {
-        let infoView = InfoView(text: Text.infoText)
-
-        infoView.translatesAutoresizingMaskIntoConstraints = false
-
-        return infoView
-    }()
-
-    init() {
+    init(diaryId: String, paperBeDisplayed: PaperType) {
+        self.paperBeDisplayed = paperBeDisplayed
+        self.viewModel = MonthlyPaperListViewModel(diaryId: diaryId, paperType: paperBeDisplayed)
         super.init(frame: .zero)
         setupView()
         bind()
-        self.models = viewModel.paperModels
+
+        self.paperModels = self.viewModel.paperModels
     }
 
     required init?(coder: NSCoder) {
@@ -72,9 +70,13 @@ final class MonthlyPaperListContentView: UIView {
 
     private func setupView() {
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        self.infoView = makeInfoView()
 
         addSubview(containerView)
-        containerView.addArrangedSubview(infoView)
+
+        if let infoView = self.infoView {
+            containerView.addArrangedSubview(infoView)
+        }
         containerView.addArrangedSubview(collectionView)
 
         layout.itemSize = Design.cellSize
@@ -100,11 +102,27 @@ final class MonthlyPaperListContentView: UIView {
     }
 
     private func bind() {
-        infoView.closeButton.rx.tap
+        infoView?.closeButton.rx.tap
             .bind(onNext: { [weak self] in
-                self?.infoView.isHidden = true
+                self?.infoView?.isHidden = true
             })
             .disposed(by: disposeBag)
+    }
+
+    private func makeInfoView() -> InfoView {
+        var infoText: String = ""
+        switch paperBeDisplayed {
+        case .monthly:
+            infoText = Text.monthlyInfoText
+        case .weekly:
+            infoText = Text.weeklyInfoText
+        default:
+            break
+        }
+        let infoView = InfoView(text: infoText)
+        infoView.translatesAutoresizingMaskIntoConstraints = false
+
+        return infoView
     }
 }
 
