@@ -19,13 +19,13 @@ private enum Text {
     static var weeklyInfoText: String { "생성한 위클리 플랜으로 바로 이동할 수 있어요. 원하는 주가 없다면 속지를 추가해보세요!" }
 }
 
-final class MonthlyPaperListContentView: UIView {
+final class PaperSelectCollectionView: UIView {
     enum SelectEvent {
         case item(paper: Paper)
         case add
     }
 
-    private let viewModel: MonthlyPaperListViewModel
+    private let viewModel: PaperSelectModalViewModel
     private let paperBeDisplayed: PaperType
     private let disposeBag = DisposeBag()
     private var paperModels: [Paper]?
@@ -52,7 +52,7 @@ final class MonthlyPaperListContentView: UIView {
 
     init(diaryId: String, paperBeDisplayed: PaperType) {
         self.paperBeDisplayed = paperBeDisplayed
-        self.viewModel = MonthlyPaperListViewModel(diaryId: diaryId, paperType: paperBeDisplayed)
+        self.viewModel = PaperSelectModalViewModel(diaryId: diaryId, paperType: paperBeDisplayed)
         super.init(frame: .zero)
         setupView()
         bind()
@@ -85,7 +85,7 @@ final class MonthlyPaperListContentView: UIView {
 
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(MonthlyPaperListCollectionViewCell.self)
+        collectionView.register(PaperSelectCollectionViewCell.self)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = UIColor.gray100
 
@@ -126,7 +126,7 @@ final class MonthlyPaperListContentView: UIView {
     }
 }
 
-extension MonthlyPaperListContentView {
+extension PaperSelectCollectionView {
     var models: [Paper]? {
         get {
             return self.paperModels
@@ -138,7 +138,7 @@ extension MonthlyPaperListContentView {
     }
 }
 
-extension MonthlyPaperListContentView: UICollectionViewDataSource {
+extension PaperSelectCollectionView: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -148,7 +148,7 @@ extension MonthlyPaperListContentView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(MonthlyPaperListCollectionViewCell.self, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(PaperSelectCollectionViewCell.self, for: indexPath)
         if indexPath.item == 0 {
             cell.configureAddCell()
         } else if let model = paperModels?[safe: indexPath.item - 1] {
@@ -159,7 +159,7 @@ extension MonthlyPaperListContentView: UICollectionViewDataSource {
     }
 }
 
-extension MonthlyPaperListContentView: UICollectionViewDelegate {
+extension PaperSelectCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
             didSelect.onNext(.add)

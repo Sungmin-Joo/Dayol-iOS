@@ -29,7 +29,7 @@ private enum Text {
     static let add = "Add"
 }
 
-final class MonthlyPaperListCollectionViewCell: UICollectionViewCell {
+final class PaperSelectCollectionViewCell: UICollectionViewCell {
     private let paperImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false

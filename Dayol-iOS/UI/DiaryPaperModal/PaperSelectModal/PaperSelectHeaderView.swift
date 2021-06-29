@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MonthlyPaperListHeaderView: UIView {
+final class PaperSelectHeaderView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
