@@ -17,10 +17,5 @@ struct Diary {
     var hasLogo: Bool
     var thumbnail: Data
     var drawCanvas: Data
-    var papers: [Paper]
     var contents: [DecorationItem]
-
-    var paperCount: Int {
-        papers.count
-    }
 }
