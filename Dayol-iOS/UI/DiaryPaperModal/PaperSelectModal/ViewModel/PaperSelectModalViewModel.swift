@@ -8,7 +8,7 @@
 import RxSwift
 import Foundation
 
-final class MonthlyPaperListViewModel {
+final class PaperSelectModalViewModel {
     private let disposeBag = DisposeBag()
     var paperModels: [Paper]?
 

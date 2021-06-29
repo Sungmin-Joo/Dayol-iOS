@@ -99,8 +99,8 @@ class PaperModalViewController: DYModalViewController {
     }
 
     private func setupMonthListView(paperType: PaperType) {
-        let titleView = MonthlyPaperListHeaderView()
-        let contentView = MonthlyPaperListContentView(diaryId: diaryId, paperBeDisplayed: paperType)
+        let titleView = PaperSelectHeaderView()
+        let contentView = PaperSelectCollectionView(diaryId: diaryId, paperBeDisplayed: paperType)
         self.titleView = titleView
         self.contentView = contentView
 
@@ -156,7 +156,7 @@ class PaperModalViewController: DYModalViewController {
     }
 
     private func monthlyPaperListViewNeedsLayout() {
-        guard let monthlyPaperListContentView = contentView as? MonthlyPaperListContentView else { return }
+        guard let monthlyPaperListContentView = contentView as? PaperSelectCollectionView else { return }
         monthlyPaperListContentView.layoutCollectionView()
     }
 
@@ -265,7 +265,7 @@ private extension PaperModalViewController {
     }
 
     func bindMonthListEvent() {
-        guard let monthlyPagerListContentView = contentView as? MonthlyPaperListContentView else { return }
+        guard let monthlyPagerListContentView = contentView as? PaperSelectCollectionView else { return }
 
         monthlyPagerListContentView.didSelect
             .subscribe(onNext: { [weak self] selectEvent in
