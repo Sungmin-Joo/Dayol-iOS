@@ -21,7 +21,7 @@ class DiaryListViewModel {
     }
     
     private func bind() {
-        DYTestData.shared.diaryListSubject
+        DiaryDataHelper.shared.diaryListSubject
             .subscribe(onNext: { [weak self] model in
                 guard let self = self else { return }
                 self.diaryList = model
@@ -35,7 +35,7 @@ extension DiaryListViewModel {
 
     func deleteDiary(at index: Int) {
         guard let diary = diaryList[safe: index] else { return }
-        DYTestData.shared.deleteDiary(diary)
+        DiaryDataHelper.shared.deleteDiary(id: diary.id)
     }
 
 }

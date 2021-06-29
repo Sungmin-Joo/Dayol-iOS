@@ -298,7 +298,6 @@ private extension DiaryEditViewController {
                                hasLogo: hasLogo,
                                thumbnail: diaryEditCoverView.asThumbnail?.pngData() ?? Data(),
                                drawCanvas: drawCanvasData,
-                               papers: [],
                                contents: contents)
 
         self.viewModel.createDiaryInfo(model: diaryModel)

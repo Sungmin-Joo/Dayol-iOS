@@ -131,7 +131,9 @@ class DiaryListCell: UICollectionViewCell {
 
     private func configure() {
         guard let viewModel = viewModel else { return }
-        let subTitle = "\(viewModel.paperCount)page"
+        // TODO: - 속지 갯수 패치
+//        let subTitle = "\(viewModel.paperCount)page"
+        let subTitle = "0page"
 
         // TODO: 손잡이 부분 잘림
         diaryCoverView.image = UIImage(data: viewModel.thumbnail)
