@@ -17,7 +17,7 @@ enum DateType {
     case day
     case time
 
-    var formatter: DateFormatter {
+    fileprivate var formatter: DateFormatter {
         let dateForamtter = DateFormatter()
         switch self {
         case .timezone:
@@ -40,12 +40,12 @@ enum DateType {
         return dateForamtter
     }
 
-    func date(year: Int, month: Int, day: Int) -> Date? {
+    fileprivate func date(year: Int, month: Int, day: Int) -> Date? {
         let dateString = "\(year).\(month) \(day)"
         return self.formatter.date(from: dateString)
     }
 
-    func dateToString(_ date: Date) -> String {
+    fileprivate func dateToString(_ date: Date) -> String {
         return self.formatter.string(from: date)
     }
 }
