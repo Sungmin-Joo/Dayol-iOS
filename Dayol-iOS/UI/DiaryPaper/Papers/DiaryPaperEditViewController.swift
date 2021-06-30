@@ -40,6 +40,7 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationController()
+        drawingContentView.isUserInteractionEnabled = true
     }
 
     override func didTapTextButton() {
