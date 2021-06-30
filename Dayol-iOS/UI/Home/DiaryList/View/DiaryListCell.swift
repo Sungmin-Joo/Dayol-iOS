@@ -133,7 +133,6 @@ class DiaryListCell: UICollectionViewCell {
         guard let viewModel = viewModel else { return }
         let subTitle = "\(viewModel.paperCount)page"
 
-        // TODO: 손잡이 부분 잘림
         diaryCoverView.image = UIImage(data: viewModel.thumbnail)
         titleLabel.attributedText = Design.attributedTitle(text: viewModel.title)
         subTitleLabel.attributedText = Design.attributedSubTitle(text: subTitle)

@@ -173,7 +173,6 @@ extension DiaryEditCoverView {
 extension DiaryEditCoverView {
 
     var asThumbnail: UIImage? {
-        // TODO: 꼬다리(다이어리 Locker)부분이 조금 잘림, DiaryCoverView 수정 해야함
         scrollView.zoomScale = Design.minimumZoomOut
         return diaryView.asImage()
     }
