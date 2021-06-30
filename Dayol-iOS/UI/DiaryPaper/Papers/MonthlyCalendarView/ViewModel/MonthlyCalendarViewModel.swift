@@ -138,7 +138,7 @@ class MonthlyCalendarViewModel: PaperViewModel {
     }
     
     private func firstWeekDay(year: Int, month: Int) -> WeekDay {
-        let day = ("\(year)-\(month+1)-01".date?.firstDayOfTheMonth.weekday)!
+        let day = ("\(year)-\(month+1)-01".date(with: .yearMonthDay)?.firstDayOfTheMonth.weekday)!
         return WeekDay(rawValue: day) ?? .sunday
     }
     
