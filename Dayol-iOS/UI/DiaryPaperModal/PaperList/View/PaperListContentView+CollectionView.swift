@@ -29,9 +29,7 @@ extension PaperListContentView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        if indexPath.item == pepersCount  {
-            // ' + ' 버튼이 있는 셀
+        guard indexPath.item > 0 else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PaperListAddCell.identifier, for: indexPath)
             if let addCell = cell as? PaperListAddCell {
                 addCell.addButton.rx.tap
@@ -46,25 +44,25 @@ extension PaperListContentView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PaperListCell.identifier, for: indexPath)
 
         if let paperListCell = cell as? PaperListCell {
-            paperListCell.viewModel = viewModel.cellModels[safe: indexPath.row]
+            paperListCell.viewModel = viewModel.cellModels[safe: indexPath.item - 1]
         }
 
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
-        guard proposedIndexPath.row != pepersCount  else {
+        guard proposedIndexPath.item != 0  else {
             return originalIndexPath
         }
         return proposedIndexPath
     }
 
     func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        return indexPath.row == pepersCount  ? false : true
+        return indexPath.item == 0  ? false : true
     }
 
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        viewModel.moveItem(at: sourceIndexPath.row, to: destinationIndexPath.row)
+        viewModel.moveItem(at: sourceIndexPath.item - 1, to: destinationIndexPath.item - 1)
     }
 
 }
