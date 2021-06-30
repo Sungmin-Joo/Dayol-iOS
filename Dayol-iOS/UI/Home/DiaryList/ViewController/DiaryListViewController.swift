@@ -84,9 +84,14 @@ class DiaryListViewController: UIViewController {
             let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         else { return }
 
-        let insets = calcCollectionViewInset(width: size.width)
-        layout.sectionInset = insets
-        collectionView.collectionViewLayout.invalidateLayout()
+        coordinator.animate { _ in
+            let insets = self.calcCollectionViewInset(width: size.width)
+            layout.sectionInset = insets
+        } completion: { [weak self] _ in
+            guard let self = self else { return }
+            self.moveToIndex(self.currentIndex)
+        }
+
     }
 
 }

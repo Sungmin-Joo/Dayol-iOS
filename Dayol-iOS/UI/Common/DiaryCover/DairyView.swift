@@ -47,7 +47,6 @@ class DiaryView: UIView, Undoable {
 		super.init(frame: .zero)
         initView()
         setConstraints()
-//        bindEvent()
 	}
 
 	required init?(coder: NSCoder) {
@@ -66,10 +65,10 @@ class DiaryView: UIView, Undoable {
     private func initView() {
         coverView.translatesAutoresizingMaskIntoConstraints = false
         lockerView.translatesAutoresizingMaskIntoConstraints = false
+        drawingContentView.translatesAutoresizingMaskIntoConstraints = false
 
-
+        coverView.addSubview(drawingContentView)
         addSubview(coverView)
-        addSubViewPinEdge(drawingContentView)
         addSubview(lockerView)
 
         setupGetsture()
@@ -81,11 +80,17 @@ class DiaryView: UIView, Undoable {
         let lockerWidthConstraint = lockerView.widthAnchor.constraint(equalToConstant: Const.lockerSize.width)
         let lockerHeightConstraint = lockerView.heightAnchor.constraint(equalToConstant: Const.lockerSize.height)
 		NSLayoutConstraint.activate([
-            coverView.leftAnchor.constraint(equalTo: leftAnchor),
+            coverView.leadingAnchor.constraint(equalTo: leadingAnchor),
             coverView.topAnchor.constraint(equalTo: topAnchor),
             coverView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            coverView.rightAnchor.constraint(equalTo: rightAnchor),
+
             lockerView.centerYAnchor.constraint(equalTo: coverView.centerYAnchor),
+            lockerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+
+            drawingContentView.leadingAnchor.constraint(equalTo: coverView.leadingAnchor),
+            drawingContentView.topAnchor.constraint(equalTo: coverView.topAnchor),
+            drawingContentView.bottomAnchor.constraint(equalTo: coverView.bottomAnchor),
+            drawingContentView.trailingAnchor.constraint(equalTo: coverView.trailingAnchor),
 
             lockerMarginConstraint,
             lockerWidthConstraint,
@@ -126,72 +131,3 @@ extension DiaryView {
         coverView.setDayolLogoHidden(isHidden)
     }
 }
-//
-//// MARK: - Create Items
-//
-//extension DiaryView {
-//    // 최초 생성
-//    func createTextField(diaryID: String, targetPoint: CGPoint) {
-//        let id = DYTestData.shared.textFieldIdToCreate
-//        DYTestData.shared.increaseTextFieldID()
-//
-//        let viewModel = DYFlexibleTextFieldViewModel(id: id)
-//        let textField = DYFlexibleTextField(viewModel: viewModel)
-//        textField.center = targetPoint
-//
-//        addSubviewWithUndoManager(textField)
-//
-//        let _ = textField.becomeFirstResponder()
-//    }
-//}
-//
-//// MARK: - Control Decoration Item
-//
-//extension DiaryView {
-//
-//    func set(model: Diary) {
-//        setDrawingData(model.drawCanvas)
-//        setItems(model.contents)
-//    }
-//
-//    func getItems(diaryID: String) -> [DecorationItem] {
-//        let items: [DecorationItem] = subviews.compactMap { subview in
-//            if let textField = subview as? DYFlexibleTextField {
-//                return textField.toItem(parentId: diaryID)
-//            }
-//
-//            if let imageStrectchView = subview as? DYImageSizeStretchableView {
-//                // TODO: - 유저 이미지 스티커 ID 룰 정의
-//                return imageStrectchView.toItem(id: "", parentId: diaryID)
-//            }
-//
-//            return nil
-//        }
-//        return items
-//    }
-//
-//    private func setDrawingData(_ data: Data) {
-//        let decoder = JSONDecoder()
-//        if let drawing = try? decoder.decode(PKDrawing.self, from: data) {
-//            canvas.drawing = drawing
-//        }
-//    }
-//
-//    private  func setItems(_ items: [DecorationItem]) {
-//        items.forEach { item in
-//            if let textItem = item as? DecorationTextFieldItem {
-//                let viewModel = DYFlexibleTextFieldViewModel(id: item.id)
-//                viewModel.set(textItem)
-//                let textField = DYFlexibleTextField(viewModel: viewModel)
-////                textField.viewModel.set(textItem)
-//                addSubview(textField)
-//            }
-//
-//            if let imageItem = item as? DecorationImageItem {
-//                let imageStretchableView = DYImageSizeStretchableView(model: imageItem)
-//                addSubview(imageStretchableView)
-//            }
-//        }
-//    }
-//
-//}
