@@ -58,7 +58,7 @@ class PersistentManager {
         return NSEntityDescription.entity(forEntityName: type.name, in: persistentContainer.viewContext)
     }
 
-    func insertNewObject(_ type: EntityType) -> NSManagedObject {
+    func insertObject(_ type: EntityType) -> NSManagedObject {
         return NSEntityDescription.insertNewObject(forEntityName: type.name, into: persistentContainer.viewContext)
     }
 }

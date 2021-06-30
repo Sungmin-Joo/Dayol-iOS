@@ -109,7 +109,7 @@ extension DiaryManager {
 
             if let textFieldItem = $0 as? DecorationTextFieldItem {
                 // DecorationTextFieldItem
-                let managedObject = PersistentManager.shared.insertNewObject(.decorationTextFieldItem)
+                let managedObject = PersistentManager.shared.insertObject(.decorationTextFieldItem)
 
                 guard let textFieldItemMO = managedObject as? DecorationTextFieldItemMO else { return}
 
