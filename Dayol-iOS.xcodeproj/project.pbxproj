@@ -157,7 +157,6 @@
 		CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */; };
 		CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF135EE25811D130098BEC3 /* Common.xcassets */; };
 		CEF135F225811DE30098BEC3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135F125811DE30098BEC3 /* Assets.swift */; };
-		DA13B6AD268CB8AE0015AD71 /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6AC268CB8AE0015AD71 /* TimeInterval+Extension.swift */; };
 		DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D67DC25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift */; };
 		DA27AC5B25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27AC5A25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift */; };
 		DA27AC5E25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27AC5D25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift */; };
@@ -393,7 +392,6 @@
 		CEB9EE412583C94E005B66C9 /* DayolAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertViewController.swift; sourceTree = "<group>"; };
 		CEF135EE25811D130098BEC3 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		CEF135F125811DE30098BEC3 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
-		DA13B6AC268CB8AE0015AD71 /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
 		DA1D67DC25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewDayCell.swift; sourceTree = "<group>"; };
 		DA27AC5A25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarViewModel.swift; sourceTree = "<group>"; };
 		DA27AC5D25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarHeaderView.swift; sourceTree = "<group>"; };
@@ -1056,7 +1054,6 @@
 				DA6FF5F12667B5DB006B0B34 /* UICollectionView+Extension.swift */,
 				DA5A10FA266B7BA4002C7EA8 /* UIImage+Extension.swift */,
 				34002D5D267EF7A500A0DD8A /* Undoable.swift */,
-				DA13B6AC268CB8AE0015AD71 /* TimeInterval+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1865,7 +1862,6 @@
 				0D011A8A2675D9C1001F5469 /* Dayol.xcdatamodeld in Sources */,
 				DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */,
 				34788856261E0B4B00692ED7 /* LassoInfoView.swift in Sources */,
-				DA13B6AD268CB8AE0015AD71 /* TimeInterval+Extension.swift in Sources */,
 				34E61395262F03260076FE74 /* ColorEntity.swift in Sources */,
 				3446621F25C1A07A00656775 /* CornellPaper.swift in Sources */,
 				DA6FF5D126654EA9006B0B34 /* DateType.swift in Sources */,

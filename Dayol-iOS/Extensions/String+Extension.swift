@@ -21,7 +21,4 @@ extension String {
         return formatter
     }()
 
-    func asDate(dateType: DateType) -> Date? {
-        return dateType.formatter.date(from: self)
-    }
 }

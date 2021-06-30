@@ -44,9 +44,3 @@ extension Date {
         return Date.calendar.isDateInWeekend(self)
     }
 }
-
-extension Date {
-    func asString(dateType: DateType) -> String {
-        return dateType.formatter.string(from: self)
-    }
-}
