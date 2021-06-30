@@ -69,7 +69,7 @@ extension PaperListContentView: UICollectionViewDataSource {
 
 extension PaperListContentView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let paper = viewModel.paperModels[safe: indexPath.item] else { return }
+        guard let paper = viewModel.paperModels[safe: indexPath.item - 1] else { return }
         didSelectItem.onNext(paper)
     }
 }
