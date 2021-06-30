@@ -11,7 +11,7 @@ import CoreData
 
 @objc(DiaryMO)
 public class DiaryMO: NSManagedObject {
-    func set(_ diary: Diary) {
+    func make(diary: Diary) {
         id = diary.id
         isLock = diary.isLock
         title = diary.title
@@ -21,7 +21,7 @@ public class DiaryMO: NSManagedObject {
         drawCanvas = diary.drawCanvas
     }
 
-    func getDiary() -> Diary? {
+    var toModel: Diary? {
         guard
             let id = id,
             let title = title,
@@ -34,7 +34,7 @@ public class DiaryMO: NSManagedObject {
             return nil
         }
 
-        let contents = contentsMOList.compactMap { $0.getItem() }
+        let contents = contentsMOList.compactMap { $0.toModel }
 
         return  Diary(
             id: id,

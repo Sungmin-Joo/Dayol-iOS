@@ -27,7 +27,7 @@ extension DiaryManager {
 
         if let entity = entity {
             let diaryMO = DiaryMO(entity: entity, insertInto: context)
-            diaryMO.set(diary)
+            diaryMO.make(diary: diary)
             addContents(to: diaryMO, items: diary.contents)
             PersistentManager.shared.saveContext()
             fetchDiaryList()
@@ -46,7 +46,7 @@ extension DiaryManager {
             return
         }
 
-        let diaryList = result.compactMap { $0.getDiary() }
+        let diaryList = result.compactMap { $0.toModel }
         diaryListSubject.onNext(diaryList)
     }
 
@@ -54,7 +54,7 @@ extension DiaryManager {
         guard let diaryMO = getDiaryMO(id: id) else {
             return nil
         }
-        return diaryMO.getDiary()
+        return diaryMO.toModel
     }
 
 }
@@ -66,7 +66,7 @@ extension DiaryManager {
     func updateDiary(_ diary: Diary) {
         guard let diaryMO = getDiaryMO(id: diary.id) else { return }
 
-        diaryMO.set(diary)
+        diaryMO.make(diary: diary)
         addContents(to: diaryMO, items: diary.contents)
         PersistentManager.shared.saveContext()
         fetchDiaryList()
@@ -113,7 +113,7 @@ extension DiaryManager {
 
                 guard let textFieldItemMO = managedObject as? DecorationTextFieldItemMO else { return}
 
-                textFieldItemMO.set(textFieldItem)
+                textFieldItemMO.make(item: textFieldItem)
                 diaryMO.addToContents(textFieldItemMO)
             } else if let imageItem = $0 as? DecorationImageItem {
                 // DecorationImageItem

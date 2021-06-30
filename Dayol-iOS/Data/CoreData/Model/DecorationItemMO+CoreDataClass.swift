@@ -12,7 +12,7 @@ import CoreData
 @objc(DecorationItemMO)
 public class DecorationItemMO: NSManagedObject {
 
-    func set(_ item: DecorationItem) {
+    func make(item: DecorationItem) {
         self.id = item.id
         self.parentId = item.parentId
         self.width = item.width
@@ -21,7 +21,7 @@ public class DecorationItemMO: NSManagedObject {
         self.y = item.y
     }
 
-    func getItem() -> DecorationItem? {
+    var toModel: DecorationItem? {
         guard
             let id = id,
             let parentId = parentId

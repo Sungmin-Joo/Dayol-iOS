@@ -12,17 +12,17 @@ import CoreData
 @objc(DecorationTextFieldItemMO)
 public class DecorationTextFieldItemMO: DecorationItemMO {
 
-    override func set(_ item: DecorationItem) {
-        super.set(item)
+    override func make(item: DecorationItem) {
+        super.make(item: item)
 
         if let textFieldItem = item as? DecorationTextFieldItem {
             self.textData = textFieldItem.textData
         }
     }
 
-    override func getItem() -> DecorationTextFieldItem? {
+    override var toModel: DecorationTextFieldItem? {
         guard
-            let itemDAO = super.getItem(),
+            let itemDAO = super.toModel,
             let textData = textData
         else { return nil }
 
