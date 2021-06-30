@@ -529,6 +529,7 @@
 				DA5A117926760F58002C7EA8 /* Diary.swift */,
 				DA5A117C26760F64002C7EA8 /* Paper.swift */,
 				DA5A117F26760F6E002C7EA8 /* PaperScheldule.swift */,
+				34CD663B268A20CC00DECFF7 /* DiaryManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1262,7 +1263,6 @@
 			isa = PBXGroup;
 			children = (
 				DA27AC7A25D1751A00C71CDE /* DYTestData.swift */,
-				34CD663B268A20CC00DECFF7 /* DiaryManager.swift */,
 			);
 			path = TestData;
 			sourceTree = "<group>";
