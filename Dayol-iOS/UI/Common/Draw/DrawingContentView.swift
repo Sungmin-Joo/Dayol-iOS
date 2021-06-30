@@ -13,6 +13,8 @@ class DrawingContentView: UIView, Undoable {
     private let disposeBag = DisposeBag()
     let canvas = PKCanvasView()
     let currentToolSubject = BehaviorSubject<DYDrawTool?>(value: nil)
+    var shouldMakeTextField = false
+    var didEndCreateTextField: (() -> Void)?
 
     init() {
         super.init(frame: .zero)
@@ -21,6 +23,15 @@ class DrawingContentView: UIView, Undoable {
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if shouldMakeTextField {
+            shouldMakeTextField = false
+            createTextField(targetPoint: point)
+            didEndCreateTextField?()
+        }
+        return super.point(inside: point, with: event)
+    }
 
     private func initView() {
         canvas.backgroundColor = .clear
@@ -59,8 +70,6 @@ extension DrawingContentView {
         textField.center = targetPoint
 
         addSubviewWithUndoManager(textField)
-
-        let _ = textField.becomeFirstResponder()
     }
 
     func createImageSticker(image: UIImage, currentPage: Int = 0) {

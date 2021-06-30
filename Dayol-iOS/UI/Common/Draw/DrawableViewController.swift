@@ -26,6 +26,18 @@ class DrawableViewController: UIViewController, Drawable {
 
     // MARK: - 오버라이드하여 사용처에서 좌표 제어
     func didTapTextButton() {}
+    /// 오버라이드하여 사용처에서 좌표 제어
+    func didTapTextButton() {
+        showTextFieldToast()
+    }
+
+    func bindDrawingContentViewBind() {
+        drawingContentView.didEndCreateTextField = { [weak self] in
+            self?.currentTool = nil
+            self?.toolBar.textButton.isSelected = false
+        }
+    }
+
     func didEndPhotoPick(_ image: UIImage) {}
     func didEndStickerPick(_ image: UIImage) {}
 }
@@ -35,6 +47,8 @@ class DrawableViewController: UIViewController, Drawable {
 extension DrawableViewController {
 
     final func showImagePicker() {
+        drawingContentView.shouldMakeTextField = false
+
         if #available(iOS 14.0, *) {
             var configuration = PHPickerConfiguration()
             configuration.selectionLimit = 1
