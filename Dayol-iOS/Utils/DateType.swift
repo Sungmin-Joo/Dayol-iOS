@@ -53,7 +53,7 @@ enum DateType {
 // MARK: String
 
 extension String {
-    func asDate(dateType: DateType) -> Date? {
+    func date(with dateType: DateType) -> Date? {
         return dateType.formatter.date(from: self)
     }
 }
@@ -61,7 +61,7 @@ extension String {
 // MARK: Date
 
 extension Date {
-    func asString(dateType: DateType) -> String {
+    func string(with dateType: DateType) -> String {
         return dateType.formatter.string(from: self)
     }
 }
@@ -69,7 +69,7 @@ extension Date {
 // MARK: TimeInterval(Double)
 
 extension TimeInterval {
-    var asDate: Date {
+    var date: Date {
         return Date(timeIntervalSince1970: self)
     }
 }
