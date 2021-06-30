@@ -1,5 +1,5 @@
 //
-//  DiaryDataHelper.swift
+//  DiaryManager.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/06/29.
@@ -9,8 +9,8 @@ import Foundation
 import RxSwift
 import CoreData
 
-class DiaryDataHelper {
-    static let shared = DiaryDataHelper()
+class DiaryManager {
+    static let shared = DiaryManager()
     let diaryListSubject = BehaviorSubject<[Diary]>(value: [])
 
     private init() {
@@ -20,7 +20,7 @@ class DiaryDataHelper {
 
 // MARK: - Create
 
-extension DiaryDataHelper {
+extension DiaryManager {
     func createDiary(_ diary: Diary) {
         let context = PersistentManager.shared.context
         let entity = PersistentManager.shared.entity(.diary)
@@ -37,7 +37,7 @@ extension DiaryDataHelper {
 
 // MARK: - Retrieve
 
-extension DiaryDataHelper {
+extension DiaryManager {
 
     func fetchDiaryList() {
         let fetchRequest: NSFetchRequest<DiaryMO> = DiaryMO.fetchRequest()
@@ -61,7 +61,7 @@ extension DiaryDataHelper {
 
 // MARK: Update
 
-extension DiaryDataHelper {
+extension DiaryManager {
 
     func updateDiary(_ diary: Diary) {
         guard let diaryMO = getDiaryMO(id: diary.id) else { return }
@@ -76,7 +76,7 @@ extension DiaryDataHelper {
 
 // MARK: - Delete
 
-extension DiaryDataHelper {
+extension DiaryManager {
 
     func deleteDiary(id: String) {
         guard let diaryMO = getDiaryMO(id: id) else { return }
@@ -90,7 +90,7 @@ extension DiaryDataHelper {
 
 // MARK: - Util
 
-extension DiaryDataHelper {
+extension DiaryManager {
 
     private func getDiaryMO(id: String) -> DiaryMO? {
         let fetchRequest: NSFetchRequest<DiaryMO> = DiaryMO.fetchRequest()

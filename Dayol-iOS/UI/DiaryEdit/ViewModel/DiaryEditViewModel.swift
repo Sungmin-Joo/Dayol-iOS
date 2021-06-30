@@ -20,7 +20,7 @@ class DiaryEditViewModel {
             return diaryId
         }
 
-        if let diaryList = try? DiaryDataHelper.shared.diaryListSubject.value() {
+        if let diaryList = try? DiaryManager.shared.diaryListSubject.value() {
             let count = diaryList.count
             return "D\(count)"
         }
@@ -30,9 +30,9 @@ class DiaryEditViewModel {
 
     func createDiaryInfo(model: Diary) {
         if currentDiaryId == nil {
-            DiaryDataHelper.shared.createDiary(model)
+            DiaryManager.shared.createDiary(model)
         } else {
-            DiaryDataHelper.shared.updateDiary(model)
+            DiaryManager.shared.updateDiary(model)
         }
     }
 
