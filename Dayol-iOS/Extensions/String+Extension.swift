@@ -20,8 +20,8 @@ extension String {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
-    
-    var date: Date? {
-        return String.dateFormatter.date(from: self)
+
+    func asDate(dateType: DateType) -> Date? {
+        return dateType.formatter.date(from: self)
     }
 }

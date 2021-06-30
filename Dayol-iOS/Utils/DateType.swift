@@ -1,5 +1,5 @@
 //
-//  DateFormat+Extension.swift
+//  DateType.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/06/01.
@@ -8,6 +8,7 @@
 import Foundation
 
 enum DateType {
+    case timezone
     case schedule
     case yearMonthDay
     case yearMonth
@@ -19,6 +20,8 @@ enum DateType {
     var formatter: DateFormatter {
         let dateForamtter = DateFormatter()
         switch self {
+        case .timezone:
+            dateForamtter.dateFormat = "YYYY-MM-DDThh:mm:ss TZD"
         case .schedule:
             dateForamtter.dateFormat = "yyyy.M.dd(E)"
         case .yearMonthDay:
