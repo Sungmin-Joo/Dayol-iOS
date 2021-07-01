@@ -9,6 +9,9 @@ import UIKit
 import RxSwift
 
 private enum Design {
+    static let shadowColor: UIColor = UIColor.black.withAlphaComponent(0.2)
+
+    static let mainStackViewTopMargin: CGFloat = 30.0
     static let mainStackViewSpacing: CGFloat = 6.0
     static let titleStackViewSpacing: CGFloat = 5.0
 
@@ -52,13 +55,11 @@ class DiaryListCell: UICollectionViewCell {
         }
         return 360.0
     }
-    private var diaryViewHeightConstraint: NSLayoutConstraint?
-    // TODO: - 다이어리 리스트 편집 시 다이어리 커버 스케일 줄이는 애니메이션 자연스럽게
+
     var isEditMode = false {
         didSet {
             mainStackView.alpha = isEditMode ? 0 : 1
             diaryCoverView.alpha = isEditMode ? 0.5 : 1
-            self.diaryViewHeightConstraint?.constant = diaryHeight
         }
     }
     var didTapModeMenuButton: (() -> Void)?
@@ -131,9 +132,10 @@ class DiaryListCell: UICollectionViewCell {
 
     private func configure() {
         guard let viewModel = viewModel else { return }
-        let subTitle = "\(viewModel.paperCount)page"
+        // TODO: - 속지 갯수 패치
+//        let subTitle = "\(viewModel.paperCount)page"
+        let subTitle = "0page"
 
-        // TODO: 손잡이 부분 잘림
         diaryCoverView.image = UIImage(data: viewModel.thumbnail)
         titleLabel.attributedText = Design.attributedTitle(text: viewModel.title)
         subTitleLabel.attributedText = Design.attributedSubTitle(text: subTitle)
@@ -154,21 +156,24 @@ extension DiaryListCell {
 
         titleStackView.addArrangedSubview(titleLabel)
         titleStackView.addArrangedSubview(actionButton)
+
+        layer.setZepplinShadow(x: 0, y: 6, blur: 12, color: Design.shadowColor)
     }
 
     private func setupConstraints() {
-        let diaryViewHeightConstraint = diaryCoverView.heightAnchor.constraint(equalToConstant: diaryHeight)
+        let thumbnailSize = diaryCoverView.image?.size ?? CGSize(width: 278, height: 360)
+        let thumbailRatio = thumbnailSize.width / thumbnailSize.height
+
         NSLayoutConstraint.activate([
             diaryCoverView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            diaryCoverView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            diaryCoverView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            diaryViewHeightConstraint,
+            diaryCoverView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            diaryCoverView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            diaryCoverView.widthAnchor.constraint(equalTo: diaryCoverView.heightAnchor,
+                                                  multiplier: thumbailRatio),
 
             mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             mainStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
-
-        self.diaryViewHeightConstraint = diaryViewHeightConstraint
     }
 }
 

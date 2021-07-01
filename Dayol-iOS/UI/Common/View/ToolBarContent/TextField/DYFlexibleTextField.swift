@@ -219,6 +219,8 @@ private extension DYFlexibleTextField {
                                       y: Design.delButtonSize.height / 2.0)
         deleteButton.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin, .flexibleLeftMargin]
         addSubview(deleteButton)
+
+        checkIsEmpty()
     }
 
     func setupGesture() {

@@ -247,6 +247,7 @@ class DiaryPaperViewerViewController: UIViewController {
                     }
                 })
                 .disposed(by: self.disposeBag)
+            paperViewController.drawingContentView.isUserInteractionEnabled = false
 
             diaryPaperViewControllers.append(paperViewController)
         }

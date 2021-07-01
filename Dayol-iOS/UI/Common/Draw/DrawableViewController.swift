@@ -9,6 +9,17 @@ import UIKit
 import PhotosUI
 import RxSwift
 
+private enum Design {
+    static let toastHeight: CGFloat = 40
+    static let toastBottomMargin: CGFloat = 40
+}
+
+private enum Text {
+    static var textFieldToast: String {
+        "원하는 위치를 탭하면 텍스트박스가 생성됩니다.".localized
+    }
+}
+
 class DrawableViewController: UIViewController, Drawable {
     let disposeBag = DisposeBag()
 
@@ -24,8 +35,30 @@ class DrawableViewController: UIViewController, Drawable {
         bindToolBarEvent()
     }
 
-    // MARK: - 오버라이드하여 사용처에서 좌표 제어
-    func didTapTextButton() {}
+    func showTextFieldToast() {
+        // TODO: - 검수 끝나면 한번만 노출하는 스펙 추가
+        var configure = DYToastConfigure.deafault
+        configure.height = Design.toastHeight
+
+        view.showToast(
+            text: Text.textFieldToast,
+            bottomMargin: Design.toastBottomMargin,
+            configure: configure
+        )
+    }
+
+    /// 오버라이드하여 사용처에서 좌표 제어
+    func didTapTextButton() {
+        showTextFieldToast()
+    }
+
+    func bindDrawingContentViewBind() {
+        drawingContentView.didEndCreateTextField = { [weak self] in
+            self?.currentTool = nil
+            self?.toolBar.textButton.isSelected = false
+        }
+    }
+
     func didEndPhotoPick(_ image: UIImage) {}
     func didEndStickerPick(_ image: UIImage) {}
 }
@@ -35,6 +68,8 @@ class DrawableViewController: UIViewController, Drawable {
 extension DrawableViewController {
 
     final func showImagePicker() {
+        drawingContentView.shouldMakeTextField = false
+
         if #available(iOS 14.0, *) {
             var configuration = PHPickerConfiguration()
             configuration.selectionLimit = 1

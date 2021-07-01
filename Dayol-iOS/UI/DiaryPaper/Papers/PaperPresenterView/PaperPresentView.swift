@@ -39,6 +39,7 @@ class PaperPresentView: UIView {
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.isScrollEnabled = false
         
         return tableView
     }()

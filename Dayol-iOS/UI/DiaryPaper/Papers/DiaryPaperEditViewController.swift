@@ -40,14 +40,22 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationController()
+        drawingContentView.isUserInteractionEnabled = true
+        bindDrawingContentViewBind()
     }
 
     override func didTapTextButton() {
+        super.didTapTextButton()
         drawingContentView.currentToolSubject.onNext(nil)
-        // TODO: - 탭 한 부분에 텍스트 필드를 생성하는 로직 추가
-        // let convertedCenter = view.convert(view.center, to: diaryEditCoverView.diaryView)
-        let convertedCenter = CGPoint(x: drawingContentView.bounds.maxX / 2.0, y: drawingContentView.bounds.maxY / 2.0)
-        drawingContentView.createTextField(targetPoint: convertedCenter)
+        drawingContentView.shouldMakeTextField = true
+
+        /*
+         TODO: - drawingContentView에 속지 정보를 줘야함 종상형 헬프
+         1. 속지 정보 (fitMode를 해줘야하는 속지인지, isFitMode?)
+         2. fit 되야하는 프레임 정보
+
+         1, 2 를 얻을 수 있는 인터페이스가 있으면 편할 것 같음 추후에 구현 필요
+         */
     }
 
     override func didEndPhotoPick(_ image: UIImage) {

@@ -9,19 +9,22 @@
         <attribute name="width" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="x" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="y" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="diary" maxCount="1" deletionRule="No Action" destinationEntity="Paper" inverseName="contents" inverseEntity="Paper"/>
+        <relationship name="diary" maxCount="1" deletionRule="No Action" destinationEntity="Diary"/>
         <relationship name="paper" maxCount="1" deletionRule="No Action" destinationEntity="Paper"/>
     </entity>
     <entity name="DecorationStickerItem" representedClassName="DecorationStickerItemMO" parentEntity="DecorationItem" syncable="YES" codeGenerationType="category"/>
-    <entity name="DecorationTextFieldItem" representedClassName="DecorationTextFieldItemMO" parentEntity="DecorationItem" syncable="YES" codeGenerationType="category"/>
+    <entity name="DecorationTextFieldItem" representedClassName="DecorationTextFieldItemMO" parentEntity="DecorationItem" syncable="YES" codeGenerationType="category">
+        <attribute name="textData" optional="YES" attributeType="Binary"/>
+    </entity>
     <entity name="Diary" representedClassName="DiaryMO" syncable="YES" codeGenerationType="category">
         <attribute name="colorHex" attributeType="String"/>
         <attribute name="drawCanvas" attributeType="Binary"/>
+        <attribute name="hasLogo" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="String"/>
+        <attribute name="isLock" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="thumbnail" attributeType="Binary"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="contents" toMany="YES" deletionRule="No Action" ordered="YES" destinationEntity="DecorationItem"/>
-        <relationship name="papers" toMany="YES" deletionRule="No Action" ordered="YES" destinationEntity="Paper" inverseName="diary" inverseEntity="Paper"/>
     </entity>
     <entity name="Paper" representedClassName="PaperMO" syncable="YES" codeGenerationType="category">
         <attribute name="diaryId" attributeType="String"/>
@@ -33,8 +36,8 @@
         <attribute name="thumbnail" attributeType="Binary"/>
         <attribute name="title" attributeType="String"/>
         <attribute name="width" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="contents" toMany="YES" deletionRule="No Action" destinationEntity="DecorationItem" inverseName="diary" inverseEntity="DecorationItem"/>
-        <relationship name="diary" maxCount="1" deletionRule="No Action" destinationEntity="Diary" inverseName="papers" inverseEntity="Diary"/>
+        <relationship name="contents" toMany="YES" deletionRule="No Action" destinationEntity="DecorationItem"/>
+        <relationship name="diary" maxCount="1" deletionRule="No Action" destinationEntity="Diary"/>
         <relationship name="scheduler" toMany="YES" deletionRule="No Action" ordered="YES" destinationEntity="PaperScheduler" inverseName="paper" inverseEntity="PaperScheduler"/>
     </entity>
     <entity name="PaperScheduler" representedClassName="PaperSchedulerMO" syncable="YES" codeGenerationType="category">
@@ -49,10 +52,10 @@
     </entity>
     <elements>
         <element name="DecorationImageItem" positionX="-315" positionY="-270" width="128" height="29"/>
-        <element name="DecorationItem" positionX="-324" positionY="-270" width="128" height="14"/>
+        <element name="DecorationItem" positionX="-324" positionY="-270" width="128" height="164"/>
         <element name="DecorationStickerItem" positionX="-306" positionY="-261" width="128" height="29"/>
-        <element name="DecorationTextFieldItem" positionX="-297" positionY="-252" width="128" height="29"/>
-        <element name="Diary" positionX="-205.9453125" positionY="-438.79296875" width="173.7578125" height="134"/>
+        <element name="DecorationTextFieldItem" positionX="-297" positionY="-252" width="128" height="44"/>
+        <element name="Diary" positionX="-205.9453125" positionY="-438.79296875" width="173.7578125" height="163"/>
         <element name="Paper" positionX="-489.12109375" positionY="-332.0703125" width="128" height="209"/>
         <element name="PaperScheduler" positionX="-488.76171875" positionY="-76.8984375" width="128" height="149"/>
     </elements>

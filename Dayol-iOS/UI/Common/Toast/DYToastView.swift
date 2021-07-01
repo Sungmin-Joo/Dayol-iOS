@@ -36,12 +36,12 @@ struct DYToastConfigure {
                                              height: Design.defaultHeight,
                                              toastDuration: Design.toastDuration)
 
-    let cornerRadius: CGFloat
-    let backgroundColor: UIColor
-    let attributes: [NSAttributedString.Key: Any]
-    let width: CGFloat
-    let height: CGFloat
-    let toastDuration: TimeInterval
+    var cornerRadius: CGFloat
+    var backgroundColor: UIColor
+    var attributes: [NSAttributedString.Key: Any]
+    var width: CGFloat
+    var height: CGFloat
+    var toastDuration: TimeInterval
 }
 
 class DYToast: UILabel {

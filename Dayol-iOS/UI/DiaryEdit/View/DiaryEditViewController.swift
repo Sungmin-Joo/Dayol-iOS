@@ -81,11 +81,9 @@ class DiaryEditViewController: DrawableViewController {
     }
 
     override func didTapTextButton() {
+        super.didTapTextButton()
         drawingContentView.currentToolSubject.onNext(nil)
-        // TODO: - 탭 한 부분에 텍스트 필드를 생성하는 로직 추가
-        // let convertedCenter = view.convert(view.center, to: diaryEditCoverView.diaryView)
-        let convertedCenter = CGPoint(x: drawingContentView.bounds.maxX / 2.0, y: drawingContentView.bounds.maxY / 2.0)
-        drawingContentView.createTextField(targetPoint: convertedCenter)
+        drawingContentView.shouldMakeTextField = true
     }
 
     override func didEndPhotoPick(_ image: UIImage) {
@@ -141,6 +139,7 @@ class DiaryEditViewController: DrawableViewController {
         navigationBind()
         switchBind()
         viewModelBind()
+        bindDrawingContentViewBind()
     }
     
     private func switchBind() {
@@ -298,7 +297,6 @@ private extension DiaryEditViewController {
                                hasLogo: hasLogo,
                                thumbnail: diaryEditCoverView.asThumbnail?.pngData() ?? Data(),
                                drawCanvas: drawCanvasData,
-                               papers: [],
                                contents: contents)
 
         self.viewModel.createDiaryInfo(model: diaryModel)
