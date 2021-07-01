@@ -13,6 +13,12 @@ class DrawingContentView: UIView, Undoable {
     private let disposeBag = DisposeBag()
     let canvas = PKCanvasView()
     let currentToolSubject = BehaviorSubject<DYDrawTool?>(value: nil)
+    var currentEditContent: DYStickerView? = nil {
+        didSet {
+            oldValue?.showEditingHandlers = false
+            currentEditContent?.showEditingHandlers = true
+        }
+    }
 
     init() {
         super.init(frame: .zero)
@@ -30,6 +36,7 @@ class DrawingContentView: UIView, Undoable {
             canvas.allowsFingerDrawing = true
         }
         addSubViewPinEdge(canvas)
+        addGesture()
     }
 
     private func bindEvent() {
@@ -42,6 +49,20 @@ class DrawingContentView: UIView, Undoable {
             self?.canvas.tool = pkTool
         }
         .disposed(by: disposeBag)
+    }
+
+    private func addGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTappedAnyWhere(_:)))
+        addGestureRecognizer(tapGesture)
+    }
+
+    @objc
+    private func didTappedAnyWhere(_ sender: Any) {
+        currentEditContent?.showEditingHandlers = false
+    }
+
+    func resetContentEditStatus() {
+        currentEditContent?.showEditingHandlers = false
     }
 }
 
@@ -75,7 +96,7 @@ extension DrawingContentView {
         setStreachableView(id: id, image: image, currentPage: currentPage)
     }
 
-    private func setStreachableView( id: String, image: UIImage, currentPage: Int) {
+    private func setStreachableView(id: String, image: UIImage, currentPage: Int) {
         // TODO: - 속지에서 superview의 스케일때문에 센터가 잘 안맞는 것 같은데 종상이형이 한번 손봐주면 좋을 것 같습니다.
         let calcedCenter = CGPoint(x: center.x, y: center.y * CGFloat(currentPage + 1))
         let imageView = UIImageView(image: image)
@@ -89,7 +110,10 @@ extension DrawingContentView {
         stickerView.enableRotate = true
         stickerView.enableHStretch = true
         stickerView.enableWStretch = true
+        stickerView.showEditingHandlers = false
         stickerView.center = calcedCenter
+        stickerView.delegate = self
+        currentEditContent = stickerView
         addSubviewWithUndoManager(stickerView)
     }
 }
@@ -139,5 +163,14 @@ extension DrawingContentView {
             return nil
         }
         return items
+    }
+}
+
+// MARK: - Sticker Delegate
+
+extension DrawingContentView: DYStickerViewDelegate {
+    func stickerView(_ stickerView: DYStickerView, didTapSticker: Bool) {
+        currentEditContent = stickerView
+        stickerView.showEditingHandlers = true
     }
 }

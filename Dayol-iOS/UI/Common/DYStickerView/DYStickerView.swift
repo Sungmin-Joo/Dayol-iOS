@@ -14,6 +14,7 @@ private enum Design {
     static let hStretchImage = UIImage(named: "stretchH")
     static let whStretchImage = UIImage(named: "stretchWH")
     static let closeImage = UIImage.remove
+    static let contrainerInset: CGFloat = 5
 }
 
 public enum DYStickerViewHandler: Int {
@@ -36,22 +37,21 @@ public enum DYStickerViewHandlerPosition: Int {
 
 // MARK: - Delegate
 
-@objc
-public protocol DYStickerViewDelegate {
-    @objc func stickerView(_ stickerView: DYStickerView, didBeginMove point: CGPoint)
-    @objc func stickerView(_ stickerView: DYStickerView, didChangeMove point: CGPoint)
-    @objc func stickerView(_ stickerView: DYStickerView, didEndMove point: CGPoint)
-    @objc func stickerView(_ stickerView: DYStickerView, didBeginRotate angle: CGFloat)
-    @objc func stickerView(_ stickerView: DYStickerView, didChangeRotate angle: CGFloat)
-    @objc func stickerView(_ stickerView: DYStickerView, didEndRotate angle: CGFloat)
-    @objc func stickerView(_ stickerView: DYStickerView, didBeginWidth: CGFloat)
-    @objc func stickerView(_ stickerView: DYStickerView, didChangeWidth: CGFloat)
-    @objc func stickerView(_ stickerView: DYStickerView, didEndWidth: CGFloat)
-    @objc func stickerView(_ stickerView: DYStickerView, didBeginHeight: CGFloat)
-    @objc func stickerView(_ stickerView: DYStickerView, didChangeHeight: CGFloat)
-    @objc func stickerView(_ stickerView: DYStickerView, didEndHeight: CGFloat)
-    @objc func stickerView(_ stickerView: DYStickerView, didTapClose: Bool)
-    @objc func stickerView(_ stickerView: DYStickerView, didTapSticker: Bool)
+public protocol DYStickerViewDelegate: AnyObject {
+    func stickerView(_ stickerView: DYStickerView, didBeginMove point: CGPoint)
+    func stickerView(_ stickerView: DYStickerView, didChangeMove point: CGPoint)
+    func stickerView(_ stickerView: DYStickerView, didEndMove point: CGPoint)
+    func stickerView(_ stickerView: DYStickerView, didBeginRotate angle: CGFloat)
+    func stickerView(_ stickerView: DYStickerView, didChangeRotate angle: CGFloat)
+    func stickerView(_ stickerView: DYStickerView, didEndRotate angle: CGFloat)
+    func stickerView(_ stickerView: DYStickerView, didBeginWidth: CGFloat)
+    func stickerView(_ stickerView: DYStickerView, didChangeWidth: CGFloat)
+    func stickerView(_ stickerView: DYStickerView, didEndWidth: CGFloat)
+    func stickerView(_ stickerView: DYStickerView, didBeginHeight: CGFloat)
+    func stickerView(_ stickerView: DYStickerView, didChangeHeight: CGFloat)
+    func stickerView(_ stickerView: DYStickerView, didEndHeight: CGFloat)
+    func stickerView(_ stickerView: DYStickerView, didTapClose: Bool)
+    func stickerView(_ stickerView: DYStickerView, didTapSticker: Bool)
 }
 
 // For Optional Delegate
@@ -59,9 +59,9 @@ extension DYStickerViewDelegate {
     func stickerView(_ stickerView: DYStickerView, didBeginMove point: CGPoint) { }
     func stickerView(_ stickerView: DYStickerView, didChangeMove point: CGPoint) { }
     func stickerView(_ stickerView: DYStickerView, didEndMove point: CGPoint) { }
-    func stickerView(_ stickerView: DYStickerView, didBeginRotate angle: Float) { }
-    func stickerView(_ stickerView: DYStickerView, didChangeRotate angle: Float) { }
-    func stickerView(_ stickerView: DYStickerView, didEndRotate angle: Float) { }
+    func stickerView(_ stickerView: DYStickerView, didBeginRotate angle: CGFloat) { }
+    func stickerView(_ stickerView: DYStickerView, didChangeRotate angle: CGFloat) { }
+    func stickerView(_ stickerView: DYStickerView, didEndRotate angle: CGFloat) { }
     func stickerView(_ stickerView: DYStickerView, didBeginWidth: CGFloat) { }
     func stickerView(_ stickerView: DYStickerView, didChangeWidth: CGFloat) { }
     func stickerView(_ stickerView: DYStickerView, didEndWidth: CGFloat) { }
@@ -145,7 +145,7 @@ public class DYStickerView: UIView {
     
     // MARK: - Initailize
     
-    public var contentView: UIView!
+    public var containerView: UIView!
     public weak var delegate: DYStickerViewDelegate?
     
     public var enableClose: Bool = true {
@@ -187,13 +187,13 @@ public class DYStickerView: UIView {
                 self.setEnableClose(self.enableClose)
                 self.setEnableWStretch(self.enableWStretch)
                 self.setEnableHStretch(self.enableHStretch)
-                self.contentView.layer.borderWidth = 1
+                self.containerView.layer.borderWidth = 1
             } else {
                 self.setEnableRotate(false)
                 self.setEnableClose(false)
                 self.setEnableWStretch(false)
                 self.setEnableHStretch(false)
-                self.contentView.layer.borderWidth = 0
+                self.containerView.layer.borderWidth = 0
             }
         }
     }
@@ -213,32 +213,47 @@ public class DYStickerView: UIView {
    
     public init(contentView: UIView) {
         var frame = contentView.frame
-        self.contentView = contentView
         self.defaultInset = 11
         self.defaultMinimumSize = 90
         
         frame = CGRect(x: 0,
                        y: 0,
+                       width: frame.size.width + CGFloat(Design.contrainerInset) * 2,
+                       height: frame.size.height + CGFloat(Design.contrainerInset) * 2)
+        self.containerView = .init(frame: frame)
+
+        frame = containerView.frame
+        frame = CGRect(x: 0,
+                       y: 0,
                        width: frame.size.width + CGFloat(defaultInset) * 2,
                        height: frame.size.height + CGFloat(defaultInset) * 2)
         super.init(frame: frame)
-        
+        self.containerView.addSubview(contentView)
         self.backgroundColor = .clear
         
         setupGesture()
-        initContentView()
+        initContentView(contentView: contentView)
+        initContainerView()
         setupHandlers()
         
         self.minimumSize = self.defaultMinimumSize
         self.outlineBorderColor = .brown
     }
-    
-    private func initContentView() {
-        self.contentView.center = centerPoint(self.bounds)
-        self.contentView.isUserInteractionEnabled = false
-        self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.contentView.layer.allowsEdgeAntialiasing = true
-        self.addSubview(self.contentView)
+
+    private func initContentView(contentView: UIView) {
+        contentView.center = containerView.center
+        contentView.isUserInteractionEnabled = false
+        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        contentView.layer.allowsEdgeAntialiasing = true
+        containerView.addSubview(contentView)
+    }
+
+    private func initContainerView() {
+        self.containerView.center = centerPoint(self.bounds)
+        self.containerView.isUserInteractionEnabled = false
+        self.containerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.containerView.layer.allowsEdgeAntialiasing = true
+        self.addSubview(self.containerView)
     }
     
     private func setupGesture() {
@@ -283,8 +298,8 @@ public class DYStickerView: UIView {
     }
     
     public func setPosition(_ position: DYStickerViewHandlerPosition, for handler: DYStickerViewHandler) {
-        let origin = self.contentView.frame.origin
-        let size = self.contentView.frame.size
+        let origin = self.containerView.frame.origin
+        let size = self.containerView.frame.size
         
         var handlerView: UIImageView?
         
@@ -338,17 +353,17 @@ public class DYStickerView: UIView {
         
         let originalCenter = self.center
         let originalTransform = self.transform
-        var frame = self.contentView.frame
+        var frame = self.containerView.frame
         frame = CGRect(x: 0, y: 0, width: frame.size.width + CGFloat(self.defaultInset) * 2, height: frame.size.height + CGFloat(self.defaultInset) * 2)
         
-        self.contentView.removeFromSuperview()
+        self.containerView.removeFromSuperview()
         
         self.transform = .identity
         self.frame = frame
         
-        self.contentView.center = centerPoint(self.bounds)
-        self.addSubview(self.contentView)
-        self.sendSubviewToBack(self.contentView)
+        self.containerView.center = centerPoint(self.bounds)
+        self.addSubview(self.containerView)
+        self.sendSubviewToBack(self.containerView)
         
         let handlerFrame = CGRect(x: 0,
                                   y: 0,
@@ -416,7 +431,7 @@ public class DYStickerView: UIView {
             self.bounds = scaleBound
             
             self.setNeedsDisplay()
-            delegate?.stickerView(self, didChangeRotate: angle)
+            delegate?.stickerView(self, didChangeRotate: CGFloat(angle))
         case .ended:
             delegate?.stickerView(self, didChangeRotate: self.deltaAngle)
         default:
@@ -506,7 +521,7 @@ public extension DYStickerView {
         }
         set {
             _outlineBorderColor = newValue
-            self.contentView?.layer.borderColor = _outlineBorderColor.cgColor
+            self.containerView?.layer.borderColor = _outlineBorderColor.cgColor
         }
     }
 }
