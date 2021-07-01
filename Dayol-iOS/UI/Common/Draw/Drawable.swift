@@ -107,6 +107,8 @@ extension Drawable where Self: UIViewController {
                 self.didEndStickerPick(stickerImage)
             })
             .disposed(by: disposeBag)
+
+        drawingContentView.shouldMakeTextField = false
     }
 
 }
@@ -119,20 +121,20 @@ extension Drawable where Self: UIViewController {
         toolBar.undoButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-                self.currentTool = nil
                 if self.undoManager?.canUndo == true {
                     self.undoManager?.undo()
                 }
+                self.currentTool = .undo
             }
             .disposed(by: disposeBag)
 
         toolBar.redoButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-                self.currentTool = nil
                 if self.undoManager?.canRedo == true {
                     self.undoManager?.redo()
                 }
+                self.currentTool = .redo
             }
             .disposed(by: disposeBag)
     }
@@ -199,6 +201,7 @@ extension Drawable where Self: UIViewController {
     private func photoBind() {
         toolBar.photoButton.rx.tap
             .bind { [weak self] in
+                self?.currentTool = .photo
                 self?.showImagePicker()
             }
             .disposed(by: disposeBag)
@@ -207,6 +210,7 @@ extension Drawable where Self: UIViewController {
     private func stickerBind() {
         toolBar.stickerButton.rx.tap
             .bind { [weak self] in
+                self?.currentTool = .sticker
                 self?.presentStickerModal()
             }
             .disposed(by: disposeBag)
@@ -223,6 +227,7 @@ extension Drawable where Self: UIViewController {
         let isHighlighter = currentPencilTool.isHighlighter
         let pencilTool = DYPencilTool(color: pencilColor, isHighlighter: isHighlighter)
         drawingContentView.currentToolSubject.onNext(pencilTool)
+        drawingContentView.shouldMakeTextField = false
     }
 
     func didEndPencilSetting(color: UIColor, isHighlighter: Bool) {
@@ -238,6 +243,7 @@ extension Drawable where Self: UIViewController {
         let isObjectErase = currentEraseTool.isObjectErase
         let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
         drawingContentView.currentToolSubject.onNext(eraseTool)
+        drawingContentView.shouldMakeTextField = false
     }
 
     func didEndEraseSetting(isObjectErase: Bool) {
@@ -251,5 +257,6 @@ extension Drawable where Self: UIViewController {
     func didTapSnareButton() {
         let lassoTool = DYLassoTool()
         drawingContentView.currentToolSubject.onNext(lassoTool)
+        drawingContentView.shouldMakeTextField = false
     }
 }
