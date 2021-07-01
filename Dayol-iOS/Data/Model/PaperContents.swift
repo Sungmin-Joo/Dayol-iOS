@@ -7,17 +7,8 @@
 
 import Foundation
 
-protocol DecorationItem: Codable {
-    var id: String { get } // C1, C2
-    var parentId: String { get } // Dx or Px
 
-    var width: Float { get }
-    var height: Float { get }
-    var x: Float { get }
-    var y: Float { get }
-}
-
-struct DecorationImageItem: DecorationItem {
+class DecorationItem {
     let id: String
     let parentId: String
 
@@ -26,31 +17,43 @@ struct DecorationImageItem: DecorationItem {
     let x: Float
     let y: Float
 
+    init(id: String, parentId: String, width: Float, height: Float, x: Float, y: Float) {
+        self.id = id
+        self.parentId = parentId
+        self.width = width
+        self.height = height
+        self.x = x
+        self.y = y
+    }
+}
+
+class DecorationImageItem: DecorationItem {
     let image: Data
     let inclination: Float
+
+    init(id: String, parentId: String, width: Float, height: Float, x: Float, y: Float, image: Data, inclination: Float) {
+        self.image = image
+        self.inclination = inclination
+        super.init(id: id, parentId: parentId, width: width, height: height, x: x, y: y)
+    }
 }
 
-struct DecorationStickerItem: DecorationItem {
-    let id: String
-    let parentId: String
-
-    let width: Float
-    let height: Float
-    let x: Float
-    let y: Float
-
+class DecorationStickerItem: DecorationItem {
     let image: Data
     let inclination: Float
+
+    init(id: String, parentId: String, width: Float, height: Float, x: Float, y: Float, image: Data, inclination: Float) {
+        self.image = image
+        self.inclination = inclination
+        super.init(id: id, parentId: parentId, width: width, height: height, x: x, y: y)
+    }
 }
 
-struct DecorationTextFieldItem: DecorationItem {
-    let id: String
-    let parentId: String
-
-    let width: Float
-    let height: Float
-    let x: Float
-    let y: Float
-
+class DecorationTextFieldItem: DecorationItem {
     let textData: Data
+
+    init(id: String, parentId: String, width: Float, height: Float, x: Float, y: Float, textData: Data) {
+        self.textData = textData
+        super.init(id: id, parentId: parentId, width: width, height: height, x: x, y: y)
+    }
 }

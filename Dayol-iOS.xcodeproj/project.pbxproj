@@ -130,6 +130,7 @@
 		34CA255B25A75A340057404D /* SettingCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA255A25A75A340057404D /* SettingCellProtocol.swift */; };
 		34CA255E25A761060057404D /* OutAppSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA255D25A761060057404D /* OutAppSettingCell.swift */; };
 		34CD663A2683774800DECFF7 /* DrawableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CD66392683774800DECFF7 /* DrawableViewController.swift */; };
+		34CD663C268A20CC00DECFF7 /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CD663B268A20CC00DECFF7 /* DiaryManager.swift */; };
 		34E6138A262F02A10076FE74 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61389262F02A10076FE74 /* ColorPicker.swift */; };
 		34E6138E262F02D80076FE74 /* ColorMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E6138D262F02D80076FE74 /* ColorMapView.swift */; };
 		34E61391262F02EA0076FE74 /* ColorMapCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61390262F02EA0076FE74 /* ColorMapCursor.swift */; };
@@ -365,6 +366,7 @@
 		34CA255A25A75A340057404D /* SettingCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellProtocol.swift; sourceTree = "<group>"; };
 		34CA255D25A761060057404D /* OutAppSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutAppSettingCell.swift; sourceTree = "<group>"; };
 		34CD66392683774800DECFF7 /* DrawableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawableViewController.swift; sourceTree = "<group>"; };
+		34CD663B268A20CC00DECFF7 /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
 		34E61389262F02A10076FE74 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		34E6138D262F02D80076FE74 /* ColorMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapView.swift; sourceTree = "<group>"; };
 		34E61390262F02EA0076FE74 /* ColorMapCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapCursor.swift; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 				DA5A117926760F58002C7EA8 /* Diary.swift */,
 				DA5A117C26760F64002C7EA8 /* Paper.swift */,
 				DA5A117F26760F6E002C7EA8 /* PaperScheldule.swift */,
+				34CD663B268A20CC00DECFF7 /* DiaryManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1736,6 +1739,7 @@
 				DAA250922678C273009978DB /* CircularProgressView.swift in Sources */,
 				3452671325DD66F400EC6F9D /* DataBackupExportContentView.swift in Sources */,
 				DA27AC7525D16E6800C71CDE /* DiaryEditViewModel.swift in Sources */,
+				34CD663C268A20CC00DECFF7 /* DiaryManager.swift in Sources */,
 				3434B76B25A4797B00506152 /* DYModalViewController.swift in Sources */,
 				DA5A116A26760818002C7EA8 /* ScheduleCheckView.swift in Sources */,
 				DADD0A0125A34ED6004D6CF0 /* PaletteColor.swift in Sources */,
