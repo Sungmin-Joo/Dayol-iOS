@@ -7,12 +7,80 @@
 
 import UIKit
 
-struct SubscribeProduct {
-    let title: String
-    let price: String
-    let description: String
+enum SubscribeItemType: Hashable {
+    static func == (lhs: SubscribeItemType, rhs: SubscribeItemType) -> Bool {
+        lhs.title == rhs.title
+    }
 
-    let emphasisTitleStrings: [String]
+    struct SubscribeProductInfo: Hashable {
+        let title: String
+        let price: String
+        let description: String
+    }
+
+    case year(product: SubscribeProductInfo)
+    case month(product: SubscribeProductInfo)
+
+    var order: Int {
+        switch self {
+        case .year: return 1
+        case .month: return 2
+        }
+    }
+
+    var title: String {
+        switch self {
+        case .year(let product): return product.title
+        case .month(let product): return product.title
+        }
+    }
+
+    var price: String {
+        switch self {
+        case .year(let product): return "membership_year_info_price".localized.with(arguments: product.price)
+        case .month(let product): return "membership_month_info_price".localized.with(arguments: product.price)
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .year(let product): return product.description
+        case .month(let product): return product.description
+        }
+    }
+
+    var emphasisTitleStrings: [String] {
+        switch self {
+        case .year(let product): return [product.title.components(separatedBy: " ").first ?? ""]
+        case .month(let product): return [product.title.components(separatedBy: " ").first ?? ""]
+        }
+    }
+
+    func buttonTitle(with userActivityType: UserActivityType) -> String {
+        switch userActivityType {
+        case .new:
+            return "membership_subscribe_button_event_title".localized
+        case .expiredSubscriber:
+            return "membership_subscribe_button_restart_title".localized
+        default:
+            return ""
+        }
+    }
+
+    func buttonDescription(with userActivityType: UserActivityType) -> String {
+        switch self {
+        case .year(let productInfo) where userActivityType == .new:
+            return "membership_new_year_subscribe_button_description".localized.with(arguments: productInfo.price)
+        case .year(let productInfo) where userActivityType == .expiredSubscriber:
+            return "membership_comeback_year_subscribe_button_description".localized.with(arguments: productInfo.price)
+        case .month(let productInfo) where userActivityType == .new:
+            return "membership_new_month_subscribe_button_description".localized.with(arguments: productInfo.price)
+        case .month(let productInfo) where userActivityType == .expiredSubscriber:
+            return "membership_comeback_month_subscribe_button_description".localized.with(arguments: productInfo.price)
+        default:
+            return ""
+        }
+    }
 }
 
 private enum Design {
@@ -113,6 +181,8 @@ class SubscribeProductView: UIView {
         addConstraints()
     }
 
+    private(set) var type: SubscribeItemType?
+
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     private func addSubviews() {
@@ -144,13 +214,12 @@ class SubscribeProductView: UIView {
         selectBox.setImage(Design.selectBoxImage(isOn: isSelected), for: .normal)
     }
 
-    func configure(with model: SubscribeProduct) {
-        productTitleLabel.text = model.title
-        productTitleLabel.adjustPartialStringFont(model.emphasisTitleStrings, partFont: Design.emphasisTitleFont)
-
-        priceLabel.text = model.price
-
-        descriptionLabel.text = model.description
+    func configure(with type: SubscribeItemType) {
+        self.type = type
+        productTitleLabel.text = type.title
+        productTitleLabel.adjustPartialStringFont(type.emphasisTitleStrings, partFont: Design.emphasisTitleFont)
+        priceLabel.text = type.price
+        descriptionLabel.text = type.description
     }
 }
 

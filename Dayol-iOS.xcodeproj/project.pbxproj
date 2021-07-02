@@ -35,9 +35,12 @@
 		0DA235B92661186E003AA15F /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235B82661186E003AA15F /* FSCalendar */; };
 		0DA235BC266118AC003AA15F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235BB266118AC003AA15F /* RxCocoa */; };
 		0DA235BE266118AC003AA15F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235BD266118AC003AA15F /* RxSwift */; };
+		0DBA30A1268E1812004BACE7 /* Rxswift+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBA30A0268E1812004BACE7 /* Rxswift+Extension.swift */; };
 		0DC56E96265510020056C28E /* OnboadingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E95265510020056C28E /* OnboadingContentView.swift */; };
 		0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E9726551AA40056C28E /* UILabel+Extension.swift */; };
 		0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E992655530D0056C28E /* UIButton.Extension.swift */; };
+		0DE6C7AC268CAB1900A79CFD /* JSONDecoder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6C7AB268CAB1900A79CFD /* JSONDecoder+Extension.swift */; };
+		0DE6C7AE268CAB3500A79CFD /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6C7AD268CAB3500A79CFD /* Data+Extension.swift */; };
 		0DEAD267267606C8009A3554 /* PaperSchedulerMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEAD259267606C8009A3554 /* PaperSchedulerMO+CoreDataClass.swift */; };
 		0DEAD268267606C8009A3554 /* PaperMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEAD25A267606C8009A3554 /* PaperMO+CoreDataClass.swift */; };
 		0DEAD269267606C8009A3554 /* DecorationItemMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEAD25B267606C8009A3554 /* DecorationItemMO+CoreDataClass.swift */; };
@@ -49,6 +52,7 @@
 		0DF038712683723300DB4DDF /* SubscribeProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF038702683723300DB4DDF /* SubscribeProductView.swift */; };
 		0DF60D9C26739D5500F0A1E8 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */; };
 		0DF60DA02673AC8D00F0A1E8 /* FirebaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF60D9F2673AC8D00F0A1E8 /* FirebaseStorage.swift */; };
+		0DFE24C8268E035600B86F1C /* DYHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE24C7268E035600B86F1C /* DYHUD.swift */; };
 		340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A025C2DC73007F2EF7 /* DYToastView.swift */; };
 		340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */; };
 		340E56AA25C831E2007F2EF7 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A925C831E2007F2EF7 /* InfoView.swift */; };
@@ -257,10 +261,13 @@
 		0DA235A42661135F003AA15F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0DA235A62661145B003AA15F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		0DA235A8266115B7003AA15F /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
+		0DBA30A0268E1812004BACE7 /* Rxswift+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rxswift+Extension.swift"; sourceTree = "<group>"; };
 		0DC56E95265510020056C28E /* OnboadingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingContentView.swift; sourceTree = "<group>"; };
 		0DC56E9726551AA40056C28E /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		0DC56E992655530D0056C28E /* UIButton.Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.Extension.swift; sourceTree = "<group>"; };
 		0DE0D1EC26611ED000A302EB /* DAYOLBeta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DAYOLBeta.entitlements; sourceTree = "<group>"; };
+		0DE6C7AB268CAB1900A79CFD /* JSONDecoder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extension.swift"; sourceTree = "<group>"; };
+		0DE6C7AD268CAB3500A79CFD /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		0DEAD259267606C8009A3554 /* PaperSchedulerMO+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PaperSchedulerMO+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0DEAD25A267606C8009A3554 /* PaperMO+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PaperMO+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0DEAD25B267606C8009A3554 /* DecorationItemMO+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecorationItemMO+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -275,6 +282,7 @@
 		0DF60D992673927F00F0A1E8 /* DAYOL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DAYOL.entitlements; path = SupportingFiles/DAYOL.entitlements; sourceTree = SOURCE_ROOT; };
 		0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		0DF60D9F2673AC8D00F0A1E8 /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
+		0DFE24C7268E035600B86F1C /* DYHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYHUD.swift; sourceTree = "<group>"; };
 		340E56A025C2DC73007F2EF7 /* DYToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYToastView.swift; sourceTree = "<group>"; };
 		340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		340E56A925C831E2007F2EF7 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -929,6 +937,7 @@
 				CE8DCC96259101B6007738EA /* DeviceInfo.swift */,
 				0D27B09A264FFD12001AD911 /* Thread.swift */,
 				0D07CD762674DCC70007E36D /* Logging.swift */,
+				0DFE24C7268E035600B86F1C /* DYHUD.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1052,6 +1061,9 @@
 				DA6FF5F12667B5DB006B0B34 /* UICollectionView+Extension.swift */,
 				DA5A10FA266B7BA4002C7EA8 /* UIImage+Extension.swift */,
 				345128752636FEB900D65627 /* Drawable.swift */,
+				0DE6C7AB268CAB1900A79CFD /* JSONDecoder+Extension.swift */,
+				0DE6C7AD268CAB3500A79CFD /* Data+Extension.swift */,
+				0DBA30A0268E1812004BACE7 /* Rxswift+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1750,6 +1762,7 @@
 				DA6FF5ED2667AFB9006B0B34 /* MonthlyPaperListCollectionViewCell.swift in Sources */,
 				34CA254F25A61BBE0057404D /* InAppSettingCell.swift in Sources */,
 				340E56C025C975DE007F2EF7 /* PaperListContentViewModel.swift in Sources */,
+				0DE6C7AC268CAB1900A79CFD /* JSONDecoder+Extension.swift in Sources */,
 				3416445725D8C20600A81FD2 /* DeletedPageViewModel.swift in Sources */,
 				34CA254225A613CE0057404D /* String+Extension.swift in Sources */,
 				DA81DF4625BEE5A400A4B2CE /* MonthlyCalendarHeaderView.swift in Sources */,
@@ -1760,6 +1773,7 @@
 				DA5A116C26760818002C7EA8 /* ScheduleTextFieldView.swift in Sources */,
 				34A2EDC225B856D1008DB98D /* PaperModel.swift in Sources */,
 				DA5A10FB266B7BA4002C7EA8 /* UIImage+Extension.swift in Sources */,
+				0DE6C7AE268CAB3500A79CFD /* Data+Extension.swift in Sources */,
 				0D27B0A02650008B001AD911 /* DayolUserDefault.swift in Sources */,
 				DAD48A36260CD563008B542E /* StickerModalCollectionView.swift in Sources */,
 				344AD29726398CBF0055562D /* DYDrawTool.swift in Sources */,
@@ -1821,6 +1835,7 @@
 				34C7B3822619EA9200BC6A28 /* TextStyleLineSpaceOptionView.swift in Sources */,
 				DA5A116926760818002C7EA8 /* ScheduleDateDisplayView.swift in Sources */,
 				34E61391262F02EA0076FE74 /* ColorMapCursor.swift in Sources */,
+				0DBA30A1268E1812004BACE7 /* Rxswift+Extension.swift in Sources */,
 				34B6C14125BDB28400C2596F /* DYKeyboardInputAccessoryView.swift in Sources */,
 				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
 				3462FDBB26305066008E4A6C /* PencilAlphaInfoView.swift in Sources */,
@@ -1891,6 +1906,7 @@
 				DADD0A0525A35445004D6CF0 /* DiaryEditColorPaletteCell.swift in Sources */,
 				34AD5A7A25C97D0900D9E29C /* PaperListCell.swift in Sources */,
 				34C7B3692619763300BC6A28 /* TextStyleView.swift in Sources */,
+				0DFE24C8268E035600B86F1C /* DYHUD.swift in Sources */,
 				DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */,
 				34A07156262DCE1E009BA700 /* ColorPickerContentView.swift in Sources */,
 				0DF038712683723300DB4DDF /* SubscribeProductView.swift in Sources */,

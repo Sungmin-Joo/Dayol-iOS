@@ -29,12 +29,12 @@
           "localizations" : [
             {
               "description" : "Pay monthly",
-              "displayName" : "1Month",
+              "displayName" : "1Month (30days)",
               "locale" : "en_US"
             },
             {
               "description" : "매월 결제",
-              "displayName" : "1개월",
+              "displayName" : "1개월 (30일)",
               "locale" : "ko"
             }
           ],

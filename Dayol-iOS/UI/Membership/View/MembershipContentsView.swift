@@ -15,11 +15,11 @@ private enum Design {
                 return [
                     UIImage(namedByLanguage: "imgMembership_new")
                 ]
-            case .comeback:
+            case .expiredSubscriber:
                 return [
                     UIImage(namedByLanguage: "imgMembership_comeback")
                 ]
-            case .exist:
+            case .subscriber:
                 return [
                     UIImage(namedByLanguage: "imgMembership_exist_header"),
                     UIImage(namedByLanguage: "imgMembership_exist_body")
@@ -40,14 +40,10 @@ class MembershipContentsView: UIView {
         return stackView
     }()
 
-    private let type: UserActivityType
-
-    required init(_ viewModel: MembershipViewController.ViewModel) {
-        self.type = viewModel.userActivityType
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.addSubviews()
         self.addConstraints()
-        self.configure()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -65,13 +61,14 @@ class MembershipContentsView: UIView {
         ])
     }
 
-    func configure() {
-        if type == .exist {
+    func configure(_ type: UserActivityType) {
+        if type == .subscriber {
             let headerImage = Design.Image.contents(with: type)[safe: 0] ?? UIImage()
             let bodyImage = Design.Image.contents(with: type)[safe: 1] ?? UIImage()
 
             let headerImageView = makeImageView(with: headerImage)
-            let expirationDateView = makeExpirationDateView(with: Date.now) // TODO: 실제 구독날자로 변경해야됨.
+            // TODO: 실제 구독날자로 변경해야됨.
+            let expirationDateView = makeExpirationDateView(with: Config.shared.isProd ? Date.now : Date(timeIntervalSince1970: 0))
             let bodyImageView = makeImageView(with: bodyImage)
 
             containerStackView.addArrangedSubview(headerImageView)
@@ -105,6 +102,22 @@ class MembershipContentsView: UIView {
         inView.layer.cornerRadius = 10
         inView.layer.masksToBounds = true
 
+        let descriptionLabel = UILabel()
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        descriptionLabel.textColor = .gray900
+        descriptionLabel.addLetterSpacing(-0.3)
+        descriptionLabel.text = "membership_expiration_date".localized
+
+        let dateLabel = UILabel()
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        dateLabel.textColor = .gray900
+        dateLabel.addLetterSpacing(-0.31)
+        dateLabel.text = "\(date.toString(type: .yearMonthDay))"
+
+        inView.addSubview(descriptionLabel)
+        inView.addSubview(dateLabel)
         outView.addSubview(inView)
 
         NSLayoutConstraint.activate([
@@ -113,7 +126,12 @@ class MembershipContentsView: UIView {
             inView.topAnchor.constraint(equalTo: outView.topAnchor),
             inView.bottomAnchor.constraint(equalTo: outView.bottomAnchor),
             inView.leadingAnchor.constraint(equalTo: outView.leadingAnchor, constant: 20),
-            inView.trailingAnchor.constraint(equalTo: outView.trailingAnchor, constant: -20)
+            inView.trailingAnchor.constraint(equalTo: outView.trailingAnchor, constant: -20),
+
+            descriptionLabel.centerYAnchor.constraint(equalTo: inView.centerYAnchor),
+            descriptionLabel.leadingAnchor.constraint(equalTo: inView.leadingAnchor, constant: 22),
+            dateLabel.centerYAnchor.constraint(equalTo: inView.centerYAnchor),
+            dateLabel.trailingAnchor.constraint(equalTo: inView.trailingAnchor, constant: -20)
         ])
 
         return outView
