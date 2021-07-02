@@ -62,8 +62,8 @@ extension DiaryListViewController: UICollectionViewDataSource {
         diaryListCell.viewModel = viewModel
         diaryListCell.isEditMode = isEditMode
 
-        diaryListCell.didTapModeMenuButtonWithDiaryId = { [weak self] diaryID in
-            self?.showDiaryMoreMenu(diaryID: diaryID)
+        diaryListCell.didTapModeMenuButton = { [weak self] in
+            self?.showDiaryMoreMenu(row: indexPath.row)
         }
         return diaryListCell
     }
@@ -95,7 +95,7 @@ extension DiaryListViewController {
         return offsetX
     }
 
-    func moveToIndex(_ index: Int, animated: Bool = true) {
+    func moveToIndex(_ index: Int, animated: Bool = false) {
         guard let offsetX = collectionViewOffsetX(index: index) else { return }
         let offset = CGPoint(x: offsetX, y: 0)
         collectionView.setContentOffset(offset, animated: animated)
@@ -172,7 +172,7 @@ extension DiaryListViewController {
             diaryCell.diaryCoverView.alpha = 1
         }
         
-        collectionView.setCollectionViewLayout(collectionViewFlowLayout, animated: false) { _ in
+        collectionView.setCollectionViewLayout(collectionViewFlowLayout, animated: true) { _ in
             completion?()
         }
     }

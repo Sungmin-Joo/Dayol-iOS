@@ -43,6 +43,7 @@ final class DYImageSizeStretchableView: DYStickerBaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // TODO: - 스티커와 이미지를 같은 모델을 사용하면 어떨지??? id값은 둘 다 있으니.. 로깅에 문제 없을 것 같은데..
     func toItem(id: String, parentId: String) -> DecorationImageItem? {
         guard let data = currentImage?.pngData() else { return nil }
         return DecorationImageItem(id: id,

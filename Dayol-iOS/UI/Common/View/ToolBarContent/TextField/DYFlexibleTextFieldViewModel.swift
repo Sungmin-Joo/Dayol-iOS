@@ -9,10 +9,15 @@ import Foundation
 import RxSwift
 
 class DYFlexibleTextFieldViewModel {
+    private(set) var id: String
     let bulletTypeSubject = BehaviorSubject<DYTextBoxBulletPoint.BulletType>(value: .none)
     let pointSubject = ReplaySubject<(x: Float, y: Float)>.createUnbounded()
     let sizeSubject = ReplaySubject<(width: Float, height: Float)>.createUnbounded()
     let attributedTextSubject = ReplaySubject<NSAttributedString>.createUnbounded()
+
+    init(id: String) {
+        self.id = id
+    }
 
 }
 
@@ -20,7 +25,7 @@ class DYFlexibleTextFieldViewModel {
 
 extension DYFlexibleTextFieldViewModel {
 
-    func toItem(id: String, parentId: String, text: NSAttributedString, x: Float, y: Float, width: Float, height: Float) -> DecorationTextFieldItem? {
+    func toItem(parentId: String, text: NSAttributedString, x: Float, y: Float, width: Float, height: Float) -> DecorationTextFieldItem? {
         let range = NSRange(location: 0, length: text.length)
         do {
             let data = try text.data(from: range,
@@ -44,11 +49,8 @@ extension DYFlexibleTextFieldViewModel {
             pointSubject.onNext((item.x, item.y))
             sizeSubject.onNext((item.width, item.height))
             attributedTextSubject.onNext(attributedText)
-//
-//            selectedRange = textView.selectedRange
-//            debugPrint("joo: currentAttributes[.foregroundColor] = \(attributedText.attributes(at: selectedRange.location, effectiveRange: &selectedRange)])" )
+            id = item.id
         }
     }
-
 
 }

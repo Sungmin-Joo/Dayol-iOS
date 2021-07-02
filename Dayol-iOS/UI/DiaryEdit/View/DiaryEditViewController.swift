@@ -23,15 +23,17 @@ private enum Text: String {
     case cancel = "취소"
 }
 
-class DiaryEditViewController: UIViewController, Drawable {
+class DiaryEditViewController: DrawableViewController {
 
     // MARK: - Drawable Property
-    let disposeBag = DisposeBag()
-
-    let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
-    var currentTool: DYNavigationDrawingToolbar.ToolType?
-    var currentEraseTool: DYEraseTool = DYEraseTool(isObjectErase: false)
-    var currentPencilTool: DYPencilTool = DYPencilTool(color: .black, isHighlighter: false)
+    override var drawingContentView: DrawingContentView {
+        get {
+            return diaryEditCoverView.diaryView.drawingContentView
+        }
+        set {
+            diaryEditCoverView.diaryView.drawingContentView = newValue
+        }
+    }
 
     // MARK: - Private Properties
 
@@ -77,6 +79,20 @@ class DiaryEditViewController: UIViewController, Drawable {
         setupNavigationBar()
         initView()
     }
+
+    override func didTapTextButton() {
+        super.didTapTextButton()
+        drawingContentView.currentToolSubject.onNext(nil)
+        drawingContentView.shouldMakeTextField = true
+    }
+
+    override func didEndPhotoPick(_ image: UIImage) {
+        drawingContentView.createImageSticker(image: image)
+    }
+
+    override func didEndStickerPick(_ image: UIImage) {
+        drawingContentView.createSticker(image: image)
+    }
     
     // MARK: - Setup Method
     
@@ -88,7 +104,6 @@ class DiaryEditViewController: UIViewController, Drawable {
         setConstraint()
         setupGesture()
         bind()
-        bindToolBarEvent()
     }
     
     private func setConstraint() {
@@ -124,6 +139,7 @@ class DiaryEditViewController: UIViewController, Drawable {
         navigationBind()
         switchBind()
         viewModelBind()
+        bindDrawingContentViewBind()
     }
     
     private func switchBind() {
@@ -204,9 +220,8 @@ class DiaryEditViewController: UIViewController, Drawable {
                 guard let self = self else { return }
                 self.titleView.setTitle(diary.title)
                 self.diaryEditToggleView.setLogoSwitch(diary.hasLogo)
-
-                let diaryView = self.diaryEditCoverView.diaryView
-                diaryView.set(model: diary)
+                self.drawingContentView.setItems(diary.contents)
+                self.drawingContentView.setDrawData(diary.drawCanvas)
 
                 if let coverColor = PaletteColor.find(hex: diary.colorHex) {
                     self.diaryEditPaletteView.changedColor.onNext(coverColor)
@@ -265,7 +280,7 @@ private extension DiaryEditViewController {
 
         let diaryID = viewModel.diaryIdToCreate
         let isLock = password != nil
-        let drawing = diaryView.canvas.drawing
+        let drawing = drawingContentView.canvas.drawing
         let hasLogo = diaryView.hasLogo
         let contents = createContents(diaryID: diaryID)
         var drawCanvasData = Data()
@@ -282,7 +297,6 @@ private extension DiaryEditViewController {
                                hasLogo: hasLogo,
                                thumbnail: diaryEditCoverView.asThumbnail?.pngData() ?? Data(),
                                drawCanvas: drawCanvasData,
-                               papers: [],
                                contents: contents)
 
         self.viewModel.createDiaryInfo(model: diaryModel)
@@ -290,7 +304,7 @@ private extension DiaryEditViewController {
     }
 
     func createContents(diaryID: String) -> [DecorationItem] {
-        return diaryEditCoverView.diaryView.getItems(diaryID: diaryID)
+        return drawingContentView.getItems(diaryID: diaryID)
     }
 }
 

@@ -15,11 +15,13 @@ private enum Design {
 
 private enum Text {
     static var selectMonth: String { "Monthly 메모지 선택" }
+    static var selectWeek: String { "Weekly 메모지 선택" }
 }
 
 protocol PaperModalViewDelegate: NSObject {
     func didTappedItem(_ index: Paper)
-    func didTappedAdd()
+    func didTappedAddItem()
+    func didTappedAddDone(paperType: PaperType, orientation: Paper.PaperOrientation)
     func didSelectedDate(didSelected date: Date?)
     func didTappedMonthlyAdd()
 }
@@ -29,7 +31,7 @@ class PaperModalViewController: DYModalViewController {
     enum PaperToolType {
         case add
         case list
-        case monthList
+        case paperType(type: PaperType)
         case date
         case shedule(scheduleType: ScheduleModalType)
     }
@@ -69,8 +71,8 @@ class PaperModalViewController: DYModalViewController {
             setupPaperAddView()
         case .list:
             setupPaperListtView()
-        case .monthList:
-            setupMonthListView()
+        case let .paperType(type: type):
+            setupMonthListView(paperType: type)
         case .date:
             setupDatePickerView()
         case .shedule(let scheduleType):
@@ -89,16 +91,16 @@ class PaperModalViewController: DYModalViewController {
 
     private func setupPaperListtView() {
         let titleView = PaperListHeaderView()
-        let contentView = PaperListContentView()
+        let contentView = PaperListContentView(diaryId: diaryId)
         self.titleView = titleView
         self.contentView = contentView
 
         bindPaperListEvent()
     }
 
-    private func setupMonthListView() {
-        let titleView = MonthlyPaperListHeaderView()
-        let contentView = MonthlyPaperListContentView()
+    private func setupMonthListView(paperType: PaperType) {
+        let titleView = PaperSelectHeaderView()
+        let contentView = PaperSelectCollectionView(diaryId: diaryId, paperBeDisplayed: paperType)
         self.titleView = titleView
         self.contentView = contentView
 
@@ -134,7 +136,7 @@ class PaperModalViewController: DYModalViewController {
             paperAddViewNeedsLayout(size: size)
         case .list:
             paperListViewNeedsLayout()
-        case .monthList:
+        case let .paperType(type: _):
             monthlyPaperListViewNeedsLayout()
         case .date:
             datePickerViewNeedsLayout()
@@ -154,7 +156,7 @@ class PaperModalViewController: DYModalViewController {
     }
 
     private func monthlyPaperListViewNeedsLayout() {
-        guard let monthlyPaperListContentView = contentView as? MonthlyPaperListContentView else { return }
+        guard let monthlyPaperListContentView = contentView as? PaperSelectCollectionView else { return }
         monthlyPaperListContentView.layoutCollectionView()
     }
 
@@ -179,7 +181,7 @@ private extension PaperModalViewController {
             bindAddPaperEvent()
         case .list:
             bindPaperListEvent()
-        case .monthList:
+        case let .paperType(type: _):
             bindMonthListEvent()
         case .date:
             bindDatePickerEvent()
@@ -205,7 +207,8 @@ private extension PaperModalViewController {
             .bind { [weak self] in
                 guard let self = self else { return }
                 self.dismiss(animated: true, completion: {
-                    addPaperContentView.viewModel.addPaper(diaryId: self.diaryId)
+                    guard let paper = addPaperContentView.viewModel.selectedPaper else { return }
+                    self.delegate?.didTappedAddDone(paperType: paper.paperType, orientation: paper.orientation)
                 })
             }
             .disposed(by: disposeBag)
@@ -227,7 +230,7 @@ private extension PaperModalViewController {
         paperListContentView.didSelectAddCell
             .subscribe(onNext: { [weak self] in
                 self?.dismiss(animated: true) {
-                    self?.delegate?.didTappedAdd()
+                    self?.delegate?.didTappedAddItem()
                 }
             })
             .disposed(by: disposeBag)
@@ -262,7 +265,7 @@ private extension PaperModalViewController {
     }
 
     func bindMonthListEvent() {
-        guard let monthlyPagerListContentView = contentView as? MonthlyPaperListContentView else { return }
+        guard let monthlyPagerListContentView = contentView as? PaperSelectCollectionView else { return }
 
         monthlyPagerListContentView.didSelect
             .subscribe(onNext: { [weak self] selectEvent in

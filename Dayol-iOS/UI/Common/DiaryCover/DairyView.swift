@@ -17,21 +17,20 @@ private enum Design {
     }
 }
 
-class DiaryView: UIView {
+class DiaryView: UIView, Undoable {
     private let disposeBag = DisposeBag()
-    let currentToolSubject = BehaviorSubject<DYDrawTool?>(value: nil)
     let didTappedLocker = PublishSubject<Void>()
 
     // MARK: - UI Properties
 
     private let coverView = DiaryCoverView()
     private let lockerView = DiaryLockerView()
-    let canvas = PKCanvasView()
 
     private var lockerMarginConstraint: NSLayoutConstraint?
     private var lockerWidthConstraint: NSLayoutConstraint?
     private var lockerHeightConstraint: NSLayoutConstraint?
-    private var items: [DecorationItem] = []
+
+    var drawingContentView = DrawingContentView()
 
     var hasLogo: Bool = false
     var isLock: Bool = false {
@@ -48,7 +47,6 @@ class DiaryView: UIView {
 		super.init(frame: .zero)
         initView()
         setConstraints()
-        bindEvent()
 	}
 
 	required init?(coder: NSCoder) {
@@ -67,15 +65,10 @@ class DiaryView: UIView {
     private func initView() {
         coverView.translatesAutoresizingMaskIntoConstraints = false
         lockerView.translatesAutoresizingMaskIntoConstraints = false
+        drawingContentView.translatesAutoresizingMaskIntoConstraints = false
 
-        canvas.backgroundColor = .clear
-
-        if #available(iOS 14.0, *) {
-            canvas.drawingPolicy = .anyInput
-        }
-
+        coverView.addSubview(drawingContentView)
         addSubview(coverView)
-        addSubViewPinEdge(canvas)
         addSubview(lockerView)
 
         setupGetsture()
@@ -87,11 +80,17 @@ class DiaryView: UIView {
         let lockerWidthConstraint = lockerView.widthAnchor.constraint(equalToConstant: Const.lockerSize.width)
         let lockerHeightConstraint = lockerView.heightAnchor.constraint(equalToConstant: Const.lockerSize.height)
 		NSLayoutConstraint.activate([
-            coverView.leftAnchor.constraint(equalTo: leftAnchor),
+            coverView.leadingAnchor.constraint(equalTo: leadingAnchor),
             coverView.topAnchor.constraint(equalTo: topAnchor),
             coverView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            coverView.rightAnchor.constraint(equalTo: rightAnchor),
+
             lockerView.centerYAnchor.constraint(equalTo: coverView.centerYAnchor),
+            lockerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+
+            drawingContentView.leadingAnchor.constraint(equalTo: coverView.leadingAnchor),
+            drawingContentView.topAnchor.constraint(equalTo: coverView.topAnchor),
+            drawingContentView.bottomAnchor.constraint(equalTo: coverView.bottomAnchor),
+            drawingContentView.trailingAnchor.constraint(equalTo: coverView.trailingAnchor),
 
             lockerMarginConstraint,
             lockerWidthConstraint,
@@ -113,17 +112,6 @@ class DiaryView: UIView {
         didTappedLocker.onNext(())
     }
 
-    private func bindEvent() {
-        currentToolSubject.bind { [weak self] tool in
-            guard let pkTool = tool?.pkTool else {
-                self?.canvas.isUserInteractionEnabled = false
-                return
-            }
-            self?.canvas.isUserInteractionEnabled = true
-            self?.canvas.tool = pkTool
-        }
-        .disposed(by: disposeBag)
-    }
 }
 
 extension DiaryView {
@@ -142,54 +130,4 @@ extension DiaryView {
         hasLogo = (isHidden == false)
         coverView.setDayolLogoHidden(isHidden)
     }
-}
-
-// MARK: - Control Decoration Item
-
-extension DiaryView {
-
-    func set(model: Diary) {
-        setDrawingData(model.drawCanvas)
-        setItems(model.contents)
-    }
-
-    func getItems(diaryID: String) -> [DecorationItem] {
-        let items: [DecorationItem] = subviews.compactMap { subview in
-            if let textField = subview as? DYFlexibleTextField {
-                // TODO: - textField ID 룰 정의
-                return textField.toItem(id: "", parentId: diaryID)
-            }
-
-            if let imageStrectchView = subview as? DYImageSizeStretchableView {
-                // TODO: - 유저 이미지 스티커 ID 룰 정의
-                return imageStrectchView.toItem(id: "", parentId: diaryID)
-            }
-
-            return nil
-        }
-        return items
-    }
-
-    private func setDrawingData(_ data: Data) {
-        let decoder = JSONDecoder()
-        if let drawing = try? decoder.decode(PKDrawing.self, from: data) {
-            canvas.drawing = drawing
-        }
-    }
-
-    private  func setItems(_ items: [DecorationItem]) {
-        items.forEach { item in
-            if let textItem = item as? DecorationTextFieldItem {
-                let textField = DYFlexibleTextField()
-                textField.viewModel.set(textItem)
-                addSubview(textField)
-            }
-
-            if let imageItem = item as? DecorationImageItem {
-                let imageStretchableView = DYImageSizeStretchableView(model: imageItem)
-                addSubview(imageStretchableView)
-            }
-        }
-    }
-
 }

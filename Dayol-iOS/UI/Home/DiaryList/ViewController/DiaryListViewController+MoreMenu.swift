@@ -88,15 +88,15 @@ extension DiaryListViewController {
         }
     }
 
-    func showDiaryMoreMenu(diaryID: String) {
+    func showDiaryMoreMenu(row index: Int) {
         // TODO: - 더보기 메뉴로 비밀번호 설정/해제 시 다이어리 스크린샷 업데이트 필요
-        guard let diary = DYTestData.shared.diaryList.first(where: { $0.id == diaryID }) else { return }
+        guard let diary = viewModel.diaryList[safe: index] else { return }
         let lockMenu: MoreMenu = diary.isLock ? .unlock : .lock
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let edit = action(diaryID, menuType: .edit)
-        let lock = action(diaryID, menuType: lockMenu)
-        let delete = action(diaryID, menuType: .delete)
-        let cancel = action(diaryID, menuType: .cancel)
+        let edit = action(at: index, menuType: .edit)
+        let lock = action(at: index, menuType: lockMenu)
+        let delete = action(at: index, menuType: .delete)
+        let cancel = action(at: index, menuType: .cancel)
 
         alert.addAction(edit)
         alert.addAction(lock)
@@ -112,16 +112,16 @@ extension DiaryListViewController {
 
     }
 
-    private func action(_ diaryID: String, menuType: MoreMenu) -> UIAlertAction {
+    private func action(at index: Int, menuType: MoreMenu) -> UIAlertAction {
         switch menuType {
         case .edit, .lock, .unlock, .cancel:
-            return actionWithoutAelrt(diaryID, menuType: menuType)
+            return actionWithoutAelrt(at: index, menuType: menuType)
         case .delete:
-            return actionWithAlert(diaryID, menuType: menuType)
+            return actionWithAlert(at: index, menuType: menuType)
         }
     }
 
-    private func actionWithoutAelrt(_ diaryID: String, menuType: MoreMenu) ->  UIAlertAction {
+    private func actionWithoutAelrt(at index: Int, menuType: MoreMenu) ->  UIAlertAction {
         if menuType == .cancel {
             return UIAlertAction(title: MoreMenu.cancel.actionTitle, style: .cancel)
         }
@@ -129,11 +129,11 @@ extension DiaryListViewController {
         let action = UIAlertAction(title: menuType.actionTitle, style: .default) { [weak self] _ in
             switch menuType{
             case .edit:
-                self?.presentEditDiaryVC(diaryID)
+                self?.presentEditDiaryVC(at: index)
             case .lock:
-                self?.presentUnlockPasswordVC(diaryID)
+                self?.presentUnlockPasswordVC(at: index)
             case .unlock:
-                self?.presentLockPasswordVC(diaryID)
+                self?.presentLockPasswordVC(at: index)
             default:
                 break
             }
@@ -141,13 +141,13 @@ extension DiaryListViewController {
         return action
     }
 
-    private func actionWithAlert(_ diaryID: String, menuType: MoreMenu) ->  UIAlertAction {
+    private func actionWithAlert(at index: Int, menuType: MoreMenu) ->  UIAlertAction {
         let style: UIAlertAction.Style = menuType == .delete ? .destructive : .default
         let action = UIAlertAction(title: menuType.actionTitle, style: style) { [weak self] _ in
             guard let self = self else { return }
             let alert = self.createAlert(menuType: menuType) {
                 if menuType == .delete {
-                    self.deleteDiary(diaryID)
+                    self.deleteDiary(at: index)
                 }
             }
             self.present(alert, animated: true)
@@ -155,12 +155,13 @@ extension DiaryListViewController {
         return action
     }
 
-    private func deleteDiary(_ diaryID: String) {
+    private func deleteDiary(at index: Int) {
         // TODO: - 다이어리 삭제 로직 연동
+        viewModel.deleteDiary(at: index)
     }
 
-    private func presentEditDiaryVC(_ diaryID: String) {
-        guard let diary = DYTestData.shared.diaryList.first(where: { $0.id == diaryID }) else { return }
+    private func presentEditDiaryVC(at index: Int) {
+        guard let diary = viewModel.diaryList[safe: index] else { return }
         let diaryEditViewController = DiaryEditViewController()
         diaryEditViewController.viewModel.setDiaryInfo(model: diary)
         let nav = DYNavigationController(rootViewController: diaryEditViewController)
@@ -168,9 +169,8 @@ extension DiaryListViewController {
         navigationController?.topViewController?.present(nav, animated: true, completion: nil)
     }
 
-    private func presentUnlockPasswordVC(_ diaryID: String) {
+    private func presentUnlockPasswordVC(at index: Int) {
         guard
-            let index = DYTestData.shared.diaryList.firstIndex(where: { $0.id == diaryID }),
             var diary = DYTestData.shared.diaryList[safe: index],
             let color = PaletteColor.find(hex: diary.colorHex)
         else { return }
@@ -186,22 +186,21 @@ extension DiaryListViewController {
         present(passwordViewController, animated: true, completion: nil)
     }
 
-    private func presentLockPasswordVC(_ diaryID: String) {
+    private func presentLockPasswordVC(at index: Int) {
         guard
-            let index = DYTestData.shared.diaryList.firstIndex(where: { $0.id == diaryID }),
             let diary = DYTestData.shared.diaryList[safe: index],
             let color = PaletteColor.find(hex: diary.colorHex)
         else { return }
         let passwordViewController = PasswordViewController(inputType: .check, diaryColor: color)
         passwordViewController.didPassedPassword
             .subscribe { [weak self] _ in
-                self?.showUnlockAlert(index)
+                self?.showUnlockAlert(at: index)
             }
             .disposed(by: disposeBag)
         present(passwordViewController, animated: true, completion: nil)
     }
 
-    private func showUnlockAlert(_ index: Int) {
+    private func showUnlockAlert(at index: Int) {
         guard var diary = DYTestData.shared.diaryList[safe: index] else { return }
         let alert = createAlert(menuType: .delete) {
             diary.isLock = false

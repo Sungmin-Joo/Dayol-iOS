@@ -11,38 +11,31 @@ class DiaryListViewModel {
     private let disposeBag = DisposeBag()
     enum DiaryListEvent {
         case fetch(isEmpty: Bool)
-        case insert(index: Int)
-        case delete(index: Int)
-        case update(index: Int)
     }
 
     private(set) var diaryList: [Diary] = []
-    var diaryEvent = ReplaySubject<DiaryListEvent>.createUnbounded()
+    var diaryFetchEvent = ReplaySubject<Void>.createUnbounded()
 
     init() {
         bind()
     }
     
     private func bind() {
-        // TODO: Login For Test. Please, remove this code after DB determined
-        DYTestData.shared.diaryListSubject
+        DiaryManager.shared.diaryListSubject
             .subscribe(onNext: { [weak self] model in
                 guard let self = self else { return }
                 self.diaryList = model
-                let isEmpty = (self.diaryList.count == 0)
-                self.diaryEvent.onNext(.fetch(isEmpty: isEmpty))
+                self.diaryFetchEvent.onNext(())
             })
             .disposed(by: disposeBag)
     }
 }
 
-// MARK: - Fetch
-
 extension DiaryListViewModel {
 
-    // TODO: - 실 데이터와 연동
-    private func getMockData() {
-
+    func deleteDiary(at index: Int) {
+        guard let diary = diaryList[safe: index] else { return }
+        DiaryManager.shared.deleteDiary(id: diary.id)
     }
 
 }

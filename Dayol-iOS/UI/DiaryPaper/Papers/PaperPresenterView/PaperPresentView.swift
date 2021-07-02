@@ -20,13 +20,14 @@ class PaperPresentView: UIView {
     private var disposeBag = DisposeBag()
     private let flexibleSize: Bool
 
-    let showPaperSelect = PublishSubject<Void>()
-    let showAddSchedule = PublishSubject<Date>()
+    let showPaperSelect = PublishSubject<PaperType>()
+    let showAddSchedule = PublishSubject<(Date, ScheduleModalType)>()
     
     var scaleForFit: CGFloat = 0.0 {
         didSet {
             let scale = CGAffineTransform(scaleX: self.scaleForFit, y: self.scaleForFit)
             self.tableView.transform = scale
+            self.drawingContentView.transform = scale
             let constarintConstant: CGFloat = (self.height - self.tableView.frame.height) / 2
             self.contentTop.constant = -constarintConstant
             self.contentBottom.constant = constarintConstant
@@ -38,26 +39,19 @@ class PaperPresentView: UIView {
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.isScrollEnabled = false
         
         return tableView
     }()
     
-    let drawingContentView: DrawingContentView = {
+    var drawingContentView: DrawingContentView = {
         let view = DrawingContentView()
-        // TODO: - 테스트 코드 제거
-        view.backgroundColor = .red
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
         
         return view
     }()
-    
-    private let stickerContentView: StickerContentView = {
-        let view = StickerContentView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
+
     init(paper: Paper, count: Int = 1, flexibleSize: Bool = false) {
         self.paper = paper
         self.numberOfPapers = count
@@ -87,9 +81,8 @@ class PaperPresentView: UIView {
         setupPaperBorder()
 
         addSubview(tableView)
-        tableView.addSubViewPinEdge(drawingContentView)
-        tableView.addSubViewPinEdge(stickerContentView)
-        
+        addSubview(drawingContentView)
+
         setupConstraint()
     }
 
@@ -112,7 +105,12 @@ class PaperPresentView: UIView {
                 contentTop, contentBottom,
                 tableView.centerXAnchor.constraint(equalTo: centerXAnchor),
                 tableView.widthAnchor.constraint(equalToConstant: size.width),
-                tableView.heightAnchor.constraint(equalToConstant: height)
+                tableView.heightAnchor.constraint(equalToConstant: height),
+
+                drawingContentView.topAnchor.constraint(equalTo: tableView.topAnchor),
+                drawingContentView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+                drawingContentView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+                drawingContentView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)
             ])
         }
     }
@@ -181,14 +179,14 @@ extension PaperPresentView: UITableViewDataSource {
             cell.showSelectPaper
                 .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] in
-                    self?.showPaperSelect.onNext(())
+                    self?.showPaperSelect.onNext(.monthly)
                 })
                 .disposed(by: cell.disposeBag)
 
             cell.showAddSchedule
                 .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] date in
-                    self?.showAddSchedule.onNext(date)
+                    self?.showAddSchedule.onNext((date, .monthly))
                 })
                 .disposed(by: cell.disposeBag)
 
@@ -198,6 +196,19 @@ extension PaperPresentView: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(WeeklyCalendarView.self, for: indexPath)
             let viewModel = WeeklyCalendarViewModel(date: date)
             cell.configure(viewModel: viewModel, orientation: orientaion)
+            cell.showSelectPaper
+                .observe(on: MainScheduler.instance)
+                .subscribe(onNext: { [weak self] in
+                    self?.showPaperSelect.onNext(.weekly)
+                })
+                .disposed(by: cell.disposeBag)
+
+            cell.showAddSchedule
+                .observe(on: MainScheduler.instance)
+                .subscribe(onNext: { [weak self] date in
+                    self?.showAddSchedule.onNext((date, .weekly))
+                })
+                .disposed(by: disposeBag)
 
             return cell
         case .daily:

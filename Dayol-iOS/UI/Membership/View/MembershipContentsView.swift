@@ -114,7 +114,7 @@ class MembershipContentsView: UIView {
         dateLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         dateLabel.textColor = .gray900
         dateLabel.addLetterSpacing(-0.31)
-        dateLabel.text = "\(date.toString(type: .yearMonthDay))"
+        dateLabel.text = "\(date.string(with: .yearMonthDay))"
 
         inView.addSubview(descriptionLabel)
         inView.addSubview(dateLabel)

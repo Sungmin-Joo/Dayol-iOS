@@ -35,7 +35,7 @@ class PaperListContentView: UIView {
         return true
     }
 
-    private(set) lazy var viewModel: PaperListContentViewModel = PaperListContentViewModel()
+    let viewModel: PaperListContentViewModel
     var isEditMode = false
     // MARK: - UI Property
 
@@ -68,7 +68,8 @@ class PaperListContentView: UIView {
     }()
 
     // TODO: - init에서 viewModel 받아서 바인딩 로직 추가
-    init() {
+    init(diaryId: String) {
+        self.viewModel = PaperListContentViewModel(diaryId: diaryId)
         super.init(frame: .zero)
         setupViews()
         setupConstraints()

@@ -8,7 +8,8 @@
 import UIKit
 import RxSwift
 
-class DiaryPaperEditViewController: DiaryPaperViewController, Drawable {
+class DiaryPaperEditViewController: DiaryPaperViewController {
+
     private enum Text: String {
         case editTitle = "edit_memo_title"
         
@@ -17,17 +18,12 @@ class DiaryPaperEditViewController: DiaryPaperViewController, Drawable {
         }
     }
 
-    var currentTool: DYNavigationDrawingToolbar.ToolType?
-    var currentEraseTool: DYEraseTool = DYEraseTool(isObjectErase: false)
-    var currentPencilTool: DYPencilTool = DYPencilTool(color: .black, isHighlighter: false)
-    
     // MARK: - UI Components
     
     private let leftButton = DYNavigationItemCreator.barButton(type: .back)
     private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     private let titleView = DYNavigationItemCreator.titleView(Text.editTitle.stringValue)
-    let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
 
     // MARK: - Init
     
@@ -44,7 +40,30 @@ class DiaryPaperEditViewController: DiaryPaperViewController, Drawable {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationController()
-        bindToolBarEvent()
+        drawingContentView.isUserInteractionEnabled = true
+        bindDrawingContentViewBind()
+    }
+
+    override func didTapTextButton() {
+        super.didTapTextButton()
+        drawingContentView.currentToolSubject.onNext(nil)
+        drawingContentView.shouldMakeTextField = true
+
+        /*
+         TODO: - drawingContentView에 속지 정보를 줘야함 종상형 헬프
+         1. 속지 정보 (fitMode를 해줘야하는 속지인지, isFitMode?)
+         2. fit 되야하는 프레임 정보
+
+         1, 2 를 얻을 수 있는 인터페이스가 있으면 편할 것 같음 추후에 구현 필요
+         */
+    }
+
+    override func didEndPhotoPick(_ image: UIImage) {
+        drawingContentView.createImageSticker(image: image)
+    }
+
+    override func didEndStickerPick(_ image: UIImage) {
+        drawingContentView.createSticker(image: image)
     }
     
     // MARK: - Setup

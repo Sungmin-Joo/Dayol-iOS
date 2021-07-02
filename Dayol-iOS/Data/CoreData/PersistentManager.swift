@@ -14,6 +14,7 @@ class PersistentManager {
         case paper
         case paperScheduler
         case decorationItem
+        case decorationTextFieldItem
 
         var name: String {
             switch self {
@@ -21,6 +22,7 @@ class PersistentManager {
             case .paper: return "Paper"
             case .paperScheduler: return "PaperScheduler"
             case .decorationItem: return "DecorationItem"
+            case .decorationTextFieldItem: return "DecorationTextFieldItem"
             }
         }
     }
@@ -52,7 +54,35 @@ class PersistentManager {
         }
     }
 
-    private func entity(_ type: EntityType) -> NSEntityDescription? {
+    func entity(_ type: EntityType) -> NSEntityDescription? {
         return NSEntityDescription.entity(forEntityName: type.name, in: persistentContainer.viewContext)
+    }
+
+    func insertObject(_ type: EntityType) -> NSManagedObject {
+        return NSEntityDescription.insertNewObject(forEntityName: type.name, into: persistentContainer.viewContext)
+    }
+}
+
+extension NSManagedObject {
+    static func fetchRequest<T: NSManagedObject>() -> NSFetchRequest<T>? {
+        guard let name = entity().name else { return nil }
+        return NSFetchRequest<T>(entityName: name)
+    }
+}
+
+// MARK: - Fetch
+
+extension PersistentManager {
+
+    func fetch<T: NSFetchRequestResult>(_ fetchRequest: NSFetchRequest<T>) -> [T]? {
+        do {
+            let result = try context.fetch(fetchRequest)
+            return result
+        }
+        catch {
+            let error = error as NSError
+            DYLog.e(.coreData, value: "Fetch Error \(error) | \(error.userInfo)")
+            return nil
+        }
     }
 }

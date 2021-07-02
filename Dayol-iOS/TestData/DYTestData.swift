@@ -36,13 +36,14 @@ class DYTestData {
     lazy var diaryListSubject = BehaviorSubject<[Diary]>(value: diaryList)
     lazy var deletedPageListSubject = BehaviorSubject<[DeletedPageCellModel]>(value: deletedPageList)
     lazy var paperListSubject = BehaviorSubject<[Paper]>(value: paperList)
+    lazy var needsPaperUpdate = PublishSubject<Paper>()
     
     var diaryList: [Diary] = [
        
     ]
     
     var deletedPageList: [DeletedPageCellModel] = [
-
+        // TODO: - DeletedPageCellModel가 아닌 delete 모델 구현 후 연동
     ]
 
     var paperList: [Paper] = [
@@ -116,8 +117,8 @@ class DYTestData {
     }
 
     func deleteDeletedPage(_ page: DeletedPageCellModel) {
-        // TODO: - 임시로 다이어리 이름으로 비교하지만 추후에 데이터 연동 필요
-        guard let index = deletedPageList.firstIndex(where: { $0.diaryName == page.diaryName }) else { return }
+        // TODO: - DeletedPageCellModel가 아닌 delete 모델 구현 후 연동
+        guard let index = deletedPageList.firstIndex(where: { $0.id == page.id }) else { return }
         paperList.remove(at: index)
         paperListSubject.onNext(paperList)
     }
@@ -168,6 +169,13 @@ class DYTestData {
         paperListSubject.onNext(paperList)
     }
 
+    func deletePaper(with paperId: String) {
+        guard let index = paperList.firstIndex(where: { $0.id == paperId }) else { return }
+        paperList.remove(at: index)
+
+        paperListSubject.onNext(paperList)
+    }
+
     func reorderPaper(from sourceIndex: Int, to destinationIndex: Int) {
         guard let source = paperList[safe: sourceIndex] else { return }
 
@@ -185,5 +193,26 @@ class DYTestData {
         guard let index = paperList.firstIndex(where: { $0.id == id }) else { return }
         guard let thumbnailData = thumbnail?.pngData() else { return }
         paperList[index].thumbnail = thumbnailData
+    }
+
+    func updateFavorite(paperId: String, isFavorite: Bool) {
+        guard let index = paperList.firstIndex(where: { $0.id == paperId }) else { return }
+        paperList[index].isFavorite = isFavorite
+
+        needsPaperUpdate.onNext(paperList[index])
+    }
+}
+
+// MARK: - Diary Decorate Item Id
+
+extension DYTestData {
+    static var lastTextFieldID: Int = 0
+
+    var textFieldIdToCreate: String {
+        return String(Self.lastTextFieldID)
+    }
+
+    func increaseTextFieldID() {
+        Self.lastTextFieldID += 1
     }
 }

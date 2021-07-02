@@ -158,7 +158,7 @@ extension DiaryEditCoverView {
     }
 
     private func bindEvent() {
-        diaryView.currentToolSubject.bind { [weak self] tool in
+        diaryView.drawingContentView.currentToolSubject.bind { [weak self] tool in
             guard tool != nil else {
                 self?.scrollView.panGestureRecognizer.minimumNumberOfTouches = 1
                 return
@@ -173,7 +173,6 @@ extension DiaryEditCoverView {
 extension DiaryEditCoverView {
 
     var asThumbnail: UIImage? {
-        // TODO: 꼬다리(다이어리 Locker)부분이 조금 잘림, DiaryCoverView 수정 해야함
         scrollView.zoomScale = Design.minimumZoomOut
         return diaryView.asImage()
     }
