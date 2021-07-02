@@ -28,6 +28,7 @@ private enum DYUserDefaultsType: String {
     case homeListOption
     case deviceToken
     case isMembership
+    case activityType
 }
 
 enum DYUserDefaults {
@@ -40,6 +41,8 @@ enum DYUserDefaults {
     static var deviceToken: String
     @DYUserDefault(key: DYUserDefaultsType.isMembership.rawValue, value: false)
     static var isMembership: Bool
+    @DYUserDefault(key: DYUserDefaultsType.activityType.rawValue, value: 0)
+    static var activityType: Int
 
     // MARK: ...
 }

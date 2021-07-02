@@ -10,8 +10,7 @@ import Firebase
 import CoreData
 
 enum BuildPhase {
-    case beta
-    case prod
+    case beta, prod
 
     static let phase: BuildPhase = {
         #if BETA
@@ -30,10 +29,8 @@ enum BuildPhase {
     }
 }
 
-enum UserActivityType {
-    case new
-    case comeback
-    case exist
+enum UserActivityType: Int {
+    case new = 0, subscriber, expiredSubscriber
 }
 
 enum Language {
@@ -42,8 +39,6 @@ enum Language {
 
 class Config {
     static let shared: Config = Config()
-
-    let phase = BuildPhase.phase
 
     var deviceToken: String {
         DYUserDefaults.deviceToken
@@ -68,5 +63,17 @@ class Config {
     func initalize() {
         FirebaseApp.configure()
         PersistentManager.shared.saveContext()
+    }
+}
+
+// MARK: - Phase
+
+extension Config {
+    var isBeta: Bool {
+        BuildPhase.phase.isBeta
+    }
+
+    var isProd: Bool {
+        BuildPhase.phase.isProd
     }
 }
