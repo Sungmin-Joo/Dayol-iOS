@@ -134,15 +134,15 @@ extension DrawingContentView {
 // MARK: - Get Items
 
 extension DrawingContentView {
-    func getItems(diaryID: String) -> [DecorationItem] {
+    func getItems(parentID: String) -> [DecorationItem] {
         let items: [DecorationItem] = subviews.compactMap { subview in
             if let textField = subview as? DYFlexibleTextField {
-                return textField.toItem(parentId: diaryID)
+                return textField.toItem(parentId: parentID)
             }
 
             if let imageStrectchView = subview as? DYImageSizeStretchableView {
                 // TODO: - 유저 이미지 스티커 ID 룰 정의
-                return imageStrectchView.toItem(id: "", parentId: diaryID)
+                return imageStrectchView.toItem(id: "", parentId: parentID)
             }
 
             return nil

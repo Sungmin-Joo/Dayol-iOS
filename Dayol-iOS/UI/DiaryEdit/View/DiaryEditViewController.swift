@@ -304,7 +304,7 @@ private extension DiaryEditViewController {
     }
 
     func createContents(diaryID: String) -> [DecorationItem] {
-        return drawingContentView.getItems(diaryID: diaryID)
+        return drawingContentView.getItems(parentID: diaryID)
     }
 }
 

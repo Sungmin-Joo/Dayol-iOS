@@ -109,6 +109,7 @@ class DiaryPaperViewController: DrawableViewController {
         combine()
         setupConstraint()
         paperActionBind()
+        viewModelBind()
     }
     
     private func setupConstraint() {
@@ -138,6 +139,17 @@ class DiaryPaperViewController: DrawableViewController {
 
         cancellable.append(scaleCombine)
     }
+
+    private func viewModelBind() {
+        viewModel.paperSubject
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] paper in
+                guard let self = self else { return }
+                self.paper.set(paper: paper)
+            })
+            .disposed(by: disposeBag)
+    }
+
 }
 
 extension DiaryPaperViewController: UIScrollViewDelegate {
