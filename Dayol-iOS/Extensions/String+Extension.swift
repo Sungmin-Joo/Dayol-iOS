@@ -13,7 +13,11 @@ extension String {
     var localized: String {
         return NSLocalizedString(self, tableName: "Localizable", value: self, comment: "")
     }
-    
+
+    func with(arguments: CVarArg) -> String {
+        return String(format: self, arguments)
+    }
+
     /// For Date
     static var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
