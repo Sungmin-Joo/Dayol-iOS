@@ -8,11 +8,6 @@
 
 // MARK: - Common
 
-"currency_suffix" = "";
-"currency_symbol" = "$";
-"date_year" = "Year";
-"date_month" = "월";
-
 // MARK: - 홈 / 세팅
 
 "home_empty_tooltip" = "Setting";
@@ -205,3 +200,15 @@
 "add_area" = "Add Area";
 
 // MARK: - Membership
+
+"membership_expiration_date" = "Expiration Date";
+
+"membership_year_info_price" = "%@$/Year";
+"membership_month_info_price" = "%@$/Month";
+
+"membership_subscribe_button_event_title" = "Start your first 30-day free trial\n";
+"membership_subscribe_button_restart_title" = "Renew Subscription\n";
+"membership_new_year_subscribe_button_description" = "$%@/Year subscription after free trial period ends";
+"membership_new_month_subscribe_button_description" = "$%@/Month subscription after free trial period ends";
+"membership_comeback_year_subscribe_button_description" = "$%@/Year subscription";
+"membership_comeback_month_subscribe_button_description" = "$%@/Month subscription";
