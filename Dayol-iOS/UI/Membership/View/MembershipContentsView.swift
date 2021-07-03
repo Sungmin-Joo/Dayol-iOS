@@ -27,9 +27,14 @@ private enum Design {
             }
         }
     }
-}
 
-private enum Text {
+    static var imageRefSize: CGSize {
+        if isPadDevice {
+            return CGSize(width: 375, height: 667)
+        } else {
+            return UIScreen.main.bounds.size
+        }
+    }
 }
 
 class MembershipContentsView: UIView {
@@ -87,7 +92,7 @@ class MembershipContentsView: UIView {
     private func makeImageView(with image: UIImage?) -> UIImageView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = image
+        imageView.image = image?.resizeToRatio(width: Design.imageRefSize.width)
         return imageView
     }
 

@@ -8,6 +8,10 @@
 import UIKit
 import RxSwift
 
+extension ObserverType {
+
+}
+
 extension PrimitiveSequence where Trait == SingleTrait {
     func attachHUD() -> PrimitiveSequence {
         return self.do { _ in
@@ -19,12 +23,9 @@ extension PrimitiveSequence where Trait == SingleTrait {
         } onDispose: {
             executeOnMainThread { DYHUD.hide() }
         }
-
     }
-}
 
-extension Observable {
-    func attachHUD(_ view: UIView) -> Observable {
+    func attachHUD(_ view: UIView) -> PrimitiveSequence {
         return self.do { _ in
             executeOnMainThread { DYHUD.hide(view) }
         } onError: { _ in

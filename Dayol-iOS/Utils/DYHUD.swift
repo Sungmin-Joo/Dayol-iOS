@@ -14,7 +14,7 @@ final class DYHUD {
 
     private static let shared = DYHUD()
 
-    private weak var window: UIWindow? = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+    private var window: UIWindow? { return UIApplication.shared.windows.first(where: { $0.isKeyWindow }) }
     private weak var hudView: DYHUDView?
 
     private func setHUDView(_ view: UIView? = nil, type: HUDType = .ring, useClearBackground: Bool = false) -> DYHUDView? {
@@ -33,6 +33,7 @@ final class DYHUD {
             } else {
                 window?.addSubview(hudView)
             }
+            self.hudView = hudView
             return hudView
         }
     }
@@ -42,7 +43,6 @@ final class DYHUD {
     static func show(_ view: UIView, type: HUDType = .ring, useClearBackground: Bool = false) {
         if let hudView = shared.setHUDView(view, type: type, useClearBackground: useClearBackground) {
             view.isUserInteractionEnabled = false
-            hudView.isHidden = false
             hudView.start()
         }
     }
@@ -50,7 +50,6 @@ final class DYHUD {
     static func hide(_ view: UIView) {
         if let hudView = shared.hudView {
             view.isUserInteractionEnabled = true
-            hudView.isHidden = true
             hudView.stop()
         }
     }
@@ -60,7 +59,6 @@ final class DYHUD {
     static func show(_ type: HUDType = .ring, useClearBackground: Bool = false) {
         if let hudView = shared.setHUDView(type: type, useClearBackground: useClearBackground) {
             shared.window?.isUserInteractionEnabled = false
-            hudView.isHidden = false
             hudView.start()
         }
     }
@@ -68,7 +66,6 @@ final class DYHUD {
     static func hide() {
         if let hudView = shared.hudView {
             shared.window?.isUserInteractionEnabled = true
-            hudView.isHidden = true
             hudView.stop()
         }
     }
@@ -116,8 +113,7 @@ private class DYHUDView: UIView {
     func start() {
         activityIndicator.startAnimating()
 
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            guard let self = self else { return }
+        UIView.animate(withDuration: 0.2) {
             self.alpha = 1
         }
     }
@@ -125,8 +121,7 @@ private class DYHUDView: UIView {
     func stop() {
         activityIndicator.stopAnimating()
 
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            guard let self = self else { return }
+        UIView.animate(withDuration: 0.2) {
             self.alpha = 0
         }
     }

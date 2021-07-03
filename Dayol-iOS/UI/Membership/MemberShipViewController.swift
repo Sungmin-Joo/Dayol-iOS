@@ -9,30 +9,60 @@ import UIKit
 import StoreKit
 import RxSwift
 
+// MARK: - ViewModel
+
 private class ViewModel {
     let userActivityType: UserActivityType
 
-    var updatedProducts: Observable<[SKProduct]> {
-        return IAPManager.shared.updatedProducts.asObservable()
-    }
-
-    var purchasedProduct: Observable<Bool> {
-        return IAPManager.shared.purchasedProduct.asObservable()
-    }
-
-    var products: [SubscribeItemType: SKProduct] = [:]
+    private(set) var products: [SubscribeItemType: SKProduct] = [:]
+    private let disposeBag: DisposeBag = DisposeBag()
 
     init() {
         if let userActivityType = UserActivityType(rawValue: DYUserDefaults.activityType) {
-            self.userActivityType = .new
-            IAPManager.shared.fetchProducts()
+            self.userActivityType = userActivityType
             IAPManager.shared.checkPurchased()
         } else {
             fatalError("No User Activity Type")
         }
     }
 
-    func convertToSubscribeProduct(products: [SKProduct]) {
+    func fetchProducts() -> Single<[SubscribeItemType: SKProduct]> {
+        return Single<[SubscribeItemType: SKProduct]>.create { [weak self] single in
+            guard let self = self else { return Disposables.create() }
+            IAPManager.shared.updatedProducts.asObserver()
+                .subscribe { event in
+                    guard let result = event.element else { return }
+                    self.convertToSubscribeProduct(products: result)
+                    single(.success(self.products))
+                }
+                .disposed(by: self.disposeBag)
+
+            IAPManager.shared.fetchProducts()
+            return Disposables.create()
+        }
+    }
+
+    func payment(key: SubscribeItemType) -> Single<Bool> {
+        return Single<Bool>.create { [weak self] single in
+            guard
+                let self = self,
+                let product = self.products.first(where: { $0.key == key })?.value
+            else {
+                return Disposables.create()
+            }
+            IAPManager.shared.purchase(product: product)
+            IAPManager.shared.purchasedProduct.asObserver()
+                .subscribe { event in
+                    guard let result = event.element else { return }
+                    single(.success(result))
+                }
+                .disposed(by: self.disposeBag)
+
+            return Disposables.create()
+        }
+    }
+
+    private func convertToSubscribeProduct(products: [SKProduct]) {
         products.forEach {
             let productInfo = SubscribeItemType.SubscribeProductInfo(
                 title: $0.localizedTitle,
@@ -49,12 +79,13 @@ private class ViewModel {
             }
         }
     }
+}
 
-    func payment(key: SubscribeItemType) {
-        if let product = products.first(where: { $0.key == key })?.value {
-            IAPManager.shared.purchase(product: product)
-        }
-    }
+// MARK: - ViewController
+
+private enum Design {
+    static let scrollViewBottomInset: CGFloat = 37
+    static let selectBoxHeight: CGFloat = 196
 }
 
 class MembershipViewController: UIViewController {
@@ -75,11 +106,13 @@ class MembershipViewController: UIViewController {
     private let containerScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.contentInset.bottom = Design.scrollViewBottomInset
         return scrollView
     }()
 
     private lazy var leftButton = DYNavigationItemCreator.barButton(type: .back)
     private lazy var rightButton = DYNavigationItemCreator.barButton(type: .cancel)
+    private lazy var contentsBottomMargin: NSLayoutConstraint = NSLayoutConstraint()
 
     private let viewModel = ViewModel()
     private let disposeBag: DisposeBag = DisposeBag()
@@ -99,43 +132,27 @@ class MembershipViewController: UIViewController {
         setNavigationBar()
         addSubviews()
         addConstraints()
-        bind()
+        fetch()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isToolbarHidden = true
-        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-
-    func bind() {
-        viewModel.updatedProducts
-            .skip(1)
+    func fetch() {
+        viewModel.fetchProducts()
             .observe(on: MainScheduler.instance)
+            .delay(.seconds(2), scheduler: MainScheduler.instance)
             .attachHUD(view)
-            .subscribe { [weak self] products in
-                guard let self = self, let products = products.element else { return }
-                self.viewModel.convertToSubscribeProduct(products: products)
+            .subscribe(onSuccess: { [weak self] products in
+                guard let self = self else { return }
                 self.setSubscribeView()
-            }.disposed(by: disposeBag)
-
-        viewModel.purchasedProduct
-            .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] result in
-                guard let self = self, let isSuccess = result.element else { return }
-                if isSuccess {
-                    DYUserDefaults.isMembership = true
-                    self.dismiss(animated: true)
-                } else {
-                    DYUserDefaults.isMembership = false
-                    DYLog.e(.inAppPurchase, value: "Purchase Error")
-                }
-            }.disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -160,39 +177,42 @@ private extension MembershipViewController {
     }
 
     func addConstraints() {
+        contentsBottomMargin = containerScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+
         NSLayoutConstraint.activate([
-            subscribeView.heightAnchor.constraint(equalToConstant: 196),
+            subscribeView.heightAnchor.constraint(equalToConstant: Design.selectBoxHeight),
             subscribeView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             subscribeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             subscribeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             containerScrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            containerScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            contentsBottomMargin,
             containerScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             containerScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             contentsView.widthAnchor.constraint(equalTo: containerScrollView.widthAnchor),
             contentsView.topAnchor.constraint(equalTo: containerScrollView.topAnchor),
             contentsView.bottomAnchor.constraint(equalTo: containerScrollView.bottomAnchor),
-            contentsView.centerXAnchor.constraint(equalTo: containerScrollView.centerXAnchor),
+            contentsView.leadingAnchor.constraint(equalTo: containerScrollView.leadingAnchor),
+            contentsView.trailingAnchor.constraint(equalTo: containerScrollView.trailingAnchor),
         ])
     }
 
     func configureComponents() {
+        contentsView.layoutIfNeeded()
         contentsView.configure(viewModel.userActivityType)
     }
 
     func setSubscribeView() {
         let isExist: Bool = self.viewModel.userActivityType == .subscriber
-        let bottomInset: CGFloat = isExist ? .zero : 233
 
         if !isExist {
             self.subscribeView.delegate = self
             self.subscribeView.configure(self.viewModel.products.map { $0.key }, for: viewModel.userActivityType)
+            self.subscribeView.isHidden(isExist)
         }
 
-        self.containerScrollView.contentInset.bottom = bottomInset
-        self.subscribeView.isHidden = isExist
+        contentsBottomMargin.constant = isExist ? .zero : -Design.selectBoxHeight
     }
 }
 
@@ -206,6 +226,16 @@ extension MembershipViewController: MembershipSubscribeViewDelegate {
     func didTapSubscribe(productView: SubscribeProductView) {
         if let type = productView.type {
             viewModel.payment(key: type)
+                .observe(on: MainScheduler.instance)
+                .subscribe(onSuccess: { [weak self] result in
+                    if result {
+                        self?.dismiss(animated: true)
+                    } else {
+                        //TODO: Error Popup
+                        DYLog.e(.inAppPurchase, value: "Purchase Error")
+                    }
+                })
+                .disposed(by: disposeBag)
         }
     }
 }

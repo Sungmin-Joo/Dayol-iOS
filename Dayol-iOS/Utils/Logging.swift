@@ -53,7 +53,7 @@ final class FBLog: Analytics {
 enum DYLog {
     enum LogType: String {
         case `deinit` = "✂️"
-        case debug = "🍎"
+        case debug = "β"
         case coreData = "📒"
         case cloudKit = "☁️"
         case inAppPurchase = "💰"

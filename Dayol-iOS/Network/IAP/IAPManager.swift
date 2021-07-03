@@ -64,7 +64,7 @@ final class IAPManager: NSObject {
         return SKPaymentQueue.canMakePayments()
     }
 
-    let updatedProducts: BehaviorSubject<[SKProduct]> = BehaviorSubject<[SKProduct]>(value: [])
+    let updatedProducts: PublishSubject<[SKProduct]> = PublishSubject<[SKProduct]>()
     let purchasedProduct: PublishSubject<Bool> = PublishSubject<Bool>()
 
     override init() {
@@ -85,6 +85,7 @@ final class IAPManager: NSObject {
     }
 
     func restorePurchase() {
+        guard canMakePayments else { return }
         paymentQueue.restoreCompletedTransactions()
     }
 
@@ -134,7 +135,7 @@ extension IAPManager: SKProductsRequestDelegate {
         updatedProducts.onNext(response.products)
 
         response.products.forEach { product in
-            DYLog.d(.debug, value: product.productIdentifier)
+            DYLog.d(.inAppPurchase, value: product.productIdentifier)
         }
     }
 }
