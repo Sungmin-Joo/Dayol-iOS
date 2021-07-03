@@ -8,8 +8,16 @@
 import UIKit
 
 extension UIImage {
+    var widthRatio: CGFloat {
+        return self.size.height / self.size.width
+    }
+
+    var heightRatio: CGFloat {
+        return  self.size.width / self.size.height
+    }
+
     func resizeToRatio(width: CGFloat) -> UIImage? {
-        let ratio  = self.size.height / self.size.width
+        let ratio  = widthRatio
         let newSize: CGSize = CGSize(width: width, height: width * ratio)
 
         UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
@@ -21,7 +29,7 @@ extension UIImage {
     }
 
     func resizeToRatio(height: CGFloat) -> UIImage? {
-        let ratio  = self.size.width / self.size.height
+        let ratio  = heightRatio
         let newSize: CGSize = CGSize(width: height * ratio, height: height)
 
         UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)

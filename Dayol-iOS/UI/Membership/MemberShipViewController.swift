@@ -165,7 +165,7 @@ private extension MembershipViewController {
             rightButton.addTarget(self, action: #selector(didTapClose), for: .touchUpInside)
         } else {
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
-            leftButton.addTarget(self, action: #selector(didTapClose), for: .touchUpInside)
+            leftButton.addTarget(self, action: #selector(didTapBack), for: .touchUpInside)
         }
     }
 
@@ -219,6 +219,10 @@ private extension MembershipViewController {
 // MARK: - Action
 
 extension MembershipViewController: MembershipSubscribeViewDelegate {
+    @objc func didTapBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+
     @objc func didTapClose() {
         super.dismiss(animated: true)
     }

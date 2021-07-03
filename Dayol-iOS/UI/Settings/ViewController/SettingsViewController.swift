@@ -10,6 +10,23 @@ import RxSwift
 import RxCocoa
 
 private enum Design {
+    enum BannerImage {
+        static func banner(type: UserActivityType) -> UIImage? {
+            switch type {
+            case .new: return UIImage(namedByLanguage: "imgMembership_banner_unsubscribed")
+            case .subscriber: return UIImage(namedByLanguage: "imgMembership_banner_subscriber")
+            case .expiredSubscriber: return UIImage(namedByLanguage: "imgMembership_banner_resubscribe")
+            }
+        }
+
+        static var bannerRefSize: CGSize {
+            if isPadDevice {
+                return CGSize(width: 375, height: 667)
+            } else {
+                return UIScreen.main.bounds.size
+            }
+        }
+    }
     static let bachgroundColor = UIColor.white
 
     static let sectionHeaderViewHeight: CGFloat = 20.0
@@ -73,6 +90,8 @@ extension SettingsViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
+        setupBanner()
+
         view.addSubview(tableView)
     }
 
@@ -85,6 +104,19 @@ extension SettingsViewController {
             tableView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor)
         ])
+    }
+
+    private func setupBanner() {
+        let userActivityType: UserActivityType = UserActivityType(rawValue: DYUserDefaults.activityType) ?? .new
+        let bannerImage: UIImage? = Design.BannerImage.banner(type: userActivityType)
+        let ratio: CGFloat = bannerImage?.widthRatio ?? .zero
+        let size: CGSize = CGSize(width: view.frame.width, height: view.frame.width * ratio)
+        let bannerView: UIButton = UIButton(frame: CGRect(origin: .zero, size: size))
+        bannerView.imageView?.contentMode = .scaleAspectFit
+        bannerView.setBackgroundImage(bannerImage, for: .normal)
+        bannerView.addTarget(self, action: #selector(didTapBanner), for: .touchUpInside)
+
+        tableView.tableHeaderView = bannerView
     }
 }
 
@@ -164,12 +196,17 @@ extension SettingsViewController: UITableViewDelegate {
 
 // MARK: - Bind Event
 
-extension SettingsViewController {
-    private func bindEvent() {
+private extension SettingsViewController {
+    func bindEvent() {
         rightButton.rx.tap
             .bind { [weak self] in
                 self?.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
+    }
+
+    @objc func didTapBanner() {
+        let membershipVC = MembershipViewController()
+        navigationController?.pushViewController(membershipVC, animated: true)
     }
 }
