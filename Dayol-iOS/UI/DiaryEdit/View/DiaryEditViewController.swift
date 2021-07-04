@@ -183,7 +183,7 @@ class DiaryEditViewController: DrawableViewController {
                 guard let self = self else { return }
                 
                 self.hideKeyboard()
-                
+                self.drawingContentView.resetContentEditStatus()
                 self.createDiaryInfo(self.password)
             }
             .disposed(by: disposeBag)
