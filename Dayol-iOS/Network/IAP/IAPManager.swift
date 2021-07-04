@@ -154,17 +154,17 @@ extension IAPManager: SKPaymentTransactionObserver {
                 purchasedProduct.onNext(true)
                 DYUserDefaults.activityType = UserActivityType.subscriber.rawValue
                 DYUserDefaults.isMembership = true
-                SKPaymentQueue.default().finishTransaction(transaction)
+                paymentQueue.finishTransaction(transaction)
                 DYLog.i(.inAppPurchase, value: "PURCHASED")
             case .failed:
                 purchasedProduct.onNext(false)
-                SKPaymentQueue.default().finishTransaction(transaction)
+                paymentQueue.finishTransaction(transaction)
                 DYLog.e(.inAppPurchase, value: "FAILED")
             case .deferred:
-                SKPaymentQueue.default().finishTransaction(transaction)
+                paymentQueue.finishTransaction(transaction)
                 DYLog.i(.inAppPurchase, value: "DEFERRED")
             case .restored:
-                SKPaymentQueue.default().finishTransaction(transaction)
+                paymentQueue.finishTransaction(transaction)
                 DYLog.i(.inAppPurchase, value: "RESTORED")
             default:
                 break
