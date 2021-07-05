@@ -14,7 +14,15 @@ private enum Design {
 
     static let bgColor = UIColor.white
 
-    static let collectionViewHeight: CGFloat = 432.0
+    static var collectionViewHeight: CGFloat {
+        let defaultHeight: CGFloat = 432.0
+
+        if UIScreen.main.bounds.size.height <= 667 {
+            return defaultHeight * 0.7
+        }
+
+        return defaultHeight
+    }
     static var itemSpacing: CGFloat {
         guard isPadDevice else {
             return 30.0
@@ -22,7 +30,7 @@ private enum Design {
         return 60.0
     }
     static func getItemSize(isEditMode: Bool) -> CGSize {
-        return isEditMode ? DiaryListCell.Size.edit : DiaryListCell.Size.default
+        return isEditMode ? DiaryListCell.Size.edit : DiaryListCell.Size.normal
     }
 }
 

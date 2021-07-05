@@ -20,16 +20,21 @@ private enum Design {
     static let zoomLabelTextColor: UIColor = UIColor.gray700
     static let zoomLabelSpace: CGFloat = -0.26
 
+    static let defaultCoverSize: CGSize = DiaryView.defaultCoverSize
     static var coverSize: CGSize {
         if isPadDevice == false {
-            return CGSize(width: 270, height: 346)
+            if UIScreen.main.bounds.size.height <= 667 {
+                return CGSize(width: defaultCoverSize.width * 0.7, height: defaultCoverSize.height * 0.7)
+            }
+
+            return defaultCoverSize
         }
 
         if [UIDeviceOrientation.portrait, .portraitUpsideDown].contains(UIDevice.current.orientation) {
-            return CGSize(width: 540, height: 720)
+            return CGSize(width: defaultCoverSize.width * 2.0, height: defaultCoverSize.height * 2.0)
         }
 
-        return CGSize(width: 270, height: 346)
+        return defaultCoverSize
     }
 
 }
