@@ -64,7 +64,7 @@ extension HomeViewController {
                 let diaryEditViewController = DiaryEditViewController()
                 let nav = DYNavigationController(rootViewController: diaryEditViewController)
                 nav.modalPresentationStyle = .fullScreen
-                self.present(nav, animated: true, completion: nil)
+                self.present(nav, animated: true)
             }
         })
         .disposed(by: disposeBag)

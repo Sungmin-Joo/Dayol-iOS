@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "imgMembershipBanner2EnCopy.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "imgMembershipBanner2EnCopy@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "imgMembershipBanner2EnCopy@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

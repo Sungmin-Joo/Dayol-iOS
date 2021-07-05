@@ -10,6 +10,10 @@ import UIKit
 // MARK: shadow
 
 extension CALayer {
+    /*
+     워닝 해결해주세요 @주성민
+     The layer is using dynamic shadows which are expensive to render. If possible try setting 'shadowPath', or pre-rendering the shadow into an image and putting it under the layer.
+     */
     func setZepplinShadow(
         x width: CGFloat,
         y height: CGFloat,

@@ -77,3 +77,11 @@ extension UIView {
         return UIImage()
     }
 }
+
+extension UIView {
+    func isHidden(_ hidden: Bool, withDuration duration: TimeInterval = 0.3, animated: Bool = true) {
+        UIView.transition(with: self, duration: duration, options: .transitionCrossDissolve) {
+            self.isHidden = hidden
+        }
+    }
+}

@@ -1,0 +1,85 @@
+{
+  "identifier" : "E9E5435B",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "3686CB65",
+      "localizations" : [
+
+      ],
+      "name" : "Dayol Membership",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "displayPrice" : "0.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "392ACC46",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Pay monthly",
+              "displayName" : "1Month (30days)",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "매월 결제",
+              "displayName" : "1개월 (30일)",
+              "locale" : "ko"
+            }
+          ],
+          "productID" : "com.dayolstudio.dayol.membership.month",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Dayol Membership - Month",
+          "subscriptionGroupID" : "3686CB65",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "displayPrice" : "6.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "F5FA78D4",
+          "introductoryOffer" : {
+            "internalID" : "C3097229",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P1M"
+          },
+          "localizations" : [
+            {
+              "description" : "($0.58/month)",
+              "displayName" : "1Year (365days)",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "(겨우 740원/월)",
+              "displayName" : "1년 (365일)",
+              "locale" : "ko"
+            }
+          ],
+          "productID" : "com.dayolstudio.dayol.membership.year",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Dayol Membership - Year",
+          "subscriptionGroupID" : "3686CB65",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 1
+  }
+}

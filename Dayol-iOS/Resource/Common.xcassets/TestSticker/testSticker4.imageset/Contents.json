@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "다욜스티커_2.png",
+      "filename" : "imgTwinkle.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "imgTwinkle@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "imgTwinkle@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

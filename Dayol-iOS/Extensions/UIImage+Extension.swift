@@ -8,6 +8,38 @@
 import UIKit
 
 extension UIImage {
+    var widthRatio: CGFloat {
+        return self.size.height / self.size.width
+    }
+
+    var heightRatio: CGFloat {
+        return  self.size.width / self.size.height
+    }
+
+    func resizeToRatio(width: CGFloat) -> UIImage? {
+        let ratio  = widthRatio
+        let newSize: CGSize = CGSize(width: width, height: width * ratio)
+
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        self.draw(in: CGRect(origin: .zero, size: newSize))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage
+    }
+
+    func resizeToRatio(height: CGFloat) -> UIImage? {
+        let ratio  = heightRatio
+        let newSize: CGSize = CGSize(width: height * ratio, height: height)
+
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        self.draw(in: CGRect(origin: .zero, size: newSize))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage
+    }
+
     func resizeImage(targetSize: CGSize) -> UIImage? {
         let size = self.size
 
@@ -32,5 +64,19 @@ extension UIImage {
         UIGraphicsEndImageContext()
 
         return newImage
+    }
+}
+
+
+// MARK: - 언어분기
+
+extension UIImage {
+    convenience init?(namedByLanguage: String) {
+        switch Config.shared.language {
+        case .en:
+            self.init(named: namedByLanguage + "_en")
+        default:
+            self.init(named: namedByLanguage)
+        }
     }
 }

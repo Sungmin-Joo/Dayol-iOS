@@ -6,6 +6,8 @@
   
 */
 
+// MARK: - Common
+
 // MARK: - 홈 / 세팅
 
 "home_empty_tooltip" = "설정은 요기!";
@@ -194,3 +196,17 @@
 
 "tooltip_text" = "텍스트 박스를 선택 후, 칸을 선택하면\n자동으로 칸 크기에 맞춰져서 작성할 수 있어요!";
 "add_area" = "영역추가";
+
+// MARK: - Membership
+
+"membership_expiration_date" = "구독만료일";
+
+"membership_year_info_price" = "₩%@원/연";
+"membership_month_info_price" = "₩%@원/월";
+
+"membership_subscribe_button_event_title" = "첫 30일 무료체험 시작\n";
+"membership_subscribe_button_restart_title" = "구독 갱신하기\n";
+"membership_new_year_subscribe_button_description" = "무료체험 기간 종료 후 ₩%@원/연 구독";
+"membership_new_month_subscribe_button_description" = "무료체험 기간 종료 후 ₩%@원/월 구독";
+"membership_comeback_year_subscribe_button_description" = "₩%@원/Year 구독";
+"membership_comeback_month_subscribe_button_description" = "₩%@원/Month 구독";

@@ -33,6 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Config.shared.deviceToken = deviceToken.map { String(format: "%02x", $0) }.joined()
+        DYUserDefaults.deviceToken = deviceToken.map { String(format: "%02x", $0) }.joined()
     }
 }
