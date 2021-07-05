@@ -51,9 +51,11 @@ class DecorationStickerItem: DecorationItem {
 
 class DecorationTextFieldItem: DecorationItem {
     let textData: Data
+    let bulletType: String
 
-    init(id: String, parentId: String, width: Float, height: Float, x: Float, y: Float, textData: Data) {
+    init(id: String, parentId: String, width: Float, height: Float, x: Float, y: Float, textData: Data, bulletType: String) {
         self.textData = textData
+        self.bulletType = bulletType
         super.init(id: id, parentId: parentId, width: width, height: height, x: x, y: y)
     }
 }
