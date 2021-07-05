@@ -201,6 +201,13 @@ class DYTestData {
 
         needsPaperUpdate.onNext(paperList[index])
     }
+
+    func updatePaperContents(id: String, items: [DecorationItem], drawing: Data? = nil) {
+        guard let index = paperList.firstIndex(where: { $0.id == id }) else { return }
+        paperList[index].contents = items
+        paperList[index].drawCanvas = drawing ?? Data()
+        needsPaperUpdate.onNext(paperList[index])
+    }
 }
 
 // MARK: - Diary Decorate Item Id

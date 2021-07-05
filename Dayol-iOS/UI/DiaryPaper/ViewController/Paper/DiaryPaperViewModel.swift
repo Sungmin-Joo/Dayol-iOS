@@ -12,12 +12,13 @@ class DiaryPaperViewModel {
     
     // MARK: - Properties
     private let disposeBag = DisposeBag()
-
-    var paper: Paper
     let numberOfPapers: Int
+    let paperSubject: BehaviorSubject<Paper>
+    var paper: Paper
 
     init(paper: Paper, numberOfPapers: Int) {
         self.paper = paper
+        self.paperSubject = BehaviorSubject(value: paper)
         self.numberOfPapers = numberOfPapers
 
         bind()
@@ -28,8 +29,18 @@ class DiaryPaperViewModel {
             .filter { $0.id == self.paper.id }
             .subscribe(onNext: { [weak self] paper in
                 self?.paper = paper
+                self?.paperSubject.onNext(paper)
             })
             .disposed(by: disposeBag)
+    }
+
+    func update(items: [DecorationItem], drawing: Data) {
+        DYTestData.shared.updatePaperContents(
+            id: paper.id,
+            items: items,
+            drawing: drawing
+        )
+        DYLog.d(.debug, value: "items: \(items)")
     }
 }
 

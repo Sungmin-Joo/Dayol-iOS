@@ -84,6 +84,7 @@ class PaperPresentView: UIView {
         addSubview(drawingContentView)
 
         setupConstraint()
+        updatePaper()
     }
 
     private func thumbnailBind() {
@@ -137,6 +138,20 @@ class PaperPresentView: UIView {
         DYTestData.shared.addPaperThumbnail(id: self.paper.id, thumbnail: thumbnail)
     }
 
+}
+
+// MARK: - update paper
+
+extension PaperPresentView {
+    func set(paper: Paper) {
+        self.paper = paper
+        updatePaper()
+    }
+
+    private func updatePaper() {
+        drawingContentView.setItems(paper.contents)
+        drawingContentView.setDrawData(paper.drawCanvas)
+    }
 }
 
 extension PaperPresentView {
