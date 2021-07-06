@@ -59,8 +59,6 @@ class PersistentManager {
     }
 
     func managedObject<T: NSManagedObject>(_ type: EntityType, class: T.Type) -> T? {
-        let context = context
-
         if let entity = entity(.diary) {
             return T(entity: entity, insertInto: context)
         }
