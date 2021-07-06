@@ -11,6 +11,7 @@ struct Diary {
     let id: String // D1, D2
     // TODO: - 패스워드 모델 정해진 후 재 구현(isLock)
     var isLock: Bool = false
+    var index: Int32
     let title: String
     let colorHex: String
 

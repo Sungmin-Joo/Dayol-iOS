@@ -11,7 +11,8 @@ import CoreData
 
 class DiaryManager {
     static let shared = DiaryManager()
-    let diaryListSubject = BehaviorSubject<[Diary]>(value: [])
+    var diaryList: [Diary] = []
+    let needsUpdateDiaryList = ReplaySubject<Void>.createUnbounded()
 
     private init() {
         fetchDiaryList()
@@ -22,16 +23,14 @@ class DiaryManager {
 
 extension DiaryManager {
     func createDiary(_ diary: Diary) {
-        let context = PersistentManager.shared.context
-        let entity = PersistentManager.shared.entity(.diary)
-
-        if let entity = entity {
-            let diaryMO = DiaryMO(entity: entity, insertInto: context)
-            diaryMO.make(diary: diary)
-            addContents(to: diaryMO, items: diary.contents)
-            PersistentManager.shared.saveContext()
-            fetchDiaryList()
+        guard let diaryMO = PersistentManager.shared.managedObject(.diary, class: DiaryMO.self) else {
+            return
         }
+
+        diaryMO.make(diary: diary)
+        addContents(to: diaryMO, items: diary.contents)
+        PersistentManager.shared.saveContext()
+        fetchDiaryList()
     }
 }
 
@@ -41,13 +40,16 @@ extension DiaryManager {
 
     func fetchDiaryList() {
         let fetchRequest: NSFetchRequest<DiaryMO> = DiaryMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "index", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
 
         guard let result = PersistentManager.shared.fetch(fetchRequest) else {
             return
         }
 
         let diaryList = result.compactMap { $0.toModel }
-        diaryListSubject.onNext(diaryList)
+        self.diaryList = diaryList
+        needsUpdateDiaryList.onNext(())
     }
 
     func fetchDiary(id: String) -> Diary? {
@@ -69,7 +71,29 @@ extension DiaryManager {
         diaryMO.make(diary: diary)
         addContents(to: diaryMO, items: diary.contents)
         PersistentManager.shared.saveContext()
-        fetchDiaryList()
+    }
+
+    func updateDiaryOrder(at sourceIndex: Int, to destinationIndex: Int) {
+        guard
+            var sourceModel = diaryList[safe: sourceIndex],
+            var destinationModel = diaryList[safe: destinationIndex]
+        else { return }
+
+        if sourceIndex > destinationIndex {
+            diaryList.remove(at: sourceIndex)
+            diaryList.insert(sourceModel, at: destinationIndex)
+        } else {
+            diaryList.insert(sourceModel, at: destinationIndex + 1)
+            diaryList.remove(at: sourceIndex)
+        }
+
+        sourceModel.index = Int32(destinationIndex)
+        destinationModel.index = Int32(sourceIndex)
+
+        updateDiary(sourceModel)
+        updateDiary(destinationModel)
+
+        // reorder의 ui 인터랙션은 collectionView api에서 해결해주기때문에 따로 fetch 하지 않는다.
     }
 
 }
@@ -79,10 +103,20 @@ extension DiaryManager {
 extension DiaryManager {
 
     func deleteDiary(id: String) {
-        guard let diaryMO = getDiaryMO(id: id) else { return }
-        let context = PersistentManager.shared.context
-        context.delete(diaryMO)
-        PersistentManager.shared.saveContext()
+        guard
+            let diary = diaryList.first(where: { $0.id == id }),
+            let diaryMO = getDiaryMO(id: id)
+        else { return }
+
+        let targetIndex = diary.index
+
+        diaryList.enumerated().forEach { index, diary in
+            guard index > targetIndex else { return }
+            diaryList[index].index = Int32(index - 1)
+            updateDiary(diaryList[index])
+        }
+
+        PersistentManager.shared.deleteManagedObject(diaryMO)
         fetchDiaryList()
     }
 
