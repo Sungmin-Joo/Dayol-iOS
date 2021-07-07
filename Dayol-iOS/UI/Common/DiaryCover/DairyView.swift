@@ -18,6 +18,8 @@ private enum Design {
 }
 
 class DiaryView: UIView, Undoable {
+    static let defaultCoverSize: CGSize = CGSize(width: 270, height: 360)
+
     private let disposeBag = DisposeBag()
     let didTappedLocker = PublishSubject<Void>()
 
