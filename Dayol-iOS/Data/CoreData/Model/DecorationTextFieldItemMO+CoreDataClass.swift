@@ -17,14 +17,18 @@ public class DecorationTextFieldItemMO: DecorationItemMO {
 
         if let textFieldItem = item as? DecorationTextFieldItem {
             self.textData = textFieldItem.textData
+            self.bulletType = textFieldItem.bulletType
         }
     }
 
     override var toModel: DecorationTextFieldItem? {
         guard
             let itemDAO = super.toModel,
-            let textData = textData
-        else { return nil }
+            let textData = textData,
+            let bulletType = bulletType
+        else {
+            return nil
+        }
 
         return DecorationTextFieldItem(id: itemDAO.id,
                                        parentId: itemDAO.parentId,
@@ -32,7 +36,8 @@ public class DecorationTextFieldItemMO: DecorationItemMO {
                                        height: height,
                                        x: x,
                                        y: y,
-                                       textData: textData)
+                                       textData: textData,
+                                       bulletType: bulletType)
     }
     
 }

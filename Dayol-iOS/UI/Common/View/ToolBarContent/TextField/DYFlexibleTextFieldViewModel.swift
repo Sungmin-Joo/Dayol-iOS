@@ -32,13 +32,15 @@ extension DYFlexibleTextFieldViewModel {
                                      documentAttributes: [
                                         .documentType: NSAttributedString.DocumentType.rtfd
                                      ])
+            let bulletType = try bulletTypeSubject.value().rawValue
             return DecorationTextFieldItem(id: id,
                                            parentId: parentId,
                                            width: width,
                                            height: height,
                                            x: x,
                                            y: y,
-                                           textData: data)
+                                           textData: data,
+                                           bulletType: bulletType)
         } catch {
             return nil
         }
@@ -50,6 +52,10 @@ extension DYFlexibleTextFieldViewModel {
             sizeSubject.onNext((item.width, item.height))
             attributedTextSubject.onNext(attributedText)
             id = item.id
+
+            if let bulletType = DYTextBoxBulletPoint.BulletType(rawValue: item.bulletType) {
+                bulletTypeSubject.onNext(bulletType)
+            }
         }
     }
 
