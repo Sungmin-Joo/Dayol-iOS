@@ -9,12 +9,19 @@ import UIKit
 import RxSwift
 
 private enum Design {
-    static let iconImageTopMargin: CGFloat = 21.0
     static let topIcon = Assets.Image.Home.topIcon
 
     static let bgColor = UIColor.white
 
-    static let collectionViewHeight: CGFloat = 432.0
+    static var collectionViewHeight: CGFloat {
+        let defaultHeight: CGFloat = 432.0
+
+        if UIScreen.main.bounds.size.height <= 667 {
+            return defaultHeight * 0.7
+        }
+
+        return defaultHeight
+    }
     static var itemSpacing: CGFloat {
         guard isPadDevice else {
             return 30.0
@@ -22,7 +29,7 @@ private enum Design {
         return 60.0
     }
     static func getItemSize(isEditMode: Bool) -> CGSize {
-        return isEditMode ? DiaryListCell.Size.edit : DiaryListCell.Size.default
+        return isEditMode ? DiaryListCell.Size.edit : DiaryListCell.Size.normal
     }
 }
 
@@ -140,8 +147,7 @@ extension DiaryListViewController {
         let layoutGuide = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            iconButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor,
-                                               constant: Design.iconImageTopMargin),
+            iconButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
             iconButton.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
 
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

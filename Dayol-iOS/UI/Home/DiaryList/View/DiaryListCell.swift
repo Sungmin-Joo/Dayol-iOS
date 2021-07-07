@@ -44,8 +44,16 @@ private enum Design {
 class DiaryListCell: UICollectionViewCell {
     static let identifier = "\(DiaryListCell.self)"
     enum Size {
-        static let `default` = CGSize(width: 278, height: 432)
-        static let edit = CGSize(width: 139, height: 216)
+        static let defaultSize = CGSize(width: 278, height: 432)
+        static var normal: CGSize {
+            if UIScreen.main.bounds.size.height <= 667 {
+                return CGSize(width: defaultSize.width * 0.7, height: defaultSize.height * 0.7)
+            }
+            return defaultSize
+        }
+        static var edit: CGSize {
+            return CGSize(width: defaultSize.width * 0.5, height: defaultSize.height * 0.5)
+        }
     }
 
     private let disposeBag = DisposeBag()
