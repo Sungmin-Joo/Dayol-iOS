@@ -49,6 +49,10 @@ class DYTestData {
     var paperList: [Paper] = [
 
     ]
+
+    var scheduleModels: [PaperScheduler] = [
+
+    ]
     
     var stickerList: [UIImage?] = [
         UIImage(named: "testSticker1"),
@@ -207,6 +211,21 @@ class DYTestData {
         paperList[index].contents = items
         paperList[index].drawCanvas = drawing ?? Data()
         needsPaperUpdate.onNext(paperList[index])
+    }
+
+    func addSchedule(_ model: PaperScheduler) {
+        scheduleModels.append(model)
+    }
+
+    func findSchedule(diaryId: String, include date: Date) -> [PaperScheduler] {
+        return scheduleModels.filter { model -> Bool in
+            return model.diaryId == diaryId && model.start <= date && model.end >= date
+        }
+    }
+
+    func removeSchedule(id: String) {
+        guard let toRemoveIndex = scheduleModels.firstIndex(where: { $0.id == id }) else { return }
+        scheduleModels.remove(at: toRemoveIndex)
     }
 }
 
