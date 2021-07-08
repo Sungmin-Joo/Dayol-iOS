@@ -170,10 +170,11 @@
 		CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF135EE25811D130098BEC3 /* Common.xcassets */; };
 		CEF135F225811DE30098BEC3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135F125811DE30098BEC3 /* Assets.swift */; };
 		DA13B6B82695E4CA0015AD71 /* ScheduleModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6B72695E4C90015AD71 /* ScheduleModalViewModel.swift */; };
-		DA13B6BC269717500015AD71 /* PaperScheduleContrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6BB2697174F0015AD71 /* PaperScheduleContrainerView.swift */; };
-		DA13B6C0269718630015AD71 /* PaperScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6BF269718630015AD71 /* PaperScheduleViewModel.swift */; };
+		DA13B6BC269717500015AD71 /* PaperScheduleLineContrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6BB2697174F0015AD71 /* PaperScheduleLineContrainerView.swift */; };
+		DA13B6C0269718630015AD71 /* PaperScheduleLineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6BF269718630015AD71 /* PaperScheduleLineViewModel.swift */; };
 		DA13B6C426971F1B0015AD71 /* MonthlyCalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6C326971F1B0015AD71 /* MonthlyCalendarModel.swift */; };
 		DA13B6C7269730430015AD71 /* PaperScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6C6269730430015AD71 /* PaperScheduleView.swift */; };
+		DA13B6CC2697338C0015AD71 /* PaperScheduleLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6CB2697338C0015AD71 /* PaperScheduleLineView.swift */; };
 		DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D67DC25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift */; };
 		DA27AC5B25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27AC5A25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift */; };
 		DA27AC5E25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27AC5D25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift */; };
@@ -423,10 +424,11 @@
 		CEF135EE25811D130098BEC3 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		CEF135F125811DE30098BEC3 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		DA13B6B72695E4C90015AD71 /* ScheduleModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModalViewModel.swift; sourceTree = "<group>"; };
-		DA13B6BB2697174F0015AD71 /* PaperScheduleContrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperScheduleContrainerView.swift; sourceTree = "<group>"; };
-		DA13B6BF269718630015AD71 /* PaperScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperScheduleViewModel.swift; sourceTree = "<group>"; };
+		DA13B6BB2697174F0015AD71 /* PaperScheduleLineContrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperScheduleLineContrainerView.swift; sourceTree = "<group>"; };
+		DA13B6BF269718630015AD71 /* PaperScheduleLineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperScheduleLineViewModel.swift; sourceTree = "<group>"; };
 		DA13B6C326971F1B0015AD71 /* MonthlyCalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarModel.swift; sourceTree = "<group>"; };
 		DA13B6C6269730430015AD71 /* PaperScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperScheduleView.swift; sourceTree = "<group>"; };
+		DA13B6CB2697338C0015AD71 /* PaperScheduleLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperScheduleLineView.swift; sourceTree = "<group>"; };
 		DA1D67DC25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewDayCell.swift; sourceTree = "<group>"; };
 		DA27AC5A25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarViewModel.swift; sourceTree = "<group>"; };
 		DA27AC5D25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarHeaderView.swift; sourceTree = "<group>"; };
@@ -1299,8 +1301,9 @@
 		DA13B6BA2697173A0015AD71 /* ScheduleView */ = {
 			isa = PBXGroup;
 			children = (
-				DA13B6BB2697174F0015AD71 /* PaperScheduleContrainerView.swift */,
-				DA13B6BF269718630015AD71 /* PaperScheduleViewModel.swift */,
+				DA13B6BB2697174F0015AD71 /* PaperScheduleLineContrainerView.swift */,
+				DA13B6CB2697338C0015AD71 /* PaperScheduleLineView.swift */,
+				DA13B6BF269718630015AD71 /* PaperScheduleLineViewModel.swift */,
 				DA13B6C6269730430015AD71 /* PaperScheduleView.swift */,
 			);
 			path = ScheduleView;
@@ -1813,6 +1816,7 @@
 				DA9A87392610AA3800ABCD07 /* DYStickerSizeStretchableView.swift in Sources */,
 				3454C6D226665ACB00557450 /* DYTextBoxBulletPoint.swift in Sources */,
 				0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */,
+				DA13B6CC2697338C0015AD71 /* PaperScheduleLineView.swift in Sources */,
 				DAC04CCA25920C16003A7BC8 /* DiaryCoverView.swift in Sources */,
 				DADD09FB25A33674004D6CF0 /* DiaryEditCoverView.swift in Sources */,
 				3452670C25DD644B00EC6F9D /* DataBackupViewModel.swift in Sources */,
@@ -1892,7 +1896,7 @@
 				DA5A118026760F6F002C7EA8 /* PaperScheldule.swift in Sources */,
 				34AD5A8425C9A87600D9E29C /* PaperListAddCell.swift in Sources */,
 				DA5A116826760818002C7EA8 /* ScheduleColorSelectView.swift in Sources */,
-				DA13B6C0269718630015AD71 /* PaperScheduleViewModel.swift in Sources */,
+				DA13B6C0269718630015AD71 /* PaperScheduleLineViewModel.swift in Sources */,
 				0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */,
 				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
 				3454C6D0266521F400557450 /* DYFlexibleTextFieldViewModel.swift in Sources */,
@@ -1974,7 +1978,7 @@
 				34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */,
 				DADD09F725A335C2004D6CF0 /* DiaryEditToggleView.swift in Sources */,
 				DAEF76A425F66EE7007CAA93 /* DiaryPaperViewerViewModel.swift in Sources */,
-				DA13B6BC269717500015AD71 /* PaperScheduleContrainerView.swift in Sources */,
+				DA13B6BC269717500015AD71 /* PaperScheduleLineContrainerView.swift in Sources */,
 				DA5A116726760818002C7EA8 /* ScheduleModalContentView.swift in Sources */,
 				0DA235A9266115B7003AA15F /* UIWindow+Extension.swift in Sources */,
 				0DEAD271267606C8009A3554 /* DecorationStickerItemMO+CoreDataClass.swift in Sources */,

@@ -38,6 +38,10 @@ extension Date {
         return hour
     }
 
+    func dayDiff(with date: Date) -> Int? {
+        return Date.calendar.dateComponents([.day], from: self, to: date).day
+    }
+
     var weekday: Int {
         return Calendar.current.component(.weekday, from: self)
     }
