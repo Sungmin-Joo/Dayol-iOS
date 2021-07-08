@@ -13,6 +13,10 @@ enum PaperSchdeuleType {
     case schedule(day: Int, name: String, colorHex: String)
 }
 
+private enum Constant {
+    static let maxDaysOfWeek = 7
+}
+
 final class PaperScheduleLineViewModel {
     private(set) var schedules: [PaperSchdeuleType] = []
     private let scheduleModels: [PaperScheduler]
@@ -27,17 +31,24 @@ final class PaperScheduleLineViewModel {
 
     private func makeScheduleTypes() {
         var baseMomentDate = firstDateOfWeek
+        var processedDays = 0
 
         scheduleModels.forEach { model in
             if model.start <= baseMomentDate {
                 let dayDiff = baseMomentDate.dayDiff(with: model.end) ?? 0
                 schedules.append(.schedule(day: dayDiff, name: model.name, colorHex: model.colorHex))
                 baseMomentDate = model.end.day().date(with: .day) ?? .now
+                processedDays += dayDiff
             } else {
                 let dayDiff = baseMomentDate.dayDiff(with: model.start) ?? 0
                 schedules.append(.empty(day: dayDiff))
                 baseMomentDate = model.start.day().date(with: .day) ?? .now
+                processedDays += dayDiff
             }
+        }
+
+        if processedDays < Constant.maxDaysOfWeek {
+            schedules.append(.empty(day: Constant.maxDaysOfWeek - processedDays))
         }
     }
 }

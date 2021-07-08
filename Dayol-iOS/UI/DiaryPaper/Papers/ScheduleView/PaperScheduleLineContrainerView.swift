@@ -8,14 +8,16 @@
 import UIKit
 
 private enum Design {
-    static let scheduleViewHeight: CGFloat = 13
     static let scheduleViewSpace: CGFloat = 5
+    static let scheduleViewHeight: CGFloat = 13
 }
 
 final class PaperScheduleLineContrainerView: UIStackView {
     private let maxScheduleCount: Int
+    private let baseWidth: CGFloat
 
-    init(maxScheduleCount: Int) {
+    init(maxScheduleCount: Int, baseWidth: CGFloat) {
+        self.baseWidth = baseWidth
         self.maxScheduleCount = maxScheduleCount
         super.init(frame: .zero)
         axis = .vertical
