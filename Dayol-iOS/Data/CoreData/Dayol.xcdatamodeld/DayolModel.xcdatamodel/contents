@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20E5210c" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="DecorationImageItem" representedClassName="DecorationImageItemMO" parentEntity="DecorationItem" syncable="YES" codeGenerationType="category"/>
     <entity name="DecorationItem" representedClassName="DecorationItemMO" isAbstract="YES" syncable="YES" codeGenerationType="category">
         <attribute name="height" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -46,7 +46,8 @@
         <attribute name="end" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
-        <attribute name="paperId" attributeType="String"/>
+        <attribute name="showsMonthlyPaper" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="showsWeeklyPaper" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="start" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="paper" maxCount="1" deletionRule="No Action" destinationEntity="Paper" inverseName="scheduler" inverseEntity="Paper"/>
     </entity>
@@ -57,6 +58,6 @@
         <element name="DecorationTextFieldItem" positionX="-297" positionY="-252" width="128" height="44"/>
         <element name="Diary" positionX="-205.9453125" positionY="-438.79296875" width="173.7578125" height="163"/>
         <element name="Paper" positionX="-489.12109375" positionY="-332.0703125" width="128" height="209"/>
-        <element name="PaperScheduler" positionX="-488.76171875" positionY="-76.8984375" width="128" height="149"/>
+        <element name="PaperScheduler" positionX="-488.76171875" positionY="-76.8984375" width="128" height="164"/>
     </elements>
 </model>
