@@ -170,9 +170,10 @@
 		CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF135EE25811D130098BEC3 /* Common.xcassets */; };
 		CEF135F225811DE30098BEC3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF135F125811DE30098BEC3 /* Assets.swift */; };
 		DA13B6B82695E4CA0015AD71 /* ScheduleModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6B72695E4C90015AD71 /* ScheduleModalViewModel.swift */; };
-		DA13B6BC269717500015AD71 /* ScheduleContrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6BB2697174F0015AD71 /* ScheduleContrainerView.swift */; };
-		DA13B6C0269718630015AD71 /* ScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6BF269718630015AD71 /* ScheduleViewModel.swift */; };
+		DA13B6BC269717500015AD71 /* PaperScheduleContrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6BB2697174F0015AD71 /* PaperScheduleContrainerView.swift */; };
+		DA13B6C0269718630015AD71 /* PaperScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6BF269718630015AD71 /* PaperScheduleViewModel.swift */; };
 		DA13B6C426971F1B0015AD71 /* MonthlyCalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6C326971F1B0015AD71 /* MonthlyCalendarModel.swift */; };
+		DA13B6C7269730430015AD71 /* PaperScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13B6C6269730430015AD71 /* PaperScheduleView.swift */; };
 		DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D67DC25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift */; };
 		DA27AC5B25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27AC5A25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift */; };
 		DA27AC5E25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27AC5D25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift */; };
@@ -422,9 +423,10 @@
 		CEF135EE25811D130098BEC3 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		CEF135F125811DE30098BEC3 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		DA13B6B72695E4C90015AD71 /* ScheduleModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModalViewModel.swift; sourceTree = "<group>"; };
-		DA13B6BB2697174F0015AD71 /* ScheduleContrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleContrainerView.swift; sourceTree = "<group>"; };
-		DA13B6BF269718630015AD71 /* ScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewModel.swift; sourceTree = "<group>"; };
+		DA13B6BB2697174F0015AD71 /* PaperScheduleContrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperScheduleContrainerView.swift; sourceTree = "<group>"; };
+		DA13B6BF269718630015AD71 /* PaperScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperScheduleViewModel.swift; sourceTree = "<group>"; };
 		DA13B6C326971F1B0015AD71 /* MonthlyCalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarModel.swift; sourceTree = "<group>"; };
+		DA13B6C6269730430015AD71 /* PaperScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperScheduleView.swift; sourceTree = "<group>"; };
 		DA1D67DC25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewDayCell.swift; sourceTree = "<group>"; };
 		DA27AC5A25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarViewModel.swift; sourceTree = "<group>"; };
 		DA27AC5D25C81CB900C71CDE /* WeeklyCalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarHeaderView.swift; sourceTree = "<group>"; };
@@ -1297,8 +1299,9 @@
 		DA13B6BA2697173A0015AD71 /* ScheduleView */ = {
 			isa = PBXGroup;
 			children = (
-				DA13B6BB2697174F0015AD71 /* ScheduleContrainerView.swift */,
-				DA13B6BF269718630015AD71 /* ScheduleViewModel.swift */,
+				DA13B6BB2697174F0015AD71 /* PaperScheduleContrainerView.swift */,
+				DA13B6BF269718630015AD71 /* PaperScheduleViewModel.swift */,
+				DA13B6C6269730430015AD71 /* PaperScheduleView.swift */,
 			);
 			path = ScheduleView;
 			sourceTree = "<group>";
@@ -1889,7 +1892,7 @@
 				DA5A118026760F6F002C7EA8 /* PaperScheldule.swift in Sources */,
 				34AD5A8425C9A87600D9E29C /* PaperListAddCell.swift in Sources */,
 				DA5A116826760818002C7EA8 /* ScheduleColorSelectView.swift in Sources */,
-				DA13B6C0269718630015AD71 /* ScheduleViewModel.swift in Sources */,
+				DA13B6C0269718630015AD71 /* PaperScheduleViewModel.swift in Sources */,
 				0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */,
 				CEB9EE422583C94E005B66C9 /* DayolAlertViewController.swift in Sources */,
 				3454C6D0266521F400557450 /* DYFlexibleTextFieldViewModel.swift in Sources */,
@@ -1971,7 +1974,7 @@
 				34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */,
 				DADD09F725A335C2004D6CF0 /* DiaryEditToggleView.swift in Sources */,
 				DAEF76A425F66EE7007CAA93 /* DiaryPaperViewerViewModel.swift in Sources */,
-				DA13B6BC269717500015AD71 /* ScheduleContrainerView.swift in Sources */,
+				DA13B6BC269717500015AD71 /* PaperScheduleContrainerView.swift in Sources */,
 				DA5A116726760818002C7EA8 /* ScheduleModalContentView.swift in Sources */,
 				0DA235A9266115B7003AA15F /* UIWindow+Extension.swift in Sources */,
 				0DEAD271267606C8009A3554 /* DecorationStickerItemMO+CoreDataClass.swift in Sources */,
@@ -1979,6 +1982,7 @@
 				DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */,
 				0D011A8A2675D9C1001F5469 /* Dayol.xcdatamodeld in Sources */,
 				DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */,
+				DA13B6C7269730430015AD71 /* PaperScheduleView.swift in Sources */,
 				34788856261E0B4B00692ED7 /* LassoInfoView.swift in Sources */,
 				34E61395262F03260076FE74 /* ColorEntity.swift in Sources */,
 				3446621F25C1A07A00656775 /* CornellPaper.swift in Sources */,

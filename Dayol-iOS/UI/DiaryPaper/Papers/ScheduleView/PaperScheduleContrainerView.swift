@@ -1,5 +1,5 @@
 //
-//  ScheduleContrainerView.swift
+//  PaperScheduleContrainerView.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/07/08.
@@ -12,7 +12,7 @@ private enum Design {
     static let scheduleViewSpace: CGFloat = 5
 }
 
-final class ScheduleContrainerView: UIStackView {
+final class PaperScheduleContrainerView: UIStackView {
     private let maxScheduleCount: Int
 
     init(maxScheduleCount: Int) {
