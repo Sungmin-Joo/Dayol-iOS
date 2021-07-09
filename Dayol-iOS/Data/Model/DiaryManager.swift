@@ -12,7 +12,7 @@ import CoreData
 class DiaryManager {
     static let shared = DiaryManager()
     var diaryList: [Diary] = []
-    let needsUpdateDiaryList = ReplaySubject<Void>.createUnbounded()
+    let needsUpdateDiaryList = BehaviorSubject<Void>(value: ())
 
     private init() {
         fetchDiaryList()
