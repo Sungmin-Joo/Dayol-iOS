@@ -9,23 +9,15 @@ import UIKit
 
 final class DYImageSizeStretchableView: DYStickerBaseView {
 
-    static let defaultImageWidth: CGFloat = 76.0
-
-    var currentImage: UIImage?
-
     init(contentView: UIImageView) {
         super.init(contentView: contentView)
         self.enableHStretch = true
         self.enableWStretch = true
-        self.currentImage = contentView.image
+        super.currentImage = contentView.image
     }
 
-    convenience init(image: UIImage) {
-        let imageView = UIImageView(image: image)
-        let imageRatio = image.size.height / image.size.width
-        let calcedImageHeight: CGFloat = imageRatio * Self.defaultImageWidth
-        imageView.frame.size = CGSize(width: Self.defaultImageWidth, height: calcedImageHeight)
-        self.init(contentView: imageView)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     convenience init(model: DecorationImageItem) {
@@ -39,20 +31,17 @@ final class DYImageSizeStretchableView: DYStickerBaseView {
         setDegree(CGFloat(model.inclination))
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    // TODO: - 스티커와 이미지를 같은 모델을 사용하면 어떨지??? id값은 둘 다 있으니.. 로깅에 문제 없을 것 같은데..
     func toItem(id: String, parentId: String) -> DecorationImageItem? {
         guard let data = currentImage?.pngData() else { return nil }
-        return DecorationImageItem(id: id,
-                                   parentId: parentId,
-                                   width: Float(frame.width),
-                                   height: Float(frame.height),
-                                   x: Float(frame.origin.x),
-                                   y: Float(frame.origin.y),
-                                   image: data,
-                                   inclination: Float(deltaAngle))
+        return DecorationImageItem(
+            id: id,
+            parentId: parentId,
+            width: Float(frame.width),
+            height: Float(frame.height),
+            x: Float(frame.origin.x),
+            y: Float(frame.origin.y),
+            image: data,
+            inclination: Float(deltaAngle)
+        )
     }
 }
