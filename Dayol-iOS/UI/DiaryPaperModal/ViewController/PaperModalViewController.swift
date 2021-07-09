@@ -33,7 +33,7 @@ class PaperModalViewController: DYModalViewController {
         case list
         case paperType(type: PaperType)
         case date
-        case shedule(scheduleType: ScheduleModalType)
+        case shedule(date: Date, scheduleType: ScheduleModalType)
     }
 
     private let disposeBag = DisposeBag()
@@ -75,8 +75,8 @@ class PaperModalViewController: DYModalViewController {
             setupMonthListView(paperType: type)
         case .date:
             setupDatePickerView()
-        case .shedule(let scheduleType):
-            setupScheduleView(scheduleType: scheduleType)
+        case .shedule(let date, let scheduleType):
+            setupScheduleView(date: date, scheduleType: scheduleType)
         }
     }
 
@@ -119,9 +119,9 @@ class PaperModalViewController: DYModalViewController {
         bindDatePickerEvent()
     }
 
-    private func setupScheduleView(scheduleType: ScheduleModalType) {
+    private func setupScheduleView(date: Date, scheduleType: ScheduleModalType) {
         let titleView = ScheduleModalHeaderView()
-        let contentView = ScheduleModalContentView(scheduleType: scheduleType)
+        let contentView = ScheduleModalContentView(date: date, scheduleType: scheduleType)
         self.titleView = titleView
         self.contentView = contentView
 

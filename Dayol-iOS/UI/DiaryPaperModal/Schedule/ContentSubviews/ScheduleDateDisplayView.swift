@@ -157,7 +157,7 @@ final class ScheduleDateDisplayView: UIView {
     func setDate(_ date: Date) {
         let dateString = DateType.schedule.dateToString(date)
         let timeString = DateType.time.dateToString(date)
-
+        datePicker.date = date
         dateLabel.attributedText = NSAttributedString.build(text: dateString,
                                                             font: Design.DateLabel.textFont,
                                                             align: .natural,

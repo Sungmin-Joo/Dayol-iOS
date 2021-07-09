@@ -43,7 +43,7 @@ final class ScheduleModalContentView: UIView {
         return view
     }()
 
-    private let dateSelectView: ScheduleDateSelectView = {
+    private lazy var dateSelectView: ScheduleDateSelectView = {
         // week or month
         let view = ScheduleDateSelectView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -77,13 +77,13 @@ final class ScheduleModalContentView: UIView {
 
     // MARK: - Init
 
-    init(scheduleType: ScheduleModalType) {
+    init(date: Date, scheduleType: ScheduleModalType) {
         self.scheduleType = scheduleType
         super.init(frame: .zero)
         setupViews()
         setupConstrains()
 
-        dateSelectView.setDate(start: Date.now, end: Date.now)
+        dateSelectView.setDate(start: date, end: date.hour(add: 1))
     }
 
     required init?(coder: NSCoder) {

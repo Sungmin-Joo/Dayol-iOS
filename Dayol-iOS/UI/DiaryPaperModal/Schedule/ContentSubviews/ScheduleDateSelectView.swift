@@ -26,6 +26,8 @@ private enum Design {
 final class ScheduleDateSelectView: UIView {
     private let disposeBag = DisposeBag()
 
+    let scheduleDate = PublishSubject<(Date, Date)>()
+
     // MARK: - UI Component
 
     private let stackView: UIStackView = {
@@ -66,6 +68,21 @@ final class ScheduleDateSelectView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func bind() {
+        leftDisplayView.didChangedDate
+            .subscribe(onNext: { [weak self] date in
+                guard let self = self else { return }
+
+            })
+            .disposed(by: disposeBag)
+
+        rightDisplayView.didChangedDate
+            .subscribe(onNext: { [weak self] date in
+                guard let self = self else { return }
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Setup

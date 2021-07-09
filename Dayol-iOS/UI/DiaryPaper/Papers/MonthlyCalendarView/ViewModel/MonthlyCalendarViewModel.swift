@@ -91,64 +91,32 @@ struct MonthlyCalendarDayModel {
     let dayNumber: Int
     let isCurrentMonth: Bool
     let isToday: Bool
-    let events: [NSObject] // Mock Data
     
     init(dayNumber: Int, isCurrentMonth: Bool, isToday: Bool = false) {
         self.dayNumber = dayNumber
         self.isCurrentMonth = isCurrentMonth
         self.isToday = isToday
-        self.events = [NSObject]() // Mock Data
     }
 }
 
 class MonthlyCalendarViewModel: PaperViewModel {
-    private let date: Date
-    private var numOfDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]
-    private var monthIndex: Int = 0
-    private var year: Int = 0
-    private var today = 0
     private var firstWeekDayOfMonth: WeekDay = .sunday
-    private var prevMontRemainDayCount: Int {
-        let weekdayRawValue = firstWeekDayOfMonth.rawValue - WeekDay.sunday.rawValue - 1
-        
-        if weekdayRawValue < 0 {
-            return weekdayRawValue + 7
-        }
-        return weekdayRawValue
-    }
+    private let model: MonthlyCalendarModel
+    
     
     init(date: Date) {
-        self.date = date
+        model = MonthlyCalendarModel(date: date)
         super.init(drawModel: DrawModel())
     }
     
-    private func calcDate(date: Date) {
-        monthIndex = Calendar.current.component(.month, from: date)
-        monthIndex -= 1
-        
-        year = Calendar.current.component(.year, from: date)
-        today = Calendar.current.component(.day, from: date)
-
-        firstWeekDayOfMonth = firstWeekDay(year: year, month: monthIndex)
-        
-        // 윤년
-        if monthIndex == 1 && year % 4 == 0 {
-            numOfDaysInMonth[monthIndex] = 29
-        }
-    }
-    
-    private func firstWeekDay(year: Int, month: Int) -> WeekDay {
-        let day = ("\(year).\(month+1) 01".date(with: .yearMonthDay)?.firstDayOfTheMonth.weekday)!
-        return WeekDay(rawValue: day) ?? .sunday
-    }
-    
-    private func days(year: Int, month: Int) -> [MonthlyCalendarDayModel] {
+    private var days: [MonthlyCalendarDayModel] {
         var daysResult = [MonthlyCalendarDayModel]()
         let maxCount = 42
-        let prevMonth: Int = (month - 1 < 0) ? 11 : month - 1
-        let prevMonthRemainDaysCount = self.prevMontRemainDayCount
-        let prevMonthMaxDay = numOfDaysInMonth[prevMonth]
-        let currentMonthCount = numOfDaysInMonth[month]
+        let year = model.year
+        let month = model.monthIndex
+        let prevMonthRemainDaysCount = model.prevMonthRemainDayCount
+        let prevMonthMaxDay = model.numOfDaysInPrev
+        let currentMonthCount = model.numOfDays
         
         for index in 0..<maxCount {
             let isPrevMonth = index < prevMonthRemainDaysCount
@@ -180,11 +148,10 @@ extension MonthlyCalendarViewModel {
             guard let self = self else {
                 return Disposables.create()
             }
-            self.calcDate(date: self.date)
-            let days = self.days(year: self.year, month: self.monthIndex)
-            let month = Month(rawValue: self.monthIndex) ?? .january
+            let days = self.days
+            let month = Month(rawValue: self.model.monthIndex) ?? .january
             let dateModel = MonthlyCalendarDataModel(
-                year: self.year,
+                year: self.model.year,
                 month: month,
                 days: days
             )

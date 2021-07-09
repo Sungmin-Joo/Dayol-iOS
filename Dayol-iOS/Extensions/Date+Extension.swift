@@ -32,6 +32,12 @@ extension Date {
         return DateType.day.formatter.string(from: month)
     }
 
+    func hour(add value: Int = 0) -> Date {
+        let hour = Date.calendar.date(byAdding: .hour, value: value, to: self) ?? Date()
+
+        return hour
+    }
+
     var weekday: Int {
         return Calendar.current.component(.weekday, from: self)
     }

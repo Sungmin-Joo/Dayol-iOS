@@ -147,7 +147,7 @@ extension WeeklyCalendarView: UICollectionViewDataSource {
                       let dayModel = self.dayModel?[safe: indexPath.item]
                 else { return }
                 let day = dayModel.day
-                let month = dayModel.month.rawValue
+                let month = dayModel.month.rawValue + 1
                 let year = dayModel.year
 
                 let date = DateType.yearMonthDay.date(year: year, month: month, day: day) ?? .now
