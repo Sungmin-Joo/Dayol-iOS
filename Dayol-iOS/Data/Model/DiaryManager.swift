@@ -28,7 +28,7 @@ extension DiaryManager {
         }
 
         diaryMO.make(diary: diary)
-        addContents(to: diaryMO, items: diary.contents)
+        ContentsManager.shared.addContents(to: diaryMO, items: diary.contents)
         PersistentManager.shared.saveContext()
         fetchDiaryList()
     }
@@ -69,7 +69,7 @@ extension DiaryManager {
         guard let diaryMO = getDiaryMO(id: diary.id) else { return }
 
         diaryMO.make(diary: diary)
-        addContents(to: diaryMO, items: diary.contents)
+        ContentsManager.shared.addContents(to: diaryMO, items: diary.contents)
         PersistentManager.shared.saveContext()
     }
 
@@ -137,23 +137,4 @@ extension DiaryManager {
         return result.first
     }
 
-    private func addContents(to diaryMO: DiaryMO, items: [DecorationItem]) {
-        items.forEach {
-            // TODO: - 상속 구조로 다듬을 수 없는지?
-
-            if let textFieldItem = $0 as? DecorationTextFieldItem {
-                // DecorationTextFieldItem
-                let managedObject = PersistentManager.shared.insertObject(.decorationTextFieldItem)
-
-                guard let textFieldItemMO = managedObject as? DecorationTextFieldItemMO else { return}
-
-                textFieldItemMO.make(item: textFieldItem)
-                diaryMO.addToContents(textFieldItemMO)
-            } else if let imageItem = $0 as? DecorationImageItem {
-                // DecorationImageItem
-            } else if let sticker = $0 as? DecorationStickerItem {
-                // DecorationStickerItem
-            }
-        }
-    }
 }
