@@ -37,7 +37,7 @@ final class PaperScheduleLineViewModel {
 
         scheduleModels.forEach { model in
             let startDateDayDiff = baseMomentDate.dayDiff(with: model.start) ?? 0
-            if isFirstDraw == false, startDateDayDiff <= 0 {
+            if isFirstDraw == false, startDateDayDiff < 0 {
                 return
             } else {
                 if startDateDayDiff > 0 {
@@ -51,7 +51,7 @@ final class PaperScheduleLineViewModel {
                     let endDateDayDiff = baseMomentDate.dayDiff(with: endScheduleDay) ?? 0
                     if endDateDayDiff >= 0 {
                         schedules.append(.schedule(day: endDateDayDiff + 1, name: model.name, colorHex: model.colorHex))
-                        baseMomentDate = model.end
+                        baseMomentDate = model.end.day(add: 1)
                         processedDays += endDateDayDiff + 1
                         isFirstDraw = false
                         PaperScheduleStoreManager.shared.deleteSchedule(scheduleId: model.id)
