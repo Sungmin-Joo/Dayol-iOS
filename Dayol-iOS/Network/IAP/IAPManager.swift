@@ -58,7 +58,7 @@ final class IAPManager: NSObject {
     private let sharedSecretPassword = "a077f258292c41288a70b3c96c0a22ab"
     private let paymentQueue: SKPaymentQueue = SKPaymentQueue.default()
     private var products = [SKProduct]()
-
+    private var disposeBag: DisposeBag = DisposeBag()
 
     var canMakePayments: Bool {
         return SKPaymentQueue.canMakePayments()
@@ -90,39 +90,14 @@ final class IAPManager: NSObject {
     }
 
     func checkPurchased() {
-        guard
-            let url = URL(string:"https://sandbox.itunes.apple.com/verifyReceipt"),
-            let appStoreReceiptURL = Bundle.main.appStoreReceiptURL,
-            FileManager.default.fileExists(atPath: appStoreReceiptURL.path)
-        else {
-            DYLog.e(.inAppPurchase, value: "Receipt Error")
-            return
-        }
-
-        guard let receiptData = try? Data(contentsOf: appStoreReceiptURL, options: .alwaysMapped) else { return }
-        let receiptString = receiptData.base64EncodedString(options: [])
-        let requestData : [String : Any] = [
-            "receipt-data" : receiptString,
-            "password" : sharedSecretPassword,
-            "exclude-old-transactions" : false
-        ]
-
-        let httpBody = try? JSONSerialization.data(withJSONObject: requestData, options: [])
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-                request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-                request.httpBody = httpBody
-                URLSession.shared.dataTask(with: request)  { (data, response, error) in
-                    if let error = error {
-                        DYLog.e(.inAppPurchase, value: error)
-                        return
-                    }
-
-                    if let jsonData = try? JSONSerialization.jsonObject(with: data ?? Data(), options: []) as? [String: Any] {
-                        DYLog.i(.inAppPurchase, value: jsonData)
-                    }
-                }.resume()
-
+        API.GetMembershipReceipt(password: sharedSecretPassword).rx.response()
+            .observe(on: MainScheduler.instance)
+            .attachHUD()
+            .subscribe { (response: API.GetMembershipReceipt.Response) in
+                DYLog.i(.inAppPurchase, value: "(STATUS: \(response.status))")
+                DYLog.i(.inAppPurchase, value: "(ADMIN_ID: \(response.receipt.adamId))")
+            }
+            .disposed(by: disposeBag)
     }
 }
 

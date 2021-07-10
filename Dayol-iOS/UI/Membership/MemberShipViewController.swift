@@ -20,7 +20,6 @@ private class ViewModel {
     init() {
         if let userActivityType = UserActivityType(rawValue: DYUserDefaults.activityType) {
             self.userActivityType = userActivityType
-            IAPManager.shared.checkPurchased()
         } else {
             fatalError("No User Activity Type")
         }

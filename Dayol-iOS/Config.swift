@@ -70,6 +70,7 @@ class Config {
 
     func initalize() {
         FirebaseApp.configure()
+        IAPManager.shared.checkPurchased()
         PersistentManager.shared.saveContext()
     }
 }
