@@ -13,10 +13,9 @@ private enum Design {
 
 final class PaperScheduleLineView: UIStackView {
     private let viewModel: PaperScheduleLineViewModel
-    private let baseWidth: CGFloat
+    private let baseWidth: CGFloat = PaperOrientationConstant.size(orentantion: .portrait).width / CGFloat(7)
 
     init(viewModel: PaperScheduleLineViewModel, baseWidth: CGFloat) {
-        self.baseWidth = baseWidth
         self.viewModel = viewModel
         super.init(frame: .zero)
         axis = .horizontal
@@ -32,11 +31,14 @@ final class PaperScheduleLineView: UIStackView {
         viewModel.schedules.forEach { schedule in
             switch schedule {
             case .empty(day: let day):
-                let emptyView = UIView(frame: CGRect(x: 0, y: 0, width: baseWidth * CGFloat(day), height: Design.height))
+                let emptyView = UIView()
+                emptyView.translatesAutoresizingMaskIntoConstraints = false
+                emptyView.widthAnchor.constraint(equalToConstant: baseWidth * CGFloat(day)).isActive = true
                 addArrangedSubview(emptyView)
             case .schedule(day: let day, name: let name, colorHex: let colorHex):
                 let scheduleView = PaperScheduleView(scheduleName: name, color: UIColor(hex: colorHex) ?? .clear)
-                scheduleView.frame.size = CGSize(width: baseWidth * CGFloat(day), height: Design.height)
+                scheduleView.translatesAutoresizingMaskIntoConstraints = false
+                scheduleView.widthAnchor.constraint(equalToConstant: baseWidth * CGFloat(day)).isActive = true
                 addArrangedSubview(scheduleView)
             }
         }

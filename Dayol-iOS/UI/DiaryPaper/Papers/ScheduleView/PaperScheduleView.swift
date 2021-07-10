@@ -24,6 +24,7 @@ final class PaperScheduleView: UIView {
     init(scheduleName: String, color: UIColor) {
         super.init(frame: .zero)
         self.backgroundColor = color
+        addSubviews()
         setName(scheduleName)
     }
 
@@ -37,11 +38,13 @@ final class PaperScheduleView: UIView {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            scheduleNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Design.labelLeading)
+            scheduleNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Design.labelLeading),
+            scheduleNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 
     private func setName(_ name: String) {
         scheduleNameLabel.attributedText = NSAttributedString.build(text: name, font: Design.font, align: .natural, letterSpacing: Design.letterSpace, foregroundColor: .white)
+        scheduleNameLabel.sizeToFit()
     }
 }

@@ -38,7 +38,7 @@ class MonthlyCalendarHeaderView: UIView {
         
         return button
     }()
-    
+
     init(month: Month) {
         super.init(frame: .zero)
         self.month = month

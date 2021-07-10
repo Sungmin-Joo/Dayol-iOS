@@ -34,17 +34,17 @@ final class PaperScheduleLineViewModel {
         var processedDays = 0
 
         scheduleModels.forEach { model in
-            if model.start <= baseMomentDate {
-                let dayDiff = baseMomentDate.dayDiff(with: model.end) ?? 0
-                schedules.append(.schedule(day: dayDiff, name: model.name, colorHex: model.colorHex))
-                baseMomentDate = model.end.day().date(with: .day) ?? .now
-                processedDays += dayDiff
-            } else {
-                let dayDiff = baseMomentDate.dayDiff(with: model.start) ?? 0
+            if model.start > baseMomentDate {
+                let dayDiff = (baseMomentDate.dayDiff(with: model.start) ?? 0) + 1
                 schedules.append(.empty(day: dayDiff))
-                baseMomentDate = model.start.day().date(with: .day) ?? .now
+                baseMomentDate = model.start.day()
                 processedDays += dayDiff
             }
+
+            let dayDiff = (baseMomentDate.dayDiff(with: model.end) ?? 0) + 1
+            schedules.append(.schedule(day: dayDiff, name: model.name, colorHex: model.colorHex))
+            baseMomentDate = model.end.day()
+            processedDays += dayDiff
         }
 
         if processedDays < Constant.maxDaysOfWeek {

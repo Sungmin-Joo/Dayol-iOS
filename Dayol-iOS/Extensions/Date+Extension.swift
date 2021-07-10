@@ -14,28 +14,34 @@ extension Date {
         return Calendar(identifier: .gregorian)
     }()
 
-    func year(add value: Int = 0) -> String {
-        let year = Date.calendar.date(byAdding: .year, value: value, to: self) ?? Date()
-
-        return DateType.year.formatter.string(from: year)
+    func yearString(add value: Int = 0) -> String {
+        return year(add: value).string(with: .year)
     }
 
-    func month(add value: Int = 0) -> String {
-        let month = Date.calendar.date(byAdding: .month, value: value, to: self) ?? Date()
-
-        return DateType.month.formatter.string(from: month)
+    func monthString(add value: Int = 0) -> String {
+        return month(add: value).string(with: .month)
     }
 
-    func day(add value: Int = 0) -> String {
-        let month = Date.calendar.date(byAdding: .day, value: value, to: self) ?? Date()
-
-        return DateType.day.formatter.string(from: month)
+    func dayString(add value: Int = 0) -> String {
+        return day(add: value).string(with: .day)
     }
 
     func hour(add value: Int = 0) -> Date {
         let hour = Date.calendar.date(byAdding: .hour, value: value, to: self) ?? Date()
 
         return hour
+    }
+
+    func day(add value: Int = 0) -> Date {
+        return Date.calendar.date(byAdding: .day, value: value, to: self) ?? Date()
+    }
+
+    func month(add value: Int = 0) -> Date {
+        return Date.calendar.date(byAdding: .month, value: value, to: self) ?? Date()
+    }
+
+    func year(add value: Int = 0) -> Date {
+        return Date.calendar.date(byAdding: .year, value: value, to: self) ?? Date()
     }
 
     func dayDiff(with date: Date) -> Int? {

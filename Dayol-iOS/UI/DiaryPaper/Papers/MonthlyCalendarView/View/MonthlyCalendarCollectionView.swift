@@ -22,6 +22,7 @@ private enum Design {
     
     static let separatorLineColor: UIColor = .gray200
     static let separatorLineWidth: CGFloat = 1
+    static let maxScheduleCount: Int = isPadDevice ? 4 : 3
 }
 
 class MonthlyCalendarCollectionView: UIView {
@@ -86,7 +87,9 @@ class MonthlyCalendarCollectionView: UIView {
         
         return view
     }()
-    
+
+    private(set) var scheduleContainerViews: [PaperScheduleLineContainerView] = []
+
     init() {
         super.init(frame: .zero)
         initView()
@@ -108,6 +111,8 @@ class MonthlyCalendarCollectionView: UIView {
         dayLabels.forEach { weekDayView.addArrangedSubview($0) }
         setupCollectionView()
         setConstraint()
+
+        setupSchedules()
     }
     
     private func setupCollectionView() {
@@ -147,6 +152,22 @@ class MonthlyCalendarCollectionView: UIView {
     private func updateCollectionView() {
         collectionView.layoutIfNeeded()
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+
+    private func setupSchedules() {
+        for _ in 0..<6 {
+            let scheduleLineContainer = makeScheduleLineContainer()
+            self.scheduleContainerViews.append(scheduleLineContainer)
+            addSubview(scheduleLineContainer)
+        }
+    }
+
+    private func makeScheduleLineContainer() -> PaperScheduleLineContainerView {
+        let scheduleLineContainer = PaperScheduleLineContainerView()
+        scheduleLineContainer.translatesAutoresizingMaskIntoConstraints = false
+        scheduleLineContainer.set(scheduleCount: Design.maxScheduleCount, widthPerSchedule: collectionView.frame.size.width / 7, schedules: DYTestData.shared.scheduleModels)
+
+        return scheduleLineContainer
     }
 }
 
@@ -192,6 +213,20 @@ extension MonthlyCalendarCollectionView: UICollectionViewDelegate {
 
 extension MonthlyCalendarCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.item % 6 == 0 {
+            for index in 0..<scheduleContainerViews.count {
+                updateScheduleLineContainerConstraint(index: index)
+            }
+        }
+
         return CGSize(width: collectionView.frame.size.width / 7, height: collectionView.frame.size.height / 6)
+    }
+
+    private func updateScheduleLineContainerConstraint(index: Int) {
+        let cellHeight: CGFloat = collectionView.frame.size.height / 6
+        let topConstant: CGFloat = 26 + (cellHeight * CGFloat(index))
+        NSLayoutConstraint.activate([
+            scheduleContainerViews[index].topAnchor.constraint(equalTo: weekDayView.bottomAnchor, constant: topConstant)
+        ])
     }
 }
