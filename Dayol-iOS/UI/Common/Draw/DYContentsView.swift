@@ -11,7 +11,7 @@ import RxSwift
 
 class DYContentsView: UIView, Undoable {
     private let disposeBag = DisposeBag()
-    let canvas = PKCanvasView()
+    let pkCanvas = PKCanvasView()
     let currentToolSubject = BehaviorSubject<DYDrawTool?>(value: nil)
     var currentEditContent: DYStickerView? = nil {
         didSet {
@@ -40,24 +40,24 @@ class DYContentsView: UIView, Undoable {
     }
 
     private func initView() {
-        canvas.backgroundColor = .clear
+        pkCanvas.backgroundColor = .clear
         if #available(iOS 14.0, *) {
-            canvas.drawingPolicy = .anyInput
+            pkCanvas.drawingPolicy = .anyInput
         } else {
-            canvas.allowsFingerDrawing = true
+            pkCanvas.allowsFingerDrawing = true
         }
-        addSubViewPinEdge(canvas)
+        addSubViewPinEdge(pkCanvas)
         addGesture()
     }
 
     private func bindEvent() {
         currentToolSubject.bind { [weak self] tool in
             guard let pkTool = tool?.pkTool else {
-                self?.canvas.isUserInteractionEnabled = false
+                self?.pkCanvas.isUserInteractionEnabled = false
                 return
             }
-            self?.canvas.isUserInteractionEnabled = true
-            self?.canvas.tool = pkTool
+            self?.pkCanvas.isUserInteractionEnabled = true
+            self?.pkCanvas.tool = pkTool
         }
         .disposed(by: disposeBag)
     }
@@ -133,7 +133,7 @@ extension DYContentsView {
     func setDrawData(_ drawData: Data) {
         let decoder = JSONDecoder()
         if let drawing = try? decoder.decode(PKDrawing.self, from: drawData) {
-            canvas.drawing = drawing
+            pkCanvas.drawing = drawing
         }
     }
 

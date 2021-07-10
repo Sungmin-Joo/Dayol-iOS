@@ -280,7 +280,7 @@ private extension DiaryEditViewController {
 
         let diaryID = viewModel.diaryIdToCreate
         let isLock = password != nil
-        let drawing = contentsView.canvas.drawing
+        let drawing = contentsView.pkCanvas.drawing
         let hasLogo = diaryView.hasLogo
         let contents = createContents(diaryID: diaryID)
         var drawCanvasData = Data()

@@ -80,7 +80,7 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
     @objc
     private func dismissWithNoAnimation() {
         // 데이터 저장
-        let drawData = contentsView.canvas.drawing
+        let drawData = contentsView.pkCanvas.drawing
         let items: [DecorationItem] = contentsView.getItems(parentID: viewModel.paperId)
         let encoder = JSONEncoder()
 
