@@ -82,6 +82,7 @@ class MonthlyCalendarView: BasePaper {
                 self.dateModel = dateModel
                 let _ = dateModel.month
                 let days = dateModel.days
+                self.collectionView.firstDatesOfSunday = viewModel.datesOfSunday
                 self.collectionView.days = days
                 self.headerView.month = dateModel.month
             })

@@ -30,21 +30,34 @@ final class PaperScheduleLineViewModel {
     }
 
     private func makeScheduleTypes() {
+        let endDateOfWeek = firstDateOfWeek.day(add: 6)
         var baseMomentDate = firstDateOfWeek
         var processedDays = 0
+        var isFirstDraw = true
 
         scheduleModels.forEach { model in
-            if model.start > baseMomentDate {
-                let dayDiff = (baseMomentDate.dayDiff(with: model.start) ?? 0) + 1
-                schedules.append(.empty(day: dayDiff))
-                baseMomentDate = model.start.day()
-                processedDays += dayDiff
-            }
+            let startDateDayDiff = baseMomentDate.dayDiff(with: model.start) ?? 0
+            if isFirstDraw == false, startDateDayDiff <= 0 {
+                return
+            } else {
+                if startDateDayDiff > 0 {
+                    schedules.append(.empty(day: startDateDayDiff))
+                    baseMomentDate = model.start
+                    processedDays += startDateDayDiff
+                }
 
-            let dayDiff = (baseMomentDate.dayDiff(with: model.end) ?? 0) + 1
-            schedules.append(.schedule(day: dayDiff, name: model.name, colorHex: model.colorHex))
-            baseMomentDate = model.end.day()
-            processedDays += dayDiff
+                if processedDays < 7 {
+                    let endScheduleDay = min(endDateOfWeek, model.end)
+                    let endDateDayDiff = baseMomentDate.dayDiff(with: endScheduleDay) ?? 0
+                    if endDateDayDiff >= 0 {
+                        schedules.append(.schedule(day: endDateDayDiff + 1, name: model.name, colorHex: model.colorHex))
+                        baseMomentDate = model.end
+                        processedDays += endDateDayDiff + 1
+                        isFirstDraw = false
+                        PaperScheduleStoreManager.shared.deleteSchedule(scheduleId: model.id)
+                    }
+                }
+            }
         }
 
         if processedDays < Constant.maxDaysOfWeek {

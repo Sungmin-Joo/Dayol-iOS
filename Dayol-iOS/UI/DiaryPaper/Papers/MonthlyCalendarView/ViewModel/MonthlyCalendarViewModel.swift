@@ -102,7 +102,8 @@ struct MonthlyCalendarDayModel {
 class MonthlyCalendarViewModel: PaperViewModel {
     private var firstWeekDayOfMonth: WeekDay = .sunday
     private let model: MonthlyCalendarModel
-    
+    private(set) var datesOfSunday: [Date] = []
+    private let maxCount = 42
     
     init(date: Date) {
         model = MonthlyCalendarModel(date: date)
@@ -111,9 +112,8 @@ class MonthlyCalendarViewModel: PaperViewModel {
     
     private var days: [MonthlyCalendarDayModel] {
         var daysResult = [MonthlyCalendarDayModel]()
-        let maxCount = 42
         let year = model.year
-        let month = model.monthIndex
+        let monthIndex = model.monthIndex
         let prevMonthRemainDaysCount = model.prevMonthRemainDayCount
         let prevMonthMaxDay = model.numOfDaysInPrev
         let currentMonthCount = model.numOfDays
@@ -121,24 +121,42 @@ class MonthlyCalendarViewModel: PaperViewModel {
         for index in 0..<maxCount {
             let isPrevMonth = index < prevMonthRemainDaysCount
             let isCurrentMonth = index >= prevMonthRemainDaysCount && index < prevMonthRemainDaysCount + currentMonthCount
-            
+
             if isPrevMonth {
                 let day = prevMonthMaxDay - prevMonthRemainDaysCount + index + 1
                 let dayModel = MonthlyCalendarDayModel(dayNumber: day, isCurrentMonth: false)
+                insertSundayDateIfNeeded(index: index, year: year, month: model.month-1, day: day)
                 daysResult.append(dayModel)
             } else if isCurrentMonth {
                 let day = index - prevMonthRemainDaysCount + 1
-                let isToday = String(day) == Date.now.dayString() && String(month+1) == Date.now.monthString() && String(year) == Date.now.yearString()
+                let isToday = String(day) == Date.now.dayString() && String(monthIndex+1) == Date.now.monthString() && String(year) == Date.now.yearString()
                 let dayModel = MonthlyCalendarDayModel(dayNumber: day, isCurrentMonth: true, isToday: isToday)
+                insertSundayDateIfNeeded(index: index, year: year, month: model.month, day: day)
                 daysResult.append(dayModel)
             } else {
                 let day = index - prevMonthRemainDaysCount - currentMonthCount + 1
                 let dayModel = MonthlyCalendarDayModel(dayNumber: day, isCurrentMonth: false)
+                insertSundayDateIfNeeded(index: index, year: year, month: model.month+1, day: day)
                 daysResult.append(dayModel)
             }
         }
         
         return daysResult
+    }
+
+    private func insertSundayDateIfNeeded(index: Int, year: Int, month: Int, day: Int) {
+        guard index % 7 == 0 else { return }
+        if month <= 0 {
+            let date = DateType.yearMonthDay.date(year: year-1, month: month, day: day) ?? .now
+            self.datesOfSunday.append(date)
+        } else if month > 12 {
+            let date = DateType.yearMonthDay.date(year: year+1, month: month, day: day) ?? .now
+            self.datesOfSunday.append(date)
+        } else {
+            let date = DateType.yearMonthDay.date(year: year, month: month, day: day) ?? .now
+            self.datesOfSunday.append(date)
+        }
+
     }
 }
 

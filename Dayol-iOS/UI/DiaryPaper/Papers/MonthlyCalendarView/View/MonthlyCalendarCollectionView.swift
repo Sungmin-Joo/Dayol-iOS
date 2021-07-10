@@ -89,6 +89,7 @@ class MonthlyCalendarCollectionView: UIView {
     }()
 
     private(set) var scheduleContainerViews: [PaperScheduleLineContainerView] = []
+    var firstDatesOfSunday: [Date] = []
 
     init() {
         super.init(frame: .zero)
@@ -111,8 +112,6 @@ class MonthlyCalendarCollectionView: UIView {
         dayLabels.forEach { weekDayView.addArrangedSubview($0) }
         setupCollectionView()
         setConstraint()
-
-        setupSchedules()
     }
     
     private func setupCollectionView() {
@@ -155,17 +154,22 @@ class MonthlyCalendarCollectionView: UIView {
     }
 
     private func setupSchedules() {
-        for _ in 0..<6 {
-            let scheduleLineContainer = makeScheduleLineContainer()
+        for index in 0..<6 {
+            let scheduleLineContainer = makeScheduleLineContainer(index: index)
             self.scheduleContainerViews.append(scheduleLineContainer)
             addSubview(scheduleLineContainer)
         }
     }
 
-    private func makeScheduleLineContainer() -> PaperScheduleLineContainerView {
+    private func makeScheduleLineContainer(index: Int) -> PaperScheduleLineContainerView {
         let scheduleLineContainer = PaperScheduleLineContainerView()
         scheduleLineContainer.translatesAutoresizingMaskIntoConstraints = false
-        scheduleLineContainer.set(scheduleCount: Design.maxScheduleCount, widthPerSchedule: collectionView.frame.size.width / 7, schedules: DYTestData.shared.scheduleModels)
+        scheduleLineContainer.set(
+            scheduleCount: Design.maxScheduleCount,
+            widthPerSchedule: collectionView.frame.size.width / 7,
+            schedules: DYTestData.shared.scheduleModels,
+            firstDateOfWeek: firstDatesOfSunday[index]
+        )
 
         return scheduleLineContainer
     }
@@ -179,6 +183,7 @@ extension MonthlyCalendarCollectionView {
         set {
             self.dayModel = newValue
             self.collectionView.reloadData()
+            self.setupSchedules()
         }
     }
 }

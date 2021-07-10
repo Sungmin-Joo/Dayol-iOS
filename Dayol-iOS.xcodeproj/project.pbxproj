@@ -226,7 +226,7 @@
 		DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */; };
 		DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE3B1F2587AEB90067467B /* PasswordButton.swift */; };
 		DACE3B232587BD1A0067467B /* DXRMbxStd-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */; };
-		DAD0A3AF26995AD6000D0966 /* PaperScheduleLineContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0A3AE26995AD6000D0966 /* PaperScheduleLineContainerViewModel.swift */; };
+		DAD0A3AF26995AD6000D0966 /* PaperScheduleStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0A3AE26995AD6000D0966 /* PaperScheduleStoreManager.swift */; };
 		DAD233BE265FBA0D002C353F /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD233BD265FBA0D002C353F /* DatePickerView.swift */; };
 		DAD233C5265FC1C9002C353F /* DatePickerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD233C4265FC1C9002C353F /* DatePickerHeaderView.swift */; };
 		DAD489EF26026A33008B542E /* DrawingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD489EE26026A33008B542E /* DrawingContentView.swift */; };
@@ -483,7 +483,7 @@
 		DACE3B1B25879EE20067467B /* PasswordDisplayedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDisplayedView.swift; sourceTree = "<group>"; };
 		DACE3B1F2587AEB90067467B /* PasswordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordButton.swift; sourceTree = "<group>"; };
 		DACE3B222587BD1A0067467B /* DXRMbxStd-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DXRMbxStd-B.otf"; sourceTree = "<group>"; };
-		DAD0A3AE26995AD6000D0966 /* PaperScheduleLineContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperScheduleLineContainerViewModel.swift; sourceTree = "<group>"; };
+		DAD0A3AE26995AD6000D0966 /* PaperScheduleStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperScheduleStoreManager.swift; sourceTree = "<group>"; };
 		DAD233BD265FBA0D002C353F /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		DAD233C4265FC1C9002C353F /* DatePickerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerHeaderView.swift; sourceTree = "<group>"; };
 		DAD489EE26026A33008B542E /* DrawingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingContentView.swift; sourceTree = "<group>"; };
@@ -1303,7 +1303,7 @@
 		DA13B6BA2697173A0015AD71 /* ScheduleView */ = {
 			isa = PBXGroup;
 			children = (
-				DAD0A3AE26995AD6000D0966 /* PaperScheduleLineContainerViewModel.swift */,
+				DAD0A3AE26995AD6000D0966 /* PaperScheduleStoreManager.swift */,
 				DA13B6BB2697174F0015AD71 /* PaperScheduleLineContainerView.swift */,
 				DA13B6CB2697338C0015AD71 /* PaperScheduleLineView.swift */,
 				DA13B6BF269718630015AD71 /* PaperScheduleLineViewModel.swift */,
@@ -1841,7 +1841,7 @@
 				0D04C565267F502100780EB6 /* MembershipContentsView.swift in Sources */,
 				34A0714D262C78ED009BA700 /* ColorSettingPaletteView.swift in Sources */,
 				34A2EDC525B85EDA008DB98D /* MujiPaper.swift in Sources */,
-				DAD0A3AF26995AD6000D0966 /* PaperScheduleLineContainerViewModel.swift in Sources */,
+				DAD0A3AF26995AD6000D0966 /* PaperScheduleStoreManager.swift in Sources */,
 				DA27AC6625C81D2700C71CDE /* WeeklyCalendarView.swift in Sources */,
 				CE8DCAEC258D292A007738EA /* UIColor+Extension.swift in Sources */,
 				DADD0A2025A72A6A004D6CF0 /* DiaryPaperEmptyView.swift in Sources */,

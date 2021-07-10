@@ -26,20 +26,23 @@ final class PaperScheduleLineContainerView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func set(scheduleCount: Int, widthPerSchedule: CGFloat, schedules: [PaperScheduler]) {
+    func set(scheduleCount: Int, widthPerSchedule: CGFloat, schedules: [PaperScheduler], firstDateOfWeek: Date) {
         self.maxScheduleCount = scheduleCount
         self.baseWidth = widthPerSchedule
+        PaperScheduleStoreManager.shared.set(schedules: schedules)
 
-        let scheduleLine = makeScheduleLine(schedules: schedules)
-        addArrangedSubview(scheduleLine)
+        for _ in 0..<maxScheduleCount {
+            let scheduleLine = makeScheduleLine(schedules: PaperScheduleStoreManager.shared.schedules, firstDateOfWeek: firstDateOfWeek)
+            addArrangedSubview(scheduleLine)
 
-        NSLayoutConstraint.activate([
-            scheduleLine.heightAnchor.constraint(equalToConstant: Design.scheduleViewHeight)
-        ])
+            NSLayoutConstraint.activate([
+                scheduleLine.heightAnchor.constraint(equalToConstant: Design.scheduleViewHeight)
+            ])
+        }
     }
 
-    private func makeScheduleLine(schedules: [PaperScheduler]) -> PaperScheduleLineView {
-        let viewModel = PaperScheduleLineViewModel(scheduleModels: schedules, firstDateOfWeek: .now)
+    private func makeScheduleLine(schedules: [PaperScheduler], firstDateOfWeek: Date) -> PaperScheduleLineView {
+        let viewModel = PaperScheduleLineViewModel(scheduleModels: schedules, firstDateOfWeek: firstDateOfWeek)
         let lineView = PaperScheduleLineView(viewModel: viewModel, baseWidth: baseWidth)
         return lineView
     }
