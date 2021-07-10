@@ -60,6 +60,14 @@ class Config {
         }
     }
 
+    var inAppPurchaseURL: String {
+        if isProd {
+            return "https://sandbox.itunes.apple.com/verifyReceipt"
+        } else {
+            return "https://sandbox.itunes.apple.com/verifyReceipt"
+        }
+    }
+
     func initalize() {
         FirebaseApp.configure()
         PersistentManager.shared.saveContext()

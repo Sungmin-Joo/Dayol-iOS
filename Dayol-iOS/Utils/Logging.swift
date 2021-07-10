@@ -57,6 +57,7 @@ enum DYLog {
         case coreData = "📒"
         case cloudKit = "☁️"
         case inAppPurchase = "💰"
+        case api = "💌"
     }
 
     /// error log

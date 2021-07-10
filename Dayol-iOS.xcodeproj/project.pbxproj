@@ -14,6 +14,9 @@
 		0D07CD752674C7260007E36D /* PaperContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07CD742674C7260007E36D /* PaperContents.swift */; };
 		0D07CD772674DCC70007E36D /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07CD762674DCC70007E36D /* Logging.swift */; };
 		0D07CD7A267528B70007E36D /* DYICloudMananger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07CD79267528B70007E36D /* DYICloudMananger.swift */; };
+		0D0ED14A2699C80200A6BF0A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0ED1492699C80200A6BF0A /* API.swift */; };
+		0D0ED14C2699E48900A6BF0A /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0ED14B2699E48900A6BF0A /* Dictionary+Extension.swift */; };
+		0D0ED14E2699F2A200A6BF0A /* GetMembershipReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0ED14D2699F2A200A6BF0A /* GetMembershipReceipt.swift */; };
 		0D139025265009AF0034A360 /* OnboadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D139024265009AF0034A360 /* OnboadingView.swift */; };
 		0D1E633C268F620400F77712 /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1E633B268F620400F77712 /* Drawable.swift */; };
 		0D27B097264FBCB0001AD911 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B096264FBCB0001AD911 /* LaunchViewController.swift */; };
@@ -267,6 +270,9 @@
 		0D07CD742674C7260007E36D /* PaperContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperContents.swift; sourceTree = "<group>"; };
 		0D07CD762674DCC70007E36D /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		0D07CD79267528B70007E36D /* DYICloudMananger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYICloudMananger.swift; sourceTree = "<group>"; };
+		0D0ED1492699C80200A6BF0A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		0D0ED14B2699E48900A6BF0A /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
+		0D0ED14D2699F2A200A6BF0A /* GetMembershipReceipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMembershipReceipt.swift; sourceTree = "<group>"; };
 		0D139024265009AF0034A360 /* OnboadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboadingView.swift; sourceTree = "<group>"; };
 		0D1E633B268F620400F77712 /* Drawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
 		0D27B096264FBCB0001AD911 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
@@ -548,6 +554,7 @@
 		0D011A872675D989001F5469 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				0D0ED1482699C7F600A6BF0A /* API */,
 				0D7E8D4B267E625900780065 /* IAP */,
 				0D07CD782675289D0007E36D /* iCloud */,
 				0DF60D9D2673AC5700F0A1E8 /* Firebase */,
@@ -592,6 +599,23 @@
 				0D07CD79267528B70007E36D /* DYICloudMananger.swift */,
 			);
 			path = iCloud;
+			sourceTree = "<group>";
+		};
+		0D0ED1482699C7F600A6BF0A /* API */ = {
+			isa = PBXGroup;
+			children = (
+				0D0ED14F2699F2B000A6BF0A /* IAP */,
+				0D0ED1492699C80200A6BF0A /* API.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		0D0ED14F2699F2B000A6BF0A /* IAP */ = {
+			isa = PBXGroup;
+			children = (
+				0D0ED14D2699F2A200A6BF0A /* GetMembershipReceipt.swift */,
+			);
+			path = IAP;
 			sourceTree = "<group>";
 		};
 		0D27B095264FBC6B001AD911 /* Launch */ = {
@@ -1129,6 +1153,7 @@
 				DA6FF5F12667B5DB006B0B34 /* UICollectionView+Extension.swift */,
 				DA5A10FA266B7BA4002C7EA8 /* UIImage+Extension.swift */,
 				0DE6C7AB268CAB1900A79CFD /* JSONDecoder+Extension.swift */,
+				0D0ED14B2699E48900A6BF0A /* Dictionary+Extension.swift */,
 				0DE6C7AD268CAB3500A79CFD /* Data+Extension.swift */,
 				0DBA30A0268E1812004BACE7 /* Rxswift+Extension.swift */,
 				34002D5D267EF7A500A0DD8A /* Undoable.swift */,
@@ -1869,6 +1894,7 @@
 				34A2EDCF25B87953008DB98D /* GridPaper.swift in Sources */,
 				DA6FF5ED2667AFB9006B0B34 /* PaperSelectCollectionViewCell.swift in Sources */,
 				34CA254F25A61BBE0057404D /* InAppSettingCell.swift in Sources */,
+				0D0ED14C2699E48900A6BF0A /* Dictionary+Extension.swift in Sources */,
 				340E56C025C975DE007F2EF7 /* PaperListContentViewModel.swift in Sources */,
 				0DE6C7AC268CAB1900A79CFD /* JSONDecoder+Extension.swift in Sources */,
 				3416445725D8C20600A81FD2 /* DeletedPageViewModel.swift in Sources */,
@@ -1888,6 +1914,7 @@
 				344AD29726398CBF0055562D /* DYDrawTool.swift in Sources */,
 				DA5A118026760F6F002C7EA8 /* PaperScheldule.swift in Sources */,
 				34AD5A8425C9A87600D9E29C /* PaperListAddCell.swift in Sources */,
+				0D0ED14A2699C80200A6BF0A /* API.swift in Sources */,
 				DA5A116826760818002C7EA8 /* ScheduleColorSelectView.swift in Sources */,
 				DA13B6C0269718630015AD71 /* ScheduleViewModel.swift in Sources */,
 				0DC56E9A2655530D0056C28E /* UIButton.Extension.swift in Sources */,
@@ -1917,6 +1944,7 @@
 				0DF60DA02673AC8D00F0A1E8 /* FirebaseStorage.swift in Sources */,
 				3449D2CA25ADF6520050C02A /* AddPaperModel.swift in Sources */,
 				DA5A117D26760F64002C7EA8 /* Paper.swift in Sources */,
+				0D0ED14E2699F2A200A6BF0A /* GetMembershipReceipt.swift in Sources */,
 				34E6138E262F02D80076FE74 /* ColorMapView.swift in Sources */,
 				DAD48A23260C9DF8008B542E /* DiaryPaperEditViewController.swift in Sources */,
 				DA81DF3B25BEE49A00A4B2CE /* MonthlyCalendarView.swift in Sources */,
