@@ -1,5 +1,5 @@
 //
-//  DrawableViewController.swift
+//  DYEditBaseViewController.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/06/23.
@@ -20,7 +20,7 @@ private enum Text {
     }
 }
 
-class DrawableViewController: UIViewController, Drawable {
+class DYEditBaseViewController: UIViewController, Drawable {
     let disposeBag = DisposeBag()
 
     final let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
@@ -65,7 +65,7 @@ class DrawableViewController: UIViewController, Drawable {
 
 // MARK: - Drawbale Function
 
-extension DrawableViewController {
+extension DYEditBaseViewController {
 
     final func showImagePicker() {
         drawingContentView.shouldMakeTextField = false
@@ -94,7 +94,7 @@ extension DrawableViewController {
 
 // MARK: - Photo Delegate
 
-extension DrawableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
+extension DYEditBaseViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {

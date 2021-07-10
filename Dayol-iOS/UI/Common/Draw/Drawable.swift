@@ -42,7 +42,7 @@ protocol Drawable: UIViewController {
     var currentEraseTool: DYEraseTool { get set }
     var currentPencilTool: DYPencilTool { get set }
 
-    // ImagePicker는 델리게이트 처리 떄문에 DrawableViewController에서 함수 구현
+    // ImagePicker는 델리게이트 처리 떄문에 DYEditBaseViewController에서 함수 구현
     func showImagePicker()
 
     // 씬 마다 동작이 달라서 override 후 추가 구현 필요

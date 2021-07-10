@@ -22,7 +22,7 @@ private enum Design {
     }
 }
 
-class DiaryPaperViewController: DrawableViewController {
+class DiaryPaperViewController: DYEditBaseViewController {
     let didReceivedEvent = PublishSubject<DiaryPaperEventType>()
     let index: Int
     let scaleSubject = PassthroughSubject<CGFloat, Error>()
