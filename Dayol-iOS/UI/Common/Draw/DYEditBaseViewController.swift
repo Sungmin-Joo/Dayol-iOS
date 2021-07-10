@@ -25,7 +25,7 @@ class DYEditBaseViewController: UIViewController, DYEditable {
 
     final let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
 
-    public var drawingContentView = DrawingContentView()
+    public var contentsView = DYContentsView()
     final var currentTool: DYNavigationDrawingToolbar.ToolType?
     final var currentEraseTool: DYEraseTool = DYEraseTool(isObjectErase: false)
     final var currentPencilTool: DYPencilTool = DYPencilTool(color: .black, isHighlighter: false)
@@ -53,7 +53,7 @@ class DYEditBaseViewController: UIViewController, DYEditable {
     }
 
     func bindDrawingContentViewBind() {
-        drawingContentView.didEndCreateTextField = { [weak self] in
+        contentsView.didEndCreateTextField = { [weak self] in
             self?.currentTool = nil
             self?.toolBar.textButton.isSelected = false
         }
@@ -68,7 +68,7 @@ class DYEditBaseViewController: UIViewController, DYEditable {
 extension DYEditBaseViewController {
 
     final func showImagePicker() {
-        drawingContentView.shouldMakeTextField = false
+        contentsView.shouldMakeTextField = false
 
         if #available(iOS 14.0, *) {
             var configuration = PHPickerConfiguration()

@@ -36,7 +36,7 @@ private enum Text {
 protocol DYEditable: UIViewController {
     var disposeBag: DisposeBag { get }
 
-    var drawingContentView: DrawingContentView { get set }
+    var contentsView: DYContentsView { get set }
     var toolBar: DYNavigationDrawingToolbar { get }
     var currentTool: DYNavigationDrawingToolbar.ToolType? { get set }
     var currentEraseTool: DYEraseTool { get set }
@@ -108,7 +108,7 @@ extension DYEditable where Self: UIViewController {
             })
             .disposed(by: disposeBag)
 
-        drawingContentView.shouldMakeTextField = false
+        contentsView.shouldMakeTextField = false
     }
 
 }
@@ -226,14 +226,14 @@ extension DYEditable where Self: UIViewController {
         let pencilColor = currentPencilTool.color
         let isHighlighter = currentPencilTool.isHighlighter
         let pencilTool = DYPencilTool(color: pencilColor, isHighlighter: isHighlighter)
-        drawingContentView.currentToolSubject.onNext(pencilTool)
-        drawingContentView.shouldMakeTextField = false
+        contentsView.currentToolSubject.onNext(pencilTool)
+        contentsView.shouldMakeTextField = false
     }
 
     func didEndPencilSetting(color: UIColor, isHighlighter: Bool) {
         let pencilTool = DYPencilTool(color: color, isHighlighter: isHighlighter)
         currentPencilTool = pencilTool
-        drawingContentView.currentToolSubject.onNext(pencilTool)
+        contentsView.currentToolSubject.onNext(pencilTool)
     }
 
 
@@ -242,21 +242,21 @@ extension DYEditable where Self: UIViewController {
     func didTapEraseButton() {
         let isObjectErase = currentEraseTool.isObjectErase
         let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
-        drawingContentView.currentToolSubject.onNext(eraseTool)
-        drawingContentView.shouldMakeTextField = false
+        contentsView.currentToolSubject.onNext(eraseTool)
+        contentsView.shouldMakeTextField = false
     }
 
     func didEndEraseSetting(isObjectErase: Bool) {
         let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
         currentEraseTool = eraseTool
-        drawingContentView.currentToolSubject.onNext(eraseTool)
+        contentsView.currentToolSubject.onNext(eraseTool)
     }
 
     // MARK: - Snare(Lasso)
 
     func didTapSnareButton() {
         let lassoTool = DYLassoTool()
-        drawingContentView.currentToolSubject.onNext(lassoTool)
-        drawingContentView.shouldMakeTextField = false
+        contentsView.currentToolSubject.onNext(lassoTool)
+        contentsView.shouldMakeTextField = false
     }
 }

@@ -47,11 +47,11 @@ class DiaryPaperViewController: DYEditBaseViewController {
     }
 
     lazy var paper = PaperPresentView(paper: viewModel.paper, count: viewModel.numberOfPapers)
-    override var drawingContentView: DrawingContentView {
+    override var contentsView: DYContentsView {
         get {
-            paper.drawingContentView
+            paper.contentsView
         } set {
-            paper.drawingContentView = newValue
+            paper.contentsView = newValue
         }
     }
     

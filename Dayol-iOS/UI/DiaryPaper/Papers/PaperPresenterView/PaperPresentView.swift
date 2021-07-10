@@ -27,7 +27,7 @@ class PaperPresentView: UIView {
         didSet {
             let scale = CGAffineTransform(scaleX: self.scaleForFit, y: self.scaleForFit)
             self.tableView.transform = scale
-            self.drawingContentView.transform = scale
+            self.contentsView.transform = scale
             let constarintConstant: CGFloat = (self.height - self.tableView.frame.height) / 2
             self.contentTop.constant = -constarintConstant
             self.contentBottom.constant = constarintConstant
@@ -44,8 +44,8 @@ class PaperPresentView: UIView {
         return tableView
     }()
     
-    var drawingContentView: DrawingContentView = {
-        let view = DrawingContentView()
+    var contentsView: DYContentsView = {
+        let view = DYContentsView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
         
@@ -81,7 +81,7 @@ class PaperPresentView: UIView {
         setupPaperBorder()
 
         addSubview(tableView)
-        addSubview(drawingContentView)
+        addSubview(contentsView)
 
         setupConstraint()
         updatePaper()
@@ -108,10 +108,10 @@ class PaperPresentView: UIView {
                 tableView.widthAnchor.constraint(equalToConstant: size.width),
                 tableView.heightAnchor.constraint(equalToConstant: height),
 
-                drawingContentView.topAnchor.constraint(equalTo: tableView.topAnchor),
-                drawingContentView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
-                drawingContentView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
-                drawingContentView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)
+                contentsView.topAnchor.constraint(equalTo: tableView.topAnchor),
+                contentsView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+                contentsView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+                contentsView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)
             ])
         }
     }
@@ -149,8 +149,8 @@ extension PaperPresentView {
     }
 
     private func updatePaper() {
-        drawingContentView.setItems(paper.contents)
-        drawingContentView.setDrawData(paper.drawCanvas)
+        contentsView.setItems(paper.contents)
+        contentsView.setDrawData(paper.drawCanvas)
     }
 }
 

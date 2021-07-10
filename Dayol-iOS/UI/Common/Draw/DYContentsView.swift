@@ -1,5 +1,5 @@
 //
-//  DrawingContentView.swift
+//  DYContentsView.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/03/18.
@@ -9,7 +9,7 @@ import UIKit
 import PencilKit
 import RxSwift
 
-class DrawingContentView: UIView, Undoable {
+class DYContentsView: UIView, Undoable {
     private let disposeBag = DisposeBag()
     let canvas = PKCanvasView()
     let currentToolSubject = BehaviorSubject<DYDrawTool?>(value: nil)
@@ -79,7 +79,7 @@ class DrawingContentView: UIView, Undoable {
 
 // MARK: - Init Items
 
-extension DrawingContentView {
+extension DYContentsView {
 
     // 최초 생성
     func createTextField(targetPoint: CGPoint) {
@@ -129,7 +129,7 @@ extension DrawingContentView {
 
 // MARK: - Retrieve Items
 
-extension DrawingContentView {
+extension DYContentsView {
     func setDrawData(_ drawData: Data) {
         let decoder = JSONDecoder()
         if let drawing = try? decoder.decode(PKDrawing.self, from: drawData) {
@@ -157,7 +157,7 @@ extension DrawingContentView {
 
 // MARK: - Get Items
 
-extension DrawingContentView {
+extension DYContentsView {
     func getItems(parentID: String) -> [DecorationItem] {
         let items: [DecorationItem] = subviews.compactMap { subview in
             if let textField = subview as? DYFlexibleTextField {
@@ -177,7 +177,7 @@ extension DrawingContentView {
 
 // MARK: - Sticker Delegate
 
-extension DrawingContentView: DYStickerViewDelegate {
+extension DYContentsView: DYStickerViewDelegate {
     func stickerView(_ stickerView: DYStickerView, didTapSticker: Bool) {
         currentEditContent = stickerView
         stickerView.showEditingHandlers = true

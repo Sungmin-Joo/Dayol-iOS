@@ -26,12 +26,12 @@ private enum Text: String {
 class DiaryEditViewController: DYEditBaseViewController {
 
     // MARK: - DYEditable Property
-    override var drawingContentView: DrawingContentView {
+    override var contentsView: DYContentsView {
         get {
-            return diaryEditCoverView.diaryView.drawingContentView
+            return diaryEditCoverView.diaryView.contentsView
         }
         set {
-            diaryEditCoverView.diaryView.drawingContentView = newValue
+            diaryEditCoverView.diaryView.contentsView = newValue
         }
     }
 
@@ -82,16 +82,16 @@ class DiaryEditViewController: DYEditBaseViewController {
 
     override func didTapTextButton() {
         super.didTapTextButton()
-        drawingContentView.currentToolSubject.onNext(nil)
-        drawingContentView.shouldMakeTextField = true
+        contentsView.currentToolSubject.onNext(nil)
+        contentsView.shouldMakeTextField = true
     }
 
     override func didEndPhotoPick(_ image: UIImage) {
-        drawingContentView.createImageSticker(image: image)
+        contentsView.createImageSticker(image: image)
     }
 
     override func didEndStickerPick(_ image: UIImage) {
-        drawingContentView.createSticker(image: image)
+        contentsView.createSticker(image: image)
     }
     
     // MARK: - Setup Method
@@ -183,7 +183,7 @@ class DiaryEditViewController: DYEditBaseViewController {
                 guard let self = self else { return }
                 
                 self.hideKeyboard()
-                self.drawingContentView.resetContentEditStatus()
+                self.contentsView.resetContentEditStatus()
                 self.createDiaryInfo(self.password)
             }
             .disposed(by: disposeBag)
@@ -220,8 +220,8 @@ class DiaryEditViewController: DYEditBaseViewController {
                 guard let self = self else { return }
                 self.titleView.setTitle(diary.title)
                 self.diaryEditToggleView.setLogoSwitch(diary.hasLogo)
-                self.drawingContentView.setItems(diary.contents)
-                self.drawingContentView.setDrawData(diary.drawCanvas)
+                self.contentsView.setItems(diary.contents)
+                self.contentsView.setDrawData(diary.drawCanvas)
 
                 if let coverColor = PaletteColor.find(hex: diary.colorHex) {
                     self.diaryEditPaletteView.changedColor.onNext(coverColor)
@@ -280,7 +280,7 @@ private extension DiaryEditViewController {
 
         let diaryID = viewModel.diaryIdToCreate
         let isLock = password != nil
-        let drawing = drawingContentView.canvas.drawing
+        let drawing = contentsView.canvas.drawing
         let hasLogo = diaryView.hasLogo
         let contents = createContents(diaryID: diaryID)
         var drawCanvasData = Data()
@@ -304,7 +304,7 @@ private extension DiaryEditViewController {
     }
 
     func createContents(diaryID: String) -> [DecorationItem] {
-        return drawingContentView.getItems(parentID: diaryID)
+        return contentsView.getItems(parentID: diaryID)
     }
 }
 
