@@ -25,7 +25,7 @@ private enum Text: String {
 
 class DiaryEditViewController: DYEditBaseViewController {
 
-    // MARK: - Drawable Property
+    // MARK: - DYEditable Property
     override var drawingContentView: DrawingContentView {
         get {
             return diaryEditCoverView.diaryView.drawingContentView

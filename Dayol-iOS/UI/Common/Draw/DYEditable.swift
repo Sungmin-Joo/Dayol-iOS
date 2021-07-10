@@ -1,5 +1,5 @@
 //
-//  Drawable.swift
+//  DYEditable.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/04/26.
@@ -33,7 +33,7 @@ private enum Text {
     }
 }
 
-protocol Drawable: UIViewController {
+protocol DYEditable: UIViewController {
     var disposeBag: DisposeBag { get }
 
     var drawingContentView: DrawingContentView { get set }
@@ -51,7 +51,7 @@ protocol Drawable: UIViewController {
     func didEndStickerPick(_ image: UIImage)
 }
 
-extension Drawable where Self: UIViewController {
+extension DYEditable where Self: UIViewController {
 
     func bindToolBarEvent() {
         undoRedoBind()
@@ -115,7 +115,7 @@ extension Drawable where Self: UIViewController {
 
 // MARK: - Tool Bar Event
 
-extension Drawable where Self: UIViewController {
+extension DYEditable where Self: UIViewController {
 
     private func undoRedoBind() {
         toolBar.undoButton.rx.tap
@@ -218,7 +218,7 @@ extension Drawable where Self: UIViewController {
 
 }
 
-extension Drawable where Self: UIViewController {
+extension DYEditable where Self: UIViewController {
 
     // MARK: - Pencil
 

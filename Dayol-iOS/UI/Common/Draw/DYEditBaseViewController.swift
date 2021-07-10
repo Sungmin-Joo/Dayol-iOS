@@ -20,7 +20,7 @@ private enum Text {
     }
 }
 
-class DYEditBaseViewController: UIViewController, Drawable {
+class DYEditBaseViewController: UIViewController, DYEditable {
     let disposeBag = DisposeBag()
 
     final let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
