@@ -8,6 +8,10 @@
 import UIKit
 
 public class DYStickerBaseView: DYStickerView {
+
+    static let defaultImageWidth: CGFloat = 76.0
+    var currentImage: UIImage?
+
     override init(contentView: UIView) {
         super.init(contentView: contentView)
         self.enableClose = true

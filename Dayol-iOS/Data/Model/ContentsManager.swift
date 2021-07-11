@@ -11,21 +11,25 @@ class ContentsManager {
     static let shared = ContentsManager()
 
     func addContents(to diaryMO: DiaryMO, items: [DecorationItem]) {
-        items.forEach {
+        items.forEach { item in
             // TODO: - 상속 구조로 다듬을 수 없는지?
 
-            if let textFieldItem = $0 as? DecorationTextFieldItem {
-                // DecorationTextFieldItem
-                let managedObject = PersistentManager.shared.insertObject(.decorationTextFieldItem)
+            var managedObject: DecorationItemMO?
 
-                guard let textFieldItemMO = managedObject as? DecorationTextFieldItemMO else { return}
+            switch item {
+            case is DecorationTextFieldItem:
+                managedObject = PersistentManager.shared.insertObject(.decorationTextFieldItem) as? DecorationItemMO
+            case is DecorationImageItem:
+                managedObject = PersistentManager.shared.insertObject(.decorationImageItemMO) as? DecorationItemMO
+            case is DecorationStickerItem:
+                managedObject = PersistentManager.shared.insertObject(.decorationStickerItem) as? DecorationItemMO
+            default:
+                return
+            }
 
-                textFieldItemMO.make(item: textFieldItem)
-                diaryMO.addToContents(textFieldItemMO)
-            } else if let imageItem = $0 as? DecorationImageItem {
-                // DecorationImageItem
-            } else if let sticker = $0 as? DecorationStickerItem {
-                // DecorationStickerItem
+            if let managedObject = managedObject {
+                managedObject.make(item: item)
+                diaryMO.addToContents(managedObject)
             }
         }
     }

@@ -69,6 +69,7 @@ extension DiaryManager {
         guard let diaryMO = getDiaryMO(id: diary.id) else { return }
 
         diaryMO.make(diary: diary)
+        diaryMO.contents = []
         ContentsManager.shared.addContents(to: diaryMO, items: diary.contents)
         PersistentManager.shared.saveContext()
     }
