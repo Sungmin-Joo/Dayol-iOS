@@ -15,6 +15,8 @@ class PersistentManager {
         case paperScheduler
         case decorationItem
         case decorationTextFieldItem
+        case decorationStickerItem
+        case decorationImageItemMO
 
         var name: String {
             switch self {
@@ -23,6 +25,8 @@ class PersistentManager {
             case .paperScheduler: return "PaperScheduler"
             case .decorationItem: return "DecorationItem"
             case .decorationTextFieldItem: return "DecorationTextFieldItem"
+            case .decorationStickerItem: return "DecorationStickerItem"
+            case .decorationImageItemMO: return "DecorationImageItem"
             }
         }
     }
