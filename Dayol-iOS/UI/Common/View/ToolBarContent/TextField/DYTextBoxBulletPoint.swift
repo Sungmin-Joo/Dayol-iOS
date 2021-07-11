@@ -27,9 +27,10 @@ private enum Design {
 
 class DYTextBoxBulletPoint: UIView {
 
-    enum BulletType {
+    enum BulletType: String {
         case dot
-        case checkBox(isSelected: Bool)
+        case checkBox
+        case selectedCheckBox
         case none
 
         static let bulletSize = CGSize(width: 18.0, height: 18.0)
@@ -75,10 +76,10 @@ class DYTextBoxBulletPoint: UIView {
         case .dot:
             dotView.isHidden = false
             checkBox.isHidden = true
-        case .checkBox(let isSelected):
+        case .checkBox, .selectedCheckBox:
             dotView.isHidden = true
             checkBox.isHidden = false
-            checkBox.isSelected = isSelected
+            checkBox.isSelected = accessoryType == .selectedCheckBox
         case .none:
             dotView.isHidden = false
             checkBox.isHidden = false

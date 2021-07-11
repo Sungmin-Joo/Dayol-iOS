@@ -356,10 +356,10 @@ extension DYFlexibleTextField: DYKeyboardInputAccessoryViewDelegate {
     func didTapCheckboxButton() {
         guard let type = try? viewModel.bulletTypeSubject.value() else { return }
         switch type {
-        case .checkBox(_):
+        case .checkBox, .selectedCheckBox:
             viewModel.bulletTypeSubject.onNext(.none)
         default:
-            viewModel.bulletTypeSubject.onNext(.checkBox(isSelected: false))
+            viewModel.bulletTypeSubject.onNext(.checkBox)
         }
     }
 
@@ -564,14 +564,14 @@ extension DYFlexibleTextField {
         let currentConatinerFrame = containerView.frame
 
         switch accessoryType {
-        case .dot, .checkBox(_):
-            bulletPointView.isHidden = false
-            textView.frame.origin.x = textViewMargin
-            textView.frame.size.width = currentConatinerFrame.width - textViewMargin
         case .none:
             bulletPointView.isHidden = true
             textView.frame.origin.x = 0
             textView.frame.size.width = currentConatinerFrame.width
+        default:
+            bulletPointView.isHidden = false
+            textView.frame.origin.x = textViewMargin
+            textView.frame.size.width = currentConatinerFrame.width - textViewMargin
         }
 
         bulletPointView.updateAccessoryView(accessoryType)

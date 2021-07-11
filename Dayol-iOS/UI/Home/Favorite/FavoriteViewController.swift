@@ -8,7 +8,6 @@
 import UIKit
 
 private enum Design {
-    static let iconButtonTopMargin: CGFloat = 21.0
     static let topIcon = Assets.Image.Home.topIcon
     static let bgColor = UIColor.white
 }
@@ -62,8 +61,7 @@ extension FavoriteViewController {
         let layoutGuide = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            iconButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor,
-                                            constant: Design.iconButtonTopMargin),
+            iconButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
             iconButton.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
 
             emptyView.topAnchor.constraint(equalTo: view.topAnchor),
