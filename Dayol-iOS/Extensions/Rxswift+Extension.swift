@@ -8,9 +8,7 @@
 import UIKit
 import RxSwift
 
-extension ObserverType {
 
-}
 
 extension PrimitiveSequence where Trait == SingleTrait {
     func attachHUD() -> PrimitiveSequence {

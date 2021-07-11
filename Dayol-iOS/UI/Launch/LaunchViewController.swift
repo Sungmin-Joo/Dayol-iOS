@@ -17,7 +17,6 @@ final class LaunchViewController: DYViewController {
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .center
         imageView.image = Design.logoImage
         return imageView
     }()
@@ -29,21 +28,25 @@ final class LaunchViewController: DYViewController {
         return imageView
     }()
 
-    private lazy var onboadingView: OnboadingView = {
-        let onboadingView = OnboadingView()
+    private lazy var onboardingView: OnboardingView = {
+        let onboadingView = OnboardingView()
         onboadingView.translatesAutoresizingMaskIntoConstraints = false
         onboadingView.alpha = 0
         onboadingView.isHidden = true
         return onboadingView
     }()
 
-    private let splashManager = LaunchManager()
+    private let launchManager = LaunchManager()
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLunchScreen()
-        bind()
+        if launchManager.shouldOnboarding {
+            showOnboarding()
+        } else {
+            showHome()
+        }
     }
 
     private func configureLunchScreen() {
@@ -53,37 +56,35 @@ final class LaunchViewController: DYViewController {
         configureConstraints()
     }
 
-    private func bind() {
+    private func showOnboarding() {
         // TODO: 온보딩 뷰 안에서 뷰컨 스위칭하는것도 체크해서 델리게이트로 빼야함.
-        splashManager.onboardingObserver
+        view.addSubview(onboardingView)
+        configureOnboadingConstraints()
+
+        view.layoutIfNeeded()
+        onboardingView.delegate = self
+        onboardingView.configureOnboard()
+
+        UIView.animate(withDuration: 0.3) {
+            self.logoImageView.isHidden = true
+            self.labelImageView.isHidden = true
+            self.onboardingView.isHidden = false
+            self.onboardingView.alpha = 1.0
+        }
+
+        launchManager.shouldOnboarding = !launchManager.shouldOnboarding
+    }
+
+    private func showHome() {
+        launchManager.launchConfig
             .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] result in
-                guard
-                    let self = self,
-                    let shouldOnboading = result.element,
-                    shouldOnboading
-                else {
-                    let homeViewController = HomeViewController()
-                    let navigationController = DYNavigationController(rootViewController: homeViewController)
-                    navigationController.isNavigationBarHidden = true
+            .attachHUD(self.view)
+            .subscribe { response in
+                let homeViewController = HomeViewController()
+                let navigationController = UINavigationController(rootViewController: homeViewController)
+                navigationController.isNavigationBarHidden = true
 
-                    AppDelegate.shared?.window?.switchRootViewController(navigationController)
-                    return
-                }
-
-                self.view.addSubview(self.onboadingView)
-                self.configureOnboadingConstraints()
-
-                self.view.layoutIfNeeded()
-                self.onboadingView.configureOnboard()
-
-                UIView.animate(withDuration: 0.3) {
-                    self.logoImageView.isHidden = true
-                    self.labelImageView.isHidden = true
-                    self.onboadingView.isHidden = false
-                    self.onboadingView.alpha = 1.0
-                }
-                DYUserDefaults.shouldOnboading = !shouldOnboading
+                AppDelegate.shared?.window?.switchRootViewController(navigationController)
             }
             .disposed(by: disposeBag)
     }
@@ -94,24 +95,32 @@ final class LaunchViewController: DYViewController {
 private extension LaunchViewController {
     func configureConstraints() {
         NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            logoImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            logoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            logoImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            logoImageView.widthAnchor.constraint(equalToConstant: 265),
+            logoImageView.heightAnchor.constraint(equalToConstant: 346),
+            logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
+            logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            labelImageView.widthAnchor.constraint(equalToConstant: 129),
+            labelImageView.widthAnchor.constraint(equalToConstant: 128),
             labelImageView.heightAnchor.constraint(equalToConstant: 17),
-            labelImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            labelImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 30)
+            labelImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            labelImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 
     func configureOnboadingConstraints() {
         NSLayoutConstraint.activate([
-            onboadingView.topAnchor.constraint(equalTo: view.topAnchor),
-            onboadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            onboadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            onboadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            onboardingView.topAnchor.constraint(equalTo: view.topAnchor),
+            onboardingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            onboardingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            onboardingView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+}
+
+// MARK: - OnboardingDelegate
+
+extension LaunchViewController: OnboardingDelegate {
+    func didTapStartButton() {
+        showHome()
     }
 }

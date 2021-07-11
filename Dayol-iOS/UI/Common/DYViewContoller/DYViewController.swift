@@ -24,4 +24,5 @@ class DYViewController: UIViewController {
         }
     }
 
+    deinit { DYLog.d(.deinit, value: "\(Self.self)") }
 }
