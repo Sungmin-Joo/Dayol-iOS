@@ -29,6 +29,7 @@ class MonthlyCalendarCollectionView: UIView {
     let longTappedIndex = PublishSubject<Int>()
 
     private var dayModel: [MonthlyCalendarDayModel]?
+    private var paperOrientation: Paper.PaperOrientation = .portrait
     private var iPadOrientation: Design.IPadOrientation {
         if self.frame.size.width > self.frame.size.height {
             return .landscape
@@ -36,6 +37,7 @@ class MonthlyCalendarCollectionView: UIView {
             return .portrait
         }
     }
+
     private let weekDayView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -162,7 +164,7 @@ class MonthlyCalendarCollectionView: UIView {
     }
 
     private func makeScheduleLineContainer(index: Int) -> PaperScheduleLineContainerView {
-        let scheduleLineContainer = PaperScheduleLineContainerView()
+        let scheduleLineContainer = PaperScheduleLineContainerView(lineType: .month(paper: paperOrientation))
         scheduleLineContainer.translatesAutoresizingMaskIntoConstraints = false
         scheduleLineContainer.set(
             scheduleCount: Design.maxScheduleCount,
@@ -209,6 +211,17 @@ extension MonthlyCalendarCollectionView: UICollectionViewDataSource {
             .disposed(by: cell.disposeBag)
 
         return cell
+    }
+}
+
+extension MonthlyCalendarCollectionView {
+    var orientation: Paper.PaperOrientation {
+        get {
+            return self.paperOrientation
+        }
+        set {
+            self.paperOrientation = newValue
+        }
     }
 }
 

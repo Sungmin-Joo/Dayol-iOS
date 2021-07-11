@@ -47,6 +47,9 @@ class MonthlyCalendarView: BasePaper {
     
     override func configure(viewModel: PaperViewModel, orientation: Paper.PaperOrientation) {
         super.configure(viewModel: viewModel, orientation: orientation)
+
+        collectionView.orientation = orientation
+
         contentView.addSubview(headerView)
         contentView.addSubview(collectionView)
         setupConstraints()

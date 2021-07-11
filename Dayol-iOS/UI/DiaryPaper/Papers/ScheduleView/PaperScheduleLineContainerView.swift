@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum ScheduleLineStyle {
+    case month(paper: Paper.PaperOrientation)
+    case week(paper: Paper.PaperOrientation)
+}
+
 private enum Design {
     static let scheduleViewSpace: CGFloat = 5
     static let scheduleViewHeight: CGFloat = 13
@@ -15,8 +20,10 @@ private enum Design {
 final class PaperScheduleLineContainerView: UIStackView {
     private var maxScheduleCount: Int = 0
     private var baseWidth: CGFloat = 0
+    private let lineType: ScheduleLineStyle
 
-    init() {
+    init(lineType: ScheduleLineStyle) {
+        self.lineType = lineType
         super.init(frame: .zero)
         axis = .vertical
         spacing = Design.scheduleViewSpace
@@ -42,7 +49,7 @@ final class PaperScheduleLineContainerView: UIStackView {
     }
 
     private func makeScheduleLine(schedules: [PaperScheduler], firstDateOfWeek: Date) -> PaperScheduleLineView {
-        let viewModel = PaperScheduleLineViewModel(scheduleModels: schedules, firstDateOfWeek: firstDateOfWeek)
+        let viewModel = PaperScheduleLineViewModel(scheduleModels: schedules, firstDateOfWeek: firstDateOfWeek, lineType: lineType)
         let lineView = PaperScheduleLineView(viewModel: viewModel, baseWidth: baseWidth)
         return lineView
     }

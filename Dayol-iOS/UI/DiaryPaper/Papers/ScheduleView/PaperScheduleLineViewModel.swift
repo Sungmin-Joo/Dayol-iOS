@@ -21,8 +21,10 @@ final class PaperScheduleLineViewModel {
     private(set) var schedules: [PaperSchdeuleType] = []
     private let scheduleModels: [PaperScheduler]
     private let firstDateOfWeek: Date
+    private let lineType: ScheduleLineStyle
 
-    init(scheduleModels: [PaperScheduler], firstDateOfWeek: Date) {
+    init(scheduleModels: [PaperScheduler], firstDateOfWeek: Date, lineType: ScheduleLineStyle) {
+        self.lineType = lineType
         self.firstDateOfWeek = firstDateOfWeek
         self.scheduleModels = scheduleModels
 
@@ -49,12 +51,6 @@ final class PaperScheduleLineViewModel {
                 if processedDays < 7 {
                     let endScheduleDay = min(endDateOfWeek, model.end)
                     let endDateDayDiff = baseMomentDate.dayDiff(with: endScheduleDay) ?? 0
-                    if model.id == "S2" {
-                        print(endDateOfWeek.string(with: .yearMonthDay))
-                        print(endScheduleDay.string(with: .yearMonthDay))
-                        print(baseMomentDate.string(with: .yearMonthDay))
-                        print(endDateDayDiff)
-                    }
                     if endDateDayDiff >= 0 {
                         schedules.append(.schedule(day: endDateDayDiff + 1, name: model.name, colorHex: model.colorHex))
                         baseMomentDate = model.end.day(add: 1)
@@ -69,5 +65,11 @@ final class PaperScheduleLineViewModel {
         if processedDays < Constant.maxDaysOfWeek {
             schedules.append(.empty(day: Constant.maxDaysOfWeek - processedDays))
         }
+    }
+}
+
+extension PaperScheduleLineViewModel {
+    var scheduleLineStyle: ScheduleLineStyle {
+        return self.lineType
     }
 }

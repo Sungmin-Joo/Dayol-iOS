@@ -13,12 +13,19 @@ private enum Design {
 
 final class PaperScheduleLineView: UIStackView {
     private let viewModel: PaperScheduleLineViewModel
-    private let baseWidth: CGFloat = PaperOrientationConstant.size(orentantion: .portrait).width / CGFloat(7)
+    private var baseWidth: CGFloat = 0.0
 
     init(viewModel: PaperScheduleLineViewModel, baseWidth: CGFloat) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         axis = .horizontal
+
+        switch viewModel.scheduleLineStyle {
+        case .month(paper: let orientation) :
+            self.baseWidth = PaperOrientationConstant.size(orentantion: orientation).width / CGFloat(7)
+        case .week(paper: let orientation) :
+            self.baseWidth = PaperOrientationConstant.size(orentantion: orientation).width / CGFloat(2)
+        }
 
         addSubviews()
     }
