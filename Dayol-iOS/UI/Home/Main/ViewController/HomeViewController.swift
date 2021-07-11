@@ -85,9 +85,9 @@ extension HomeViewController {
     private func presentSettingVC() {
         let settingVC = SettingsViewController()
         let nav = DYNavigationController(rootViewController: settingVC)
-        nav.modalPresentationStyle = isPadDevice ? .formSheet : .fullScreen
+        nav.modalPresentationStyle = isIPad ? .formSheet : .fullScreen
 
-        if isPadDevice {
+        if isIPad {
             nav.preferredContentSize = Design.iPadContentSize
             nav.view.layer.cornerRadius = Design.iPadContentCornerRadius
         }
