@@ -17,6 +17,8 @@
 		0D0ED14A2699C80200A6BF0A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0ED1492699C80200A6BF0A /* API.swift */; };
 		0D0ED14C2699E48900A6BF0A /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0ED14B2699E48900A6BF0A /* Dictionary+Extension.swift */; };
 		0D0ED14E2699F2A200A6BF0A /* MembershipReceiptAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0ED14D2699F2A200A6BF0A /* MembershipReceiptAPI.swift */; };
+		0D0ED155269B1B0900A6BF0A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D0ED154269B1B0900A6BF0A /* GoogleService-Info.plist */; };
+		0D0ED158269B1CAB00A6BF0A /* GoogleService-Info-beta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D0ED157269B1CAB00A6BF0A /* GoogleService-Info-beta.plist */; };
 		0D139025265009AF0034A360 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D139024265009AF0034A360 /* OnboardingView.swift */; };
 		0D1E633C268F620400F77712 /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1E633B268F620400F77712 /* Drawable.swift */; };
 		0D27B097264FBCB0001AD911 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B096264FBCB0001AD911 /* LaunchViewController.swift */; };
@@ -27,7 +29,6 @@
 		0D6F371E267E6C5400F782CA /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6F371D267E6C5400F782CA /* DebugViewController.swift */; };
 		0D7E8D4A267E61A800780065 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D7E8D49267E61A800780065 /* StoreKit.framework */; };
 		0D7E8D4D267E626C00780065 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7E8D4C267E626C00780065 /* IAPManager.swift */; };
-		0DA235A52661135F003AA15F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0DA235A42661135F003AA15F /* GoogleService-Info.plist */; };
 		0DA235A72661145B003AA15F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA235A62661145B003AA15F /* Config.swift */; };
 		0DA235A9266115B7003AA15F /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA235A8266115B7003AA15F /* UIWindow+Extension.swift */; };
 		0DA235AC26611793003AA15F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235AB26611793003AA15F /* FirebaseAnalytics */; };
@@ -275,6 +276,8 @@
 		0D0ED1492699C80200A6BF0A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0D0ED14B2699E48900A6BF0A /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		0D0ED14D2699F2A200A6BF0A /* MembershipReceiptAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipReceiptAPI.swift; sourceTree = "<group>"; };
+		0D0ED154269B1B0900A6BF0A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0D0ED157269B1CAB00A6BF0A /* GoogleService-Info-beta.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-beta.plist"; sourceTree = "<group>"; };
 		0D139024265009AF0034A360 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		0D1E633B268F620400F77712 /* Drawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
 		0D27B096264FBCB0001AD911 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
@@ -287,7 +290,6 @@
 		0D6F371D267E6C5400F782CA /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		0D7E8D49267E61A800780065 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		0D7E8D4C267E626C00780065 /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
-		0DA235A42661135F003AA15F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0DA235A62661145B003AA15F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		0DA235A8266115B7003AA15F /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		0DBA30A0268E1812004BACE7 /* Rxswift+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rxswift+Extension.swift"; sourceTree = "<group>"; };
@@ -670,7 +672,8 @@
 		0DA235A326611352003AA15F /* GoogleService */ = {
 			isa = PBXGroup;
 			children = (
-				0DA235A42661135F003AA15F /* GoogleService-Info.plist */,
+				0D0ED154269B1B0900A6BF0A /* GoogleService-Info.plist */,
+				0D0ED157269B1CAB00A6BF0A /* GoogleService-Info-beta.plist */,
 			);
 			path = GoogleService;
 			sourceTree = "<group>";
@@ -1758,6 +1761,7 @@
 				DA4899DF257A08A6005E39ED /* Sources */,
 				DA4899E0257A08A6005E39ED /* Frameworks */,
 				DA4899E1257A08A6005E39ED /* Resources */,
+				0D0ED156269B1BEB00A6BF0A /* Firebase GoogleService-Info */,
 			);
 			buildRules = (
 			);
@@ -1832,7 +1836,6 @@
 				DAF18E8225B6FB21007ACFAC /* VolteW03Semibold.otf in Resources */,
 				CEF135EF25811D130098BEC3 /* Common.xcassets in Resources */,
 				34775E222680CF50009F5A59 /* GmarketSansTTFBold.ttf in Resources */,
-				0DA235A52661135F003AA15F /* GoogleService-Info.plist in Resources */,
 				34775E212680CF50009F5A59 /* BinggraeSamanco.ttf in Resources */,
 				34775E232680CF50009F5A59 /* NanumSquareB.ttf in Resources */,
 				34775E2A2680CF50009F5A59 /* NanumDaHaengCe.ttf in Resources */,
@@ -1842,11 +1845,34 @@
 				34775E1F2680CF50009F5A59 /* BinggraeSamanco-Bold.ttf in Resources */,
 				34775E1E2680CF50009F5A59 /* Binggrae.ttf in Resources */,
 				34775E1D2680CF50009F5A59 /* NanumHimNaeRaNeunMarBoDan.ttf in Resources */,
+				0D0ED158269B1CAB00A6BF0A /* GoogleService-Info-beta.plist in Resources */,
 				34775E242680CF50009F5A59 /* GmarketSansTTFMedium.ttf in Resources */,
+				0D0ED155269B1B0900A6BF0A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0D0ED156269B1BEB00A6BF0A /* Firebase GoogleService-Info */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Firebase GoogleService-Info";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "GOOGLE_SERVICE_INFO_PLIST_FROM=\"${PROJECT_DIR}/SupportingFiles/GoogleService/${GOOGLE_SERVICE_INFO_PLIST_NAME}\"\nBUILD_APP_DIR=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\"\nGOOGLE_SERVICE_INFO_PLIST_TO=\"${BUILD_APP_DIR}/GoogleService-Info.plist\"\ncp \"${GOOGLE_SERVICE_INFO_PLIST_FROM}\" \"${GOOGLE_SERVICE_INFO_PLIST_TO}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DA4899DF257A08A6005E39ED /* Sources */ = {
@@ -2264,8 +2290,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SupportingFiles/DAYOL.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UB34G768WF;
 				ENABLE_BITCODE = NO;
@@ -2281,7 +2307,7 @@
 				OTHER_SWIFT_FLAGS = "$(OTHER_SWIFT_FLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dayolstudio.dayol;
 				PRODUCT_NAME = DAYOL;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "DAYOL AppStore";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

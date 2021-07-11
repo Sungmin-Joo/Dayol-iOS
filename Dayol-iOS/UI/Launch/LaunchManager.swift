@@ -35,14 +35,9 @@ final class LaunchManager {
                 return IAPManager.shared.checkPurchased()
             }
             .map { (response: API.MembershipReceiptAPI.Response) -> Result  in
-                #if DEBUG
-                DYLog.i(.inAppPurchase, value: "[BETA]")
-                return .beta
-                #elseif PRODUCT
                 DYLog.i(.inAppPurchase, value: "[STATUS: \(response.status)]")
                 DYLog.i(.inAppPurchase, value: "[ADMIN_ID\(response.receipt.adamId)]")
-                return .prod
-                #endif
+                return.prod
             }
     }
 }

@@ -9,8 +9,8 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 
 // app info
-APP_VERSION      = 1
-APP_BUILD_NUMBER = 0
+APP_VERSION                     = 1
+GOOGLE_SERVICE_INFO_PLIST_NAME  = GoogleService-Info.plist
 
 // bundle
 BUNDLE_IDENTIFIER               = com.dayolstudio.dayol
