@@ -70,6 +70,6 @@ final class PaperScheduleLineViewModel {
 
 extension PaperScheduleLineViewModel {
     var scheduleLineStyle: ScheduleLineStyle {
-        return self.lineType
+        return lineType
     }
 }
