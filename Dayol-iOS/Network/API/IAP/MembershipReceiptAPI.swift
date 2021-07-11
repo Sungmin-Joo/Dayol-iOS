@@ -8,7 +8,7 @@
 import Foundation
 
 extension API {
-    struct GetMembershipReceipt: APIPostRequest {
+    struct MembershipReceiptAPI: APIPostRequest {
         typealias Response = MembershipReceipt
 
         struct MembershipReceipt: Decodable {
@@ -51,19 +51,17 @@ extension API {
             return parameters
         }
 
-        var password: String
+        let password: String
 
         func response(_ response: Any) -> API.Result<Response> {
             guard let json = response as? [AnyHashable: Any] else {
                 return .error(API.ResponseError.parse)
             }
 
-            let jsonData = try! JSONSerialization.data(withJSONObject: json)
-
-            // Convert to a string and print
-            if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
-               print(JSONString)
-            }
+//            let jsonData = try! JSONSerialization.data(withJSONObject: json)
+//            if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
+//               print(JSONString)
+//            }
 
             if let membershipReceipt = json.data?.decode(MembershipReceipt.self) {
                 return .success(membershipReceipt)
