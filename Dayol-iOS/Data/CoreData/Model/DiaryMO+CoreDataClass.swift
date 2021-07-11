@@ -14,6 +14,7 @@ public class DiaryMO: NSManagedObject {
     func make(diary: Diary) {
         id = diary.id
         isLock = diary.isLock
+        index = diary.index
         title = diary.title
         colorHex = diary.colorHex
         hasLogo = diary.hasLogo
@@ -39,6 +40,7 @@ public class DiaryMO: NSManagedObject {
         return  Diary(
             id: id,
             isLock: isLock,
+            index: index,
             title: title,
             colorHex: colorHex,
             hasLogo: hasLogo,

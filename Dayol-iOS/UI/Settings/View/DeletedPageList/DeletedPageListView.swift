@@ -237,7 +237,7 @@ extension DeletedPageListView {
         alert.addAction(resotreActon)
         alert.addAction(deleteAcion)
 
-        if isPadDevice, let popoverController = alert.popoverPresentationController {
+        if isIPad, let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = self
             popoverController.sourceRect = CGRect(x: bounds.midX, y: bounds.midY, width: 0, height: 0)
             popoverController.permittedArrowDirections = []

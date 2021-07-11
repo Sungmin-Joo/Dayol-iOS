@@ -13,7 +13,7 @@ private enum Design {
     static let labelImage = UIImage(named: "splash_label")
 }
 
-final class LaunchViewController: UIViewController {
+final class LaunchViewController: DYViewController {
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +64,7 @@ final class LaunchViewController: UIViewController {
                     shouldOnboading
                 else {
                     let homeViewController = HomeViewController()
-                    let navigationController = UINavigationController(rootViewController: homeViewController)
+                    let navigationController = DYNavigationController(rootViewController: homeViewController)
                     navigationController.isNavigationBarHidden = true
 
                     AppDelegate.shared?.window?.switchRootViewController(navigationController)

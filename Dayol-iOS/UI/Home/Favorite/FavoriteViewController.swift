@@ -12,7 +12,7 @@ private enum Design {
     static let bgColor = UIColor.white
 }
 
-class FavoriteViewController: UIViewController {
+class FavoriteViewController: DYViewController {
 
     private let emptyView: HomeEmptyView = {
         let view = HomeEmptyView(style: .favorite)

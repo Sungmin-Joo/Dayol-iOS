@@ -24,6 +24,6 @@ enum Orientation {
     }
 }
 
-var isPadDevice: Bool {
+var isIPad: Bool {
     UIDevice.current.userInterfaceIdiom == .pad
 }

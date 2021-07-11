@@ -24,10 +24,10 @@ private enum Design {
     static let dayFont = UIFont.systemFont(ofSize: 13, weight: .regular)
     
     static let dayLabelTop: CGFloat = 8
-    static let dayLabelLeft: CGFloat = isPadDevice ? 10 : 8
+    static let dayLabelLeft: CGFloat = isIPad ? 10 : 8
     
     static let weeklyLabelTop: CGFloat = 8
-    static let weeklyLabelLeft: CGFloat = isPadDevice ? 10 : 8
+    static let weeklyLabelLeft: CGFloat = isIPad ? 10 : 8
     
     static let weekdayLabelLeft: CGFloat = 8
     // TODO: Event Design

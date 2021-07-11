@@ -15,7 +15,7 @@ protocol DiaryPaperEmptyViewControllerDelegate: NSObject {
     func didTapEmptyView()
 }
 
-final class DiaryPaperEmptyViewController: UIViewController {
+final class DiaryPaperEmptyViewController: DYViewController {
     private let emptyView: DiaryPaperEmptyView = {
         let view = DiaryPaperEmptyView()
         view.translatesAutoresizingMaskIntoConstraints = false

@@ -87,7 +87,7 @@ private enum Design {
     static let selectBoxHeight: CGFloat = 196
 }
 
-class MembershipViewController: UIViewController {
+class MembershipViewController: DYViewController {
     private let subscribeView: MembershipSubscribeView = {
         let subscribeView = MembershipSubscribeView()
         subscribeView.translatesAutoresizingMaskIntoConstraints = false

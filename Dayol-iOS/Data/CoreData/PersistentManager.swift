@@ -15,6 +15,8 @@ class PersistentManager {
         case paperScheduler
         case decorationItem
         case decorationTextFieldItem
+        case decorationStickerItem
+        case decorationImageItemMO
 
         var name: String {
             switch self {
@@ -23,6 +25,8 @@ class PersistentManager {
             case .paperScheduler: return "PaperScheduler"
             case .decorationItem: return "DecorationItem"
             case .decorationTextFieldItem: return "DecorationTextFieldItem"
+            case .decorationStickerItem: return "DecorationStickerItem"
+            case .decorationImageItemMO: return "DecorationImageItem"
             }
         }
     }
@@ -54,19 +58,24 @@ class PersistentManager {
         }
     }
 
-    func entity(_ type: EntityType) -> NSEntityDescription? {
+    private func entity(_ type: EntityType) -> NSEntityDescription? {
         return NSEntityDescription.entity(forEntityName: type.name, in: persistentContainer.viewContext)
+    }
+
+    func managedObject<T: NSManagedObject>(_ type: EntityType, class: T.Type) -> T? {
+        if let entity = entity(.diary) {
+            return T(entity: entity, insertInto: context)
+        }
+        return nil
     }
 
     func insertObject(_ type: EntityType) -> NSManagedObject {
         return NSEntityDescription.insertNewObject(forEntityName: type.name, into: persistentContainer.viewContext)
     }
-}
 
-extension NSManagedObject {
-    static func fetchRequest<T: NSManagedObject>() -> NSFetchRequest<T>? {
-        guard let name = entity().name else { return nil }
-        return NSFetchRequest<T>(entityName: name)
+    func deleteManagedObject(_ object: NSManagedObject) {
+        context.delete(object)
+        saveContext()
     }
 }
 

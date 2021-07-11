@@ -17,7 +17,7 @@ private enum Design {
     case ipad
     case iphone
     
-    static var current: Design = { isPadDevice ? .ipad : iphone }()
+    static var current: Design = { isIPad ? .ipad : iphone }()
     
     static func emptyTop(orientation: IPadOrientation) -> CGFloat {
         switch current {
@@ -161,7 +161,7 @@ class DiaryPaperEmptyView: UIView {
             stackView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
         ])
         
-        if isPadDevice == false {
+        if isIPad == false {
             NSLayoutConstraint.activate([
                 containerView.widthAnchor.constraint(equalToConstant: Design.emptyWidthForIPhone),
                 containerView.heightAnchor.constraint(equalToConstant: Design.emptyHeightForIPhone),

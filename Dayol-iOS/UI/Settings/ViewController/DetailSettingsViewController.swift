@@ -21,7 +21,7 @@ private enum Text {
     static let alertDefault = "bin_alert_btn".localized
 }
 
-class DetailSettingsViewController: UIViewController {
+class DetailSettingsViewController: DYViewController {
 
     private let disposeBag = DisposeBag()
     private let settingType: SettingModel.InApp
