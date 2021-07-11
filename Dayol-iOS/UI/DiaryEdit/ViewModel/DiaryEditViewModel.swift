@@ -15,17 +15,52 @@ class DiaryEditViewModel {
     var diarySubject = ReplaySubject<Diary>.createUnbounded()
     var currentDiaryId: String?
 
-    var diaryIdToCreate: String {
+    var diaryID: String {
+        let diaryPrefix = "D"
         if let diaryId = currentDiaryId {
             return diaryId
         }
+        return diaryPrefix + String(Date().timeIntervalSince1970)
+    }
 
-        if let diaryList = try? DiaryManager.shared.diaryListSubject.value() {
-            let count = diaryList.count
-            return "D\(count)"
+    var diaryIndex: Int32 {
+        let diaryList = DiaryManager.shared.diaryList
+
+        if let index = diaryList.firstIndex(where: { $0.id == diaryID }) {
+            return Int32(index)
         }
 
-        return "D0"
+        return Int32(diaryList.count)
+    }
+
+    func createDiaryInfo(
+        isLock: Bool,
+        title: String,
+        colorHex: String,
+        drawCanvas: Data,
+        hasLogo: Bool,
+        thumbnail: Data,
+        contents: [DecorationItem]
+    ) {
+        let diaryModel = Diary(
+            id: diaryID,
+            isLock: isLock,
+            index: diaryIndex,
+            title: title,
+            colorHex: colorHex,
+            hasLogo: hasLogo,
+            thumbnail: thumbnail,
+            drawCanvas: drawCanvas,
+            contents: contents
+        )
+
+        if currentDiaryId == nil {
+            DiaryManager.shared.createDiary(diaryModel)
+        } else {
+            DiaryManager.shared.updateDiary(diaryModel)
+            DiaryManager.shared.fetchDiaryList()
+        }
+
     }
 
     func createDiaryInfo(model: Diary) {
