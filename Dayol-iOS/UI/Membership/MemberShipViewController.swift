@@ -116,8 +116,6 @@ class MembershipViewController: DYViewController {
     private let viewModel = ViewModel()
     private let disposeBag: DisposeBag = DisposeBag()
 
-    deinit { DYLog.i(.deinit, value: "\(Self.self)") }
-
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -145,7 +143,7 @@ class MembershipViewController: DYViewController {
     func fetch() {
         viewModel.fetchProducts()
             .observe(on: MainScheduler.instance)
-            .delay(.seconds(2), scheduler: MainScheduler.instance)
+            .delay(.seconds(2), scheduler: MainScheduler.instance) // TODO: Remove
             .attachHUD(view)
             .subscribe(onSuccess: { [weak self] products in
                 guard let self = self else { return }

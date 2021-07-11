@@ -62,7 +62,7 @@ enum DYLog {
 
     /// error log
     static func e(_ key: LogType, value: Any) {
-        print("\(Date.now) [🩸] - [ERROR] KEY: \(key) | Message: \(value)")
+        print("\(Date.now) [🩸|\(key.rawValue)] - [ERROR] KEY: \(key) | Message: \(value)")
     }
 
     /// debuging log

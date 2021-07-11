@@ -89,15 +89,8 @@ final class IAPManager: NSObject {
         paymentQueue.restoreCompletedTransactions()
     }
 
-    func checkPurchased() {
-        API.GetMembershipReceipt(password: sharedSecretPassword).rx.response()
-            .observe(on: MainScheduler.instance)
-            .attachHUD()
-            .subscribe { (response: API.GetMembershipReceipt.Response) in
-                DYLog.i(.inAppPurchase, value: "(STATUS: \(response.status))")
-                DYLog.i(.inAppPurchase, value: "(ADMIN_ID: \(response.receipt.adamId))")
-            }
-            .disposed(by: disposeBag)
+    func checkPurchased() -> Single<API.MembershipReceiptAPI.Response> {
+        return API.MembershipReceiptAPI(password: sharedSecretPassword).rx.response()
     }
 }
 

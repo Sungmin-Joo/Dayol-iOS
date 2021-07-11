@@ -16,22 +16,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtz-BP-hdd" userLabel="logoContainer">
-                                <rect key="frame" x="0.0" y="44" width="414" height="771"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Fa0-Zv-zI5">
-                                        <rect key="frame" x="74.5" y="212.5" width="265" height="346"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="346" id="5Bt-r3-eiF"/>
-                                            <constraint firstAttribute="width" constant="265" id="M8g-xZ-FOA"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Fa0-Zv-zI5">
+                                <rect key="frame" x="74.5" y="255" width="265" height="346"/>
                                 <constraints>
-                                    <constraint firstItem="Fa0-Zv-zI5" firstAttribute="centerY" secondItem="xtz-BP-hdd" secondAttribute="centerY" id="WlK-gg-nfM"/>
-                                    <constraint firstItem="Fa0-Zv-zI5" firstAttribute="centerX" secondItem="xtz-BP-hdd" secondAttribute="centerX" id="n5H-WH-bIQ"/>
+                                    <constraint firstAttribute="height" constant="346" id="5Bt-r3-eiF"/>
+                                    <constraint firstAttribute="width" constant="265" id="M8g-xZ-FOA"/>
                                 </constraints>
-                            </view>
+                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_label" translatesAutoresizingMaskIntoConstraints="NO" id="gRb-PQ-lcI" userLabel="splashLabel">
                                 <rect key="frame" x="143" y="815" width="128" height="17"/>
                                 <constraints>
@@ -43,12 +34,10 @@
                         <viewLayoutGuide key="safeArea" id="c04-5M-8Lk"/>
                         <color key="backgroundColor" red="0.99215686274509807" green="0.95294117647058818" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="xtz-BP-hdd" firstAttribute="leading" secondItem="c04-5M-8Lk" secondAttribute="leading" id="23N-GD-h7e"/>
-                            <constraint firstItem="c04-5M-8Lk" firstAttribute="trailing" secondItem="xtz-BP-hdd" secondAttribute="trailing" id="F7L-Eo-y11"/>
+                            <constraint firstItem="Fa0-Zv-zI5" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Q9u-I7-5dJ"/>
                             <constraint firstItem="gRb-PQ-lcI" firstAttribute="centerX" secondItem="c04-5M-8Lk" secondAttribute="centerX" id="UQ3-jH-rVG"/>
-                            <constraint firstItem="xtz-BP-hdd" firstAttribute="top" secondItem="c04-5M-8Lk" secondAttribute="top" id="eoZ-69-f1u"/>
-                            <constraint firstItem="gRb-PQ-lcI" firstAttribute="top" secondItem="xtz-BP-hdd" secondAttribute="bottom" id="eql-gf-V2m"/>
                             <constraint firstItem="c04-5M-8Lk" firstAttribute="bottom" secondItem="gRb-PQ-lcI" secondAttribute="bottom" constant="30" id="pQv-3w-Bkv"/>
+                            <constraint firstItem="Fa0-Zv-zI5" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-20" id="ree-Sm-J1G"/>
                         </constraints>
                     </view>
                 </viewController>

@@ -35,7 +35,7 @@ struct API {
 
     enum Result<T> {
         case success(T)
-        case error(Error)
+        case failure(Error)
     }
 
     enum InternalError: Error {
@@ -54,7 +54,7 @@ protocol APIRequest: ReactiveCompatible {
     var body: API.Body? { get }
     var path: String { get }
     var parameters: [String: Any] { get }
-    func response(_ response: Any) -> API.Result<Response>
+    func parse(_ response: Any) -> API.Result<Response>
 }
 extension APIRequest {
     fileprivate var timeoutInterval: TimeInterval { return 30.0 }
@@ -93,10 +93,10 @@ extension APIRequest {
                 }
             }
             .map{ response -> Response in
-                switch self.response(response) {
+                switch self.parse(response) {
                 case .success(let response):
                     return response
-                case .error(let error):
+                case .failure(let error):
                     throw error
                 }
             }

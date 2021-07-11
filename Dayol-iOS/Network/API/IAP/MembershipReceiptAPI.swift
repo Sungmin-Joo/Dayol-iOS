@@ -53,10 +53,9 @@ extension API {
 
         let password: String
 
-        func response(_ response: Any) -> API.Result<Response> {
-            guard let json = response as? [AnyHashable: Any] else {
-                return .error(API.ResponseError.parse)
-            }
+        func parse(_ response: Any) -> API.Result<Response> {
+            guard Config.shared.isProd else { return .failure(Config.InternalError.notProduct) }
+            guard let json = response as? [AnyHashable: Any] else { return .failure(API.ResponseError.parse) }
 
 //            let jsonData = try! JSONSerialization.data(withJSONObject: json)
 //            if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
@@ -66,7 +65,7 @@ extension API {
             if let membershipReceipt = json.data?.decode(MembershipReceipt.self) {
                 return .success(membershipReceipt)
             } else {
-                return .error(API.ResponseError.parse)
+                return .failure(API.ResponseError.parse)
             }
         }
     }
