@@ -30,7 +30,7 @@ enum UseGuide {
         case cornell
         case muji
         case grid
-        case fourGrid = "fourgrid"
+        case quartet
         case monthlyTracker = "monthlytracker"
 
         var thumbnailImageName: String {
