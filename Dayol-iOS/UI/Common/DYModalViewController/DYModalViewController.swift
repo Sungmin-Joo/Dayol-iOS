@@ -23,7 +23,7 @@ private enum Design {
     static let downButton = Assets.Image.Modal.down
 }
 
-class DYModalViewController: UIViewController {
+class DYModalViewController: DYViewController {
 
     static let headerAreaHeight = Design.headerAreaHeight
     private let disposeBag = DisposeBag()

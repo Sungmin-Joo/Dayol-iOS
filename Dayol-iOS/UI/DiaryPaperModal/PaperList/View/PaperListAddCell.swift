@@ -15,7 +15,7 @@ private enum Design {
     static let titleTopMargin: CGFloat = 10.0
 
     static let image = Assets.Image.PaperList.addCell
-    static let buttonHeight: CGFloat = isPadDevice ? 119.0 : 134.0
+    static let buttonHeight: CGFloat = isIPad ? 119.0 : 134.0
 }
 
 private enum Text {

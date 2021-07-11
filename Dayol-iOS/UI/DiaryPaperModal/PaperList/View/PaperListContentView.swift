@@ -14,7 +14,7 @@ private enum Design {
 
     static let collectionViewInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
     static let itemSpacing: CGFloat = 28.0
-    static let lineSpacing: CGFloat = isPadDevice ? 40.0 : 24.0
+    static let lineSpacing: CGFloat = isIPad ? 40.0 : 24.0
 }
 
 private enum Text: String {

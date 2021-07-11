@@ -20,7 +20,7 @@ private enum Design {
         }
 
         static var bannerRefSize: CGSize {
-            if isPadDevice {
+            if isIPad {
                 return CGSize(width: 375, height: 667)
             } else {
                 return UIScreen.main.bounds.size
@@ -35,7 +35,7 @@ private enum Design {
     static let sectionHeaderViewLineColor = UIColor.gray400
 }
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: DYViewController {
 
     static let localizedTitle = "Settings".localized
 

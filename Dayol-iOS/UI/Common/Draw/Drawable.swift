@@ -33,7 +33,7 @@ private enum Text {
     }
 }
 
-protocol Drawable: UIViewController {
+protocol Drawable: DYViewController {
     var disposeBag: DisposeBag { get }
 
     var drawingContentView: DrawingContentView { get set }
@@ -51,7 +51,7 @@ protocol Drawable: UIViewController {
     func didEndStickerPick(_ image: UIImage)
 }
 
-extension Drawable where Self: UIViewController {
+extension Drawable where Self: DYViewController {
 
     func bindToolBarEvent() {
         undoRedoBind()
@@ -115,7 +115,7 @@ extension Drawable where Self: UIViewController {
 
 // MARK: - Tool Bar Event
 
-extension Drawable where Self: UIViewController {
+extension Drawable where Self: DYViewController {
 
     private func undoRedoBind() {
         toolBar.undoButton.rx.tap
@@ -218,7 +218,7 @@ extension Drawable where Self: UIViewController {
 
 }
 
-extension Drawable where Self: UIViewController {
+extension Drawable where Self: DYViewController {
 
     // MARK: - Pencil
 

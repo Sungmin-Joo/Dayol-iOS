@@ -111,7 +111,7 @@ class ColorPaletteView: UIView {
     }
     
     private func setConstraint() {
-        if isPadDevice {
+        if isIPad {
             collectionViewWidthForIpad = collectionView.widthAnchor.constraint(equalToConstant: 0)
             NSLayoutConstraint.activate([
                 containerView.topAnchor.constraint(equalTo: topAnchor),
@@ -138,7 +138,7 @@ extension ColorPaletteView {
         set {
             self.model = newValue
             
-            if isPadDevice {
+            if isIPad {
                 collectionViewWidthForIpad.constant = collectionViewWidth(cellCount: self.model?.count ?? 0)
             }
         }
