@@ -13,8 +13,8 @@ private enum Design {
     static let monthFont: UIFont = UIFont.helveticaBold(size: 26)
     static let monthLetterSpace: CGFloat = -0.79
     static let mohthFontColor: UIColor = .black
-    static var monthTop: CGFloat { isPadDevice ? 20 : 18 }
-    static var monthLeft: CGFloat { isPadDevice ? 20 : 18 }
+    static var monthTop: CGFloat { isIPad ? 20 : 18 }
+    static var monthLeft: CGFloat { isIPad ? 20 : 18 }
     
     static let buttonLeft: CGFloat = 8
     static let buttonSize: CGSize = CGSize(width: 8, height: 4)

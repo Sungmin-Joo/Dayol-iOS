@@ -23,7 +23,7 @@ private enum Design {
         return defaultHeight
     }
     static var itemSpacing: CGFloat {
-        guard isPadDevice else {
+        guard isIPad else {
             return 30.0
         }
         return 60.0
@@ -33,7 +33,7 @@ private enum Design {
     }
 }
 
-class DiaryListViewController: UIViewController {
+class DiaryListViewController: DYViewController {
 
     let viewModel = DiaryListViewModel()
     let disposeBag = DisposeBag()

@@ -9,7 +9,7 @@ import UIKit
 
 extension UIWindow {
     func switchRootViewController(
-        _ viewController: UIViewController,
+        _ viewController: DYViewController,
         animated: Bool = true,
         duration: TimeInterval = 0.35,
         options: UIView.AnimationOptions = .transitionCrossDissolve,

@@ -29,7 +29,7 @@ private enum Design {
     }
 
     static var imageRefSize: CGSize {
-        if isPadDevice {
+        if isIPad {
             return CGSize(width: 375, height: 667)
         } else {
             return UIScreen.main.bounds.size

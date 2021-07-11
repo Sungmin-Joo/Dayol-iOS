@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DayolAlertController: UIViewController, PopupPresentDelegate {
+final class DayolAlertController: DYViewController, PopupPresentDelegate {
 
     // MARK: Property
     private var actions: [DayolAlertAction.Style: DayolAlertAction] = [:]

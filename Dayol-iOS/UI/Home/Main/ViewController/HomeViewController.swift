@@ -13,7 +13,7 @@ private enum Design {
     static let iPadContentCornerRadius: CGFloat = 12
 }
 
-class HomeViewController: UIViewController {
+class HomeViewController: DYViewController {
 
     private let diaryListVC: DiaryListViewController = {
         let vc = DiaryListViewController()
@@ -109,7 +109,7 @@ extension HomeViewController {
         displayContentController(content: diaryListVC)
     }
 
-    private func displayContentController(content: UIViewController) {
+    private func displayContentController(content: DYViewController) {
         addChild(content)
         view.addSubview(content.view)
 
@@ -124,7 +124,7 @@ extension HomeViewController {
         view.bringSubviewToFront(tabBarView)
     }
 
-    private func hideContentController(content: UIViewController) {
+    private func hideContentController(content: DYViewController) {
         content.willMove(toParent: nil)
         content.view.removeFromSuperview()
         content.removeFromParent()
