@@ -45,7 +45,7 @@ extension Date {
     }
 
     func dayDiff(with date: Date) -> Int? {
-        return Date.calendar.dateComponents([.day], from: self, to: date).day
+        return Calendar.current.numberOfDaysBetween(self, and: date)
     }
 
     var weekday: Int {
@@ -58,5 +58,15 @@ extension Date {
     
     var isWeekend: Bool {
         return Date.calendar.isDateInWeekend(self)
+    }
+}
+
+extension Calendar {
+    func numberOfDaysBetween(_ from: Date, and to: Date) -> Int {
+        let fromDate = startOfDay(for: from) // <1>
+        let toDate = startOfDay(for: to) // <2>
+        let numberOfDays = dateComponents([.day], from: fromDate, to: toDate) // <3>
+
+        return numberOfDays.day!
     }
 }

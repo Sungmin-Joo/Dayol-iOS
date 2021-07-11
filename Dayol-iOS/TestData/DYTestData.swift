@@ -51,9 +51,9 @@ class DYTestData {
     ]
 
     var scheduleModels: [PaperScheduler] = [
-        PaperScheduler(id: "S0", diaryId: "D0", start: Date.now.day(), end: Date.now.day(add: 1), name: "스케줄 1", colorHex: UIColor.dayolRed.hexString, showsWeeklyPaper: true, showsMonthlyPaper: true),
-        PaperScheduler(id: "S1", diaryId: "D0", start: Date.now.day(add: 1), end: Date.now.day(add: 3), name: "스케줄 2", colorHex: UIColor.dayolBrown.hexString, showsWeeklyPaper: true, showsMonthlyPaper: true),
-        PaperScheduler(id: "S2", diaryId: "D0", start: Date.now.day(add: 2), end: Date.now.day(add: 4), name: "스케줄 3", colorHex: UIColor.systemBlue.hexString, showsWeeklyPaper: true, showsMonthlyPaper: true)
+        PaperScheduler(id: "S0", diaryId: "D0", start: Date.now.day(), end: Date.now.day(add: 7), name: "스케줄 1", colorHex: UIColor.dayolRed.hexString, showsWeeklyPaper: true, showsMonthlyPaper: true),
+        PaperScheduler(id: "S1", diaryId: "D0", start: Date.now.day(add: 1), end: Date.now.day(add: 9), name: "스케줄 2", colorHex: UIColor.dayolBrown.hexString, showsWeeklyPaper: true, showsMonthlyPaper: true),
+        PaperScheduler(id: "S2", diaryId: "D0", start: Date.now.day(add: 2), end: Date.now.day(add: 6), name: "스케줄 3", colorHex: UIColor.systemBlue.hexString, showsWeeklyPaper: true, showsMonthlyPaper: true)
     ]
     
     var stickerList: [UIImage?] = [
