@@ -129,7 +129,7 @@ class DiaryEditViewController: DYEditBaseViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
         navigationItem.titleView = titleView
 
-        setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
+        setToolbarItems([UIBarButtonItem(customView: toolBar)], animated: false)
     }
     
     // MARK: - Bind

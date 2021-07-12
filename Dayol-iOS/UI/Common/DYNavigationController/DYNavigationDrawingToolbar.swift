@@ -32,11 +32,9 @@ private enum Design {
 class DYNavigationDrawingToolbar: UIView {
 
     enum ToolType {
-        case eraser
         case pencil
         case photo
         case redo
-        case snare
         case sticker
         case text
         case undo
@@ -82,15 +80,6 @@ class DYNavigationDrawingToolbar: UIView {
         return view
     }()
     
-    let eraserButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: Design.buttonSize.width, height: Design.buttonSize.height))
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Design.eraserImage, for: .normal)
-        button.setBackgroundImage(Design.selectedImage, for: .selected)
-        
-        return button
-    }()
-    
     let pencilButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: Design.buttonSize.width, height: Design.buttonSize.height))
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -113,15 +102,6 @@ class DYNavigationDrawingToolbar: UIView {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: Design.buttonSize.width, height: Design.buttonSize.height))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(Design.redoImage, for: .normal)
-        button.setBackgroundImage(Design.selectedImage, for: .selected)
-        
-        return button
-    }()
-    
-    let snareButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: Design.buttonSize.width, height: Design.buttonSize.height))
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Design.snareImage, for: .normal)
         button.setBackgroundImage(Design.selectedImage, for: .selected)
         
         return button
@@ -165,18 +145,17 @@ class DYNavigationDrawingToolbar: UIView {
     }
     
     private func initView() {
+        let space = UIView()
         leftView.addArrangedSubview(undoButton)
         leftView.addArrangedSubview(redoButton)
-        
-        rightView.addArrangedSubview(snareButton)
+
         rightView.addArrangedSubview(pencilButton)
-        rightView.addArrangedSubview(eraserButton)
         rightView.addArrangedSubview(textButton)
         rightView.addArrangedSubview(stickerButton)
         rightView.addArrangedSubview(photoButton)
         
         containerView.addArrangedSubview(leftView)
-        containerView.addArrangedSubview(separatorLine)
+        containerView.addArrangedSubview(space)
         containerView.addArrangedSubview(rightView)
         
         addSubview(containerView)
@@ -201,22 +180,10 @@ class DYNavigationDrawingToolbar: UIView {
 
 private extension DYNavigationDrawingToolbar {
     func bind() {
-        bindEraserButton()
         bindPhotoButton()
         bindPencilButton()
         bindTextButton()
-        bindSnareButton()
         bindStickerButton()
-    }
-    
-    func bindEraserButton() {
-        eraserButton.rx.tap
-            .bind { [weak self] in
-                self?.clearButtons()
-                self?.toolBarEvent.onNext(.eraser)
-                self?.eraserButton.isSelected = true
-            }
-            .disposed(by: disposeBag)
     }
     
     func bindPencilButton() {
@@ -235,16 +202,6 @@ private extension DYNavigationDrawingToolbar {
                 self?.clearButtons()
                 self?.toolBarEvent.onNext(.photo)
                 self?.photoButton.isSelected = true
-            }
-            .disposed(by: disposeBag)
-    }
-    
-    func bindSnareButton() {
-        snareButton.rx.tap
-            .bind { [weak self] in
-                self?.clearButtons()
-                self?.toolBarEvent.onNext(.snare)
-                self?.snareButton.isSelected = true
             }
             .disposed(by: disposeBag)
     }

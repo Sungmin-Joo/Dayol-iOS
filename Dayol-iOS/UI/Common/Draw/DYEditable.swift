@@ -11,7 +11,7 @@ import RxSwift
 
 private enum Design {
     static let defaultTextFieldSize = CGSize(width: 20, height: 30)
-    static let penSettingModalHeight: CGFloat = 554.0
+    static let penSettingModalHeight: CGFloat = 146.0
     static let textColorSettingModalHeight: CGFloat = 441.0
 }
 
@@ -55,8 +55,6 @@ extension DYEditable where Self: UIViewController {
 
     func bindToolBarEvent() {
         undoRedoBind()
-        lassoToolBind()
-        eraseBind()
         penBind()
         textFieldBind()
         photoBind()
@@ -80,20 +78,54 @@ extension DYEditable where Self: UIViewController {
     }
 
     private func presentPencilModal() {
-        let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .custom(containerHeight: Design.penSettingModalHeight))
+        let configuration = DYModalConfiguration(dimStyle: .clear, modalStyle: .custom(containerHeight: Design.penSettingModalHeight))
         let modalVC = DYModalViewController(configure: configuration,
                                             title: Text.penTitle,
                                             hasDownButton: true)
         let currentColor = currentPencilTool.color
         let isHighlighter = currentPencilTool.isHighlighter
-        let currnetPencilType: PencilTypeSettingView.PencilType = isHighlighter ? .highlighter : .pen
-        let contentView = PencilSettingView(currentColor: currentColor, pencilType: currnetPencilType)
+//        let currnetPencilType: PencilTypeSettingView.PencilType = isHighlighter ? .highlighter : .pen
+        let contentView = PencilSettingView(currentColor: currentColor, toolType: currentPencilTool)
+
+        contentView.showColorPicker = { [weak self] color in
+            guard let self = self else { return }
+            modalVC.dismiss(animated: true) {
+                self.presentColorPickerModal(currentColor: color)
+            }
+        }
+        contentView.showDetailPiker = { [weak self] detailViewInfo in
+            modalVC.showPopover(
+                contents: detailViewInfo.contents,
+                sender: detailViewInfo.sender,
+                preferredSize: detailViewInfo.preferredSize
+            )
+        }
         modalVC.dismissCompeletion = { [weak self] in
-            let newColor = contentView.currentPencilInfo.color
-            let newIsHighlighter = contentView.currentPencilInfo.pencilType == .highlighter ? true : false
-            self?.didEndPencilSetting(color: newColor, isHighlighter: newIsHighlighter)
+//            let newColor = contentView.currentPencilInfo.color
+//            let newIsHighlighter = contentView.currentPencilInfo.pencilType == .highlighter ? true : false
+//            self?.didEndPencilSetting(color: newColor, isHighlighter: newIsHighlighter)
         }
         modalVC.contentView = contentView
+        presentCustomModal(modalVC)
+    }
+
+    private func presentColorPickerModal(currentColor: UIColor) {
+        let configuration = DYModalConfiguration(dimStyle: .clear, modalStyle: .custom(containerHeight: 441.0))
+        let modalVC = DYModalViewController(configure: configuration,
+                                            title: "123",
+                                            hasDownButton: true)
+
+        let contentView = ColorSettingView()
+        contentView.set(color: currentColor)
+//        contentView.colorSubject.sink { [weak self] color in
+//            self?.setAttributes(key: .foregroundColor, value: color)
+//        }
+//        .store(in: &cancellable)
+
+        modalVC.contentView = contentView
+        modalVC.dismissCompeletion = { [weak self] in
+            self?.presentPencilModal()
+        }
         presentCustomModal(modalVC)
     }
 
@@ -135,39 +167,6 @@ extension DYEditable where Self: UIViewController {
                     self.undoManager?.redo()
                 }
                 self.currentTool = .redo
-            }
-            .disposed(by: disposeBag)
-    }
-
-    private func eraseBind() {
-        toolBar.eraserButton.rx.tap
-            .bind { [weak self] in
-                guard let self = self else { return }
-                guard self.currentTool == .eraser else {
-                    self.currentTool = .eraser
-                    self.didTapEraseButton()
-                    return
-                }
-                self.showEraseModal()
-            }
-            .disposed(by: disposeBag)
-    }
-
-    private func lassoToolBind() {
-        toolBar.snareButton.rx.tap
-            .bind { [weak self] in
-                guard let self = self else { return }
-                guard self.currentTool == .snare else {
-                    self.currentTool = .snare
-                    self.didTapSnareButton()
-                    return
-                }
-                let configuration = DYModalConfiguration(dimStyle: .black, modalStyle: .small)
-                let modalVC = DYModalViewController(configure: configuration,
-                                                    title: Text.lassoTitle,
-                                                    hasDownButton: true)
-                modalVC.contentView = LassoInfoView()
-                self.presentCustomModal(modalVC)
             }
             .disposed(by: disposeBag)
     }

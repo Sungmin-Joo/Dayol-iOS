@@ -23,12 +23,12 @@ private enum Text {
 class DYEditBaseViewController: UIViewController, DYEditable {
     let disposeBag = DisposeBag()
 
-    final let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
+    let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
 
-    public var contentsView = DYContentsView()
-    final var currentTool: DYNavigationDrawingToolbar.ToolType?
-    final var currentEraseTool: DYEraseTool = DYEraseTool(isObjectErase: false)
-    final var currentPencilTool: DYPencilTool = DYPencilTool(color: .black, isHighlighter: false)
+    var contentsView = DYContentsView()
+    var currentTool: DYNavigationDrawingToolbar.ToolType?
+    var currentEraseTool: DYEraseTool = DYEraseTool(isObjectErase: false)
+    var currentPencilTool: DYPencilTool = DYPencilTool(color: .black, isHighlighter: false)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +67,7 @@ class DYEditBaseViewController: UIViewController, DYEditable {
 
 extension DYEditBaseViewController {
 
-    final func showImagePicker() {
+    func showImagePicker() {
         contentsView.shouldMakeTextField = false
 
         if #available(iOS 14.0, *) {
