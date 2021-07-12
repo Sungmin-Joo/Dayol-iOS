@@ -72,7 +72,7 @@ class DiaryPaperEditViewController: DiaryPaperViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
         navigationItem.titleView = titleView
         
-        setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
+        setToolbarItems([UIBarButtonItem(customView: toolBar)], animated: false)
         
         leftButton.addTarget(self, action: #selector(dismissWithNoAnimation), for: .touchUpInside)
     }

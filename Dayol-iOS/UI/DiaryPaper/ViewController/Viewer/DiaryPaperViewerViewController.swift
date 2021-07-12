@@ -88,7 +88,7 @@ class DiaryPaperViewerViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: barLeftItem)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: barRightItem)
         
-        setToolbarItems([UIBarButtonItem(customView: toolBar)], animated: false)
+        setToolbarItems([leftFlexibleSpace, UIBarButtonItem(customView: toolBar), rightFlexibleSpace], animated: false)
         
         barLeftItem.rx.tap
             .bind { [weak self] in

@@ -11,8 +11,6 @@ import RxCocoa
 
 private enum Design {
     static let buttonSize: CGSize = CGSize(width: 36, height: 36)
-    static let separatorLineSize: CGSize = CGSize(width: 1, height: 20)
-    static let separatorLineColor: UIColor = .gray400
     
     static let eraserImage = UIImage(named: "eraserButton")
     static let pencilImage = UIImage(named: "pencilButton")
@@ -72,14 +70,7 @@ class DYNavigationDrawingToolbar: UIView {
         
         return stackView
     }()
-    
-    private let separatorLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = Design.separatorLineColor
-        
-        return view
-    }()
-    
+
     let pencilButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: Design.buttonSize.width, height: Design.buttonSize.height))
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -164,10 +155,7 @@ class DYNavigationDrawingToolbar: UIView {
     }
     
     private func setConstraint() {
-        NSLayoutConstraint.activate([
-            separatorLine.widthAnchor.constraint(equalToConstant: Design.separatorLineSize.width),
-            separatorLine.heightAnchor.constraint(equalToConstant: Design.separatorLineSize.height),
-            
+        NSLayoutConstraint.activate([            
             containerView.topAnchor.constraint(equalTo: topAnchor),
             containerView.leftAnchor.constraint(equalTo: leftAnchor),
             containerView.rightAnchor.constraint(equalTo: rightAnchor),
