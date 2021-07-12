@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>710715040226-bnpfdlfvs8i8q2sec6ng1f37pg2et7t5.apps.googleusercontent.com</string>
+	<string>549644893019-bbonhvjvkjjelm00e2sbplhhhq69036g.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.710715040226-bnpfdlfvs8i8q2sec6ng1f37pg2et7t5</string>
+	<string>com.googleusercontent.apps.549644893019-bbonhvjvkjjelm00e2sbplhhhq69036g</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBVUHeTnpbIThkjLXWcppAwgbROo709zmg</string>
+	<string>AIzaSyCOUOH4mEIMHNgTdhWVWnAL9vaxkYHa7KI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>710715040226</string>
+	<string>549644893019</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.dayolstudio.dayol</string>
+	<string>com.dayolstudio.Dayol.beta</string>
 	<key>PROJECT_ID</key>
-	<string>dayol-e0395</string>
+	<string>dayol-beta</string>
 	<key>STORAGE_BUCKET</key>
-	<string>dayol-e0395.appspot.com</string>
+	<string>dayol-beta.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:710715040226:ios:48d94ae73dd28fb17b99bb</string>
+	<string>1:549644893019:ios:ab753cf0ea83afde4db87e</string>
 </dict>
 </plist>
