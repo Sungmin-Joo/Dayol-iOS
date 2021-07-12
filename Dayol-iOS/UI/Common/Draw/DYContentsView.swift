@@ -96,25 +96,32 @@ extension DYContentsView {
     func createImageSticker(image: UIImage, currentPage: Int = 0) {
         // TODO: 사용자 사진 ID 룰 정의
         let id = "test user image id"
-        setStreachableView(id: id, image: image, currentPage: currentPage)
+        setStreachableView(id: id, image: image, currentPage: currentPage, isUserImage: true)
     }
 
     func createSticker(image: UIImage, currentPage: Int = 0) {
         // TODO: 스티커 ID 룰 정의
         let id = "test sticker image id"
-        setStreachableView(id: id, image: image, currentPage: currentPage)
+        setStreachableView(id: id, image: image, currentPage: currentPage, isUserImage: false)
     }
 
-    private func setStreachableView(id: String, image: UIImage, currentPage: Int) {
+    private func setStreachableView(id: String, image: UIImage, currentPage: Int, isUserImage: Bool) {
         // TODO: - 속지에서 superview의 스케일때문에 센터가 잘 안맞는 것 같은데 종상이형이 한번 손봐주면 좋을 것 같습니다.
+        // TODO: - id 연동 작업 필요
         let calcedCenter = CGPoint(x: center.x, y: center.y * CGFloat(currentPage + 1))
         let imageView = UIImageView(image: image)
         let imageRatio = image.size.height / image.size.width
-        let defaultImageWith: CGFloat = DYImageSizeStretchableView.defaultImageWidth
-        let calcedImageHeight: CGFloat = imageRatio * DYImageSizeStretchableView.defaultImageWidth
+        let defaultImageWith: CGFloat = DYStickerBaseView.defaultImageWidth
+        let calcedImageHeight: CGFloat = imageRatio * DYStickerBaseView.defaultImageWidth
         imageView.frame.size = CGSize(width: defaultImageWith, height: calcedImageHeight)
 
-        let stickerView = DYImageSizeStretchableView(contentView: imageView)
+        let stickerView: DYStickerBaseView
+        if isUserImage {
+            stickerView = DYImageSizeStretchableView(contentView: imageView)
+        } else {
+            stickerView = DYStickerSizeStretchableView(contentView: imageView)
+        }
+
         stickerView.enableClose = true
         stickerView.enableRotate = true
         stickerView.enableHStretch = true
@@ -144,11 +151,12 @@ extension DYContentsView {
                 let textField = DYFlexibleTextField(viewModel: viewModel)
                 textField.viewModel.set(textItem)
                 addSubview(textField)
-            }
-
-            if let imageItem = item as? DecorationImageItem {
-                let imageStretchableView = DYImageSizeStretchableView(model: imageItem)
-                addSubview(imageStretchableView)
+            } else if let imageItem = item as? DecorationImageItem {
+                let stretchableView = DYImageSizeStretchableView(model: imageItem)
+                addSubview(stretchableView)
+            } else if let stickerItem = item as? DecorationStickerItem {
+                let stretchableView = DYStickerSizeStretchableView(model: stickerItem)
+                addSubview(stretchableView)
             }
         }
 
@@ -158,15 +166,22 @@ extension DYContentsView {
 // MARK: - Get Items
 
 extension DYContentsView {
+    // TODO: getItems, drawd data 동작을 나누지 않고 한번에 처리하도록 수정
     func getItems(parentID: String) -> [DecorationItem] {
         let items: [DecorationItem] = subviews.compactMap { subview in
             if let textField = subview as? DYFlexibleTextField {
                 return textField.toItem(parentId: parentID)
             }
 
-            if let imageStrectchView = subview as? DYImageSizeStretchableView {
+            // TODO: - ContentView ViewModel 정의하여 뷰모델에서 Item을 받아오도록 수정
+            if let imageStretchView = subview as? DYImageSizeStretchableView {
                 // TODO: - 유저 이미지 스티커 ID 룰 정의
-                return imageStrectchView.toItem(id: "", parentId: parentID)
+                return imageStretchView.toItem(id: "", parentId: parentID)
+            }
+
+            if let stickerStrechView = subview as? DYStickerSizeStretchableView {
+                // TODO: - 스티커 ID 룰 정의
+                return stickerStrechView.toItem(id: "", parentId: parentID)
             }
 
             return nil

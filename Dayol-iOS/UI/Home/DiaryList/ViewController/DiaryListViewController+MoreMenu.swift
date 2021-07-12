@@ -103,7 +103,7 @@ extension DiaryListViewController {
         alert.addAction(delete)
         alert.addAction(cancel)
 
-        if isPadDevice, let popoverController = alert.popoverPresentationController {
+        if isIPad, let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = self.view
             popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
             popoverController.permittedArrowDirections = []

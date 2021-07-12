@@ -15,8 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        Config.shared.initalize()
-
         configure()
 		return true
 	}
@@ -25,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow()
         let splashVC = LaunchViewController()
         window.rootViewController = splashVC
+        window.overrideUserInterfaceStyle = .light // TODO: if Apply DarkMode Remove
 
         self.window = window
         self.window?.makeKeyAndVisible()

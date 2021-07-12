@@ -170,7 +170,7 @@ private extension OnboadingView {
 
     @objc func startAction(_ sender: UIButton) {
         let homeViewController = HomeViewController()
-        let navigationController = UINavigationController(rootViewController: homeViewController)
+        let navigationController = DYNavigationController(rootViewController: homeViewController)
         navigationController.isNavigationBarHidden = true
 
         AppDelegate.shared?.window?.switchRootViewController(navigationController)

@@ -34,7 +34,7 @@ class DiaryPaperViewController: DYEditBaseViewController {
     private var scaleVariable: CGFloat {
         let orientation = viewModel.orientation
         let paperSize = PaperOrientationConstant.size(orentantion: orientation)
-        if isPadDevice {
+        if isIPad {
             switch orientation {
             case .portrait:
                 return paperScrollView.frame.height / paperSize.height

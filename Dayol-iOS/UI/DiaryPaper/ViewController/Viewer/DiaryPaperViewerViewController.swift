@@ -16,7 +16,7 @@ private enum Design {
     }
 }
 
-class DiaryPaperViewerViewController: UIViewController {
+class DiaryPaperViewerViewController: DYViewController {
     enum Text {
         static var addScheduleTitle: String { "속지 또는 일정 등록" }
         static var addScheduleDesc: String { "선택한 날짜에 새로운 일정을 등록하거나 작성한 속지를 연결할 수 있습니다" }
@@ -206,7 +206,7 @@ class DiaryPaperViewerViewController: UIViewController {
         let screenHeight = keyWindow?.bounds.height ?? .zero
         let topInset = keyWindow?.safeAreaInsets.top ?? 0
         let modalHeight: CGFloat = screenHeight - (Design.Margin.addPageModalTopMargin + topInset)
-        let modalStyle: DYModalConfiguration.ModalStyle = isPadDevice ? .normal : .custom(containerHeight: modalHeight)
+        let modalStyle: DYModalConfiguration.ModalStyle = isIPad ? .normal : .custom(containerHeight: modalHeight)
         let configuration = DYModalConfiguration(dimStyle: .black,
                                                  modalStyle: modalStyle)
 

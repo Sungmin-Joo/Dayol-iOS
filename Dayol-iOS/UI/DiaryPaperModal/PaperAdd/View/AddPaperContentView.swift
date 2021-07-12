@@ -68,7 +68,7 @@ class AddPaperContentView: UIView {
     }
 
     init() {
-        self.currentTabType = isPadDevice ? .landscape : .portrait
+        self.currentTabType = isIPad ? .landscape : .portrait
         super.init(frame: .zero)
         setupViews()
         setupConstraints()

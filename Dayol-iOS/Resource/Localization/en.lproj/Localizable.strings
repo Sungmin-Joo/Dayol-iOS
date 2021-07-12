@@ -26,6 +26,18 @@
 
 "setting_guide_title" = "Use Guide";
 "setting_guide_text" = "Guide the basic usage and for each inlay!";
+"setting_guide_content_title_h" = "Horizontal";
+"setting_guide_content_title_v" = "Vertical";
+"setting_guide_about" = "About Dayol";
+"setting_guide_monthly" = "Monthly Planner";
+"setting_guide_weekly" = "Weekly Planner";
+"setting_guide_daily" = "Daily Plan & Note";
+"setting_guide_cornell" = "Cornell Note";
+"setting_guide_muji" = "Muji Note";
+"setting_guide_grid" = "Gride Note";
+"setting_guide_quartet" = "4cell Note";
+"setting_guide_monthlytracker" = "Monthly Tracker";
+
 // TODO: - 번역 필요
 "setting_homeoption_title" = "앱 시작 첫 화면을 ‘즐겨찾기’로";
 "setting_homeoption_text" = "Off 시, 다이어리 목록으로 시작되어욜!";

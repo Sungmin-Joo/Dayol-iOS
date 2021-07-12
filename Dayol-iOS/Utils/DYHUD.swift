@@ -77,7 +77,7 @@ private class DYHUDView: UIView {
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.style = isPadDevice ? .large : .medium
+        indicator.style = isIPad ? .large : .medium
         return indicator
     }()
 

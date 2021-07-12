@@ -23,21 +23,23 @@ public class DecorationTextFieldItemMO: DecorationItemMO {
 
     override var toModel: DecorationTextFieldItem? {
         guard
-            let itemDAO = super.toModel,
+            let itemModel = super.toModel,
             let textData = textData,
             let bulletType = bulletType
         else {
             return nil
         }
 
-        return DecorationTextFieldItem(id: itemDAO.id,
-                                       parentId: itemDAO.parentId,
-                                       width: width,
-                                       height: height,
-                                       x: x,
-                                       y: y,
-                                       textData: textData,
-                                       bulletType: bulletType)
+        return DecorationTextFieldItem(
+            id: itemModel.id,
+            parentId: itemModel.parentId,
+            width: itemModel.width,
+            height: itemModel.height,
+            x: itemModel.x,
+            y: itemModel.y,
+            textData: textData,
+            bulletType: bulletType
+        )
     }
     
 }

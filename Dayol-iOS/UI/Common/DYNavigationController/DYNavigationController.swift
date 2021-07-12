@@ -29,7 +29,7 @@ class DYNavigationController: UINavigationController {
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if isPadDevice {
+        if isIPad {
             return .all
         } else {
             return .portrait
@@ -37,7 +37,7 @@ class DYNavigationController: UINavigationController {
     }
     
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        if isPadDevice {
+        if isIPad {
             return .landscapeLeft
         } else {
             return .portrait

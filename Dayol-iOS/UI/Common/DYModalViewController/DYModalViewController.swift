@@ -24,7 +24,7 @@ private enum Design {
     static let shadowColor = UIColor(white: 0, alpha: 0.15)
 }
 
-class DYModalViewController: UIViewController {
+class DYModalViewController: DYViewController {
 
     static let headerAreaHeight = Design.headerAreaHeight
     private let disposeBag = DisposeBag()
