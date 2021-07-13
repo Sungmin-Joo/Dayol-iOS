@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "imgThumbTracker2.png",
+      "filename" : "muji_add_muji_landscape-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "imgThumbTracker2@2x.png",
+      "filename" : "muji_add_muji_landscape_2x-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "imgThumbTracker2@3x.png",
+      "filename" : "muji_add_muji_landscape_3x-1.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
