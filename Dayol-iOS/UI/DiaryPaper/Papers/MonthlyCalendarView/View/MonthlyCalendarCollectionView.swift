@@ -22,7 +22,7 @@ private enum Design {
     
     static let separatorLineColor: UIColor = .gray200
     static let separatorLineWidth: CGFloat = 1
-    static let maxScheduleCount: Int = isPadDevice ? 4 : 3
+    static let maxScheduleCount: Int = 3
 }
 
 class MonthlyCalendarCollectionView: UIView {
