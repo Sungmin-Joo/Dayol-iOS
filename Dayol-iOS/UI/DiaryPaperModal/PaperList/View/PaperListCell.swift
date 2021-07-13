@@ -27,9 +27,9 @@ private enum Design {
     static func imageSize(orientation: Paper.PaperOrientation) -> CGSize {
         switch orientation {
         case .landscape:
-            return isPadDevice ? CGSize(width: 90, height: 58) : CGSize(width: 90, height: 80)
+            return isIPad ? CGSize(width: 90, height: 58) : CGSize(width: 90, height: 80)
         case .portrait:
-            return isPadDevice ? CGSize(width: 90, height: 119) : CGSize(width: 90, height: 134)
+            return isIPad ? CGSize(width: 90, height: 119) : CGSize(width: 90, height: 134)
         }
     }
 }
@@ -40,7 +40,7 @@ class PaperListCell: UICollectionViewCell {
 
     static let identifier = className
     static var cellSize: CGSize {
-        let height: CGFloat = isPadDevice ? 145.0 : 160.0
+        let height: CGFloat = isIPad ? 145.0 : 160.0
         return CGSize(width: 90.0, height: height)
     }
 

@@ -11,6 +11,7 @@ import RxCocoa
 
 private enum Design {
     static let clearButtonTextColor = UIColor.dayolRed
+    static let titleLineHeight: CGFloat = 1.0
 }
 
 private enum Text {
@@ -21,7 +22,7 @@ private enum Text {
     static let alertDefault = "bin_alert_btn".localized
 }
 
-class DetailSettingsViewController: UIViewController {
+class DetailSettingsViewController: DYViewController {
 
     private let disposeBag = DisposeBag()
     private let settingType: SettingModel.InApp
@@ -76,7 +77,7 @@ private extension DetailSettingsViewController {
         switch settingType {
         case .manual:
             // TODO: - 다욜 사용 설명서 뷰 붙이기
-            contentView = UIView()
+            contentView = UseGuideView()
         case .backup:
             contentView = DataBackupView()
         case .widget:
@@ -97,6 +98,13 @@ private extension DetailSettingsViewController {
             // homeOption은 DetailSettingsViewController애 진입하는 경우가 없음
             break
         }
+
+
+        let lineView = UIView()
+        lineView.frame.size.height = Design.titleLineHeight
+        lineView.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
+        lineView.backgroundColor = .gray400
+        contentView?.addSubview(lineView)
 
         if let contentView = contentView {
             contentView.translatesAutoresizingMaskIntoConstraints = false

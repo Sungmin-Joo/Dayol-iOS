@@ -22,7 +22,7 @@ private enum Design {
 
     static let defaultCoverSize: CGSize = DiaryView.defaultCoverSize
     static var coverSize: CGSize {
-        if isPadDevice == false {
+        if isIPad == false {
             if UIScreen.main.bounds.size.height <= 667 {
                 return CGSize(width: defaultCoverSize.width * 0.7, height: defaultCoverSize.height * 0.7)
             }

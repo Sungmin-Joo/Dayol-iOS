@@ -8,7 +8,7 @@
 import UIKit
 
 #if BETA
-class DebugViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DebugViewController: DYViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
     }

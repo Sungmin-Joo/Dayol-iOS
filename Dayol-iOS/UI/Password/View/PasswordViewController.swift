@@ -24,7 +24,7 @@ private enum Strings {
 	static let inputPassword: String = "암호를 입력해주세요"
 }
 
-class PasswordViewController: UIViewController {
+class PasswordViewController: DYViewController {
     private let disposeBag = DisposeBag()
     private let viewModel: PasswordViewModel
     private let inputType: PasswordViewModel.InputType

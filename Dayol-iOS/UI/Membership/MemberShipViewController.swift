@@ -20,7 +20,6 @@ private class ViewModel {
     init() {
         if let userActivityType = UserActivityType(rawValue: DYUserDefaults.activityType) {
             self.userActivityType = userActivityType
-            IAPManager.shared.checkPurchased()
         } else {
             fatalError("No User Activity Type")
         }
@@ -88,7 +87,7 @@ private enum Design {
     static let selectBoxHeight: CGFloat = 196
 }
 
-class MembershipViewController: UIViewController {
+class MembershipViewController: DYViewController {
     private let subscribeView: MembershipSubscribeView = {
         let subscribeView = MembershipSubscribeView()
         subscribeView.translatesAutoresizingMaskIntoConstraints = false
@@ -117,8 +116,6 @@ class MembershipViewController: UIViewController {
     private let viewModel = ViewModel()
     private let disposeBag: DisposeBag = DisposeBag()
 
-    deinit { DYLog.i(.deinit, value: "\(Self.self)") }
-
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -146,7 +143,7 @@ class MembershipViewController: UIViewController {
     func fetch() {
         viewModel.fetchProducts()
             .observe(on: MainScheduler.instance)
-            .delay(.seconds(2), scheduler: MainScheduler.instance)
+            .delay(.seconds(2), scheduler: MainScheduler.instance) // TODO: Remove
             .attachHUD(view)
             .subscribe(onSuccess: { [weak self] products in
                 guard let self = self else { return }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OnboadingContentView: UIView {
+class OnboardingContentView: UIView {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false

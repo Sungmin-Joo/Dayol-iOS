@@ -6,38 +6,50 @@
 //
 
 import Foundation
-import Firebase
-import CoreData
 
-enum BuildPhase {
-    case beta, prod
-
-    static let phase: BuildPhase = {
-        #if BETA
-        return .beta
-        #elseif PRODUCT
-        return .prod
-        #endif
-    }()
-
-    var isBeta: Bool {
-        self == .beta
-    }
-
-    var isProd: Bool {
-        self == .prod
-    }
-}
-
+/// Activity Type
 enum UserActivityType: Int {
     case new = 0, subscriber, expiredSubscriber
 }
 
-enum Language {
-    case en, ko
+/// Member Info
+struct MemberInfo {
+    let deviceToken: String
+    let activityType: UserActivityType
 }
 
 class Config {
+    /// Common Error
+    enum InternalError: Error {
+        case notProduct
+    }
+
+    /// Build Phase
+    enum BuildPhase {
+        case beta, prod
+
+        static let phase: BuildPhase = {
+            #if BETA
+            return .beta
+            #elseif PRODUCT
+            return .prod
+            #endif
+        }()
+
+        var isBeta: Bool {
+            self == .beta
+        }
+
+        var isProd: Bool {
+            self == .prod
+        }
+    }
+
+    /// Language
+    enum Language {
+        case en, ko
+    }
+
     static let shared: Config = Config()
 
     var deviceToken: String {
@@ -60,9 +72,12 @@ class Config {
         }
     }
 
-    func initalize() {
-        FirebaseApp.configure()
-        PersistentManager.shared.saveContext()
+    var inAppPurchaseURL: String {
+        if isProd {
+            return "https://sandbox.itunes.apple.com/verifyReceipt"
+        } else {
+            return "https://sandbox.itunes.apple.com/verifyReceipt"
+        }
     }
 }
 
