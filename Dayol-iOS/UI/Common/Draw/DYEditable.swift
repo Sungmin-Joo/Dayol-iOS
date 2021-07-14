@@ -25,9 +25,6 @@ private enum Text {
     static var eraseTitle: String {
         return "edit_eraser_title".localized
     }
-    static var lassoTitle: String {
-        return "edit_lasso_title".localized
-    }
     static var penTitle: String {
         return "edit_pen_title".localized
     }
@@ -101,11 +98,6 @@ extension DYEditable where Self: UIViewController {
             )
         }
 
-        modalVC.dismissCompeletion = { [weak self] in
-//            let newColor = contentView.currentPencilInfo.color
-//            let newIsHighlighter = contentView.currentPencilInfo.pencilType == .highlighter ? true : false
-//            self?.didEndPencilSetting(color: newColor, isHighlighter: newIsHighlighter)
-        }
         modalVC.contentView = contentView
         presentCustomModal(modalVC)
     }
@@ -113,15 +105,16 @@ extension DYEditable where Self: UIViewController {
     private func presentColorPickerModal(currentColor: UIColor) {
         let configuration = DYModalConfiguration(dimStyle: .clear, modalStyle: .custom(containerHeight: 441.0))
         let modalVC = DYModalViewController(configure: configuration,
-                                            title: "123",
+                                            title: Text.penTitle,
                                             hasDownButton: true)
 
         let contentView = ColorSettingView()
         contentView.set(color: currentColor)
-//        contentView.colorSubject.sink { [weak self] color in
-//            self?.setAttributes(key: .foregroundColor, value: color)
-//        }
-//        .store(in: &cancellable)
+        contentView.colorSubject
+            .subscribe(onNext: { [weak self] color in
+                self?.canvasTools.updateSelectedTool(color: color)
+            })
+            .disposed(by: disposeBag)
 
         modalVC.contentView = contentView
         modalVC.dismissCompeletion = { [weak self] in

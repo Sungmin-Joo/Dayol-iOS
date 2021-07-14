@@ -16,13 +16,13 @@ protocol DYCanvasTool {
 }
 
 protocol DYDrawTool: DYCanvasTool {
-    var color: UIColor { get }
-    var width: CGFloat { get }
+    var color: UIColor { get set }
+    var width: CGFloat { get set }
 }
 
 struct DYPenTool: DYDrawTool {
-    let color: UIColor
-    let width: CGFloat
+    var color: UIColor
+    var width: CGFloat
 
     var pkTool: PKTool {
         if #available(iOS 14.0, *) {
@@ -32,11 +32,16 @@ struct DYPenTool: DYDrawTool {
             return PKInkingTool(.pen, color: color, width: width)
         }
     }
+
+    init(color: UIColor, width: CGFloat) {
+        self.color = color
+        self.width = width
+    }
 }
 
 struct DYMarkerTool: DYDrawTool {
-    let color: UIColor
-    let width: CGFloat
+    var color: UIColor
+    var width: CGFloat
 
     var pkTool: PKTool {
         if #available(iOS 14.0, *) {
@@ -46,11 +51,16 @@ struct DYMarkerTool: DYDrawTool {
             return PKInkingTool(.marker, color: color, width: width)
         }
     }
+
+    init(color: UIColor, width: CGFloat) {
+        self.color = color
+        self.width = width
+    }
 }
 
 struct DYPencilTool: DYDrawTool {
-    let color: UIColor
-    let width: CGFloat
+    var color: UIColor
+    var width: CGFloat
 
     var pkTool: PKTool {
         if #available(iOS 14.0, *) {
@@ -60,16 +70,24 @@ struct DYPencilTool: DYDrawTool {
             return PKInkingTool(.pencil, color: color, width: width)
         }
     }
+
+    init(color: UIColor, width: CGFloat) {
+        self.color = color
+        self.width = width
+    }
 }
 
 struct DYEraseTool: DYCanvasTool {
-    let isObjectErase: Bool
+    var isObjectErase: Bool
 
     var pkTool: PKTool {
         let eraseType: PKEraserTool.EraserType = isObjectErase ? .vector : .bitmap
         return PKEraserTool(eraseType)
     }
 
+    init(isObjectErase: Bool) {
+        self.isObjectErase = isObjectErase
+    }
 }
 
 struct DYLassoTool: DYCanvasTool {
@@ -82,30 +100,36 @@ struct DYCanvasTools {
     enum ToolType {
         case pen, marker, pencil, erase, lasso
     }
+    private var selectedType: ToolType = .pen
     var pen = DYPenTool(color: .black, width: Design.defaultPenWidth)
     var marker = DYMarkerTool(color: .black, width: Design.defaultPenWidth)
     var pencil = DYPencilTool(color: .black, width: Design.defaultPenWidth)
     var erase = DYEraseTool(isObjectErase: false)
-    var lasso = DYLassoTool()
+    let lasso = DYLassoTool()
 
-    private(set) var selectedTool: DYCanvasTool
-
-    init() {
-        self.selectedTool = pen
+    var selectedTool: DYCanvasTool {
+        switch selectedType {
+        case .pen: return pen
+        case .marker: return marker
+        case .pencil: return pencil
+        case .erase: return erase
+        case .lasso: return lasso
+        }
     }
 
-    mutating func select(tool: ToolType) {
-        switch tool {
+    mutating func select(toolType: ToolType) {
+        selectedType = toolType
+    }
+
+    mutating func updateSelectedTool(color: UIColor) {
+        switch selectedType {
         case .pen:
-            selectedTool = pen
+            pen.color = color
         case .marker:
-            selectedTool = marker
+            marker.color = color
         case .pencil:
-            selectedTool = pencil
-        case .erase:
-            selectedTool = erase
-        case .lasso:
-            selectedTool = lasso
+            pencil.color = color
+        default: return
         }
     }
 }

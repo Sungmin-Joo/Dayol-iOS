@@ -199,7 +199,7 @@ private extension PencilSettingView {
                 return
             }
 
-            self.canvasTools.select(tool: .pen)
+            self.canvasTools.select(toolType: .pen)
         }
         .disposed(by: disposeBag)
 
@@ -209,13 +209,13 @@ private extension PencilSettingView {
                 let content = PencilSettingDetailView(penType: .marker, currentColor: self.currentColor)
                 let info = DetailViewInfo(
                     contents: content,
-                    sender: self.penButton,
+                    sender: self.markerButton,
                     preferredSize: PencilSettingDetailView.preferredSize
                 )
                 self.showDetailPiker?(info)
                 return
             }
-            self.canvasTools.select(tool: .marker)
+            self.canvasTools.select(toolType: .marker)
         }
         .disposed(by: disposeBag)
 
@@ -225,33 +225,36 @@ private extension PencilSettingView {
                 let content = PencilSettingDetailView(penType: .pencil, currentColor: self.currentColor)
                 let info = DetailViewInfo(
                     contents: content,
-                    sender: self.penButton,
+                    sender: self.pencilButton,
                     preferredSize: PencilSettingDetailView.preferredSize
                 )
                 self.showDetailPiker?(info)
                 return
             }
-            self.canvasTools.select(tool: .pencil)
+            self.canvasTools.select(toolType: .pencil)
         }
         .disposed(by: disposeBag)
 
         eraseButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
             guard self.eraseButton.isSelected == false else { return }
-            self.canvasTools.select(tool: .erase)
+            self.canvasTools.select(toolType: .erase)
         }
         .disposed(by: disposeBag)
 
         lassoButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
             guard self.lassoButton.isSelected == false else { return }
-            self.canvasTools.select(tool: .lasso)
+            self.canvasTools.select(toolType: .lasso)
         }
         .disposed(by: disposeBag)
 
         colorButton.tap.bind { [weak self] in
             guard let self = self else { return }
-            self.showColorPicker?(self.currentColor)
+
+            if self.canvasTools.selectedTool is DYDrawTool {
+                self.showColorPicker?(self.currentColor)
+            }
         }
         .disposed(by: disposeBag)
     }
