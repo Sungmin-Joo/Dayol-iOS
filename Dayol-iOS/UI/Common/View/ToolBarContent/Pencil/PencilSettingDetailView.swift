@@ -27,7 +27,7 @@ private enum Design {
 }
 
 class PencilSettingDetailView: UIView {
-
+    typealias DeatilSetting = (width: CGFloat, alpha: CGFloat)
     enum PenType: String {
         static let maxStep = 5
 
@@ -51,6 +51,7 @@ class PencilSettingDetailView: UIView {
     private let penType: PenType
     private let currentColor: UIColor
     private let disposeBag = DisposeBag()
+    let currentDetailSettingSubject = PublishSubject<DeatilSetting>()
 
     // MARK: UI Property
 

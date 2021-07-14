@@ -26,9 +26,11 @@ class DYEditBaseViewController: UIViewController, DYEditable {
     let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
 
     var contentsView = DYContentsView()
+    // TODO: - currentToolbarType? 등으로 이름 변경
     var currentTool: DYNavigationDrawingToolbar.ToolType?
-    var currentEraseTool: DYEraseTool = DYEraseTool(isObjectErase: false)
-    var currentPencilTool: DYPencilTool = DYPencilTool(color: .black, isHighlighter: false)
+    var canvasTools: DYCanvasTools = DYCanvasTools() {
+        didSet { contentsView.currentToolSubject.onNext(canvasTools.selectedTool) }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

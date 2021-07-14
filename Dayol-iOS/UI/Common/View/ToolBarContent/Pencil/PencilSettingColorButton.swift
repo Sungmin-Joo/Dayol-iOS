@@ -18,7 +18,6 @@ class PencilSettingColorButton: UIView {
     static let preferredSize = CGSize(width: 38, height: 38)
     private(set) var currentColor: UIColor
     let tap = PublishSubject<Void>()
-    let currentColorSubject = PublishSubject<UIColor>()
 
     // MARK: UI Property
 

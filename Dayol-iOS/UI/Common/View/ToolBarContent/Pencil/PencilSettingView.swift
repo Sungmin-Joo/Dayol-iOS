@@ -30,16 +30,25 @@ private enum Design {
 class PencilSettingView: UIView {
     typealias DetailViewInfo = (contents: UIView, sender: UIButton, preferredSize: CGSize)
     static let preferredSize = CGSize(width: 335, height: 48)
-    let disposeBag = DisposeBag()
-    private(set) var currentColor: UIColor
-    private(set) var currentToolType: DYDrawTool
+
+    private let disposeBag = DisposeBag()
+    let currentToolsSubject = PublishSubject<DYCanvasTools>()
+
+    private(set) var canvasTools: DYCanvasTools {
+        didSet {
+            currentToolsSubject.onNext(canvasTools)
+            updateCurrentState()
+        }
+    }
+    private var currentColor: UIColor {
+        if let color = (canvasTools.selectedTool as? DYDrawTool)?.color {
+            return color
+        }
+        return .clear
+    }
 
     var showColorPicker: ((UIColor) -> ())?
     var showDetailPiker: ((DetailViewInfo) -> Void)?
-    var currentToolSubject = PublishSubject<DYDrawTool>()
-    var currentColorSubject: PublishSubject<UIColor> {
-        return colorButton.currentColorSubject
-    }
 
     // MARK: UI Property
 
@@ -131,14 +140,14 @@ class PencilSettingView: UIView {
 
     // MARK: Init
 
-    init(currentColor: UIColor, toolType: DYDrawTool) {
-        self.currentColor = currentColor
-        self.currentToolType = toolType
+    init(canvasTools: DYCanvasTools) {
+        self.canvasTools = canvasTools
         super.init(frame: .zero)
 
         initView()
         setupConstraints()
         bindEvent()
+        updateCurrentState()
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -189,8 +198,8 @@ private extension PencilSettingView {
                 self.showDetailPiker?(info)
                 return
             }
-            self.deselectToolButtons()
-            self.penButton.isSelected = true
+
+            self.canvasTools.select(tool: .pen)
         }
         .disposed(by: disposeBag)
 
@@ -206,10 +215,7 @@ private extension PencilSettingView {
                 self.showDetailPiker?(info)
                 return
             }
-
-            self.deselectToolButtons()
-            self.markerButton.isSelected = true
-
+            self.canvasTools.select(tool: .marker)
         }
         .disposed(by: disposeBag)
 
@@ -225,25 +231,21 @@ private extension PencilSettingView {
                 self.showDetailPiker?(info)
                 return
             }
-
-            self.deselectToolButtons()
-            self.pencilButton.isSelected = true
+            self.canvasTools.select(tool: .pencil)
         }
         .disposed(by: disposeBag)
 
         eraseButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
             guard self.eraseButton.isSelected == false else { return }
-            self.deselectToolButtons()
-            self.eraseButton.isSelected = true
+            self.canvasTools.select(tool: .erase)
         }
         .disposed(by: disposeBag)
 
         lassoButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
             guard self.lassoButton.isSelected == false else { return }
-            self.deselectToolButtons()
-            self.lassoButton.isSelected = true
+            self.canvasTools.select(tool: .lasso)
         }
         .disposed(by: disposeBag)
 
@@ -253,6 +255,27 @@ private extension PencilSettingView {
         }
         .disposed(by: disposeBag)
     }
+
+    private func updateCurrentState() {
+        deselectToolButtons()
+        colorButton.setSelectedColor(currentColor)
+
+        switch canvasTools.selectedTool {
+        case is DYPenTool:
+            penButton.isSelected = true
+        case is DYMarkerTool:
+            markerButton.isSelected = true
+        case is DYPencilTool:
+            pencilButton.isSelected = true
+        case is DYEraseTool:
+            eraseButton.isSelected = true
+        case is DYLassoTool:
+            lassoButton.isSelected = true
+        default:
+            return
+        }
+    }
+
 
 }
 

@@ -12,7 +12,7 @@ import RxSwift
 class DYContentsView: UIView, Undoable {
     private let disposeBag = DisposeBag()
     let pkCanvas = PKCanvasView()
-    let currentToolSubject = BehaviorSubject<DYDrawTool?>(value: nil)
+    let currentToolSubject = BehaviorSubject<DYCanvasTool?>(value: nil)
     var currentEditContent: DYStickerView? = nil {
         didSet {
             oldValue?.showEditingHandlers = false

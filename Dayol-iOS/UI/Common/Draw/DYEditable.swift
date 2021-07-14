@@ -39,8 +39,7 @@ protocol DYEditable: UIViewController {
     var contentsView: DYContentsView { get set }
     var toolBar: DYNavigationDrawingToolbar { get }
     var currentTool: DYNavigationDrawingToolbar.ToolType? { get set }
-    var currentEraseTool: DYEraseTool { get set }
-    var currentPencilTool: DYPencilTool { get set }
+    var canvasTools: DYCanvasTools { get set }
 
     // ImagePicker는 델리게이트 처리 떄문에 DYEditBaseViewController에서 함수 구현
     func showImagePicker()
@@ -67,11 +66,11 @@ extension DYEditable where Self: UIViewController {
         let modalVC = DYModalViewController(configure: configuration,
                                             title: Text.eraseTitle,
                                             hasDownButton: true)
-        let isObjectErase = currentEraseTool.isObjectErase
-        let contentView = EraseSettingView(isObjectErase: isObjectErase)
+        // TODO: - 지우개 연동
+        let contentView = EraseSettingView(isObjectErase: false)
         modalVC.dismissCompeletion = { [weak self] in
             let newIsObjectErase = contentView.isObjectErase
-            self?.didEndEraseSetting(isObjectErase: newIsObjectErase)
+
         }
         modalVC.contentView = contentView
         self.presentCustomModal(modalVC)
@@ -82,24 +81,26 @@ extension DYEditable where Self: UIViewController {
         let modalVC = DYModalViewController(configure: configuration,
                                             title: Text.penTitle,
                                             hasDownButton: true)
-        let currentColor = currentPencilTool.color
-        let isHighlighter = currentPencilTool.isHighlighter
-//        let currnetPencilType: PencilTypeSettingView.PencilType = isHighlighter ? .highlighter : .pen
-        let contentView = PencilSettingView(currentColor: currentColor, toolType: currentPencilTool)
-
+        let contentView = PencilSettingView(canvasTools: canvasTools)
+        contentView.currentToolsSubject
+            .subscribe(onNext: { [weak self] tools in
+                self?.canvasTools = tools
+            })
+            .disposed(by: disposeBag)
         contentView.showColorPicker = { [weak self] color in
             guard let self = self else { return }
             modalVC.dismiss(animated: true) {
                 self.presentColorPickerModal(currentColor: color)
             }
         }
-        contentView.showDetailPiker = { [weak self] detailViewInfo in
+        contentView.showDetailPiker = { detailViewInfo in
             modalVC.showPopover(
                 contents: detailViewInfo.contents,
                 sender: detailViewInfo.sender,
                 preferredSize: detailViewInfo.preferredSize
             )
         }
+
         modalVC.dismissCompeletion = { [weak self] in
 //            let newColor = contentView.currentPencilInfo.color
 //            let newIsHighlighter = contentView.currentPencilInfo.pencilType == .highlighter ? true : false
@@ -222,40 +223,8 @@ extension DYEditable where Self: UIViewController {
     // MARK: - Pencil
 
     func didTapPencilButton() {
-        let pencilColor = currentPencilTool.color
-        let isHighlighter = currentPencilTool.isHighlighter
-        let pencilTool = DYPencilTool(color: pencilColor, isHighlighter: isHighlighter)
-        contentsView.currentToolSubject.onNext(pencilTool)
+        contentsView.currentToolSubject.onNext(canvasTools.selectedTool)
         contentsView.shouldMakeTextField = false
     }
 
-    func didEndPencilSetting(color: UIColor, isHighlighter: Bool) {
-        let pencilTool = DYPencilTool(color: color, isHighlighter: isHighlighter)
-        currentPencilTool = pencilTool
-        contentsView.currentToolSubject.onNext(pencilTool)
-    }
-
-
-    // MARK: - Erase
-
-    func didTapEraseButton() {
-        let isObjectErase = currentEraseTool.isObjectErase
-        let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
-        contentsView.currentToolSubject.onNext(eraseTool)
-        contentsView.shouldMakeTextField = false
-    }
-
-    func didEndEraseSetting(isObjectErase: Bool) {
-        let eraseTool = DYEraseTool(isObjectErase: isObjectErase)
-        currentEraseTool = eraseTool
-        contentsView.currentToolSubject.onNext(eraseTool)
-    }
-
-    // MARK: - Snare(Lasso)
-
-    func didTapSnareButton() {
-        let lassoTool = DYLassoTool()
-        contentsView.currentToolSubject.onNext(lassoTool)
-        contentsView.shouldMakeTextField = false
-    }
 }
