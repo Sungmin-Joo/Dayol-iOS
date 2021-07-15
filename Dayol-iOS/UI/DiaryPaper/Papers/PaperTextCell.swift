@@ -44,22 +44,26 @@ final class PaperTextCell: UICollectionViewCell {
 
         contentView.layer.borderWidth = Design.borderWidth
         contentView.layer.borderColor = Design.borderColor.cgColor
+    }
 
+    func configure(text: String) {
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: contentView.topAnchor),
             textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
-    }
-
-    func configure(text: String) {
         textView.text = text
     }
 
     func estimatedSize(width: CGFloat, text: String) -> CGSize {
-        textView.widthAnchor.constraint(equalToConstant: width).isActive = true
-        configure(text: text)
+        NSLayoutConstraint.activate([
+            textView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            textView.widthAnchor.constraint(equalToConstant: width),
+            textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+        textView.text = text
         layoutIfNeeded()
         let estimatedSize = systemLayoutSizeFitting(CGSize(width: width, height: 300))
         return estimatedSize
