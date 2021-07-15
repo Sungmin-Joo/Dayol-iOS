@@ -25,7 +25,7 @@ final class PaperTextCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        initView()
+        setupViews()
         contentView.backgroundColor = .clear
     }
 
@@ -39,7 +39,7 @@ final class PaperTextCell: UICollectionViewCell {
         textView.text = ""
     }
 
-    private func initView() {
+    private func setupViews() {
         contentView.addSubview(textView)
 
         contentView.layer.borderWidth = Design.borderWidth
@@ -47,13 +47,17 @@ final class PaperTextCell: UICollectionViewCell {
     }
 
     func configure(text: String) {
+        setupConstraints()
+        textView.text = text
+    }
+
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: contentView.topAnchor),
             textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
-        textView.text = text
     }
 
     func estimatedSize(width: CGFloat, text: String) -> CGSize {

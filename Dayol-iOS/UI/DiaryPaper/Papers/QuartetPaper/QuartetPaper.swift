@@ -8,6 +8,12 @@
 import UIKit
 import RxSwift
 
+private enum Design {
+    static let numberOfSection: Int = 1
+    static let numberOfRow: Int = 2
+    static let numberOfItemPerRow: Int = 2
+    static let numberOfItem: Int = 4
+}
 final class QuartetPaper: BasePaper {
     private var maxHeightPerRowDict: [Int: CGFloat] = [Int: CGFloat]()
     //TODO: Delete
@@ -58,11 +64,11 @@ extension QuartetPaper: UICollectionViewDelegate {
 
 extension QuartetPaper: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return Design.numberOfSection
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return Design.numberOfItem
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -78,8 +84,8 @@ extension QuartetPaper: UICollectionViewDataSource {
 extension QuartetPaper: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let collectionViewSize = collectionView.frame.size
-        let row = Int(indexPath.item / 2)
-        let width = collectionViewSize.width / 2
+        let row = Int(CGFloat(indexPath.item) * CGFloat(0.5))
+        let width = collectionViewSize.width * 0.5
 
         let height = maxHeightPerRow(collectionView, at: row)
         return CGSize(width: width, height: height)
@@ -98,9 +104,9 @@ extension QuartetPaper: UICollectionViewDelegateFlowLayout {
             return maxHeightPerRowDict[row] ?? 0
         }
 
-        let itemPerRow = 2
-        let width = collectionView.frame.size.width / 2
-        let defaultHeight = collectionView.frame.size.height / 2
+        let itemPerRow = Design.numberOfRow
+        let width = collectionView.frame.size.width * 0.5
+        let defaultHeight = collectionView.frame.size.height * 0.5
         var estimatedHeight = defaultHeight
 
         for index in 0..<itemPerRow {
