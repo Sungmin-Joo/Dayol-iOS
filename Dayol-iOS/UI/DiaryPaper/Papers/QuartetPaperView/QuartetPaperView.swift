@@ -111,8 +111,7 @@ extension QuartetPaperView: UICollectionViewDelegateFlowLayout {
 
         for index in 0..<itemPerRow {
             let modelIndex = (row * itemPerRow) + index
-            let cell = PaperTextCell(frame: .zero)
-            let cellSize = cell.estimatedSize(width: width, text: dummyModel[modelIndex])
+            let cellSize = PaperTextCell.estimatedSize(width: width, text: dummyModel[modelIndex])
 
             estimatedHeight = max(estimatedHeight, cellSize.height)
         }

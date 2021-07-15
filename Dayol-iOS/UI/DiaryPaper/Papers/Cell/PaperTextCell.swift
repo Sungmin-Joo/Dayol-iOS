@@ -8,17 +8,24 @@
 import UIKit
 
 private enum Design {
-    static let textInset: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+    static let textInset: UIEdgeInsets = .init(top: 5, left: 5, bottom: -5, right: -5)
     static let borderColor: UIColor = .gray500
     static let borderWidth: CGFloat = 0.2
 }
 
 final class PaperTextCell: UICollectionViewCell {
-    private let textView: UITextView = {
+    static func estimatedSize(width: CGFloat, text: String) -> CGSize {
+        let textView = UITextView(frame: CGRect(x: 0, y: 0, width: width, height: .greatestFiniteMagnitude))
+        textView.text = text
+        textView.sizeToFit()
+
+        return textView.frame.size
+    }
+
+    private(set) var textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isScrollEnabled = false
-        textView.contentInset = Design.textInset
 
         return textView
     }()
@@ -26,6 +33,7 @@ final class PaperTextCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupViews()
+        setupConstraints()
         contentView.backgroundColor = .clear
     }
 
@@ -47,29 +55,15 @@ final class PaperTextCell: UICollectionViewCell {
     }
 
     func configure(text: String) {
-        setupConstraints()
         textView.text = text
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            textView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Design.textInset.top),
+            textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Design.textInset.left),
+            textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Design.textInset.right),
+            textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Design.textInset.bottom)
         ])
-    }
-
-    func estimatedSize(width: CGFloat, text: String) -> CGSize {
-        NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            textView.widthAnchor.constraint(equalToConstant: width),
-            textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
-        textView.text = text
-        layoutIfNeeded()
-        let estimatedSize = systemLayoutSizeFitting(CGSize(width: width, height: 300))
-        return estimatedSize
     }
 }
