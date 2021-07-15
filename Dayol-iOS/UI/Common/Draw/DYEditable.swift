@@ -30,13 +30,13 @@ private enum Text {
     }
 }
 
-protocol DYEditable: UIViewController {
+protocol DYEditable: NSObject {
     var disposeBag: DisposeBag { get }
 
     var contentsView: DYContentsView { get set }
     var toolBar: DYNavigationDrawingToolbar { get }
     var currentTool: DYNavigationDrawingToolbar.ToolType? { get set }
-    var canvasTools: DYCanvasTools { get set }
+    var pkTools: DYPKTools { get set }
 
     // ImagePicker는 델리게이트 처리 떄문에 DYEditBaseViewController에서 함수 구현
     func showImagePicker()
@@ -75,10 +75,10 @@ extension DYEditable where Self: UIViewController {
         let modalVC = DYModalViewController(configure: configuration,
                                             title: Text.penTitle,
                                             hasDownButton: true)
-        let contentView = PencilSettingView(canvasTools: canvasTools)
+        let contentView = PencilSettingView(pkTools: pkTools)
         contentView.currentToolsSubject
             .subscribe(onNext: { [weak self] tools in
-                self?.canvasTools = tools
+                self?.pkTools = tools
             })
             .disposed(by: disposeBag)
         contentView.showColorPicker = { [weak self] color in
@@ -109,7 +109,7 @@ extension DYEditable where Self: UIViewController {
         contentView.set(color: currentColor)
         contentView.colorSubject
             .subscribe(onNext: { [weak self] color in
-                self?.canvasTools.updateSelectedTool(color: color)
+                self?.pkTools.updateSelectedTool(color: color)
             })
             .disposed(by: disposeBag)
 
@@ -213,7 +213,7 @@ extension DYEditable where Self: UIViewController {
     // MARK: - Pencil
 
     func didTapPencilButton() {
-        contentsView.currentToolSubject.onNext(canvasTools.selectedTool)
+        contentsView.currentToolSubject.onNext(pkTools.selectedTool)
         contentsView.shouldMakeTextField = false
     }
 

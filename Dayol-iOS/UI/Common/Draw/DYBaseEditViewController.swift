@@ -1,5 +1,5 @@
 //
-//  DYEditBaseViewController.swift
+//  DYBaseEditViewController.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/06/23.
@@ -20,7 +20,7 @@ private enum Text {
     }
 }
 
-class DYEditBaseViewController: UIViewController, DYEditable {
+class DYBaseEditViewController: UIViewController, DYEditable {
     let disposeBag = DisposeBag()
 
     let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
@@ -28,8 +28,8 @@ class DYEditBaseViewController: UIViewController, DYEditable {
     var contentsView = DYContentsView()
     // TODO: - currentToolbarType? 등으로 이름 변경
     var currentTool: DYNavigationDrawingToolbar.ToolType?
-    var canvasTools: DYCanvasTools = DYCanvasTools() {
-        didSet { contentsView.currentToolSubject.onNext(canvasTools.selectedTool) }
+    var pkTools: DYPKTools = DYPKTools() {
+        didSet { contentsView.currentToolSubject.onNext(pkTools.selectedTool) }
     }
 
     override func viewDidLoad() {
@@ -67,7 +67,7 @@ class DYEditBaseViewController: UIViewController, DYEditable {
 
 // MARK: - Drawbale Function
 
-extension DYEditBaseViewController {
+extension DYBaseEditViewController {
 
     func showImagePicker() {
         contentsView.shouldMakeTextField = false
@@ -96,7 +96,7 @@ extension DYEditBaseViewController {
 
 // MARK: - Photo Delegate
 
-extension DYEditBaseViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
+extension DYBaseEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {

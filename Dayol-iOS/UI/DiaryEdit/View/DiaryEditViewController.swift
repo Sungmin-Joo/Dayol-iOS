@@ -23,7 +23,7 @@ private enum Text: String {
     case cancel = "취소"
 }
 
-class DiaryEditViewController: DYEditBaseViewController {
+class DiaryEditViewController: DYBaseEditViewController {
 
     // MARK: - DYEditable Property
     override var contentsView: DYContentsView {

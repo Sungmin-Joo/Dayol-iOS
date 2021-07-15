@@ -11,10 +11,12 @@ private enum Design {
     static let defaultPenWidth: CGFloat = PencilSettingDetailView.Step.step3Width
 }
 
+// 기본적으로 드로잉 씬에서 사용하는 툴을 위한 프로토콜
 protocol DYCanvasTool {
     var pkTool: PKTool { get }
 }
 
+// 색상, 넓이 설정이 적용되는 툴을 위한 세부 프로토콜
 protocol DYDrawTool: DYCanvasTool {
     var color: UIColor { get set }
     var width: CGFloat { get set }
@@ -88,7 +90,7 @@ struct DYLassoTool: DYCanvasTool {
     }
 }
 
-struct DYCanvasTools {
+struct DYPKTools {
     enum ToolType {
         case pen, marker, pencil, erase, lasso
     }

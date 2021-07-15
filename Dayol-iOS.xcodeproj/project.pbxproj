@@ -151,7 +151,7 @@
 		34CA255825A74A7A0057404D /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA255725A74A7A0057404D /* SettingsViewModel.swift */; };
 		34CA255B25A75A340057404D /* SettingCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA255A25A75A340057404D /* SettingCellProtocol.swift */; };
 		34CA255E25A761060057404D /* OutAppSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CA255D25A761060057404D /* OutAppSettingCell.swift */; };
-		34CD663A2683774800DECFF7 /* DYEditBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CD66392683774800DECFF7 /* DYEditBaseViewController.swift */; };
+		34CD663A2683774800DECFF7 /* DYBaseEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CD66392683774800DECFF7 /* DYBaseEditViewController.swift */; };
 		34CD663C268A20CC00DECFF7 /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CD663B268A20CC00DECFF7 /* DiaryManager.swift */; };
 		34E6138A262F02A10076FE74 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61389262F02A10076FE74 /* ColorPicker.swift */; };
 		34E6138E262F02D80076FE74 /* ColorMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E6138D262F02D80076FE74 /* ColorMapView.swift */; };
@@ -419,7 +419,7 @@
 		34CA255725A74A7A0057404D /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		34CA255A25A75A340057404D /* SettingCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellProtocol.swift; sourceTree = "<group>"; };
 		34CA255D25A761060057404D /* OutAppSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutAppSettingCell.swift; sourceTree = "<group>"; };
-		34CD66392683774800DECFF7 /* DYEditBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYEditBaseViewController.swift; sourceTree = "<group>"; };
+		34CD66392683774800DECFF7 /* DYBaseEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYBaseEditViewController.swift; sourceTree = "<group>"; };
 		34CD663B268A20CC00DECFF7 /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
 		34E61389262F02A10076FE74 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		34E6138D262F02D80076FE74 /* ColorMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapView.swift; sourceTree = "<group>"; };
@@ -873,7 +873,7 @@
 			children = (
 				0D1E633B268F620400F77712 /* DYEditable.swift */,
 				344AD29626398CBF0055562D /* DYDrawTool.swift */,
-				34CD66392683774800DECFF7 /* DYEditBaseViewController.swift */,
+				34CD66392683774800DECFF7 /* DYBaseEditViewController.swift */,
 				DAD489EE26026A33008B542E /* DYContentsView.swift */,
 			);
 			path = Draw;
@@ -1997,7 +1997,7 @@
 				DA5A10FB266B7BA4002C7EA8 /* UIImage+Extension.swift in Sources */,
 				0DE6C7AE268CAB3500A79CFD /* Data+Extension.swift in Sources */,
 				0D27B0A02650008B001AD911 /* DayolUserDefault.swift in Sources */,
-				34CD663A2683774800DECFF7 /* DYEditBaseViewController.swift in Sources */,
+				34CD663A2683774800DECFF7 /* DYBaseEditViewController.swift in Sources */,
 				DAD48A36260CD563008B542E /* StickerModalCollectionView.swift in Sources */,
 				344AD29726398CBF0055562D /* DYDrawTool.swift in Sources */,
 				DA5A118026760F6F002C7EA8 /* PaperScheldule.swift in Sources */,
