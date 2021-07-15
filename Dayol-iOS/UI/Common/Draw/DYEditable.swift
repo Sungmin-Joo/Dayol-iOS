@@ -65,10 +65,7 @@ extension DYEditable where Self: UIViewController {
                                             hasDownButton: true)
         // TODO: - 지우개 연동
         let contentView = EraseSettingView(isObjectErase: false)
-        modalVC.dismissCompeletion = { [weak self] in
-            let newIsObjectErase = contentView.isObjectErase
-
-        }
+        modalVC.dismissCompeletion = {}
         modalVC.contentView = contentView
         self.presentCustomModal(modalVC)
     }

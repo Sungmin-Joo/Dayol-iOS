@@ -86,8 +86,6 @@
 		3452671325DD66F400EC6F9D /* DataBackupExportContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3452671225DD66F400EC6F9D /* DataBackupExportContentView.swift */; };
 		3454C6D0266521F400557450 /* DYFlexibleTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454C6CF266521F400557450 /* DYFlexibleTextFieldViewModel.swift */; };
 		3454C6D226665ACB00557450 /* DYTextBoxBulletPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454C6D126665ACB00557450 /* DYTextBoxBulletPoint.swift */; };
-		3462FDB826304117008E4A6C /* PencilAlphaSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3462FDB726304117008E4A6C /* PencilAlphaSettingView.swift */; };
-		3462FDBB26305066008E4A6C /* PencilAlphaInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3462FDBA26305066008E4A6C /* PencilAlphaInfoView.swift */; };
 		3465A643266E547000DF025D /* ColorSettingPaletteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3465A642266E547000DF025D /* ColorSettingPaletteViewModel.swift */; };
 		34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34733DC025D189F500C3A997 /* DetailSettingsViewController.swift */; };
 		34775E1D2680CF50009F5A59 /* NanumHimNaeRaNeunMarBoDan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E122680CED8009F5A59 /* NanumHimNaeRaNeunMarBoDan.ttf */; };
@@ -106,9 +104,7 @@
 		34775E2A2680CF50009F5A59 /* NanumDaHaengCe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34775E142680CED8009F5A59 /* NanumDaHaengCe.ttf */; };
 		34775E2C2680D028009F5A59 /* TextStyleFontViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34775E2B2680D028009F5A59 /* TextStyleFontViewModel.swift */; };
 		34775E2E2680DADB009F5A59 /* TextStyleFontCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34775E2D2680DADB009F5A59 /* TextStyleFontCell.swift */; };
-		34788856261E0B4B00692ED7 /* LassoInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34788855261E0B4B00692ED7 /* LassoInfoView.swift */; };
 		34997D9B269C841D008BA761 /* PencilSettingSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34997D9A269C841D008BA761 /* PencilSettingSlider.swift */; };
-		34A07144262C4864009BA700 /* PencilTypeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A07143262C4864009BA700 /* PencilTypeSettingView.swift */; };
 		34A0714D262C78ED009BA700 /* ColorSettingPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A0714C262C78ED009BA700 /* ColorSettingPaletteView.swift */; };
 		34A07152262DBFA7009BA700 /* ColorSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A07151262DBFA7009BA700 /* ColorSettingView.swift */; };
 		34A07156262DCE1E009BA700 /* ColorPickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A07155262DCE1E009BA700 /* ColorPickerContentView.swift */; };
@@ -351,8 +347,6 @@
 		3452671225DD66F400EC6F9D /* DataBackupExportContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBackupExportContentView.swift; sourceTree = "<group>"; };
 		3454C6CF266521F400557450 /* DYFlexibleTextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYFlexibleTextFieldViewModel.swift; sourceTree = "<group>"; };
 		3454C6D126665ACB00557450 /* DYTextBoxBulletPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYTextBoxBulletPoint.swift; sourceTree = "<group>"; };
-		3462FDB726304117008E4A6C /* PencilAlphaSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilAlphaSettingView.swift; sourceTree = "<group>"; };
-		3462FDBA26305066008E4A6C /* PencilAlphaInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilAlphaInfoView.swift; sourceTree = "<group>"; };
 		3465A642266E547000DF025D /* ColorSettingPaletteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSettingPaletteViewModel.swift; sourceTree = "<group>"; };
 		34733DC025D189F500C3A997 /* DetailSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingsViewController.swift; sourceTree = "<group>"; };
 		34775E0F2680CED8009F5A59 /* NanumSquareRoundB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRoundB.ttf; sourceTree = "<group>"; };
@@ -371,9 +365,7 @@
 		34775E1C2680CED8009F5A59 /* GmarketSansTTFBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFBold.ttf; sourceTree = "<group>"; };
 		34775E2B2680D028009F5A59 /* TextStyleFontViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleFontViewModel.swift; sourceTree = "<group>"; };
 		34775E2D2680DADB009F5A59 /* TextStyleFontCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleFontCell.swift; sourceTree = "<group>"; };
-		34788855261E0B4B00692ED7 /* LassoInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LassoInfoView.swift; sourceTree = "<group>"; };
 		34997D9A269C841D008BA761 /* PencilSettingSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilSettingSlider.swift; sourceTree = "<group>"; };
-		34A07143262C4864009BA700 /* PencilTypeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilTypeSettingView.swift; sourceTree = "<group>"; };
 		34A0714C262C78ED009BA700 /* ColorSettingPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSettingPaletteView.swift; sourceTree = "<group>"; };
 		34A07151262DBFA7009BA700 /* ColorSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSettingView.swift; sourceTree = "<group>"; };
 		34A07155262DCE1E009BA700 /* ColorPickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerContentView.swift; sourceTree = "<group>"; };
@@ -917,20 +909,9 @@
 			path = CustomFont;
 			sourceTree = "<group>";
 		};
-		34788854261E0B1F00692ED7 /* Lasso */ = {
-			isa = PBXGroup;
-			children = (
-				34788855261E0B4B00692ED7 /* LassoInfoView.swift */,
-			);
-			path = Lasso;
-			sourceTree = "<group>";
-		};
 		34A0713F262C4838009BA700 /* Pencil */ = {
 			isa = PBXGroup;
 			children = (
-				34A07143262C4864009BA700 /* PencilTypeSettingView.swift */,
-				3462FDB726304117008E4A6C /* PencilAlphaSettingView.swift */,
-				3462FDBA26305066008E4A6C /* PencilAlphaInfoView.swift */,
 				34BAEB502699A3B400F9AED7 /* PencilSettingView.swift */,
 				34BAEB522699B57700F9AED7 /* PencilSettingColorButton.swift */,
 				34BAEB7A269AF37D00F9AED7 /* PencilSettingDetailView.swift */,
@@ -1062,7 +1043,6 @@
 			isa = PBXGroup;
 			children = (
 				34A07150262DBF8D009BA700 /* Color */,
-				34788854261E0B1F00692ED7 /* Lasso */,
 				34C7B3662619748C00BC6A28 /* Erase */,
 				34A0713F262C4838009BA700 /* Pencil */,
 				34ADE2B5266348F000412CAC /* TextField */,
@@ -2047,7 +2027,6 @@
 				34B6C14125BDB28400C2596F /* DYKeyboardInputAccessoryView.swift in Sources */,
 				34BAEB4B26971C5300F9AED7 /* UseGuideContentCell.swift in Sources */,
 				DAE29CEB2584F2100028010B /* PasswordViewController.swift in Sources */,
-				3462FDBB26305066008E4A6C /* PencilAlphaInfoView.swift in Sources */,
 				DA6FF5F62667C07B006B0B34 /* PaperSelectModalViewModel.swift in Sources */,
 				34775E2C2680D028009F5A59 /* TextStyleFontViewModel.swift in Sources */,
 				34C7B3752619819D00BC6A28 /* TextStyleFontView.swift in Sources */,
@@ -2061,10 +2040,8 @@
 				34A11A4B25ADC8F700678F98 /* UnderLineButton.swift in Sources */,
 				DA311427260CE2FC002F99F7 /* StickerModalHeaderViewCell.swift in Sources */,
 				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
-				34A07144262C4864009BA700 /* PencilTypeSettingView.swift in Sources */,
 				0D07CD772674DCC70007E36D /* Logging.swift in Sources */,
 				0D7E8D4D267E626C00780065 /* IAPManager.swift in Sources */,
-				3462FDB826304117008E4A6C /* PencilAlphaSettingView.swift in Sources */,
 				DACE3B142587868B0067467B /* PasswordButtonsView.swift in Sources */,
 				34733DC125D189F500C3A997 /* DetailSettingsViewController.swift in Sources */,
 				DADD09F725A335C2004D6CF0 /* DiaryEditToggleView.swift in Sources */,
@@ -2077,7 +2054,6 @@
 				DAD66746259C691300E8F59A /* DYNavigationItemCreator.swift in Sources */,
 				0D011A8A2675D9C1001F5469 /* Dayol.xcdatamodeld in Sources */,
 				DACE3B202587AEB90067467B /* PasswordButton.swift in Sources */,
-				34788856261E0B4B00692ED7 /* LassoInfoView.swift in Sources */,
 				34E61395262F03260076FE74 /* ColorEntity.swift in Sources */,
 				3446621F25C1A07A00656775 /* CornellPaper.swift in Sources */,
 				DA6FF5D126654EA9006B0B34 /* DateType.swift in Sources */,
