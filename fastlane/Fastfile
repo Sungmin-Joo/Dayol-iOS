@@ -14,11 +14,11 @@ platform :ios do
 	lane :build_testflight_prod do
 		desc "build TestFlight Product"
 
-		match(
-			app_identifier: "com.dayolstudio.dayol",
-	    	type: "appstore",
-	    	readonly: true
-		)
+		# match(
+		# 	app_identifier: "com.dayolstudio.dayol",
+	    # 	type: "appstore",
+	    # 	readonly: true
+		# )
 
 	    increment_build_number(
       		build_number: "#{upload_date}",
@@ -26,35 +26,9 @@ platform :ios do
     	)
 
     	build_app(
-      		scheme: scheme_prod,
+      		scheme: scheme,
       		workspace: workspace,
       		configuration: "Release",
-      		export_method: "app-store"
-    	)
-
-    	upload_to_testflight(
-      		skip_waiting_for_build_processing: true
-    	)
-	end
-
-	lane :build_testflight_beta do
-		desc "build TestFlight Beta"
-
-		match(
-			app_identifier: "com.dayolstudio.dayol.beta",
-	    	type: "appstore",
-	    	readonly: true
-		)
-
-	    increment_build_number(
-      		build_number: "#{upload_date}",
-      		xcodeproj: project
-    	)
-
-    	build_app(
-      		scheme: scheme_beta,
-      		workspace: workspace,
-      		configuration: "Debug",
       		export_method: "app-store"
     	)
 
@@ -78,11 +52,11 @@ platform :ios do
 
 	## ================ Scheme ================ ##
 	def scheme
-		"DAYOL"
+		"Dayol"
 	end
 
 	def scheme_beta
-		"DAYOL-BETA"
+		"Dayol Beta"
 	end
 
 	## ================ Path ================ ##

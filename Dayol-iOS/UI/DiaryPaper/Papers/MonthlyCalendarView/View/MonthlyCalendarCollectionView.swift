@@ -22,12 +22,14 @@ private enum Design {
     
     static let separatorLineColor: UIColor = .gray200
     static let separatorLineWidth: CGFloat = 1
+    static let maxScheduleCount: Int = 3
 }
 
 class MonthlyCalendarCollectionView: UIView {
     let longTappedIndex = PublishSubject<Int>()
 
     private var dayModel: [MonthlyCalendarDayModel]?
+    private var paperOrientation: Paper.PaperOrientation = .portrait
     private var iPadOrientation: Design.IPadOrientation {
         if self.frame.size.width > self.frame.size.height {
             return .landscape
@@ -35,6 +37,7 @@ class MonthlyCalendarCollectionView: UIView {
             return .portrait
         }
     }
+
     private let weekDayView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -86,7 +89,10 @@ class MonthlyCalendarCollectionView: UIView {
         
         return view
     }()
-    
+
+    private(set) var scheduleContainerViews: [PaperScheduleLineContainerView] = []
+    var firstDatesOfSunday: [Date] = []
+
     init() {
         super.init(frame: .zero)
         initView()
@@ -148,6 +154,27 @@ class MonthlyCalendarCollectionView: UIView {
         collectionView.layoutIfNeeded()
         collectionView.collectionViewLayout.invalidateLayout()
     }
+
+    private func setupSchedules() {
+        for index in 0..<6 {
+            let scheduleLineContainer = makeScheduleLineContainer(index: index)
+            self.scheduleContainerViews.append(scheduleLineContainer)
+            addSubview(scheduleLineContainer)
+        }
+    }
+
+    private func makeScheduleLineContainer(index: Int) -> PaperScheduleLineContainerView {
+        let scheduleLineContainer = PaperScheduleLineContainerView(lineType: .month(paper: paperOrientation))
+        scheduleLineContainer.translatesAutoresizingMaskIntoConstraints = false
+        scheduleLineContainer.set(
+            scheduleCount: Design.maxScheduleCount,
+            widthPerSchedule: collectionView.frame.size.width / 7,
+            schedules: DYTestData.shared.scheduleModels,
+            firstDateOfWeek: firstDatesOfSunday[index]
+        )
+
+        return scheduleLineContainer
+    }
 }
 
 extension MonthlyCalendarCollectionView {
@@ -158,6 +185,7 @@ extension MonthlyCalendarCollectionView {
         set {
             self.dayModel = newValue
             self.collectionView.reloadData()
+            self.setupSchedules()
         }
     }
 }
@@ -186,12 +214,37 @@ extension MonthlyCalendarCollectionView: UICollectionViewDataSource {
     }
 }
 
+extension MonthlyCalendarCollectionView {
+    var orientation: Paper.PaperOrientation {
+        get {
+            return self.paperOrientation
+        }
+        set {
+            self.paperOrientation = newValue
+        }
+    }
+}
+
 extension MonthlyCalendarCollectionView: UICollectionViewDelegate {
     
 }
 
 extension MonthlyCalendarCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.item % 6 == 0 {
+            for index in 0..<scheduleContainerViews.count {
+                updateScheduleLineContainerConstraint(index: index)
+            }
+        }
+
         return CGSize(width: collectionView.frame.size.width / 7, height: collectionView.frame.size.height / 6)
+    }
+
+    private func updateScheduleLineContainerConstraint(index: Int) {
+        let cellHeight: CGFloat = collectionView.frame.size.height / 6
+        let topConstant: CGFloat = 26 + (cellHeight * CGFloat(index))
+        NSLayoutConstraint.activate([
+            scheduleContainerViews[index].topAnchor.constraint(equalTo: weekDayView.bottomAnchor, constant: topConstant)
+        ])
     }
 }

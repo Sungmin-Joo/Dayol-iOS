@@ -17,7 +17,7 @@ enum PaperOrientationConstant {
 
     static func size(orentantion: Paper.PaperOrientation) -> CGSize {
         switch orentantion {
-        case .portrait: return CGSize(width: 614.0, height: 917.0)
+        case .portrait: return CGSize(width: 375.0, height: 560)
         case .landscape: return CGSize(width: 1024.0, height: 662.0)
         }
     }

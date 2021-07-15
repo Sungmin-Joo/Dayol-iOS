@@ -125,6 +125,7 @@ class PaperPresentView: UIView {
         tableView.register(QuartetPaper.self, forCellReuseIdentifier: QuartetPaper.className)
         tableView.register(WeeklyCalendarView.self, forCellReuseIdentifier: WeeklyCalendarView.className)
         tableView.register(MonthlyCalendarView.self, forCellReuseIdentifier: MonthlyCalendarView.className)
+        tableView.register(MonthlyTrackerPaper.self, forCellReuseIdentifier: MonthlyTrackerPaper.className)
     }
     
     private func setupPaperBorder() {
@@ -256,7 +257,7 @@ extension PaperPresentView: UITableViewDataSource {
 
             return cell
         case .tracker:
-            let cell = tableView.dequeueReusableCell(BasePaper.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(MonthlyTrackerPaper.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
             cell.configure(viewModel: viewModel, orientation: orientaion)
