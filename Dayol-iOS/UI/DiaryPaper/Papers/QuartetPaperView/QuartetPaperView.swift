@@ -38,7 +38,7 @@ final class QuartetPaperView: BasePaper {
         collectionView.delegate = self
         collectionView.dataSource = self
 
-        collectionView.register(PaperTextCell.self)
+        collectionView.register(PaperTextableCell.self)
 
         contentView.addSubview(collectionView)
         setupConstraints()
@@ -72,7 +72,7 @@ extension QuartetPaperView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(PaperTextCell.self, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(PaperTextableCell.self, for: indexPath)
 
         cell.configure(text: dummyModel[indexPath.item])
         return cell
@@ -111,7 +111,7 @@ extension QuartetPaperView: UICollectionViewDelegateFlowLayout {
 
         for index in 0..<itemPerRow {
             let modelIndex = (row * itemPerRow) + index
-            let cellSize = PaperTextCell.estimatedSize(width: width, text: dummyModel[modelIndex])
+            let cellSize = PaperTextableCell.estimatedSize(width: width, text: dummyModel[modelIndex])
 
             estimatedHeight = max(estimatedHeight, cellSize.height)
         }

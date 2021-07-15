@@ -1,5 +1,5 @@
 //
-//  PaperTextCell.swift
+//  PaperTextableCell.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/07/15.
@@ -13,7 +13,7 @@ private enum Design {
     static let borderWidth: CGFloat = 0.2
 }
 
-final class PaperTextCell: UICollectionViewCell {
+final class PaperTextableCell: UICollectionViewCell {
     static func estimatedSize(width: CGFloat, text: String) -> CGSize {
         let textView = UITextView(frame: CGRect(x: 0, y: 0, width: width, height: .greatestFiniteMagnitude))
         textView.text = text
