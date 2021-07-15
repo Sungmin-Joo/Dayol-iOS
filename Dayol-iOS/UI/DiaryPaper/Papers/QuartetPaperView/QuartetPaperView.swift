@@ -1,5 +1,5 @@
 //
-//  QuartetPaper.swift
+//  QuartetPaperView.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/02/16.
@@ -14,7 +14,7 @@ private enum Design {
     static let numberOfItemPerRow: Int = 2
     static let numberOfItem: Int = 4
 }
-final class QuartetPaper: BasePaper {
+final class QuartetPaperView: BasePaper {
     private var maxHeightPerRowDict: [Int: CGFloat] = [Int: CGFloat]()
     //TODO: Delete
     private let dummyModel: [String] = [
@@ -56,13 +56,13 @@ final class QuartetPaper: BasePaper {
 
 // MARK: - CollectionView Delegate
 
-extension QuartetPaper: UICollectionViewDelegate {
+extension QuartetPaperView: UICollectionViewDelegate {
 
 }
 
 // MARK: - CollectionView DataSource
 
-extension QuartetPaper: UICollectionViewDataSource {
+extension QuartetPaperView: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Design.numberOfSection
     }
@@ -81,7 +81,7 @@ extension QuartetPaper: UICollectionViewDataSource {
 
 // MARK: - CollectionView Flowlayout Delegate
 
-extension QuartetPaper: UICollectionViewDelegateFlowLayout {
+extension QuartetPaperView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let collectionViewSize = collectionView.frame.size
         let row = Int(CGFloat(indexPath.item) * CGFloat(0.5))

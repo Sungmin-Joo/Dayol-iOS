@@ -1,5 +1,5 @@
 //
-//  DailyPaper.swift
+//  DailyPaperView.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/01/20.
@@ -24,8 +24,8 @@ private enum Design {
     static let dayLeftMargin: CGFloat = 7.0
 }
 
-class DailyPaper: BasePaper {
-    override var identifier: String { DailyPaper.className }
+class DailyPaperView: BasePaper {
+    override var identifier: String { DailyPaperView.className }
     
     private let disposeBag = DisposeBag()
     
@@ -114,7 +114,7 @@ class DailyPaper: BasePaper {
 
 }
 
-private extension DailyPaper {
+private extension DailyPaperView {
     var dateText: String? {
         get {
             return dateLabel.attributedText?.string

@@ -1,5 +1,5 @@
 //
-//  MonthlyTrackerPaper.swift
+//  MonthlyTrackerPaperView.swift
 //  Dayol-iOS
 //
 //  Created by 박종상 on 2021/07/11.
@@ -18,7 +18,7 @@ private enum Design {
     }
 }
 
-final class MonthlyTrackerPaper: BasePaper {
+final class MonthlyTrackerPaperView: BasePaper {
     private let trackerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false

@@ -118,14 +118,14 @@ class PaperPresentView: UIView {
     
     private func reginterIdentifier() {
         tableView.register(BasePaper.self, forCellReuseIdentifier: BasePaper.className)
-        tableView.register(MujiPaper.self, forCellReuseIdentifier: MujiPaper.className)
-        tableView.register(DailyPaper.self, forCellReuseIdentifier: DailyPaper.className)
-        tableView.register(GridPaper.self, forCellReuseIdentifier: GridPaper.className)
-        tableView.register(CornellPaper.self, forCellReuseIdentifier: CornellPaper.className)
-        tableView.register(QuartetPaper.self, forCellReuseIdentifier: QuartetPaper.className)
+        tableView.register(MujiPaperView.self, forCellReuseIdentifier: MujiPaperView.className)
+        tableView.register(DailyPaperView.self, forCellReuseIdentifier: DailyPaperView.className)
+        tableView.register(GridPaperView.self, forCellReuseIdentifier: GridPaperView.className)
+        tableView.register(CornellPaperView.self, forCellReuseIdentifier: CornellPaperView.className)
+        tableView.register(QuartetPaperView.self, forCellReuseIdentifier: QuartetPaperView.className)
         tableView.register(WeeklyCalendarView.self, forCellReuseIdentifier: WeeklyCalendarView.className)
         tableView.register(MonthlyCalendarView.self, forCellReuseIdentifier: MonthlyCalendarView.className)
-        tableView.register(MonthlyTrackerPaper.self, forCellReuseIdentifier: MonthlyTrackerPaper.className)
+        tableView.register(MonthlyTrackerPaperView.self, forCellReuseIdentifier: MonthlyTrackerPaperView.className)
     }
     
     private func setupPaperBorder() {
@@ -229,42 +229,42 @@ extension PaperPresentView: UITableViewDataSource {
             return cell
         case .daily:
             guard let date = paper.date else { return UITableViewCell() }
-            let cell = tableView.dequeueReusableCell(DailyPaper.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(DailyPaperView.self, for: indexPath)
             let viewModel = DailyPaperViewModel(date: date, drawModel: DrawModel())
 
             cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
         case .quartet:
-            let cell = tableView.dequeueReusableCell(QuartetPaper.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(QuartetPaperView.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
             cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
         case .grid:
-            let cell = tableView.dequeueReusableCell(GridPaper.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(GridPaperView.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
             cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
         case .cornell:
-            let cell = tableView.dequeueReusableCell(CornellPaper.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(CornellPaperView.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
             cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
         case .tracker:
-            let cell = tableView.dequeueReusableCell(MonthlyTrackerPaper.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(MonthlyTrackerPaperView.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
             cell.configure(viewModel: viewModel, orientation: orientaion)
 
             return cell
         case .muji:
-            let cell = tableView.dequeueReusableCell(MujiPaper.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(MujiPaperView.self, for: indexPath)
             let viewModel = PaperViewModel(drawModel: DrawModel())
 
             cell.configure(viewModel: viewModel, orientation: orientaion)

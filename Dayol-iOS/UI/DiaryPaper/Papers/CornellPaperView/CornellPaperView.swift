@@ -1,5 +1,5 @@
 //
-//  CornellPaper.swift
+//  CornellPaperView.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/01/27.
@@ -40,7 +40,7 @@ private enum Design {
     }
 }
 
-class CornellPaper: BasePaper {
+class CornellPaperView: BasePaper {
     private let cornellImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +57,7 @@ class CornellPaper: BasePaper {
     }
 }
 
-private extension CornellPaper {
+private extension CornellPaperView {
     func getCornellImage(isFirstPage: Bool) -> UIImage? {
         guard let orientation = self.orientation else { return nil }
 
