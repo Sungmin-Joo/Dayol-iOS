@@ -29,7 +29,7 @@ extension MonthlyCalendarModel {
         Calendar.current.component(.month, from: date)
     }
 
-    var firstWeekday: WeekDay {
+    var firstDayOfTheMonth: WeekDay {
         let day = ("\(year).\(month) 01".date(with: .yearMonthDay)?.firstDayOfTheMonth.weekday)!
         return WeekDay(rawValue: day) ?? .sunday
     }
@@ -54,15 +54,11 @@ extension MonthlyCalendarModel {
     }
 
     var prevMonthRemainDayCount: Int {
-        let weekdayRawValue = firstWeekday.rawValue - WeekDay.sunday.rawValue - 1
+        let weekdayRawValue = firstDayOfTheMonth.rawValue - WeekDay.sunday.rawValue - 1
 
         if weekdayRawValue < 0 {
             return weekdayRawValue + 7
         }
         return weekdayRawValue
-    }
-
-    var weekSchedules: [ScheduleModel] {
-        return [ScheduleModel]()
     }
 }
