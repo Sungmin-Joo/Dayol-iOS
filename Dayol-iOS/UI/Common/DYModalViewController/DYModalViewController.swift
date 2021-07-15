@@ -443,6 +443,7 @@ extension DYModalViewController: UIAdaptivePresentationControllerDelegate {
 
         popoverVC.preferredContentSize = preferredSize
         popoverVC.modalPresentationStyle = .popover
+        popoverVC.view.backgroundColor = contents.backgroundColor
 
         if let pres = popoverVC.presentationController {
             pres.delegate = self

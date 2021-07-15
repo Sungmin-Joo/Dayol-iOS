@@ -14,13 +14,7 @@ private enum Design {
     static let buttonConatainerSize = CGSize(width: 184, height: 28)
     static let sliderSize = CGSize(width: 184, height: 20)
     static let sliderTrackSize = CGSize(width: 184, height: 18)
-    static let contentsTopMargin: CGFloat = {
-        if PencilSettingDetailView.shouldShowPenWidthSetting {
-            return 8.0
-        }
-        return 16.0
-    }()
-    static let contentInset = UIEdgeInsets(top: contentsTopMargin, left: 12, bottom: 8, right: 12)
+    static let contentInset = UIEdgeInsets(top: 8.0, left: 12, bottom: 8.0, right: 12)
     static let contentSpacing: CGFloat = 16.0
     static let sliderMinValue: Float = 0.0
     static let sliderMaxValue: Float = 1.0
@@ -73,7 +67,17 @@ extension PencilSettingDetailView {
 class PencilSettingDetailView: UIView {
 
     static var shouldShowPenWidthSetting: Bool {
-        return true
+        // iPad 에선 width 설정이 적용 됨
+        if isIPad {
+            return true
+        }
+
+        // iPhone 에선 iOS 14.0 이상 부터만 width 설정이 적용 됨
+        if #available(iOS 14.0, *) {
+            return true
+        }
+
+        return false
     }
     static var preferredSize: CGSize {
         if shouldShowPenWidthSetting {
@@ -174,6 +178,7 @@ private extension PencilSettingDetailView {
         contentStackView.addArrangedSubview(alphaSlider)
 
         addSubview(contentStackView)
+        backgroundColor = .white
     }
 
     func setupConstraints() {
