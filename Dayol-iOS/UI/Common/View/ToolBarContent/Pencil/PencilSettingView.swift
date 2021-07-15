@@ -189,9 +189,9 @@ private extension PencilSettingView {
         penButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
             guard self.penButton.isSelected == false else {
-                let content = PencilSettingDetailView(penType: .pen, currentColor: self.currentColor)
+                let detailView = self.getDetailView(drawTool: self.canvasTools.pen)
                 let info = DetailViewInfo(
-                    contents: content,
+                    contents: detailView,
                     sender: self.penButton,
                     preferredSize: PencilSettingDetailView.preferredSize
                 )
@@ -206,9 +206,9 @@ private extension PencilSettingView {
         markerButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
             guard self.markerButton.isSelected == false else {
-                let content = PencilSettingDetailView(penType: .marker, currentColor: self.currentColor)
+                let detailView = self.getDetailView(drawTool: self.canvasTools.marker)
                 let info = DetailViewInfo(
-                    contents: content,
+                    contents: detailView,
                     sender: self.markerButton,
                     preferredSize: PencilSettingDetailView.preferredSize
                 )
@@ -222,9 +222,9 @@ private extension PencilSettingView {
         pencilButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
             guard self.pencilButton.isSelected == false else {
-                let content = PencilSettingDetailView(penType: .pencil, currentColor: self.currentColor)
+                let detailView = self.getDetailView(drawTool: self.canvasTools.pencil)
                 let info = DetailViewInfo(
-                    contents: content,
+                    contents: detailView,
                     sender: self.pencilButton,
                     preferredSize: PencilSettingDetailView.preferredSize
                 )
@@ -279,6 +279,30 @@ private extension PencilSettingView {
         }
     }
 
+    private func getDetailView(drawTool: DYDrawTool) -> PencilSettingDetailView {
+        let detailView = PencilSettingDetailView(drawTool: drawTool)
+        detailView.currentToolSubject
+            .subscribe(onNext: { [weak self] tool in
+                guard let self = self else { return }
+
+                if let penTool = tool as? DYPenTool {
+                    self.canvasTools.pen = penTool
+                    return
+                }
+
+                if let markerTool = tool as? DYMarkerTool {
+                    self.canvasTools.marker = markerTool
+                    return
+                }
+
+                if let pencilTool = tool as? DYPencilTool {
+                    self.canvasTools.pencil = pencilTool
+                    return
+                }
+            })
+            .disposed(by: disposeBag)
+        return detailView
+    }
 
 }
 

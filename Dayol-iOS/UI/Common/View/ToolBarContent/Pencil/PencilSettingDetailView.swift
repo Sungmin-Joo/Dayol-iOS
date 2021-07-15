@@ -26,8 +26,7 @@ private enum Design {
     static let sliderMaxValue: Float = 1.0
 }
 
-class PencilSettingDetailView: UIView {
-    typealias DeatilSetting = (width: CGFloat, alpha: CGFloat)
+extension PencilSettingDetailView {
     enum PenType: String {
         static let maxStep = 5
 
@@ -39,6 +38,40 @@ class PencilSettingDetailView: UIView {
         }
     }
 
+    enum Step: Int {
+        static let step1Width: CGFloat = 1.0
+        static let step2Width: CGFloat = 5.0
+        static let step3Width: CGFloat = 10.0
+        static let step4Width: CGFloat = 15.0
+        static let step5Width: CGFloat = 20.0
+
+        case step1, step2, step3, step4, step5
+
+        var toolWidth: CGFloat {
+            switch self {
+            case .step1: return Self.step1Width
+            case .step2: return Self.step2Width
+            case .step3: return Self.step3Width
+            case .step4: return Self.step4Width
+            case .step5: return Self.step5Width
+            }
+        }
+
+        init?(toolWidth: CGFloat) {
+            switch toolWidth {
+            case Self.step1Width: self = .step1
+            case Self.step2Width: self = .step2
+            case Self.step3Width: self = .step3
+            case Self.step4Width: self = .step4
+            case Self.step5Width: self = .step5
+            default: return nil
+            }
+        }
+    }
+}
+
+class PencilSettingDetailView: UIView {
+
     static var shouldShowPenWidthSetting: Bool {
         return true
     }
@@ -48,10 +81,22 @@ class PencilSettingDetailView: UIView {
         }
         return CGSize(width: 208, height: 32)
     }
-    private let penType: PenType
-    private let currentColor: UIColor
+    private var drawTool: DYDrawTool {
+        didSet { currentToolSubject.onNext(drawTool) }
+    }
+    private var penType: PenType? {
+        switch drawTool {
+        case is DYPenTool: return .pen
+        case is DYMarkerTool: return .marker
+        case is DYPencilTool: return .pencil
+        default: return nil
+        }
+    }
+    private var currentColor: UIColor {
+        return drawTool.color
+    }
     private let disposeBag = DisposeBag()
-    let currentDetailSettingSubject = PublishSubject<DeatilSetting>()
+    let currentToolSubject = PublishSubject<DYDrawTool>()
 
     // MARK: UI Property
 
@@ -61,7 +106,7 @@ class PencilSettingDetailView: UIView {
         (0..<PenType.maxStep).forEach {
             let button = UIButton()
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.setBackgroundImage(penType.image(at: $0), for: .normal)
+            button.setBackgroundImage(penType?.image(at: $0), for: .normal)
             button.setImage(Design.selectedImage, for: .selected)
             buttonArray.append(button)
         }
@@ -104,12 +149,12 @@ class PencilSettingDetailView: UIView {
 
     // MARK: Init
 
-    init(penType: PenType, currentColor: UIColor) {
-        self.penType = penType
-        self.currentColor = currentColor
+    init(drawTool: DYDrawTool) {
+        self.drawTool = drawTool
         super.init(frame: .zero)
         initView()
         setupConstraints()
+        updateCurrentState()
         bindEvent()
     }
 
@@ -150,12 +195,34 @@ private extension PencilSettingDetailView {
     }
 
     func bindEvent() {
-        stepButtons.forEach { button in
+        stepButtons.enumerated().forEach { index, button in
             button.rx.tap.bind { [weak self] in
                 self?.stepButtons.forEach { $0.isSelected = false }
                 button.isSelected = true
+
+                if let step = Step(rawValue: index) {
+                    let newWidth = step.toolWidth
+                    self?.drawTool.width = newWidth
+                }
             }
             .disposed(by: disposeBag)
+        }
+
+        alphaSlider.rx.value
+            .bind { [weak self] alpha in
+                guard let self = self else { return }
+                self.drawTool.alpha = CGFloat(alpha)
+            }
+            .disposed(by: disposeBag)
+    }
+
+    func updateCurrentState() {
+        let alpha = drawTool.alpha
+        alphaSlider.setValue(Float(alpha), animated: false)
+
+        guard Self.shouldShowPenWidthSetting else { return }
+        if let step = Step(toolWidth: drawTool.width) {
+            stepButtons[safe: step.rawValue]?.isSelected = true
         }
     }
 

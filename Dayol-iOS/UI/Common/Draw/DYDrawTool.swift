@@ -8,7 +8,7 @@
 import PencilKit
 
 private enum Design {
-    static let defaultPenWidth: CGFloat = 6
+    static let defaultPenWidth: CGFloat = PencilSettingDetailView.Step.step3Width
 }
 
 protocol DYCanvasTool {
@@ -18,63 +18,55 @@ protocol DYCanvasTool {
 protocol DYDrawTool: DYCanvasTool {
     var color: UIColor { get set }
     var width: CGFloat { get set }
+    var alpha: CGFloat { get set }
 }
 
 struct DYPenTool: DYDrawTool {
     var color: UIColor
     var width: CGFloat
+    var alpha: CGFloat
 
     var pkTool: PKTool {
         if #available(iOS 14.0, *) {
-            let ink = PKInk(.pen, color: color)
+            let ink = PKInk(.pen, color: color.withAlphaComponent(alpha))
             return PKInkingTool(ink: ink, width: width)
         } else {
-            return PKInkingTool(.pen, color: color, width: width)
+            return PKInkingTool(.pen, color: color.withAlphaComponent(alpha), width: width)
         }
     }
 
-    init(color: UIColor, width: CGFloat) {
-        self.color = color
-        self.width = width
-    }
 }
 
 struct DYMarkerTool: DYDrawTool {
     var color: UIColor
     var width: CGFloat
+    var alpha: CGFloat
 
     var pkTool: PKTool {
         if #available(iOS 14.0, *) {
-            let ink = PKInk(.marker, color: color)
+            let ink = PKInk(.marker, color: color.withAlphaComponent(alpha))
             return PKInkingTool(ink: ink, width: width)
         } else {
-            return PKInkingTool(.marker, color: color, width: width)
+            return PKInkingTool(.marker, color: color.withAlphaComponent(alpha), width: width)
         }
     }
 
-    init(color: UIColor, width: CGFloat) {
-        self.color = color
-        self.width = width
-    }
 }
 
 struct DYPencilTool: DYDrawTool {
     var color: UIColor
     var width: CGFloat
+    var alpha: CGFloat
 
     var pkTool: PKTool {
         if #available(iOS 14.0, *) {
-            let ink = PKInk(.pencil, color: color)
+            let ink = PKInk(.pencil, color: color.withAlphaComponent(alpha))
             return PKInkingTool(ink: ink, width: width)
         } else {
-            return PKInkingTool(.pencil, color: color, width: width)
+            return PKInkingTool(.pencil, color: color.withAlphaComponent(alpha), width: width)
         }
     }
 
-    init(color: UIColor, width: CGFloat) {
-        self.color = color
-        self.width = width
-    }
 }
 
 struct DYEraseTool: DYCanvasTool {
@@ -101,9 +93,9 @@ struct DYCanvasTools {
         case pen, marker, pencil, erase, lasso
     }
     private var selectedType: ToolType = .pen
-    var pen = DYPenTool(color: .black, width: Design.defaultPenWidth)
-    var marker = DYMarkerTool(color: .black, width: Design.defaultPenWidth)
-    var pencil = DYPencilTool(color: .black, width: Design.defaultPenWidth)
+    var pen = DYPenTool(color: .black, width: Design.defaultPenWidth, alpha: 1)
+    var marker = DYMarkerTool(color: .black, width: Design.defaultPenWidth, alpha: 1)
+    var pencil = DYPencilTool(color: .black, width: Design.defaultPenWidth, alpha: 1)
     var erase = DYEraseTool(isObjectErase: false)
     let lasso = DYLassoTool()
 
