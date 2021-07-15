@@ -11,6 +11,7 @@ import RxSwift
 
 class DYContentsView: UIView, Undoable {
     private let disposeBag = DisposeBag()
+    // TODO: - 모달 수정하면서 contents용 canvas 추가
     let pkCanvas = PKCanvasView()
     let currentToolSubject = BehaviorSubject<DYCanvasTool?>(value: nil)
     var currentEditContent: DYStickerView? = nil {
@@ -41,13 +42,24 @@ class DYContentsView: UIView, Undoable {
 
     private func initView() {
         pkCanvas.backgroundColor = .clear
-        if #available(iOS 14.0, *) {
-            pkCanvas.drawingPolicy = .anyInput
-        } else {
-            pkCanvas.allowsFingerDrawing = true
-        }
         addSubViewPinEdge(pkCanvas)
         addGesture()
+
+        if isIPad == false {
+            // 아이패드가 아니면 손가락 인풋 허용
+            if #available(iOS 14.0, *) {
+                pkCanvas.drawingPolicy = .anyInput
+            } else {
+                pkCanvas.allowsFingerDrawing = true
+            }
+        } else {
+            // TODO: 현재는 임시 로직, 아이패드용 펜 설정 버튼과 연동해야함
+            if #available(iOS 14.0, *) {
+                pkCanvas.drawingPolicy = .anyInput
+            } else {
+                pkCanvas.allowsFingerDrawing = true
+            }
+        }
     }
 
     private func bindEvent() {

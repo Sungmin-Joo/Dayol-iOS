@@ -13,7 +13,7 @@ private enum Design {
     static let selectedImage = UIImage(named: "toolBar_color_detail_selected")
     static let buttonConatainerSize = CGSize(width: 184, height: 28)
     static let sliderSize = CGSize(width: 184, height: 20)
-    static let sliderTrackHeight: CGFloat = 18.0
+    static let sliderTrackSize = CGSize(width: 184, height: 18)
     static let contentsTopMargin: CGFloat = {
         if PencilSettingDetailView.shouldShowPenWidthSetting {
             return 8.0
@@ -78,7 +78,7 @@ class PencilSettingDetailView: UIView {
     }()
 
     private let alphaSlider: PencilSettingSlider = {
-        let slider = PencilSettingSlider(trackHeight: Design.sliderTrackHeight)
+        let slider = PencilSettingSlider(trackSize: Design.sliderTrackSize)
         slider.maximumTrackTintColor = .clear
         slider.minimumTrackTintColor = .clear
         slider.minimumValue = Design.sliderMinValue
