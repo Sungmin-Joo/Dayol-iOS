@@ -40,6 +40,7 @@
 		0DA235B92661186E003AA15F /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235B82661186E003AA15F /* FSCalendar */; };
 		0DA235BC266118AC003AA15F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235BB266118AC003AA15F /* RxCocoa */; };
 		0DA235BE266118AC003AA15F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235BD266118AC003AA15F /* RxSwift */; };
+		0DA6BA9826A2FD4300E22C02 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA6BA9726A2FD4300E22C02 /* GoogleMobileAds */; };
 		0DBA30A1268E1812004BACE7 /* Rxswift+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBA30A0268E1812004BACE7 /* Rxswift+Extension.swift */; };
 		0DC56E96265510020056C28E /* OnboardingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E95265510020056C28E /* OnboardingContentView.swift */; };
 		0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E9726551AA40056C28E /* UILabel+Extension.swift */; };
@@ -127,7 +128,6 @@
 		34AD5A8425C9A87600D9E29C /* PaperListAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AD5A8325C9A87600D9E29C /* PaperListAddCell.swift */; };
 		34ADE2B72663491A00412CAC /* DYFlexibleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ADE2B62663491A00412CAC /* DYFlexibleTextField.swift */; };
 		34B6C14125BDB28400C2596F /* DYKeyboardInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B6C14025BDB28400C2596F /* DYKeyboardInputAccessoryView.swift */; };
-		34BAEB4F269899E400F9AED7 /* ContentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BAEB4E269899E400F9AED7 /* ContentsManager.swift */; };
 		34BAEB412695D73200F9AED7 /* UseGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BAEB402695D73200F9AED7 /* UseGuideView.swift */; };
 		34BAEB432695E97A00F9AED7 /* UseGuideBottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BAEB422695E97A00F9AED7 /* UseGuideBottomNavigationView.swift */; };
 		34BAEB452695EBC300F9AED7 /* UseGuideContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BAEB442695EBC300F9AED7 /* UseGuideContentView.swift */; };
@@ -135,6 +135,7 @@
 		34BAEB492695F3AC00F9AED7 /* UseGuideModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BAEB482695F3AC00F9AED7 /* UseGuideModel.swift */; };
 		34BAEB4B26971C5300F9AED7 /* UseGuideContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BAEB4A26971C5300F9AED7 /* UseGuideContentCell.swift */; };
 		34BAEB4D269738DD00F9AED7 /* UseGuideSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BAEB4C269738DD00F9AED7 /* UseGuideSwitchView.swift */; };
+		34BAEB4F269899E400F9AED7 /* ContentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BAEB4E269899E400F9AED7 /* ContentsManager.swift */; };
 		34BB085E2612178F0000377E /* EraseSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BB085D2612178F0000377E /* EraseSettingView.swift */; };
 		34BB086226135E030000377E /* EraseOptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BB086126135E030000377E /* EraseOptionButton.swift */; };
 		34C7B3692619763300BC6A28 /* TextStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7B3682619763300BC6A28 /* TextStyleView.swift */; };
@@ -394,7 +395,6 @@
 		34AD5A8325C9A87600D9E29C /* PaperListAddCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperListAddCell.swift; sourceTree = "<group>"; };
 		34ADE2B62663491A00412CAC /* DYFlexibleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYFlexibleTextField.swift; sourceTree = "<group>"; };
 		34B6C14025BDB28400C2596F /* DYKeyboardInputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DYKeyboardInputAccessoryView.swift; sourceTree = "<group>"; };
-		34BAEB4E269899E400F9AED7 /* ContentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsManager.swift; sourceTree = "<group>"; };
 		34BAEB402695D73200F9AED7 /* UseGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseGuideView.swift; sourceTree = "<group>"; };
 		34BAEB422695E97A00F9AED7 /* UseGuideBottomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseGuideBottomNavigationView.swift; sourceTree = "<group>"; };
 		34BAEB442695EBC300F9AED7 /* UseGuideContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseGuideContentView.swift; sourceTree = "<group>"; };
@@ -402,6 +402,7 @@
 		34BAEB482695F3AC00F9AED7 /* UseGuideModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseGuideModel.swift; sourceTree = "<group>"; };
 		34BAEB4A26971C5300F9AED7 /* UseGuideContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseGuideContentCell.swift; sourceTree = "<group>"; };
 		34BAEB4C269738DD00F9AED7 /* UseGuideSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseGuideSwitchView.swift; sourceTree = "<group>"; };
+		34BAEB4E269899E400F9AED7 /* ContentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsManager.swift; sourceTree = "<group>"; };
 		34BB085D2612178F0000377E /* EraseSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseSettingView.swift; sourceTree = "<group>"; };
 		34BB086126135E030000377E /* EraseOptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseOptionButton.swift; sourceTree = "<group>"; };
 		34C7B3682619763300BC6A28 /* TextStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleView.swift; sourceTree = "<group>"; };
@@ -552,6 +553,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DA6BA9826A2FD4300E22C02 /* GoogleMobileAds in Frameworks */,
 				0DA235BC266118AC003AA15F /* RxCocoa in Frameworks */,
 				0DA235AE26611793003AA15F /* FirebaseCrashlytics in Frameworks */,
 				0DA235BE266118AC003AA15F /* RxSwift in Frameworks */,
@@ -1819,6 +1821,7 @@
 				0DA235B82661186E003AA15F /* FSCalendar */,
 				0DA235BB266118AC003AA15F /* RxCocoa */,
 				0DA235BD266118AC003AA15F /* RxSwift */,
+				0DA6BA9726A2FD4300E22C02 /* GoogleMobileAds */,
 			);
 			productName = Dayol;
 			productReference = DA4899E3257A08A6005E39ED /* DAYOL Beta.app */;
@@ -1852,6 +1855,7 @@
 				0DA235AA26611793003AA15F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				0DA235B72661186E003AA15F /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				0DA235BA266118AC003AA15F /* XCRemoteSwiftPackageReference "RxSwift" */,
+				0DA6BA9626A2FD4300E22C02 /* XCRemoteSwiftPackageReference "GoogleMobileAds" */,
 			);
 			productRefGroup = DA4899E4257A08A6005E39ED /* Products */;
 			projectDirPath = "";
@@ -2414,6 +2418,14 @@
 				version = 6.2.0;
 			};
 		};
+		0DA6BA9626A2FD4300E22C02 /* XCRemoteSwiftPackageReference "GoogleMobileAds" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/quanghits/GoogleMobileAds";
+			requirement = {
+				kind = exactVersion;
+				version = 8.7.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2461,6 +2473,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0DA235BA266118AC003AA15F /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		0DA6BA9726A2FD4300E22C02 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DA6BA9626A2FD4300E22C02 /* XCRemoteSwiftPackageReference "GoogleMobileAds" */;
+			productName = GoogleMobileAds;
 		};
 /* End XCSwiftPackageProductDependency section */
 
