@@ -27,3 +27,5 @@ enum Orientation {
 var isIPad: Bool {
     UIDevice.current.userInterfaceIdiom == .pad
 }
+let homeIPadContentSize = CGSize(width: 375, height: 667)
+let homeIPadContentCornerRadius: CGFloat = 12

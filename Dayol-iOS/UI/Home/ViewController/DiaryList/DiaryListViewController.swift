@@ -34,9 +34,33 @@ private enum Design {
 }
 
 class DiaryListViewController: DYViewController {
+    lazy var logoIconButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Design.topIcon, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.rx.tap.bind { [weak self] in
+            guard let tabViewController = AppDelegate.shared?.rootViewController else { return }
+            let settingVC = SettingsViewController()
+            let nav = DYNavigationController(rootViewController: settingVC)
+            nav.modalPresentationStyle = isIPad ? .formSheet : .fullScreen
 
-    let viewModel = DiaryListViewModel()
-    let disposeBag = DisposeBag()
+            if isIPad {
+                nav.preferredContentSize = homeIPadContentSize
+                nav.view.layer.cornerRadius = homeIPadContentCornerRadius
+            }
+
+            tabViewController.present(nav, animated: true)
+        }
+        .disposed(by: disposeBag)
+        return button
+    }()
+
+    let emptyView: HomeEmptyView = {
+        let view = HomeEmptyView(style: .diary)
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     var collectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
@@ -48,27 +72,7 @@ class DiaryListViewController: DYViewController {
         layout.minimumLineSpacing = Design.itemSpacing
         return layout
     }
-    var isEditMode = false
-    var canStartInteractiveMovement = false
-    var hasReorder = false
-    var currentIndex = 0
-    var currentEditIndex: IndexPath?
 
-    // MARK: - UI
-
-    let iconButton: UIButton = {
-        let button = UIButton()
-        button.setImage(Design.topIcon, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-
-        return button
-    }()
-    let emptyView: HomeEmptyView = {
-        let view = HomeEmptyView(style: .diary)
-        view.isHidden = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -76,6 +80,15 @@ class DiaryListViewController: DYViewController {
         collectionView.decelerationRate = .fast
         return collectionView
     }()
+
+    var isEditMode = false
+    var canStartInteractiveMovement = false
+    var hasReorder = false
+    var currentIndex = 0
+    var currentEditIndex: IndexPath?
+
+    let viewModel = DiaryListViewModel()
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,9 +111,7 @@ class DiaryListViewController: DYViewController {
             guard let self = self else { return }
             self.moveToIndex(self.currentIndex)
         }
-
     }
-
 }
 
 // MARK: - Setup UI
@@ -110,7 +121,7 @@ extension DiaryListViewController {
     private func setupViews() {
         setupCollectionView()
 
-        view.addSubview(iconButton)
+        view.addSubview(logoIconButton)
         view.addSubview(emptyView)
         view.addSubview(collectionView)
         view.backgroundColor = Design.bgColor
@@ -142,13 +153,12 @@ extension DiaryListViewController {
 // MARK: - Layout Constraints
 
 extension DiaryListViewController {
-
     private func setupLayoutConstraints() {
         let layoutGuide = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            iconButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
-            iconButton.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
+            logoIconButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
+            logoIconButton.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
 
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

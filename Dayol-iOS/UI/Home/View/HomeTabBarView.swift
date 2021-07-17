@@ -5,11 +5,15 @@
 //  Created by Sungmin on 2020/12/16.
 //
 import UIKit
+import GoogleMobileAds
 import RxCocoa
 import RxSwift
 
-class HomeTabBarView: UIView {
+protocol HomeTabbarDelegate: AnyObject {
+    func didTapMenu(_ type: HomeTabBarView.EventType)
+}
 
+class HomeTabBarView: UIView {
     enum TabType {
         case diary
         case favorite
@@ -20,30 +24,65 @@ class HomeTabBarView: UIView {
         case add
     }
 
-    let buttonEvent = BehaviorSubject<HomeTabBarView.EventType>(value: .showList(tab: .diary))
-    let disposeBag = DisposeBag()
+    weak var delegate: HomeTabbarDelegate?
 
-    private let plusButton: UIButton = {
+    private let plusFloatingButton: UIButton = {
         let button = UIButton()
-        button.setImage(Design.plusButton, for: .normal)
+        button.setImage(Design.plusFloatingButton, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+
+    private let diaryButton = HomeTabBarButton(style: .diary)
+
+    private let favoriteButton = HomeTabBarButton(style: .favorite)
+
     private let buttonStackView: UIStackView = {
-        let stackView = UIStackView(frame: .zero)
+        let stackView = UIStackView()
         stackView.distribution = .fillEqually
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    private let diaryButton = HomeTabBarButton(style: .diary)
-    private let favoriteButton = HomeTabBarButton(style: .favorite)
-    var currentTabMode: TabType {
+
+    let adBannerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        view.isHidden = true
+        return view
+    }()
+
+    var adView: UIView? {
         didSet {
-            updateTabBarState()
-            buttonEvent.onNext(.showList(tab: currentTabMode))
+            if let adView = adView {
+                adBannerView.isHidden = false
+                adBannerView.addSubview(adView)
+                NSLayoutConstraint.activate([
+                    adView.topAnchor.constraint(equalTo: adBannerView.topAnchor),
+                    adView.bottomAnchor.constraint(equalTo: adBannerView.bottomAnchor),
+                    adView.leadingAnchor.constraint(equalTo: adBannerView.leadingAnchor),
+                    adView.trailingAnchor.constraint(equalTo: adBannerView.trailingAnchor),
+                ])
+            } else {
+                adBannerView.isHidden = true
+            }
         }
     }
+
+    private let contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = Design.lineViewHeight
+        return stackView
+    }()
+
+    var currentTabMode: TabType {
+        didSet { updateTabBarState() }
+    }
+
+    private let disposeBag = DisposeBag()
 
     init(mode: TabType) {
         self.currentTabMode = mode
@@ -63,18 +102,20 @@ class HomeTabBarView: UIView {
 // MARK: - Event
 extension HomeTabBarView {
     private func bindEvent() {
-        plusButton.rx.tap.bind { [weak self] in
-            self?.buttonEvent.onNext(.add)
+        plusFloatingButton.rx.tap.bind { [weak self] in
+            self?.delegate?.didTapMenu(.add)
         }
         .disposed(by: disposeBag)
 
         diaryButton.rx.tap.bind { [weak self] in
             self?.currentTabMode = .diary
+            self?.delegate?.didTapMenu(.showList(tab: .diary))
         }
         .disposed(by: disposeBag)
 
         favoriteButton.rx.tap.bind { [weak self] in
             self?.currentTabMode = .favorite
+            self?.delegate?.didTapMenu(.showList(tab: .favorite))
         }
         .disposed(by: disposeBag)
     }
@@ -97,11 +138,14 @@ extension HomeTabBarView {
     private func setupViews() {
         backgroundColor = Design.safeAreaColor
 
-        addSubview(buttonStackView)
-        addSubview(plusButton)
-
         buttonStackView.addArrangedSubview(diaryButton)
         buttonStackView.addArrangedSubview(favoriteButton)
+
+        contentStackView.addArrangedSubview(adBannerView)
+        contentStackView.addArrangedSubview(buttonStackView)
+
+        addSubview(contentStackView)
+        addSubview(plusFloatingButton)
 
         setupTopLineView()
         setupSafeAreaView()
@@ -137,16 +181,18 @@ extension HomeTabBarView {
 
     private func setupContentsLayout() {
         NSLayoutConstraint.activate([
-            buttonStackView.topAnchor.constraint(equalTo: topAnchor),
-            buttonStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            buttonStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            buttonStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            contentStackView.topAnchor.constraint(equalTo: topAnchor),
+            contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+
+            adBannerView.heightAnchor.constraint(equalToConstant: GADMananer.Design.adBannerHeight),
             buttonStackView.heightAnchor.constraint(equalToConstant: Design.stackViewHeight),
 
-            plusButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            plusButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            plusButton.widthAnchor.constraint(equalToConstant: Design.plusButtonWidth),
-            plusButton.heightAnchor.constraint(equalToConstant: Design.plusButtonHeight)
+            plusFloatingButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            plusFloatingButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            plusFloatingButton.widthAnchor.constraint(equalToConstant: Design.plusButtonWidth),
+            plusFloatingButton.heightAnchor.constraint(equalToConstant: Design.plusButtonHeight),
         ])
     }
 }
@@ -157,7 +203,7 @@ private enum Design {
     static let plusButtonWidth: CGFloat = 70.0
     static let lineViewHeight: CGFloat = 1.0
 
-    static let plusButton = Assets.Image.Home.plusButton
+    static let plusFloatingButton = Assets.Image.Home.plusButton
 
     static let lineColor = UIColor(decimalRed: 233, green: 233, blue: 233)
     static let safeAreaColor = UIColor.white

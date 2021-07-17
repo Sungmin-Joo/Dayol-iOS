@@ -79,6 +79,10 @@ class Config {
             return "https://sandbox.itunes.apple.com/verifyReceipt"
         }
     }
+
+    var adUnitID: String {
+        return "ca-app-pub-3940256099942544/2934735716" // sample id
+    }
 }
 
 // MARK: - Phase

@@ -80,11 +80,7 @@ final class LaunchViewController: DYViewController {
             .observe(on: MainScheduler.instance)
             .attachHUD(self.view)
             .subscribe { response in
-                let homeViewController = HomeViewController()
-                let navigationController = UINavigationController(rootViewController: homeViewController)
-                navigationController.isNavigationBarHidden = true
-
-                AppDelegate.shared?.window?.switchRootViewController(navigationController)
+                AppDelegate.shared?.window?.switchRootViewController(HomeTabViewController())
             }
             .disposed(by: disposeBag)
     }

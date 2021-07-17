@@ -15,18 +15,18 @@ extension UIWindow {
         options: UIView.AnimationOptions = .transitionCrossDissolve,
         completionHandler: (() -> Void)? = nil
     ) {
-        guard animated else {
+        if animated {
+            UIView.transition(with: self, duration: duration, options: options, animations: {
+                let oldState = UIView.areAnimationsEnabled
+                UIView.setAnimationsEnabled(false)
+                self.rootViewController = viewController
+                UIView.setAnimationsEnabled(oldState)
+            }) { _ in
+                completionHandler?()
+            }
+        } else {
             rootViewController = viewController
             return
-        }
-
-        UIView.transition(with: self, duration: duration, options: options, animations: {
-            let oldState = UIView.areAnimationsEnabled
-            UIView.setAnimationsEnabled(false)
-            self.rootViewController = viewController
-            UIView.setAnimationsEnabled(oldState)
-        }) { _ in
-            completionHandler?()
         }
     }
 }

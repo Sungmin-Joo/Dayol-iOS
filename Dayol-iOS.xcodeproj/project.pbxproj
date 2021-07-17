@@ -41,6 +41,7 @@
 		0DA235BC266118AC003AA15F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235BB266118AC003AA15F /* RxCocoa */; };
 		0DA235BE266118AC003AA15F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235BD266118AC003AA15F /* RxSwift */; };
 		0DA6BA9826A2FD4300E22C02 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA6BA9726A2FD4300E22C02 /* GoogleMobileAds */; };
+		0DA6BA9B26A3059100E22C02 /* GADBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA6BA9A26A3059100E22C02 /* GADBanner.swift */; };
 		0DBA30A1268E1812004BACE7 /* Rxswift+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBA30A0268E1812004BACE7 /* Rxswift+Extension.swift */; };
 		0DC56E96265510020056C28E /* OnboardingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E95265510020056C28E /* OnboardingContentView.swift */; };
 		0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E9726551AA40056C28E /* UILabel+Extension.swift */; };
@@ -166,7 +167,7 @@
 		CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */; };
 		CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */; };
 		CE8DCAE0258D28F4007738EA /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAD9258D28F4007738EA /* DiaryListViewController.swift */; };
-		CE8DCAE1258D28F4007738EA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCADA258D28F4007738EA /* HomeViewController.swift */; };
+		CE8DCAE1258D28F4007738EA /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCADA258D28F4007738EA /* HomeTabViewController.swift */; };
 		CE8DCAE2258D28F4007738EA /* HomeTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCADC258D28F4007738EA /* HomeTabBarView.swift */; };
 		CE8DCAE3258D28F4007738EA /* HomeEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCADD258D28F4007738EA /* HomeEmptyView.swift */; };
 		CE8DCAE4258D28F4007738EA /* HomeTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCADE258D28F4007738EA /* HomeTabBarButton.swift */; };
@@ -304,6 +305,7 @@
 		0D7E8D4C267E626C00780065 /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		0DA235A62661145B003AA15F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		0DA235A8266115B7003AA15F /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
+		0DA6BA9A26A3059100E22C02 /* GADBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADBanner.swift; sourceTree = "<group>"; };
 		0DBA30A0268E1812004BACE7 /* Rxswift+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rxswift+Extension.swift"; sourceTree = "<group>"; };
 		0DC56E95265510020056C28E /* OnboardingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContentView.swift; sourceTree = "<group>"; };
 		0DC56E9726551AA40056C28E /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
@@ -435,7 +437,7 @@
 		CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertAction.swift; sourceTree = "<group>"; };
 		CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		CE8DCAD9258D28F4007738EA /* DiaryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryListViewController.swift; sourceTree = "<group>"; };
-		CE8DCADA258D28F4007738EA /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CE8DCADA258D28F4007738EA /* HomeTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		CE8DCADC258D28F4007738EA /* HomeTabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarView.swift; sourceTree = "<group>"; };
 		CE8DCADD258D28F4007738EA /* HomeEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeEmptyView.swift; sourceTree = "<group>"; };
 		CE8DCADE258D28F4007738EA /* HomeTabBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarButton.swift; sourceTree = "<group>"; };
@@ -700,6 +702,23 @@
 				0D0ED157269B1CAB00A6BF0A /* GoogleService-Info-beta.plist */,
 			);
 			path = GoogleService;
+			sourceTree = "<group>";
+		};
+		0DA6BA9926A3057600E22C02 /* GAD */ = {
+			isa = PBXGroup;
+			children = (
+				0DA6BA9A26A3059100E22C02 /* GADBanner.swift */,
+			);
+			path = GAD;
+			sourceTree = "<group>";
+		};
+		0DA6BA9C26A30D8700E22C02 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CE8DCAFB258FA1A9007738EA /* DiaryList */,
+				CE8DCAFE258FA1D9007738EA /* Favorite */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		0DEAD272267607E6009A3554 /* Model */ = {
@@ -1186,6 +1205,7 @@
 		CE0603522588EDA100FBBEF0 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				0DA6BA9926A3057600E22C02 /* GAD */,
 				CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */,
 			);
 			path = Protocol;
@@ -1217,18 +1237,10 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		CE8DCAF9258FA181007738EA /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				CE8DCB30258FB1B2007738EA /* ViewController */,
-				CE8DCAFA258FA18B007738EA /* View */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
 		CE8DCAFA258FA18B007738EA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CE8DCADD258D28F4007738EA /* HomeEmptyView.swift */,
 				CE8DCADC258D28F4007738EA /* HomeTabBarView.swift */,
 				CE8DCADE258D28F4007738EA /* HomeTabBarButton.swift */,
 			);
@@ -1238,9 +1250,12 @@
 		CE8DCAFB258FA1A9007738EA /* DiaryList */ = {
 			isa = PBXGroup;
 			children = (
-				CE8DCB31258FB1C0007738EA /* ViewController */,
 				CE8DCAFC258FA1B1007738EA /* View */,
 				CE8DCB0F258FA4F3007738EA /* ViewModel */,
+				CE8DCAD9258D28F4007738EA /* DiaryListViewController.swift */,
+				CE8DCB2C258FB1A0007738EA /* DiaryListViewController+bind.swift */,
+				CE8DCC902590E88F007738EA /* DiaryListViewController+CollectionView.swift */,
+				34E83ACD2675B6380060BBE7 /* DiaryListViewController+MoreMenu.swift */,
 			);
 			path = DiaryList;
 			sourceTree = "<group>";
@@ -1251,14 +1266,6 @@
 				CE8DCC932590ECE8007738EA /* DiaryListCell.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		CE8DCAFD258FA1D0007738EA /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				CE8DCADD258D28F4007738EA /* HomeEmptyView.swift */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		CE8DCAFE258FA1D9007738EA /* Favorite */ = {
@@ -1275,25 +1282,6 @@
 				CE8DCB10258FA502007738EA /* DiaryListViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		CE8DCB30258FB1B2007738EA /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CE8DCADA258D28F4007738EA /* HomeViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		CE8DCB31258FB1C0007738EA /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CE8DCAD9258D28F4007738EA /* DiaryListViewController.swift */,
-				CE8DCB2C258FB1A0007738EA /* DiaryListViewController+bind.swift */,
-				CE8DCC902590E88F007738EA /* DiaryListViewController+CollectionView.swift */,
-				34E83ACD2675B6380060BBE7 /* DiaryListViewController+MoreMenu.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		CEB9EE402583C7AF005B66C9 /* Common */ = {
@@ -1360,10 +1348,9 @@
 		CEF135E8258115E30098BEC3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				CE8DCAF9258FA181007738EA /* Main */,
-				CE8DCAFB258FA1A9007738EA /* DiaryList */,
-				CE8DCAFE258FA1D9007738EA /* Favorite */,
-				CE8DCAFD258FA1D0007738EA /* Common */,
+				0DA6BA9C26A30D8700E22C02 /* ViewController */,
+				CE8DCAFA258FA18B007738EA /* View */,
+				CE8DCADA258D28F4007738EA /* HomeTabViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -2134,7 +2121,7 @@
 				CE8DCB25258FAE72007738EA /* Array+extension.swift in Sources */,
 				DA27AC5B25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift in Sources */,
 				3416448925DC05A900A81FD2 /* QuartetPaper.swift in Sources */,
-				CE8DCAE1258D28F4007738EA /* HomeViewController.swift in Sources */,
+				CE8DCAE1258D28F4007738EA /* HomeTabViewController.swift in Sources */,
 				DAD489EF26026A33008B542E /* DrawingContentView.swift in Sources */,
 				DA9A872F2610A93200ABCD07 /* DYStickerBaseView.swift in Sources */,
 				0DEAD26A267606C8009A3554 /* DecorationImageItemMO+CoreDataClass.swift in Sources */,
@@ -2154,6 +2141,7 @@
 				34AD5A7A25C97D0900D9E29C /* PaperListCell.swift in Sources */,
 				34C7B3692619763300BC6A28 /* TextStyleView.swift in Sources */,
 				0DFE24C8268E035600B86F1C /* DYHUD.swift in Sources */,
+				0DA6BA9B26A3059100E22C02 /* GADBanner.swift in Sources */,
 				DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */,
 				34A07156262DCE1E009BA700 /* ColorPickerContentView.swift in Sources */,
 				0DF038712683723300DB4DDF /* SubscribeProductView.swift in Sources */,

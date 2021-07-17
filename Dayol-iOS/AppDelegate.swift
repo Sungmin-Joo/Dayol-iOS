@@ -13,13 +13,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UIApplication.shared.delegate as? AppDelegate
     }
 	var window: UIWindow?
+    var rootViewController: HomeTabViewController? { window?.rootViewController as? HomeTabViewController }
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         configure()
 		return true
 	}
+}
 
-    private func configure() {
+// MARK: - Config
+
+private extension AppDelegate {
+    func configure() {
         let window = UIWindow()
         let splashVC = LaunchViewController()
         window.rootViewController = splashVC
@@ -29,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
     }
 }
+
+// MARK: - Get DeviceToken
 
 extension AppDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

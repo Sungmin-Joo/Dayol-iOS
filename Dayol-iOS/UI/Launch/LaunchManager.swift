@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import GoogleMobileAds
 import CoreData
 import RxSwift
 
@@ -30,6 +31,8 @@ final class LaunchManager {
             .map { _ in
                 FirebaseApp.initialize()
                 PersistentManager.shared.saveContext()
+                GADMananer.mobileAdsStart()
+
             }
             .flatMap { _ -> Single<API.MembershipReceiptAPI.Response> in
                 return IAPManager.shared.checkPurchased()
