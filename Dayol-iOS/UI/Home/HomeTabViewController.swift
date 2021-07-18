@@ -22,7 +22,7 @@ class HomeTabViewController: DYViewController {
         didSet { updateCurrentChildVC() }
     }
 
-    private let gadManager: GADMananer = GADMananer()
+    private lazy var gadManager: GADManager = GADManager()
 
     private let disposeBag = DisposeBag()
 
@@ -45,8 +45,16 @@ class HomeTabViewController: DYViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.isToolbarHidden = true
+        loadAD()
     }
 
+    func loadAD() {
+        if !MembershipManager.shared.isMembership {
+            self.gadManager.configureBanner(targetViewController: self, targetView: self.tabBarView)
+        } else {
+            self.gadManager.closeBanner()
+        }
+    }
 }
 
 // MARK: - Controller ChildVC
@@ -106,9 +114,6 @@ private extension HomeTabViewController {
     func setupViews() {
         view.addSubview(tabBarView)
         tabBarView.delegate = self
-        tabBarView.adView = gadManager.gadBannerView
-
-        gadManager.configBannerAD(targetViewController: self)
     }
 
     func configureFirstList() {

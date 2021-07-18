@@ -25,7 +25,7 @@
 		0D27B099264FF8EC001AD911 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */; };
 		0D27B09B264FFD12001AD911 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09A264FFD12001AD911 /* Thread.swift */; };
 		0D27B09D264FFD48001AD911 /* LaunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09C264FFD48001AD911 /* LaunchManager.swift */; };
-		0D27B0A02650008B001AD911 /* DayolUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09F2650008B001AD911 /* DayolUserDefault.swift */; };
+		0D27B0A02650008B001AD911 /* DYUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27B09F2650008B001AD911 /* DYUserDefault.swift */; };
 		0D6F371E267E6C5400F782CA /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6F371D267E6C5400F782CA /* DebugViewController.swift */; };
 		0D7E8D4A267E61A800780065 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D7E8D49267E61A800780065 /* StoreKit.framework */; };
 		0D7E8D4D267E626C00780065 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7E8D4C267E626C00780065 /* IAPManager.swift */; };
@@ -41,7 +41,7 @@
 		0DA235BC266118AC003AA15F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235BB266118AC003AA15F /* RxCocoa */; };
 		0DA235BE266118AC003AA15F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA235BD266118AC003AA15F /* RxSwift */; };
 		0DA6BA9826A2FD4300E22C02 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 0DA6BA9726A2FD4300E22C02 /* GoogleMobileAds */; };
-		0DA6BA9B26A3059100E22C02 /* GADBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA6BA9A26A3059100E22C02 /* GADBanner.swift */; };
+		0DA6BA9B26A3059100E22C02 /* GADManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA6BA9A26A3059100E22C02 /* GADManager.swift */; };
 		0DBA30A1268E1812004BACE7 /* Rxswift+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBA30A0268E1812004BACE7 /* Rxswift+Extension.swift */; };
 		0DC56E96265510020056C28E /* OnboardingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E95265510020056C28E /* OnboardingContentView.swift */; };
 		0DC56E9826551AA40056C28E /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC56E9726551AA40056C28E /* UILabel+Extension.swift */; };
@@ -60,6 +60,7 @@
 		0DF60D9C26739D5500F0A1E8 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */; };
 		0DF60DA02673AC8D00F0A1E8 /* FirebaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF60D9F2673AC8D00F0A1E8 /* FirebaseStorage.swift */; };
 		0DFE24C8268E035600B86F1C /* DYHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFE24C7268E035600B86F1C /* DYHUD.swift */; };
+		0DFFC97B26A434D500415A09 /* MembershipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFFC97A26A434D500415A09 /* MembershipManager.swift */; };
 		34002D5E267EF7A500A0DD8A /* Undoable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34002D5D267EF7A500A0DD8A /* Undoable.swift */; };
 		340E56A125C2DC73007F2EF7 /* DYToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A025C2DC73007F2EF7 /* DYToastView.swift */; };
 		340E56A425C2E2A7007F2EF7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */; };
@@ -297,7 +298,7 @@
 		0D27B098264FF8EC001AD911 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		0D27B09A264FFD12001AD911 /* Thread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		0D27B09C264FFD48001AD911 /* LaunchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchManager.swift; sourceTree = "<group>"; };
-		0D27B09F2650008B001AD911 /* DayolUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolUserDefault.swift; sourceTree = "<group>"; };
+		0D27B09F2650008B001AD911 /* DYUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYUserDefault.swift; sourceTree = "<group>"; };
 		0D27B0A326500770001AD911 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0D297294267F54C9003DD28A /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		0D6F371D267E6C5400F782CA /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
@@ -305,7 +306,7 @@
 		0D7E8D4C267E626C00780065 /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		0DA235A62661145B003AA15F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		0DA235A8266115B7003AA15F /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
-		0DA6BA9A26A3059100E22C02 /* GADBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADBanner.swift; sourceTree = "<group>"; };
+		0DA6BA9A26A3059100E22C02 /* GADManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADManager.swift; sourceTree = "<group>"; };
 		0DBA30A0268E1812004BACE7 /* Rxswift+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rxswift+Extension.swift"; sourceTree = "<group>"; };
 		0DC56E95265510020056C28E /* OnboardingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContentView.swift; sourceTree = "<group>"; };
 		0DC56E9726551AA40056C28E /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
@@ -328,6 +329,7 @@
 		0DF60D9B26739D5500F0A1E8 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		0DF60D9F2673AC8D00F0A1E8 /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
 		0DFE24C7268E035600B86F1C /* DYHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYHUD.swift; sourceTree = "<group>"; };
+		0DFFC97A26A434D500415A09 /* MembershipManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipManager.swift; sourceTree = "<group>"; };
 		34002D5D267EF7A500A0DD8A /* Undoable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Undoable.swift; sourceTree = "<group>"; };
 		340E56A025C2DC73007F2EF7 /* DYToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYToastView.swift; sourceTree = "<group>"; };
 		340E56A325C2E2A7007F2EF7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -673,7 +675,7 @@
 		0D27B09E26500059001AD911 /* UserDefaults */ = {
 			isa = PBXGroup;
 			children = (
-				0D27B09F2650008B001AD911 /* DayolUserDefault.swift */,
+				0D27B09F2650008B001AD911 /* DYUserDefault.swift */,
 			);
 			path = UserDefaults;
 			sourceTree = "<group>";
@@ -707,7 +709,7 @@
 		0DA6BA9926A3057600E22C02 /* GAD */ = {
 			isa = PBXGroup;
 			children = (
-				0DA6BA9A26A3059100E22C02 /* GADBanner.swift */,
+				0DA6BA9A26A3059100E22C02 /* GADManager.swift */,
 			);
 			path = GAD;
 			sourceTree = "<group>";
@@ -799,6 +801,23 @@
 				CE8DCAE9258D292A007738EA /* UIColor+Extension.swift */,
 			);
 			path = Style;
+			sourceTree = "<group>";
+		};
+		0DFFC97926A434B600415A09 /* Mangner */ = {
+			isa = PBXGroup;
+			children = (
+				0DFFC97C26A434DD00415A09 /* Membership */,
+				0DA6BA9926A3057600E22C02 /* GAD */,
+			);
+			path = Mangner;
+			sourceTree = "<group>";
+		};
+		0DFFC97C26A434DD00415A09 /* Membership */ = {
+			isa = PBXGroup;
+			children = (
+				0DFFC97A26A434D500415A09 /* MembershipManager.swift */,
+			);
+			path = Membership;
 			sourceTree = "<group>";
 		};
 		340E569F25C2DC4E007F2EF7 /* Toast */ = {
@@ -1205,7 +1224,6 @@
 		CE0603522588EDA100FBBEF0 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				0DA6BA9926A3057600E22C02 /* GAD */,
 				CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */,
 			);
 			path = Protocol;
@@ -1484,6 +1502,7 @@
 				0DA235A62661145B003AA15F /* Config.swift */,
 				0D011A872675D989001F5469 /* Network */,
 				0DF60D9E2673AC5F00F0A1E8 /* Data */,
+				0DFFC97926A434B600415A09 /* Mangner */,
 				DA27AC7925D1750500C71CDE /* TestData */,
 				CEF135E7258115C60098BEC3 /* UI */,
 				34C6A3812594F4F900658499 /* Utils */,
@@ -1995,7 +2014,7 @@
 				34A2EDC225B856D1008DB98D /* PaperModel.swift in Sources */,
 				DA5A10FB266B7BA4002C7EA8 /* UIImage+Extension.swift in Sources */,
 				0DE6C7AE268CAB3500A79CFD /* Data+Extension.swift in Sources */,
-				0D27B0A02650008B001AD911 /* DayolUserDefault.swift in Sources */,
+				0D27B0A02650008B001AD911 /* DYUserDefault.swift in Sources */,
 				34CD663A2683774800DECFF7 /* DrawableViewController.swift in Sources */,
 				DAD48A36260CD563008B542E /* StickerModalCollectionView.swift in Sources */,
 				344AD29726398CBF0055562D /* DYDrawTool.swift in Sources */,
@@ -2077,6 +2096,7 @@
 				340E56B825C8684A007F2EF7 /* PaperListHeaderView.swift in Sources */,
 				DA13B6C426971F1B0015AD71 /* MonthlyCalendarModel.swift in Sources */,
 				34A11A4B25ADC8F700678F98 /* UnderLineButton.swift in Sources */,
+				0DFFC97B26A434D500415A09 /* MembershipManager.swift in Sources */,
 				34A07141262C4856009BA700 /* PencilSettingView.swift in Sources */,
 				DA311427260CE2FC002F99F7 /* StickerModalHeaderViewCell.swift in Sources */,
 				DACE3B19258792180067467B /* PasswordTitleView.swift in Sources */,
@@ -2141,7 +2161,7 @@
 				34AD5A7A25C97D0900D9E29C /* PaperListCell.swift in Sources */,
 				34C7B3692619763300BC6A28 /* TextStyleView.swift in Sources */,
 				0DFE24C8268E035600B86F1C /* DYHUD.swift in Sources */,
-				0DA6BA9B26A3059100E22C02 /* GADBanner.swift in Sources */,
+				0DA6BA9B26A3059100E22C02 /* GADManager.swift in Sources */,
 				DA1D67DD25C064CC004AEB0E /* MonthlyCalendarViewDayCell.swift in Sources */,
 				34A07156262DCE1E009BA700 /* ColorPickerContentView.swift in Sources */,
 				0DF038712683723300DB4DDF /* SubscribeProductView.swift in Sources */,

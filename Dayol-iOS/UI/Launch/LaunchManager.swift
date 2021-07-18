@@ -31,7 +31,7 @@ final class LaunchManager {
             .map { _ in
                 FirebaseApp.initialize()
                 PersistentManager.shared.saveContext()
-                GADMananer.mobileAdsStart()
+                GADManager.mobileAdsStart()
 
             }
             .flatMap { _ -> Single<API.MembershipReceiptAPI.Response> in

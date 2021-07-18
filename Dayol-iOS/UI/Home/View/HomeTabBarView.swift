@@ -13,7 +13,7 @@ protocol HomeTabbarDelegate: AnyObject {
     func didTapMenu(_ type: HomeTabBarView.EventType)
 }
 
-class HomeTabBarView: UIView {
+class HomeTabBarView: UIView, GADBannerPresentable {
     enum TabType {
         case diary
         case favorite
@@ -42,6 +42,7 @@ class HomeTabBarView: UIView {
         stackView.distribution = .fillEqually
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = .white
         return stackView
     }()
 
@@ -52,23 +53,6 @@ class HomeTabBarView: UIView {
         view.isHidden = true
         return view
     }()
-
-    var adView: UIView? {
-        didSet {
-            if let adView = adView {
-                adBannerView.isHidden = false
-                adBannerView.addSubview(adView)
-                NSLayoutConstraint.activate([
-                    adView.topAnchor.constraint(equalTo: adBannerView.topAnchor),
-                    adView.bottomAnchor.constraint(equalTo: adBannerView.bottomAnchor),
-                    adView.leadingAnchor.constraint(equalTo: adBannerView.leadingAnchor),
-                    adView.trailingAnchor.constraint(equalTo: adBannerView.trailingAnchor),
-                ])
-            } else {
-                adBannerView.isHidden = true
-            }
-        }
-    }
 
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
@@ -186,7 +170,7 @@ extension HomeTabBarView {
             contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             contentStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
 
-            adBannerView.heightAnchor.constraint(equalToConstant: GADMananer.Design.adBannerHeight),
+            adBannerView.heightAnchor.constraint(equalToConstant: GADManager.Design.adBannerHeight),
             buttonStackView.heightAnchor.constraint(equalToConstant: Design.stackViewHeight),
 
             plusFloatingButton.centerXAnchor.constraint(equalTo: centerXAnchor),
