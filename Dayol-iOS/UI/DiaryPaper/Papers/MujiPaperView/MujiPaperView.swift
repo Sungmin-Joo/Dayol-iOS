@@ -1,5 +1,5 @@
 //
-//  MujiPaper.swift
+//  MujiPaperView.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/01/20.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class MujiPaper: BasePaper {
-    override var identifier: String { MujiPaper.className }
+class MujiPaperView: BasePaper {
+    override var identifier: String { MujiPaperView.className }
 
     private let mujiView: UIView = {
         let view = UIView()

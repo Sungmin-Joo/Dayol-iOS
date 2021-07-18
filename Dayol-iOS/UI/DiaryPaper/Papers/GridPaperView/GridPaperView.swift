@@ -1,5 +1,5 @@
 //
-//  GridPaper.swift
+//  GridPaperView.swift
 //  Dayol-iOS
 //
 //  Created by 주성민 on 2021/01/20.
@@ -29,8 +29,8 @@ private enum Design {
     }
 }
 
-class GridPaper: BasePaper {
-    override var identifier: String { GridPaper.className }
+class GridPaperView: BasePaper {
+    override var identifier: String { GridPaperView.className }
     
     private let gridImageView: UIImageView = {
         let imageView = UIImageView()
@@ -47,7 +47,7 @@ class GridPaper: BasePaper {
     }
 }
 
-private extension GridPaper {
+private extension GridPaperView {
 
     func getGridImage() -> UIImage? {
         guard let orientation = self.orientation else { return nil }
