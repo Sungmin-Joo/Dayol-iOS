@@ -589,7 +589,6 @@
 			isa = PBXGroup;
 			children = (
 				0D0ED1482699C7F600A6BF0A /* API */,
-				0D7E8D4B267E625900780065 /* IAP */,
 				0D07CD782675289D0007E36D /* iCloud */,
 				0DF60D9D2673AC5700F0A1E8 /* Firebase */,
 			);
@@ -806,6 +805,7 @@
 		0DFFC97926A434B600415A09 /* Mangner */ = {
 			isa = PBXGroup;
 			children = (
+				0D7E8D4B267E625900780065 /* IAP */,
 				0DFFC97C26A434DD00415A09 /* Membership */,
 				0DA6BA9926A3057600E22C02 /* GAD */,
 			);
