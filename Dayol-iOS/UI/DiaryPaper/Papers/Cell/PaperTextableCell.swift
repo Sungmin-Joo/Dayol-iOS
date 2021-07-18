@@ -11,17 +11,11 @@ private enum Design {
     static let textInset: UIEdgeInsets = .init(top: 5, left: 5, bottom: -5, right: -5)
     static let borderColor: UIColor = .gray500
     static let borderWidth: CGFloat = 0.2
+
+    static let defaultFont: UIFont = UIFont.appleRegular(size: 15)
 }
 
 final class PaperTextableCell: UICollectionViewCell {
-    static func estimatedSize(width: CGFloat, text: String) -> CGSize {
-        let textView = UITextView(frame: CGRect(x: 0, y: 0, width: width, height: .greatestFiniteMagnitude))
-        textView.text = text
-        textView.sizeToFit()
-
-        return textView.frame.size
-    }
-
     private(set) var textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,8 +48,8 @@ final class PaperTextableCell: UICollectionViewCell {
         contentView.layer.borderColor = Design.borderColor.cgColor
     }
 
-    func configure(text: String) {
-        textView.text = text
+    func configure(attributedText: NSAttributedString) {
+        textView.attributedText = attributedText
     }
 
     private func setupConstraints() {
