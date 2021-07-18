@@ -16,6 +16,10 @@ private enum Design {
 }
 
 final class PaperTextableCell: UICollectionViewCell {
+    static func estimatedHeight(width: CGFloat, attributedText: NSAttributedString) -> CGFloat {
+        return attributedText.height(with: width)
+    }
+
     private(set) var textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
