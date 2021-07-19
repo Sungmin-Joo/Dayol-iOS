@@ -120,8 +120,7 @@ extension IAPManager: SKPaymentTransactionObserver {
                 DYLog.i(.inAppPurchase, value: "PURCHASING")
             case .purchased:
                 purchasedProduct.onNext(true)
-                DYUserDefaults.activityType = UserActivityType.subscriber.rawValue
-                DYUserDefaults.isMembership = true
+                MembershipManager.shared.didChangeMembership(type: .subscriber)
                 paymentQueue.finishTransaction(transaction)
                 DYLog.i(.inAppPurchase, value: "PURCHASED")
             case .failed:

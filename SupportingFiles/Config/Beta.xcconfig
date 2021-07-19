@@ -11,6 +11,7 @@
 // app info
 APP_VERSION                     = 1
 GOOGLE_SERVICE_INFO_PLIST_NAME  = GoogleService-Info-beta.plist
+GAD_APPLICATION_IDENTIFIER      = ca-app-pub-5111273163239664~4888672789
 
 // bundle
 BUNDLE_IDENTIFIER               = com.dayolstudio.dayol.beta

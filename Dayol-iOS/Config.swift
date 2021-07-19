@@ -7,18 +7,9 @@
 
 import Foundation
 
-/// Activity Type
-enum UserActivityType: Int {
-    case new = 0, subscriber, expiredSubscriber
-}
-
-/// Member Info
-struct MemberInfo {
-    let deviceToken: String
-    let activityType: UserActivityType
-}
-
 class Config {
+    // MARK: - Enum
+
     /// Common Error
     enum InternalError: Error {
         case notProduct
@@ -50,14 +41,13 @@ class Config {
         case en, ko
     }
 
+
+    // MARK: - Properties
+
     static let shared: Config = Config()
 
     var deviceToken: String {
         DYUserDefaults.deviceToken
-    }
-
-    var isMembership: Bool {
-        DYUserDefaults.isMembership
     }
 
     var language: Language {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Design {
     static let topIcon = Assets.Image.Home.topIcon
@@ -13,6 +14,26 @@ private enum Design {
 }
 
 class FavoriteViewController: DYViewController {
+    lazy var logoIconButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Design.topIcon, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.rx.tap.bind { [weak self] in
+            guard let tabViewController = AppDelegate.shared?.rootViewController else { return }
+            let settingVC = SettingsViewController()
+            let nav = DYNavigationController(rootViewController: settingVC)
+            nav.modalPresentationStyle = isIPad ? .formSheet : .fullScreen
+
+            if isIPad {
+                nav.preferredContentSize = homeIPadContentSize
+                nav.view.layer.cornerRadius = homeIPadContentCornerRadius
+            }
+
+            tabViewController.present(nav, animated: true)
+        }
+        .disposed(by: disposeBag)
+        return button
+    }()
 
     private let emptyView: HomeEmptyView = {
         let view = HomeEmptyView(style: .favorite)
@@ -20,18 +41,14 @@ class FavoriteViewController: DYViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    let iconButton: UIButton = {
-        let button = UIButton()
-        button.setImage(Design.topIcon, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
 
-        return button
-    }()
     var isEmpty: Bool = true {
         didSet {
             updateCurrentState()
         }
     }
+
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +65,7 @@ class FavoriteViewController: DYViewController {
 // MARK: - Setup UI
 extension FavoriteViewController {
     private func setupViews() {
-        view.addSubview(iconButton)
+        view.addSubview(logoIconButton)
         view.addSubview(emptyView)
         view.backgroundColor = Design.bgColor
     }
@@ -61,8 +78,8 @@ extension FavoriteViewController {
         let layoutGuide = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            iconButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
-            iconButton.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
+            logoIconButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
+            logoIconButton.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor),
 
             emptyView.topAnchor.constraint(equalTo: view.topAnchor),
             emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

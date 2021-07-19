@@ -40,9 +40,8 @@ private enum Design {
         }
     }
 
-    static let arrowWidth: CGFloat = 36.0
-    static let arrowHeight: CGFloat = 79.0
-    static let arrowBottomMargin: CGFloat = 106.0
+    static let arrowImageSize: CGSize = .init(width: 36, height: 79)
+    static let arrowTopMargin: CGFloat = 26
     static let arrowImage = Assets.Image.Home.emptyArrow
 
     static let stackViewSpacing: CGFloat = 18.0
@@ -62,11 +61,11 @@ private enum Design {
 }
 
 class HomeEmptyView: UIView {
-
     enum Style {
         case diary
         case favorite
     }
+
     private let style: Style
     private let styleDesign: Design.Style
     private let imageView: UIImageView = {
@@ -74,11 +73,13 @@ class HomeEmptyView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+
     private let textLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+
     private let stackView: UIStackView = {
         let stackView = UIStackView(frame: .zero)
         stackView.alignment = .center
@@ -96,15 +97,10 @@ class HomeEmptyView: UIView {
         setupConstraints()
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
 private extension HomeEmptyView {
-
     func setupViews() {
         isUserInteractionEnabled = false
         addSubview(stackView)
@@ -132,22 +128,18 @@ private extension HomeEmptyView {
 
         NSLayoutConstraint.activate([
             arrowView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            arrowView.widthAnchor.constraint(equalToConstant: Design.arrowWidth),
-            arrowView.heightAnchor.constraint(equalToConstant: Design.arrowHeight),
-            arrowView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
-                                              constant: -Design.arrowBottomMargin)
+            arrowView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: Design.arrowTopMargin),
+            arrowView.widthAnchor.constraint(equalToConstant: Design.arrowImageSize.width),
+            arrowView.heightAnchor.constraint(equalToConstant: Design.arrowImageSize.height)
         ])
     }
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-
             imageView.widthAnchor.constraint(equalToConstant: styleDesign.imageSize.width),
             imageView.heightAnchor.constraint(equalToConstant: styleDesign.imageSize.height)
-
         ])
     }
 }
