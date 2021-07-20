@@ -9,9 +9,11 @@ import UIKit
 import PencilKit
 import RxSwift
 
+class CanvasView: UIView, Undoable {}
+
 class DYContentsView: UIView, Undoable {
     private let disposeBag = DisposeBag()
-    // TODO: - 모달 수정하면서 contents용 canvas 추가
+    let canvas = CanvasView()
     let pkCanvas = PKCanvasView()
     let currentToolSubject = BehaviorSubject<DYCanvasTool?>(value: nil)
     var currentEditContent: DYStickerView? = nil {
@@ -42,6 +44,7 @@ class DYContentsView: UIView, Undoable {
 
     private func initView() {
         pkCanvas.backgroundColor = .clear
+        addSubViewPinEdge(canvas)
         addSubViewPinEdge(pkCanvas)
         addGesture()
 
@@ -102,7 +105,7 @@ extension DYContentsView {
         let textField = DYFlexibleTextField(viewModel: viewModel)
         textField.center = targetPoint
 
-        addSubviewWithUndoManager(textField)
+        canvas.addSubviewWithUndoManager(textField)
     }
 
     func createImageSticker(image: UIImage, currentPage: Int = 0) {
@@ -142,7 +145,7 @@ extension DYContentsView {
         stickerView.center = calcedCenter
         stickerView.delegate = self
         currentEditContent = stickerView
-        addSubviewWithUndoManager(stickerView)
+        canvas.addSubviewWithUndoManager(stickerView)
     }
 }
 
@@ -162,13 +165,13 @@ extension DYContentsView {
                 let viewModel = DYFlexibleTextFieldViewModel(id: item.id)
                 let textField = DYFlexibleTextField(viewModel: viewModel)
                 textField.viewModel.set(textItem)
-                addSubview(textField)
+                canvas.addSubview(textField)
             } else if let imageItem = item as? DecorationImageItem {
                 let stretchableView = DYImageSizeStretchableView(model: imageItem)
-                addSubview(stretchableView)
+                canvas.addSubview(stretchableView)
             } else if let stickerItem = item as? DecorationStickerItem {
                 let stretchableView = DYStickerSizeStretchableView(model: stickerItem)
-                addSubview(stretchableView)
+                canvas.addSubview(stretchableView)
             }
         }
 
@@ -180,7 +183,7 @@ extension DYContentsView {
 extension DYContentsView {
     // TODO: getItems, drawd data 동작을 나누지 않고 한번에 처리하도록 수정
     func getItems(parentID: String) -> [DecorationItem] {
-        let items: [DecorationItem] = subviews.compactMap { subview in
+        let items: [DecorationItem] = canvas.subviews.compactMap { subview in
             if let textField = subview as? DYFlexibleTextField {
                 return textField.toItem(parentId: parentID)
             }
