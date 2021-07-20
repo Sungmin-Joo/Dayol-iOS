@@ -11,6 +11,9 @@ import RxSwift
 
 private enum Design {
     static let paletteHeight: CGFloat = 50
+    static let toolBarHeight: CGFloat = 52.0
+    static let toolBarInset: CGFloat = 15.0
+    static let lineColor: UIColor = .gray400
 }
 
 private enum Text: String {
@@ -36,9 +39,6 @@ class DiaryEditViewController: DYBaseEditViewController {
     }
 
     // MARK: - Private Properties
-
-    private let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    private let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
     private var password: String?
     private var currentCoverColor: PaletteColor = .DYBrown
@@ -70,6 +70,12 @@ class DiaryEditViewController: DYBaseEditViewController {
 
         return view
     }()
+
+    let editContentsView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     // MARK: - Override
     
@@ -78,12 +84,15 @@ class DiaryEditViewController: DYBaseEditViewController {
         super.viewDidLoad()
         setupNavigationBar()
         initView()
+        // TODO: - 해당 뷰 컨트롤러에서 툴바 제거가 아닌 전체 툴바 제거
+        navigationController?.isToolbarHidden = true
     }
 
     override func didTapTextButton() {
         super.didTapTextButton()
         contentsView.currentToolSubject.onNext(nil)
         contentsView.shouldMakeTextField = true
+        diaryEditCoverView.scrollView.contentInset.bottom += 50
     }
 
     override func didEndPhotoPick(_ image: UIImage) {
@@ -97,9 +106,19 @@ class DiaryEditViewController: DYBaseEditViewController {
     // MARK: - Setup Method
     
     private func initView() {
-        view.addSubview(diaryEditToggleView)
-        view.addSubview(diaryEditCoverView)
-        view.addSubview(diaryEditPaletteView)
+        let lineView = UIView()
+        lineView.frame.size.height = 1
+        lineView.frame.origin.y = editContentsView.frame.height - 1
+        lineView.backgroundColor = Design.lineColor
+        lineView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+
+        editContentsView.addSubview(diaryEditToggleView)
+        editContentsView.addSubview(diaryEditCoverView)
+        editContentsView.addSubview(diaryEditPaletteView)
+        editContentsView.addSubview(lineView)
+        view.addSubview(editContentsView)
+        view.addSubview(toolBar)
+        toolBar.translatesAutoresizingMaskIntoConstraints = false
         diaryEditPaletteView.colors = viewModel.diaryColors
         setConstraint()
         setupGesture()
@@ -108,19 +127,36 @@ class DiaryEditViewController: DYBaseEditViewController {
     
     private func setConstraint() {
         NSLayoutConstraint.activate([
-            diaryEditToggleView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            diaryEditToggleView.topAnchor.constraint(equalTo: view.topAnchor),
-            diaryEditToggleView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            diaryEditToggleView.leadingAnchor.constraint(equalTo: editContentsView.leadingAnchor),
+            diaryEditToggleView.topAnchor.constraint(equalTo: editContentsView.topAnchor),
+            diaryEditToggleView.trailingAnchor.constraint(equalTo: editContentsView.trailingAnchor),
             
             diaryEditCoverView.topAnchor.constraint(equalTo: diaryEditToggleView.bottomAnchor),
             diaryEditCoverView.bottomAnchor.constraint(equalTo: diaryEditPaletteView.topAnchor),
-            diaryEditCoverView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            diaryEditCoverView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            diaryEditCoverView.leadingAnchor.constraint(equalTo: editContentsView.leadingAnchor),
+            diaryEditCoverView.trailingAnchor.constraint(equalTo: editContentsView.trailingAnchor),
             
-            diaryEditPaletteView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            diaryEditPaletteView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            diaryEditPaletteView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            diaryEditPaletteView.heightAnchor.constraint(equalToConstant: Design.paletteHeight)
+            diaryEditPaletteView.leadingAnchor.constraint(equalTo: editContentsView.leadingAnchor),
+            diaryEditPaletteView.trailingAnchor.constraint(equalTo: editContentsView.trailingAnchor),
+            diaryEditPaletteView.bottomAnchor.constraint(equalTo: editContentsView.bottomAnchor),
+            diaryEditPaletteView.heightAnchor.constraint(equalToConstant: Design.paletteHeight),
+
+            editContentsView.topAnchor.constraint(equalTo: view.topAnchor),
+            editContentsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            editContentsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            toolBar.heightAnchor.constraint(equalToConstant: Design.toolBarHeight),
+            toolBar.topAnchor.constraint(equalTo: editContentsView.bottomAnchor),
+            toolBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            toolBar.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                constant: Design.toolBarInset
+            ),
+            toolBar.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: -Design.toolBarInset
+            ),
+
         ])
     }
     
@@ -128,8 +164,6 @@ class DiaryEditViewController: DYBaseEditViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
         navigationItem.titleView = titleView
-
-        setToolbarItems([UIBarButtonItem(customView: toolBar)], animated: false)
     }
     
     // MARK: - Bind
