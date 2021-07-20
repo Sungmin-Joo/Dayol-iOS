@@ -3,7 +3,7 @@
     <entity name="DecorationImageItem" representedClassName="DecorationImageItemMO" parentEntity="DecorationItem" syncable="YES" codeGenerationType="category">
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="inclination" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-    </entity>ㄴ
+    </entity>
     <entity name="DecorationItem" representedClassName="DecorationItemMO" isAbstract="YES" syncable="YES" codeGenerationType="category">
         <attribute name="height" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="String"/>
@@ -11,7 +11,6 @@
         <attribute name="width" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="x" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="y" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="paper" maxCount="1" deletionRule="No Action" destinationEntity="Paper"/>
     </entity>
     <entity name="DecorationStickerItem" representedClassName="DecorationStickerItemMO" parentEntity="DecorationItem" syncable="YES" codeGenerationType="category">
         <attribute name="image" optional="YES" attributeType="Binary"/>
@@ -59,10 +58,10 @@
     </entity>
     <elements>
         <element name="DecorationImageItem" positionX="-315" positionY="-270" width="128" height="59"/>
-        <element name="DecorationItem" positionX="-324" positionY="-270" width="128" height="149"/>
+        <element name="DecorationItem" positionX="-324" positionY="-270" width="128" height="119"/>
         <element name="DecorationStickerItem" positionX="-306" positionY="-261" width="128" height="59"/>
         <element name="DecorationTextFieldItem" positionX="-297" positionY="-252" width="128" height="59"/>
-        <element name="Diary" positionX="-205.9453125" positionY="-438.79296875" width="173.7578125" height="149"/>
+        <element name="Diary" positionX="-205.9453125" positionY="-438.79296875" width="173.7578125" height="14"/>
         <element name="Paper" positionX="-489.12109375" positionY="-332.0703125" width="128" height="209"/>
         <element name="PaperScheduler" positionX="-488.76171875" positionY="-76.8984375" width="128" height="164"/>
     </elements>
