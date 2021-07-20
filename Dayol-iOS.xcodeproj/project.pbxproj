@@ -163,6 +163,7 @@
 		34E61399262F1AE10076FE74 /* ColorBrightSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E61398262F1AE10076FE74 /* ColorBrightSlider.swift */; };
 		34E83ACE2675B6380060BBE7 /* DiaryListViewController+MoreMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E83ACD2675B6380060BBE7 /* DiaryListViewController+MoreMenu.swift */; };
 		34E83AD026777D860060BBE7 /* DYImageSizeStretchableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E83ACF26777D860060BBE7 /* DYImageSizeStretchableView.swift */; };
+		34EF3D0226A6E72E00A8FF48 /* DrawToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EF3D0126A6E72E00A8FF48 /* DrawToolBar.swift */; };
 		CE0603542588EDB600FBBEF0 /* PopupPresentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */; };
 		CE06035B25890B1700FBBEF0 /* DayolAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */; };
 		CE8DCADF258D28F4007738EA /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */; };
@@ -434,6 +435,7 @@
 		34E61398262F1AE10076FE74 /* ColorBrightSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBrightSlider.swift; sourceTree = "<group>"; };
 		34E83ACD2675B6380060BBE7 /* DiaryListViewController+MoreMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaryListViewController+MoreMenu.swift"; sourceTree = "<group>"; };
 		34E83ACF26777D860060BBE7 /* DYImageSizeStretchableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DYImageSizeStretchableView.swift; sourceTree = "<group>"; };
+		34EF3D0126A6E72E00A8FF48 /* DrawToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawToolBar.swift; sourceTree = "<group>"; };
 		CE0603532588EDB600FBBEF0 /* PopupPresentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPresentDelegate.swift; sourceTree = "<group>"; };
 		CE06035A25890B1700FBBEF0 /* DayolAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayolAlertAction.swift; sourceTree = "<group>"; };
 		CE8DCAD8258D28F4007738EA /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
@@ -965,6 +967,7 @@
 		34A0713F262C4838009BA700 /* Pencil */ = {
 			isa = PBXGroup;
 			children = (
+				34EF3D0126A6E72E00A8FF48 /* DrawToolBar.swift */,
 				34BAEB502699A3B400F9AED7 /* PencilSettingView.swift */,
 				34BAEB522699B57700F9AED7 /* PencilSettingColorButton.swift */,
 				34BAEB7A269AF37D00F9AED7 /* PencilSettingDetailView.swift */,
@@ -2190,7 +2193,7 @@
 				DA27AC5B25C6D6D400C71CDE /* WeeklyCalendarViewModel.swift in Sources */,
 				CE8DCAE1258D28F4007738EA /* HomeTabViewController.swift in Sources */,
 				3416448925DC05A900A81FD2 /* QuartetPaperView.swift in Sources */,
-				CE8DCAE1258D28F4007738EA /* HomeViewController.swift in Sources */,
+				CE8DCAE1258D28F4007738EA /* HomeTabViewController.swift in Sources */,
 				DAD489EF26026A33008B542E /* DYContentsView.swift in Sources */,
 				DA9A872F2610A93200ABCD07 /* DYStickerBaseView.swift in Sources */,
 				0DEAD26A267606C8009A3554 /* DecorationImageItemMO+CoreDataClass.swift in Sources */,
@@ -2203,6 +2206,7 @@
 				DA5A10FE266B83E5002C7EA8 /* DiaryPaperEmptyViewController.swift in Sources */,
 				34002D5E267EF7A500A0DD8A /* Undoable.swift in Sources */,
 				DA31142B260CE313002F99F7 /* StickerModalCollectionViewCell.swift in Sources */,
+				34EF3D0226A6E72E00A8FF48 /* DrawToolBar.swift in Sources */,
 				DACE3B1C25879EE20067467B /* PasswordDisplayedView.swift in Sources */,
 				DAEF76A725F66F15007CAA93 /* DiaryPaperViewerModel.swift in Sources */,
 				3434B76F25A479D800506152 /* DYModalConfiguration.swift in Sources */,

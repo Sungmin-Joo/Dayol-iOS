@@ -25,8 +25,8 @@ private enum Text {
     static var eraseTitle: String {
         return "edit_eraser_title".localized
     }
-    static var penTitle: String {
-        return "edit_pen_title".localized
+    static var penColorTitle: String {
+        return "edit_pen_color".localized
     }
 }
 
@@ -45,6 +45,7 @@ protocol DYEditable: NSObject {
     func didTapTextButton()
     func didEndPhotoPick(_ image: UIImage)
     func didEndStickerPick(_ image: UIImage)
+    func showPopover(contents: UIView, sender: UIView, preferredSize: CGSize)
 }
 
 extension DYEditable where Self: UIViewController {
@@ -71,38 +72,62 @@ extension DYEditable where Self: UIViewController {
     }
 
     private func presentPencilModal() {
-        let configuration = DYModalConfiguration(dimStyle: .clear, modalStyle: .custom(containerHeight: Design.penSettingModalHeight))
-        let modalVC = DYModalViewController(configure: configuration,
-                                            title: Text.penTitle,
-                                            hasDownButton: true)
-        let contentView = PencilSettingView(pkTools: pkTools)
-        contentView.currentToolsSubject
+        // TODO: 패드 분기 추가
+        let drawToolBar = DrawToolBar(pkTools: pkTools)
+        drawToolBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(drawToolBar)
+
+        let preferredHeight: CGFloat = 146
+        let safeAreaBottomInset: CGFloat = view.safeAreaInsets.bottom
+        let totalHeight = preferredHeight + safeAreaBottomInset
+
+        NSLayoutConstraint.activate([
+            drawToolBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            drawToolBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            drawToolBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            drawToolBar.heightAnchor.constraint(equalToConstant: totalHeight)
+        ])
+
+        drawToolBar.currentToolsSubject
             .subscribe(onNext: { [weak self] tools in
                 self?.pkTools = tools
             })
             .disposed(by: disposeBag)
-        contentView.showColorPicker = { [weak self] color in
+        drawToolBar.showColorPicker = { [weak self] color in
             guard let self = self else { return }
-            modalVC.dismiss(animated: true) {
-                self.presentColorPickerModal(currentColor: color)
-            }
+            self.presentColorPickerModal(currentColor: color)
         }
-        contentView.showDetailPiker = { detailViewInfo in
-            modalVC.showPopover(
+        drawToolBar.dismissAction = {
+            UIView.animate(withDuration: 0.2) {
+                drawToolBar.transform = CGAffineTransform(translationX: 0, y: totalHeight)
+            } completion: { [weak self] _ in
+                drawToolBar.removeFromSuperview()
+                self?.currentTool = nil
+                self?.toolBar.pencilButton.isSelected = false
+                self?.contentsView.currentToolSubject.onNext(nil)
+            }
+
+        }
+        drawToolBar.showDetailPiker = { [weak self] detailViewInfo in
+            self?.showPopover(
                 contents: detailViewInfo.contents,
                 sender: detailViewInfo.sender,
                 preferredSize: detailViewInfo.preferredSize
             )
         }
 
-        modalVC.contentView = contentView
-        presentCustomModal(modalVC)
+        drawToolBar.transform = CGAffineTransform(translationX: 0, y: totalHeight)
+        UIView.animate(withDuration: 0.2) {
+            drawToolBar.transform = .identity
+        }
+
+        contentsView.currentToolSubject.onNext(pkTools.selectedTool)
     }
 
     private func presentColorPickerModal(currentColor: UIColor) {
         let configuration = DYModalConfiguration(dimStyle: .clear, modalStyle: .custom(containerHeight: 441.0))
         let modalVC = DYModalViewController(configure: configuration,
-                                            title: Text.penTitle,
+                                            title: Text.penColorTitle,
                                             hasDownButton: true)
 
         let contentView = ColorSettingView()
@@ -114,9 +139,10 @@ extension DYEditable where Self: UIViewController {
             .disposed(by: disposeBag)
 
         modalVC.contentView = contentView
-        modalVC.dismissCompeletion = { [weak self] in
-            self?.presentPencilModal()
-        }
+        // TODO: - 컬러 연결
+//        modalVC.dismissCompeletion = { [weak self] in
+//            self?.presentPencilModal()
+//        }
         presentCustomModal(modalVC)
     }
 
@@ -166,11 +192,12 @@ extension DYEditable where Self: UIViewController {
         toolBar.pencilButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-                guard self.currentTool == .pencil else {
-                    self.currentTool = .pencil
-                    self.didTapPencilButton()
-                    return
-                }
+//                guard self.currentTool == .pencil else {
+//                    self.currentTool = .pencil
+//                    self.didTapPencilButton()
+//                    return
+//                }
+                self.currentTool = .pencil
                 self.presentPencilModal()
             }
             .disposed(by: disposeBag)

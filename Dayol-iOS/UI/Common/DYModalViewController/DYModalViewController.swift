@@ -30,7 +30,6 @@ class DYModalViewController: DYViewController {
     private let disposeBag = DisposeBag()
     private var lastMoved: CGFloat = .greatestFiniteMagnitude
     var dismissCompeletion: (() -> Void)?
-    var usePopoverPresntion: Bool = false
 
     // MARK: - DYModalConfiguration
 
@@ -137,15 +136,11 @@ class DYModalViewController: DYViewController {
     }
 
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        if usePopoverPresntion {
-            super.dismiss(animated: flag, completion: completion)
-        } else {
-            dismissContentView(animated: flag) {
-                super.dismiss(animated: false, completion: { [weak self] in
-                    completion?()
-                    self?.dismissCompeletion?()
-                })
-            }
+        dismissContentView(animated: flag) {
+            super.dismiss(animated: false, completion: { [weak self] in
+                completion?()
+                self?.dismissCompeletion?()
+            })
         }
     }
 
@@ -155,7 +150,7 @@ class DYModalViewController: DYViewController {
         let previousHeight = contentViewBottomConstraint.constant
 
         if previousHeight != containerViewHeight {
-            contentViewBottomConstraint.constant = containerViewHeight
+            contentViewBottomConstraint.constant = 0
             contentViewHeightConstraint.constant = containerViewHeight
         }
     }
@@ -430,40 +425,6 @@ extension DYModalViewController {
             downButton.rightAnchor.constraint(equalTo: headerArea.rightAnchor,
                                               constant: -Design.downButtonRightMargin)
         ])
-    }
-
-}
-
-// MARK: - Popover
-
-extension DYModalViewController: UIAdaptivePresentationControllerDelegate {
-    func showPopover(contents: UIView, sender: UIView, preferredSize: CGSize) {
-        let popoverVC = UIViewController()
-        popoverVC.view.addSubViewPinEdge(contents)
-
-        popoverVC.preferredContentSize = preferredSize
-        popoverVC.modalPresentationStyle = .popover
-        popoverVC.view.backgroundColor = contents.backgroundColor
-
-        if let pres = popoverVC.presentationController {
-            pres.delegate = self
-        }
-
-        if let pop = popoverVC.popoverPresentationController {
-            pop.sourceView = sender
-            pop.sourceRect = sender.bounds
-            pop.permittedArrowDirections = .down
-        }
-        usePopoverPresntion = true
-        present(popoverVC, animated: true, completion: nil)
-    }
-
-    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .none
-    }
-
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        usePopoverPresntion = false
     }
 
 }

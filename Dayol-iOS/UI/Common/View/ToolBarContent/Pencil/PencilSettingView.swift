@@ -29,7 +29,6 @@ private enum Design {
 
 class PencilSettingView: UIView {
     typealias DetailViewInfo = (contents: UIView, sender: UIButton, preferredSize: CGSize)
-    static let preferredSize = CGSize(width: 335, height: 48)
 
     private let disposeBag = DisposeBag()
     let currentToolsSubject = PublishSubject<DYPKTools>()

@@ -122,3 +122,32 @@ extension DYBaseEditViewController: UIImagePickerControllerDelegate, UINavigatio
     }
 }
 
+// MARK: - Popover
+
+extension DYBaseEditViewController: UIAdaptivePresentationControllerDelegate {
+    func showPopover(contents: UIView, sender: UIView, preferredSize: CGSize) {
+        let popoverVC = UIViewController()
+        popoverVC.view.addSubViewPinEdge(contents)
+
+        popoverVC.preferredContentSize = preferredSize
+        popoverVC.modalPresentationStyle = .popover
+        popoverVC.view.backgroundColor = contents.backgroundColor
+
+        if let pres = popoverVC.presentationController {
+            pres.delegate = self
+        }
+
+        if let pop = popoverVC.popoverPresentationController {
+            pop.sourceView = sender
+            pop.sourceRect = sender.bounds
+            pop.permittedArrowDirections = .down
+        }
+
+        present(popoverVC, animated: true, completion: nil)
+    }
+
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+
+}
