@@ -24,7 +24,7 @@ class DYBaseEditViewController: UIViewController, DYEditable {
     let disposeBag = DisposeBag()
 
     let toolBar = DYNavigationItemCreator.drawingFunctionToolbar()
-
+    lazy var drawToolBar: DrawToolBar = DrawToolBar(pkTools: pkTools)
     var contentsView = DYContentsView()
     // TODO: - currentToolbarType? 등으로 이름 변경
     var currentTool: DYNavigationDrawingToolbar.ToolType?
@@ -34,6 +34,7 @@ class DYBaseEditViewController: UIViewController, DYEditable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupDrawToolBar()
         bindToolBarEvent()
     }
 
@@ -58,6 +59,20 @@ class DYBaseEditViewController: UIViewController, DYEditable {
         contentsView.didEndCreateTextField = { [weak self] in
             self?.currentTool = nil
             self?.toolBar.textButton.isSelected = false
+        }
+    }
+
+    private func setupDrawToolBar() {
+        drawToolBar.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        drawToolBar.isHidden = true
+        view.addSubview(drawToolBar)
+
+        drawToolBar.showDetailPiker = { [weak self] detailViewInfo in
+            self?.showPopover(
+                contents: detailViewInfo.contents,
+                sender: detailViewInfo.sender,
+                preferredSize: detailViewInfo.preferredSize
+            )
         }
     }
 

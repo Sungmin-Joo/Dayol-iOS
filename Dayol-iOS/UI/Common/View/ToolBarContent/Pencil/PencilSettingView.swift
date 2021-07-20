@@ -33,7 +33,7 @@ class PencilSettingView: UIView {
     private let disposeBag = DisposeBag()
     let currentToolsSubject = PublishSubject<DYPKTools>()
 
-    private(set) var pkTools: DYPKTools {
+    var pkTools: DYPKTools {
         didSet {
             currentToolsSubject.onNext(pkTools)
             updateCurrentState()

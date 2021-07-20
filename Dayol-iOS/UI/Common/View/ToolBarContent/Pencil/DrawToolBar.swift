@@ -90,6 +90,10 @@ class DrawToolBar: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    func set(pkTools: DYPKTools) {
+        pencilSettingView.pkTools = pkTools
+    }
 }
 
 private extension DrawToolBar {

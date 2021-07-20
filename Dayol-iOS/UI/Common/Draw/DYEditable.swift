@@ -11,8 +11,9 @@ import RxSwift
 
 private enum Design {
     static let defaultTextFieldSize = CGSize(width: 20, height: 30)
-    static let penSettingModalHeight: CGFloat = 146.0
+    static let preferredDrawToolBarHeight: CGFloat = 146.0
     static let textColorSettingModalHeight: CGFloat = 441.0
+
 }
 
 private enum Text {
@@ -31,6 +32,7 @@ private enum Text {
 }
 
 protocol DYEditable: NSObject {
+    var drawToolBar: DrawToolBar { get }
     var disposeBag: DisposeBag { get }
 
     var contentsView: DYContentsView { get set }
@@ -45,7 +47,6 @@ protocol DYEditable: NSObject {
     func didTapTextButton()
     func didEndPhotoPick(_ image: UIImage)
     func didEndStickerPick(_ image: UIImage)
-    func showPopover(contents: UIView, sender: UIView, preferredSize: CGSize)
 }
 
 extension DYEditable where Self: UIViewController {
@@ -56,6 +57,7 @@ extension DYEditable where Self: UIViewController {
         textFieldBind()
         photoBind()
         stickerBind()
+        drawToolBarBind()
     }
 
     private func showEraseModal() {
@@ -72,56 +74,22 @@ extension DYEditable where Self: UIViewController {
     }
 
     private func presentPencilModal() {
-        // TODO: 패드 분기 추가
-        let drawToolBar = DrawToolBar(pkTools: pkTools)
-        drawToolBar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(drawToolBar)
-
-        let preferredHeight: CGFloat = 146
-        let safeAreaBottomInset: CGFloat = view.safeAreaInsets.bottom
-        let totalHeight = preferredHeight + safeAreaBottomInset
-
-        NSLayoutConstraint.activate([
-            drawToolBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            drawToolBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            drawToolBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            drawToolBar.heightAnchor.constraint(equalToConstant: totalHeight)
-        ])
-
-        drawToolBar.currentToolsSubject
-            .subscribe(onNext: { [weak self] tools in
-                self?.pkTools = tools
-            })
-            .disposed(by: disposeBag)
-        drawToolBar.showColorPicker = { [weak self] color in
-            guard let self = self else { return }
-            self.presentColorPickerModal(currentColor: color)
-        }
-        drawToolBar.dismissAction = {
-            UIView.animate(withDuration: 0.2) {
-                drawToolBar.transform = CGAffineTransform(translationX: 0, y: totalHeight)
-            } completion: { [weak self] _ in
-                drawToolBar.removeFromSuperview()
-                self?.currentTool = nil
-                self?.toolBar.pencilButton.isSelected = false
-                self?.contentsView.currentToolSubject.onNext(nil)
-            }
-
-        }
-        drawToolBar.showDetailPiker = { [weak self] detailViewInfo in
-            self?.showPopover(
-                contents: detailViewInfo.contents,
-                sender: detailViewInfo.sender,
-                preferredSize: detailViewInfo.preferredSize
-            )
-        }
-
-        drawToolBar.transform = CGAffineTransform(translationX: 0, y: totalHeight)
-        UIView.animate(withDuration: 0.2) {
-            drawToolBar.transform = .identity
-        }
 
         contentsView.currentToolSubject.onNext(pkTools.selectedTool)
+
+        // drawToolBar 노출
+        // TODO: 패드 분기 추가
+        let preferredHeight: CGFloat = Design.preferredDrawToolBarHeight
+        let safeAreaBottomInset: CGFloat = view.safeAreaInsets.bottom
+        let totalHeight = preferredHeight + safeAreaBottomInset
+        drawToolBar.frame.size = CGSize(width: view.frame.width, height: totalHeight)
+        drawToolBar.frame.origin = CGPoint(x: 0, y: view.frame.height)
+        drawToolBar.isHidden = false
+
+        view.bringSubviewToFront(drawToolBar)
+        UIView.animate(withDuration: 0.2) {
+            self.drawToolBar.frame.origin = CGPoint(x: 0, y: self.view.frame.height - totalHeight)
+        }
     }
 
     private func presentColorPickerModal(currentColor: UIColor) {
@@ -139,10 +107,10 @@ extension DYEditable where Self: UIViewController {
             .disposed(by: disposeBag)
 
         modalVC.contentView = contentView
-        // TODO: - 컬러 연결
-//        modalVC.dismissCompeletion = { [weak self] in
-//            self?.presentPencilModal()
-//        }
+        modalVC.dismissCompeletion = { [weak self] in
+            guard let self = self else { return }
+            self.drawToolBar.set(pkTools: self.pkTools)
+        }
         presentCustomModal(modalVC)
     }
 
@@ -192,11 +160,6 @@ extension DYEditable where Self: UIViewController {
         toolBar.pencilButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-//                guard self.currentTool == .pencil else {
-//                    self.currentTool = .pencil
-//                    self.didTapPencilButton()
-//                    return
-//                }
                 self.currentTool = .pencil
                 self.presentPencilModal()
             }
@@ -230,6 +193,28 @@ extension DYEditable where Self: UIViewController {
                 self?.currentTool = .sticker
                 self?.presentStickerModal()
             }
+            .disposed(by: disposeBag)
+    }
+
+    private func drawToolBarBind() {
+        drawToolBar.showColorPicker = { [weak self] color in
+            guard let self = self else { return }
+            self.presentColorPickerModal(currentColor: color)
+        }
+        drawToolBar.dismissAction = {
+            UIView.animate(withDuration: 0.2) {
+                self.drawToolBar.frame.origin = CGPoint(x: 0, y: self.view.frame.height)
+            } completion: { [weak self] _ in
+                self?.drawToolBar.isHidden = true
+                self?.currentTool = nil
+                self?.toolBar.pencilButton.isSelected = false
+                self?.contentsView.currentToolSubject.onNext(nil)
+            }
+        }
+        drawToolBar.currentToolsSubject
+            .subscribe(onNext: { [weak self] tools in
+                self?.pkTools = tools
+            })
             .disposed(by: disposeBag)
     }
 
