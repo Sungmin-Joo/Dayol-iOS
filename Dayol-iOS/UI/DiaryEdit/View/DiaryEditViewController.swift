@@ -92,7 +92,6 @@ class DiaryEditViewController: DYBaseEditViewController {
         super.didTapTextButton()
         contentsView.currentToolSubject.onNext(nil)
         contentsView.shouldMakeTextField = true
-        diaryEditCoverView.scrollView.contentInset.bottom += 50
     }
 
     override func didEndPhotoPick(_ image: UIImage) {
