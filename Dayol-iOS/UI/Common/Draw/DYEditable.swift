@@ -12,7 +12,7 @@ import RxSwift
 private enum Design {
     static let defaultTextFieldSize = CGSize(width: 20, height: 30)
     static let preferredDrawToolBarHeight: CGFloat = 146.0
-    static let textColorSettingModalHeight: CGFloat = 441.0
+    static let colorModalHeight: CGFloat = 441.0
 
 }
 
@@ -93,10 +93,15 @@ extension DYEditable where Self: UIViewController {
     }
 
     private func presentColorPickerModal(currentColor: UIColor) {
-        let configuration = DYModalConfiguration(dimStyle: .clear, modalStyle: .custom(containerHeight: 441.0))
-        let modalVC = DYModalViewController(configure: configuration,
-                                            title: Text.penColorTitle,
-                                            hasDownButton: true)
+        let configuration = DYModalConfiguration(
+            dimStyle: .black,
+            modalStyle: .custom(containerHeight: Design.colorModalHeight)
+        )
+        let modalVC = DYModalViewController(
+            configure: configuration,
+            title: Text.penColorTitle,
+            hasDownButton: true
+        )
 
         let contentView = ColorSettingView()
         contentView.set(color: currentColor)
