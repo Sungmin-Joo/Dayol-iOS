@@ -150,7 +150,7 @@ class DYModalViewController: DYViewController {
         let previousHeight = contentViewBottomConstraint.constant
 
         if previousHeight != containerViewHeight {
-            contentViewBottomConstraint.constant = 0
+            contentViewBottomConstraint.constant = containerViewHeight
             contentViewHeightConstraint.constant = containerViewHeight
         }
     }
