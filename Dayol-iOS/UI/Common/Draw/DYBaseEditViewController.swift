@@ -78,6 +78,10 @@ class DYBaseEditViewController: UIViewController, DYEditable {
 
     func didEndPhotoPick(_ image: UIImage) {}
     func didEndStickerPick(_ image: UIImage) {}
+
+    deinit {
+        undoManager?.removeAllActions()
+    }
 }
 
 // MARK: - Drawbale Function
