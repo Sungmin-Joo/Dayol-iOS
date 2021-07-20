@@ -25,22 +25,13 @@ class DYTestData {
     static let shared = DYTestData()
     static let testDrawModel = DrawModel(lines: [], stickers: [], labels: [])
 
-    var currentDiaryId: String {
-        return "Diary_\(diaryList.count)"
-    }
-
     var currentPaperId: String {
         return "Paper_\(paperList.count)"
     }
 
-    lazy var diaryListSubject = BehaviorSubject<[Diary]>(value: diaryList)
     lazy var deletedPageListSubject = BehaviorSubject<[DeletedPageCellModel]>(value: deletedPageList)
     lazy var paperListSubject = BehaviorSubject<[Paper]>(value: paperList)
     lazy var needsPaperUpdate = PublishSubject<Paper>()
-    
-    var diaryList: [Diary] = [
-       
-    ]
     
     var deletedPageList: [DeletedPageCellModel] = [
         // TODO: - DeletedPageCellModel가 아닌 delete 모델 구현 후 연동
@@ -137,28 +128,6 @@ class DYTestData {
     func deleteAllDeletedPage() {
         deletedPageList = []
         deletedPageListSubject.onNext(deletedPageList)
-    }
-
-// MARK: - Diary
-
-    func addDiary(_ diary: Diary) {
-        if let index = diaryList.firstIndex(where: { $0.id == diary.id }) {
-            diaryList[index] = diary
-        } else {
-            diaryList.append(diary)
-        }
-        diaryListSubject.onNext(diaryList)
-    }
-
-    func deleteDiary(_ diary: Diary) {
-        guard let index = diaryList.firstIndex(where: { $0.id == diary.id }) else { return }
-        diaryList.remove(at: index)
-        diaryListSubject.onNext(diaryList)
-    }
-
-    func deleteAllDiary() {
-        diaryList = []
-        diaryListSubject.onNext(diaryList)
     }
 
 // MARK: -Paper

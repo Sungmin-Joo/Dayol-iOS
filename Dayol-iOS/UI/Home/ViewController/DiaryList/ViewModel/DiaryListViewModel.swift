@@ -39,6 +39,13 @@ extension DiaryListViewModel {
         DiaryManager.shared.deleteDiary(id: diary.id)
     }
 
+    func updateDiaryLock(at index: Int, isLock: Bool) {
+        guard var diary = diaryList[safe: index] else { return }
+        diary.isLock = isLock
+        DiaryManager.shared.updateDiary(diary)
+        DiaryManager.shared.fetchDiaryList()
+    }
+
 }
 
 // MARK: - Diary List

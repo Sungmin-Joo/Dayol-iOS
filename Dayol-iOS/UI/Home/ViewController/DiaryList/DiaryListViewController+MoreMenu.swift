@@ -166,20 +166,19 @@ extension DiaryListViewController {
         diaryEditViewController.viewModel.setDiaryInfo(model: diary)
         let nav = DYNavigationController(rootViewController: diaryEditViewController)
         nav.modalPresentationStyle = .fullScreen
-        navigationController?.topViewController?.present(nav, animated: true, completion: nil)
+        present(nav, animated: true, completion: nil)
     }
 
     private func presentUnlockPasswordVC(at index: Int) {
         guard
-            var diary = DYTestData.shared.diaryList[safe: index],
+            let diary = viewModel.diaryList[safe: index],
             let color = PaletteColor.find(hex: diary.colorHex)
         else { return }
 
         let passwordViewController = PasswordViewController(inputType: .new, diaryColor: color)
         passwordViewController.didCreatePassword
-            .subscribe(onNext: { password in
-                diary.isLock = true
-                DYTestData.shared.diaryList[index] = diary
+            .subscribe(onNext: { [weak self] password in
+                self?.viewModel.updateDiaryLock(at: index, isLock: true)
                 passwordViewController.dismiss(animated: true)
                 // TODO: - new password 처리
             }).disposed(by: disposeBag)
@@ -188,7 +187,7 @@ extension DiaryListViewController {
 
     private func presentLockPasswordVC(at index: Int) {
         guard
-            let diary = DYTestData.shared.diaryList[safe: index],
+            let diary = viewModel.diaryList[safe: index],
             let color = PaletteColor.find(hex: diary.colorHex)
         else { return }
         let passwordViewController = PasswordViewController(inputType: .check, diaryColor: color)
@@ -201,10 +200,8 @@ extension DiaryListViewController {
     }
 
     private func showUnlockAlert(at index: Int) {
-        guard var diary = DYTestData.shared.diaryList[safe: index] else { return }
-        let alert = createAlert(menuType: .delete) {
-            diary.isLock = false
-            DYTestData.shared.diaryList[index] = diary
+        let alert = createAlert(menuType: .delete) { [weak self] in
+            self?.viewModel.updateDiaryLock(at: index, isLock: false)
             // TODO: - PasswordViewController 수정되면 다이어리 잠금해제로직 적용
         }
         present(alert, animated: true)
